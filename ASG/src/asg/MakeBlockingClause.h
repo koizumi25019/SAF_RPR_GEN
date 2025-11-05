@@ -11,6 +11,6 @@
 // pattern_file: xid_tp.txt の FILE*  
 // fout_pbo: 追記先の PBO ファイル  
 // n_vars: 外部入力＋擬似外部入力の総数  
-bool make_blocking_clause(TARGET *target);
+bool make_blocking_clause(TARGET* target, FILE* cube_file);
 
 #endif // MAKE_BLOCKING_CLAUSE_H

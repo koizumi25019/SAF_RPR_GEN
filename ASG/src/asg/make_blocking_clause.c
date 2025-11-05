@@ -10,7 +10,7 @@
 #include "./opb/clasp/clasp.h"
 #include "./target.h"
 
-bool make_blocking_clause(TARGET* target)
+bool make_blocking_clause(TARGET* target,FILE* cube_file)
 {
     //XID2 出力パターン読み込み
     char xtp_file[256];
@@ -124,17 +124,8 @@ bool make_blocking_clause(TARGET* target)
     //ファイルクローズ
     fclose(fp_pbo);
 
-    //BDD用テストキューブ集合作成
-    FILE* fp_bdd_cubes = fopen("./tools/bdd/bdd_cube_file.txt", "a");
-    if (!fp_bdd_cubes) {
-        free(x_pattern);
-        free(blocking_clause);
-        return false; // 失敗
-    }
     //テストキューブをファイルに書き込む
-    fprintf(fp_bdd_cubes, "%s\n", x_pattern);
-    fclose(fp_bdd_cubes);
-
+    fprintf(cube_file, "%s\n", x_pattern);
 
     //片付け
     free(x_pattern);

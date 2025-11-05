@@ -58,13 +58,12 @@ bool ASG(
 	}
 	fclose(density_file);
 
-	//真理値表密度ファイルオープン
+	//テストキューブファイルオープン
 	FILE* cube_file = fopen("./tools/bdd/bdd_cube_file.txt", "w");
 	if (cube_file == NULL) {
 		perror("エラー: ファイルを開けません");
 		return 1;
 	}
-	fclose(cube_file);
 
 	//SATテスト生成回数ファイルオープン
 	FILE* sat_count = fopen("./tools/clasp/sat_count.txt", "w");
@@ -73,10 +72,8 @@ bool ASG(
 		return 1;
 	}
 
-
 	//変数初期化
 	if (InitGlobalVars() != INIT_OKAY) return ASG_ERROR;
-
 
 	/** read the file */
 	if (ReadFile() != READ_OKAY) return ASG_ERROR;
@@ -100,9 +97,8 @@ bool ASG(
 		//テスト生成回数初期化
 		int test_loop = 1;
 
-		//UNSATになるか，解の個数が全体の解の閾値以上なら終了
+		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
-			/** start solver */
 			if (CLASP() != CLASP_OKAY) {
 
                 //UNSATの場合
@@ -116,21 +112,15 @@ bool ASG(
 					fprintf(fprpr, "%s sa1\n", target.list[0]->name);
 				}
 
-				//真理値表密度ファイルオープン
-				FILE* density_file = fopen("./tools/bdd/density_file.txt", "a");
-				if (density_file == NULL) {
-					perror("エラー: ファイルを開けません");
-					return 1;
-				}
+				//真理値表密度ファイル記述　故障名
 				fprintf(density_file, "%s ", target.list[0]->name);
-				fclose(density_file);
 
 				//テスト生成回数(テストキューブ数)
 				fprintf(sat_count, "%d\n", test_loop);
 
 				//未検出故障リストから削除
 				DropDeteFault(&target);
-				/** free the memory */
+				//メモリ開放
 				FreeMemory(&remain, &target);
 				remain_log[loop] = readdata.fault.numrema + readdata.fault.numred;
 				detect_log[loop - 1] = temp_numrema - readdata.fault.numrema;
@@ -138,13 +128,12 @@ bool ASG(
 				//BDDによる真理値表密度計算
 				bdd();
 
-				//file clear
-				FILE* fp_bdd_cubes = fopen("./tools/bdd/bdd_cube_file.txt", "w");
-				if (!fp_bdd_cubes) {
-					printf("error file open bdd_cube_file\n");
+				//キューブファイルクリア
+				cube_file = freopen("./tools/bdd/bdd_cube_file.txt", "w", cube_file);
+				if (cube_file == NULL) {
+					perror("エラー: cube_file のクリアに失敗");
 					return false; 
 				}
-				fclose(fp_bdd_cubes);
 
 				break;
 
@@ -163,7 +152,7 @@ bool ASG(
 
 					//未検出故障リストから削除
 					DropDeteFault(&target);
-					/** free the memory */
+					//メモリ開放
 					FreeMemory(&remain, &target);
 					remain_log[loop] = readdata.fault.numrema + readdata.fault.numred;
 					detect_log[loop - 1] = temp_numrema - readdata.fault.numrema;
@@ -184,14 +173,14 @@ bool ASG(
 				system("cls");
 
 				//禁止節設定
-				make_blocking_clause(&target);
-
+				make_blocking_clause(&target,cube_file);
 
 			}
 		}
 	}
 
 	fclose(sat_count);
+	fclose(density_file);
 
 	return ASG_OKAY;
 }
