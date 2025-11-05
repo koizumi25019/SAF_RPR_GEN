@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/read.h																	     */
-/*	deginer		:	R.miura			covered T.sone													  		 */
-/*	date		:	2022.10.01		(2023.10.10)											  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
 //	include
@@ -211,12 +201,4 @@ bool searchFnode(
 /** create the fault node */
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
-);
-
-
-/** search for necessary node */
-bool searchNnode(
-	char* buffer,			  /**< buffer (key) */
-	FNODE* tmp,				  /**< pointer to hash-fault list */
-	int no					  /**< No. */
 );

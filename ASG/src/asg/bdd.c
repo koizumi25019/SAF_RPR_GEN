@@ -1,4 +1,5 @@
 #include "./fsim.h"
+#include <direct.h>
 
 void bdd() {
 	//BDD構築による真理値表密度計算

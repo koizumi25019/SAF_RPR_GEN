@@ -129,7 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\asg\asg.h" />
-    <ClInclude Include="src\asg\calc_solution_num.h" />
     <ClInclude Include="src\asg\createSGmodel.h" />
     <ClInclude Include="src\asg\fsim.h" />
     <ClInclude Include="src\asg\init.h" />
@@ -138,7 +137,6 @@
     <ClInclude Include="src\asg\opb\opb.h" />
     <ClInclude Include="src\asg\read.h" />
     <ClInclude Include="src\asg\target.h" />
-    <ClInclude Include="src\debug\debug.h" />
     <ClInclude Include="src\lib\lib.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\netlist\netlist.h" />
@@ -148,7 +146,6 @@
   <ItemGroup>
     <ClCompile Include="src\asg\asg.c" />
     <ClCompile Include="src\asg\bdd.c" />
-    <ClCompile Include="src\asg\calc_solution_num.c" />
     <ClCompile Include="src\asg\createSGmodel.c" />
     <ClCompile Include="src\asg\fsim.c" />
     <ClCompile Include="src\asg\init.c" />
@@ -163,12 +160,6 @@
     <ClCompile Include="src\asg\opb\size.c" />
     <ClCompile Include="src\asg\read.c" />
     <ClCompile Include="src\asg\target.c" />
-    <ClCompile Include="src\debug\debug_init.c" />
-    <ClCompile Include="src\debug\debug_opb.c" />
-    <ClCompile Include="src\debug\debug_opt.c" />
-    <ClCompile Include="src\debug\debug_read.c" />
-    <ClCompile Include="src\debug\debug_scip.c" />
-    <ClCompile Include="src\debug\debug_target.c" />
     <ClCompile Include="src\lib\lib.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\netlist\netlist.c" />

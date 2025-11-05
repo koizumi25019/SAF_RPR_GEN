@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	urashima																				 */
-/*	file		:	./src/lib/lib.c																	         */
-/*	deginer		:	R.miura																			  		 */
-/*	date		:	2022.10.01																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -56,9 +46,6 @@ void* allocMemory(
 {
 	void* ptr = (void*)NULL;
 
-#ifdef NDEBUG
-	assert(count > 0);
-#endif
 
 	if ((ptr = calloc(count, size)) == (void*)NULL)
 	{
@@ -86,10 +73,6 @@ int calcHash(
 		hashval += buffer[i];
 	}
 
-#ifdef NDEBUG
-	assert(0 <= hashval < MAXSIZE_HASH);
-#endif
-
 	return hashval % MAXSIZE_HASH;
 }
 
@@ -103,10 +86,6 @@ void stackPUSH(
 )
 {
 	stack.stk[stack.ptr++] = netptr;
-
-#ifdef NDEBUG
-	assert(stack.ptr <= (stack.maxnum));
-#endif
 
 	if (stack.ptr >= stack.maxnum)
 	{
@@ -127,10 +106,6 @@ NLIST* stackPOP(
 	void
 )
 {
-#ifdef NDEBUG
-	assert(stack.ptr >= 0);
-#endif
-
 	if (stack.ptr < 0)
 	{
 		PrintErrorMessage("\n	SYSTEM ERROR: stack underflow\n");
@@ -159,9 +134,6 @@ void queENQ(
 
 		if (que.maxnum == que.rear) que.rear = 0;
 
-#ifdef NDEBUG
-		assert(que.num < que.maxnum);
-#endif
 		if (que.maxnum < que.num)
 		{
 			PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
@@ -179,9 +151,6 @@ void queENQ(
 
 			if (que.maxnum == que.rear) que.rear = 0;
 
-#ifdef NDEBUG
-			assert(que.num < que.maxnum);
-#endif
 			if (que.maxnum < que.num)
 			{
 				PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
@@ -200,9 +169,6 @@ void queENQ(
 
 			if (que.maxnum == que.rear) que.rear = 0;
 
-#ifdef NDEBUG
-			assert(que.num < que.maxnum);
-#endif
 			if (que.maxnum < que.num)
 			{
 				PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
@@ -242,10 +208,6 @@ NLIST* queDEQ(
 	{
 		que.front = 0;
 	}
-
-#ifdef NDEBUG
-	assert(que.num >= 0);
-#endif
 
 	if (que.num < 0)
 	{
@@ -319,10 +281,6 @@ void bitintSetNbit_One(
 	unsigned int	      nbit				  /** n-bit */
 )
 {
-#ifdef NDEBUG
-	assert(0 <= nbit);
-#endif
-
 	bitint->flag[nbit / (8 * sizeof(unsigned int))] |= MASK_INT[nbit % (8 * sizeof(unsigned int))];
 
 	return;
@@ -338,9 +296,6 @@ void bitintSetNbit_Zero(
 	unsigned int	      nbit				  /** n-bit */
 )
 {
-#ifdef NDEBUG
-	assert(0 <= nbit);
-#endif
 
 	bitint->flag[nbit / (8 * sizeof(unsigned int))] &= ~MASK_INT[nbit % (8 * sizeof(unsigned int))];
 
@@ -357,9 +312,6 @@ unsigned int bitintGetNbit(
 	unsigned int	      nbit				  /** n-bit */
 )
 {
-#ifdef NDEBUG
-	assert(0 <= nbit);
-#endif
 
 	if ((nbit % (8 * sizeof(unsigned int))) == 0)
 	{

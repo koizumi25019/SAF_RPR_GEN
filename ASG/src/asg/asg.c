@@ -16,7 +16,9 @@
 #include "../standard.h"
 
 #include"./MakeBlockingClause.h"
-#include"./calc_solution_num.h"
+
+//プロトタイプ宣言
+void bdd(void);
 
 //*************************************************************************************************************
 //	@name		：　SAF RPRF Gen
@@ -233,9 +235,6 @@ void FreeMemory(
 	/** free the target fault lists */
 	free(remain->list);
 	free(target->list);
-#ifdef NDEBUG
-	assert(target->list == (TARGET**)NULL);
-#endif
 
 	/** free the faulty-circuit constraints  */
 	for (int i = 0; i < n_net; i++)
@@ -245,22 +244,15 @@ void FreeMemory(
 			if (nl[i].consfc[j] != NULL)
 			{
 				free(nl[i].consfc[j]);
-#ifdef NDEBUG
-				assert(nl[i].consfc[j] == (char*)NULL);
-#endif
 
 			}
 		}
 
 		free(nl[i].consfc);
-#ifdef NDEBUG
-		assert(nl[i].consfc == (char**)NULL);
-#endif
+
+		return;
 	}
-
-	return;
 }
-
 
 
 

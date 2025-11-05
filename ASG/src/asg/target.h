@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/target.h																	     */
-/*	deginer		:	R.miura			covered T.sone													  		 */
-/*	date		:	2022.10.01		(2023.10.10)											  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
 //	include
@@ -52,10 +42,6 @@ typedef struct Edge {
 	unsigned int id;						/**< id */
 	unsigned int n_edge;					/**< number of edge */
 }EDGE;
-//-------------------------------------------------------------------------------------------------------------
-//	global variable
-//-------------------------------------------------------------------------------------------------------------
-
 
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
@@ -66,16 +52,6 @@ bool SetTarget(
 	TARGET* target,			  /**< target-fault list */
 	SORTED* sorted,			  /**< sorted list */
 	int loop				  /**< number of loop */
-);
-
-/** create necessary net */
-bool CreateNecessaryNet(
-	TARGET* target			  /**< target-fault list */
-);
-
-/* create compatible edge*/
-bool CreateCompatibleEdge(
-	TARGET* target			  /**< target-fault list */
 );
 
 /* set the direct target */
@@ -105,11 +81,6 @@ int FuncSortDescend(
 	const void* n1, const void* n2
 );
 
-/** create the compatible infomation */
-void CreateCompatibleInfo(
-	TARGET* target			  /**< target-fault list */
-);
-
 /** initial compatible infomation */
 void COMPinti(
 	TARGET* target			  /**< target-fault list */
@@ -126,11 +97,6 @@ bool RealTarget(
 /* counter bits */
 int CountBits(
 	unsigned int n			  /**< target-number */			
-);
-
-/* output graph log file */
-void OutGraphLogfile(
-	TARGET* remain			  /**< target-fault list */
 );
 
 void shuffle(

@@ -65,11 +65,6 @@ void FreeMemory(
 	TARGET* target			  /**< target fault */
 );
 
-/* free the Redundant fault list */
-void FreeRedundant(
-	void
-);
-
 
 
 

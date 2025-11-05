@@ -10,7 +10,6 @@
 #include "../standard.h"
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
-#include "../debug/debug.h"
 
 
 //*************************************************************************************************************
@@ -69,10 +68,6 @@ bool ReadFault(
 		detflag->int_num = readdata.fault.numinit / MAXSIZE_BITINT + 1;
 		detflag->flag = (unsigned int*)allocMemory(detflag->int_num, sizeof(unsigned int));
 		bitintSetAll_One(detflag);
-
-#ifdef __DEBUG_READ_FAULT__
-		_CALL_DEBUG_READ_FAULT_;
-#endif // __DEBUG_READ_FAULT__
 	}
 
 	return READ_OKAY;
@@ -174,60 +169,6 @@ FNODE* CreateFaultNode(
 	fnodeptr->id = -1;
 
 	return fnodeptr;
-}
-
-//*************************************************************************************************************
-//	@name		：　getNumPhaseShifter
-//	@function	：	get the number of phase-shifters
-//	@return		：	(int) number of phase-shifters
-//*************************************************************************************************************
-int getNumPhaseShifter(
-	FILE* fileptr,		      /**< pointer to file */
-	char* buffer		      /**< buffer */
-)
-{
-	int     numps = 0;
-
-	while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
-	{
-		if (COMP_NEWLINE(buffer))
-		{
-			numps++;
-		}
-	}
-	rewind(fileptr);
-
-	return numps;
-}
-
-//*************************************************************************************************************
-//	@name		：  getPhaseShifterIndex
-//	@function	：	get the index of pahase-shifter
-//	@return		：	(int) index of pahase-shifter
-//*************************************************************************************************************
-int getPhaseShifterIndex(
-	char* buffer		      /**< buffer */
-)
-{
-	int		index = -1;
-
-	for (int i = 0; i < strlen(buffer); i++)
-	{
-		if (isSingleByte(buffer[i]) == true)
-		{
-			if (isdigit(buffer[i]) != false)
-			{
-				index = atoi(&buffer[i]);
-				break;
-			}
-		}
-	}
-
-#ifdef NDEBUG
-	assert(index != -1);
-#endif
-
-	return index;
 }
 
 //*************************************************************************************************************

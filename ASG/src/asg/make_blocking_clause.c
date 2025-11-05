@@ -6,7 +6,6 @@
 
 #include "../netlist/netlist.h"
 #include "./MakeBlockingClause.h"
-#include "./calc_solution_num.h"
 #include "./opb/clasp/clasp.h"
 #include "./target.h"
 
@@ -59,16 +58,6 @@ bool make_blocking_clause(TARGET* target,FILE* cube_file)
             x_count++;
         }
     }
-
-    //テキストベースで 2^x_count を計算
-    char pow2[MAX_DIGITS + 1];
-    strcpy(pow2, "1");
-    for (int k = 0; k < x_count; ++k) {
-        bignum_mul2(pow2);
-    }
-
-    //tfl->solution_str に加算
-    bignum_add(target->list[0]->solution_str, pow2);
 
     // 3) 禁止節文字列バッファを malloc で確保
     const size_t BUF_SZ = 50000;

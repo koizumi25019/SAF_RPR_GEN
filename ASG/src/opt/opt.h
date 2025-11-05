@@ -84,12 +84,6 @@ void OPTinitFile(
 	void
 );
 
-
-/** initialize the parameters */
-void OPTinitParam(
-	void
-);
-
 /** set the options */
 bool OPTset(
 	int				      argc,				  /**< number of command-arguments */
@@ -103,11 +97,6 @@ bool OPTread(
 
 /** check for essential options */
 bool OPTcheck(
-	void
-);
-
-/** check for modes */
-bool OPTcheckMode(
 	void
 );
 

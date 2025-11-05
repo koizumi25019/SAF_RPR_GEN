@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/init/init.c																     */
-/*	deginer		:	R.miura																			  		 */
-/*	date		:	2022.10.01																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -22,7 +12,6 @@
 #include "../lib/lib.h"
 #include "../asg/opb/opb.h"
 #include "../netlist/netlist.h"
-#include "../debug/debug.h"
 #include "../asg/asg.h"
 
 
@@ -46,15 +35,6 @@ bool InitGlobalVars(
 	InitGlobalVarsREADDATA();
 
 	InitGlobalVarsCLASP();
-
-
-
-#ifdef __DEBUG_INIT__
-	_CALL_DEBUG_INIT_
-#endif
-
-
-		PrintMessage("	Initialize the global variables completed ... \n");
 
 	return INIT_OKAY;
 }
@@ -179,35 +159,10 @@ void InitGlobalVarsREADDATA(
 }
 
 //*************************************************************************************************************
-//	@name		：　InitGlobalVarsSCIP
-//	@function	：	initialize the scip
-//	@return		：	(void) 
-//*************************************************************************************************************
-#if 0
-void InitGlobalVarsSCIP(
-	void
-)
-{
-	scip.sol = (char**)NULL;
-	scip.sol = (char**)allocMemory(N_SOL, sizeof(char*));
-
-	/** for test pattern */
-	scip.sol[SOL_TP] = (char*)allocMemory(n_dff + n_pi + 1, sizeof(char));
-	scip.sol[SOL_TP][n_dff + n_pi] = '\0';
-
-	scip.objval = SCIP_OBJVAL_ERROR;
-	scip.status = SCIP_STATUS_ERROR;
-
-	return;
-}
-#endif
-
-//*************************************************************************************************************
 //	@name		：　InitGlobalVarsCLASP
 //	@function	：	initialize the scip
 //	@return		：	(void) 
 //*************************************************************************************************************
-#if 1
 void InitGlobalVarsCLASP(
 	void
 )
@@ -224,59 +179,6 @@ void InitGlobalVarsCLASP(
 
 	return;
 }
-#endif
-
-//*************************************************************************************************************
-//	@name		：　InitGlobalVarsTEST
-//	@function	：	initialize the test
-//	@return		：	(void) 
-//*************************************************************************************************************
-#if 0
-void InitGlobalVarsTEST(
-	void
-)
-{
-	test.step1 = 0;
-	test.step2 = 0;
-
-	return;
-}
-#endif
-
-//*************************************************************************************************************
-//	@name		：　InitGlobalVarsLOG
-//	@function	：	initialize the log
-//	@return		：	(void) 
-//*************************************************************************************************************
-#if 0
-void InitGlobalVarsLOG(
-	void
-)
-{
-	atpglog.opb.consave = 0.0;
-	atpglog.opb.consmax = 0;
-	atpglog.opb.consmin = 0;
-	atpglog.opb.varsave = 0.0;
-	atpglog.opb.varsmax = 0;
-	atpglog.opb.varsmin = 0;
-
-	atpglog.scip.status = 0;
-	atpglog.scip.sollimit = 0;
-	atpglog.scip.optimal = 0;
-	atpglog.scip.timelimit = 0;
-	atpglog.scip.infeasible = 0;
-
-	atpglog.target.avenum = 0.0;
-	atpglog.target.avenumuf = 0.0;
-	atpglog.target.maxnum = 0;
-	atpglog.target.maxnumuf = 0;
-	atpglog.target.minnum = 0;
-	atpglog.target.minnumuf = 0;
-
-	return;
-}
-#endif
-
 
 
 

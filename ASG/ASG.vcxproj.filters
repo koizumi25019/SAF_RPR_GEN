@@ -16,9 +16,6 @@
     <Filter Include="ソース ファイル\asg">
       <UniqueIdentifier>{649b194d-0736-4a97-bb42-029235c495f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\debug">
-      <UniqueIdentifier>{71711594-0397-469a-b45d-d2f84ee27982}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\asg\opb">
       <UniqueIdentifier>{4a55fbd2-41d6-4702-8443-9215b83a10e7}</UniqueIdentifier>
     </Filter>
@@ -41,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="src\netlist\netlist.h">
       <Filter>ソース ファイル\netlist</Filter>
-    </ClInclude>
-    <ClInclude Include="src\debug\debug.h">
-      <Filter>ソース ファイル\debug</Filter>
     </ClInclude>
     <ClInclude Include="src\standard.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -81,31 +75,10 @@
     <ClInclude Include="src\asg\MakeBlockingClause.h">
       <Filter>ソース ファイル\asg</Filter>
     </ClInclude>
-    <ClInclude Include="src\asg\calc_solution_num.h">
-      <Filter>ソース ファイル\asg</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\netlist\netlist.c">
       <Filter>ソース ファイル\netlist</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_init.c">
-      <Filter>ソース ファイル\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_opt.c">
-      <Filter>ソース ファイル\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_read.c">
-      <Filter>ソース ファイル\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_opb.c">
-      <Filter>ソース ファイル\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_scip.c">
-      <Filter>ソース ファイル\debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\debug\debug_target.c">
-      <Filter>ソース ファイル\debug</Filter>
     </ClCompile>
     <ClCompile Include="src\opt\opt.c">
       <Filter>ソース ファイル\opt</Filter>
@@ -157,9 +130,6 @@
     </ClCompile>
     <ClCompile Include="src\asg\opb\makePBOfile.c">
       <Filter>ソース ファイル\asg\opb</Filter>
-    </ClCompile>
-    <ClCompile Include="src\asg\calc_solution_num.c">
-      <Filter>ソース ファイル\asg</Filter>
     </ClCompile>
     <ClCompile Include="src\asg\make_blocking_clause.c">
       <Filter>ソース ファイル\asg</Filter>

@@ -10,7 +10,6 @@
 #include "./target.h"
 #include "./read.h"
 #include "../lib/lib.h"
-#include "../debug/debug.h"
 #include "../standard.h"
 
 
@@ -63,10 +62,6 @@ bool SetTarget(
 	}
 
 	if (DirectInputTarget(remain, target) != TARGET_OKAY) return TARGET_ERROR;
-
-#ifdef __DEBUG_SET_REMAIN__
-	_CALL_DEBUG_SET_REMAIN_(remain);
-#endif // __DEBUG_SET_REMAIN__
 
 	return TARGET_OKAY;
 }
@@ -242,9 +237,6 @@ bool RealTarget(
 		free(p);
 	}
 	//free(sorted->sort);
-#ifdef __DEBUG_SET_TARGET__
-	_CALL_DEBUG_SET_TARGET_(target);
-#endif // __DEBUG_SET_TARGET__
 
 	return TARGET_OKAY;
 }
@@ -269,9 +261,6 @@ bool DirectInputTarget(
 		target->list[i] = remain->list[i];
 	}
 	target->list[0]->relax = false;
-#ifdef __DEBUG_SET_TARGET__
-	_CALL_DEBUG_SET_TARGET_(target);
-#endif // __DEBUG_SET_TARGET__
 	return TARGET_OKAY;
 }
 
@@ -426,8 +415,6 @@ bool RandomTarget(
 
 	free(numbers);
 	//printf("targetlist[0]:%s", target->list[0]->string);
-#ifdef __DEBUG_SET_TARGET__
-	_CALL_DEBUG_SET_TARGET_(target);
-#endif // __DEBUG_SET_TARGET__
+
 	return TARGET_OKAY;
 }
