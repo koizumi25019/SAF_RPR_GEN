@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\asg">
+      <UniqueIdentifier>{649b194d-0736-4a97-bb42-029235c495f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\debug">
+      <UniqueIdentifier>{71711594-0397-469a-b45d-d2f84ee27982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\asg\opb">
+      <UniqueIdentifier>{4a55fbd2-41d6-4702-8443-9215b83a10e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\lib">
+      <UniqueIdentifier>{4aff72a4-bdaf-4f64-b16c-e3e4d0a66585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\netlist">
+      <UniqueIdentifier>{4e4ff0be-ca4f-4847-be4b-a052a1c4bcac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\opt">
+      <UniqueIdentifier>{ad0a8ce4-0131-4ba6-9b27-08c75173fd0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\asg\opb\clasp">
+      <UniqueIdentifier>{8de02b3d-8729-4c61-ba1a-528a81d90137}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\asg\read.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\netlist\netlist.h">
+      <Filter>ソース ファイル\netlist</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug\debug.h">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\standard.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opt\opt.h">
+      <Filter>ソース ファイル\opt</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\lib.h">
+      <Filter>ソース ファイル\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\target.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\asg.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\createSGmodel.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\fsim.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\init.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\opb\opb.h">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\opb\clasp\clasp.h">
+      <Filter>ソース ファイル\asg\opb\clasp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\MakeBlockingClause.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\asg\calc_solution_num.h">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\netlist\netlist.c">
+      <Filter>ソース ファイル\netlist</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_init.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_opt.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_read.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_opb.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_scip.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\debug\debug_target.c">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opt\opt.c">
+      <Filter>ソース ファイル\opt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\lib.c">
+      <Filter>ソース ファイル\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\read.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\init.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\fsim.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\target.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\createSGmodel.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\cons_dc.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\cons_fc.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\cons_gc.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\makeProbFile.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\mini.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\size.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\asg.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\clasp\clasp.c">
+      <Filter>ソース ファイル\asg\opb\clasp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\opb\makePBOfile.c">
+      <Filter>ソース ファイル\asg\opb</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\calc_solution_num.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\make_blocking_clause.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asg\bdd.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

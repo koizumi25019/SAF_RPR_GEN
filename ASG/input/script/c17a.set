@@ -1,0 +1,21 @@
+# set File
+# set netlist(.v)
+-n ./input/circuit/c17a.v 
+
+# set fault list(.txt)
+-f ./input/fault/c17a_rep.txt
+#-f ./input/fault/c17a_fault.txt
+
+# set scan-chain(.txt)
+-c ./input/scan_chain/c17a_sc_4.txt
+
+# set log(.txt)
+-l ./output/log/c17a_log.txt
+
+# set pin(.txt)
+-p ./output/pin/c17a_pin.txt
+
+# set rpr fault(.txt)
+-rpr ./output/rpr/c17a_rpr.txt
+
+

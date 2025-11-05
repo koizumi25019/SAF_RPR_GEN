@@ -1,0 +1,18 @@
+# set File
+# set netlist(.v)
+-n ./input/circuit/s5378_C.v 
+
+# set fault list(.txt)
+-f ./input/fault/s5378_C_unred.txt
+#-f ./input/fault/s5378_C_fault.txt
+
+# set log(.txt)
+-l ./output/log/s5378_C_log.txt
+
+# set pin(.txt)
+-p ./output/pin/s5378_C_pin.txt
+
+# set rpr fault(.txt)
+-rpr ./output/rpr/s5378_C_rpr.txt
+
+

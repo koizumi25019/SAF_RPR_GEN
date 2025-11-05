@@ -1,0 +1,18 @@
+# set File
+# set netlist(.v)
+-n ./input/circuit/s9234_C.v 
+
+# set fault list(.txt)
+-f ./input/fault/s9234_C_unred.txt
+#-f ./input/fault/s9234_C_fault.txt
+
+# set log(.txt)
+-l ./output/log/s9234_C_log.txt
+
+# set pin(.txt)
+-p ./output/pin/s9234_C_pin.txt
+
+# set rpr fault(.txt)
+-rpr ./output/rpr/s9234_C_rpr.txt
+
+

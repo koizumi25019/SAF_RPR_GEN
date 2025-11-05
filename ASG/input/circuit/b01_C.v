@@ -1,0 +1,49 @@
+module b01_C (LINE1, LINE2, OVERFLW_REG_SCAN_IN, STATO_REG_2__SCAN_IN, STATO_REG_1__SCAN_IN, STATO_REG_0__SCAN_IN, OUTP_REG_SCAN_IN, out_OUTP_REG_SCAN_IN, out_OVERFLW_REG_SCAN_IN, U45, U36, U35, U44, U34 ) ;
+
+input   LINE1, LINE2, OVERFLW_REG_SCAN_IN, STATO_REG_2__SCAN_IN, STATO_REG_1__SCAN_IN, STATO_REG_0__SCAN_IN, OUTP_REG_SCAN_IN ;
+
+output   out_OUTP_REG_SCAN_IN, out_OVERFLW_REG_SCAN_IN, U45, U36, U35, U44, U34 ;
+
+BUF buf0 (.A(OVERFLW_REG_SCAN_IN), .Z(out_OVERFLW_REG_SCAN_IN) );
+BUF buf1 (.A(OUTP_REG_SCAN_IN), .Z(out_OUTP_REG_SCAN_IN) );
+AND3 gate0 (.A(U38), .B(STATO_REG_1__SCAN_IN), .C(STATO_REG_0__SCAN_IN), .Z(U34));
+NAND4 gate1 (.A(U68), .B(U67), .C(U66), .D(U65), .Z(U35));
+NAND3 gate2 (.A(U57), .B(U55), .C(U56), .Z(U36));
+OR2 gate3 (.A(LINE2), .B(LINE1), .Z(U37));
+INV gate4 (.A(STATO_REG_2__SCAN_IN), .Z(U38));
+INV gate5 (.A(STATO_REG_1__SCAN_IN), .Z(U39));
+INV gate6 (.A(LINE2), .Z(U40));
+INV gate7 (.A(LINE1), .Z(U41));
+INV gate8 (.A(STATO_REG_0__SCAN_IN), .Z(U42));
+NAND2 gate9 (.A(U42), .B(STATO_REG_1__SCAN_IN), .Z(U43));
+NAND2 gate10 (.A(U73), .B(U72), .Z(U44));
+NAND2 gate11 (.A(U60), .B(U59), .Z(U45));
+NAND2 gate12 (.A(U70), .B(U69), .Z(U46));
+NAND2 gate13 (.A(LINE1), .B(LINE2), .Z(U47));
+NAND2 gate14 (.A(U43), .B(STATO_REG_2__SCAN_IN), .Z(U48));
+INV gate15 (.A(U37), .Z(U49));
+NAND2 gate16 (.A(U49), .B(U42), .Z(U50));
+INV gate17 (.A(U47), .Z(U51));
+INV gate18 (.A(U43), .Z(U52));
+NAND2 gate19 (.A(U47), .B(U43), .Z(U53));
+NAND2 gate20 (.A(U47), .B(STATO_REG_2__SCAN_IN), .Z(U54));
+NAND3 gate21 (.A(U39), .B(U47), .C(STATO_REG_0__SCAN_IN), .Z(U55));
+NAND2 gate22 (.A(U52), .B(U54), .Z(U56));
+NAND3 gate23 (.A(U62), .B(U61), .C(STATO_REG_2__SCAN_IN), .Z(U57));
+INV gate24 (.A(U48), .Z(U58));
+NAND2 gate25 (.A(U53), .B(U38), .Z(U59));
+NAND3 gate26 (.A(U50), .B(U39), .C(STATO_REG_2__SCAN_IN), .Z(U60));
+NAND2 gate27 (.A(U49), .B(STATO_REG_1__SCAN_IN), .Z(U61));
+NAND2 gate28 (.A(U37), .B(U42), .Z(U62));
+NAND2 gate29 (.A(U47), .B(STATO_REG_0__SCAN_IN), .Z(U63));
+NAND2 gate30 (.A(U51), .B(U42), .Z(U64));
+NAND4 gate31 (.A(U64), .B(U63), .C(U39), .D(U38), .Z(U65));
+NAND3 gate32 (.A(U43), .B(U37), .C(STATO_REG_2__SCAN_IN), .Z(U66));
+NAND2 gate33 (.A(U34), .B(U47), .Z(U67));
+NAND2 gate34 (.A(U51), .B(U52), .Z(U68));
+NAND2 gate35 (.A(LINE1), .B(U40), .Z(U69));
+NAND2 gate36 (.A(LINE2), .B(U41), .Z(U70));
+INV gate37 (.A(U46), .Z(U71));
+NAND2 gate38 (.A(U58), .B(U71), .Z(U72));
+NAND2 gate39 (.A(U46), .B(U48), .Z(U73));
+endmodule

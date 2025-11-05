@@ -1,0 +1,1344 @@
+[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+[37m					Automatic Seed Generator for RPR fault (MTTG)     
+[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+[32m
+	> debug option ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+[32m	  number of command-arguments   = 3
+[32m	     -n   = ./input/circuit/s38417_C.v 
+[32m	     -f   = ./input/fault/s38417_C_unred_50000.txt 
+[32m	     -x   = ./input/xor_tap/tap_64.txt 
+[32m	     -c   = ./input/scan_chain/s38417_C_sc_64.txt 
+[32m	     -e   = (null) 
+[32m	     -l   = ./output/log/s38417_C_log.txt 
+[32m	     -p   = ./output/pin/s38417_C_pin.txt 
+[32m	     -s   = ./output/seed/s38417_C_seed.txt 
+[32m	     -t   = ./output/test_pattern/s38417_C_tp.txt 
+[32m	     -b   = 100 
+[32m	     -u   = (null) 
+[32m	     -d   = [32mYES
+[32m
+[33m	completion of setup options... 
+[33m	completion of read the netlists... 
+[33m	completion of initialize the global variables... 
+[33m	completion of read the files... 
+[33m	completion of create the lfsr model... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1830
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1830
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1707
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1707
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1587
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1587
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1525
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1525
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1466
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1466
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1418
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1418
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1379
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1379
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1327
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1327
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1287
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1287
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1259
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1259
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1238
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1238
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1192
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1192
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1154
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1154
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1118
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1118
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1096
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1096
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1077
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1077
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1052
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1052
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1035
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1035
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1013
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1013
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 995
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 995
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 949
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 949
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 929
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 929
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 906
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 906
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 880
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 880
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 862
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 862
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 850
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 850
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 838
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 838
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 823
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 823
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 800
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 800
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 777
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 777
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 767
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 767
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 751
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 751
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 732
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 732
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 716
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 716
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 704
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 704
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 694
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 694
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 684
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 684
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 668
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 668
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 653
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 653
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 636
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 636
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 621
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 621
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 606
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 606
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 593
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 593
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 578
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 578
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 562
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 562
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 545
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 545
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 531
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 531
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 520
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 520
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 511
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 511
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 503
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 503
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 493
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 493
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 484
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 484
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 473
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 473
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 462
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 462
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 450
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 450
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 436
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 436
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 425
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 425
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 416
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 416
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 407
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 407
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 398
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 398
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 388
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 388
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 379
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 379
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 366
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 366
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 356
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 356
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 348
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 348
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 339
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 339
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 328
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 328
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 321
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 321
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 313
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 313
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 305
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 305
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 296
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 296
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 286
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 286
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 275
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 275
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 267
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 267
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 257
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 257
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 249
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 249
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 241
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 241
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 232
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 232
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 224
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 224
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 217
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 217
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 209
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 209
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 201
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 201
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 194
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 194
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 185
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 185
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 176
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 176
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 169
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 169
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 164
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 164
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 156
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 156
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 151
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 151
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 146
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 146
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 140
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 140
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 132
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 132
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 125
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 125
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 119
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 119
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 114
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 114
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 107
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 107
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 100
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 100
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 94
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 94
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 89
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 89
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 83
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 83
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 78
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 78
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 72
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 72
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 66
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 66
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 62
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 62
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 57
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 57
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 52
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 52
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 47
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 47
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 42
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 42
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 38
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 38
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 34
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 34
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 30
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 30
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 26
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 26
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 22
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 22
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 19
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 19
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 15
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 15
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 11
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 11
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 7
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 7
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 4
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 4
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1
+
+[33m	completion of create the seed generation model... 
+[37m	solving ...
+[33m	completion of fault simulation... 
+[31m
+	num of REDEUNDANT fault -> 0[33m
+	num of DETECTED fault -> 1830
+
+[33m	completion of seed generation... 
+[33m	num of Selection Compatible Fault Group -> 0
+[33m	num of Seed Generation -> 119
+[33mRuntimeF	1311.520[s]
+[37m

@@ -1,0 +1,56 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                                                                                                           */
+/*  Program     :   ASG                                                                               	     */
+/*  Deginer     :   T.Sone                                                                                   */
+/*  Date        :   2023.10.13                                                                               */
+/*                                                                                                           */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+# set File
+# set netlist(.v)
+-n ./input/circuit/b20_C.v 
+
+# set fault list(.txt)
+-f ./input/fault/b20_C_unred.txt
+#-f ./input/fault/b20_C_fault.txt
+
+# set xor-tap list(.txt)
+-x ./input/xor_tap/tap_64.txt
+
+# set scan-chain(.txt)
+-c ./input/scan_chain/b20_C_sc_64.txt
+
+# set necessary(.txt)
+#-e ./input/necessary/b20_C_nece.txt
+
+# set graphlog(.txt)
+#-g ./output/graphlog/b20_C_Graphlog.txt
+
+# set log(.txt)
+-l ./output/log/b20_C_log.txt
+
+# set pin(.txt)
+-p ./output/pin/b20_C_pin.txt
+
+# set seed set(.txt)
+-s ./output/seed/b20_C_seed.txt
+
+# set test pattern(.txt)
+-t ./output/test_pattern/b20_C_tp.txt
+
+# set untestable fault(.txt)
+#-u ./output/untestable/b20_C_unsat.txt
+
+# set rpr fault(.txt)
+-rpr ./output/rpr/b20_C_rpr.txt
+
+# set target fault mode
+-o SINGLE
+#-o MULTIPLE
+
+# set generation mode
+#-m SEED
+-m TEST
+
+
+
