@@ -73,30 +73,6 @@ void OutLogfile(
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
-	FILE* fileptr2 = (FILE*)NULL;
-	char* filename = (char*)NULL;
-	filename = (char*)allocMemory(MAXSIZE_CHAR, sizeof(char));
-	sprintf_s(filename, MAXSIZE_CHAR, "./output/log/%s_remainlog.txt",net_name);
-	fileOpen(&fileptr2, filename, "w");
-
-	for (int i = 0;remain_log[i] != -1;i++)
-	{
-		fprintf(fileptr2, "%d\n", remain_log[i]);
-	}
-	fclose(fileptr2);
-
-	FILE* fileptr3 = (FILE*)NULL;
-	char* filename2 = (char*)NULL;
-	filename2 = (char*)allocMemory(MAXSIZE_CHAR, sizeof(char));
-	sprintf_s(filename2, MAXSIZE_CHAR, "./output/log/%s_detectlog.txt", net_name);
-	fileOpen(&fileptr3, filename2, "w");
-
-	for (int i = 0;detect_log[i] != -1;i++)
-	{
-		fprintf(fileptr3, "%d\n", detect_log[i]);
-	}
-	fclose(fileptr3);
-
 	PrintMessage("\n\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 	PrintMessage("//                             SAF RPR Generation Information\n");
@@ -107,10 +83,6 @@ void OutLogfile(
 	PrintMessage("//  SAF RPR Generation Time                   : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 
-
-
-	free(filename);
-	free(filename2);
 	return;
 }
 

@@ -46,19 +46,10 @@ while(false);
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** fault simulation */
-bool FSIM(
-	TARGET* target		  /**< target fault */
-);
 
 /** drop the detected fault */
 bool DropDeteFault(
 	TARGET * target		  /**< target fault */
-);
-
-/** check for target fault */
-bool CheckTarget(
-	TARGET* target		  /**< target fault */
 );
 
 

@@ -60,50 +60,7 @@ bool DirectInputTarget(
 	TARGET* target			  /**< target-fault list */
 );
 
-/* sort edge Descend*/
-void SortEdgeDescend(
-	TARGET* target,			  /**< target-fault list */
-	SORTED* sorted 			  /**< sorted list */
-);
-
-/* sort edge Ascend*/
-void SortEdgeAscend(
-	TARGET* remain,			  /**< target-fault list */
-	SORTED* sorted 			  /**< sorted list */
-);
-
-
-int FuncSortAscend(
-	const void* n1, const void* n2
-);
-
-int FuncSortDescend(
-	const void* n1, const void* n2
-);
-
 /** initial compatible infomation */
 void COMPinti(
-	TARGET* target			  /**< target-fault list */
-);
-
-/** set the real-target-fault list */
-bool RealTarget(
-	TARGET* remain,			  /**< remain-fault list */
-	TARGET* target,			  /**< target-fault list */
-	SORTED* sorted, 			  /**< sorted list */
-	int loop				  /**< loop variable */
-);
-
-/* counter bits */
-int CountBits(
-	unsigned int n			  /**< target-number */			
-);
-
-void shuffle(
-	int* array, int n
-);
-
-bool RandomTarget(
-	TARGET* remain,			  /**< remain-fault list */
 	TARGET* target			  /**< target-fault list */
 );

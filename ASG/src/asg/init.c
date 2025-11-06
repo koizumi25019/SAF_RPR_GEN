@@ -143,17 +143,7 @@ void InitGlobalVarsREADDATA(
 	readdata.fault.numinit = 0;
 	readdata.fault.numrema = 0;
 	readdata.fault.numred = 0;
-	num_clique_flag = false;
-	remain_log = (int*)allocMemory(100000, sizeof(int));
-	for (int i = 0;i < 10000;i++)
-	{
-		remain_log[i] = -1;
-	}
-	detect_log = (int*)allocMemory(100000, sizeof(int));
-	for (int i = 0;i < 10000;i++)
-	{
-		detect_log[i] = -1;
-	}
+
 	return;
 }
 

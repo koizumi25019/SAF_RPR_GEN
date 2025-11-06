@@ -43,6 +43,7 @@ bool ASG(
 		perror("エラー: ファイルを開けません");
 		return 1;
 	}
+	fprintf(bdd_result, "fault name,cube num,test relation PI,BDD Var num,density\n");
 	fclose(bdd_result);
 
 
@@ -73,8 +74,6 @@ bool ASG(
 	/** create the constraint for good-circuit */
 	if (CreateConsGC() != TPG_MODEL_OKAY) return ASG_ERROR;
 
-	remain_log[0] = readdata.fault.numrema;
-
 	while (readdata.fault.numrema != 0)
 	{
 		//テストキューブファイルオープン
@@ -95,6 +94,9 @@ bool ASG(
 
 		//テスト生成回数初期化
 		int test_loop = 1;
+
+		//故障名ファイル出力
+		fprintf(bdd_result, "%s,", target.list[0]->name);
 
 		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
@@ -117,15 +119,17 @@ bool ASG(
 				//テスト生成回数(テストキューブ数)
 				fprintf(sat_count, "%d\n", test_loop);
 
+				//故障名ファイル出力
+				fprintf(bdd_result, "%d,", test_loop);
+
 				//未検出故障リストから削除
 				DropDeteFault(&target);
 				//メモリ開放
 				FreeMemory(&remain, &target);
-				remain_log[loop] = readdata.fault.numrema + readdata.fault.numred;
-				detect_log[loop - 1] = temp_numrema - readdata.fault.numrema;
 
-
+				//テストキューブファイルクローズ	
 				fclose(cube_file);
+
 				//BDDによる真理値表密度計算
 				bdd();
 
@@ -148,8 +152,6 @@ bool ASG(
 					DropDeteFault(&target);
 					//メモリ開放
 					FreeMemory(&remain, &target);
-					remain_log[loop] = readdata.fault.numrema + readdata.fault.numred;
-					detect_log[loop - 1] = temp_numrema - readdata.fault.numrema;
 
 					break;
 				}
