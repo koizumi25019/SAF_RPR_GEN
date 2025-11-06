@@ -5,4 +5,4 @@
 #include <stdbool.h>
 #include "./target.h"
 
-bool make_blocking_clause(TARGET* target, FILE* cube_file);
+char* make_blocking_clause(TARGET* target);

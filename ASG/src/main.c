@@ -64,14 +64,12 @@ void OutLogfile(
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                             SAF RPRF Gen Information\n");
+	fprintf(fileptr, "//                             SAF RPRF Generation Information\n");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fileptr, "//  Number of Detected Faults                 : %d\n", readdata.fault.numdete);
-	fprintf(fileptr, "//  Number of Unsolved Faults                 : %d\n", readdata.fault.numred);
-	fprintf(fileptr, "//  Automatic Seed Generation Time            : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	fprintf(fileptr, "//  SAF RPR Generation Time                   : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
@@ -101,14 +99,12 @@ void OutLogfile(
 
 	PrintMessage("\n\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
-	PrintMessage("//                             ASG Information\n");
+	PrintMessage("//                             SAF RPR Generation Information\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 	PrintMessage("//  Target Circuit                            : %s\n", net_name);
 	PrintMessage("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	PrintMessage("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	PrintMessage("//  Number of Detected Faults                 : %d\n", readdata.fault.numdete);
-	PrintMessage("//  Number of Unsolved Faults                 : %d\n", readdata.fault.numred);
-	PrintMessage("//  Automatic Seed Generation Time            : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	PrintMessage("//  SAF RPR Generation Time                   : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 
 

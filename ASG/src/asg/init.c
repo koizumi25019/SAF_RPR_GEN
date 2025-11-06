@@ -6,7 +6,6 @@
 
 #include "./init.h"
 #include "./read.h"
-#include "./opb/scip/scip.h"
 #include "./opb/clasp/clasp.h"
 #include "../standard.h"
 #include "../lib/lib.h"

@@ -11,7 +11,6 @@
 #include "./read.h"
 #include "./fsim.h"
 #include "./opb/opb.h"
-#include "./opb/scip/scip.h"
 #include "./opb/clasp/clasp.h"
 #include "../standard.h"
 
@@ -32,8 +31,6 @@ bool ASG(
 	TARGET  remain;
 	TARGET	target;
 	SORTED  sorted;
-	FILE* fpseed = (FILE*)NULL;
-	FILE* fptp = (FILE*)NULL;
 	FILE* fprpr = (FILE*)NULL;
 	int loop = 0;
 	int temp_numrema;
@@ -60,13 +57,6 @@ bool ASG(
 	}
 	fclose(density_file);
 
-	//テストキューブファイルオープン
-	FILE* cube_file = fopen("./tools/bdd/bdd_cube_file.txt", "w");
-	if (cube_file == NULL) {
-		perror("エラー: ファイルを開けません");
-		return 1;
-	}
-
 	//SATテスト生成回数ファイルオープン
 	FILE* sat_count = fopen("./tools/clasp/sat_count.txt", "w");
 	if (sat_count == NULL) {
@@ -87,6 +77,13 @@ bool ASG(
 
 	while (readdata.fault.numrema != 0)
 	{
+		//テストキューブファイルオープン
+		FILE* cube_file = fopen("./tools/bdd/bdd_cube_file.txt", "w");
+		if (cube_file == NULL) {
+			perror("エラー: ファイルを開けません");
+			return 1;
+		}
+
 		count++;
 		temp_numrema = readdata.fault.numrema;
 
@@ -127,15 +124,10 @@ bool ASG(
 				remain_log[loop] = readdata.fault.numrema + readdata.fault.numred;
 				detect_log[loop - 1] = temp_numrema - readdata.fault.numrema;
 
+
+				fclose(cube_file);
 				//BDDによる真理値表密度計算
 				bdd();
-
-				//キューブファイルクリア
-				cube_file = freopen("./tools/bdd/bdd_cube_file.txt", "w", cube_file);
-				if (cube_file == NULL) {
-					perror("エラー: cube_file のクリアに失敗");
-					return false; 
-				}
 
 				break;
 
@@ -166,7 +158,7 @@ bool ASG(
 				test_loop++;
 
 				/** output the solution */
-				OutSolution(&target,fpseed, fptp);
+				OutSolution(&target);
 
 				//ドントケア判定
 				CALL_XID_SAF(opt.file.input.net, opt.file.output.pin);
@@ -175,8 +167,10 @@ bool ASG(
 				system("cls");
 
 				//禁止節設定
-				make_blocking_clause(&target,cube_file);
+				char* x_pattern = make_blocking_clause(&target);
 
+				//テストキューブをファイルに書き込む
+				fprintf(cube_file, "%s\n", x_pattern);
 			}
 		}
 	}
@@ -193,9 +187,7 @@ bool ASG(
 //	@return		：	(bool) okay, error
 //*************************************************************************************************************
 void OutSolution(
-	TARGET* target,			  /**< target fault */
-	FILE* fpseed,			  /**< pointer to seed file */
-	FILE* fptp			      /**< pointer to test pattern file */
+	TARGET* target		  /**< target fault */
 )
 {
 

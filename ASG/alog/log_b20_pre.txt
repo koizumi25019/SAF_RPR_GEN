@@ -1,6 +1,0 @@
-[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-[37m					Automatic Seed Generator for RPR fault (MTTG)     
-[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-[31m
-	FILE ERROR: file open error. [31m"./input/script/b20.set" cannot open.

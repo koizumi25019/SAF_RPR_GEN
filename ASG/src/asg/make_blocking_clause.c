@@ -9,8 +9,9 @@
 #include "./opb/clasp/clasp.h"
 #include "./target.h"
 
-bool make_blocking_clause(TARGET* target,FILE* cube_file)
+ char* make_blocking_clause(TARGET* target)
 {
+
     //XID2 出力パターン読み込み
     char xtp_file[256];
     snprintf(xtp_file, sizeof(xtp_file), "./tools/fsim/xid_tp.txt");
@@ -113,12 +114,8 @@ bool make_blocking_clause(TARGET* target,FILE* cube_file)
     //ファイルクローズ
     fclose(fp_pbo);
 
-    //テストキューブをファイルに書き込む
-    fprintf(cube_file, "%s\n", x_pattern);
-
     //片付け
-    free(x_pattern);
     free(blocking_clause);
 
-    return true;
+    return x_pattern;
 }
