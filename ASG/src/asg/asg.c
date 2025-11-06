@@ -32,17 +32,15 @@ bool ASG(
 	TARGET	target;
 	SORTED  sorted;
 	FILE* fprpr = (FILE*)NULL;
+	FILE* bdd_result = (FILE*)NULL;
 	int loop = 0;
 	int temp_numrema;
 	int count = 0;
-	int rpr_num = 0;
 
-	//BDD実験結果ファイルオープン
-	FILE* bdd_result = fopen("./tools/bdd/bdd_results.csv", "w");
-	if (bdd_result == NULL) {
-		perror("エラー: ファイルを開けません");
-		return 1;
-	}
+	//BDD実験結果ファイルオープ
+	fileOpen(&bdd_result, "./tools/bdd/bdd_results.csv", "w");
+
+	//BDD実験ファイル記述
 	fprintf(bdd_result, "fault name,cube num,test relation PI,BDD Var num,density\n");
 	fclose(bdd_result);
 
@@ -57,13 +55,6 @@ bool ASG(
 		return 1;
 	}
 	fclose(density_file);
-
-	//SATテスト生成回数ファイルオープン
-	FILE* sat_count = fopen("./tools/clasp/sat_count.txt", "w");
-	if (sat_count == NULL) {
-		perror("エラー: ファイルを開けません");
-		return 1;
-	}
 
 	//変数初期化
 	if (InitGlobalVars() != INIT_OKAY) return ASG_ERROR;
@@ -101,9 +92,6 @@ bool ASG(
 		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
 			if (CLASP() != CLASP_OKAY) {
-
-                //UNSATの場合
-				rpr_num++;
 				
 				//故障検出パターン数ファイル出力
 				if (target.list[0]->type == SF0) {
@@ -113,17 +101,12 @@ bool ASG(
 					fprintf(fprpr, "%s sa1\n", target.list[0]->name);
 				}
 
-				//真理値表密度ファイル記述　故障名
-				fprintf(density_file, "%s ", target.list[0]->name);
-
-				//テスト生成回数(テストキューブ数)
-				fprintf(sat_count, "%d\n", test_loop);
-
 				//故障名ファイル出力
 				fprintf(bdd_result, "%d,", test_loop);
 
 				//未検出故障リストから削除
 				DropDeteFault(&target);
+
 				//メモリ開放
 				FreeMemory(&remain, &target);
 
@@ -138,12 +121,14 @@ bool ASG(
 			}
 			//解がまだ存在
 			else {
-				printf("Progress:%d/%d\n", count,readdata.fault.numinit);
+				printf("Progress >> %d/%d\n", count,readdata.fault.numinit);
 				printf("SAT test generation count:%d\n", test_loop);
-				printf("RPR fault count:%d\n", rpr_num);
 				
 				//テスト生成回数が100回を超えたら打ち切り
 				if (test_loop >= 100) {
+
+					//テストキューブファイルクローズ	
+					fclose(cube_file);
 
 					//BDDによる真理値表密度計算
 					bdd();
@@ -159,7 +144,7 @@ bool ASG(
 				//故障に対するテスト生成回数
 				test_loop++;
 
-				/** output the solution */
+				//XID用テストパターン出力
 				OutSolution(&target);
 
 				//ドントケア判定
@@ -177,7 +162,6 @@ bool ASG(
 		}
 	}
 
-	fclose(sat_count);
 	fclose(density_file);
 
 	return ASG_OKAY;
@@ -193,7 +177,7 @@ void OutSolution(
 )
 {
 
-	/** for fault simulation */
+	/** for xid */
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, "./tools/fsim/test.txt", "w");
 	fprintf(fileptr, "%s\n", clasp.sol[SOL_TP]);

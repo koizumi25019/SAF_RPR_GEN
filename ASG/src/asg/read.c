@@ -11,6 +11,7 @@
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
 
+bool TestRelationCounts(char* filename);
 
 //*************************************************************************************************************
 //	@name		：　ReadFile
@@ -24,7 +25,12 @@ bool ReadFile(
 	/** read the fault */
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
 
-	PrintMessage("	Reading the files completed ... \n");
+	char* tmp = "s5378_test_relation.txt";
+	if (TestRelationCounts(tmp) != READ_OKAY)
+	{
+		fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
+		return READ_ERROR;
+	}
 
 	return READ_OKAY;
 }
@@ -131,6 +137,29 @@ bool searchFnode(
 }
 
 //*************************************************************************************************************
+//	@name		：　searchFnodePtr
+//	@function	：	find the fault node pointer by string
+//	@return		：	(FNODE*) pointer to found node, or NULL
+//*************************************************************************************************************
+FNODE* searchFnodePtr(
+	char* buffer,
+	FNODE* head	
+)
+{
+	FNODE* fnodeptr = head;
+	while (fnodeptr != NULL)
+	{
+		// CreateFaultNode でセットした string (完全な "name type" 文字列) と比較
+		if (strcmp(fnodeptr->string, buffer) == 0)
+		{
+			return fnodeptr;
+		}
+		fnodeptr = fnodeptr->nextptr;
+	}
+	return (FNODE*)NULL;
+}
+
+//*************************************************************************************************************
 //	@name		：　CreateFaultNode
 //	@function	：	create the fault node
 //	@return		：	(FNODE*) pointer to fault node
@@ -162,6 +191,9 @@ FNODE* CreateFaultNode(
 	/** set the relaxation variables */
 	fnodeptr->relax = false;
 
+	//test relation num initialize
+	fnodeptr->test_relation_num = 0;
+
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
@@ -171,37 +203,54 @@ FNODE* CreateFaultNode(
 	return fnodeptr;
 }
 
+
 //*************************************************************************************************************
-//	@name		：　COMPinit
-//	@function	：	initialize the compatible sets infomation
-//	@return		：	(void)
+//	@name		：TestRelationCounts
+//	@function	：	read test relation file and update existing fault list
+//	@return		：	(bool) okay, error
 //*************************************************************************************************************
-void COMPinti(
-	TARGET* remain			  /**< target-fault list */
+bool TestRelationCounts(
+	char* filename
 )
 {
-	/* variable initializion */
-	for (int i = 0; i < readdata.fault.numrema; i++)
-	{
-		remain->list[i]->necenet = (BIT_INT_XP*)allocMemory(1, sizeof(BIT_INT_XP));
-		remain->list[i]->necenet->int_num = (n_net - 1) / MAXSIZE_BITINT + 1;
-		remain->list[i]->necenet->x_buf = (unsigned int*)allocMemory(
-			remain->list[i]->necenet->int_num, sizeof(unsigned int));
-		remain->list[i]->necenet->p_buf = (unsigned int*)allocMemory(
-			remain->list[i]->necenet->int_num, sizeof(unsigned int));
-		All_Bit_X_XP(remain->list[i]->necenet);
-		remain->list[i]->nece = (char*)allocMemory(MAXSIZE_BUFFER,sizeof(char));
-		remain->list[i]->edge = (BIT_INT*)allocMemory(1, sizeof(BIT_INT));
-		remain->list[i]->edge->int_num = (remain->num - 1) / MAXSIZE_BITINT + 1;
-		remain->list[i]->edge->flag= (unsigned int*)allocMemory(
-			remain->list[i]->edge->int_num, sizeof(unsigned int));
-		bitintSetAll_Zero(remain->list[i]->edge);
-		for (int j = 0;j < remain->num;j++) 
-		{
-			bitintSetNbit_One(remain->list[i]->edge, j);
-		}
-		remain->list[i]->n_edge = remain->num - 1;
+	FILE* fp = NULL;
+	char  line_buffer[256];
+	char  fault_name[128];
+	char  fault_type[32];
+	int   relation_count = 0;
+	char  hash_buffer[256];
+	int   hash = 0;
+	FNODE* fnodeptr = (FNODE*)NULL;
+
+	if ((fp = fopen(filename, "r")) == NULL) {
+		perror("ERROR: Cannot open test relation file");
+		return READ_ERROR;
 	}
 
-	return;
+	while (fgets(line_buffer, sizeof(line_buffer), fp) != NULL)
+	{
+
+		if (sscanf(line_buffer, "%s %s %d", fault_name, fault_type, &relation_count) == 3)
+		{
+			// 検索用の文字列を作成
+			snprintf(hash_buffer, sizeof(hash_buffer), "%s\t%s\n", fault_name, fault_type);
+
+			// 既存の CreateFaultList と同じハッシュ関数を呼び出す
+			hash = calcHash(hash_buffer);
+
+			// 既存のノードを検索 (新しく追加した searchFnodePtr を使用)
+			fnodeptr = searchFnodePtr(hash_buffer, readdata.fault.list[hash]);
+			if (fnodeptr == NULL) {
+				printf("error\n");
+				exit(1);
+			}
+
+			// テスト関係数を更新
+			fnodeptr->test_relation_num = relation_count;
+
+		}
+	}
+
+	fclose(fp);
+	return READ_OKAY;
 }

@@ -131,8 +131,7 @@ typedef struct FaultNode
 	BIT_INT* edge;				    /**< compatible edge */
 	int n_edge;					    /**< num edge */
 	int id;							/**< id */
-	//’Ç‰Á
-	char solution_str[MAXSIZE_CHAR + 1];   //‚±‚ÌŒÌá‚É‚¨‚¯‚é‰ð‚ÌŒÂ”
+	int test_relation_num;           //test_relation_num
 }
 FNODE;
 
@@ -155,17 +154,6 @@ typedef struct ReadData
 }
 READDATA;
 
-
-/** clique node structre */
-typedef struct CliqueNode
-{
-	int					  depth;			  /**< depth */
-	int					  select;			  /**< depth */
-	int					  num_r;			  /**< relaxation varaibales */
-	BIT_INT*			  edge;			  /**< compatible edge */
-	struct CliqueNode* nextptr;				  /**< pointer to next node */
-}
-CNODE;
 
 //-------------------------------------------------------------------------------------------------------------
 //	global variable

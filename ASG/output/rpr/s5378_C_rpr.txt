@@ -1,8 +1,0 @@
-n1559gat_n1639gat_B sa0
-n1986gat_n1663gat_A sa0
-n1658gat_n1728gat_C sa0
-n1797gat_n1571gat_C sa0
-n2784gat_n77gat_B sa0
-n2920gat sa0
-n1516gat sa0
-n1614gat sa1

@@ -10,7 +10,7 @@ void bdd() {
 		exit(EXIT_FAILURE);
 	}
 
-	system("BDD_TEST.exe -file bdd_cube_file.txt");
+	system("CTD.exe -file bdd_cube_file.txt");
 
 	if (_chdir("../../") != 0)
 	{
