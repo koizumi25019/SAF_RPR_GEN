@@ -30,7 +30,7 @@ typedef struct Input_File
 {
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
-	char* scanchain;		  /**< scan-chain file */
+	char* relation;          /**< test relation file */
 }
 INPUT;
 
@@ -38,8 +38,8 @@ INPUT;
 typedef struct Output_File
 {
 	char* log;			      /**< log file */
-	char* rpr;
-	char* pin;
+	char* pin;                /**< pin file */
+	char* result;             //< result file */
 }
 OUTPUT;
 

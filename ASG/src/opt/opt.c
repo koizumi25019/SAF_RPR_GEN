@@ -62,7 +62,6 @@ void OPTinitFile(
 {
 	opt.file.input.fault		= FILE_NOSET;
 	opt.file.input.net			= FILE_NOSET;
-	opt.file.input.scanchain	= FILE_NOSET;
 
 	opt.file.output.log			= FILE_NOSET;
 
@@ -94,9 +93,9 @@ bool OPTset(
 		else if (strcmp(argv[i], "-f") == 0)
 			opt.file.input.fault = _strdup(argv[++i]);
 
-		/** scan-chain */
-		else if (strcmp(argv[i], "-c") == 0)
-			opt.file.input.scanchain = _strdup(argv[++i]);
+		/** test relation file*/
+		else if (strcmp(argv[i], "-t") == 0)
+			opt.file.input.relation = _strdup(argv[++i]);
 
 		/** log */
 		else if (strcmp(argv[i], "-l") == 0)
@@ -106,13 +105,13 @@ bool OPTset(
 		else if (strcmp(argv[i], "-p") == 0)
 			opt.file.output.pin = _strdup(argv[++i]);
 
+		/** result  */
+		else if (strcmp(argv[i], "-r") == 0)
+			opt.file.output.result = _strdup(argv[++i]);
+
 		/** read the option */
 		else if (strcmp(argv[i], "-z") == 0)
 			return OPTread(argv[++i]);
-
-		/** rpr  */
-		else if (strcmp(argv[i], "-rpr") == 0)
-			opt.file.output.rpr = _strdup(argv[++i]);
 
 		else
 		{
@@ -187,8 +186,8 @@ bool OPTread(
 				}
 			}
 
-			/** scan-chain */
-			else if (strcmp(token1, "-c") == 0)
+			/** test relation */
+			else if (strcmp(token1, "-t") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -196,7 +195,7 @@ bool OPTread(
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.input.scanchain = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.input.relation = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -232,24 +231,8 @@ bool OPTread(
 				}
 			}
 
-				/** mode seed */
-			else if (!strcmp(token1, "-m"))
-			{
-				token2 = strtok_s(NULL, " \n\0", &context);
-
-				for (int i = 0; i < strlen(buffer); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						token2 = strtok_s(&token2[i], " \n\0", &context);
-
-						break;
-					}
-				}
-			}
-
-			/** rpr fault */
-			else if (strcmp(token1, "-rpr") == 0)
+			/** result fault */
+			else if (strcmp(token1, "-r") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -257,7 +240,7 @@ bool OPTread(
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.output.rpr = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.output.result = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -320,14 +303,6 @@ bool OPTcheckFile(
 		return OPT_ERROR;
 	}
 
-	if (opt.file.input.scanchain == FILE_NOSET)
-	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no scan-chain file.\n\n");
-		colorDef
-		return OPT_ERROR;
-	}
-
 	if (opt.file.output.pin == FILE_NOSET)
 	{
 		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
@@ -344,6 +319,13 @@ bool OPTcheckFile(
 			return OPT_ERROR;
 	}
 
+	if (opt.file.output.result == FILE_NOSET)
+	{
+		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
+		PrintErrorMessage("no log file.\n\n");
+		colorDef
+			return OPT_ERROR;
+	}
 
 	return	OPT_OKAY;
 }
@@ -359,13 +341,12 @@ void OPTdispHelp(
 {
 	PrintHelpMessage("\n	> help ***********************************************************************************\n\n");
 
-	PrintHelpMessage("		command = urashima -n <.v> -f <.txt> -p <.txt> -t <.txt>\n");
+	PrintHelpMessage("		command = SAF_RPR_GEN.exe -n <.v> -f <.txt> -p <.txt>\n");
 
 	PrintHelpMessage("\n		>> file option \n");
 
 	PrintHelpMessage("		   -n(essential)   :   netlist <.v> \n");
 	PrintHelpMessage("		   -f(essential)   :   fault list <.txt> \n");
-	PrintHelpMessage("		   -c(essential)   :   scan-chain <.txt> \n");
 
 	PrintHelpMessage("		   -l              :   log file <.txt>\n");
 	PrintHelpMessage("		   -p(essential)   :   pin file <.txt>\n");

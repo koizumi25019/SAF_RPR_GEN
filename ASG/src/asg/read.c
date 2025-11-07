@@ -222,26 +222,24 @@ bool TestRelationCounts(
 	int   hash = 0;
 	FNODE* fnodeptr = (FNODE*)NULL;
 
-	if ((fp = fopen(filename, "r")) == NULL) {
-		perror("ERROR: Cannot open test relation file");
-		return READ_ERROR;
-	}
+	//テスト関係PIファイルオープン
+	fileOpen(&fp, opt.file.input.relation, "r");
 
 	while (fgets(line_buffer, sizeof(line_buffer), fp) != NULL)
 	{
 
 		if (sscanf(line_buffer, "%s %s %d", fault_name, fault_type, &relation_count) == 3)
 		{
-			// 検索用の文字列を作成
+			// 検索用の文字列生成
 			snprintf(hash_buffer, sizeof(hash_buffer), "%s\t%s\n", fault_name, fault_type);
 
-			// 既存の CreateFaultList と同じハッシュ関数を呼び出す
+			//CreateFaultList と同じハッシュ関数を呼び出す
 			hash = calcHash(hash_buffer);
 
-			// 既存のノードを検索 (新しく追加した searchFnodePtr を使用)
+			//故障リスト探索
 			fnodeptr = searchFnodePtr(hash_buffer, readdata.fault.list[hash]);
 			if (fnodeptr == NULL) {
-				printf("error\n");
+				printf("fault not found\n");
 				exit(1);
 			}
 

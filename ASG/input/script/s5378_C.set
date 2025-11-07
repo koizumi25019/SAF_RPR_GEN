@@ -4,7 +4,9 @@
 
 # set fault list(.txt)
 -f ./input/fault/s5378_C_unred.txt
-#-f ./input/fault/s5378_C_fault.txt
+
+# set test relation(.txt)
+-t ./input/test_relation/s5378_C_test_relation.txt
 
 # set log(.txt)
 -l ./output/log/s5378_C_log.txt
@@ -12,7 +14,7 @@
 # set pin(.txt)
 -p ./output/pin/s5378_C_pin.txt
 
-# set rpr fault(.txt)
--rpr ./output/rpr/s5378_C_rpr.txt
+# set result(.txt)
+-r ./output/result/bdd_result.csv
 
 

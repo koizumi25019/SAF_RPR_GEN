@@ -8,28 +8,24 @@
 
 
 //*************************************************************************************************************
-//	@name		：　CreateSGmodel
-//	@function	：	create the seed generation model
+//	@name		：　WriteTPGModel
+//	@function	：	Write the test pattern generation model
 //	@return		：	(bool) okay, error
 //*************************************************************************************************************
-bool CreateSGmodel(
-	TARGET* target			  /**< target fault */
+bool WriteTPGModel(
+	TARGET* target
 )
 {
-	//char*  lfsr     = (char*)NULL;
 	char* minimize = (char*)NULL;
 
-
 	/** create the tpg model */
-	if (CreateTPGmodel(&minimize, target) != TPG_MODEL_OKAY) return SG_MODEL_ERROR;
-
+	if (CreateTPGmodel(&minimize, target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
 
 	/** meke the problem file */
-	//makeProbFile(&minimize, target);
 	makePBOFile(&minimize, target);
 
 
-	return SG_MODEL_OKAY;
+	return W_TPG_MODEL_OKAY;
 }
 
 //*************************************************************************************************************

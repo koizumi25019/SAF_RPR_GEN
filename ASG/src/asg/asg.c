@@ -20,68 +20,57 @@
 void bdd(void);
 
 //*************************************************************************************************************
-//	@name		：　SAF RPRF Gen
-//	@function	：	generate saf rpr fault set
+//	@name		：　AnalyzeFaultDensity
+//	@function	：	analyze the fault density
 //	@return		：	(bool) okay, error
 //*************************************************************************************************************
-bool ASG(
+bool AnalyzeFaultDensity(
 	void
 )
 {
 	TARGET  remain;
 	TARGET	target;
-	SORTED  sorted;
 	FILE* fprpr = (FILE*)NULL;
 	FILE* bdd_result = (FILE*)NULL;
+	FILE* cube_file = (FILE*)NULL;
 	int loop = 0;
 	int temp_numrema;
 	int count = 0;
 
-	//BDD実験結果ファイルオープ
-	fileOpen(&bdd_result, "./tools/bdd/bdd_results.csv", "w");
+
+	//BDD実験結果ファイルオープン
+	fileOpen(&bdd_result, opt.file.output.result, "w");
 
 	//BDD実験ファイル記述
 	fprintf(bdd_result, "fault name,cube num,test relation PI,BDD Var num,density\n");
 	fclose(bdd_result);
 
 
-	//RPR故障リストファイルオープン
-	fileOpen(&fprpr, opt.file.output.rpr, "w");
-
-	//真理値表密度ファイル初期化
-	FILE* density_file = fopen("./tools/bdd/density_file.txt", "w");
-	if (density_file == NULL) {
-		perror("エラー: ファイルを開けません");
-		return 1;
-	}
-	fclose(density_file);
-
 	//変数初期化
-	if (InitGlobalVars() != INIT_OKAY) return ASG_ERROR;
+	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
 	/** read the file */
-	if (ReadFile() != READ_OKAY) return ASG_ERROR;
+	if (ReadFile() != READ_OKAY) return AFD_ERROR;
 
 	/** create the constraint for good-circuit */
-	if (CreateConsGC() != TPG_MODEL_OKAY) return ASG_ERROR;
+	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
 
 	while (readdata.fault.numrema != 0)
 	{
 		//テストキューブファイルオープン
-		FILE* cube_file = fopen("./tools/bdd/bdd_cube_file.txt", "w");
-		if (cube_file == NULL) {
-			perror("エラー: ファイルを開けません");
-			return 1;
-		}
+		fileOpen(&cube_file, "./tools/bdd/bdd_cube_file.txt", "w");
+
+		//BDD実験結果ファイルオープン
+		fileOpen(&bdd_result, opt.file.output.result, "a");
 
 		count++;
 		temp_numrema = readdata.fault.numrema;
 
 		//故障リスト読み込み
-		SetTarget(&remain, &target, &sorted, loop++);
+		SetTarget(&remain, &target, loop++);
 
 		//テスト生成モデル構築
-		if (CreateSGmodel(&target) != SG_MODEL_OKAY) return ASG_ERROR;
+		if (WriteTPGModel(&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
 
 		//テスト生成回数初期化
 		int test_loop = 1;
@@ -92,17 +81,12 @@ bool ASG(
 		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
 			if (CLASP() != CLASP_OKAY) {
-				
-				//故障検出パターン数ファイル出力
-				if (target.list[0]->type == SF0) {
-					fprintf(fprpr, "%s sa0\n", target.list[0]->name);
-				}
-				else {
-					fprintf(fprpr, "%s sa1\n", target.list[0]->name);
-				}
 
-				//故障名ファイル出力
+				//キューブ数出力
 				fprintf(bdd_result, "%d,", test_loop);
+
+				//テストに関係する外部入力数出力
+				fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
 				//未検出故障リストから削除
 				DropDeteFault(&target);
@@ -112,6 +96,9 @@ bool ASG(
 
 				//テストキューブファイルクローズ	
 				fclose(cube_file);
+
+				//BDD実験結果ファイルクローズ	
+				fclose(bdd_result);
 
 				//BDDによる真理値表密度計算
 				bdd();
@@ -127,8 +114,17 @@ bool ASG(
 				//テスト生成回数が100回を超えたら打ち切り
 				if (test_loop >= 100) {
 
+					//キューブ数出力
+					fprintf(bdd_result, "%d,", test_loop);
+
+					//テストに関係する外部入力数出力
+					fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
+
 					//テストキューブファイルクローズ	
 					fclose(cube_file);
+
+					//BDD実験結果ファイルクローズ	
+					fclose(bdd_result);
 
 					//BDDによる真理値表密度計算
 					bdd();
@@ -162,9 +158,7 @@ bool ASG(
 		}
 	}
 
-	fclose(density_file);
-
-	return ASG_OKAY;
+	return AFD_OKAY;
 }
 
 //*************************************************************************************************************

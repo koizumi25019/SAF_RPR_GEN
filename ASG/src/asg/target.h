@@ -31,18 +31,6 @@ typedef struct TargetFault
 }
 TARGET;
 
-/* sort structure*/
-typedef struct Sorted {
-	unsigned int num;						/**< number of sort strcuture */
-	struct Edge* sort;					/**< sort list */
-}SORTED;
-
-/* edge structure*/
-typedef struct Edge {
-	unsigned int id;						/**< id */
-	unsigned int n_edge;					/**< number of edge */
-}EDGE;
-
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
@@ -50,17 +38,11 @@ typedef struct Edge {
 bool SetTarget(
 	TARGET* remain,			  /**< remain-fault list */
 	TARGET* target,			  /**< target-fault list */
-	SORTED* sorted,			  /**< sorted list */
 	int loop				  /**< number of loop */
 );
 
 /* set the direct target */
 bool DirectInputTarget(
 	TARGET* remain,			  /**< remain-fault list */
-	TARGET* target			  /**< target-fault list */
-);
-
-/** initial compatible infomation */
-void COMPinti(
 	TARGET* target			  /**< target-fault list */
 );

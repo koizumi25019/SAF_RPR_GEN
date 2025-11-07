@@ -20,7 +20,6 @@
 bool SetTarget(
 	TARGET* remain,			  /**< remain-fault list */
 	TARGET* target,			  /**< target-fault list */
-	SORTED* sorted,			  /**< sorted list */
 	int loop				  /**< number of loop */
 )
 {

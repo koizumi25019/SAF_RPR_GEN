@@ -11,20 +11,17 @@
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
-#define SG_MODEL_OKAY         true
-#define SG_MODEL_ERROR        false
+#define W_TPG_MODEL_OKAY         true
+#define W_TPG_MODEL_ERROR        false
 
 #define TPG_MODEL_OKAY        true
 #define TPG_MODEL_ERROR       false
 
-#define LFSR_MODEL_OKAY        true
-#define LFSR_MODEL_ERROR       false
-
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** create the seed generation model */
-bool CreateSGmodel(
+//** write the tset pattern generaiton model */
+bool WriteTPGModel(
 	TARGET* target			  /**< target fault */
 );
 

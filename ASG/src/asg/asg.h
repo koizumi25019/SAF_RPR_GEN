@@ -11,13 +11,9 @@
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
-#define ASG_OKAY	     true				  /**< return code = okay */
-#define ASG_ERROR		 false				  /**< return code = error */
+#define AFD_OKAY	     true				  /**< return code = okay */
+#define AFD_ERROR		 false				  /**< return code = error */
 
-/** output test pattern -on */
-#define OUTPUT_TEST_PATTERN__ON			if (opt.file.output.test != FILE_NOSET)
-/** output test pattern -on */
-#define OUTPUT_UNTEST_PATTERN__ON			if (opt.file.output.untestable != FILE_NOSET)
 /** output log file -on */
 #define OUTPUT_LOGFILE__ON			if (opt.file.output.log != FILE_NOSET)
 
@@ -32,8 +28,8 @@ char*					  net_name;
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** automatic seed generation */
-bool ASG(
+///** analyze the fault density */
+bool AnalyzeFaultDensity(
 	void
 );
 

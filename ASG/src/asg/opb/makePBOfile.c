@@ -37,7 +37,7 @@ void makePBOFile(
 	FILE* fileptr = (FILE*)NULL;
 
 
-	/** open the "problem.opb" in write-mode */
+	/** open the "problem.opb" */
 	fileOpen(&fileptr, "./tools/clasp/pbo.txt", "w");
 
 

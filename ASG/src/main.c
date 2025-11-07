@@ -38,10 +38,9 @@ bool main(
 
 	/** read the netlist */
 	read_nl(opt.file.input.net);
-	WARNING_NETLIST(n_dff);
 
-	/** automatic seed generater */
-	if (ASG() != ASG_OKAY) return RETCODE_ERROR;
+	//analyze the fault density
+	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
 
 	end = clock();
 	OutLogfile(end - start);
@@ -58,8 +57,6 @@ void OutLogfile(
 	clock_t time
 )
 {
-
-	/** output the test pattern */
 
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");

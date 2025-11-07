@@ -10,7 +10,11 @@ void bdd() {
 		exit(EXIT_FAILURE);
 	}
 
-	system("CTD.exe -file bdd_cube_file.txt");
+	char command_buffer[512];
+
+	snprintf(command_buffer, sizeof(command_buffer),"CTD.exe -c bdd_cube_file.txt -r ../../output/result/bdd_result.csv");
+
+	system(command_buffer);
 
 	if (_chdir("../../") != 0)
 	{
