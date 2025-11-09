@@ -1,7 +1,7 @@
 #include "./fsim.h"
 #include <direct.h>
 
-void bdd() {
+void bdd(int test_relation) {
 	//BDD構築による真理値表密度計算
 	if (_chdir(BDD_DIR) != 0)
 	{
@@ -12,7 +12,7 @@ void bdd() {
 
 	char command_buffer[512];
 
-	snprintf(command_buffer, sizeof(command_buffer),"CTD.exe -c bdd_cube_file.txt -r ../../output/result/bdd_result.csv");
+	snprintf(command_buffer, sizeof(command_buffer),"CTD.exe -c bdd_cube_file.txt -r ../../output/result/bdd_result.csv -t %d", test_relation);
 
 	system(command_buffer);
 
