@@ -1,0 +1,20 @@
+# set File
+# set netlist(.v)
+-n ./input/circuit/s9234_C.v 
+
+# set fault list(.txt)
+-f ./input/fault/s9234_C_unred.txt
+
+# set test relation(.txt)
+-t ./input/test_relation/s9234_C_test_relation.txt
+
+# set log(.txt)
+-l ./output/log/s9234_C_log.txt
+
+# set pin(.txt)
+-p ./output/pin/s9234_C_pin.txt
+
+# set result(.txt)
+-r ./output/result/bdd_result.csv
+
+

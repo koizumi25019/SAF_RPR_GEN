@@ -42,7 +42,7 @@ bool AnalyzeFaultDensity(
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
 	//BDD実験ファイル記述
-	fprintf(bdd_result, "fault name,cube num,test relation PI,BDD Var num,density\n");
+	fprintf(bdd_result, "fault name,cube num,test PI,BDD Var num,density\n");
 	fclose(bdd_result);
 
 
