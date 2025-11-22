@@ -17,7 +17,7 @@
 #include"./MakeBlockingClause.h"
 
 //プロトタイプ宣言
-void bdd(void);
+void bdd(int test_relation);
 
 //*************************************************************************************************************
 //	@name		：　AnalyzeFaultDensity
@@ -101,7 +101,7 @@ bool AnalyzeFaultDensity(
 				fclose(bdd_result);
 
 				//BDDによる真理値表密度計算
-				bdd();
+				bdd(target.list[0]->test_relation_num);
 
 				break;
 
@@ -127,7 +127,7 @@ bool AnalyzeFaultDensity(
 					fclose(bdd_result);
 
 					//BDDによる真理値表密度計算
-					bdd();
+					bdd(target.list[0]->test_relation_num);
 
 					//未検出故障リストから削除
 					DropDeteFault(&target);
