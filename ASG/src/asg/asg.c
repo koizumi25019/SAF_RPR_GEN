@@ -88,6 +88,12 @@ bool AnalyzeFaultDensity(
 				//テストに関係する外部入力数出力
 				fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
+				//BDD実験結果ファイルクローズ	
+				fclose(bdd_result);
+
+				//BDDによる真理値表密度計算
+				bdd(target.list[0]->test_relation_num);
+
 				//未検出故障リストから削除
 				DropDeteFault(&target);
 
@@ -97,11 +103,6 @@ bool AnalyzeFaultDensity(
 				//テストキューブファイルクローズ	
 				fclose(cube_file);
 
-				//BDD実験結果ファイルクローズ	
-				fclose(bdd_result);
-
-				//BDDによる真理値表密度計算
-				bdd(target.list[0]->test_relation_num);
 
 				break;
 
