@@ -91,6 +91,9 @@ bool AnalyzeFaultDensity(
 				//BDD実験結果ファイルクローズ	
 				fclose(bdd_result);
 
+				//テストキューブファイルクローズ	
+				fclose(cube_file);
+
 				//BDDによる真理値表密度計算
 				bdd(target.list[0]->test_relation_num);
 
@@ -99,10 +102,6 @@ bool AnalyzeFaultDensity(
 
 				//メモリ開放
 				FreeMemory(&remain, &target);
-
-				//テストキューブファイルクローズ	
-				fclose(cube_file);
-
 
 				break;
 
@@ -132,6 +131,7 @@ bool AnalyzeFaultDensity(
 
 					//未検出故障リストから削除
 					DropDeteFault(&target);
+
 					//メモリ開放
 					FreeMemory(&remain, &target);
 
