@@ -137,5 +137,8 @@
     <ClCompile Include="src\asg\bdd.c">
       <Filter>ソース ファイル\asg</Filter>
     </ClCompile>
+    <ClCompile Include="src\asg\gmp.c">
+      <Filter>ソース ファイル\asg</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

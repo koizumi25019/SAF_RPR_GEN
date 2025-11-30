@@ -17,7 +17,7 @@
 #include"./MakeBlockingClause.h"
 
 //プロトタイプ宣言
-void bdd(int test_relation);
+void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp);
 
 //*************************************************************************************************************
 //	@name		：　AnalyzeFaultDensity
@@ -37,22 +37,26 @@ bool AnalyzeFaultDensity(
 	int temp_numrema;
 	int count = 0;
 
-
 	//BDD実験結果ファイルオープン
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
 	//BDD実験ファイル記述
-	fprintf(bdd_result, "fault name,cube num,test PI,BDD Var num,density\n");
+	fprintf(bdd_result, "name,cube,rel,var,den");
+	// opt構造体のデータを使ってループ
+	for (int i = 0; i < opt.file.input.list_size; i++) {
+		fprintf(bdd_result, ",prob(n=%d)", opt.file.input.pattern_num_list[i]);
+	}
+	fprintf(bdd_result, "\n");
 	fclose(bdd_result);
 
 
 	//変数初期化
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
-	/** read the file */
+	//ファイル読み込み
 	if (ReadFile() != READ_OKAY) return AFD_ERROR;
 
-	/** create the constraint for good-circuit */
+	//正常回路制約式生成
 	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
 
 	while (readdata.fault.numrema != 0)
@@ -94,10 +98,13 @@ bool AnalyzeFaultDensity(
 				//テストキューブファイルクローズ	
 				fclose(cube_file);
 
-				fprintf(stderr, "テスト関係PI：%d\n", target.list[0]->test_relation_num);
-
 				//BDDによる真理値表密度計算
-				bdd(target.list[0]->test_relation_num);
+				RunBDD(
+					target.list[0]->test_relation_num, // 変数数
+					opt.file.input.pattern_num_list,   // ランダムパターン数リスト
+					opt.file.input.list_size,          // リストのサイズ (個数)
+				    bdd_result                         // 結果ファイル
+				);
 
 				//未検出故障リストから削除
 				DropDeteFault(&target);
@@ -114,7 +121,7 @@ bool AnalyzeFaultDensity(
 				printf("SAT test generation count:%d\n", test_loop);
 				
 				//テスト生成回数が100回を超えたら打ち切り
-				if (test_loop >= 100) {
+				if (test_loop == 100) {
 
 					//キューブ数出力
 					fprintf(bdd_result, "%d,", test_loop);
@@ -129,7 +136,12 @@ bool AnalyzeFaultDensity(
 					fclose(bdd_result);
 
 					//BDDによる真理値表密度計算
-					bdd(target.list[0]->test_relation_num);
+					RunBDD(
+						target.list[0]->test_relation_num, // 変数数
+						opt.file.input.pattern_num_list,   // ランダムパターン数リスト
+						opt.file.input.list_size,          // リストのサイズ (個数)
+						bdd_result                         // 結果ファイル
+					);
 
 					//未検出故障リストから削除
 					DropDeteFault(&target);

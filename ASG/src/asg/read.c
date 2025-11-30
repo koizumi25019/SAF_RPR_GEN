@@ -11,7 +11,7 @@
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
 
-bool TestRelationCounts(char* filename);
+bool TestRelationCounts();
 
 //*************************************************************************************************************
 //	@name		ÅFÅ@ReadFile
@@ -25,8 +25,7 @@ bool ReadFile(
 	/** read the fault */
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
 
-	char* tmp = "s5378_test_relation.txt";
-	if (TestRelationCounts(tmp) != READ_OKAY)
+	if (TestRelationCounts() != READ_OKAY)
 	{
 		fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
 		return READ_ERROR;
@@ -68,12 +67,6 @@ bool ReadFault(
 
 		/** close the "fault file" in read-mode */
 		fclose(fileptr);
-
-		/** create the detection infomation list */
-		detflag = (BIT_INT*)allocMemory(1, sizeof(BIT_INT));
-		detflag->int_num = readdata.fault.numinit / MAXSIZE_BITINT + 1;
-		detflag->flag = (unsigned int*)allocMemory(detflag->int_num, sizeof(unsigned int));
-		bitintSetAll_One(detflag);
 	}
 
 	return READ_OKAY;
@@ -210,7 +203,6 @@ FNODE* CreateFaultNode(
 //	@return		ÅF	(bool) okay, error
 //*************************************************************************************************************
 bool TestRelationCounts(
-	char* filename
 )
 {
 	FILE* fp = NULL;

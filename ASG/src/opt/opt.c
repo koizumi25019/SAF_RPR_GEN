@@ -86,31 +86,50 @@ bool OPTset(
 			return OPT_ERROR;
 
 		/** netlist */
-		else if (strcmp(argv[i], "-n") == 0)
+		else if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = _strdup(argv[++i]);
 
 		/** fault-list */
-		else if (strcmp(argv[i], "-f") == 0)
+		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = _strdup(argv[++i]);
 
 		/** test relation file*/
-		else if (strcmp(argv[i], "-t") == 0)
+		else if (strcmp(argv[i], "-relation") == 0)
 			opt.file.input.relation = _strdup(argv[++i]);
 
 		/** log */
-		else if (strcmp(argv[i], "-l") == 0)
+		else if (strcmp(argv[i], "-log") == 0)
 			opt.file.output.log = _strdup(argv[++i]);
 
 		/** pin */
-		else if (strcmp(argv[i], "-p") == 0)
+		else if (strcmp(argv[i], "-pin") == 0)
 			opt.file.output.pin = _strdup(argv[++i]);
 
 		/** result  */
-		else if (strcmp(argv[i], "-r") == 0)
+		else if (strcmp(argv[i], "-result") == 0)
 			opt.file.output.result = _strdup(argv[++i]);
 
+		/** random pattern   */
+		else if (strcmp(argv[i], "-rp") == 0)
+		{
+			int count = 0;
+
+			char* arg_str = argv[++i];
+
+			char* token = strtok(arg_str, ",");
+
+			while (token != NULL && count < 100) {
+				// •¶Žš—ñ‚ðint‚É•ÏŠ·‚µ‚Ä”z—ñ‚ÉŠi”[
+				opt.file.input.pattern_num_list[count++] = atoi(token);
+
+				// ŽŸ‚Ìƒg[ƒNƒ“‚ðŽæ“¾
+				token = strtok(NULL, ",");
+			}
+			opt.file.input.list_size = count;
+		}
+
 		/** read the option */
-		else if (strcmp(argv[i], "-z") == 0)
+		else if (strcmp(argv[i], "-set") == 0)
 			return OPTread(argv[++i]);
 
 		else
@@ -157,7 +176,7 @@ bool OPTread(
 			if (strcmp(token1, "-help") == 0) return OPT_ERROR;
 
 			/** netlist */
-			else if (strcmp(token1, "-n") == 0)
+			else if (strcmp(token1, "-net") == 0)
 			{
 				token2 = strtok_s(NULL, " \n\0", &context);
 
@@ -172,7 +191,7 @@ bool OPTread(
 			}
 
 			/** fault list */
-			else if (strcmp(token1, "-f") == 0)
+			else if (strcmp(token1, "-fault") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -187,7 +206,7 @@ bool OPTread(
 			}
 
 			/** test relation */
-			else if (strcmp(token1, "-t") == 0)
+			else if (strcmp(token1, "-relation") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -202,7 +221,7 @@ bool OPTread(
 			}
 
 			/** log */
-			else if (strcmp(token1, "-l") == 0)
+			else if (strcmp(token1, "-log") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -217,7 +236,7 @@ bool OPTread(
 			}
 
 			/** pin */
-			else if (strcmp(token1, "-p") == 0)
+			else if (strcmp(token1, "-pin") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 
@@ -232,7 +251,7 @@ bool OPTread(
 			}
 
 			/** result fault */
-			else if (strcmp(token1, "-r") == 0)
+			else if (strcmp(token1, "-result") == 0)
 			{
 				token2 = strtok_s(NULL, "\n\0", &context);
 

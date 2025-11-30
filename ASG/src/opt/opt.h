@@ -16,6 +16,8 @@
 
 #define	MAXSIZE_FILENAME		  100		  /**< maximum size of filename */
 
+#define MAX_PATTERN               100         // 最大100個まで指定可能
+
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
 
@@ -30,7 +32,9 @@ typedef struct Input_File
 {
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
-	char* relation;          /**< test relation file */
+	char* relation;           /**< test relation file */
+	int pattern_num_list[MAX_PATTERN]; // パターン数を格納する配列
+	int list_size;            // パターン数リストのサイズ
 }
 INPUT;
 
