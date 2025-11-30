@@ -94,6 +94,8 @@ bool AnalyzeFaultDensity(
 				//テストキューブファイルクローズ	
 				fclose(cube_file);
 
+				fprintf(stderr, "テスト関係PI：%d\n", target.list[0]->test_relation_num);
+
 				//BDDによる真理値表密度計算
 				bdd(target.list[0]->test_relation_num);
 

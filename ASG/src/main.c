@@ -61,23 +61,23 @@ void OutLogfile(
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                             SAF RPRF Generation Information\n");
+	fprintf(fileptr, "//                             AnalyzeFaultDensity Information\n");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fileptr, "//  SAF RPR Generation Time                   : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	fprintf(fileptr, "//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
 	PrintMessage("\n\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
-	PrintMessage("//                             SAF RPR Generation Information\n");
+	PrintMessage("//                             AnalyzeFaultDensity Information\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 	PrintMessage("//  Target Circuit                            : %s\n", net_name);
 	PrintMessage("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	PrintMessage("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	PrintMessage("//  SAF RPR Generation Time                   : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	PrintMessage("//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 
 	return;

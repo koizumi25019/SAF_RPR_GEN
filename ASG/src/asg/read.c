@@ -222,6 +222,7 @@ bool TestRelationCounts(
 	int   hash = 0;
 	FNODE* fnodeptr = (FNODE*)NULL;
 
+
 	//テスト関係PIファイルオープン
 	fileOpen(&fp, opt.file.input.relation, "r");
 
