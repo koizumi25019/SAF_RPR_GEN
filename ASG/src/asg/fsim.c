@@ -61,7 +61,6 @@ bool DropDeteFault(
 					num_detect++;
 					readdata.fault.numdete++;
 					readdata.fault.numrema--;
-					bitintSetNbit_Zero(detflag, tmp->id);
 				}
 				else if (tmp->detect == REDEUNDANT)
 				{

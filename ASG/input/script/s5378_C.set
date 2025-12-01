@@ -6,7 +6,7 @@
 -fault ./input/fault/s5378_C_unred.txt
 
 # set test relation(.txt)
--rp 10,100,1000
+-rp 10,100,1000,10000,100000
 
 # set random pattern num list(.txt)
 -relation ./input/test_relation/s5378_C_test_relation.txt
@@ -18,6 +18,6 @@
 -pin ./output/pin/s5378_C_pin.txt
 
 # set result(.txt)
--result ./output/result/bdd_result.csv
+-result ./output/result/s5378_result.csv
 
 

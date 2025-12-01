@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <direct.h>
+#include <gmp.h>
 
 #include "./createSGmodel.h"
 #include "./asg.h"
@@ -17,7 +18,10 @@
 #include"./MakeBlockingClause.h"
 
 //プロトタイプ宣言
-void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp);
+void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* accumulator);
+
+// 定数
+#define MAX_PATTERN_CASES 100
 
 //*************************************************************************************************************
 //	@name		：　AnalyzeFaultDensity
@@ -37,6 +41,15 @@ bool AnalyzeFaultDensity(
 	int temp_numrema;
 	int count = 0;
 
+	// 回路における故障検出確率計算用のmpf_t の配列を用意
+	mpf_t total_prob_sums[100];
+
+	// 初期化
+	for (int i = 0; i < 100; i++) {
+		mpf_init(total_prob_sums[i]);    // メモリ確保
+		mpf_set_ui(total_prob_sums[i], 0); // 0で初期化
+	}
+
 	//BDD実験結果ファイルオープン
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
@@ -44,7 +57,7 @@ bool AnalyzeFaultDensity(
 	fprintf(bdd_result, "name,cube,rel,var,den");
 	// opt構造体のデータを使ってループ
 	for (int i = 0; i < opt.file.input.list_size; i++) {
-		fprintf(bdd_result, ",prob(n=%d)", opt.file.input.pattern_num_list[i]);
+		fprintf(bdd_result, ",n=%d", opt.file.input.pattern_num_list[i]);
 	}
 	fprintf(bdd_result, "\n");
 	fclose(bdd_result);
@@ -58,7 +71,7 @@ bool AnalyzeFaultDensity(
 
 	//正常回路制約式生成
 	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
-
+	
 	while (readdata.fault.numrema != 0)
 	{
 		//テストキューブファイルオープン
@@ -77,13 +90,15 @@ bool AnalyzeFaultDensity(
 		if (WriteTPGModel(&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
 
 		//テスト生成回数初期化
-		int test_loop = 1;
+		int test_loop = 0;
 
 		//故障名ファイル出力
 		fprintf(bdd_result, "%s,", target.list[0]->name);
 
 		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
+			// SATソルバ実行
+			// 結果がUNSAT(解なし) -> 探索終了
 			if (CLASP() != CLASP_OKAY) {
 
 				//キューブ数出力
@@ -92,19 +107,20 @@ bool AnalyzeFaultDensity(
 				//テストに関係する外部入力数出力
 				fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
-				//BDD実験結果ファイルクローズ	
-				fclose(bdd_result);
-
 				//テストキューブファイルクローズ	
 				fclose(cube_file);
 
 				//BDDによる真理値表密度計算
 				RunBDD(
-					target.list[0]->test_relation_num, // 変数数
+					n_pi,                              // 変数数
 					opt.file.input.pattern_num_list,   // ランダムパターン数リスト
-					opt.file.input.list_size,          // リストのサイズ (個数)
-				    bdd_result                         // 結果ファイル
+					opt.file.input.list_size,          // リストのサイズ(個数)
+				    bdd_result,                        // 結果ファイルポインタ
+					total_prob_sums                    // 確率和配列
 				);
+
+				//BDD実験結果ファイルクローズ	
+				fclose(bdd_result);
 
 				//未検出故障リストから削除
 				DropDeteFault(&target);
@@ -115,12 +131,12 @@ bool AnalyzeFaultDensity(
 				break;
 
 			}
-			//解がまだ存在
+			// SAT(解あり) -> テスト生成継続
 			else {
 				printf("Progress >> %d/%d\n", count,readdata.fault.numinit);
 				printf("SAT test generation count:%d\n", test_loop);
 				
-				//テスト生成回数が100回を超えたら打ち切り
+				//テスト生成回数が100回になったら打ち切り
 				if (test_loop == 100) {
 
 					//キューブ数出力
@@ -129,19 +145,20 @@ bool AnalyzeFaultDensity(
 					//テストに関係する外部入力数出力
 					fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
-					//テストキューブファイルクローズ	
+					//テストキューブファイルクローズ
 					fclose(cube_file);
-
-					//BDD実験結果ファイルクローズ	
-					fclose(bdd_result);
 
 					//BDDによる真理値表密度計算
 					RunBDD(
-						target.list[0]->test_relation_num, // 変数数
+						n_pi,                              // 変数数
 						opt.file.input.pattern_num_list,   // ランダムパターン数リスト
-						opt.file.input.list_size,          // リストのサイズ (個数)
-						bdd_result                         // 結果ファイル
+						opt.file.input.list_size,          // リストのサイズ(個数)
+						bdd_result,                        // 結果ファイルポインタ
+						total_prob_sums                    // 確率和配列
 					);
+
+					//BDD実験結果ファイルクローズ	
+					fclose(bdd_result);
 
 					//未検出故障リストから削除
 					DropDeteFault(&target);
@@ -171,6 +188,40 @@ bool AnalyzeFaultDensity(
 				fprintf(cube_file, "%s\n", x_pattern);
 			}
 		}
+	}
+
+	// 回路全体の故障検出率出力
+	fileOpen(&bdd_result, opt.file.output.result, "a");
+
+	fprintf(bdd_result, "\n");
+	fprintf(bdd_result, "circuit fault coverage,,,,");
+
+	// 平均計算用のGMP変数準備
+	mpf_t average_val, total_faults_mpf;
+	mpf_init(average_val);
+	mpf_init(total_faults_mpf);
+
+	mpf_set_ui(total_faults_mpf, readdata.fault.numinit);
+
+	// 各ランダムパターン数ごとの平均計算
+	for (int i = 0; i < opt.file.input.list_size; i++) {
+		// 平均 = 合計 / 全故障数
+		mpf_div(average_val, total_prob_sums[i], total_faults_mpf);
+
+		fprintf(bdd_result, ",");
+		// "%.6Ff" で小数点以下6桁まで出力
+		gmp_fprintf(bdd_result, "%.10Fe", average_val);
+	}
+	fprintf(bdd_result, "\n");
+
+	fclose(bdd_result);
+
+	// --- メモリ解放 (後始末) ---
+	mpf_clear(average_val);
+	mpf_clear(total_faults_mpf);
+
+	for (int i = 0; i < MAX_PATTERN_CASES; i++) {
+		mpf_clear(total_prob_sums[i]);
 	}
 
 	return AFD_OKAY;

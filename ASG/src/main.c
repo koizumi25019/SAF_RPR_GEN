@@ -31,6 +31,7 @@ bool main(
 	start = clock();
 	SYSTEM_CLS;
 
+	char txt_cmd[50];
 
 	/** set the option */
 	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
@@ -44,7 +45,13 @@ bool main(
 
 	end = clock();
 	OutLogfile(end - start);
-	colorDef
+
+	//プログラム終了メール送信
+    system("chcp 65001");
+    sprintf(txt_cmd,"YuyaMail.exe");
+    system(txt_cmd);
+    system("chcp 932");
+
 		return RETCODE_OKAY;
 }
 

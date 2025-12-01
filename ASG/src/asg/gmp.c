@@ -7,9 +7,8 @@
  * CUDDから得られた解の個数(文字列)と、全変数数、印加パターン数を受け取り、
  * 「nパターン印加時の検出確率」を計算して返す関数
  */
-double calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp) {
+void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp, mpf_t* accumulator) {
     mpf_t num, den, density, term, result;
-    double final_prob = 0.0;
 
     // 精度設定 (8192ビットあれば2^6666も余裕で扱えます)
     mpf_set_default_prec(8192);
@@ -33,16 +32,15 @@ double calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_l
     // --- 3. 密度 p = num / den の計算 ---
     mpf_div(density, num, den);
 
-    // ★ファイル書き込み: まず「密度(density)」を出力
+    // ファイル書き込み: まず「密度(density)」を出力
     if (result_fp != NULL) {
-        fprintf(result_fp, ",");
-        gmp_fprintf(result_fp, "%.10Fe", density);
+        gmp_fprintf(result_fp, "%.10Fe,", density);
     }
 
     // ===========================================================
     // 計算式: P_det = 1 - (1 - p)^n
     // ===========================================================
-    // 3. パターン数リストの分だけループして確率計算
+    // ランダムパターン数リストの分だけループして確率計算
     for (int i = 0; i < list_size; i++) {
 
         int n = pattern_num_list[i];
@@ -61,19 +59,24 @@ double calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_l
         // カンマ区切りで書き出す
         if (result_fp != NULL) {
             // 次にカンマと検出確率
-            fprintf(result_fp, ",");
             gmp_fprintf(result_fp, "%.10Fe", result);
+            if(i!=list_size-1) fprintf(result_fp, ",");
+        }
+		// 各ランダムパターン数における故障検出確率を加算
+        if (accumulator != NULL) {
+            mpf_add(accumulator[i], accumulator[i], result);
         }
     }
 
     gmp_fprintf(result_fp, "\n");
 
-    // --- メモリ解放 ---
+
+    // メモリ解放
     mpf_clear(num);
     mpf_clear(den);
     mpf_clear(density);
     mpf_clear(term);
     mpf_clear(result);
 
-    return final_prob;
+    return;
 }

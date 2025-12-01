@@ -1,2 +1,2 @@
-ASG.exe -z ./input/script/s15850_C.set
+ASG.exe -set ./input/script/s15850_C.set
 more

@@ -1,2 +1,2 @@
-ASG.exe -z ./input/script/c17a.set
+ASG.exe -set ./input/script/c17a.set
 more

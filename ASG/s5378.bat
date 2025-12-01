@@ -1,2 +1,2 @@
-ASG.exe -z ./input/script/s5378_C.set
+ASG.exe -set ./input/script/s5378_C.set
 more

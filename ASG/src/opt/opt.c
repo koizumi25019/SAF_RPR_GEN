@@ -265,6 +265,36 @@ bool OPTread(
 				}
 			}
 
+			/** random pattern list */
+			else if (strcmp(token1, "-rp") == 0)
+			{
+				token2 = strtok_s(NULL, "\n\0", &context);
+
+				for (int i = 0; i < strlen(token2); i++)
+				{
+					if (token2[i] != ' ' && token2[i] != '\t')
+					{
+						int count = 0;
+						char* inner_context = NULL;
+						char* num_token = NULL;
+
+						num_token = strtok_s(&token2[i], ", \n\r", &inner_context);
+
+						while (num_token != NULL && count < 100)
+						{
+							// •¶Žš—ñ‚ðint‚É•ÏŠ·‚µ‚ÄŠi”[
+							opt.file.input.pattern_num_list[count++] = atoi(num_token);
+
+							// ŽŸ‚Ì”’l‚ðŽæ“¾
+							num_token = strtok_s(NULL, ", \n\r", &inner_context);
+						}
+
+						opt.file.input.list_size = count;
+						break;
+					}
+				}
+			}
+
 			else
 			{
 				PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
@@ -360,17 +390,17 @@ void OPTdispHelp(
 {
 	PrintHelpMessage("\n	> help ***********************************************************************************\n\n");
 
-	PrintHelpMessage("		command = SAF_RPR_GEN.exe -n <.v> -f <.txt> -p <.txt>\n");
+	PrintHelpMessage("		command = SAF_RPR_GEN.exe -net <.v> -fault <.txt> -pin <.txt>\n");
 
 	PrintHelpMessage("\n		>> file option \n");
 
-	PrintHelpMessage("		   -n(essential)   :   netlist <.v> \n");
-	PrintHelpMessage("		   -f(essential)   :   fault list <.txt> \n");
+	PrintHelpMessage("		   -net(essential)   :   netlist <.v> \n");
+	PrintHelpMessage("		   -fault(essential)   :   fault list <.txt> \n");
 
-	PrintHelpMessage("		   -l              :   log file <.txt>\n");
-	PrintHelpMessage("		   -p(essential)   :   pin file <.txt>\n");
+	PrintHelpMessage("		   -log              :   log file <.txt>\n");
+	PrintHelpMessage("		   -pin(essential)   :   pin file <.txt>\n");
 
-	PrintHelpMessage("		   -z              :   setting options by file <.set> \n");
+	PrintHelpMessage("		   -set              :   setting options by file <.set> \n");
 
 	PrintHelpMessage("\n		>> help \n");
 	PrintHelpMessage("		   -help           :   print the help. \n");

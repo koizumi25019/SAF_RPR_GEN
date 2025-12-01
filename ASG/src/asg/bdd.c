@@ -5,13 +5,9 @@
 #include <gmp.h>
 
 //プロトタイプ宣言
-double calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp);
+void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
 
-//*************************************************************************************************************
-//	@name		：TCD(Cube Truth Density)
-//	@function	：	calculation of cube truth density
-//	@return		：	(void)
-//*************************************************************************************************************
+//キューブをBDDに変換
 DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     // 積項のBDDは、論理の「1」(Cudd_ReadOne) から始める
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
@@ -55,8 +51,7 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDDを構築し、解の個数を数え、GMPで確率計算を行って返す
-
-void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp) {
+void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator) {
     FILE* fp;
     char line[4096]; // 行バッファ
 
@@ -73,7 +68,7 @@ void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp) {
     if ((fp = fopen("./tools/bdd/bdd_cube_file.txt", "r")) == NULL) {
         fprintf(stderr, "Error: file open error %s\n", "./tools/bdd/bdd_cube_file.txt");
         Cudd_Quit(gbm);
-        return 0.0;
+        return;
     }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
@@ -89,10 +84,15 @@ void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp) {
     }
     fclose(fp);
 
+    //BDD依存変数数の計算
+    int supportSize = Cudd_SupportSize(gbm, finalBdd);
+    //BDD依存変数数(supportSize)をCSVファイルに追記
+    fprintf(result_fp, "%d,", supportSize);
+
     //解の個数カウント
     int digits;         // 桁数を受け取るための整数変数
     DdApaNumber count;  // 結果の配列を受け取るためのポインタ
-    Cudd_ApaCountMinterm(gbm, finalBdd, nvars, count);
+    count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
 
     // APAの結果を文字列に取り出す
     FILE* tmp_fp = tmpfile();
@@ -108,12 +108,12 @@ void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp) {
     }
     fclose(tmp_fp);
 
-    //GMPを使って最終確率を計算
-    double prob = calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp);
+    //GMPを使って確率を計算
+    calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, accumulator);
 
     //終了処理
     Cudd_RecursiveDeref(gbm, finalBdd);
     Cudd_Quit(gbm);
 
-    return prob;
+    return;
 }
