@@ -1,0 +1,23 @@
+# set File
+# set netlist(.v)
+-net ./input/circuit/s35932_C.v 
+
+# set fault list(.txt)
+-fault ./input/fault/s35932_C_unred.txt
+
+# set test relation(.txt)
+-relation ./input/test_relation/s35932_C_test_relation.txt
+
+# set test relation(.txt)
+-rp 10,100,1000,10000,100000
+
+# set log(.txt)
+-log ./output/log/s35932_C_log.txt
+
+# set pin(.txt)
+-pin ./output/pin/s35932_C_pin.txt
+
+# set result(.txt)
+-result ./output/result/s35932_result.csv
+
+

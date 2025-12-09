@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/opb/clasp/clasp.h																 */
-/*	deginer		:	T.Sone																			  		 */
-/*	date		:	2023.06.21																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
 //	include
@@ -71,66 +61,6 @@
 	}																										  \
 }																											  \
 while (false);																								  \
-
-/** call clasp (limit times =60[s]) */
-#define	_CALL_CLASP_LIMIT_TIME_60_	do																  		  \
-{																											  \
-	PrintMessage("	solving ...\n");																		  \
-	if(_chdir(CLASP_DIR) != 0)																				  \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-	system("clasp.exe pbo.txt --time-limit 60 >clasp_result.txt");											  \
-	if(_chdir("../../") != 0)																			      \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-}																											  \
-while (false);
-
-/** call clasp (limit times =120[s]) */
-#define	_CALL_CLASP_LIMIT_TIME_120_	do																  		  \
-{																											  \
-	PrintCompMessage("	resolving ...\n");														  \
-	if(_chdir(CLASP_DIR) != 0)																				  \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-	system("clasp.exe pbo.txt --time-limit 120 >clasp_result.txt");											  \
-	if(_chdir("../../") != 0)																			      \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-}																											  \
-while (false);
-
-/** call clasp (solution =1) */
-#define	_CALL_CLASP_SOL_1_	do																  				  \
-{																											  \
-	PrintCompMessage("	resolving solution 1...\n");														  \
-	if(_chdir(CLASP_DIR) != 0)																				  \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-	system("clasp.exe pbo.txt --models=1 >clasp_result.txt");					  \
-	if(_chdir("../../") != 0)																			      \
-	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
-		exit(EXIT_FAILURE);																				      \
-	}																										  \
-}																											  \
-while (false);
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre

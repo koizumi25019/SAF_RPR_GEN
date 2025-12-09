@@ -186,6 +186,8 @@ bool AnalyzeFaultDensity(
 
 				//テストキューブをファイルに書き込む
 				fprintf(cube_file, "%s\n", x_pattern);
+
+				free(x_pattern);
 			}
 		}
 	}
@@ -288,8 +290,8 @@ void FreeMemory(
 
 		free(nl[i].consfc);
 
-		return;
 	}
+	return;
 }
 
 
