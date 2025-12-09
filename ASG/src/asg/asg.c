@@ -18,7 +18,7 @@
 #include"./MakeBlockingClause.h"
 
 //プロトタイプ宣言
-void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* accumulator);
+void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
 
 // 定数
 #define MAX_PATTERN_CASES 100

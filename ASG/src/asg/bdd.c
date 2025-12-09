@@ -51,7 +51,7 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDDを構築し、解の個数を数え、GMPで確率計算を行って返す
-void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator) {
+void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     FILE* fp;
     char line[4096]; // 行バッファ
 
@@ -108,8 +108,11 @@ void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf
     }
     fclose(tmp_fp);
 
+	// 多倍数整数配列メモリ解放
+    free(count);
+
     //GMPを使って確率を計算
-    calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, accumulator);
+    calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, total_prob_sums);
 
     //終了処理
     Cudd_RecursiveDeref(gbm, finalBdd);

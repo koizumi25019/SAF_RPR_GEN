@@ -7,7 +7,7 @@
  * CUDDから得られた解の個数(文字列)と、全変数数、印加パターン数を受け取り、
  * 「nパターン印加時の検出確率」を計算して返す関数
  */
-void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp, mpf_t* accumulator) {
+void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     mpf_t num, den, density, term, result;
 
     // 精度設定 (8192ビットあれば2^6666も余裕で扱えます)
@@ -63,8 +63,8 @@ void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_lis
             if(i!=list_size-1) fprintf(result_fp, ",");
         }
 		// 各ランダムパターン数における故障検出確率を加算
-        if (accumulator != NULL) {
-            mpf_add(accumulator[i], accumulator[i], result);
+        if (total_prob_sums != NULL) {
+            mpf_add(total_prob_sums[i], total_prob_sums[i], result);
         }
     }
 
