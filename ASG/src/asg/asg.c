@@ -255,7 +255,6 @@ void OutSolution(
 		fprintf(filexid, "SF1 %s\n", target->list[0]->name);
 	}
 
-	fclose(fileptr);
 	fclose(filexid);
 	
 
