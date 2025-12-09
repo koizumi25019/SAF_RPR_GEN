@@ -6,6 +6,7 @@
 #include <direct.h>
 #include <gmp.h>
 
+#include "../../include/cudd.h"
 #include "./createSGmodel.h"
 #include "./asg.h"
 #include "./init.h"
@@ -18,7 +19,7 @@
 #include"./MakeBlockingClause.h"
 
 //プロトタイプ宣言
-void RunBDD(int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
+void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
 
 // 定数
 #define MAX_PATTERN_CASES 100
@@ -43,6 +44,12 @@ bool AnalyzeFaultDensity(
 
 	// 回路における故障検出確率計算用のmpf_t の配列を用意
 	mpf_t total_prob_sums[100];
+
+	//CUDDの初期化
+	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+
+	//SHIFTアルゴリズムを有効化
+	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
 	// 初期化
 	for (int i = 0; i < 100; i++) {
@@ -112,6 +119,7 @@ bool AnalyzeFaultDensity(
 
 				//BDDによる真理値表密度計算
 				RunBDD(
+					gbm,                               // CUDDマネージャポインタ
 					n_pi,                              // 変数数
 					opt.file.input.pattern_num_list,   // ランダムパターン数リスト
 					opt.file.input.list_size,          // リストのサイズ(個数)
@@ -150,6 +158,7 @@ bool AnalyzeFaultDensity(
 
 					//BDDによる真理値表密度計算
 					RunBDD(
+						gbm,                               // CUDDマネージャポインタ
 						n_pi,                              // 変数数
 						opt.file.input.pattern_num_list,   // ランダムパターン数リスト
 						opt.file.input.list_size,          // リストのサイズ(個数)

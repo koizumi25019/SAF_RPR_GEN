@@ -51,15 +51,9 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDDを構築し、解の個数を数え、GMPで確率計算を行って返す
-void RunBDD(int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
+void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     FILE* fp;
     char line[4096]; // 行バッファ
-
-    //CUDDの初期化
-    DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
-
-	//SHIFTアルゴリズムを有効化
-    Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
