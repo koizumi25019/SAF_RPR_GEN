@@ -40,6 +40,9 @@ bool main(
 	/** read the netlist */
 	read_nl(opt.file.input.net);
 
+	/** output the pin */
+	OutPIN();
+
 	//analyze the fault density
 	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
 
@@ -52,7 +55,30 @@ bool main(
     system(txt_cmd);
     system("chcp 932");
 
-		return RETCODE_OKAY;
+		return 0;
+}
+
+//*************************************************************************************************************
+//	@name		：　OutPIN
+//	@function	：	output the pin
+//	@return		：	(void)
+//*************************************************************************************************************
+void OutPIN(
+	void
+)
+{
+	FILE* fileptr = (FILE*)NULL;
+
+	fileOpen(&fileptr, opt.file.output.pin, "w");
+
+	for (int i = 0; i < n_pi; i++)
+	{
+		fprintf(fileptr, "%s\n", pi[i]->name);
+	}
+
+	fclose(fileptr);
+
+	return;
 }
 
 //*************************************************************************************************************

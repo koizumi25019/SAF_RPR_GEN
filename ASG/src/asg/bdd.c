@@ -110,7 +110,6 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
 
     //I—¹ˆ—
     Cudd_RecursiveDeref(gbm, finalBdd);
-    Cudd_Quit(gbm);
 
     return;
 }

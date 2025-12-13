@@ -1,0 +1,23 @@
+# set File
+# set netlist(.v)
+-net ./input/circuit/s349_C.v 
+
+# set fault list(.txt)
+-fault ./input/fault/det_s349_C.txt
+
+# set test relation(.txt)
+-rp 10,100,1000,10000,100000
+
+# set random pattern num list(.txt)
+-relation ./input/test_relation/s349_C_test_relation.txt
+
+# set log(.txt)
+-log ./output/log/s349_C_log.txt
+
+# set pin(.txt)
+-pin ./output/pin/s349_C_pin.txt
+
+# set result(.txt)
+-result ./output/result/s349_result.csv
+
+

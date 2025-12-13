@@ -25,11 +25,11 @@ bool ReadFile(
 	/** read the fault */
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
 
-	if (TestRelationCounts() != READ_OKAY)
-	{
-		fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
-		return READ_ERROR;
-	}
+	//if (TestRelationCounts() != READ_OKAY)
+	//{
+	//	fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
+	//	return READ_ERROR;
+	//}
 
 	return READ_OKAY;
 }
