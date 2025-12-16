@@ -61,7 +61,8 @@ bool AnalyzeFaultDensity(
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
 	//BDD実験ファイル記述
-	fprintf(bdd_result, "name,cube,rel,var,den");
+	fprintf(bdd_result, "name,type,cube,rel,var,den");
+
 	// opt構造体のデータを使ってループ
 	for (int i = 0; i < opt.file.input.list_size; i++) {
 		fprintf(bdd_result, ",n=%d", opt.file.input.pattern_num_list[i]);
@@ -101,6 +102,15 @@ bool AnalyzeFaultDensity(
 
 		//故障名ファイル出力
 		fprintf(bdd_result, "%s,", target.list[0]->name);
+
+		//故障タイプ出力
+		if (target.list[0]->type == SF0)
+		{
+			fprintf(bdd_result, "sa0,");
+		}
+		else{
+			fprintf(bdd_result, "sa1,");
+		}
 
 		//UNSATになるか，一定のテスト生成回数に達するまで繰り返す
 		while (1) {
@@ -145,38 +155,38 @@ bool AnalyzeFaultDensity(
 				printf("SAT test generation count:%d\n", test_loop);
 				
 				//テスト生成回数が100回になったら打ち切り
-				//if (test_loop == 100) {
+				if (test_loop == opt.file.input.limit) {
 
-				//	//キューブ数出力
-				//	fprintf(bdd_result, "%d,", test_loop);
+					//キューブ数出力
+					fprintf(bdd_result, "%d,", test_loop);
 
-				//	//テストに関係する外部入力数出力
-				//	fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
+					//テストに関係する外部入力数出力
+					fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
-				//	//テストキューブファイルクローズ
-				//	fclose(cube_file);
+					//テストキューブファイルクローズ
+					fclose(cube_file);
 
-				//	//BDDによる真理値表密度計算
-				//	RunBDD(
-				//		gbm,                               // CUDDマネージャポインタ
-				//		n_pi,                              // 変数数
-				//		opt.file.input.pattern_num_list,   // ランダムパターン数リスト
-				//		opt.file.input.list_size,          // リストのサイズ(個数)
-				//		bdd_result,                        // 結果ファイルポインタ
-				//		total_prob_sums                    // 確率和配列
-				//	);
+					//BDDによる真理値表密度計算
+					RunBDD(
+						gbm,                               // CUDDマネージャポインタ
+						n_pi,                              // 変数数
+						opt.file.input.pattern_num_list,   // ランダムパターン数リスト
+						opt.file.input.list_size,          // リストのサイズ(個数)
+						bdd_result,                        // 結果ファイルポインタ
+						total_prob_sums                    // 確率和配列
+					);
 
-				//	//BDD実験結果ファイルクローズ	
-				//	fclose(bdd_result);
+					//BDD実験結果ファイルクローズ	
+					fclose(bdd_result);
 
-				//	//未検出故障リストから削除
-				//	DropDeteFault(&target);
+					//未検出故障リストから削除
+					DropDeteFault(&target);
 
-				//	//メモリ開放
-				//	FreeMemory(&remain, &target);
+					//メモリ開放
+					FreeMemory(&remain, &target);
 
-				//	break;
-				//}
+					break;
+				}
 
 				//故障に対するテスト生成回数
 				test_loop++;

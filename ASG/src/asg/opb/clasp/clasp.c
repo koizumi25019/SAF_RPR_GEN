@@ -36,7 +36,7 @@ bool CLASP(
 	FILE* fileptr = (FILE*)NULL;
 	int resolving_flag = 0;
 	/** call the CLASP */
-	_CALL_CLASP_LIMIT_TIME_10_;
+	CALL_CLASP;
 
 	while (true)
 	{

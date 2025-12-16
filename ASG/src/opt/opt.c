@@ -109,6 +109,10 @@ bool OPTset(
 		else if (strcmp(argv[i], "-result") == 0)
 			opt.file.output.result = _strdup(argv[++i]);
 
+		/** limit  */
+		else if (strcmp(argv[i], "-limit") == 0)
+			opt.file.input.limit = _strdup(argv[++i]);
+
 		/** random pattern   */
 		else if (strcmp(argv[i], "-rp") == 0)
 		{
@@ -291,6 +295,29 @@ bool OPTread(
 
 						opt.file.input.list_size = count;
 						break;
+					}
+				}
+			}
+
+			/** limit setting */
+			else if (strcmp(token1, "-limit") == 0)
+			{
+				// 次のトークン（数値）を取得
+				token2 = strtok_s(NULL, " \n\0", &context);
+
+				// 念のためNULLチェック
+				if (token2 != NULL)
+				{
+					int val = atoi(token2);
+
+					//  0の場合はリミットなしとする
+					if (val == 0)
+					{
+						opt.file.input.limit = 0;         // 値を一応0にしておく
+					}
+					else
+					{
+						opt.file.input.limit = val;        // 指定された数値を格納
 					}
 				}
 			}

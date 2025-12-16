@@ -35,6 +35,7 @@ typedef struct Input_File
 	char* relation;           /**< test relation file */
 	int pattern_num_list[MAX_PATTERN]; // パターン数を格納する配列
 	int list_size;            // パターン数リストのサイズ
+	int limit;                // テスト生成打ち切り回数
 }
 INPUT;
 

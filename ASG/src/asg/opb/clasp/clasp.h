@@ -44,7 +44,7 @@
 //#define SCIP_LOG
 
 /** call clasp (limit times =10[s]) */
-#define	_CALL_CLASP_LIMIT_TIME_10_ do																  		  \
+#define	CALL_CLASP do																  		  \
 {																											  \
 	if(_chdir(CLASP_DIR) != 0)																				  \
 	{																										  \
@@ -52,7 +52,7 @@
 		PrintMessage("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
 		exit(EXIT_FAILURE);																				      \
 	}																										  \
-	system("clasp.exe pbo.txt --mode=1 >clasp_result.txt --parallel-mode 24");											  \
+	system("clasp.exe pbo.txt --opt-mode=ignore --mode=1 >clasp_result.txt");  \
 	if(_chdir("../../") != 0)																			      \
 	{																										  \
 		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \

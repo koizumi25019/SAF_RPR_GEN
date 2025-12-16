@@ -8,8 +8,8 @@
 # set test relation(.txt)
 -rp 10,100,1000,10000,100000
 
-# set random pattern num list(.txt)
--relation ./input/test_relation/s208_C_test_relation.txt
+# set sat test count limit(.txt)
+-limit 0
 
 # set log(.txt)
 -log ./output/log/s208_C_log.txt
