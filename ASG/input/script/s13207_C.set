@@ -20,4 +20,4 @@
 # set result(.txt)
 -result ./output/result/s13207_result.csv
 
-
+-limit 100

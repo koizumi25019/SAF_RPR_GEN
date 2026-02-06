@@ -79,6 +79,7 @@ bool AnalyzeFaultDensity(
 
 	//³í‰ñ˜H§–ñ®¶¬
 	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
+
 	
 	while (readdata.fault.numrema != 0)
 	{

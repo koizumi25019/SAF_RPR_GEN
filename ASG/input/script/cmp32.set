@@ -1,0 +1,22 @@
+# set File
+# set netlist(.v)
+-net ./input/circuit/cmp32.v 
+
+# set fault list(.txt)
+-fault ./input/fault/ALL_rep.txt
+
+# set test relation(.txt)
+-rp 10,100,1000
+
+# set log(.txt)
+-log ./output/log/cmp32_log.txt
+
+# set pin(.txt)
+-pin ./output/pin/cmp32_pin.txt
+
+# set result(.txt)
+-result ./output/result/cmp32_result.csv
+
+-limit 100
+
+

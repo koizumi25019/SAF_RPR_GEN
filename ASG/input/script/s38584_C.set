@@ -11,6 +11,8 @@
 # set test relation(.txt)
 -rp 10,100,1000,10000,100000
 
+-limit 100
+
 # set log(.txt)
 -log ./output/log/s38584_C_log.txt
 

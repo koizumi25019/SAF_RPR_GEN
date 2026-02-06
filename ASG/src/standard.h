@@ -9,8 +9,6 @@
 //	define
 //-------------------------------------------------------------------------------------------------------------
 
-#define SYSTEM_CLS	      system("cls")	      /**< syatem call "crear" */
-
 #define PrintMessage	  colorNo1 printf    /**< print the message */
 #define PrintErrorMessage colorNo2 printf    /**< print the error message */
 #define PrintCompMessage  colorNo5 printf    /**< print the confirmation message */

@@ -9,7 +9,7 @@
 -rp 10,100,1000
 
 # set random pattern num list(.txt)
--relation ./input/test_relation/c17a_test_relation.txt
+#-relation ./input/test_relation/c17a_test_relation.txt
 
 # set log(.txt)
 -log ./output/log/c17a_log.txt
@@ -19,5 +19,7 @@
 
 # set result(.txt)
 -result ./output/result/c17a_result.csv
+
+-limit 100
 
 

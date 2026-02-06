@@ -1,4 +1,3 @@
-#define _CRTDBG_MAP_ALLOC
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -26,10 +25,8 @@ bool main(
 	char** argv								 /**< command-arguments */
 )
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	clock_t start, end;
 	start = clock();
-	SYSTEM_CLS;
 
 	char txt_cmd[50];
 
@@ -94,7 +91,7 @@ void OutLogfile(
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                             AnalyzeFaultDensity Information\n");
+	fprintf(fileptr, "//                          AnalyzeFaultDensity Information\n");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
@@ -105,7 +102,7 @@ void OutLogfile(
 
 	PrintMessage("\n\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
-	PrintMessage("//                             AnalyzeFaultDensity Information\n");
+	PrintMessage("//                          AnalyzeFaultDensity Information\n");
 	PrintMessage("//--------------------------------------------------------------------------------\n");
 	PrintMessage("//  Target Circuit                            : %s\n", net_name);
 	PrintMessage("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -148,7 +148,6 @@
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\netlist\netlist.h" />
     <ClInclude Include="src\opt\opt.h" />
-    <ClInclude Include="src\standard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\asg\asg.c" />
