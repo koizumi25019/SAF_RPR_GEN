@@ -406,7 +406,7 @@ void OPTdispHelp(
 {
 	printf("\n	> help ***********************************************************************************\n\n");
 
-	printf("		command = SAF_RPR_GEN.exe -net <.v> -fault <.txt> -pin <.txt>\n");
+	printf("		command = -net <.v> -fault <.txt> -pin <.txt>\n");
 
 	printf("\n		>> file option \n");
 

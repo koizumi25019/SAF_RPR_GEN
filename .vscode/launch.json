@@ -7,10 +7,10 @@
             "name": "(gdb) 起動",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
+            "program": "${workspaceFolder}/ASG/src/main",
+            "args": ["-set", "../input/script/s27_C.set"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -20,6 +20,7 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            "preLaunchTask": "C/C++: gcc アクティブなファイルのビルド"
         }]
 }

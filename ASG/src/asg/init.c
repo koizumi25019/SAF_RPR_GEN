@@ -6,7 +6,6 @@
 
 #include "./init.h"
 #include "./read.h"
-#include "./opb/clasp/clasp.h"
 #include "../lib/lib.h"
 #include "../asg/opb/opb.h"
 #include "../netlist/netlist.h"
@@ -32,7 +31,7 @@ bool InitGlobalVars(
 
 	InitGlobalVarsREADDATA();
 
-	InitGlobalVarsCLASP();
+	//InitGlobalVarsCLASP();
 
 	return INIT_OKAY;
 }
@@ -151,7 +150,7 @@ void InitGlobalVarsREADDATA(
 //	@function	�F	initialize the scip
 //	@return		�F	(void) 
 //*************************************************************************************************************
-void InitGlobalVarsCLASP(
+/*void InitGlobalVarsCLASP(
 	void
 )
 {
@@ -159,14 +158,14 @@ void InitGlobalVarsCLASP(
 	clasp.sol = (char**)allocMemory(N_SOL, sizeof(char*));
 
 	/** for test pattern */
-	clasp.sol[SOL_TP] = (char*)allocMemory(n_dff + n_pi + 1, sizeof(char));
+	/*clasp.sol[SOL_TP] = (char*)allocMemory(n_dff + n_pi + 1, sizeof(char));
 	clasp.sol[SOL_TP][n_dff + n_pi] = '\0';
 
 	clasp.objval = CLASP_OBJVAL_ERROR;
 	clasp.status = CLASP_STATUS_ERROR;
 
 	return;
-}
+}*/
 
 
 

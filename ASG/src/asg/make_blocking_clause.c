@@ -6,7 +6,7 @@
 
 #include "../netlist/netlist.h"
 #include "./MakeBlockingClause.h"
-#include "./opb/clasp/clasp.h"
+//#include "./opb/clasp/clasp.h"
 #include "./target.h"
 
  char* make_blocking_clause(TARGET* target)

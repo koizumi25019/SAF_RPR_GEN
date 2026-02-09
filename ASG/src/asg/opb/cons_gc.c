@@ -56,13 +56,6 @@ bool CreateConsGC(
 			return TPG_MODEL_ERROR;
 		}
 	}
-
-
-#ifdef __DEBUG_OPB_CONS_GC__
-	_CALL_DEBUG_OPB_CONS_GC_
-#endif
-
-
 		return TPG_MODEL_OKAY;
 }
 

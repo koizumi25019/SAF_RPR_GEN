@@ -13,7 +13,7 @@
 #include "./read.h"
 #include "./fsim.h"
 #include "./opb/opb.h"
-#include "./opb/clasp/clasp.h"
+#include "./opb/clasp/cadical.h"
 #include"./MakeBlockingClause.h"
 
 //prototype declaration
@@ -81,7 +81,7 @@ bool AnalyzeFaultDensity(
 	while (readdata.fault.numrema != 0)
 	{
 		//open cube file
-		fileOpen(&cube_file, "./tools/bdd/bdd_cube_file.txt", "w");
+		fileOpen(&cube_file, "../output/cube/bdd_cube_file.txt", "w");
 
 		//open BDD result file
 		fileOpen(&bdd_result, opt.file.output.result, "a");
@@ -114,7 +114,8 @@ bool AnalyzeFaultDensity(
 		while (1) {
 			// SAT判定時
 			// それ以外はUNSAT(存在しない) -> テスト終了
-			if (CLASP() != CLASP_OKAY) {
+			//if (CLASP() != CLASP_OKAY) {
+			if(RunCaDiCaL() != CADICAL_SAT) {
 
 				//test generation count output
 				fprintf(bdd_result, "%d,", test_loop);
@@ -190,7 +191,7 @@ bool AnalyzeFaultDensity(
 				CALL_XID_SAF(opt.file.input.net, opt.file.output.pin);
 
 				//tarminal cls
-				system("cls");
+				system("clear");
 
 				//generate blocking clause 
 				char* x_pattern = make_blocking_clause(&target);
@@ -240,9 +241,9 @@ bool AnalyzeFaultDensity(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OutSolution
-//	@function	�F	output the solution
-//	@return		�F	(bool) okay, error
+//	@name		@OutSolution
+//	@function	output the solution
+//	@return	    (bool) okay, error
 //*************************************************************************************************************
 void OutSolution(
 	TARGET* target		  /**< target fault */
@@ -252,7 +253,7 @@ void OutSolution(
 	/** for xid */
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, "./tools/fsim/test.txt", "w");
-	fprintf(fileptr, "%s\n", clasp.sol[SOL_TP]);
+	//fprintf(fileptr, "%s\n", clasp.sol[SOL_TP]);
 	fclose(fileptr);
 
 	/** for xid  */

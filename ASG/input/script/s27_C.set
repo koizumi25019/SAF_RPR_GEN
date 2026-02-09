@@ -1,20 +1,20 @@
 # set File
 # set netlist(.v)
--net ./input/circuit/s27_C.v 
+-net ../input/circuit/s27_C.v 
 
 # set fault list(.txt)
--fault ./input/fault/det_s27_C.txt
+-fault ../input/fault/det_s27_C.txt
 
 # set random pattern num list(.txt)
 -rp 10,100,1000,10000,100000
 
 # set log(.txt)
--log ./output/log/s27_C_log.txt
+-log ../output/log/s27_C_log.txt
 
 # set pin(.txt)
--pin ./output/pin/s27_C_pin.txt
+-pin ../output/pin/s27_C_pin.txt
 
 # set result(.txt)
--result ./output/result/s27_result.csv
+-result ../output/result/s27_result.csv
 
 

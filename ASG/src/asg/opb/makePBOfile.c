@@ -6,7 +6,6 @@
 #include <string.h>
 
 #include "./opb.h"
-#include "./clasp/clasp.h"
 #include "../read.h"
 #include "../target.h"
 #include "../../lib/lib.h"
@@ -27,7 +26,7 @@ void makePBOFile(
 
 
 	/** open the "problem.opb" */
-	fileOpen(&fileptr, "./tools/clasp/pbo.txt", "w");
+	fileOpen(&fileptr, "./pbo.txt", "w");
 
 
 	/** write the minimize */

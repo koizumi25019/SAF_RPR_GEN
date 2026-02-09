@@ -9,7 +9,6 @@
 #include "./read.h"
 #include "./fsim.h"
 #include "./target.h"
-#include "./opb/clasp/clasp.h"
 #include "../opt/opt.h"
 #include "../lib/lib.h"
 
