@@ -1,12 +1,11 @@
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include <direct.h>
-#include <gmp.h>
+#include <cudd.h>
 
-#include "../../include/cudd.h"
 #include "./createSGmodel.h"
 #include "./asg.h"
 #include "./init.h"
@@ -14,20 +13,19 @@
 #include "./fsim.h"
 #include "./opb/opb.h"
 #include "./opb/clasp/clasp.h"
-#include "../standard.h"
 
 #include"./MakeBlockingClause.h"
 
-//ƒvƒƒgƒ^ƒCƒvéŒ¾
-void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
+//ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
+//void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp/*, mpf_t* total_prob_sums*/);
 
-// ’è”
+// ï¿½è”
 #define MAX_PATTERN_CASES 100
 
 //*************************************************************************************************************
-//	@name		F@AnalyzeFaultDensity
-//	@function	F	analyze the fault density
-//	@return		F	(bool) okay, error
+//	@name		ï¿½Fï¿½@AnalyzeFaultDensity
+//	@function	ï¿½F	analyze the fault density
+//	@return		ï¿½F	(bool) okay, error
 //*************************************************************************************************************
 bool AnalyzeFaultDensity(
 	void
@@ -42,28 +40,28 @@ bool AnalyzeFaultDensity(
 	int temp_numrema;
 	int count = 0;
 
-	// ‰ñ˜H‚É‚¨‚¯‚éŒÌáŒŸoŠm—¦ŒvZ—p‚Ìmpf_t ‚Ì”z—ñ‚ğ—pˆÓ
-	mpf_t total_prob_sums[100];
+	// ï¿½ï¿½Hï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ÌáŒŸï¿½oï¿½mï¿½ï¿½ï¿½vï¿½Zï¿½pï¿½ï¿½mpf_t ï¿½Ì”zï¿½ï¿½ï¿½pï¿½ï¿½
+	//mpf_t total_prob_sums[100];
 
-	//CUDD‚Ì‰Šú‰»
-	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+	//CUDDï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
+	//DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
 
-	//SHIFTƒAƒ‹ƒSƒŠƒYƒ€‚ğ—LŒø‰»
-	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
+	//shifting algorithm
+	//Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
-	// ‰Šú‰»
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int i = 0; i < 100; i++) {
-		mpf_init(total_prob_sums[i]);    // ƒƒ‚ƒŠŠm•Û
-		mpf_set_ui(total_prob_sums[i], 0); // 0‚Å‰Šú‰»
+		//mpf_init(total_prob_sums[i]);    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½
+		//mpf_set_ui(total_prob_sums[i], 0); // 0ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
-	//BDDÀŒ±Œ‹‰Êƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+	//result file open
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
-	//BDDÀŒ±ƒtƒ@ƒCƒ‹‹Lq
+	//BDDï¿½ï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Lï¿½q
 	fprintf(bdd_result, "name,type,cube,rel,var,den");
 
-	// opt\‘¢‘Ì‚Ìƒf[ƒ^‚ğg‚Á‚Äƒ‹[ƒv
+	// optï¿½\ï¿½ï¿½ï¿½Ì‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Äƒï¿½ï¿½[ï¿½v
 	for (int i = 0; i < opt.file.input.list_size; i++) {
 		fprintf(bdd_result, ",n=%d", opt.file.input.pattern_num_list[i]);
 	}
@@ -71,40 +69,40 @@ bool AnalyzeFaultDensity(
 	fclose(bdd_result);
 
 
-	//•Ï”‰Šú‰»
+	//ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	//read the fault file
 	if (ReadFile() != READ_OKAY) return AFD_ERROR;
 
-	//³í‰ñ˜H§–ñ®¶¬
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½ñ®ï¿½ï¿½ï¿½
 	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
 
 	
 	while (readdata.fault.numrema != 0)
 	{
-		//ƒeƒXƒgƒLƒ…[ƒuƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//ï¿½eï¿½Xï¿½gï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 		fileOpen(&cube_file, "./tools/bdd/bdd_cube_file.txt", "w");
 
-		//BDDÀŒ±Œ‹‰Êƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//BDDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 		fileOpen(&bdd_result, opt.file.output.result, "a");
 
 		count++;
 		temp_numrema = readdata.fault.numrema;
 
-		//ŒÌáƒŠƒXƒg“Ç‚İ‚İ
+		//ï¿½ÌáƒŠï¿½Xï¿½gï¿½Ç‚İï¿½ï¿½ï¿½
 		SetTarget(&remain, &target, loop++);
 
-		//ƒeƒXƒg¶¬ƒ‚ƒfƒ‹\’z
+		//ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½\ï¿½z
 		if (WriteTPGModel(&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
 
-		//ƒeƒXƒg¶¬‰ñ”‰Šú‰»
+		//ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ñ”ï¿½ï¿½ï¿½ï¿½ï¿½
 		int test_loop = 0;
 
-		//ŒÌá–¼ƒtƒ@ƒCƒ‹o—Í
+		//ï¿½Ìá–¼ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½oï¿½ï¿½
 		fprintf(bdd_result, "%s,", target.list[0]->name);
 
-		//ŒÌáƒ^ƒCƒvo—Í
+		//ï¿½Ìï¿½^ï¿½Cï¿½vï¿½oï¿½ï¿½
 		if (target.list[0]->type == SF0)
 		{
 			fprintf(bdd_result, "sa0,");
@@ -113,98 +111,98 @@ bool AnalyzeFaultDensity(
 			fprintf(bdd_result, "sa1,");
 		}
 
-		//UNSAT‚É‚È‚é‚©Cˆê’è‚ÌƒeƒXƒg¶¬‰ñ”‚É’B‚·‚é‚Ü‚ÅŒJ‚è•Ô‚·
+		//UNSATï¿½É‚È‚é‚©ï¿½Cï¿½ï¿½ï¿½Ìƒeï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ñ”‚É’Bï¿½ï¿½ï¿½ï¿½Ü‚ÅŒJï¿½ï¿½Ô‚ï¿½
 		while (1) {
-			// SATƒ\ƒ‹ƒoÀs
-			// Œ‹‰Ê‚ªUNSAT(‰ğ‚È‚µ) -> ’TõI—¹
+			// SATï¿½\ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½s
+			// ï¿½ï¿½ï¿½Ê‚ï¿½UNSAT(ï¿½ï¿½ï¿½È‚ï¿½) -> ï¿½Tï¿½ï¿½ï¿½Iï¿½ï¿½
 			if (CLASP() != CLASP_OKAY) {
 
-				//ƒLƒ…[ƒu”o—Í
+				//ï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½ï¿½ï¿½oï¿½ï¿½
 				fprintf(bdd_result, "%d,", test_loop);
 
-				//ƒeƒXƒg‚ÉŠÖŒW‚·‚éŠO•”“ü—Í”o—Í
+				//ï¿½eï¿½Xï¿½gï¿½ÉŠÖŒWï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Íï¿½ï¿½oï¿½ï¿½
 				fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
-				//ƒeƒXƒgƒLƒ…[ƒuƒtƒ@ƒCƒ‹ƒNƒ[ƒY	
+				//ï¿½eï¿½Xï¿½gï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y	
 				fclose(cube_file);
 
-				//BDD‚É‚æ‚é^—’l•\–§“xŒvZ
-				RunBDD(
-					gbm,                               // CUDDƒ}ƒl[ƒWƒƒƒ|ƒCƒ“ƒ^
-					n_pi,                              // •Ï””
-					opt.file.input.pattern_num_list,   // ƒ‰ƒ“ƒ_ƒ€ƒpƒ^[ƒ“”ƒŠƒXƒg
-					opt.file.input.list_size,          // ƒŠƒXƒg‚ÌƒTƒCƒY(ŒÂ”)
-				    bdd_result,                        // Œ‹‰Êƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-					total_prob_sums                    // Šm—¦˜a”z—ñ
-				);
+				//BDDï¿½É‚ï¿½ï¿½^ï¿½ï¿½ï¿½lï¿½\ï¿½ï¿½ï¿½xï¿½vï¿½Z
+				/*RunBDD(
+					gbm,                               // CUDDï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+					n_pi,                              // ï¿½Ïï¿½ï¿½ï¿½
+					opt.file.input.pattern_num_list,   // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½g
+					opt.file.input.list_size,          // ï¿½ï¿½ï¿½Xï¿½gï¿½ÌƒTï¿½Cï¿½Y(ï¿½Âï¿½)
+				    bdd_result//,                        // ï¿½ï¿½ï¿½Êƒtï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+					//total_prob_sums                    // ï¿½mï¿½ï¿½ï¿½aï¿½zï¿½ï¿½
+				);*/
 
-				//BDDÀŒ±Œ‹‰Êƒtƒ@ƒCƒ‹ƒNƒ[ƒY	
+				//BDDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y	
 				fclose(bdd_result);
 
-				//–¢ŒŸoŒÌáƒŠƒXƒg‚©‚çíœ
+				//ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ÌáƒŠï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½íœ
 				DropDeteFault(&target);
 
-				//ƒƒ‚ƒŠŠJ•ú
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
 				FreeMemory(&remain, &target);
 
 				break;
 
 			}
-			// SAT(‰ğ‚ ‚è) -> ƒeƒXƒg¶¬Œp‘±
+			// SAT(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) -> ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½
 			else {
 				printf("Progress >> %d/%d\n", count,readdata.fault.numinit);
 				printf("SAT test generation count:%d\n", test_loop);
 				
-				//ƒeƒXƒg¶¬‰ñ”‚ª100‰ñ‚É‚È‚Á‚½‚ç‘Å‚¿Ø‚è
+				//ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ñ”‚ï¿½100ï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Ø‚ï¿½
 				if (test_loop == opt.file.input.limit) {
 
-					//ƒLƒ…[ƒu”o—Í
+					//ï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½ï¿½ï¿½oï¿½ï¿½
 					fprintf(bdd_result, "%d,", test_loop);
 
-					//ƒeƒXƒg‚ÉŠÖŒW‚·‚éŠO•”“ü—Í”o—Í
+					//ï¿½eï¿½Xï¿½gï¿½ÉŠÖŒWï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Íï¿½ï¿½oï¿½ï¿½
 					fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
 
-					//ƒeƒXƒgƒLƒ…[ƒuƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+					//ï¿½eï¿½Xï¿½gï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 					fclose(cube_file);
 
-					//BDD‚É‚æ‚é^—’l•\–§“xŒvZ
-					RunBDD(
-						gbm,                               // CUDDƒ}ƒl[ƒWƒƒƒ|ƒCƒ“ƒ^
-						n_pi,                              // •Ï””
-						opt.file.input.pattern_num_list,   // ƒ‰ƒ“ƒ_ƒ€ƒpƒ^[ƒ“”ƒŠƒXƒg
-						opt.file.input.list_size,          // ƒŠƒXƒg‚ÌƒTƒCƒY(ŒÂ”)
-						bdd_result,                        // Œ‹‰Êƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-						total_prob_sums                    // Šm—¦˜a”z—ñ
-					);
+					//BDDï¿½É‚ï¿½ï¿½^ï¿½ï¿½ï¿½lï¿½\ï¿½ï¿½ï¿½xï¿½vï¿½Z
+					/*RunBDD(
+						gbm,                               // CUDDï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+						n_pi,                              // ï¿½Ïï¿½ï¿½ï¿½
+						opt.file.input.pattern_num_list,   // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½g
+						opt.file.input.list_size,          // ï¿½ï¿½ï¿½Xï¿½gï¿½ÌƒTï¿½Cï¿½Y(ï¿½Âï¿½)
+						bdd_result//,                        // ï¿½ï¿½ï¿½Êƒtï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
+						//total_prob_sums                    // ï¿½mï¿½ï¿½ï¿½aï¿½zï¿½ï¿½
+					);*/
 
-					//BDDÀŒ±Œ‹‰Êƒtƒ@ƒCƒ‹ƒNƒ[ƒY	
+					//BDDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y	
 					fclose(bdd_result);
 
-					//–¢ŒŸoŒÌáƒŠƒXƒg‚©‚çíœ
+					//ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ÌáƒŠï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½íœ
 					DropDeteFault(&target);
 
-					//ƒƒ‚ƒŠŠJ•ú
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
 					FreeMemory(&remain, &target);
 
 					break;
 				}
 
-				//ŒÌá‚É‘Î‚·‚éƒeƒXƒg¶¬‰ñ”
+				//ï¿½Ìï¿½É‘Î‚ï¿½ï¿½ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				test_loop++;
 
-				//XID—pƒeƒXƒgƒpƒ^[ƒ“o—Í
+				//XIDï¿½pï¿½eï¿½Xï¿½gï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½oï¿½ï¿½
 				OutSolution(&target);
 
-				//ƒhƒ“ƒgƒPƒA”»’è
+				//dont care identification
 				CALL_XID_SAF(opt.file.input.net, opt.file.output.pin);
 
-				//ƒRƒ“ƒ\[ƒ‹ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+				//tarminal cls
 				system("cls");
 
-				//‹Ö~ßİ’è
+				//generate blocking clause 
 				char* x_pattern = make_blocking_clause(&target);
 
-				//ƒeƒXƒgƒLƒ…[ƒu‚ğƒtƒ@ƒCƒ‹‚É‘‚«‚Ş
+				//ï¿½eï¿½Xï¿½gï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				fprintf(cube_file, "%s\n", x_pattern);
 
 				free(x_pattern);
@@ -212,47 +210,47 @@ bool AnalyzeFaultDensity(
 		}
 	}
 
-	// ‰ñ˜H‘S‘Ì‚ÌŒÌáŒŸo—¦o—Í
+	// ï¿½ï¿½Hï¿½Sï¿½Ì‚ÌŒÌáŒŸï¿½oï¿½ï¿½ï¿½oï¿½ï¿½
 	fileOpen(&bdd_result, opt.file.output.result, "a");
 
 	fprintf(bdd_result, "\n");
 	fprintf(bdd_result, "circuit fault coverage,,,,");
 
-	// •½‹ÏŒvZ—p‚ÌGMP•Ï”€”õ
-	mpf_t average_val, total_faults_mpf;
-	mpf_init(average_val);
-	mpf_init(total_faults_mpf);
+	// ï¿½ï¿½ï¿½ÏŒvï¿½Zï¿½pï¿½ï¿½GMPï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½
+	//mpf_t average_val, total_faults_mpf;
+	//mpf_init(average_val);
+	//mpf_init(total_faults_mpf);
 
-	mpf_set_ui(total_faults_mpf, readdata.fault.numinit);
+	//mpf_set_ui(total_faults_mpf, readdata.fault.numinit);
 
-	// Šeƒ‰ƒ“ƒ_ƒ€ƒpƒ^[ƒ“”‚²‚Æ‚Ì•½‹ÏŒvZ
+	// ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚Ì•ï¿½ï¿½ÏŒvï¿½Z
 	for (int i = 0; i < opt.file.input.list_size; i++) {
-		// •½‹Ï = ‡Œv / ‘SŒÌá”
-		mpf_div(average_val, total_prob_sums[i], total_faults_mpf);
+		// ï¿½ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½v / ï¿½Sï¿½Ìá”
+		//mpf_div(average_val, total_prob_sums[i], total_faults_mpf);
 
 		fprintf(bdd_result, ",");
-		// "%.6Ff" ‚Å¬”“_ˆÈ‰º6Œ…‚Ü‚Åo—Í
-		gmp_fprintf(bdd_result, "%.10Fe", average_val);
+		// "%.6Ff" ï¿½Åï¿½ï¿½ï¿½ï¿½_ï¿½È‰ï¿½6ï¿½ï¿½ï¿½Ü‚Åoï¿½ï¿½
+		//gmp_fprintf(bdd_result, "%.10Fe", average_val);
 	}
 	fprintf(bdd_result, "\n");
 
 	fclose(bdd_result);
 
-	// --- ƒƒ‚ƒŠ‰ğ•ú (Œãn––) ---
-	mpf_clear(average_val);
-	mpf_clear(total_faults_mpf);
+	// --- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½nï¿½ï¿½) ---
+	//mpf_clear(average_val);
+	//mpf_clear(total_faults_mpf);
 
 	for (int i = 0; i < MAX_PATTERN_CASES; i++) {
-		mpf_clear(total_prob_sums[i]);
+		//mpf_clear(total_prob_sums[i]);
 	}
 
 	return AFD_OKAY;
 }
 
 //*************************************************************************************************************
-//	@name		F@OutSolution
-//	@function	F	output the solution
-//	@return		F	(bool) okay, error
+//	@name		ï¿½Fï¿½@OutSolution
+//	@function	ï¿½F	output the solution
+//	@return		ï¿½F	(bool) okay, error
 //*************************************************************************************************************
 void OutSolution(
 	TARGET* target		  /**< target fault */
@@ -282,9 +280,9 @@ void OutSolution(
 }
 
 //*************************************************************************************************************
-//	@name		F@FreeMemory
-//	@function	F	free the memory
-//	@return		F	(void)
+//	@name		ï¿½Fï¿½@FreeMemory
+//	@function	ï¿½F	free the memory
+//	@return		ï¿½F	(void)
 //*************************************************************************************************************
 void FreeMemory(
 	TARGET* remain,			  /**< remain fault */
@@ -312,9 +310,3 @@ void FreeMemory(
 	}
 	return;
 }
-
-
-
-
-
-

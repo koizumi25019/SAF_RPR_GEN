@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/opb/clasp/clasp.c															     */
-/*	deginer		:	T.Sone																			  		 */
-/*	date		:	2023.06.21																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -15,19 +5,15 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#include <assert.h>
-#include <direct.h>
 
 #include "./clasp.h"
 #include "../../read.h"
 #include "../../../lib/lib.h"
-#include "../../../standard.h"
-
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CLASP
-//	@function	ÅF	call the "clasp.exe"
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@CLASP
+//	@function	ÔøΩF	call the "clasp.exe"
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool CLASP(
 	void
@@ -54,7 +40,7 @@ bool CLASP(
 			fclose(fileptr);
 			return CLASP_ERROR;
 		}
-		//SATÇÃèÍçá
+		//SATÔøΩÃèÍçá
 		else
 		{
 			/** get the SCIP solution */
@@ -74,9 +60,9 @@ bool CLASP(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CLASPgetObjVal
-//	@function	ÅF	get the object value
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CLASPgetObjVal
+//	@function	ÔøΩF	get the object value
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CLASPgetObjVal(
 	FILE* fileptr			  /**< pointer to file */
@@ -122,9 +108,9 @@ void CLASPgetObjVal(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CLASPgetSol
-//	@function	ÅF	get the solution
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CLASPgetSol
+//	@function	ÔøΩF	get the solution
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CLASPgetSol(
 	FILE* fileptr			  /**< pointer to file */
@@ -148,7 +134,7 @@ void CLASPgetSol(
 		{
 			/** get the variable number */
 			if (buffer[0] == 'v') {
-				tmptok = strtok_s(buffer, " \n",&context);//vÇçÌèúÇ∑ÇÈ
+				tmptok = strtok_s(buffer, " \n",&context);//vÔøΩÔøΩÔøΩÌèúÔøΩÔøΩÔøΩÔøΩ
 				while ((tmptok = strtok_s(NULL, " \n", &context)) != NULL) {
 					//if (count >= 0 && count < readdata.lfsrnet.num) {
 					//	if (tmptok[0] == '-') {

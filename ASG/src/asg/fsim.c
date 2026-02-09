@@ -2,10 +2,8 @@
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include <stdbool.h>
-#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <direct.h>
 
 #include "./asg.h"
 #include "./read.h"
@@ -14,12 +12,11 @@
 #include "./opb/clasp/clasp.h"
 #include "../opt/opt.h"
 #include "../lib/lib.h"
-#include "../standard.h"
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@DropDeteFault
-//	@function	ÅF	drop the detected fault
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@DropDeteFault
+//	@function	ÔøΩF	drop the detected fault
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool DropDeteFault(
 	TARGET* target

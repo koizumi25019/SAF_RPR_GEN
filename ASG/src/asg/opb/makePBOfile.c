@@ -1,19 +1,8 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																			     */
-/*	file		:	./src/atpg/opb/makePBOfile.c														     */
-/*	deginer		:	T.Sone																			  		 */
-/*	date		:	2023.06.21																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 #include <string.h>
 
 #include "./opb.h"
@@ -25,9 +14,9 @@
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@makePBOFile
-//	@function	ÅF	make the pbo file
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makePBOFile
+//	@function	ÔøΩF	make the pbo file
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makePBOFile(
 	char** minimize,			  /**< minimize */
@@ -59,9 +48,9 @@ void makePBOFile(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@makeProbFileMini_clasp
-//	@function	ÅF	make file -write the minimize
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makeProbFileMini_clasp
+//	@function	ÔøΩF	make file -write the minimize
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileMini_clasp(
 	FILE* fileptr,			  /**< pointer to file */
@@ -77,7 +66,7 @@ void makeProbFileMini_clasp(
 		fprintf(fileptr, "*\n");
 
 		//---------------------------------------------
-		//	PBOÉtÉ@ÉCÉãèëÇ´çûÇ›Åiç≈ìKâªä÷êîÅj
+		//	PBOÔøΩtÔøΩ@ÔøΩCÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ›ÅiÔøΩ≈ìKÔøΩÔøΩÔøΩ÷êÔøΩÔøΩj
 		//---------------------------------------------
 
 		fprintf(fileptr, "min: %s;\n", *minimize);
@@ -92,7 +81,7 @@ void makeProbFileMini_clasp(
 		fprintf(fileptr, "*\n");
 
 		//---------------------------------------------
-		//	PBOÉtÉ@ÉCÉãèëÇ´çûÇ›Åiç≈ìKâªä÷êîÅj
+		//	PBOÔøΩtÔøΩ@ÔøΩCÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ›ÅiÔøΩ≈ìKÔøΩÔøΩÔøΩ÷êÔøΩÔøΩj
 		//---------------------------------------------
 
 		fprintf(fileptr, "min: %s;\n", *minimize);
@@ -103,9 +92,9 @@ void makeProbFileMini_clasp(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@makeProbFileConsGC_clasp
-//	@function	ÅF	make file -write the gc-constraint
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makeProbFileConsGC_clasp
+//	@function	ÔøΩF	make file -write the gc-constraint
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileConsGC_clasp(
 	FILE* fileptr			  /**< pointer to file */
@@ -123,9 +112,9 @@ void makeProbFileConsGC_clasp(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPBmakefileConsFC_clasp
-//	@function	ÅF	make file -write the fc-constraint
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@OPBmakefileConsFC_clasp
+//	@function	ÔøΩF	make file -write the fc-constraint
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileConsFC_clasp(
 	FILE* fileptr,			  /**< pointer to file */

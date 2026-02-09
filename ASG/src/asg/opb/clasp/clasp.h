@@ -3,12 +3,8 @@
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include <stdbool.h>
-#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-#include "../../../standard.h"
-
 
 //-------------------------------------------------------------------------------------------------------------
 //	define
@@ -41,22 +37,20 @@
 #define CLASP_STATUS_RESTARTLIMIT	14
 #define CLASP_STATUS_INFORUNBD		15
 
-//#define SCIP_LOG
-
 /** call clasp (limit times =10[s]) */
 #define	CALL_CLASP do																  		  \
 {																											  \
 	if(_chdir(CLASP_DIR) != 0)																				  \
 	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
+		printf("\n	SYSTEM ERROR: changing directory is failed. ");									  \
+		printf("directory %c%s%c does not exist. \n",'"',CLASP_DIR,'"');								  \
 		exit(EXIT_FAILURE);																				      \
 	}																										  \
 	system("clasp.exe pbo.txt --opt-mode=ignore --mode=1 >clasp_result.txt");  \
 	if(_chdir("../../") != 0)																			      \
 	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
+		printf("\n	SYSTEM ERROR: changing directory is failed. ");									  \
+		printf("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
 		exit(EXIT_FAILURE);																				      \
 	}																										  \
 }																											  \

@@ -4,18 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include <stdbool.h>
 
 #include "./lib.h"
-#include "../standard.h"
 #include "../asg/read.h"
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@fileOpen
-//	@function	ÅF	open the file
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@fileOpen
+//	@function	ÔøΩF	open the file
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void fileOpen(
 	FILE** fileptr,			  /**< pointer to file */
@@ -25,9 +23,8 @@ void fileOpen(
 {
 	if (fopen_s(fileptr, filename, mode) != 0)
 	{
-		PrintErrorMessage("\n	FILE ERROR: file open error. ");
-		PrintErrorMessage("%c%s%c cannot open.\n", '"', filename, '"');
-		colorDef
+		printf("\n	FILE ERROR: file open error. ");
+		printf("%c%s%c cannot open.\n", '"', filename, '"');
 		exit(EXIT_FAILURE);
 	}
 
@@ -35,9 +32,9 @@ void fileOpen(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@allocMemory
-//	@function	ÅF	allocate the memory
-//	@return		ÅF	(void*) pointer to allocated the memory
+//	@name		ÔøΩFÔøΩ@allocMemory
+//	@function	ÔøΩF	allocate the memory
+//	@return		ÔøΩF	(void*) pointer to allocated the memory
 //*************************************************************************************************************
 void* allocMemory(
 	size_t			      count,			  /**< number of counts of alloc memory */
@@ -49,7 +46,7 @@ void* allocMemory(
 
 	if ((ptr = calloc(count, size)) == (void*)NULL)
 	{
-		PrintErrorMessage("\n	MEMORY ERROR: memory allocation could not be secured.\n");
+		printf("\n	MEMORY ERROR: memory allocation could not be secured.\n");
 
 		exit(EXIT_FAILURE);
 	}
@@ -58,9 +55,9 @@ void* allocMemory(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@calcHash
-//	@function	ÅF	calculate the hash value
-//	@return		ÅF	(int) hash value
+//	@name		ÔøΩFÔøΩ@calcHash
+//	@function	ÔøΩF	calculate the hash value
+//	@return		ÔøΩF	(int) hash value
 //*************************************************************************************************************
 int calcHash(
 	char* buffer			  /** buffer */
@@ -77,9 +74,9 @@ int calcHash(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@stackPUSH
-//	@function	ÅF	push the netlist in stack
-//	@return		ÅF	(viod)
+//	@name		ÔøΩFÔøΩ@stackPUSH
+//	@function	ÔøΩF	push the netlist in stack
+//	@return		ÔøΩF	(viod)
 //*************************************************************************************************************
 void stackPUSH(
 	NLIST* netptr			  /** pointer to netlist */
@@ -89,7 +86,7 @@ void stackPUSH(
 
 	if (stack.ptr >= stack.maxnum)
 	{
-		PrintErrorMessage("\n	SYSTEM ERROR: stack overflow\n");
+		printf("\n	SYSTEM ERROR: stack overflow\n");
 
 		exit(EXIT_FAILURE);
 	}
@@ -98,9 +95,9 @@ void stackPUSH(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@stackPOP
-//	@function	ÅF	pop the netlist from stack
-//	@return		ÅF	(NLIST*) pointer to netlist
+//	@name		ÔøΩFÔøΩ@stackPOP
+//	@function	ÔøΩF	pop the netlist from stack
+//	@return		ÔøΩF	(NLIST*) pointer to netlist
 //*************************************************************************************************************
 NLIST* stackPOP(
 	void
@@ -108,7 +105,7 @@ NLIST* stackPOP(
 {
 	if (stack.ptr < 0)
 	{
-		PrintErrorMessage("\n	SYSTEM ERROR: stack underflow\n");
+		printf("\n	SYSTEM ERROR: stack underflow\n");
 
 		exit(EXIT_FAILURE);
 	}
@@ -117,9 +114,9 @@ NLIST* stackPOP(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@queENQ
-//	@function	ÅF	enqueue the netlist to queue
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@queENQ
+//	@function	ÔøΩF	enqueue the netlist to queue
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void queENQ(
 	NLIST* netptr,			  /** pointer to netlist */
@@ -136,7 +133,7 @@ void queENQ(
 
 		if (que.maxnum < que.num)
 		{
-			PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
+			printf("\n	SYSTEM ERROR: queue over flow.\n");
 
 			exit(EXIT_FAILURE);
 		}
@@ -153,7 +150,7 @@ void queENQ(
 
 			if (que.maxnum < que.num)
 			{
-				PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
+				printf("\n	SYSTEM ERROR: queue over flow.\n");
 
 				exit(EXIT_FAILURE);
 			}
@@ -171,7 +168,7 @@ void queENQ(
 
 			if (que.maxnum < que.num)
 			{
-				PrintErrorMessage("\n	SYSTEM ERROR: queue over flow.\n");
+				printf("\n	SYSTEM ERROR: queue over flow.\n");
 
 				exit(EXIT_FAILURE);
 			}
@@ -191,9 +188,9 @@ void queENQ(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@queDEQ
-//	@function	ÅF	dequeue the netlist from queue
-//	@return		ÅF	(NLIST*) pointer to nelist
+//	@name		ÔøΩFÔøΩ@queDEQ
+//	@function	ÔøΩF	dequeue the netlist from queue
+//	@return		ÔøΩF	(NLIST*) pointer to nelist
 //*************************************************************************************************************
 NLIST* queDEQ(
 	void
@@ -211,7 +208,7 @@ NLIST* queDEQ(
 
 	if (que.num < 0)
 	{
-		PrintErrorMessage("\n	SYSTEM ERROR: queue under flow.\n");
+		printf("\n	SYSTEM ERROR: queue under flow.\n");
 
 		exit(EXIT_FAILURE);
 	}
@@ -220,10 +217,10 @@ NLIST* queDEQ(
 }
 
 //=========================================================================
-//  ä÷êîñº : queue_emp
-//  ã@  î\ : ÉXÉ^ÉbÉNÇ™ãÛÇ©îªíË
-//  ñﬂÇËíl : 0Åiñ≥ÅjÅC1ÅióLÅj
-//  à¯  êî : Ç»Çµ
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : queue_emp
+//  ÔøΩ@  ÔøΩ\ : ÔøΩXÔøΩ^ÔøΩbÔøΩNÔøΩÔøΩÔøΩÛÇ©îÔøΩÔøΩÔøΩ
+//  ÔøΩﬂÇÔøΩl : 0ÔøΩiÔøΩÔøΩÔøΩjÔøΩC1ÔøΩiÔøΩLÔøΩj
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ»ÇÔøΩ
 //=========================================================================
 int queue_emp() {
 
@@ -236,9 +233,9 @@ int queue_emp() {
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@bitintSetAll_One
-//	@function	ÅF	set the all-bits to one
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@bitintSetAll_One
+//	@function	ÔøΩF	set the all-bits to one
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void bitintSetAll_One(
 	BIT_INT* bitint			  /** bit int */
@@ -254,9 +251,9 @@ void bitintSetAll_One(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@bitintSetAll_Zero
-//	@function	ÅF	set the all-bits to zero
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@bitintSetAll_Zero
+//	@function	ÔøΩF	set the all-bits to zero
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void bitintSetAll_Zero(
 	BIT_INT* bitint			  /** bit int */
@@ -272,9 +269,9 @@ void bitintSetAll_Zero(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@bitintSetNbit_One
-//	@function	ÅF	set the n-bits to one
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@bitintSetNbit_One
+//	@function	ÔøΩF	set the n-bits to one
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void bitintSetNbit_One(
 	BIT_INT* bitint,			  /** bit int */
@@ -287,9 +284,9 @@ void bitintSetNbit_One(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@bitintSetNbit_Zero
-//	@function	ÅF	set the n-bits to zero
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@bitintSetNbit_Zero
+//	@function	ÔøΩF	set the n-bits to zero
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void bitintSetNbit_Zero(
 	BIT_INT* bitint,			  /** bit int */
@@ -303,9 +300,9 @@ void bitintSetNbit_Zero(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@bitintGetNbit
-//	@function	ÅF	get the n-bit
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@bitintGetNbit
+//	@function	ÔøΩF	get the n-bit
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 unsigned int bitintGetNbit(
 	BIT_INT* bitint,			  /** bit int */
@@ -321,7 +318,7 @@ unsigned int bitintGetNbit(
 			else if ((bitint->flag[0] & MASK_INT[0]) != false)  return true;
 			else
 			{
-				PrintErrorMessage("\n	SYSTEM ERROR: get the n-bit error.\n");
+				printf("\n	SYSTEM ERROR: get the n-bit error.\n");
 
 				exit(EXIT_FAILURE);
 			}
@@ -332,7 +329,7 @@ unsigned int bitintGetNbit(
 			else if ((bitint->flag[nbit / (8 * sizeof(unsigned int))] & MASK_INT[0]) != false)  return true;
 			else
 			{
-				PrintErrorMessage("\n	SYSTEM ERROR: get the n-bit error.\n");
+				printf("\n	SYSTEM ERROR: get the n-bit error.\n");
 
 				exit(EXIT_FAILURE);
 			}
@@ -344,7 +341,7 @@ unsigned int bitintGetNbit(
 		else if ((bitint->flag[(nbit / (8 * sizeof(unsigned int)))] & MASK_INT[nbit % (8 * sizeof(unsigned int))]) != false) return true;
 		else
 		{
-			PrintErrorMessage("\n	SYSTEM ERROR: get the n-bit error.\n");
+			printf("\n	SYSTEM ERROR: get the n-bit error.\n");
 
 			exit(EXIT_FAILURE);
 		}
@@ -353,9 +350,9 @@ unsigned int bitintGetNbit(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@isSingleByte
-//	@function	ÅF	determines if single-byte characters are used
-//	@return		ÅF	(bool) true, false
+//	@name		ÔøΩFÔøΩ@isSingleByte
+//	@function	ÔøΩF	determines if single-byte characters are used
+//	@return		ÔøΩF	(bool) true, false
 //*************************************************************************************************************
 bool isSingleByte(
 	int					  c					  /** characters */
@@ -370,10 +367,10 @@ bool isSingleByte(
 }
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : All_INT_One_XP
-//  ã@  î\ : ëSÉrÉbÉgÇ1Ç…ÉZÉbÉg( flag=1 )
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ(ÉtÉâÉOäiî[êÊ)
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : All_INT_One_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩSÔøΩrÔøΩbÔøΩgÔøΩÔøΩ1ÔøΩ…ÉZÔøΩbÔøΩg( flag=1 )
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ(ÔøΩtÔøΩÔøΩÔøΩOÔøΩiÔøΩ[ÔøΩÔøΩ)
 //------------------------------------------------------------------------
 void All_INT_One_XP(BIT_INT_XP* all_one)
 {
@@ -389,10 +386,10 @@ void All_INT_One_XP(BIT_INT_XP* all_one)
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : All_INT_Zero_XP
-//  ã@  î\ : ëSÉrÉbÉgÇ0Ç…ÉZÉbÉg( flag=0 )
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ(ÉtÉâÉOäiî[êÊ)
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : All_INT_Zero_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩSÔøΩrÔøΩbÔøΩgÔøΩÔøΩ0ÔøΩ…ÉZÔøΩbÔøΩg( flag=0 )
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ(ÔøΩtÔøΩÔøΩÔøΩOÔøΩiÔøΩ[ÔøΩÔøΩ)
 //------------------------------------------------------------------------
 void All_INT_Zero_XP(BIT_INT_XP* all_zero)
 {
@@ -407,10 +404,10 @@ void All_INT_Zero_XP(BIT_INT_XP* all_zero)
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : All_Bit_X_XP
-//  ã@  î\ : ëSÉrÉbÉgÇX(ÉhÉìÉgÉPÉA)Ç…ÉZÉbÉg( XÉoÉbÉtÉ@=0 ,PÉoÉbÉtÉ@=0 )
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ(ÉeÉXÉgÉpÉ^Å[Éìäiî[êÊ)
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : All_Bit_X_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩSÔøΩrÔøΩbÔøΩgÔøΩÔøΩX(ÔøΩhÔøΩÔøΩÔøΩgÔøΩPÔøΩA)ÔøΩ…ÉZÔøΩbÔøΩg( XÔøΩoÔøΩbÔøΩtÔøΩ@=0 ,PÔøΩoÔøΩbÔøΩtÔøΩ@=0 )
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ(ÔøΩeÔøΩXÔøΩgÔøΩpÔøΩ^ÔøΩ[ÔøΩÔøΩÔøΩiÔøΩ[ÔøΩÔøΩ)
 //------------------------------------------------------------------------
 void All_Bit_X_XP(BIT_INT_XP* all_x)
 {
@@ -425,10 +422,10 @@ void All_Bit_X_XP(BIT_INT_XP* all_x)
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : Set_NINT_One_XP
-//  ã@  î\ : éwíËÉrÉbÉgñ⁄Ç…1ÇÉZÉbÉg
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ, éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Set_NINT_One_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩ⁄ÇÔøΩ1ÔøΩÔøΩÔøΩZÔøΩbÔøΩg
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ, ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 void Set_NINT_One_XP(BIT_INT_XP* one_set, unsigned int pi_num) {
 
@@ -438,10 +435,10 @@ void Set_NINT_One_XP(BIT_INT_XP* one_set, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : Set_NINT_Zero_XP
-//  ã@  î\ : éwíËÉrÉbÉgñ⁄Ç…0ÇÉZÉbÉg
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ, éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Set_NINT_Zero_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩ⁄ÇÔøΩ0ÔøΩÔøΩÔøΩZÔøΩbÔøΩg
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ, ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 void Set_NINT_Zero_XP(BIT_INT_XP* zero_set, unsigned int pi_num) {
 
@@ -451,10 +448,10 @@ void Set_NINT_Zero_XP(BIT_INT_XP* zero_set, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : Set_NBit_X_XP
-//  ã@  î\ : éwíËÉrÉbÉgñ⁄Ç…XÇÉZÉbÉg( XÉoÉbÉtÉ@=1 ,PÉoÉbÉtÉ@=1 )
-//  ñﬂÇËíl : Ç»Çµ
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ(ÉeÉXÉgÉpÉ^Å[Éìäiî[êÊ), éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Set_NBit_X_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩ⁄ÇÔøΩXÔøΩÔøΩÔøΩZÔøΩbÔøΩg( XÔøΩoÔøΩbÔøΩtÔøΩ@=1 ,PÔøΩoÔøΩbÔøΩtÔøΩ@=1 )
+//  ÔøΩﬂÇÔøΩl : ÔøΩ»ÇÔøΩ
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ(ÔøΩeÔøΩXÔøΩgÔøΩpÔøΩ^ÔøΩ[ÔøΩÔøΩÔøΩiÔøΩ[ÔøΩÔøΩ), ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 void Set_NBit_X_XP(BIT_INT_XP* x_set, unsigned int pi_num)
 {
@@ -466,19 +463,19 @@ void Set_NBit_X_XP(BIT_INT_XP* x_set, unsigned int pi_num)
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : Get_NBit_INT_XP
-//  ã@  î\ : éwíËÉrÉbÉgÇÃílÇìæÇÈ( 0 or 1 or X ?)
-//  ñﬂÇËíl : äiî[íl( 0 or 1 or X )
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ, éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Get_NBit_INT_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃílÔøΩìæÇÔøΩ( 0 or 1 or X ?)
+//  ÔøΩﬂÇÔøΩl : ÔøΩiÔøΩ[ÔøΩl( 0 or 1 or X )
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ, ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
-	// éwíËÉrÉbÉgÇÃíTçı
+	// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíTÔøΩÔøΩ
 	//=======================================================================
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//=======================================================================
 		if (pi_num == 0) {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)	return 0; // (x_buf=0 , p_buf=1)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -486,13 +483,13 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("äiî[ ERROR\n");
+				printf("ÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
 		//=======================================================================
 		else {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 0; // (x_buf=0 , p_buf=1)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -500,7 +497,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("äiî[ ERROR\n");
+				printf("ÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
@@ -508,7 +505,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 	}
 	//=======================================================================
 	else {
-		// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+		// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 0; // (x_buf=0 , p_buf=1)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -516,7 +513,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 		else {
-			printf("äiî[ ERROR\n");
+			printf("ÔøΩiÔøΩ[ ERROR\n");
 			exit(-1);
 		}
 	}
@@ -526,37 +523,37 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  ä÷êîñº : Get_NBit_Xbuf
-//  ã@  î\ : XÉoÉbÉtÉ@ÇÃÇ›ÇÃéwíËÉrÉbÉgÇÃílÇìæÇÈ( 0 or 1 ?)
-//  ñﬂÇËíl : äiî[íl( 0 or 1 )
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ(ÉeÉXÉgÉpÉ^Å[Éìäiî[êÊ), éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Get_NBit_Xbuf
+//  ÔøΩ@  ÔøΩ\ : XÔøΩoÔøΩbÔøΩtÔøΩ@ÔøΩÃÇ›ÇÃéwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃílÔøΩìæÇÔøΩ( 0 or 1 ?)
+//  ÔøΩﬂÇÔøΩl : ÔøΩiÔøΩ[ÔøΩl( 0 or 1 )
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ(ÔøΩeÔøΩXÔøΩgÔøΩpÔøΩ^ÔøΩ[ÔøΩÔøΩÔøΩiÔøΩ[ÔøΩÔøΩ), ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_Xbuf(BIT_INT_XP* get_n, unsigned int pi_num)
 {
 
-	// éwíËÉrÉbÉgÇÃíTçı
+	// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíTÔøΩÔøΩ
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//====================================================================
 		if (pi_num == 0) {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0) return 0; // (x_buf=0)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0) return 1; // (x_buf=1)
 
 			else {
-				printf("TPäiî[ ERROR\n");
+				printf("TPÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
 		//====================================================================
 		else {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 0; // (x_buf=0)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 1; // (x_buf=1)
 
 			else {
-				printf("TPäiî[ ERROR\n");
+				printf("TPÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
@@ -564,31 +561,31 @@ unsigned int  Get_NBit_Xbuf(BIT_INT_XP* get_n, unsigned int pi_num)
 	}
 	//====================================================================
 	else {
-		// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+		// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 0; // (x_buf=0)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 1; // (x_buf=1)
 
 		else {
-			printf("TPäiî[ ERROR\n");
+			printf("TPÔøΩiÔøΩ[ ERROR\n");
 			exit(-1);
 		}
 	}
 }
 //------------------------------------------------------------------------
-//  ä÷êîñº : Get_NBit_XP
-//  ã@  î\ : éwíËÉrÉbÉgÇÃílÇìæÇÈ(xbuf,pbuf)
-//  ñﬂÇËíl : äiî[íl( 0 or 1 or 2 or 3 )
-//  à¯  êî : É|ÉCÉìÉ^îzóÒ, éwíËÉrÉbÉgêî
+//  ÔøΩ÷êÔøΩÔøΩÔøΩ : Get_NBit_XP
+//  ÔøΩ@  ÔøΩ\ : ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃílÔøΩìæÇÔøΩ(xbuf,pbuf)
+//  ÔøΩﬂÇÔøΩl : ÔøΩiÔøΩ[ÔøΩl( 0 or 1 or 2 or 3 )
+//  ÔøΩÔøΩ  ÔøΩÔøΩ : ÔøΩ|ÔøΩCÔøΩÔøΩÔøΩ^ÔøΩzÔøΩÔøΩ, ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÔøΩ
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
-	// éwíËÉrÉbÉgÇÃíTçı
+	// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíTÔøΩÔøΩ
 	//=======================================================================
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//=======================================================================
 		if (pi_num == 0) {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) == 0)	return 0; // (x_buf=0 , p_buf=0)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)	return 1; // (x_buf=0 , p_buf=1)
@@ -598,13 +595,13 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("äiî[ ERROR\n");
+				printf("ÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
 		//=======================================================================
 		else {
-			// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+			// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 0; // (x_buf=0 , p_buf=0)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 1; // (x_buf=0 , p_buf=1)
@@ -614,7 +611,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("äiî[ ERROR\n");
+				printf("ÔøΩiÔøΩ[ ERROR\n");
 				exit(-1);
 			}
 		}
@@ -622,7 +619,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 	}
 	//=======================================================================
 	else {
-		// éwíËÉrÉbÉgÇÃíÜêgÇämîF(0, 1)
+		// ÔøΩwÔøΩÔøΩrÔøΩbÔøΩgÔøΩÃíÔøΩÔøΩgÔøΩÔøΩÔøΩmÔøΩF(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 0; // (x_buf=0 , p_buf=0)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 1; // (x_buf=0 , p_buf=1)
@@ -632,7 +629,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 		else {
-			printf("äiî[ ERROR\n");
+			printf("ÔøΩiÔøΩ[ ERROR\n");
 			exit(-1);
 		}
 	}

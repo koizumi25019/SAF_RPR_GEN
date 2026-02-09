@@ -7,7 +7,6 @@
 
 #include "./target.h"
 #include "./read.h"
-#include "../standard.h"
 #include "../opt/opt.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
@@ -62,8 +61,8 @@
 	context = strtok_s(NULL, " \n\0", &context);															  \
 	if(context == NULL)																						  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("type of fault error.\n\n");														  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("type of fault error.\n\n");														  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 	if (!strcmp(context, "sa0"))																			  \
@@ -76,8 +75,8 @@
 	}																										  \
 	else																									  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("%c%s%c unexpected type of fault.\n\n",'"', context, '"');						  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("%c%s%c unexpected type of fault.\n\n",'"', context, '"');						  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 }																											  \
@@ -96,8 +95,8 @@ while (false);
 	}																										  \
 	if(netptr==(NLIST*)NULL)																				  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("%c%s%c is thought.\n\n",	'"', buffer, '"');										  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("%c%s%c is thought.\n\n",	'"', buffer, '"');										  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 }																											  \

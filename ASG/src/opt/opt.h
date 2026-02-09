@@ -5,9 +5,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "../standard.h"
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
@@ -16,13 +13,10 @@
 
 #define	MAXSIZE_FILENAME		  100		  /**< maximum size of filename */
 
-#define MAX_PATTERN               100         // Å‘å100ŒÂ‚Ü‚ÅŽw’è‰Â”\
+#define MAX_PATTERN               100         // ï¿½Å‘ï¿½100ï¿½Â‚Ü‚ÅŽwï¿½ï¿½Â”\
 
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
-
-#define	PrintHelpMessage		  colorNo4 printf	  /**< help message */
-
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre
@@ -33,9 +27,9 @@ typedef struct Input_File
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
 	char* relation;           /**< test relation file */
-	int pattern_num_list[MAX_PATTERN]; // ƒpƒ^[ƒ“”‚ðŠi”[‚·‚é”z—ñ
-	int list_size;            // ƒpƒ^[ƒ“”ƒŠƒXƒg‚ÌƒTƒCƒY
-	int limit;                // ƒeƒXƒg¶¬‘Å‚¿Ø‚è‰ñ”
+	int pattern_num_list[MAX_PATTERN]; // ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½
+	int list_size;            // ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½gï¿½ÌƒTï¿½Cï¿½Y
+	int limit;                // ï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Ø‚ï¿½ï¿½
 }
 INPUT;
 

@@ -5,13 +5,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "./standard.h"
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
-#define PROJECT_NAME      "SAF RPR GEN"
+#define PROJECT_NAME      "Analyze Fault Detection Probability"
 
 #define RETCODE_OKAY	  true				  /**< return code   = okay */
 #define RETCODE_ERROR	  false				  /**< return code   = error */

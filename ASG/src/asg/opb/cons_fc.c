@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/opb/cons_fc.c																	 */
-/*	deginer		:	R.miura																			  		 */
-/*	date		:	2022.09.01																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -20,14 +10,13 @@
 #include "../asg.h"
 #include "../init.h"
 #include "../../lib/lib.h"
-#include "../../standard.h"
 #include "../../netlist/netlist.h"
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC
-//	@function	ÅF	create the faulty-circuit constraint
-//	@return		ÅF	(bool) okay, error 
+//	@name		ÔøΩFÔøΩ@CreateConsFC
+//	@function	ÔøΩF	create the faulty-circuit constraint
+//	@return		ÔøΩF	(bool) okay, error 
 //*************************************************************************************************************
 bool CreateConsFC(
 	char** minimize,			  /**< minimize */
@@ -75,8 +64,8 @@ bool CreateConsFC(
 					case DFF:										break;
 
 					default:
-						PrintErrorMessage("\n	SYSTEM ERROR: test pattern model generation failed. ");
-						PrintErrorMessage("some gates are not supported. \n\n");
+						printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
+						printf("some gates are not supported. \n\n");
 
 						return TPG_MODEL_ERROR;
 					}
@@ -85,14 +74,6 @@ bool CreateConsFC(
 
 			/** create the detection-circuit constraint */
 			CreateConsDC(target->list[i], i);
-
-			/** create the minimize */
-			if (target->list[i]->relax == true) {
-				CreateMini(minimize, 1, opb.total.vars);
-			}
-#ifdef __DEBUG_OPB_CONS_FDC__
-			_CALL_DEBUG_OPB_CONS_FDC_(*minimize, target, i);
-#endif
 		}
 	}
 
@@ -100,9 +81,9 @@ bool CreateConsFC(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@SearchTFO
-//	@function	ÅF	search for transitive-fout
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@SearchTFO
+//	@function	ÔøΩF	search for transitive-fout
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void SearchTFO(
 	FNODE* target			  /**< target fault */
@@ -127,7 +108,7 @@ void SearchTFO(
 		{
 			netptr->flag |= TFO;
 			netptr->varsfc = ++opb.total.vars;
-			//PrintDebugMessage("x%dÅ®%s varsfc\n", netptr->varsfc,netptr->name);
+			//PrintDebugMessage("x%dÔøΩÔøΩ%s varsfc\n", netptr->varsfc,netptr->name);
 
 			numtrannet++;
 
@@ -150,9 +131,9 @@ void SearchTFO(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_AND
-//	@function	ÅF	create the faulty-circuit constraint -AND
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_AND
+//	@function	ÔøΩF	create the faulty-circuit constraint -AND
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_AND(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -163,10 +144,10 @@ void CreateConsFC_AND(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  _______				*
-	/**	 x Å°----|      Å_			  	*	x y + ~z  =1
-	/**		Å@Å@ |  AND   Åj---Å° z		*
-	/**	 y Å°----|______Å^				*	(x + ~z) (y + ~z) (~x + ~y + z)
+	/**		 ÔøΩ@  _______				*
+	/**	 x ÔøΩÔøΩ----|      ÔøΩ_			  	*	x y + ~z  =1
+	/**		ÔøΩ@ÔøΩ@ |  AND   ÔøΩj---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----|______ÔøΩ^				*	(x + ~z) (y + ~z) (~x + ~y + z)
 	/**								    *
 	/*********************************************************************/
 #ifdef FORMAT_OPB
@@ -227,9 +208,9 @@ void CreateConsFC_AND(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_NAND
-//	@function	ÅF	create the faulty-circuit constraint -NAND
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_NAND
+//	@function	ÔøΩF	create the faulty-circuit constraint -NAND
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_NAND(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -240,10 +221,10 @@ void CreateConsFC_NAND(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  _______				*
-	/**	 x Å°----|      Å_			  	*	x y + z  =1
-	/**		Å@Å@ |  NAND  ÅZ---Å° z		*
-	/**	 y Å°----|______Å^				*	(x + z) (y + z) (~x + ~y + ~z)
+	/**		 ÔøΩ@  _______				*
+	/**	 x ÔøΩÔøΩ----|      ÔøΩ_			  	*	x y + z  =1
+	/**		ÔøΩ@ÔøΩ@ |  NAND  ÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----|______ÔøΩ^				*	(x + z) (y + z) (~x + ~y + ~z)
 	/**								    *
 	/*********************************************************************/
 #ifdef FORMAT_OPB
@@ -304,9 +285,9 @@ void CreateConsFC_NAND(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_OR
-//	@function	ÅF	create the faulty-circuit constriant -OR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_OR
+//	@function	ÔøΩF	create the faulty-circuit constriant -OR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_OR(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -317,11 +298,11 @@ void CreateConsFC_OR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  ______					*
-	/**	 x Å°----Å_    Å_			  	*	~x ~y + z  =1
-	/**		Å@Å@   ) OR  )---Å° z		*
-	/**	 y Å°----Å^    Å^				*	(~x + z) (~y + z) (x + y + ~z)
-	/**			 ÅPÅPÅP 				*
+	/**		 ÔøΩ@  ______					*
+	/**	 x ÔøΩÔøΩ----ÔøΩ_    ÔøΩ_			  	*	~x ~y + z  =1
+	/**		ÔøΩ@ÔøΩ@   ) OR  )---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----ÔøΩ^    ÔøΩ^				*	(~x + z) (~y + z) (x + y + ~z)
+	/**			 ÔøΩPÔøΩPÔøΩP 				*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -381,9 +362,9 @@ void CreateConsFC_OR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_NOR
-//	@function	ÅF	create the faulty-circuit constraint -NOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_NOR
+//	@function	ÔøΩF	create the faulty-circuit constraint -NOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_NOR(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -394,11 +375,11 @@ void CreateConsFC_NOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  ______					*
-	/**	 x Å°----Å_    Å_			  	*	~x ~y + ~z  =1
-	/**		Å@Å@   ) NOR ÅZ---Å° z		*
-	/**	 y Å°----Å^    Å^				*	(~x + ~z) (~y + ~z) (x + y + z)
-	/**			 ÅPÅPÅP 				*
+	/**		 ÔøΩ@  ______					*
+	/**	 x ÔøΩÔøΩ----ÔøΩ_    ÔøΩ_			  	*	~x ~y + ~z  =1
+	/**		ÔøΩ@ÔøΩ@   ) NOR ÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----ÔøΩ^    ÔøΩ^				*	(~x + ~z) (~y + ~z) (x + y + z)
+	/**			 ÔøΩPÔøΩPÔøΩP 				*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -458,9 +439,9 @@ void CreateConsFC_NOR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_BUF
-//	@function	ÅF	create the faulty-circuit constraint -BUF
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_BUF
+//	@function	ÔøΩF	create the faulty-circuit constraint -BUF
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_BUF(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -471,11 +452,11 @@ void CreateConsFC_BUF(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**			|Å_		Å@Å@Å@Å@		*
-	/**			|  Å_		Å@Å@Å@Å@	*		x y + ~x ~y  =1
-	/**	 x Å°---|BUF >---Å° y		*
-	/**			|  Å^		Å@Å@		*		(x + ~y) (~x + y)
-	/**         |Å^					*
+	/**			|ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
+	/**			|  ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@	*		x y + ~x ~y  =1
+	/**	 x ÔøΩÔøΩ---|BUF >---ÔøΩÔøΩ y		*
+	/**			|  ÔøΩ^		ÔøΩ@ÔøΩ@		*		(x + ~y) (~x + y)
+	/**         |ÔøΩ^					*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -518,9 +499,9 @@ void CreateConsFC_BUF(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_INV
-//	@function	ÅF	create the faulty-circuit constraint -INV
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_INV
+//	@function	ÔøΩF	create the faulty-circuit constraint -INV
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_INV(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -531,11 +512,11 @@ void CreateConsFC_INV(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**			|Å_		Å@Å@Å@Å@		*
-	/**			|  Å_		Å@Å@Å@Å@	*		~x y + x ~y  =1
-	/**	 x Å°---|INV ÅZ---Å° y		*
-	/**			|  Å^		Å@Å@		*		(~x + ~y) (x + y)
-	/**         |Å^					*
+	/**			|ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
+	/**			|  ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@	*		~x y + x ~y  =1
+	/**	 x ÔøΩÔøΩ---|INV ÔøΩZ---ÔøΩÔøΩ y		*
+	/**			|  ÔøΩ^		ÔøΩ@ÔøΩ@		*		(~x + ~y) (x + y)
+	/**         |ÔøΩ^					*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -578,9 +559,9 @@ void CreateConsFC_INV(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_XOR
-//	@function	ÅF	create the faulty-circuit constraint -XOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_XOR
+//	@function	ÔøΩF	create the faulty-circuit constraint -XOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_XOR(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -591,11 +572,11 @@ void CreateConsFC_XOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		  Å@   ÅQÅQ					*
-	/**	 x	Å°---Å_Å_   Å_				*	~x ~y ~z + x y ~z +
-	/**		  Å@Å@ ) )XOR )---Å° z		*
-	/**	 y	Å°---Å^Å^	Å^				*		x ~y z + ~x y z =1
-	/**	        Å@ ÅPÅP  Å@Å@Å@Å@		*
+	/**		  ÔøΩ@   ÔøΩQÔøΩQ					*
+	/**	 x	ÔøΩÔøΩ---ÔøΩ_ÔøΩ_   ÔøΩ_				*	~x ~y ~z + x y ~z +
+	/**		  ÔøΩ@ÔøΩ@ ) )XOR )---ÔøΩÔøΩ z		*
+	/**	 y	ÔøΩÔøΩ---ÔøΩ^ÔøΩ^	ÔøΩ^				*		x ~y z + ~x y z =1
+	/**	        ÔøΩ@ ÔøΩPÔøΩP  ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -675,9 +656,9 @@ void CreateConsFC_XOR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsFC_XNOR
-//	@function	ÅF	create the faulty-circuit constraint -XNOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsFC_XNOR
+//	@function	ÔøΩF	create the faulty-circuit constraint -XNOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsFC_XNOR(
 	NLIST* netptr,			  /**< pointer to netlist */
@@ -688,11 +669,11 @@ void CreateConsFC_XNOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		  Å@   ÅQÅQ					*
-	/**	 x	Å°---Å_Å_   Å_				*	x y z + ~x ~y z +
-	/**		  Å@Å@ ) )XORNÅZ---Å° z		*
-	/**	 y	Å°---Å^Å^	Å^				*		~x y ~z + x ~y ~z =1
-	/**	        Å@ ÅPÅP  Å@Å@Å@Å@		*
+	/**		  ÔøΩ@   ÔøΩQÔøΩQ					*
+	/**	 x	ÔøΩÔøΩ---ÔøΩ_ÔøΩ_   ÔøΩ_				*	x y z + ~x ~y z +
+	/**		  ÔøΩ@ÔøΩ@ ) )XORNÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y	ÔøΩÔøΩ---ÔøΩ^ÔøΩ^	ÔøΩ^				*		~x y ~z + x ~y ~z =1
+	/**	        ÔøΩ@ ÔøΩPÔøΩP  ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

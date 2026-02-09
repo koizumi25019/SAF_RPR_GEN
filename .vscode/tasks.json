@@ -1,0 +1,40 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc アクティブなファイルのビルド",
+            "command": "/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/ASG/src/*.c",
+                "${workspaceFolder}/ASG/src/asg/*.c",
+                "${workspaceFolder}/ASG/src/asg/opb/*.c", 
+                "${workspaceFolder}/ASG/src/asg/opb/clasp/*.c",
+                "${workspaceFolder}/ASG/src/lib/*.c",
+                "${workspaceFolder}/ASG/src/netlist/*.c",
+                "${workspaceFolder}/ASG/src/opt/*.c",
+                "-o",
+                "${workspaceFolder}/ASG/src/main",
+                
+                "-I${env:HOME}/local/include",
+                "-L${env:HOME}/local/lib",
+                "-lcudd",
+                "-lgmp",
+                "-lm"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "デバッガーによって生成されたタスク。"
+        }
+    ],
+    "version": "2.0.0"
+}

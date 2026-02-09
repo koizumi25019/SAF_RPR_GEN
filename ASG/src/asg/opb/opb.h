@@ -1,17 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/opb/opb.h																		 */
-/*	deginer		:	R.miura																			  		 */
-/*	date		:	2022.00.01																  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-//-------------------------------------------------------------------------------------------------------------
-//	include
-//-------------------------------------------------------------------------------------------------------------
-#pragma once
 #include <stdio.h>
 
 #include "../../netlist/netlist.h"
@@ -83,12 +69,6 @@ int							CONS_SIZE;
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** create the pahase-shifter constraint */
-bool CreateConsPhaseShifter(
-	BIT_INT* lfsr,				  /**< lfsr */
-	int      		      mcycle			  /**< number of cycles */
-);
-
 /** create the good-circuit constraint */
 bool CreateConsGC(
 	void
@@ -250,13 +230,6 @@ void makeProbFileConsGC(
 void makeProbFileConsFC(
 	FILE* fileptr,			  /**< pointer to file */
 	TARGET* target			  /**< target fault */
-);
-
-/** create the minimize */
-void CreateMini(
-	char** minimize,			  /**< minimize */
-	int					  weight,			  /**< weight */
-	int					  vars				  /**< variables */
 );
 
 /** make the pbo file */

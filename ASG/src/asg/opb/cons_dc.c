@@ -1,13 +1,3 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*																											 */
-/*	program		:	ASG																						 */
-/*	file		:	./src/asg/opb/cons_dc.c																     */
-/*	deginer		:	R.miura	(covered T.Sone)														  		 */
-/*	date		:	2022.09.01	(2023.09.28)												  				 */
-/*																											 */
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -22,9 +12,9 @@
 
 
 //*************************************************************************************************************
-//	@name		F@CreateConsDC
-//	@function	F	create the detection-circuit constraint	//ŒÌáŒŸo‰ñ˜H§–ñ
-//	@return		F	(void)
+//	@name		ï¿½Fï¿½@CreateConsDC
+//	@function	ï¿½F	create the detection-circuit constraint	//ï¿½ÌáŒŸï¿½oï¿½ï¿½Hï¿½ï¿½ï¿½ï¿½
+//	@return		ï¿½F	(void)
 //*************************************************************************************************************
 void CreateConsDC(
 	FNODE* target,			  /**< target fault */
@@ -35,15 +25,15 @@ void CreateConsDC(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 
-	/** create the constraint for connect the pseudo-primary output */ //‹^—ŠO•”o—Í
+	/** create the constraint for connect the pseudo-primary output */ //ï¿½^ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½oï¿½ï¿½
 	CreateConsDC_XOR(&cons);
 
 
-	/** create the constraint for connect the xor output */ //ŠO•”o—Í
+	/** create the constraint for connect the xor output */ //ï¿½Oï¿½ï¿½ï¿½oï¿½ï¿½
 	CreateConsDC_OR(&cons);
 
 
-	/** create the fault excitation constraint */ //ŒÌá—ã‹N§–ñ
+	/** create the fault excitation constraint */ //ï¿½Ìï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½
 	CreateConsDC_FE(&cons, target);
 
 
@@ -55,9 +45,9 @@ void CreateConsDC(
 }
 
 //*************************************************************************************************************
-//	@name		F@CreateConsDC_XOR
-//	@function	F	create the constraint for connect transitive-primary output
-//	@return		F	(void)
+//	@name		ï¿½Fï¿½@CreateConsDC_XOR
+//	@function	ï¿½F	create the constraint for connect transitive-primary output
+//	@return		ï¿½F	(void)
 //*************************************************************************************************************
 void CreateConsDC_XOR(
 	char** cons				  /**< constraint */
@@ -65,11 +55,11 @@ void CreateConsDC_XOR(
 {
 	/**********************************************************************
 	/**      ______                     *
-	/**	 ¡--| GC |x   ____             *
-	/**  ¡--|____|--__  _           *
-	/**      ______    ) )DC )--¡ z    *	~x ~y ~z + x y ~z +
-	/**	 ¡--| FC |--^^  ^           *		    x ~y z + ~x y z =1
-	/**  ¡--|____|y   PP             *
+	/**	 ï¿½ï¿½--| GC |x   ____             *
+	/**  ï¿½ï¿½--|____|--ï¿½_ï¿½_  ï¿½_           *
+	/**      ______    ) )DC )--ï¿½ï¿½ z    *	~x ~y ~z + x y ~z +
+	/**	 ï¿½ï¿½--| FC |--ï¿½^ï¿½^  ï¿½^           *		    x ~y z + ~x y z =1
+	/**  ï¿½ï¿½--|____|y   ï¿½Pï¿½P             *
 	/**                                 *
 	/*********************************************************************/
 
@@ -142,7 +132,7 @@ void CreateConsDC_XOR(
 				nl[i].varsfc,
 				opb.total.vars
 			);
-			//PrintDebugMessage("x%d¨DCXOR%d\n", opb.total.vars, i);
+			//PrintDebugMessage("x%dï¿½ï¿½DCXOR%d\n", opb.total.vars, i);
 			OPBcalcSize(&opb.total, 0, 4, 0, 0);
 			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #endif
@@ -153,9 +143,9 @@ void CreateConsDC_XOR(
 }
 
 //*************************************************************************************************************
-//	@name		F@CreateConsDC_OR
-//	@function	F	create the constraint for connect the xor outputs
-//	@return		F	(void)
+//	@name		ï¿½Fï¿½@CreateConsDC_OR
+//	@function	ï¿½F	create the constraint for connect the xor outputs
+//	@return		ï¿½F	(void)
 //*************************************************************************************************************
 void CreateConsDC_OR(
 	char** cons				  /**< constraint */
@@ -163,15 +153,15 @@ void CreateConsDC_OR(
 {
 	/**********************************************************************
 	/**     ____x1          ___                   *
-	/**	 ¡-|  |----------__ _ d1              *
+	/**	 ï¿½ï¿½-|  |----------ï¿½_ï¿½_ ï¿½_ d1              *
 	/**     |GC|x2          ) )DC)--|  ___        *
-	/**  ¡-|__|---| |----^^ ^   |--_ _ det  *
-	/**            |-)-|    PP         )OR)--¡ *	   ~d1 ~d2 + det =1
-	/**     ____y1|--| |    ___     |--^ ^      *
-	/**	 ¡-|  |--|    |--__ _ d2|  PP       *
+	/**  ï¿½ï¿½-|__|---| |----ï¿½^ï¿½^ ï¿½^   |--ï¿½_ ï¿½_ det  *
+	/**            |-)-|    ï¿½Pï¿½P         )OR)--ï¿½ï¿½ *	   ~d1 ~d2 + det =1
+	/**     ____y1|--| |    ___     |--ï¿½^ ï¿½^      *
+	/**	 ï¿½ï¿½-|  |--|    |--ï¿½_ï¿½_ ï¿½_ d2|  ï¿½Pï¿½P       *
 	/**     |FC|y2          ) )DC)--|             *
-	/**  ¡-|__|----------^^ ^                 *
-	/**                     PP                  *
+	/**  ï¿½ï¿½-|__|----------ï¿½^ï¿½^ ï¿½^                 *
+	/**                     ï¿½Pï¿½P                  *
 	/*********************************************************************/
 	if (numtranpo > 1)
 	{
@@ -207,7 +197,7 @@ void CreateConsDC_OR(
 				i,
 				opb.total.vars
 			);
-			//PrintDebugMessage("x%d¨DCOR\n", opb.total.vars, i);
+			//PrintDebugMessage("x%dï¿½ï¿½DCOR\n", opb.total.vars, i);
 		}
 		for (int i = opb.total.vars - numtranpo; i < opb.total.vars; i++)
 		{
@@ -232,9 +222,9 @@ void CreateConsDC_OR(
 }
 
 //*************************************************************************************************************
-//	@name		F@CreateConsDC_FE
-//	@function	F	create the constraint for fault excitation
-//	@return		F	(void)
+//	@name		ï¿½Fï¿½@CreateConsDC_FE
+//	@function	ï¿½F	create the constraint for fault excitation
+//	@return		ï¿½F	(void)
 //*************************************************************************************************************
 void CreateConsDC_FE(
 	char** cons,				  /**< constraint */
@@ -243,17 +233,17 @@ void CreateConsDC_FE(
 {
 	/**********************************************************************
 	/**     ____gc-1t_____    ____gc-2t_____
-	/**  ¡-|   ___      |-¡-|   ___      |	    ___
-	/**     | --|  _1(0)|    | --|  _0(1)|------__ _ det
-	/**	 ¡-|   |AND )-- |-¡-|   |AND )-- |	    ) )DC)--
-	/**     | --|__^ x1 |    | --|__^ x2 | |----^^ ^  1
-	/**  ¡-|____________|-¡-|____________| |	   PP
+	/**  ï¿½ï¿½-|   ___      |-ï¿½ï¿½-|   ___      |	    ___
+	/**     | --|  ï¿½_1(0)|    | --|  ï¿½_0(1)|------ï¿½_ï¿½_ ï¿½_ det
+	/**	 ï¿½ï¿½-|   |AND )-- |-ï¿½ï¿½-|   |AND )-- |	    ) )DC)--
+	/**     | --|__ï¿½^ x1 |    | --|__ï¿½^ x2 | |----ï¿½^ï¿½^ ï¿½^  1
+	/**  ï¿½ï¿½-|____________|-ï¿½ï¿½-|____________| |	   ï¿½Pï¿½P
 	/**                          |      |	 |  * * * * * * * * * * * * *
 	/**                       ___|__fc__|___ |	*  safe
 	/**                       |   ___      | |	*  	x1 ~x2 x2' det =1
-	/**                       | --|  _1(0)| |	*   ~x1 x2 ~x2' det =1
+	/**                       | --|  ï¿½_1(0)| |	*   ~x1 x2 ~x2' det =1
 	/**                       |   |AND )-- |-|	*
-	/**                       | --|__^ x2'|	*  unsafe
+	/**                       | --|__ï¿½^ x2'|	*  unsafe
 	/**                       |____________|	*	r + x1 ~x2 x2' det =1
 	/**	                                        *   r + ~x1 x2 ~x2' det =1
 	/**********************************************************************/
@@ -365,7 +355,7 @@ void CreateConsDC_FE(
 				opb.total.vars,
 				opb.total.vars - 1
 			);
-			//PrintDebugMessage("x%d¨DCFESF0\n", opb.total.vars);
+			//PrintDebugMessage("x%dï¿½ï¿½DCFESF0\n", opb.total.vars);
 			OPBcalcSize(&opb.total, 0, 3, 0, 0);
 			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
 #endif
@@ -404,7 +394,7 @@ void CreateConsDC_FE(
 				opb.total.vars,
 				opb.total.vars - 1
 			);
-			//PrintDebugMessage("x%d¨DCFESF1\n", opb.total.vars);
+			//PrintDebugMessage("x%dï¿½ï¿½DCFESF1\n", opb.total.vars);
 			OPBcalcSize(&opb.total, 0, 3, 0, 0);
 			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
 #endif

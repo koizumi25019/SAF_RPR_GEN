@@ -7,7 +7,6 @@
 #include "./init.h"
 #include "./read.h"
 #include "./opb/clasp/clasp.h"
-#include "../standard.h"
 #include "../lib/lib.h"
 #include "../asg/opb/opb.h"
 #include "../netlist/netlist.h"
@@ -15,9 +14,9 @@
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVars
-//	@function	ÅF	initialize the global variable
-//	@return		ÅF	(bool) okay, error 
+//	@name		ÔøΩFÔøΩ@InitGlobalVars
+//	@function	ÔøΩF	initialize the global variable
+//	@return		ÔøΩF	(bool) okay, error 
 //*************************************************************************************************************
 bool InitGlobalVars(
 	void
@@ -39,9 +38,9 @@ bool InitGlobalVars(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsNLIST
-//	@function	ÅF	initialize the netlist
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsNLIST
+//	@function	ÔøΩF	initialize the netlist
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsNLIST(
 	void
@@ -72,9 +71,9 @@ void InitGlobalVarsNLIST(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsSTACK
-//	@function	ÅF	initialize the stack
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsSTACK
+//	@function	ÔøΩF	initialize the stack
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsSTACK(
 	void
@@ -88,9 +87,9 @@ void InitGlobalVarsSTACK(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsQUE
-//	@function	ÅF	initialize the queue
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsQUE
+//	@function	ÔøΩF	initialize the queue
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsQUE(
 	void
@@ -106,9 +105,9 @@ void InitGlobalVarsQUE(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsOPB
-//	@function	ÅF	initialize the opb
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsOPB
+//	@function	ÔøΩF	initialize the opb
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsOPB(
 	void
@@ -127,9 +126,9 @@ void InitGlobalVarsOPB(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsREADDATA
-//	@function	ÅF	initialize the reading data
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsREADDATA
+//	@function	ÔøΩF	initialize the reading data
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsREADDATA(
 	void
@@ -148,9 +147,9 @@ void InitGlobalVarsREADDATA(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsCLASP
-//	@function	ÅF	initialize the scip
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsCLASP
+//	@function	ÔøΩF	initialize the scip
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsCLASP(
 	void

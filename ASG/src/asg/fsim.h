@@ -3,7 +3,6 @@
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include <stdlib.h>
-#include <assert.h>
 
 #include "./read.h"
 #include "./target.h"
@@ -23,8 +22,8 @@
 {																											  \
 	if(_chdir(FSIM_DIR) != 0)																				  \
 	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',FSIM_DIR,'"');								  \
+		printf("\n	SYSTEM ERROR: changing directory is failed. ");									  \
+		printf("directory %c%s%c does not exist. \n",'"',FSIM_DIR,'"');								  \
 		exit(EXIT_FAILURE);																				      \
 	}																										  \
 	char* cmd = (char*)NULL;																				  \
@@ -35,8 +34,8 @@
 	free(cmd);																								  \
 	if(_chdir("../../") != 0)																			      \
 	{																										  \
-		PrintMessage("\n	SYSTEM ERROR: changing directory is failed. ");									  \
-		PrintMessage("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
+		printf("\n	SYSTEM ERROR: changing directory is failed. ");									  \
+		printf("directory %c%s%c does not exist. \n",'"',"../../",'"');							      \
 		exit(EXIT_FAILURE);																				      \
 	}																										  \
 																	                                          \

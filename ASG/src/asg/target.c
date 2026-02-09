@@ -9,13 +9,12 @@
 #include "./target.h"
 #include "./read.h"
 #include "../lib/lib.h"
-#include "../standard.h"
 
 
 //*************************************************************************************************************
-//	@name		F@SetTarget
-//	@function	F	set the target-fault list
-//	@return		F	(bool) okay, error
+//	@name		ï¿½Fï¿½@SetTarget
+//	@function	ï¿½F	set the target-fault list
+//	@return		ï¿½F	(bool) okay, error
 //*************************************************************************************************************
 bool SetTarget(
 	TARGET* remain,			  /**< remain-fault list */
@@ -65,9 +64,9 @@ bool SetTarget(
 }
 
 //*************************************************************************************************************
-//	@name		F@DirectInputTarget
-//	@function	F	set the direct target
-//	@return		F	(bool) okay, error
+//	@name		ï¿½Fï¿½@DirectInputTarget
+//	@function	ï¿½F	set the direct target
+//	@return		ï¿½F	(bool) okay, error
 //*************************************************************************************************************
 bool DirectInputTarget(
 	TARGET* remain,			  /**< remain-fault list */

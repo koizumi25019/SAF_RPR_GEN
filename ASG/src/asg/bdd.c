@@ -1,15 +1,14 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../include/cudd.h"
-#include <gmp.h>
+#include <cudd.h>
 
-//ƒvƒƒgƒ^ƒCƒvéŒ¾
-void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
+//ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
+//void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
 
-//ƒLƒ…[ƒu‚ğBDD‚É•ÏŠ·
-DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
-    // Ï€‚ÌBDD‚ÍA˜_—‚Ìu1v(Cudd_ReadOne) ‚©‚çn‚ß‚é
+//ï¿½Lï¿½ï¿½ï¿½[ï¿½uï¿½ï¿½BDDï¿½É•ÏŠï¿½
+/*DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
+    // ï¿½Ïï¿½ï¿½ï¿½BDDï¿½ÍAï¿½_ï¿½ï¿½ï¿½Ìu1ï¿½v(Cudd_ReadOne) ï¿½ï¿½ï¿½ï¿½nï¿½ß‚ï¿½
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
     Cudd_Ref(cubeBdd);
 
@@ -18,47 +17,47 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
         DdNode* literalBdd = NULL;
 
         if (bit == '0') {
-            // '0' ‚Ìê‡: ~x(i+1) ‚É‘Î‰ (CUDD‚Å‚ÍƒCƒ“ƒfƒbƒNƒX i)
+            // '0' ï¿½Ìê‡: ~x(i+1) ï¿½É‘Î‰ï¿½ (CUDDï¿½Å‚ÍƒCï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½X i)
             DdNode* varBdd = Cudd_bddIthVar(gbm, i);
             literalBdd = Cudd_Not(varBdd);
         }
         else if (bit == '1') {
-            // '1' ‚Ìê‡: x(i+1) ‚É‘Î‰ (CUDD‚Å‚ÍƒCƒ“ƒfƒbƒNƒX i)
+            // '1' ï¿½Ìê‡: x(i+1) ï¿½É‘Î‰ï¿½ (CUDDï¿½Å‚ÍƒCï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½X i)
             literalBdd = Cudd_bddIthVar(gbm, i);
         }
         else if (bit == 'X') {
-            // 'X' (Don't Care) ‚Ìê‡A‚±‚Ì•Ï”‚ÍÏ€‚ÉŠÜ‚ß‚È‚¢
+            // 'X' (Don't Care) ï¿½Ìê‡ï¿½Aï¿½ï¿½ï¿½Ì•Ïï¿½ï¿½ÍÏï¿½ï¿½ÉŠÜ‚ß‚È‚ï¿½
             Cudd_bddIthVar(gbm, i);
             continue;
         }
         else {
-            fprintf(stderr, "ERROR: '%c' ‚Í•s³‚È•¶š‚Å‚·\n", bit);
+            fprintf(stderr, "ERROR: '%c' ï¿½Í•sï¿½ï¿½ï¿½È•ï¿½ï¿½ï¿½ï¿½Å‚ï¿½\n", bit);
             exit(1);
         }
 
-        // Œ»İ‚ÌÏ€BDD‚ÆAND‚ÅŒ‹‡
+        // ï¿½ï¿½ï¿½İ‚ÌÏï¿½BDDï¿½ï¿½ANDï¿½ÅŒï¿½ï¿½ï¿½
         DdNode* tmp = Cudd_bddAnd(gbm, cubeBdd, literalBdd);
         Cudd_Ref(tmp);
 
-        // ˆÈ‘O‚ÌcubeBdd‚ÌQÆ‚ğ‰ğ•ú
+        // ï¿½È‘Oï¿½ï¿½cubeBddï¿½ÌQï¿½Æ‚ï¿½ï¿½ï¿½ï¿½
         Cudd_RecursiveDeref(gbm, cubeBdd);
 
-        // cubeBdd‚ğXV
+        // cubeBddï¿½ï¿½ï¿½Xï¿½V
         cubeBdd = tmp;
     }
 
     return cubeBdd;
-}
+}*/
 
-// BDD‚ğ\’z‚µA‰ğ‚ÌŒÂ”‚ğ”‚¦AGMP‚ÅŠm—¦ŒvZ‚ğs‚Á‚Ä•Ô‚·
-void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
+// BDDï¿½ï¿½ï¿½\ï¿½zï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÌŒÂï¿½ï¿½ğ”‚ï¿½ï¿½AGMPï¿½ÅŠmï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ä•Ô‚ï¿½
+/*void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     FILE* fp;
-    char line[4096]; // sƒoƒbƒtƒ@
+    char line[4096]; // ï¿½sï¿½oï¿½bï¿½tï¿½@
 
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
-    //ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÆBDD\’z
+    //ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½İ‚ï¿½BDDï¿½\ï¿½z
     if ((fp = fopen("./tools/bdd/bdd_cube_file.txt", "r")) == NULL) {
         fprintf(stderr, "Error: file open error %s\n", "./tools/bdd/bdd_cube_file.txt");
         Cudd_Quit(gbm);
@@ -66,7 +65,7 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
-        line[strcspn(line, "\r\n")] = 0; // ‰üsíœ
+        line[strcspn(line, "\r\n")] = 0; // ï¿½ï¿½ï¿½sï¿½íœ
         if (strlen(line) == 0) continue;
 
         DdNode* cubeBdd = parseCube(gbm, line, nvars);
@@ -78,17 +77,17 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     }
     fclose(fp);
 
-    //BDDˆË‘¶•Ï””‚ÌŒvZ
+    //BDDï¿½Ë‘ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ÌŒvï¿½Z
     int supportSize = Cudd_SupportSize(gbm, finalBdd);
-    //BDDˆË‘¶•Ï””(supportSize)‚ğCSVƒtƒ@ƒCƒ‹‚É’Ç‹L
+    //BDDï¿½Ë‘ï¿½ï¿½Ïï¿½ï¿½ï¿½(supportSize)ï¿½ï¿½CSVï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½É’Ç‹L
     fprintf(result_fp, "%d,", supportSize);
 
-    //‰ğ‚ÌŒÂ”ƒJƒEƒ“ƒg
-    int digits;         // Œ…”‚ğó‚¯æ‚é‚½‚ß‚Ì®”•Ï”
-    DdApaNumber count;  // Œ‹‰Ê‚Ì”z—ñ‚ğó‚¯æ‚é‚½‚ß‚Ìƒ|ƒCƒ“ƒ^
+    //ï¿½ï¿½ï¿½ÌŒÂï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½g
+    int digits;         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½é‚½ï¿½ß‚Ìï¿½ï¿½ï¿½ï¿½Ïï¿½
+    DdApaNumber count;  // ï¿½ï¿½ï¿½Ê‚Ì”zï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½é‚½ï¿½ß‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
     count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
 
-    // APA‚ÌŒ‹‰Ê‚ğ•¶š—ñ‚Éæ‚èo‚·
+    // APAï¿½ÌŒï¿½ï¿½Ê‚ğ•¶ï¿½ï¿½ï¿½Éï¿½ï¿½oï¿½ï¿½
     FILE* tmp_fp = tmpfile();
     if (!tmp_fp) {
         return 0.0;
@@ -96,20 +95,20 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     Cudd_ApaPrintDecimal(tmp_fp, digits, count);
     rewind(tmp_fp);
 
-    char countStr[8192]; // \•ª‚ÈƒTƒCƒY
+    char countStr[8192]; // ï¿½\ï¿½ï¿½ï¿½ÈƒTï¿½Cï¿½Y
     if (fgets(countStr, sizeof(countStr), tmp_fp) == NULL) {
         strcpy(countStr, "0");
     }
     fclose(tmp_fp);
 
-	// ‘½”{”®””z—ñƒƒ‚ƒŠ‰ğ•ú
+	// ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ñƒƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     free(count);
 
-    //GMP‚ğg‚Á‚ÄŠm—¦‚ğŒvZ
+    //GMPï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ÄŠmï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
     calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, total_prob_sums);
 
-    //I—¹ˆ—
+    //ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Cudd_RecursiveDeref(gbm, finalBdd);
 
     return;
-}
+}*/

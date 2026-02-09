@@ -1,17 +1,17 @@
 //--------------------------------------------------------------------------------------------------------------------
-//Netlist ’è‹`, ŠO•”•Ï”, PROTOPYPE
+//Netlist ï¿½ï¿½`, ï¿½Oï¿½ï¿½ï¿½Ïï¿½, PROTOPYPE
 //File name : nelist.h
 //Date : 2006/03/26
 //Designer : R.Inoue
-//Ver : 3.00i”z•zVerj
+//Ver : 3.00ï¿½iï¿½zï¿½zVerï¿½j
 //--------------------------------------------------------------------------------------------------------------------
 #pragma once
 #include<stdbool.h>
 
 //--------------------------------------------------------------------------------------------------------------------
-// ’è‹`
+// ï¿½ï¿½`
 //--------------------------------------------------------------------------------------------------------------------
-//ƒQ[ƒgƒ^ƒCƒv
+//ï¿½Qï¿½[ï¿½gï¿½^ï¿½Cï¿½v
 #define  IN		0
 #define  BUF    10
 #define  INV	11
@@ -19,76 +19,76 @@
 #define  NAND	13
 #define  OR		14
 #define  NOR	15
-#define  EXOR	16 //2“ü—Í‚Ì‚İ‰Â
-#define  EXNOR	17 //2“ü—Í‚Ì‚İ‰Â
+#define  EXOR	16
+#define  EXNOR	17
 #define  FOUT	18
-#define  DFF	19 //D-ƒtƒŠƒbƒvƒtƒƒbƒv
-#define  RDFF	21 //D-ƒtƒŠƒbƒvƒtƒƒbƒviƒŠƒZƒbƒg—Lj
-#define  DFFS	23 //D-ƒXƒLƒƒƒ“ƒtƒŠƒbƒvƒtƒƒbƒv
-#define  RDFFS	24 //D-ƒXƒLƒƒƒ“ƒtƒŠƒbƒvƒtƒƒbƒviƒŠƒZƒbƒg—Lj
-#define  GND	25 //ƒOƒ‰ƒ“ƒh
-#define  ACC	26 //“dŒ¹
+#define  DFF	19
+#define  RDFF	21
+#define  DFFS	23
+#define  RDFFS	24
+#define  GND	25
+#define  ACC	26
 
-//ƒlƒbƒgƒŠƒXƒg\‘¢‘Ì’è‹`
+//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½\ï¿½ï¿½ï¿½Ì’ï¿½`
 typedef struct _Netlist_Format_ {
 
-	char* name;							//–¼‘O
-	int				n;		            //IDiƒ†ƒj[ƒNj
-	int				type;	            //ƒ^ƒCƒv
-	int				n_in;	            //“ü—Í”
-	struct _Netlist_Format_** in;		//“ü—Íƒ|ƒCƒ“ƒ^”z—ñ
-	int				n_out;	            //o—Í”
-	struct _Netlist_Format_** out;      //o—Íƒ|ƒCƒ“ƒ^”z—ñ
-	char* name_port;					//’[q–¼ pin–¼
-	char* name_ins;						//ƒCƒ“ƒXƒ^ƒ“ƒX–¼
+	char* name;							//ï¿½ï¿½ï¿½O
+	int				n;		            //IDï¿½iï¿½ï¿½ï¿½jï¿½[ï¿½Nï¿½j
+	int				type;	            //ï¿½^ï¿½Cï¿½v
+	int				n_in;	            //ï¿½ï¿½ï¿½Íï¿½
+	struct _Netlist_Format_** in;		//ï¿½ï¿½ï¿½Íƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½zï¿½ï¿½
+	int				n_out;	            //ï¿½oï¿½Íï¿½
+	struct _Netlist_Format_** out;      //ï¿½oï¿½Íƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½zï¿½ï¿½
+	char* name_port;					//ï¿½[ï¿½qï¿½ï¿½ pinï¿½ï¿½
+	char* name_ins;						//ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 
 	int				flag;			    /**< flag */
 	unsigned int	varsgc;			    /**< variables for good-circuit  */
 	unsigned int	varsfc;				/**< variables for faulty-circuit  */
 	char* consgc;						/**< constraints for good-circuit  */
 	char** consfc;						/**< constraints for faulty-circuit  */
-	unsigned int suf_fc;				//ŒÌá‰ñ˜H‚Ì“Y‚¦š
-	unsigned int fault_pass;			//ŒÌá“’B‰Â”\ƒpƒX
+	unsigned int suf_fc;				//ï¿½Ìï¿½ï¿½Hï¿½Ì“Yï¿½ï¿½ï¿½ï¿½
+	unsigned int fault_pass;			//ï¿½Ìá“ï¿½Bï¿½Â”\ï¿½pï¿½X
 
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
-// ŠO•”•Ï”
+// ï¿½Oï¿½ï¿½ï¿½Ïï¿½
 //--------------------------------------------------------------------------------------------------------------------
-//ƒlƒbƒgƒŠƒXƒg
+//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½g
 NLIST* nl;
 
-//ƒ‚ƒWƒ…[ƒ‹–¼
+//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 char* module_name;
 
-//M†”
+//ï¿½Mï¿½ï¿½ï¿½ï¿½
 int n_net;
 
-//ŠO•”“ü—Í”, ŠO•”“ü—Í
+//ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Íï¿½, ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 NLIST** pi;
 int n_pi;
 
-//ŠO•”o—Í”, ŠO•”o—Í
+//ï¿½Oï¿½ï¿½ï¿½oï¿½Íï¿½, ï¿½Oï¿½ï¿½ï¿½oï¿½ï¿½
 NLIST** po;
 int n_po;
 
-//‹^—ŠO•”o—Í”, ŠO•”o—Í
+//ï¿½^ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½oï¿½Íï¿½, ï¿½Oï¿½ï¿½ï¿½oï¿½ï¿½
 NLIST** ppo;
 int n_ppo;
 
-//DFF, DFF”
+//DFF, DFFï¿½ï¿½
 NLIST** dff;
 int n_dff;
 
-//RDFF, RDFF”
+//RDFF, RDFFï¿½ï¿½
 NLIST** rdff;
 int n_rdff;
 
-//DFFS, DFFS”
+//DFFS, DFFSï¿½ï¿½
 NLIST** dffs;
 int n_dffs;
 
-//RDFFS, RDFFS”
+//RDFFS, RDFFSï¿½ï¿½
 NLIST** rdffs;
 int n_rdffs;
 

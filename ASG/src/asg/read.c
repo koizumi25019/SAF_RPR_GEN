@@ -4,19 +4,17 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <assert.h>
 
 #include "./read.h"
-#include "../standard.h"
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
 
-bool TestRelationCounts();
+//bool TestRelationCounts();
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@ReadFile
-//	@function	ÅF	read the file
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@ReadFile
+//	@function	ÔøΩF	read the file
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool ReadFile(
 	void
@@ -35,9 +33,9 @@ bool ReadFile(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@ReadFault
-//	@function	ÅF	read the fault
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@ReadFault
+//	@function	ÔøΩF	read the fault
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool ReadFault(
 	void
@@ -60,9 +58,9 @@ bool ReadFault(
 			{
 				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
 			}
-			PrintMessage("\r	Reading fault infomation progress  >> %d", readdata.fault.numinit);
+			printf("\r	Reading fault infomation progress  >> %d", readdata.fault.numinit);
 		}
-		PrintMessage("\n");
+		printf("\n");
 		free(buffer);
 
 		/** close the "fault file" in read-mode */
@@ -73,9 +71,9 @@ bool ReadFault(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateFaultList
-//	@function	ÅF	create the fault list
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@CreateFaultList
+//	@function	ÔøΩF	create the fault list
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool CreateFaultList(
 	char* buffer			  /**< buffer */
@@ -108,9 +106,9 @@ bool CreateFaultList(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@searchFnode
-//	@function	ÅF	search for fault node
-//	@return		ÅF	(bool) found, not found
+//	@name		ÔøΩFÔøΩ@searchFnode
+//	@function	ÔøΩF	search for fault node
+//	@return		ÔøΩF	(bool) found, not found
 //*************************************************************************************************************
 bool searchFnode(
 	char* buffer,			  /**< buffer (key) */
@@ -130,9 +128,9 @@ bool searchFnode(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@searchFnodePtr
-//	@function	ÅF	find the fault node pointer by string
-//	@return		ÅF	(FNODE*) pointer to found node, or NULL
+//	@name		ÔøΩFÔøΩ@searchFnodePtr
+//	@function	ÔøΩF	find the fault node pointer by string
+//	@return		ÔøΩF	(FNODE*) pointer to found node, or NULL
 //*************************************************************************************************************
 FNODE* searchFnodePtr(
 	char* buffer,
@@ -142,7 +140,7 @@ FNODE* searchFnodePtr(
 	FNODE* fnodeptr = head;
 	while (fnodeptr != NULL)
 	{
-		// CreateFaultNode Ç≈ÉZÉbÉgÇµÇΩ string (äÆëSÇ» "name type" ï∂éöóÒ) Ç∆î‰är
+		// CreateFaultNode ÔøΩ≈ÉZÔøΩbÔøΩgÔøΩÔøΩÔøΩÔøΩ string (ÔøΩÔøΩÔøΩSÔøΩÔøΩ "name type" ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ) ÔøΩ∆îÔøΩr
 		if (strcmp(fnodeptr->string, buffer) == 0)
 		{
 			return fnodeptr;
@@ -153,9 +151,9 @@ FNODE* searchFnodePtr(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateFaultNode
-//	@function	ÅF	create the fault node
-//	@return		ÅF	(FNODE*) pointer to fault node
+//	@name		ÔøΩFÔøΩ@CreateFaultNode
+//	@function	ÔøΩF	create the fault node
+//	@return		ÔøΩF	(FNODE*) pointer to fault node
 //*************************************************************************************************************
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
@@ -198,9 +196,9 @@ FNODE* CreateFaultNode(
 
 
 //*************************************************************************************************************
-//	@name		ÅFTestRelationCounts
-//	@function	ÅF	read test relation file and update existing fault list
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFTestRelationCounts
+//	@function	ÔøΩF	read test relation file and update existing fault list
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool TestRelationCounts(
 )
@@ -215,7 +213,7 @@ bool TestRelationCounts(
 	FNODE* fnodeptr = (FNODE*)NULL;
 
 
-	//ÉeÉXÉgä÷åWPIÉtÉ@ÉCÉãÉIÅ[ÉvÉì
+	//ÔøΩeÔøΩXÔøΩgÔøΩ÷åWPIÔøΩtÔøΩ@ÔøΩCÔøΩÔøΩÔøΩIÔøΩ[ÔøΩvÔøΩÔøΩ
 	fileOpen(&fp, opt.file.input.relation, "r");
 
 	while (fgets(line_buffer, sizeof(line_buffer), fp) != NULL)
@@ -223,20 +221,20 @@ bool TestRelationCounts(
 
 		if (sscanf(line_buffer, "%s %s %d", fault_name, fault_type, &relation_count) == 3)
 		{
-			// åüçıópÇÃï∂éöóÒê∂ê¨
+			// ÔøΩÔøΩÔøΩÔøΩÔøΩpÔøΩÃïÔøΩÔøΩÔøΩÔøΩÒê∂êÔøΩ
 			snprintf(hash_buffer, sizeof(hash_buffer), "%s\t%s\n", fault_name, fault_type);
 
-			//CreateFaultList Ç∆ìØÇ∂ÉnÉbÉVÉÖä÷êîÇåƒÇ—èoÇ∑
+			//CreateFaultList ÔøΩ∆ìÔøΩÔøΩÔøΩÔøΩnÔøΩbÔøΩVÔøΩÔøΩÔøΩ÷êÔøΩÔøΩÔøΩÔøΩƒÇ—èoÔøΩÔøΩ
 			hash = calcHash(hash_buffer);
 
-			//åÃè·ÉäÉXÉgíTçı
+			//ÔøΩÃè·ÉäÔøΩXÔøΩgÔøΩTÔøΩÔøΩ
 			fnodeptr = searchFnodePtr(hash_buffer, readdata.fault.list[hash]);
 			if (fnodeptr == NULL) {
 				printf("fault not found\n");
 				exit(1);
 			}
 
-			// ÉeÉXÉgä÷åWêîÇçXêV
+			// ÔøΩeÔøΩXÔøΩgÔøΩ÷åWÔøΩÔøΩÔøΩÔøΩÔøΩXÔøΩV
 			fnodeptr->test_relation_num = relation_count;
 
 		}

@@ -1,46 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <gmp.h>
 #include <math.h>
 
 /**
- * CUDD‚©‚ç“¾‚ç‚ê‚½‰ğ‚ÌŒÂ”(•¶š—ñ)‚ÆA‘S•Ï””Aˆó‰Áƒpƒ^[ƒ“”‚ğó‚¯æ‚èA
- * unƒpƒ^[ƒ“ˆó‰Á‚ÌŒŸoŠm—¦v‚ğŒvZ‚µ‚Ä•Ô‚·ŠÖ”
+ * CUDDï¿½ï¿½ï¿½ç“¾ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÌŒÂï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ÆAï¿½Sï¿½Ïï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½A
+ * ï¿½unï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½oï¿½mï¿½ï¿½ï¿½vï¿½ï¿½ï¿½vï¿½Zï¿½ï¿½ï¿½Ä•Ô‚ï¿½ï¿½Öï¿½
  */
-void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
+/*void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     mpf_t num, den, density, term, result;
 
-    // ¸“xİ’è (8192ƒrƒbƒg‚ ‚ê‚Î2^6666‚à—]—T‚Åˆµ‚¦‚Ü‚·)
+    // ï¿½ï¿½ï¿½xï¿½İ’ï¿½ (8192ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½2^6666ï¿½ï¿½ï¿½]ï¿½Tï¿½Åˆï¿½ï¿½ï¿½ï¿½Ü‚ï¿½)
     mpf_set_default_prec(8192);
 
-    mpf_init(num);      // •ªq (‰ğ‚ÌŒÂ”)
-    mpf_init(den);      // •ª•ê (‘S‘g‚İ‡‚í‚¹ 2^nvars)
-    mpf_init(density);  // 1ƒpƒ^[ƒ“‚ ‚½‚è‚ÌŒŸoŠm—¦ p
-    mpf_init(term);     // ŒvZ—pˆê•Ï”
-    mpf_init(result);   // ÅIŒ‹‰Ê
+    mpf_init(num);      // ï¿½ï¿½ï¿½q (ï¿½ï¿½ï¿½ÌŒÂï¿½)
+    mpf_init(den);      // ï¿½ï¿½ï¿½ï¿½ (ï¿½Sï¿½gï¿½İï¿½ï¿½í‚¹ 2^nvars)
+    mpf_init(density);  // 1ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½oï¿½mï¿½ï¿½ p
+    mpf_init(term);     // ï¿½vï¿½Zï¿½pï¿½êï¿½Ïï¿½
+    mpf_init(result);   // ï¿½ÅIï¿½ï¿½ï¿½ï¿½
 
-    // --- 1. •ªq (‰ğ‚ÌŒÂ”) ‚Ìİ’è ---
+    // --- 1. ï¿½ï¿½ï¿½q (ï¿½ï¿½ï¿½ÌŒÂï¿½) ï¿½Ìİ’ï¿½ ---
     if (mpf_set_str(num, numStr, 10) != 0) {
-        // •ÏŠ·¸”s‚Í0‚Æ‚İ‚È‚·
+        // ï¿½ÏŠï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½0ï¿½Æ‚İ‚È‚ï¿½
         mpf_set_ui(num, 0);
     }
 
-    // --- 2. •ª•ê (2^nvars) ‚Ìİ’è ---
+    // --- 2. ï¿½ï¿½ï¿½ï¿½ (2^nvars) ï¿½Ìİ’ï¿½ ---
     mpf_set_ui(den, 1);
     mpf_mul_2exp(den, den, (unsigned long)nvars); // den = 1 * 2^nvars
 
-    // --- 3. –§“x p = num / den ‚ÌŒvZ ---
+    // --- 3. ï¿½ï¿½ï¿½x p = num / den ï¿½ÌŒvï¿½Z ---
     mpf_div(density, num, den);
 
-    // ƒtƒ@ƒCƒ‹‘‚«‚İ: ‚Ü‚¸u–§“x(density)v‚ğo—Í
+    // ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½Ü‚ï¿½ï¿½uï¿½ï¿½ï¿½x(density)ï¿½vï¿½ï¿½ï¿½oï¿½ï¿½
     if (result_fp != NULL) {
         gmp_fprintf(result_fp, "%.10Fe,", density);
     }
 
     // ===========================================================
-    // ŒvZ®: P_det = 1 - (1 - p)^n
+    // ï¿½vï¿½Zï¿½ï¿½: P_det = 1 - (1 - p)^n
     // ===========================================================
-    // ƒ‰ƒ“ƒ_ƒ€ƒpƒ^[ƒ“”ƒŠƒXƒg‚Ì•ª‚¾‚¯ƒ‹[ƒv‚µ‚ÄŠm—¦ŒvZ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½gï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ÄŠmï¿½ï¿½ï¿½vï¿½Z
     for (int i = 0; i < list_size; i++) {
 
         int n = pattern_num_list[i];
@@ -49,20 +48,20 @@ void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_lis
         mpf_ui_sub(term, 1, density);
 
         // term = term ^ num_patterns
-        // (1-p) ‚ğ Næ ‚µ‚Ü‚·
+        // (1-p) ï¿½ï¿½ Nï¿½ï¿½ ï¿½ï¿½ï¿½Ü‚ï¿½
         mpf_pow_ui(term, term, (unsigned long)n);
 
         // result = 1 - term
-        // ‚Â‚Ü‚è 1 - (1-p)^N
+        // ï¿½Â‚Ü‚ï¿½ 1 - (1-p)^N
         mpf_ui_sub(result, 1, term);
 
-        // ƒJƒ“ƒ}‹æØ‚è‚Å‘‚«o‚·
+        // ï¿½Jï¿½ï¿½ï¿½}ï¿½ï¿½Ø‚ï¿½Åï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
         if (result_fp != NULL) {
-            // Ÿ‚ÉƒJƒ“ƒ}‚ÆŒŸoŠm—¦
+            // ï¿½ï¿½ï¿½ÉƒJï¿½ï¿½ï¿½}ï¿½ÆŒï¿½ï¿½oï¿½mï¿½ï¿½
             gmp_fprintf(result_fp, "%.10Fe", result);
             if(i!=list_size-1) fprintf(result_fp, ",");
         }
-		// Šeƒ‰ƒ“ƒ_ƒ€ƒpƒ^[ƒ“”‚É‚¨‚¯‚éŒÌáŒŸoŠm—¦‚ğ‰ÁZ
+		// ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ÌáŒŸï¿½oï¿½mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Z
         if (total_prob_sums != NULL) {
             mpf_add(total_prob_sums[i], total_prob_sums[i], result);
         }
@@ -71,7 +70,7 @@ void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_lis
     gmp_fprintf(result_fp, "\n");
 
 
-    // ƒƒ‚ƒŠ‰ğ•ú
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     mpf_clear(num);
     mpf_clear(den);
     mpf_clear(density);
@@ -79,4 +78,4 @@ void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_lis
     mpf_clear(result);
 
     return;
-}
+}*/

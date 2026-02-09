@@ -3,12 +3,9 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <time.h>
-#include <crtdbg.h>
 
 #include "./main.h"
-#include "./standard.h"
 #include "./opt/opt.h"
 #include "./netlist/netlist.h"
 #include "./asg/asg.h"
@@ -16,9 +13,9 @@
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@main
-//	@function	ÅF	main
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@main
+//	@function	ÔøΩF	main
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 bool main(
 	int					  argc,				 /**< number of command-arguments */
@@ -30,7 +27,7 @@ bool main(
 
 	char txt_cmd[50];
 
-	/** set the option */
+	//set the option
 	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
 
 
@@ -40,25 +37,19 @@ bool main(
 	/** output the pin */
 	OutPIN();
 
-	//analyze the fault density
+	//analyze the fault detection probability
 	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
 
 	end = clock();
 	OutLogfile(end - start);
 
-	//ÉvÉçÉOÉâÉÄèIóπÉÅÅ[ÉãëóêM
-    system("chcp 65001");
-    sprintf(txt_cmd,"YuyaMail.exe");
-    system(txt_cmd);
-    system("chcp 932");
-
-		return 0;
+	return 0;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OutPIN
-//	@function	ÅF	output the pin
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@OutPIN
+//	@function	ÔøΩF	output the pin
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void OutPIN(
 	void
@@ -79,9 +70,9 @@ void OutPIN(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OutLogfile
-//	@function	ÅF	output the log
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@OutLogfile
+//	@function	ÔøΩF	output the log
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 void OutLogfile(
 	clock_t time
@@ -100,15 +91,15 @@ void OutLogfile(
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
-	PrintMessage("\n\n");
-	PrintMessage("//--------------------------------------------------------------------------------\n");
-	PrintMessage("//                          AnalyzeFaultDensity Information\n");
-	PrintMessage("//--------------------------------------------------------------------------------\n");
-	PrintMessage("//  Target Circuit                            : %s\n", net_name);
-	PrintMessage("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
-	PrintMessage("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	PrintMessage("//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
-	PrintMessage("//--------------------------------------------------------------------------------\n");
+	printf("\n\n");
+	printf("//--------------------------------------------------------------------------------\n");
+	printf("//                          AnalyzeFaultDensity Information\n");
+	printf("//--------------------------------------------------------------------------------\n");
+	printf("//  Target Circuit                            : %s\n", net_name);
+	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
+	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
+	printf("//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	printf("//--------------------------------------------------------------------------------\n");
 
 	return;
 }

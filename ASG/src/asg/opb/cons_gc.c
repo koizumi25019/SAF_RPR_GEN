@@ -8,15 +8,14 @@
 #include "./opb.h"
 #include "../createSGmodel.h"
 #include "../init.h"
-#include "../../standard.h"
 #include "../../netlist/netlist.h"
 #include "../../lib/lib.h"
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC
-//	@function	ÅF	create the good-circuit constraint
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@CreateConsGC
+//	@function	ÔøΩF	create the good-circuit constraint
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool CreateConsGC(
 	void
@@ -51,8 +50,8 @@ bool CreateConsGC(
 		case IN:								break;
 
 		default:
-			PrintErrorMessage("\n	SYSTEM ERROR: test pattern model generation failed. ");
-			PrintErrorMessage("some gates are not supported. \n\n");
+			printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
+			printf("some gates are not supported. \n\n");
 
 			return TPG_MODEL_ERROR;
 		}
@@ -68,9 +67,9 @@ bool CreateConsGC(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@AssigneVarsGC
-//	@function	ÅF	assigne the variable for good-circuit
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@AssigneVarsGC
+//	@function	ÔøΩF	assigne the variable for good-circuit
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void AssigneVarsGC(
 	void
@@ -80,23 +79,23 @@ void AssigneVarsGC(
 	/** assigne the variable for primary inputs */
 	for (int i = 0; i < n_pi; i++) {
 		pi[i]->varsgc = ++opb.constant.vars;
-		//PrintDebugMessage("x%dÅ®%s varsgc\n", pi[i]->varsgc, pi[i]->name);
+		//PrintDebugMessage("x%dÔøΩÔøΩ%s varsgc\n", pi[i]->varsgc, pi[i]->name);
 	}
 	/** assigne the variable for others */
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].varsgc == UNASSIGN)
 			nl[i].varsgc = ++opb.constant.vars;
-			//PrintDebugMessage("x%dÅ®%s varsgc\n", nl[i].varsgc, nl[i].name);
+			//PrintDebugMessage("x%dÔøΩÔøΩ%s varsgc\n", nl[i].varsgc, nl[i].name);
 	}
 
 	return;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_AND
-//	@function	ÅF	create the good-circuit constraint -AND
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_AND
+//	@function	ÔøΩF	create the good-circuit constraint -AND
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_AND(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -106,10 +105,10 @@ void CreateConsGC_AND(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/*********************************************************************
-	/**		 Å@  _______				*
-	/**	 x Å°----|      Å_			  	*	x y + ~z  =1
-	/**		Å@Å@ |  AND   Åj---Å° z		*
-	/**	 y Å°----|______Å^				*	(x + ~z) (y + ~z) (~x + ~y + z)
+	/**		 ÔøΩ@  _______				*
+	/**	 x ÔøΩÔøΩ----|      ÔøΩ_			  	*	x y + ~z  =1
+	/**		ÔøΩ@ÔøΩ@ |  AND   ÔøΩj---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----|______ÔøΩ^				*	(x + ~z) (y + ~z) (~x + ~y + z)
 	/**								    *
 	/*********************************************************************/
 #ifdef FORMAT_OPB
@@ -170,9 +169,9 @@ void CreateConsGC_AND(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_NAND
-//	@function	ÅF	create the good-circuit constraint -NAND
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_NAND
+//	@function	ÔøΩF	create the good-circuit constraint -NAND
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_NAND(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -182,10 +181,10 @@ void CreateConsGC_NAND(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  _______				*
-	/**	 x Å°----|      Å_			  	*	x y + z  =1
-	/**		Å@Å@ |  NAND  ÅZ---Å° z		*
-	/**	 y Å°----|______Å^				*	(x + z) (y + z) (~x + ~y + ~z)
+	/**		 ÔøΩ@  _______				*
+	/**	 x ÔøΩÔøΩ----|      ÔøΩ_			  	*	x y + z  =1
+	/**		ÔøΩ@ÔøΩ@ |  NAND  ÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----|______ÔøΩ^				*	(x + z) (y + z) (~x + ~y + ~z)
 	/**								    *
 	/*********************************************************************/
 #ifdef FORMAT_OPB
@@ -246,9 +245,9 @@ void CreateConsGC_NAND(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_OR
-//	@function	ÅF	create the good-circuit constraint -OR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_OR
+//	@function	ÔøΩF	create the good-circuit constraint -OR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_OR(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -258,11 +257,11 @@ void CreateConsGC_OR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  ______					*
-	/**	 x Å°----Å_    Å_			  	*	~x ~y + z  =1
-	/**		Å@Å@   ) OR  )---Å° z		*
-	/**	 y Å°----Å^    Å^				*	(~x + z) (~y + z) (x + y + ~z)
-	/**			 ÅPÅPÅP 				*
+	/**		 ÔøΩ@  ______					*
+	/**	 x ÔøΩÔøΩ----ÔøΩ_    ÔøΩ_			  	*	~x ~y + z  =1
+	/**		ÔøΩ@ÔøΩ@   ) OR  )---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----ÔøΩ^    ÔøΩ^				*	(~x + z) (~y + z) (x + y + ~z)
+	/**			 ÔøΩPÔøΩPÔøΩP 				*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -322,9 +321,9 @@ void CreateConsGC_OR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_NOR
-//	@function	ÅF	create the good-circuit constraint -NOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_NOR
+//	@function	ÔøΩF	create the good-circuit constraint -NOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_NOR(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -334,11 +333,11 @@ void CreateConsGC_NOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		 Å@  ______					*
-	/**	 x Å°----Å_    Å_			  	*	~x ~y + ~z  =1
-	/**		Å@Å@   ) NOR ÅZ---Å° z		*
-	/**	 y Å°----Å^    Å^				*	(~x + ~z) (~y + ~z) (x + y + z)
-	/**			 ÅPÅPÅP 				*
+	/**		 ÔøΩ@  ______					*
+	/**	 x ÔøΩÔøΩ----ÔøΩ_    ÔøΩ_			  	*	~x ~y + ~z  =1
+	/**		ÔøΩ@ÔøΩ@   ) NOR ÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y ÔøΩÔøΩ----ÔøΩ^    ÔøΩ^				*	(~x + ~z) (~y + ~z) (x + y + z)
+	/**			 ÔøΩPÔøΩPÔøΩP 				*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -399,9 +398,9 @@ void CreateConsGC_NOR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_BUF
-//	@function	ÅF	create the good-circuit constraint -BUF
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_BUF
+//	@function	ÔøΩF	create the good-circuit constraint -BUF
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_BUF(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -411,11 +410,11 @@ void CreateConsGC_BUF(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**			|Å_		Å@Å@Å@Å@		*
-	/**			|  Å_		Å@Å@Å@Å@	*		x y + ~x ~y  =1
-	/**	 x Å°---|BUF >---Å° y			*
-	/**			|  Å^		Å@Å@		*		(x + ~y) (~x + y)
-	/**         |Å^						*
+	/**			|ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
+	/**			|  ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@	*		x y + ~x ~y  =1
+	/**	 x ÔøΩÔøΩ---|BUF >---ÔøΩÔøΩ y			*
+	/**			|  ÔøΩ^		ÔøΩ@ÔøΩ@		*		(x + ~y) (~x + y)
+	/**         |ÔøΩ^						*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -459,9 +458,9 @@ void CreateConsGC_BUF(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_INV
-//	@function	ÅF	create the good-circuit constraint -INV
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_INV
+//	@function	ÔøΩF	create the good-circuit constraint -INV
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_INV(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -471,11 +470,11 @@ void CreateConsGC_INV(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**			|Å_		Å@Å@Å@Å@		*
-	/**			|  Å_		Å@Å@Å@Å@	*		~x y + x ~y  =1
-	/**	 x Å°---|INV ÅZ---Å° y			*
-	/**			|  Å^		Å@Å@		*		(~x + ~y) (x + y)
-	/**         |Å^						*
+	/**			|ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
+	/**			|  ÔøΩ_		ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@	*		~x y + x ~y  =1
+	/**	 x ÔøΩÔøΩ---|INV ÔøΩZ---ÔøΩÔøΩ y			*
+	/**			|  ÔøΩ^		ÔøΩ@ÔøΩ@		*		(~x + ~y) (x + y)
+	/**         |ÔøΩ^						*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -520,9 +519,9 @@ void CreateConsGC_INV(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_XOR
-//	@function	ÅF	create the good-circuit constraint -XOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_XOR
+//	@function	ÔøΩF	create the good-circuit constraint -XOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_XOR(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -532,11 +531,11 @@ void CreateConsGC_XOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		  Å@   ÅQÅQ					*
-	/**	 x	Å°---Å_Å_   Å_				*	~x ~y ~z + x y ~z +
-	/**		  Å@Å@ ) )XOR )---Å° z		*
-	/**	 y	Å°---Å^Å^	Å^				*		x ~y z + ~x y z =1
-	/**	        Å@ ÅPÅP  Å@Å@Å@Å@		*
+	/**		  ÔøΩ@   ÔøΩQÔøΩQ					*
+	/**	 x	ÔøΩÔøΩ---ÔøΩ_ÔøΩ_   ÔøΩ_				*	~x ~y ~z + x y ~z +
+	/**		  ÔøΩ@ÔøΩ@ ) )XOR )---ÔøΩÔøΩ z		*
+	/**	 y	ÔøΩÔøΩ---ÔøΩ^ÔøΩ^	ÔøΩ^				*		x ~y z + ~x y z =1
+	/**	        ÔøΩ@ ÔøΩPÔøΩP  ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -615,9 +614,9 @@ void CreateConsGC_XOR(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateConsGC_XNOR
-//	@function	ÅF	create the good-circuit constraint -XNOR
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@CreateConsGC_XNOR
+//	@function	ÔøΩF	create the good-circuit constraint -XNOR
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void CreateConsGC_XNOR(
 	NLIST* netptr			  /**< pointer to netlist */
@@ -627,11 +626,11 @@ void CreateConsGC_XNOR(
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
 	/**********************************************************************
-	/**		  Å@   ÅQÅQ					*
-	/**	 x	Å°---Å_Å_   Å_				*	x y z + ~x ~y z +
-	/**		  Å@Å@ ) )XORNÅZ---Å° z		*
-	/**	 y	Å°---Å^Å^	Å^				*		~x y ~z + x ~y ~z =1
-	/**	        Å@ ÅPÅP  Å@Å@Å@Å@		*
+	/**		  ÔøΩ@   ÔøΩQÔøΩQ					*
+	/**	 x	ÔøΩÔøΩ---ÔøΩ_ÔøΩ_   ÔøΩ_				*	x y z + ~x ~y z +
+	/**		  ÔøΩ@ÔøΩ@ ) )XORNÔøΩZ---ÔøΩÔøΩ z		*
+	/**	 y	ÔøΩÔøΩ---ÔøΩ^ÔøΩ^	ÔøΩ^				*		~x y ~z + x ~y ~z =1
+	/**	        ÔøΩ@ ÔøΩPÔøΩP  ÔøΩ@ÔøΩ@ÔøΩ@ÔøΩ@		*
 	/*********************************************************************/
 #ifdef FORMAT_OPB
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

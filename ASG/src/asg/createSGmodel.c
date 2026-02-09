@@ -3,14 +3,13 @@
 //-------------------------------------------------------------------------------------------------------------
 #include "./createSGmodel.h"
 #include "./target.h"
-#include "../standard.h"
 #include "./opb/opb.h"
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@WriteTPGModel
-//	@function	ÅF	Write the test pattern generation model
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@WriteTPGModel
+//	@function	ÔøΩF	Write the test pattern generation model
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool WriteTPGModel(
 	TARGET* target
@@ -29,9 +28,9 @@ bool WriteTPGModel(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@CreateTPGmodel
-//	@function	ÅF	create the test pattern generation model
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@CreateTPGmodel
+//	@function	ÔøΩF	create the test pattern generation model
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool CreateTPGmodel(
 	char** minimize,			  /**< minimize */
