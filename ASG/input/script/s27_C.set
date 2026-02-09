@@ -5,11 +5,8 @@
 # set fault list(.txt)
 -fault ./input/fault/det_s27_C.txt
 
-# set test relation(.txt)
--rp 10,100,1000,10000,100000
-
 # set random pattern num list(.txt)
--relation ./input/test_relation/s27_C_test_relation.txt
+-rp 10,100,1000,10000,100000
 
 # set log(.txt)
 -log ./output/log/s27_C_log.txt

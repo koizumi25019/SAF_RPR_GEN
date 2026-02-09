@@ -1,13 +1,14 @@
-/*#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <cudd.h>
+#include <gmp.h>
 
-//�v���g�^�C�v�錾
-//void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
+//prototype declaration
+void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
 
 //�L���[�u��BDD�ɕϊ�
-/*DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
+DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     // �ύ���BDD�́A�_���́u1�v(Cudd_ReadOne) ����n�߂�
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
     Cudd_Ref(cubeBdd);
@@ -47,10 +48,10 @@
     }
 
     return cubeBdd;
-}*/
+}
 
 // BDD���\�z���A���̌��𐔂��AGMP�Ŋm���v�Z���s���ĕԂ�
-/*void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
+void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     FILE* fp;
     char line[4096]; // �s�o�b�t�@
 
@@ -111,4 +112,4 @@
     Cudd_RecursiveDeref(gbm, finalBdd);
 
     return;
-}*/
+}

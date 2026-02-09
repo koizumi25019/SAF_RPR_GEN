@@ -89,10 +89,6 @@ bool OPTset(
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = _strdup(argv[++i]);
 
-		/** test relation file*/
-		else if (strcmp(argv[i], "-relation") == 0)
-			opt.file.input.relation = _strdup(argv[++i]);
-
 		/** log */
 		else if (strcmp(argv[i], "-log") == 0)
 			opt.file.output.log = _strdup(argv[++i]);

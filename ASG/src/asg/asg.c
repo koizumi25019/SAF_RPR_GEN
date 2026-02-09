@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <cudd.h>
+#include <gmp.h>
 
 #include "./createSGmodel.h"
 #include "./asg.h"
@@ -13,13 +14,11 @@
 #include "./fsim.h"
 #include "./opb/opb.h"
 #include "./opb/clasp/clasp.h"
-
 #include"./MakeBlockingClause.h"
 
-//�v���g�^�C�v�錾
-//void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp/*, mpf_t* total_prob_sums*/);
+//prototype declaration
+void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
 
-// �萔
 #define MAX_PATTERN_CASES 100
 
 //*************************************************************************************************************
@@ -40,28 +39,28 @@ bool AnalyzeFaultDensity(
 	int temp_numrema;
 	int count = 0;
 
-	// ��H�ɂ�����̏ጟ�o�m���v�Z�p��mpf_t �̔z���p��
-	//mpf_t total_prob_sums[100];
+	// fault detection probability calculation array
+	mpf_t total_prob_sums[100];
 
-	//CUDD�̏�����
-	//DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+	//CUDD initialization
+	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
 
 	//shifting algorithm
-	//Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
+	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
-	// ������
+	// initialization
 	for (int i = 0; i < 100; i++) {
-		//mpf_init(total_prob_sums[i]);    // �������m��
-		//mpf_set_ui(total_prob_sums[i], 0); // 0�ŏ�����
+		mpf_init(total_prob_sums[i]);    // initialize
+	    mpf_set_ui(total_prob_sums[i], 0); // set to 0
 	}
 
 	//result file open
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
-	//BDD�����t�@�C���L�q
+	//BDD result file header
 	fprintf(bdd_result, "name,type,cube,rel,var,den");
 
-	// opt�\���̂̃f�[�^���g���ă��[�v
+	// opt file input pattern numbers
 	for (int i = 0; i < opt.file.input.list_size; i++) {
 		fprintf(bdd_result, ",n=%d", opt.file.input.pattern_num_list[i]);
 	}
@@ -69,40 +68,40 @@ bool AnalyzeFaultDensity(
 	fclose(bdd_result);
 
 
-	//�ϐ�������
+	//initialize global variables
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
 	//read the fault file
 	if (ReadFile() != READ_OKAY) return AFD_ERROR;
 
-	//�����H���񎮐���
+	//create Good Circuit constraints
 	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
 
 	
 	while (readdata.fault.numrema != 0)
 	{
-		//�e�X�g�L���[�u�t�@�C���I�[�v��
+		//open cube file
 		fileOpen(&cube_file, "./tools/bdd/bdd_cube_file.txt", "w");
 
-		//BDD�������ʃt�@�C���I�[�v��
+		//open BDD result file
 		fileOpen(&bdd_result, opt.file.output.result, "a");
 
 		count++;
 		temp_numrema = readdata.fault.numrema;
 
-		//�̏჊�X�g�ǂݍ���
+		//fault list set
 		SetTarget(&remain, &target, loop++);
 
-		//�e�X�g�������f���\�z
+		//write TPG model
 		if (WriteTPGModel(&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
 
-		//�e�X�g�����񐔏�����
+		//test generation loop count
 		int test_loop = 0;
 
-		//�̏ᖼ�t�@�C���o��
+		//fault name output
 		fprintf(bdd_result, "%s,", target.list[0]->name);
 
-		//�̏�^�C�v�o��
+		//fault type output
 		if (target.list[0]->type == SF0)
 		{
 			fprintf(bdd_result, "sa0,");
@@ -111,86 +110,80 @@ bool AnalyzeFaultDensity(
 			fprintf(bdd_result, "sa1,");
 		}
 
-		//UNSAT�ɂȂ邩�C���̃e�X�g�����񐔂ɒB����܂ŌJ��Ԃ�
+		//UNSAT判定時のテスト生成終了判定
 		while (1) {
-			// SAT�\���o���s
-			// ���ʂ�UNSAT(���Ȃ�) -> �T���I��
+			// SAT判定時
+			// それ以外はUNSAT(存在しない) -> テスト終了
 			if (CLASP() != CLASP_OKAY) {
 
-				//�L���[�u���o��
+				//test generation count output
 				fprintf(bdd_result, "%d,", test_loop);
 
-				//�e�X�g�Ɋ֌W����O�����͐��o��
-				fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
-
-				//�e�X�g�L���[�u�t�@�C���N���[�Y	
+				//close cube file
 				fclose(cube_file);
 
-				//BDD�ɂ��^���l�\���x�v�Z
-				/*RunBDD(
+				//BDD running
+				RunBDD(
 					gbm,                               // CUDD�}�l�[�W���|�C���^
 					n_pi,                              // �ϐ���
 					opt.file.input.pattern_num_list,   // �����_���p�^�[�������X�g
 					opt.file.input.list_size,          // ���X�g�̃T�C�Y(��)
-				    bdd_result//,                        // ���ʃt�@�C���|�C���^
-					//total_prob_sums                    // �m���a�z��
-				);*/
+				    bdd_result,                        // ���ʃt�@�C���|�C���^
+					total_prob_sums                    // �m���a�z��
+				);
 
-				//BDD�������ʃt�@�C���N���[�Y	
+				//BDD result file close
 				fclose(bdd_result);
 
-				//�����o�̏჊�X�g����폜
+				//detected fault list deletion
 				DropDeteFault(&target);
 
-				//�������J��
+				//free memory
 				FreeMemory(&remain, &target);
 
 				break;
 
 			}
-			// SAT(������) -> �e�X�g�����p��
+			// SAT-> テスト生成続行
 			else {
 				printf("Progress >> %d/%d\n", count,readdata.fault.numinit);
 				printf("SAT test generation count:%d\n", test_loop);
 				
-				//�e�X�g�����񐔂�100��ɂȂ�����ł��؂�
+				//test generation limit reached
 				if (test_loop == opt.file.input.limit) {
 
-					//�L���[�u���o��
+					//test generation count output
 					fprintf(bdd_result, "%d,", test_loop);
 
-					//�e�X�g�Ɋ֌W����O�����͐��o��
-					fprintf(bdd_result, "%d,", target.list[0]->test_relation_num);
-
-					//�e�X�g�L���[�u�t�@�C���N���[�Y
+					//close cube file
 					fclose(cube_file);
 
-					//BDD�ɂ��^���l�\���x�v�Z
-					/*RunBDD(
+					//BDD running
+					RunBDD(
 						gbm,                               // CUDD�}�l�[�W���|�C���^
 						n_pi,                              // �ϐ���
 						opt.file.input.pattern_num_list,   // �����_���p�^�[�������X�g
 						opt.file.input.list_size,          // ���X�g�̃T�C�Y(��)
-						bdd_result//,                        // ���ʃt�@�C���|�C���^
-						//total_prob_sums                    // �m���a�z��
-					);*/
+						bdd_result,                        // ���ʃt�@�C���|�C���^
+						total_prob_sums                    // �m���a�z��
+					);
 
-					//BDD�������ʃt�@�C���N���[�Y	
+					//BDD result file close
 					fclose(bdd_result);
 
-					//�����o�̏჊�X�g����폜
+					//detected fault list deletion
 					DropDeteFault(&target);
 
-					//�������J��
+					//free memory
 					FreeMemory(&remain, &target);
 
 					break;
 				}
 
-				//�̏�ɑ΂���e�X�g������
+				//test generation count increment
 				test_loop++;
 
-				//XID�p�e�X�g�p�^�[���o��
+				//output the xid test pattern
 				OutSolution(&target);
 
 				//dont care identification
@@ -202,7 +195,7 @@ bool AnalyzeFaultDensity(
 				//generate blocking clause 
 				char* x_pattern = make_blocking_clause(&target);
 
-				//�e�X�g�L���[�u���t�@�C���ɏ�������
+				//output the blocking clause
 				fprintf(cube_file, "%s\n", x_pattern);
 
 				free(x_pattern);
@@ -210,38 +203,37 @@ bool AnalyzeFaultDensity(
 		}
 	}
 
-	// ��H�S�̂̌̏ጟ�o���o��
+	// result file open
 	fileOpen(&bdd_result, opt.file.output.result, "a");
 
 	fprintf(bdd_result, "\n");
 	fprintf(bdd_result, "circuit fault coverage,,,,");
 
-	// ���όv�Z�p��GMP�ϐ�����
-	//mpf_t average_val, total_faults_mpf;
-	//mpf_init(average_val);
-	//mpf_init(total_faults_mpf);
+	// GMP variables for average calculation
+	mpf_t average_val, total_faults_mpf;
+	mpf_init(average_val);
+	mpf_init(total_faults_mpf);
 
-	//mpf_set_ui(total_faults_mpf, readdata.fault.numinit);
+	mpf_set_ui(total_faults_mpf, readdata.fault.numinit);
 
-	// �e�����_���p�^�[�������Ƃ̕��όv�Z
+	// GMP variables for average calculation
 	for (int i = 0; i < opt.file.input.list_size; i++) {
-		// ���� = ���v / �S�̏ᐔ
-		//mpf_div(average_val, total_prob_sums[i], total_faults_mpf);
+		// average = sum / total
+		mpf_div(average_val, total_prob_sums[i], total_faults_mpf);
 
 		fprintf(bdd_result, ",");
-		// "%.6Ff" �ŏ����_�ȉ�6���܂ŏo��
-		//gmp_fprintf(bdd_result, "%.10Fe", average_val);
+		gmp_fprintf(bdd_result, "%.10Fe", average_val);
 	}
 	fprintf(bdd_result, "\n");
 
 	fclose(bdd_result);
 
-	// --- ��������� (��n��) ---
-	//mpf_clear(average_val);
-	//mpf_clear(total_faults_mpf);
+	// CUDD quit
+	mpf_clear(average_val);
+	mpf_clear(total_faults_mpf);
 
 	for (int i = 0; i < MAX_PATTERN_CASES; i++) {
-		//mpf_clear(total_prob_sums[i]);
+		mpf_clear(total_prob_sums[i]);
 	}
 
 	return AFD_OKAY;

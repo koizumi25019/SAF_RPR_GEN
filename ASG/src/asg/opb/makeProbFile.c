@@ -3,7 +3,6 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 #include <string.h>
 
 #include "./opb.h"
@@ -14,9 +13,9 @@
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@makeProbFile
-//	@function	ÅF	make the problem file
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makeProbFile
+//	@function	ÔøΩF	make the problem file
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFile(
 	char** minimize,			  /**< minimize */
@@ -48,9 +47,9 @@ void makeProbFile(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@makeProbFileMini
-//	@function	ÅF	make file -write the minimize
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makeProbFileMini
+//	@function	ÔøΩF	make file -write the minimize
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileMini(
 	FILE* fileptr,			  /**< pointer to file */
@@ -73,9 +72,9 @@ void makeProbFileMini(
 	return;
 }
 //*************************************************************************************************************
-//	@name		ÅFÅ@makeProbFileConsGC
-//	@function	ÅF	make file -write the gc-constraint
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@makeProbFileConsGC
+//	@function	ÔøΩF	make file -write the gc-constraint
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileConsGC(
 	FILE* fileptr			  /**< pointer to file */
@@ -93,9 +92,9 @@ void makeProbFileConsGC(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPBmakefileConsFC
-//	@function	ÅF	make file -write the fc-constraint
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@OPBmakefileConsFC
+//	@function	ÔøΩF	make file -write the fc-constraint
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void makeProbFileConsFC(
 	FILE* fileptr,			  /**< pointer to file */
