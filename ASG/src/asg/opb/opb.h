@@ -15,13 +15,6 @@
 #define	FORMAT_CNF
 
 /**  */
-#define ALLOC_MEM_MINIMIZE	do																				  \
-{																											  \
-	*minimize= (char*)allocMemory(MAXSIZE_CONS, sizeof(char));											      \
-}																											  \
-while(false);
-
-/**  */
 #define ALLOC_MEM_CONSFC(numalloc)	do																		  \
 {																											  \
 	for (int i = 0; i < n_net; i++)																			  \
@@ -121,7 +114,6 @@ void CreateConsGC_XNOR(
 
 /** create the faulty-circuit constraint */
 bool CreateConsFC(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 );
 
@@ -234,14 +226,12 @@ void makeProbFileConsFC(
 
 /** make the pbo file */
 void makePBOFile(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 );
 
 /** make file -write the minimize */
 void makeProbFileMini_clasp(
-	FILE* fileptr,			  /**< pointer to file */
-	char** minimize			  /**< minimize */
+	FILE* fileptr			  /**< pointer to file */
 );
 
 /** make file -write the gc-constraint */

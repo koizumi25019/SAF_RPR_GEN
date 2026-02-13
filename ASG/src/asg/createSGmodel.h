@@ -26,7 +26,6 @@ bool WriteTPGModel(
 
 /** create the tset pattern generaiton model */
 bool CreateTPGmodel(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 );
 

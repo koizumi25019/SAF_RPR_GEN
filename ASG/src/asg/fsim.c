@@ -84,7 +84,7 @@ bool DropDeteFault(
 	fclose(fileptr);
 	free(buffer);
 
-	return FSIM_OKAY;
+	return true;
 }
 
 

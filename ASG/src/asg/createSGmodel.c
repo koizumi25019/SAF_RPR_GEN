@@ -15,13 +15,12 @@ bool WriteTPGModel(
 	TARGET* target
 )
 {
-	char* minimize = (char*)NULL;
 
 	/** create the tpg model */
-	if (CreateTPGmodel(&minimize, target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
+	if (CreateTPGmodel(target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
 
 	/** meke the problem file */
-	makePBOFile(&minimize, target);
+	makePBOFile(target);
 
 
 	return W_TPG_MODEL_OKAY;
@@ -33,12 +32,11 @@ bool WriteTPGModel(
 //	@return		�F	(bool) okay, error
 //*************************************************************************************************************
 bool CreateTPGmodel(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 )
 {
 	/** create the constraint for faulty-circuit */
-	if (CreateConsFC(minimize, target) != TPG_MODEL_OKAY) return TPG_MODEL_OKAY;
+	if (CreateConsFC(target) != TPG_MODEL_OKAY) return TPG_MODEL_OKAY;
 
 	return TPG_MODEL_OKAY;
 }

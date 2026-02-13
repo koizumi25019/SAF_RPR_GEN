@@ -4,8 +4,6 @@
 
 SOLVER_LOG solver;
 
-// ★重要: ここをあなたのCaDiCaLのパス(ビルドした場所)に書き換えてください！
-// 先ほどの画像を見る限り、おそらく以下のパスです
 #define CMD_PATH  "/home/20koizumi/src/cadical/build/cadical" 
 
 #define CNF_FILE  "test.cnf"

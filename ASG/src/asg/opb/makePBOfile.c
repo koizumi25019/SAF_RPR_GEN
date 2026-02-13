@@ -18,7 +18,6 @@
 //	@return		�F	(void)
 //*************************************************************************************************************
 void makePBOFile(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 )
 {
@@ -27,10 +26,6 @@ void makePBOFile(
 
 	/** open the "problem.opb" */
 	fileOpen(&fileptr, "./pbo.txt", "w");
-
-
-	/** write the minimize */
-	makeProbFileMini_clasp(fileptr, minimize);
 
 	/** write the constrant for good-circut */
 	makeProbFileConsGC_clasp(fileptr);
@@ -43,50 +38,6 @@ void makePBOFile(
 	/** close the "problem.opb" in write-mode */
 	fclose(fileptr);
 
-	return;
-}
-
-//*************************************************************************************************************
-//	@name		�F�@makeProbFileMini_clasp
-//	@function	�F	make file -write the minimize
-//	@return		�F	(void)
-//*************************************************************************************************************
-void makeProbFileMini_clasp(
-	FILE* fileptr,			  /**< pointer to file */
-	char** minimize			  /**< minimize */
-)
-{
-	if (strcmp(*minimize, "") != 0)
-	{
-		fprintf(fileptr, "* #variable= %d ", ++opb.total.vars);
-		fprintf(fileptr, "#constraint= %d\n", opb.total.cons);
-		fprintf(fileptr, "*\n");
-		fprintf(fileptr, "*  this is a dummy instance\n");
-		fprintf(fileptr, "*\n");
-
-		//---------------------------------------------
-		//	PBO�t�@�C���������݁i�œK���֐��j
-		//---------------------------------------------
-
-		fprintf(fileptr, "min: %s;\n", *minimize);
-	}
-	else
-	{
-		sprintf_s(*minimize, MAXSIZE_CONS, "1 x%d", ++opb.total.vars);
-		fprintf(fileptr, "* #variable= %d ", ++opb.total.vars);
-		fprintf(fileptr, "#constraint= %d\n", opb.total.cons);
-		fprintf(fileptr, "*\n");
-		fprintf(fileptr, "*  this is a dummy instance\n");
-		fprintf(fileptr, "*\n");
-
-		//---------------------------------------------
-		//	PBO�t�@�C���������݁i�œK���֐��j
-		//---------------------------------------------
-
-		fprintf(fileptr, "min: %s;\n", *minimize);
-	}
-
-	
 	return;
 }
 

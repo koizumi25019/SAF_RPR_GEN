@@ -19,11 +19,9 @@
 //	@return		�F	(bool) okay, error 
 //*************************************************************************************************************
 bool CreateConsFC(
-	char** minimize,			  /**< minimize */
 	TARGET* target			  /**< target fault */
 )
 {
-	ALLOC_MEM_MINIMIZE;
 	ALLOC_MEM_CONSFC(target->num);
 
 	RESET_OPB;
