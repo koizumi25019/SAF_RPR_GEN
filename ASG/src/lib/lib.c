@@ -16,19 +16,23 @@
 //	@return		�F	(void)
 //*************************************************************************************************************
 void fileOpen(
-	FILE** fileptr,			  /**< pointer to file */
-	const char* filename,			  /**< filename */
-	const char* mode				  /**< mode */
+    FILE** fileptr,           /**< pointer to file */
+    const char* filename,     /**< filename */
+    const char* mode          /**< mode */
 )
 {
-	if (fopen_s(fileptr, filename, mode) != 0)
-	{
-		printf("\n	FILE ERROR: file open error. ");
-		printf("%c%s%c cannot open.\n", '"', filename, '"');
-		exit(EXIT_FAILURE);
-	}
+    // 標準関数 fopen を使用し、戻り値をポインタの参照先に代入する
+    *fileptr = fopen(filename, mode);
 
-	return;
+    // fopen は失敗すると NULL を返すので、それでエラー判定を行う
+    if (*fileptr == NULL)
+    {
+        printf("\n  FILE ERROR: file open error. ");
+        printf("%c%s%c cannot open.\n", '"', filename, '"');
+        exit(EXIT_FAILURE);
+    }
+
+    return;
 }
 
 //*************************************************************************************************************

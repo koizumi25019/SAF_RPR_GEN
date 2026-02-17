@@ -17,4 +17,7 @@
 # set result(.txt)
 -result ../output/result/s27_result.csv
 
+# set sat test count limit(.txt)
+-limit 100
+
 

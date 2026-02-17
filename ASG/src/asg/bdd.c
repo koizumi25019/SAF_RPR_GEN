@@ -50,7 +50,7 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     return cubeBdd;
 }
 
-// BDD���\�z���A���̌��𐔂��AGMP�Ŋm���v�Z���s���ĕԂ�
+// BDD
 void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
     FILE* fp;
     char line[4096]; // �s�o�b�t�@
@@ -58,11 +58,10 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
-    //�t�@�C���ǂݍ��݂�BDD�\�z
-    if ((fp = fopen("./tools/bdd/bdd_cube_file.txt", "r")) == NULL) {
-        fprintf(stderr, "Error: file open error %s\n", "./tools/bdd/bdd_cube_file.txt");
+    //
+    if ((fp = fopen("./bdd_cube_file.txt", "r")) == NULL) {
+        fprintf(stderr, "Error: file open error %s\n", "./bdd_cube_file.txt");
         Cudd_Quit(gbm);
-        return;
     }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
@@ -78,20 +77,21 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     }
     fclose(fp);
 
-    //BDD�ˑ��ϐ����̌v�Z
+    //BDD
     int supportSize = Cudd_SupportSize(gbm, finalBdd);
-    //BDD�ˑ��ϐ���(supportSize)��CSV�t�@�C���ɒǋL
+    //
     fprintf(result_fp, "%d,", supportSize);
 
     //���̌��J�E���g
-    int digits;         // �������󂯎�邽�߂̐����ϐ�
-    DdApaNumber count;  // ���ʂ̔z����󂯎�邽�߂̃|�C���^
+    int digits;         // 
+    DdApaNumber count;  // 
     count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
 
-    // APA�̌��ʂ𕶎���Ɏ��o��
+    // APA
     FILE* tmp_fp = tmpfile();
     if (!tmp_fp) {
-        return 0.0;
+        fprintf(stderr, "Error: cannot create temporary file\n");
+        Cudd_Quit(gbm);
     }
     Cudd_ApaPrintDecimal(tmp_fp, digits, count);
     rewind(tmp_fp);
@@ -102,13 +102,13 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     }
     fclose(tmp_fp);
 
-	// ���{�������z�񃁃������
+	// 
     free(count);
 
-    //GMP���g���Ċm�����v�Z
+    //GMP
     calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, total_prob_sums);
 
-    //�I������
+    //
     Cudd_RecursiveDeref(gbm, finalBdd);
 
     return;

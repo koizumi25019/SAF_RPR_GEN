@@ -11,13 +11,26 @@
 #include "./asg.h"
 #include "./init.h"
 #include "./read.h"
-#include "./fsim.h"
 #include "./opb/opb.h"
 #include "./opb/clasp/cadical.h"
 #include"./MakeBlockingClause.h"
 
 //prototype declaration
-void RunBDD(DdManager* gbm,int nvars, int* pattern_list, int list_size, FILE* result_fp, mpf_t* total_prob_sums);
+void RunBDD(
+	DdManager* gbm,
+	int nvars, 
+	int* pattern_list, 
+	int list_size, 
+	FILE* result_fp, 
+	mpf_t* total_prob_sums
+);
+void CallXidSaf(
+	const char* net_file, 
+	const char* pin_file
+);
+bool DropDeteFault(
+	TARGET * target	
+);
 
 #define MAX_PATTERN_CASES 100
 
@@ -81,7 +94,7 @@ bool AnalyzeFaultDensity(
 	while (readdata.fault.numrema != 0)
 	{
 		//open cube file
-		fileOpen(&cube_file, "../output/cube/bdd_cube_file.txt", "w");
+		fileOpen(&cube_file, "./bdd_cube_file.txt", "w");
 
 		//open BDD result file
 		fileOpen(&bdd_result, opt.file.output.result, "a");
@@ -114,8 +127,7 @@ bool AnalyzeFaultDensity(
 		while (1) {
 			// SAT判定時
 			// それ以外はUNSAT(存在しない) -> テスト終了
-			//if (CLASP() != CLASP_OKAY) {
-			if(RunCaDiCaL() != CADICAL_SAT) {
+			if(RunCaDiCaL() != true) {
 
 				//test generation count output
 				fprintf(bdd_result, "%d,", test_loop);
@@ -125,12 +137,12 @@ bool AnalyzeFaultDensity(
 
 				//BDD running
 				RunBDD(
-					gbm,                               // CUDD�}�l�[�W���|�C���^
-					n_pi,                              // �ϐ���
-					opt.file.input.pattern_num_list,   // �����_���p�^�[�������X�g
-					opt.file.input.list_size,          // ���X�g�̃T�C�Y(��)
-				    bdd_result,                        // ���ʃt�@�C���|�C���^
-					total_prob_sums                    // �m���a�z��
+					gbm,                               // CUDD
+					n_pi,                              // 
+					opt.file.input.pattern_num_list,   // 
+					opt.file.input.list_size,          // 
+				    bdd_result,                        // 
+					total_prob_sums                    //
 				);
 
 				//BDD result file close
@@ -161,12 +173,12 @@ bool AnalyzeFaultDensity(
 
 					//BDD running
 					RunBDD(
-						gbm,                               // CUDD�}�l�[�W���|�C���^
-						n_pi,                              // �ϐ���
-						opt.file.input.pattern_num_list,   // �����_���p�^�[�������X�g
-						opt.file.input.list_size,          // ���X�g�̃T�C�Y(��)
-						bdd_result,                        // ���ʃt�@�C���|�C���^
-						total_prob_sums                    // �m���a�z��
+						gbm,                               // CUDD
+						n_pi,                              // 
+						opt.file.input.pattern_num_list,   // 
+						opt.file.input.list_size,          // 
+						bdd_result,                        // 
+						total_prob_sums                    // 
 					);
 
 					//BDD result file close
@@ -188,10 +200,7 @@ bool AnalyzeFaultDensity(
 				OutSolution(&target);
 
 				//dont care identification
-				CALL_XID_SAF(opt.file.input.net, opt.file.output.pin);
-
-				//tarminal cls
-				system("clear");
+				CallXidSaf(opt.file.input.net, opt.file.output.pin);
 
 				//generate blocking clause 
 				char* x_pattern = make_blocking_clause(&target);
@@ -250,20 +259,20 @@ void OutSolution(
 )
 {
 
-	/** for xid */
-	FILE* fileptr = (FILE*)NULL;
-	fileOpen(&fileptr, "./tools/fsim/test.txt", "w");
-	//fprintf(fileptr, "%s\n", clasp.sol[SOL_TP]);
-	fclose(fileptr);
-
 	/** for xid  */
-	FILE* filexid = (FILE*)NULL;
-	fileOpen(&filexid, "./tools/fsim/xid_fault.txt", "w");
+FILE* filexid = fopen("./xid_fault.txt", "w");
+// 2. エラーチェック (開けなかったら NULL になる)
+if (filexid == NULL) {
+    fprintf(stderr, "【ERROR】: Cannot open ./xid_fault.txt for writing.\n");
+    exit(EXIT_FAILURE); // もしくは return false; など適切なエラー処理
+}
 	if (target->list[0]->type == SF0) {
 		fprintf(filexid, "SF0 %s\n",target->list[0]->name);
+		printf("SF0 %s\n", target->list[0]->name);
 	}
 	else {
 		fprintf(filexid, "SF1 %s\n", target->list[0]->name);
+		printf("SF1 %s\n", target->list[0]->name);
 	}
 
 	fclose(filexid);
@@ -273,9 +282,32 @@ void OutSolution(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@FreeMemory
-//	@function	�F	free the memory
-//	@return		�F	(void)
+//	@name		@CallXidSaf
+//	@function	call Xid SAF
+//	@return	    (void)
+//*************************************************************************************************************
+void CallXidSaf(const char* net_file, const char* pin_file) {
+    char cmd[2048]; 
+    snprintf(cmd, sizeof(cmd), 
+        "../../../../src/FaultSim/Build/Release/XID "
+        "-c %s "
+        "-tx ./tp.txt "
+        "-pin %s "
+        "-flist ./xid_fault.txt "
+        "-otx ./xid_tp.txt "
+        "-fm SAF -xid YES -m2004 YES", 
+        net_file, pin_file);
+
+    int ret = system(cmd);
+    if (ret != 0) { 
+        printf("XID Command Failed with code: %d\n", ret); 
+    }
+}
+
+//*************************************************************************************************************
+//	@name		@FreeMemory
+//	@function	free the memory
+//	@return		(void)
 //*************************************************************************************************************
 void FreeMemory(
 	TARGET* remain,			  /**< remain fault */

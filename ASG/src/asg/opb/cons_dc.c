@@ -24,6 +24,7 @@ void CreateConsDC(
 	char* cons = (char*)NULL;
 	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
 
+	cons[0] = '\0';
 
 	/** create the constraint for connect the pseudo-primary output */ //�^���O���o��
 	CreateConsDC_XOR(&cons);
@@ -53,84 +54,30 @@ void CreateConsDC_XOR(
 	char** cons				  /**< constraint */
 )
 {
-	/**********************************************************************
-	/**      ______                     *
-	/**	 ��--| GC |x   ____             *
-	/**  ��--|____|--�_�_  �_           *
-	/**      ______    ) )DC )--�� z    *	~x ~y ~z + x y ~z +
-	/**	 ��--| FC |--�^�^  �^           *		    x ~y z + ~x y z =1
-	/**  ��--|____|y   �P�P             *
-	/**                                 *
-	/*********************************************************************/
 
 	for (int i = 0; i < n_net; i++)
 	{
 		if ((nl[i].flag & TPO) == TPO)
 		{
-#ifdef FORMAT_OPB
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-			/**                              ~x   ~y   ~z				 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d ~x%d ~x%d",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				++opb.total.vars
-			);
-			/**                                  x   y   ~z				 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s +1 ~x%d x%d x%d",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
-			);
-			/**                                  x   ~y   z				 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s +1 x%d ~x%d x%d",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
-			);
-			/**                                  ~x   y   z				 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s +1 x%d x%d ~x%d =1;\n",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
-			);
-
-			OPBcalcSize(&opb.total, 0, 1, 4, 12);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
 
 #ifdef FORMAT_CNF
 			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 			/**                                 ~x   +  ~y   +  ~z	 >=1 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d +1 ~x%d +1 ~x%d >=1;\n",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				++opb.total.vars
-			);
-			/**                                 ~x   +  y   +  z   >=1	 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d +1 x%d >=1;\n",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
-			);
-			/**                                 x   +  ~y   +  z   >=1	 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d +1 x%d >=1;\n",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
-			);
-			/**                                 x   +  y   +  ~z   >=1	 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d +1 ~x%d >=1;\n",
-				*cons,
-				nl[i].varsgc,
-				nl[i].varsfc,
-				opb.total.vars
+// 変数番号を進める (XOR出力用)
+			opb.total.vars++;
+
+			size_t len = strlen(*cons);
+			size_t rem = MAXSIZE_CONS - len;
+
+			snprintf(*cons + len, rem,
+				"-%d -%d -%d 0\n"
+				"-%d %d %d 0\n"
+				"%d -%d %d 0\n"
+				"%d %d -%d 0\n",
+				nl[i].varsgc, nl[i].varsfc, opb.total.vars,
+				nl[i].varsgc, nl[i].varsfc, opb.total.vars,
+				nl[i].varsgc, nl[i].varsfc, opb.total.vars,
+				nl[i].varsgc, nl[i].varsfc, opb.total.vars
 			);
 			//PrintDebugMessage("x%d��DCXOR%d\n", opb.total.vars, i);
 			OPBcalcSize(&opb.total, 0, 4, 0, 0);
@@ -151,71 +98,39 @@ void CreateConsDC_OR(
 	char** cons				  /**< constraint */
 )
 {
-	/**********************************************************************
-	/**     ____x1          ___                   *
-	/**	 ��-|  |----------�_�_ �_ d1              *
-	/**     |GC|x2          ) )DC)--|  ___        *
-	/**  ��-|__|---| |----�^�^ �^   |--�_ �_ det  *
-	/**            |-)-|    �P�P         )OR)--�� *	   ~d1 ~d2 + det =1
-	/**     ____y1|--| |    ___     |--�^ �^      *
-	/**	 ��-|  |--|    |--�_�_ �_ d2|  �P�P       *
-	/**     |FC|y2          ) )DC)--|             *
-	/**  ��-|__|----------�^�^ �^                 *
-	/**                     �P�P                  *
-	/*********************************************************************/
 	if (numtranpo > 1)
 	{
-#ifdef FORMAT_OPB
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		sprintf_s(*cons, MAXSIZE_CONS, "%s1", *cons);
-		/**																 */
-		for (int i = ++opb.total.vars - numtranpo; i < opb.total.vars; i++)
-		{
-			/**                             ~x ~y						 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s ~x%d",
-				*cons,
-				i
-			);
-		}
-		/**                                   z   =1					 */
-		sprintf_s(*cons, MAXSIZE_CONS, "%s +1 x%d =1;\n",
-			*cons,
-			opb.total.vars
-		);
+		/**********************************************************************
+		 * DIMACS CNF Format
+		 * OR Logic:
+		 * Inputs(x) -> Output(z) : -x z 0
+		 * Output(z) -> Inputs(x) : x1 x2 ... -z 0
+		 *********************************************************************/
 
-		OPBcalcSize(&opb.total, 0, 1, 1, numtranpo);
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-#ifdef FORMAT_CNF
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		for (int i = ++opb.total.vars - numtranpo; i < opb.total.vars; i++)
+		for (int var = ++opb.total.vars - numtranpo; var < opb.total.vars; var++)
 		{
-			/**                                 ~x(y)+  z   >=1				 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d >=1;\n",
-				*cons,
-				i,
-				opb.total.vars
-			);
-			//PrintDebugMessage("x%d��DCOR\n", opb.total.vars, i);
+			//~x + z >=1  ->  -x z 0
+			size_t len = strlen(*cons);
+			snprintf(*cons + len, MAXSIZE_CONS - len, "-%d %d 0\n",
+				var,
+				opb.total.vars);
 		}
-		for (int i = opb.total.vars - numtranpo; i < opb.total.vars; i++)
-		{
-			/**                                 x(y)+						 */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +",
-				*cons,
-				i
-			);
-		}
-		/**                                 ~z   >=1						 */
-		sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d >=1;\n",
-			*cons,
-			opb.total.vars
-		);
 
+		for (int var = opb.total.vars - numtranpo; var < opb.total.vars; var++)
+		{
+			//x +  ->  x 
+			size_t len = strlen(*cons);
+			snprintf(*cons + len, MAXSIZE_CONS - len, "%d ",
+				var);
+		}
+
+		//~z >=1  ->  -z 0
+		size_t len = strlen(*cons);
+		snprintf(*cons + len, MAXSIZE_CONS - len, "-%d 0\n",
+			opb.total.vars);
+
+		// 制約数(節数)を numtranpo + 1 個追加
 		OPBcalcSize(&opb.total, 0, numtranpo + 1, 0, 0);
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
 	}
 
 	return;
@@ -231,184 +146,33 @@ void CreateConsDC_FE(
 	FNODE* fnodeptr			  /**< pointer to fault node */
 )
 {
-	/**********************************************************************
-	/**     ____gc-1t_____    ____gc-2t_____
-	/**  ��-|   ___      |-��-|   ___      |	    ___
-	/**     | --|  �_1(0)|    | --|  �_0(1)|------�_�_ �_ det
-	/**	 ��-|   |AND )-- |-��-|   |AND )-- |	    ) )DC)--
-	/**     | --|__�^ x1 |    | --|__�^ x2 | |----�^�^ �^  1
-	/**  ��-|____________|-��-|____________| |	   �P�P
-	/**                          |      |	 |  * * * * * * * * * * * * *
-	/**                       ___|__fc__|___ |	*  safe
-	/**                       |   ___      | |	*  	x1 ~x2 x2' det =1
-	/**                       | --|  �_1(0)| |	*   ~x1 x2 ~x2' det =1
-	/**                       |   |AND )-- |-|	*
-	/**                       | --|__�^ x2'|	*  unsafe
-	/**                       |____________|	*	r + x1 ~x2 x2' det =1
-	/**	                                        *   r + ~x1 x2 ~x2' det =1
-	/**********************************************************************/
-	if (fnodeptr->relax == false)
+/**********************************************************************
+	 * DIMACS CNF Format
+	 * Fault Excitation (Hard Constraints):
+	 * SF0: x_gc=1, x_fc=0  ->  x_gc 0, -x_fc 0
+	 * SF1: x_gc=0, x_fc=1  -> -x_gc 0,  x_fc 0
+	 *********************************************************************/
+	size_t len = strlen(*cons);
+
+	if (fnodeptr->type == SF0)
 	{
-		if (fnodeptr->type == SF0)
-		{
-#ifdef FORMAT_OPB
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d ~x%d x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsgc,
-				fnodeptr->netptr->varsfc,
-				opb.total.vars
-			);
-
-			OPBcalcSize(&opb.total, 0, 1, 1, 3);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-
-#ifdef FORMAT_CNF
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsgc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsfc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-				*cons,
-				opb.total.vars
-			);
-
-			OPBcalcSize(&opb.total, 0, 3, 0, 0);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-		}
-
-		if (fnodeptr->type == SF1)
-		{
-#ifdef FORMAT_OPB
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d x%d x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsgc,
-				fnodeptr->netptr->varsfc,
-				opb.total.vars
-			);
-
-			OPBcalcSize(&opb.total, 0, 1, 1, 3);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-
-#ifdef FORMAT_CNF
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 ~x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsgc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-				*cons,
-				fnodeptr->netptr->varsfc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-				*cons,
-				opb.total.vars
-			);
-
-			OPBcalcSize(&opb.total, 0, 3, 0, 0);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-		}
+		snprintf(*cons + len, MAXSIZE_CONS - len,
+			"%d 0\n"
+			"-%d 0\n",
+			fnodeptr->netptr->varsgc,
+			fnodeptr->netptr->varsfc
+		);
 	}
-
-	else
+	else if (fnodeptr->type == SF1)
 	{
-		if (fnodeptr->type == SF0)
-		{
-#ifdef FORMAT_OPB
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d ~x%d x%d =1;\n",
-				*cons,
-				++opb.total.vars,
-				fnodeptr->netptr->varsgc,
-				fnodeptr->netptr->varsfc,
-				opb.total.vars - 1
-			);
-
-			OPBcalcSize(&opb.total, 0, 1, 1, 3);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-
-#ifdef FORMAT_CNF
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-				*cons,
-				++opb.total.vars,
-				fnodeptr->netptr->varsgc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d >=1;\n",
-				*cons,
-				opb.total.vars,
-				fnodeptr->netptr->varsfc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-				*cons,
-				opb.total.vars,
-				opb.total.vars - 1
-			);
-			//PrintDebugMessage("x%d��DCFESF0\n", opb.total.vars);
-			OPBcalcSize(&opb.total, 0, 3, 0, 0);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-		}
-
-		if (fnodeptr->type == SF1)
-		{
-#ifdef FORMAT_OPB
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d x%d x%d >=1;\n",
-				*cons,
-				++opb.total.vars,
-				fnodeptr->netptr->varsgc,
-				fnodeptr->netptr->varsfc,
-				opb.total.vars - 1
-			);
-
-			OPBcalcSize(&opb.total, 0, 1, 1, 3);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-
-#ifdef FORMAT_CNF
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d >=1;\n",
-				*cons,
-				++opb.total.vars,
-				fnodeptr->netptr->varsgc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-				*cons,
-				opb.total.vars,
-				fnodeptr->netptr->varsfc
-			);
-			sprintf_s(*cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-				*cons,
-				opb.total.vars,
-				opb.total.vars - 1
-			);
-			//PrintDebugMessage("x%d��DCFESF1\n", opb.total.vars);
-			OPBcalcSize(&opb.total, 0, 3, 0, 0);
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
-#endif
-		}
+		snprintf(*cons + len, MAXSIZE_CONS - len,
+			"-%d 0\n"
+			"%d 0\n",
+			fnodeptr->netptr->varsgc,
+			fnodeptr->netptr->varsfc
+		);
 	}
-
-	return;
+	
+	// 制約数(節数)を2つ追加
+	OPBcalcSize(&opb.total, 0, 2, 0, 0);
 }
-
-
-
-
-
-
-
-
-

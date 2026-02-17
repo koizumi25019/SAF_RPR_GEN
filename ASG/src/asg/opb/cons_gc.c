@@ -94,71 +94,25 @@ void CreateConsGC_AND(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    char *p = cons; int rest = MAXSIZE_CONS;
 
-	/*********************************************************************
-	/**		 �@  _______				*
-	/**	 x ��----|      �_			  	*	x y + ~z  =1
-	/**		�@�@ |  AND   �j---�� z		*
-	/**	 y ��----|______�^				*	(x + ~z) (y + ~z) (~x + ~y + z)
-	/**								    *
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	cons[0] = '1';
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                            x  y								 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s x%d",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                  ~z   =1						 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 ~x%d =1;\n",
-		cons,
-		netptr->varsgc
-	);
+    // (¬x1 ∨ ¬x2 ∨ ... ∨ z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
+    p += snprintf(p, rest, "%u 0\n", netptr->varsgc + 1);
+    rest = MAXSIZE_CONS - (p - cons);
 
-	OPBcalcSize(&opb.constant, 0, 1, 1, netptr->n_in);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
+    // (xi ∨ ¬z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "%u -%u 0\n", netptr->in[i]->varsgc + 1, netptr->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
 
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                x(y)+  ~z   >=1				 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d >=1;\n",
-			cons,
-			netptr->in[i]->varsgc,
-			netptr->varsgc
-		);
-	}
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                ~x(y)+						 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                z   >=1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-		cons,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif // FORMAT_CNF
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+    OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0); // 節数を加算
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -170,71 +124,25 @@ void CreateConsGC_NAND(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
+char *cons = (char*)malloc(MAXSIZE_CONS);
+    char *p = cons; int rest = MAXSIZE_CONS;
 
-	/**********************************************************************
-	/**		 �@  _______				*
-	/**	 x ��----|      �_			  	*	x y + z  =1
-	/**		�@�@ |  NAND  �Z---�� z		*
-	/**	 y ��----|______�^				*	(x + z) (y + z) (~x + ~y + ~z)
-	/**								    *
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	cons[0] = '1';
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                            x  y								 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s x%d",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                  z   =1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 x%d =1;\n",
-		cons,
-		netptr->varsgc
-	);
+    // (¬x1 ∨ ¬x2 ∨ ... ∨ ¬z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
+    p += snprintf(p, rest, "-%u 0\n", netptr->varsgc + 1);
+    rest = MAXSIZE_CONS - (p - cons);
 
-	OPBcalcSize(&opb.constant, 0, 1, 1, netptr->n_in);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
+    // (xi ∨ z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "%u %u 0\n", netptr->in[i]->varsgc + 1, netptr->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
 
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                x(y)+  z   >=1				 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-			cons,
-			netptr->in[i]->varsgc,
-			netptr->varsgc
-		);
-	}
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                ~x(y)+						 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                ~z   >=1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d >=1;\n",
-		cons,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+    OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -246,71 +154,25 @@ void CreateConsGC_OR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    char *p = cons; int rest = MAXSIZE_CONS;
 
-	/**********************************************************************
-	/**		 �@  ______					*
-	/**	 x ��----�_    �_			  	*	~x ~y + z  =1
-	/**		�@�@   ) OR  )---�� z		*
-	/**	 y ��----�^    �^				*	(~x + z) (~y + z) (x + y + ~z)
-	/**			 �P�P�P 				*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	cons[0] = '1';
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                            ~x ~y							 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s ~x%d",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                  z   =1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 x%d =1;\n",
-		cons,
-		netptr->varsgc
-	);
+    // (x1 ∨ x2 ∨ ... ∨ ¬z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "%u ", netptr->in[i]->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
+    p += snprintf(p, rest, "-%u 0\n", netptr->varsgc + 1);
+    rest = MAXSIZE_CONS - (p - cons);
 
-	OPBcalcSize(&opb.constant, 0, 1, 1, netptr->n_in);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
+    // (¬xi ∨ z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "-%u %u 0\n", netptr->in[i]->varsgc + 1, netptr->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
 
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                ~x(y)+  z   >=1				 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d >=1;\n",
-			cons,
-			netptr->in[i]->varsgc,
-			netptr->varsgc
-		);
-	}
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                x(y)+						 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                ~z   >=1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d >=1;\n",
-		cons,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+    OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -322,72 +184,25 @@ void CreateConsGC_NOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    char *p = cons; int rest = MAXSIZE_CONS;
 
-	/**********************************************************************
-	/**		 �@  ______					*
-	/**	 x ��----�_    �_			  	*	~x ~y + ~z  =1
-	/**		�@�@   ) NOR �Z---�� z		*
-	/**	 y ��----�^    �^				*	(~x + ~z) (~y + ~z) (x + y + z)
-	/**			 �P�P�P 				*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	cons[0] = '1';
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                            ~x ~y							 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s ~x%d",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                  ~z   =1						 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 ~x%d =1;\n",
-		cons,
-		netptr->varsgc
-	);
+    // (x1 ∨ x2 ∨ ... ∨ z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "%u ", netptr->in[i]->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
+    p += snprintf(p, rest, "%u 0\n", netptr->varsgc + 1);
+    rest = MAXSIZE_CONS - (p - cons);
 
-	OPBcalcSize(&opb.constant, 0, 1, 1, netptr->n_in);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+    // (¬xi ∨ ¬z)
+    for (int i = 0; i < netptr->n_in; i++) {
+        p += snprintf(p, rest, "-%u -%u 0\n", netptr->in[i]->varsgc + 1, netptr->varsgc + 1);
+        rest = MAXSIZE_CONS - (p - cons);
+    }
 
-#endif
-
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                ~x(y)+  ~z   >=1				 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 ~x%d >=1;\n",
-			cons,
-			netptr->in[i]->varsgc,
-			netptr->varsgc
-		);
-	}
-	for (int i = 0; i < netptr->n_in; i++)
-	{
-		/**                                x(y)+						 */
-		sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +",
-			cons,
-			netptr->in[i]->varsgc
-		);
-	}
-	/**                                z   >=1							 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d >=1;\n",
-		cons,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+    OPBcalcSize(&opb.constant, 0, netptr->n_in + 1, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -399,55 +214,12 @@ void CreateConsGC_BUF(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
-
-	/**********************************************************************
-	/**			|�_		�@�@�@�@		*
-	/**			|  �_		�@�@�@�@	*		x y + ~x ~y  =1
-	/**	 x ��---|BUF >---�� y			*
-	/**			|  �^		�@�@		*		(x + ~y) (~x + y)
-	/**         |�^						*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                              ~x   ~y   +  x   y   =1			 */
-	sprintf_s(cons, MAXSIZE_CONS, "1 ~x%d ~x%d +1 x%d x%d =1;\n",
-		netptr->in[0]->varsgc,
-		netptr->varsgc,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 1, 2, 4);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**				                   x1  +  ~x2  >=1					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-	/**				                   ~x1  +  x2  >=1					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 2, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    snprintf(cons, MAXSIZE_CONS, "-%u %u 0\n%u -%u 0\n", 
+             netptr->in[0]->varsgc + 1, netptr->varsgc + 1, 
+             netptr->in[0]->varsgc + 1, netptr->varsgc + 1);
+    OPBcalcSize(&opb.constant, 0, 2, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -459,56 +231,12 @@ void CreateConsGC_INV(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
-
-	/**********************************************************************
-	/**			|�_		�@�@�@�@		*
-	/**			|  �_		�@�@�@�@	*		~x y + x ~y  =1
-	/**	 x ��---|INV �Z---�� y			*
-	/**			|  �^		�@�@		*		(~x + ~y) (x + y)
-	/**         |�^						*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                              ~x   y   +  x   ~y   =1			 */
-	sprintf_s(cons, MAXSIZE_CONS, "1 ~x%d x%d +1 x%d ~x%d =1;\n",
-		netptr->in[0]->varsgc,
-		netptr->varsgc,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 1, 2, 4);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#endif
-
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**				                   ~x1  +  ~x2  >=1				     */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 ~x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-	/**				                   x1  +  x2  >=1					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 2, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    snprintf(cons, MAXSIZE_CONS, "%u %u 0\n-%u -%u 0\n", 
+             netptr->in[0]->varsgc + 1, netptr->varsgc + 1, 
+             netptr->in[0]->varsgc + 1, netptr->varsgc + 1);
+    OPBcalcSize(&opb.constant, 0, 2, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -520,90 +248,14 @@ void CreateConsGC_XOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
-
-	/**********************************************************************
-	/**		  �@   �Q�Q					*
-	/**	 x	��---�_�_   �_				*	~x ~y ~z + x y ~z +
-	/**		  �@�@ ) )XOR )---�� z		*
-	/**	 y	��---�^�^	�^				*		x ~y z + ~x y z =1
-	/**	        �@ �P�P  �@�@�@�@		*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                              ~x   ~y   ~z						 */
-	sprintf_s(cons, MAXSIZE_CONS, "1 ~x%d ~x%d ~x%d",
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  x   y   ~z						 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 x%d x%d ~x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  x   ~y   z						 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 x%d ~x%d x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  ~x   y   z						 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 ~x%d x%d x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 1, 4, 12);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                                ~x   +  ~y   +  ~z   >=1			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 ~x%d +1 ~x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                x   +  y   +  ~z	  >=1  			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 x%d +1 ~x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                x   +  ~y   +  z	  >=1  			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d +1 x%d >=1;\n;",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                ~x   +  y   +  z	  >=1			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d +1 x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 4, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+	char *cons = (char*)malloc(MAXSIZE_CONS);
+    unsigned int a = netptr->in[0]->varsgc + 1;
+    unsigned int b = netptr->in[1]->varsgc + 1;
+    unsigned int z = netptr->varsgc + 1;
+    snprintf(cons, MAXSIZE_CONS, "-%u -%u -%u 0\n%u %u -%u 0\n%u -%u %u 0\n-%u %u %u 0\n",
+             a, b, z, a, b, z, a, b, z, a, b, z);
+    OPBcalcSize(&opb.constant, 0, 4, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 //*************************************************************************************************************
@@ -615,92 +267,14 @@ void CreateConsGC_XNOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char* cons = (char*)NULL;
-	cons = (char*)allocMemory(MAXSIZE_CONS, sizeof(char));
-
-	/**********************************************************************
-	/**		  �@   �Q�Q					*
-	/**	 x	��---�_�_   �_				*	x y z + ~x ~y z +
-	/**		  �@�@ ) )XORN�Z---�� z		*
-	/**	 y	��---�^�^	�^				*		~x y ~z + x ~y ~z =1
-	/**	        �@ �P�P  �@�@�@�@		*
-	/*********************************************************************/
-#ifdef FORMAT_OPB
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                              x   y   z							 */
-	sprintf_s(cons, MAXSIZE_CONS, "1 x%d x%d x%d",
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  ~x   ~y   z					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 ~x%d ~x%d x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  ~x   y   ~z					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 ~x%d x%d ~x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                  x   ~y   ~z					 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s +1 x%d ~x%d ~x%d",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 1, 4, 12);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#endif
-
-#ifdef FORMAT_CNF
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	/**                                x   +  y   +  z   >=1;			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 x%d +1 x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                ~x   +  ~y   +  z   >=1 			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 ~x%d +1 x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                ~x   +  y   +  ~z   >=1  		 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 ~x%d +1 x%d +1 ~x%d >=1;\n;",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-	/**                                x   +  ~y   +  ~z   >=1			 */
-	sprintf_s(cons, MAXSIZE_CONS, "%s1 x%d +1 ~x%d +1 ~x%d >=1;\n",
-		cons,
-		netptr->in[0]->varsgc,
-		netptr->in[1]->varsgc,
-		netptr->varsgc
-	);
-
-	OPBcalcSize(&opb.constant, 0, 4, 0, 0);
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#endif
-
-	netptr->consgc = _strdup(cons);
-
-	free(cons);
-
-	return;
+char *cons = (char*)malloc(MAXSIZE_CONS);
+    unsigned int a = netptr->in[0]->varsgc + 1;
+    unsigned int b = netptr->in[1]->varsgc + 1;
+    unsigned int z = netptr->varsgc + 1;
+    snprintf(cons, MAXSIZE_CONS, "%u %u %u 0\n-%u -%u %u 0\n-%u %u -%u 0\n%u -%u -%u 0\n",
+             a, b, z, a, b, z, a, b, z, a, b, z);
+    OPBcalcSize(&opb.constant, 0, 4, 0, 0);
+    netptr->consgc = strdup(cons); free(cons);
 }
 
 

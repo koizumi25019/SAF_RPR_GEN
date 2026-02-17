@@ -25,15 +25,15 @@ void makePBOFile(
 
 
 	/** open the "problem.opb" */
-	fileOpen(&fileptr, "./pbo.txt", "w");
+	fileOpen(&fileptr, "./cnf.txt", "w");
+
+	fprintf(fileptr, "p cnf %d %d\n", opb.total.vars, opb.total.cons);
 
 	/** write the constrant for good-circut */
 	makeProbFileConsGC_clasp(fileptr);
 
-
 	/** write the constrant for faulty-circut */
 	makeProbFileConsFC_clasp(fileptr, target);
-
 
 	/** close the "problem.opb" in write-mode */
 	fclose(fileptr);
@@ -50,6 +50,9 @@ void makeProbFileConsGC_clasp(
 	FILE* fileptr			  /**< pointer to file */
 )
 {
+	fprintf(fileptr, "c --------------------------------------------------\n");
+    fprintf(fileptr, "c Good Circuit Constraints\n");
+    fprintf(fileptr, "c --------------------------------------------------\n");
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].type != IN && nl[i].type != DFF)
@@ -62,7 +65,7 @@ void makeProbFileConsGC_clasp(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPBmakefileConsFC_clasp
+//	@name		�F�@makeProbFileConsFC_clasp
 //	@function	�F	make file -write the fc-constraint
 //	@return		�F	(void)
 //*************************************************************************************************************
@@ -71,6 +74,10 @@ void makeProbFileConsFC_clasp(
 	TARGET* target			  /**< target fault */
 )
 {
+	fprintf(fileptr, "c --------------------------------------------------\n");
+    fprintf(fileptr, "c Faulty Circuit Constraints\n");
+    fprintf(fileptr, "c --------------------------------------------------\n");
+
 	for (int i = 0; i < target->num; i++)
 	{
 		for (int j = 0; j < n_net; j++)

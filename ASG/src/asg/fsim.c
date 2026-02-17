@@ -7,7 +7,6 @@
 
 #include "./asg.h"
 #include "./read.h"
-#include "./fsim.h"
 #include "./target.h"
 #include "../opt/opt.h"
 #include "../lib/lib.h"
@@ -31,7 +30,7 @@ bool DropDeteFault(
 	buffer = (char*)allocMemory(MAXSIZE_BUFFER, sizeof(char));
 
 	/** open the "detected fault file" in read-mode */
-	fileOpen(&fileptr, "./tools/fsim/xid_fault.txt", "r");
+	fileOpen(&fileptr, "./xid_fault.txt", "r");
 
 	while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
 	{
@@ -44,7 +43,7 @@ bool DropDeteFault(
 
 		/* calulate hash */
 		int hash = calcHash(fault_buffer);
-		tmp = readdata.fault.list[calcHash(fault_buffer)];
+		tmp = readdata.fault.list[hash];
 
 		/* search fault and update detection infomation */
 		while (tmp != (FNODE*)NULL)
@@ -86,12 +85,3 @@ bool DropDeteFault(
 
 	return true;
 }
-
-
-
-
-
-
-
-
-
