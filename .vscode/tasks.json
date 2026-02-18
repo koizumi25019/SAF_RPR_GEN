@@ -17,11 +17,19 @@
                 "-o",
                 "${workspaceFolder}/ASG/src/main",
                 
+                 // ヘッダーの場所
+                "-I/home/20koizumi/src/cadical/src",
+                // ライブラリの場所
+                "-L/home/20koizumi/src/cadical/build",
+
                 "-I${env:HOME}/local/include",
                 "-L${env:HOME}/local/lib",
                 "-lcudd",
                 "-lgmp",
-                "-lm"
+                "-lm",
+                "-lcadical",  // libcadical.a をリンク
+                "-lstdc++"    // CaDiCaLはC++製なので、これを入れないとエラーになります！
+
             ],
             "options": {
                 "cwd": "${fileDirname}"

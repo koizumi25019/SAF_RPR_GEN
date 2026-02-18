@@ -82,23 +82,23 @@ void OutLogfile(
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                          AnalyzeFaultDensity Information\n");
+	fprintf(fileptr, "//                          AnalyzeFaultDetectionProbability Information\n");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fileptr, "//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	fprintf(fileptr, "//  Time                                      : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
 	printf("\n\n");
 	printf("//--------------------------------------------------------------------------------\n");
-	printf("//                          AnalyzeFaultDensity Information\n");
+	printf("//                          AnalyzeFaultDetectionProbability Information\n");
 	printf("//--------------------------------------------------------------------------------\n");
 	printf("//  Target Circuit                            : %s\n", net_name);
 	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	printf("//  AnalyzeFaultDensity Time                  : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	printf("//  Time                                    : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
 	printf("//--------------------------------------------------------------------------------\n");
 
 	return;

@@ -7,6 +7,7 @@
 #include <cudd.h>
 #include <gmp.h>
 
+#include "ccadical.h"
 #include "./createSGmodel.h"
 #include "./asg.h"
 #include "./init.h"
@@ -33,6 +34,25 @@ bool DropDeteFault(
 );
 
 #define MAX_PATTERN_CASES 100
+
+//-----------------------------------------------------------------------------
+// [追加] ソルバの解から tp.txt (XID入力用) を作成する関数
+//-----------------------------------------------------------------------------
+void GenerateTpAndFile(CCaDiCaL *solver, const char* filename) {
+    FILE *fp = fopen(filename, "w");
+    if (!fp) return;
+
+    for (int i = 0; i < n_net; i++) {
+        if (nl[i].type == IN) { 
+            int var = nl[i].varsgc; 
+            // ソルバから値を直接取得 (正なら1, 負なら0)
+            int val = ccadical_val(solver, var);
+            fprintf(fp, "%c", (val > 0) ? '1' : '0');
+        }
+    }
+    fprintf(fp, "\n");
+    fclose(fp);
+}
 
 //*************************************************************************************************************
 //	@name		�F�@AnalyzeFaultDensity
@@ -93,6 +113,13 @@ bool AnalyzeFaultDensity(
 	
 	while (readdata.fault.numrema != 0)
 	{
+
+		// ソルバの初期化 
+        CCaDiCaL *solver = ccadical_init();
+		
+		// 変数の未宣言エラーを回避するために factor オプションを無効化します
+        ccadical_set_option(solver, "factor", 0);
+
 		//open cube file
 		fileOpen(&cube_file, "./bdd_cube_file.txt", "w");
 
@@ -106,7 +133,7 @@ bool AnalyzeFaultDensity(
 		SetTarget(&remain, &target, loop++);
 
 		//write TPG model
-		if (WriteTPGModel(&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
+		if (WriteTPGModel(solver,&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
 
 		//test generation loop count
 		int test_loop = 0;
@@ -127,7 +154,11 @@ bool AnalyzeFaultDensity(
 		while (1) {
 			// SAT判定時
 			// それ以外はUNSAT(存在しない) -> テスト終了
-			if(RunCaDiCaL() != true) {
+			// ★ メモリ上でSolve実行
+            int res = ccadical_solve(solver); // 10:SAT, 20:UNSAT
+
+			//if(RunCaDiCaL() != true) {
+			if(res == 20) { // 20:UNSAT
 
 				//test generation count output
 				fprintf(bdd_result, "%d,", test_loop);
@@ -196,14 +227,20 @@ bool AnalyzeFaultDensity(
 				//test generation count increment
 				test_loop++;
 
+				//generate test pattern and output to file
+				GenerateTpAndFile(solver, "./tp.txt");
+
 				//output the xid test pattern
 				OutSolution(&target);
 
 				//dont care identification
-				CallXidSaf(opt.file.input.net, opt.file.output.pin);
+				CallXidSaf(
+					opt.file.input.net, 
+					opt.file.output.pin
+				);
 
 				//generate blocking clause 
-				char* x_pattern = make_blocking_clause(&target);
+				char* x_pattern = make_blocking_clause(solver,&target);
 
 				//output the blocking clause
 				fprintf(cube_file, "%s\n", x_pattern);

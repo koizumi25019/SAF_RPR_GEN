@@ -3,7 +3,9 @@
         {
             "name": "Linux",
             "includePath": [
-                "${env:HOME}/local/include"
+            "${env:HOME}/local/include",
+            "${workspaceFolder}/**",
+            "/home/20koizumi/src/cadical/src"
             ],
             "defines": [],
             "compilerPath": "/bin/gcc",

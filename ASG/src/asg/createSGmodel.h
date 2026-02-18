@@ -3,7 +3,7 @@
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include <stdbool.h>
-
+#include "ccadical.h"
 #include "./target.h"
 
 
@@ -21,6 +21,7 @@
 //-------------------------------------------------------------------------------------------------------------
 //** write the tset pattern generaiton model */
 bool WriteTPGModel(
+	CCaDiCaL *solver,
 	TARGET* target			  /**< target fault */
 );
 
