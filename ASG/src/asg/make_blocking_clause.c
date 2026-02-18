@@ -6,9 +6,8 @@
 
 #include "../netlist/netlist.h"
 #include "./target.h"
-#include "ccadical.h" // 【重要】CaDiCaLのヘッダーを追加
+#include "ccadical.h"
 
-// 修正後: ソルバへのポインタを受け取るように変更
 char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
 {
     // 1. XID2 (反例パターン) の読み込み
@@ -43,7 +42,7 @@ char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
 
     // 改行除去
     x_pattern[strcspn(x_pattern, "\r\n")] = '\0';
-
+    printf("X pattern: %s\n", x_pattern); // デバッグ表示
     // ---------------------------------------------------------
     // 2. インクリメンタル処理: CaDiCaLに直接禁止節を追加する
     // ---------------------------------------------------------
@@ -72,10 +71,5 @@ char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
     // 節の終わりを示す "0" を追加
     ccadical_add(solver, 0);
 
-    // ---------------------------------------------------------
-    // これでソルバ内に禁止節が追加されました
-    // ファイル書き込み (cnf.txt) は不要になったので削除しました
-    // ---------------------------------------------------------
-
-    return x_pattern; // ログ等で使うかもしれないのでパターン文字列は返す
+    return x_pattern;
 }

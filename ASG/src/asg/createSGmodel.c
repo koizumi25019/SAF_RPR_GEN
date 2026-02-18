@@ -33,7 +33,7 @@ void AddClauseString(CCaDiCaL *solver, char* clause_str) {
 
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     
-    // 1. 正常回路の制約 (Good Circuit) を投入
+    // 1. 正常回路の制約
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type != IN && nl[i].type != DFF) {
             // nl[i].consgc には "1 -2 3 0\n" のような文字列が入っているはず
@@ -43,7 +43,7 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
         }
     }
 
-    // 2. 故障回路の制約 (Faulty Circuit) を投入
+    // 2. 故障回路の制約
     for (int i = 0; i < target->num; i++) {
         for (int j = 0; j < n_net; j++) {
             if (nl[j].consfc != NULL && nl[j].consfc[i] != NULL) {
@@ -51,8 +51,6 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
             }
         }
     }
-    
-    // ※ヘッダー "p cnf ..." はAPI経由なら不要なので何もしなくてOK
 }
 
 //*************************************************************************************************************
@@ -69,8 +67,6 @@ bool WriteTPGModel(
 	/** create the tpg model */
 	if (CreateTPGmodel(target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
 
-	/** meke the problem file */
-	//makePBOFile(target);
     // 作成された文字列データをソルバに直接投入
     LoadModelToSolver(solver, target);
 

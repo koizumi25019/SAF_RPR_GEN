@@ -36,28 +36,36 @@ bool DropDeteFault(
 #define MAX_PATTERN_CASES 100
 
 //-----------------------------------------------------------------------------
-// [追加] ソルバの解から tp.txt (XID入力用) を作成する関数
+// ソルバの解から tp.txt (XID入力用) を作成する関数
 //-----------------------------------------------------------------------------
 void GenerateTpAndFile(CCaDiCaL *solver, const char* filename) {
     FILE *fp = fopen(filename, "w");
     if (!fp) return;
 
-    for (int i = 0; i < n_net; i++) {
-        if (nl[i].type == IN) { 
-            int var = nl[i].varsgc; 
-            // ソルバから値を直接取得 (正なら1, 負なら0)
-            int val = ccadical_val(solver, var);
-            fprintf(fp, "%c", (val > 0) ? '1' : '0');
-        }
+for (int i = 0; i < n_pi; i++) {
+        
+        // 1. そのピンの変数番号を取得
+        int var = pi[i]->varsgc; 
+        
+        // 2. SATソルバから値を取得
+        int val = ccadical_val(solver, var);
+        char bit_char = (val > 0) ? '1' : '0';
+
+        // 3. ★デバッグ表示★
+        // "Bit 0 (G7): Var 1 -> 0" のように表示されれば成功
+        printf("Bit %d (%s): Var %d -> %c\n", i, pi[i]->name, var, bit_char);
+
+        // ファイル書き込み
+        fprintf(fp, "%c", bit_char);
     }
     fprintf(fp, "\n");
     fclose(fp);
 }
 
 //*************************************************************************************************************
-//	@name		�F�@AnalyzeFaultDensity
-//	@function	�F	analyze the fault density
-//	@return		�F	(bool) okay, error
+//	@name		�F�@AnalyzeFaultDetectionProbability
+//	@function	F	analyze the fault detection probability
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool AnalyzeFaultDensity(
 	void
@@ -154,7 +162,6 @@ bool AnalyzeFaultDensity(
 		while (1) {
 			// SAT判定時
 			// それ以外はUNSAT(存在しない) -> テスト終了
-			// ★ メモリ上でSolve実行
             int res = ccadical_solve(solver); // 10:SAT, 20:UNSAT
 
 			//if(RunCaDiCaL() != true) {
@@ -248,6 +255,7 @@ bool AnalyzeFaultDensity(
 				free(x_pattern);
 			}
 		}
+		ccadical_release(solver);
 	}
 
 	// result file open

@@ -72,14 +72,14 @@ void AssigneVarsGC(
 	/** assigne the variable for primary inputs */
 	for (int i = 0; i < n_pi; i++) {
 		pi[i]->varsgc = ++opb.constant.vars;
-		//PrintDebugMessage("x%d��%s varsgc\n", pi[i]->varsgc, pi[i]->name);
+        printf("x%d→%s varsgc\n", pi[i]->varsgc, pi[i]->name);
 	}
 	/** assigne the variable for others */
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].varsgc == UNASSIGN)
 			nl[i].varsgc = ++opb.constant.vars;
-			//PrintDebugMessage("x%d��%s varsgc\n", nl[i].varsgc, nl[i].name);
+			//PrintDebugMessage("x%d→%s varsgc\n", nl[i].varsgc, nl[i].name);
 	}
 
 	return;
