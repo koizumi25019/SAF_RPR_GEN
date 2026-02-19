@@ -10,7 +10,6 @@
 
 char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
 {
-    // 1. XID2 (反例パターン) の読み込み
     char xtp_file[256];
     snprintf(xtp_file, sizeof(xtp_file), "./xid_tp.txt");
     FILE* fp_xtp = fopen(xtp_file, "r");
@@ -42,17 +41,12 @@ char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
 
     // 改行除去
     x_pattern[strcspn(x_pattern, "\r\n")] = '\0';
-    printf("X pattern: %s\n", x_pattern); // デバッグ表示
-    // ---------------------------------------------------------
-    // 2. インクリメンタル処理: CaDiCaLに直接禁止節を追加する
-    // ---------------------------------------------------------
-
     
     for (int i = 0; i < n_vars; i++) {
         char bit = x_pattern[i];
         
-        // 変数番号は 1 始まり (DIMACS準拠)
-        int var_idx = i + 1; 
+        // 変数番号は 1 始まり
+        int var_idx = pi[i]->varsgc;  // varsgcを直接使う
         int lit = 0;
 
         if (bit == '0') {

@@ -6,7 +6,6 @@
 #include "./opb/opb.h"
 #include "ccadical.h"
 
-// 文字列の節をパースしてソルバに入れる
 void AddClauseString(CCaDiCaL *solver, char* clause_str) {
     if (!clause_str) return;
     
@@ -20,14 +19,9 @@ void AddClauseString(CCaDiCaL *solver, char* clause_str) {
     char *token = strtok(work_str, " \t\n");
     while (token != NULL) {
         int lit = atoi(token);
-        if (lit != 0) { // 0 は無視、または add(0) で明示的に区切る
-            ccadical_add(solver, lit);
-        }
+        ccadical_add(solver, lit);
         token = strtok(NULL, " \t\n");
     }
-    
-    ccadical_add(solver, 0);
-
     free(work_str);
 }
 

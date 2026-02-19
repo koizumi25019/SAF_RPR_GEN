@@ -24,7 +24,7 @@ void OutPIN(
 );
 
 void OutLogfile(
-	clock_t time
+	double time
 );
 
 

@@ -8,7 +8,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/ASG/src/main",
-            "args": ["-set", "../input/script/s27_C.set"],
+            "args": ["-set", "../input/script/s5378_C.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],

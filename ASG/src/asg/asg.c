@@ -51,10 +51,6 @@ for (int i = 0; i < n_pi; i++) {
         int val = ccadical_val(solver, var);
         char bit_char = (val > 0) ? '1' : '0';
 
-        // 3. ★デバッグ表示★
-        // "Bit 0 (G7): Var 1 -> 0" のように表示されれば成功
-        printf("Bit %d (%s): Var %d -> %c\n", i, pi[i]->name, var, bit_char);
-
         // ファイル書き込み
         fprintf(fp, "%c", bit_char);
     }
@@ -306,18 +302,17 @@ void OutSolution(
 
 	/** for xid  */
 FILE* filexid = fopen("./xid_fault.txt", "w");
-// 2. エラーチェック (開けなかったら NULL になる)
 if (filexid == NULL) {
     fprintf(stderr, "【ERROR】: Cannot open ./xid_fault.txt for writing.\n");
     exit(EXIT_FAILURE); // もしくは return false; など適切なエラー処理
 }
 	if (target->list[0]->type == SF0) {
 		fprintf(filexid, "SF0 %s\n",target->list[0]->name);
-		printf("SF0 %s\n", target->list[0]->name);
+		//printf("SF0 %s\n", target->list[0]->name);
 	}
 	else {
 		fprintf(filexid, "SF1 %s\n", target->list[0]->name);
-		printf("SF1 %s\n", target->list[0]->name);
+		//printf("SF1 %s\n", target->list[0]->name);
 	}
 
 	fclose(filexid);

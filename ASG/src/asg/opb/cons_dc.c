@@ -80,7 +80,6 @@ void CreateConsDC_XOR(
 				nl[i].varsgc, nl[i].varsfc, opb.total.vars
 			);
 			//PrintDebugMessage("x%d��DCXOR%d\n", opb.total.vars, i);
-			OPBcalcSize(&opb.total, 0, 4, 0, 0);
 			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 #endif
 		}
@@ -95,45 +94,56 @@ void CreateConsDC_XOR(
 //	@return		�F	(void)
 //*************************************************************************************************************
 void CreateConsDC_OR(
-	char** cons				  /**< constraint */
+    char** cons               /**< constraint */
 )
 {
-	if (numtranpo > 1)
-	{
-		/**********************************************************************
-		 * DIMACS CNF Format
-		 * OR Logic:
-		 * Inputs(x) -> Output(z) : -x z 0
-		 * Output(z) -> Inputs(x) : x1 x2 ... -z 0
-		 *********************************************************************/
+    // 外部出力が複数ある場合のみ、それらを束ねるORゲートを作成する
+    // 1つしかない場合は、その変数がそのまま最終出力(z)として扱われるので何もしなくて良い
+    if (numtranpo > 1)
+    {
+        /**********************************************************************
+         * DIMACS CNF Format
+         * OR Logic Definition:
+         * 1. Forward:  Inputs(x) -> Output(z)  =>  -x z 0
+         * 2. Backward: Output(z) -> Inputs(x)  =>  x1 x2 ... -z 0
+         *********************************************************************/
 
-		for (int var = ++opb.total.vars - numtranpo; var < opb.total.vars; var++)
-		{
-			//~x + z >=1  ->  -x z 0
-			size_t len = strlen(*cons);
-			snprintf(*cons + len, MAXSIZE_CONS - len, "-%d %d 0\n",
-				var,
-				opb.total.vars);
-		}
+        // 変数をインクリメントして、ORゲートの出力変数(z)を確保
+        int z_var = ++opb.total.vars;
 
-		for (int var = opb.total.vars - numtranpo; var < opb.total.vars; var++)
-		{
-			//x +  ->  x 
-			size_t len = strlen(*cons);
-			snprintf(*cons + len, MAXSIZE_CONS - len, "%d ",
-				var);
-		}
+        // 1. Forward Implication (-x z 0)
+        // 「入力が1なら、出力は1」
+        for (int x_var = z_var - numtranpo; x_var < z_var; x_var++)
+        {
+            size_t len = strlen(*cons);
+            snprintf(*cons + len, MAXSIZE_CONS - len, "-%d %d 0\n",
+                x_var,
+                z_var);
+        }
 
-		//~z >=1  ->  -z 0
-		size_t len = strlen(*cons);
-		snprintf(*cons + len, MAXSIZE_CONS - len, "-%d 0\n",
-			opb.total.vars);
+        // 2. Backward Implication (x1 x2 ... -z 0)
+        // 「出力が1なら、入力のどれかは1」
+        
+        // 入力変数(x1 x2 ...)を列挙
+        for (int x_var = z_var - numtranpo; x_var < z_var; x_var++)
+        {
+            size_t len = strlen(*cons);
+            snprintf(*cons + len, MAXSIZE_CONS - len, "%d ",
+                x_var);
+        }
 
-		// 制約数(節数)を numtranpo + 1 個追加
-		OPBcalcSize(&opb.total, 0, numtranpo + 1, 0, 0);
-	}
+        // 最後に -z 0 を付けて行を閉じる
+        // ※これは「zを0にする」命令ではなく、上のループと合わせて
+        //   「x1 ... -z 0」という一つの節を作っている
+        size_t len = strlen(*cons);
+        snprintf(*cons + len, MAXSIZE_CONS - len, "-%d 0\n",
+            z_var);
+            
+        // ★重要: ここで "z 0" (z=1固定) は出力しません。
+        // その役割は FE (CreateConsDC_FE) に移動しました。
+    }
 
-	return;
+    return;
 }
 
 //*************************************************************************************************************
@@ -142,37 +152,39 @@ void CreateConsDC_OR(
 //	@return		�F	(void)
 //*************************************************************************************************************
 void CreateConsDC_FE(
-	char** cons,				  /**< constraint */
-	FNODE* fnodeptr			  /**< pointer to fault node */
+    char** cons,
+    FNODE* fnodeptr
 )
 {
-/**********************************************************************
-	 * DIMACS CNF Format
-	 * Fault Excitation (Hard Constraints):
-	 * SF0: x_gc=1, x_fc=0  ->  x_gc 0, -x_fc 0
-	 * SF1: x_gc=0, x_fc=1  -> -x_gc 0,  x_fc 0
-	 *********************************************************************/
-	size_t len = strlen(*cons);
+    size_t len = strlen(*cons);
+    int z_output_var = opb.total.vars; // グローバル変数が最終出力を指している前提
 
-	if (fnodeptr->type == SF0)
-	{
-		snprintf(*cons + len, MAXSIZE_CONS - len,
-			"%d 0\n"
-			"-%d 0\n",
-			fnodeptr->netptr->varsgc,
-			fnodeptr->netptr->varsfc
-		);
-	}
-	else if (fnodeptr->type == SF1)
-	{
-		snprintf(*cons + len, MAXSIZE_CONS - len,
-			"-%d 0\n"
-			"%d 0\n",
-			fnodeptr->netptr->varsgc,
-			fnodeptr->netptr->varsfc
-		);
-	}
-	
-	// 制約数(節数)を2つ追加
-	OPBcalcSize(&opb.total, 0, 2, 0, 0);
+    // 故障励起（Fault Excitation）: 故障箇所での値の不一致を強制
+    if (fnodeptr->type == SF0)
+    {
+        // 正常(gc)=1, 故障(fc)=0
+        snprintf(*cons + len, MAXSIZE_CONS - len,
+            "%d 0\n"    // gc = 1
+            "-%d 0\n",  // fc = 0
+            fnodeptr->netptr->varsgc,
+            fnodeptr->netptr->varsfc
+        );
+    }
+    else if (fnodeptr->type == SF1)
+    {
+        // 正常(gc)=0, 故障(fc)=1
+        snprintf(*cons + len, MAXSIZE_CONS - len,
+            "-%d 0\n"   // gc = 0
+            "%d 0\n",   // fc = 1
+            fnodeptr->netptr->varsgc,
+            fnodeptr->netptr->varsfc
+        );
+    }
+
+    // 故障検出（Fault Detection）: 最終出力が1であることを強制
+    len = strlen(*cons);
+    snprintf(*cons + len, MAXSIZE_CONS - len,
+        "%d 0\n", // z = 1
+        z_output_var
+    );
 }

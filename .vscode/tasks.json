@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc アクティブなファイルのビルド",
+            "label": "C/C++: gcc Debug ビルド",
             "command": "/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
@@ -29,7 +29,6 @@
                 "-lm",
                 "-lcadical",  // libcadical.a をリンク
                 "-lstdc++"    // CaDiCaLはC++製なので、これを入れないとエラーになります！
-
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -41,7 +40,51 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "デバッガーによって生成されたタスク。"
+            "detail": "デバッガー用のタスク（最適化なし・デバッグ情報あり）"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc Release ビルド",
+            "command": "/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-O3",        // ★追加: 実行速度を最大限に最適化
+                "-DNDEBUG",   // ★追加: アサーションなどのデバッグ機能を無効化
+                // ※ ここにあった "-g" を削除しています
+                "${workspaceFolder}/ASG/src/*.c",
+                "${workspaceFolder}/ASG/src/asg/*.c",
+                "${workspaceFolder}/ASG/src/asg/opb/*.c", 
+                "${workspaceFolder}/ASG/src/asg/opb/clasp/*.c",
+                "${workspaceFolder}/ASG/src/lib/*.c",
+                "${workspaceFolder}/ASG/src/netlist/*.c",
+                "${workspaceFolder}/ASG/src/opt/*.c",
+                "-o",
+                "${workspaceFolder}/ASG/src/main",
+                
+                 // ヘッダーの場所
+                "-I/home/20koizumi/src/cadical/src",
+                // ライブラリの場所
+                "-L/home/20koizumi/src/cadical/build",
+
+                "-I${env:HOME}/local/include",
+                "-L${env:HOME}/local/lib",
+                "-lcudd",
+                "-lgmp",
+                "-lm",
+                "-lcadical",  // libcadical.a をリンク
+                "-lstdc++"    // CaDiCaLはC++製なので、これを入れないとエラーになります！
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false  // ★Releaseは手動で選ぶようにfalseにしています
+            },
+            "detail": "本番実行用のタスク（最高レベルの最適化あり）"
         }
     ],
     "version": "2.0.0"

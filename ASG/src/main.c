@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 199309L
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -17,13 +18,15 @@
 //	@function	�F	main
 //	@return		�F	(void)
 //*************************************************************************************************************
-bool main(
+int main(
 	int					  argc,				 /**< number of command-arguments */
 	char** argv								 /**< command-arguments */
 )
 {
-	clock_t start, end;
-	start = clock();
+struct timespec start, end;
+    
+    // 計測開始
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
 	char txt_cmd[50];
 
@@ -40,8 +43,14 @@ bool main(
 	//analyze the fault detection probability
 	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
 
-	end = clock();
-	OutLogfile(end - start);
+	// 計測終了
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    // 秒単位の経過時間を計算
+    double elapsed_time = (end.tv_sec - start.tv_sec) + 
+                          (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+						  
+	OutLogfile(elapsed_time);
 
 	return 0;
 }
@@ -75,30 +84,30 @@ void OutPIN(
 //	@return		�F	(bool) okay, error
 //*************************************************************************************************************
 void OutLogfile(
-	clock_t time
+	double time
 )
 {
 
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                          AnalyzeFaultDetectionProbability Information\n");
+	fprintf(fileptr, "//                AnalyzeFaultDetectionProbability Information\n");
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fileptr, "//  Time                                      : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	fprintf(fileptr, "//  Time                                      : %.3f sec\n", time);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
 	printf("\n\n");
 	printf("//--------------------------------------------------------------------------------\n");
-	printf("//                          AnalyzeFaultDetectionProbability Information\n");
+	printf("//                AnalyzeFaultDetectionProbability Information\n");
 	printf("//--------------------------------------------------------------------------------\n");
 	printf("//  Target Circuit                            : %s\n", net_name);
 	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	printf("//  Time                                    : %.3f sec\n", ((float)time) / CLOCKS_PER_SEC);
+	printf("//  Time                                    : %.3f sec\n", time);
 	printf("//--------------------------------------------------------------------------------\n");
 
 	return;

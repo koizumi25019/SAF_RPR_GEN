@@ -144,19 +144,17 @@ void CreateConsFC_AND(
 
     // (¬in1 ∨ ¬in2 ∨ ... ∨ z)
     for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsfc + 1);
+        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsfc);
         rest = MAXSIZE_CONS - (p - cons);
     }
-    p += snprintf(p, rest, "%u 0\n", netptr->varsfc + 1);
+    p += snprintf(p, rest, "%u 0\n", netptr->varsfc);
     rest = MAXSIZE_CONS - (p - cons);
 
     // (in_i ∨ ¬z)
     for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "%u -%u 0\n", netptr->in[i]->varsfc + 1, netptr->varsfc + 1);
+        p += snprintf(p, rest, "%u -%u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
         rest = MAXSIZE_CONS - (p - cons);
     }
-
-    OPBcalcSize(&opb.total, 0, netptr->n_in + 1, 0, 0);
     netptr->consfc[numfault] = strdup(cons); free(cons);
 }
 
@@ -187,8 +185,6 @@ void CreateConsFC_NAND(
         p += snprintf(p, rest, "%u %u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
         rest = MAXSIZE_CONS - (p - cons);
     }
-
-    OPBcalcSize(&opb.total, 0, netptr->n_in + 1, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	free(cons);
 }
@@ -220,8 +216,6 @@ void CreateConsFC_OR(
         p += snprintf(p, rest, "-%u %u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
         rest = MAXSIZE_CONS - (p - cons);
     }
-
-    OPBcalcSize(&opb.total, 0, netptr->n_in + 1, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	free(cons);
 }
@@ -253,8 +247,6 @@ void CreateConsFC_NOR(
         p += snprintf(p, rest, "-%u -%u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
         rest = MAXSIZE_CONS - (p - cons);
     }
-
-    OPBcalcSize(&opb.total, 0, netptr->n_in + 1, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	free(cons);
 }
@@ -276,8 +268,6 @@ void CreateConsFC_BUF(
     snprintf(cons, MAXSIZE_CONS, "-%u %u 0\n%u -%u 0\n", 
              netptr->in[0]->varsfc, netptr->varsfc, 
              netptr->in[0]->varsfc, netptr->varsfc);
-             
-    OPBcalcSize(&opb.total, 0, 2, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	free(cons);
 }
@@ -299,8 +289,6 @@ void CreateConsFC_INV(
     snprintf(cons, MAXSIZE_CONS, "%u %u 0\n-%u -%u 0\n", 
              netptr->in[0]->varsfc, netptr->varsfc, 
              netptr->in[0]->varsfc, netptr->varsfc);
-             
-    OPBcalcSize(&opb.total, 0, 2, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	free(cons);
 }
@@ -325,8 +313,6 @@ void CreateConsFC_XOR(
     // (¬a ∨ ¬b ∨ ¬z) ∧ (a ∨ b ∨ ¬z) ∧ (a ∨ ¬b ∨ z) ∧ (¬a ∨ b ∨ z)
     snprintf(cons, MAXSIZE_CONS, "-%u -%u -%u 0\n%u %u -%u 0\n%u -%u %u 0\n-%u %u %u 0\n",
              a, b, z, a, b, z, a, b, z, a, b, z);
-             
-    OPBcalcSize(&opb.total, 0, 4, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	 free(cons);
 }
@@ -351,8 +337,6 @@ void CreateConsFC_XNOR(
     // (a ∨ b ∨ z) ∧ (¬a ∨ ¬b ∨ z) ∧ (¬a ∨ b ∨ ¬z) ∧ (a ∨ ¬b ∨ ¬z)
     snprintf(cons, MAXSIZE_CONS, "%u %u %u 0\n-%u -%u %u 0\n-%u %u -%u 0\n%u -%u -%u 0\n",
              a, b, z, a, b, z, a, b, z, a, b, z);
-             
-    OPBcalcSize(&opb.total, 0, 4, 0, 0);
     netptr->consfc[numfault] = strdup(cons); 
 	 free(cons);
 }

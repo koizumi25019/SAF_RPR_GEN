@@ -1,23 +1,21 @@
 # set File
 # set netlist(.v)
--net ./input/circuit/c17a.v 
+-net ../input/circuit/c17a.v 
 
 # set fault list(.txt)
--fault ./input/fault/c17a_rep.txt
-
-# set test relation(.txt)
--rp 10,100,1000
+-fault ../input/fault/c17a_rep.txt
 
 # set random pattern num list(.txt)
+-rp 10,100,1000
 
 # set log(.txt)
--log ./output/log/c17a_log.txt
+-log ../output/log/c17a_log.txt
 
 # set pin(.txt)
--pin ./output/pin/c17a_pin.txt
+-pin ../output/pin/c17a_pin.txt
 
 # set result(.txt)
--result ./output/result/c17a_result.csv
+-result ../output/result/c17a_result.csv
 
 -limit 100
 
