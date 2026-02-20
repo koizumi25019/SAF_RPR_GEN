@@ -1,14 +1,14 @@
 {
-    // IntelliSense を使用して利用可能な属性を学べます。
-    // 既存の属性の説明をホバーして表示します。
-    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [{
+    "configurations": [
+        {
             "name": "(gdb) 起動",
             "type": "cppdbg",
             "request": "launch",
+            // 実行ファイルのパスをビルド出力先に合わせる
             "program": "${workspaceFolder}/ASG/src/main",
-            "args": ["-set", "../input/script/s5378_C.set"],
+            // プログラムに渡す引数がある場合はここに追加
+            "args": ["-set", "../input/script/s27_C.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
@@ -21,6 +21,9 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: gcc アクティブなファイルのビルド"
-        }]
+            // ★重要：実行前に「プロジェクト全体ビルド」タスクを走らせる
+            "preLaunchTask": "C/C++: gcc Debug ビルド (プロジェクト全体)",
+            "miDebuggerPath": "/usr/bin/gdb"
+        }
+    ]
 }

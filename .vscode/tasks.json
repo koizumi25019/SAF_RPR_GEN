@@ -1,37 +1,34 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc Debug ビルド",
+            "label": "C/C++: gcc Debug ビルド (プロジェクト全体)",
             "command": "/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/ASG/src/*.c",
                 "${workspaceFolder}/ASG/src/asg/*.c",
-                "${workspaceFolder}/ASG/src/asg/opb/*.c", 
+                "${workspaceFolder}/ASG/src/asg/opb/*.c",
                 "${workspaceFolder}/ASG/src/asg/opb/clasp/*.c",
                 "${workspaceFolder}/ASG/src/lib/*.c",
                 "${workspaceFolder}/ASG/src/netlist/*.c",
                 "${workspaceFolder}/ASG/src/opt/*.c",
                 "-o",
                 "${workspaceFolder}/ASG/src/main",
-                
-                 // ヘッダーの場所
                 "-I/home/20koizumi/src/cadical/src",
-                // ライブラリの場所
                 "-L/home/20koizumi/src/cadical/build",
-
                 "-I${env:HOME}/local/include",
                 "-L${env:HOME}/local/lib",
+                "-lcadical",
                 "-lcudd",
                 "-lgmp",
                 "-lm",
-                "-lcadical",  // libcadical.a をリンク
-                "-lstdc++"    // CaDiCaLはC++製なので、これを入れないとエラーになります！
+                "-lstdc++"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/ASG/src"
             },
             "problemMatcher": [
                 "$gcc"
@@ -40,39 +37,66 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "デバッガー用のタスク（最適化なし・デバッグ情報あり）"
+            "detail": "プロジェクトのすべてのCファイルをコンパイルし、デバッグ情報を付与します。"
         },
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc Release ビルド",
+            "label": "C/C++: gcc Release ビルド (プロジェクト全体)",
             "command": "/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "-O3",        // ★追加: 実行速度を最大限に最適化
-                "-DNDEBUG",   // ★追加: アサーションなどのデバッグ機能を無効化
-                // ※ ここにあった "-g" を削除しています
+                "-O3",
+                "-DNDEBUG",
                 "${workspaceFolder}/ASG/src/*.c",
                 "${workspaceFolder}/ASG/src/asg/*.c",
-                "${workspaceFolder}/ASG/src/asg/opb/*.c", 
+                "${workspaceFolder}/ASG/src/asg/opb/*.c",
                 "${workspaceFolder}/ASG/src/asg/opb/clasp/*.c",
                 "${workspaceFolder}/ASG/src/lib/*.c",
                 "${workspaceFolder}/ASG/src/netlist/*.c",
                 "${workspaceFolder}/ASG/src/opt/*.c",
                 "-o",
                 "${workspaceFolder}/ASG/src/main",
-                
-                 // ヘッダーの場所
                 "-I/home/20koizumi/src/cadical/src",
-                // ライブラリの場所
                 "-L/home/20koizumi/src/cadical/build",
-
                 "-I${env:HOME}/local/include",
                 "-L${env:HOME}/local/lib",
+                "-lcadical",
                 "-lcudd",
                 "-lgmp",
                 "-lm",
-                "-lcadical",  // libcadical.a をリンク
-                "-lstdc++"    // CaDiCaLはC++製なので、これを入れないとエラーになります！
+                "-lstdc++"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/ASG/src"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "最適化を最大化して実行ファイルを生成します。"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc アクティブなファイルのビルド",
+            "command": "/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-I/home/20koizumi/src/cadical/src",
+                "-L/home/20koizumi/src/cadical/build",
+                "-I${env:HOME}/local/include",
+                "-L${env:HOME}/local/lib",
+                "-lcadical",
+                "-lcudd",
+                "-lgmp",
+                "-lm",
+                "-lstdc++"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -82,10 +106,9 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": false  // ★Releaseは手動で選ぶようにfalseにしています
+                "isDefault": false
             },
-            "detail": "本番実行用のタスク（最高レベルの最適化あり）"
+            "detail": "現在開いているファイルのみをビルドします（ヘッダーエラー解消用）。"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

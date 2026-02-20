@@ -9,10 +9,6 @@
 void AddClauseString(CCaDiCaL *solver, char* clause_str) {
     if (!clause_str) return;
     
-    // 文字列をコピーしないとstrtokが元のデータを壊す可能性があるため、
-    // 必要ならstrdupして作業用バッファを作るのが安全ですが、
-    // ここでは使い捨ての文字列と仮定して直接扱います。
-    // もし consgc を後でまた使うなら、コピーしてください。
     char* work_str = strdup(clause_str);
     if (!work_str) return;
 
