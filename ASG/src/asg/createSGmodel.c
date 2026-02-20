@@ -32,15 +32,6 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
             }
         }
     }
-
-    // 2. 故障回路の制約
-    for (int i = 0; i < target->num; i++) {
-        for (int j = 0; j < n_net; j++) {
-            if (nl[j].consfc != NULL && nl[j].consfc[i] != NULL) {
-                AddClauseString(solver, nl[j].consfc[i]);
-            }
-        }
-    }
 }
 
 //*************************************************************************************************************
@@ -55,7 +46,7 @@ bool WriteTPGModel(
 {
 
 	/** create the tpg model */
-	if (CreateTPGmodel(target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
+	if (CreateTPGmodel(solver, target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
 
     // 作成された文字列データをソルバに直接投入
     LoadModelToSolver(solver, target);
@@ -69,11 +60,12 @@ bool WriteTPGModel(
 //	@return		�F	(bool) okay, error
 //*************************************************************************************************************
 bool CreateTPGmodel(
+CCaDiCaL* solver,
 	TARGET* target			  /**< target fault */
 )
 {
 	/** create the constraint for faulty-circuit */
-	if (CreateConsFC(target) != TPG_MODEL_OKAY) return TPG_MODEL_OKAY;
+	if (CreateConsFC(solver, target) != TPG_MODEL_OKAY) return TPG_MODEL_ERROR;
 
 	return TPG_MODEL_OKAY;
 }

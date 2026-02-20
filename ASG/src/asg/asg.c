@@ -355,23 +355,12 @@ void FreeMemory(
 )
 {
 	/** free the target fault lists */
-	free(remain->list);
-	free(target->list);
-
-	/** free the faulty-circuit constraints  */
-	for (int i = 0; i < n_net; i++)
-	{
-		for (int j = 0; j < target->num; j++)
-		{
-			if (nl[i].consfc[j] != NULL)
-			{
-				free(nl[i].consfc[j]);
-
-			}
-		}
-
-		free(nl[i].consfc);
-
+	if (remain->list != NULL) {
+		free(remain->list);
 	}
+	if (target->list != NULL) {
+		free(target->list);
+	}
+
 	return;
 }

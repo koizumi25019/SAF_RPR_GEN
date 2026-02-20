@@ -114,6 +114,7 @@ void CreateConsGC_XNOR(
 
 /** create the faulty-circuit constraint */
 bool CreateConsFC(
+	CCaDiCaL* solver,       // ★追加
 	TARGET* target			  /**< target fault */
 );
 
@@ -124,71 +125,71 @@ void SearchTFO(
 
 /** create the faulty-circuit constraint -AND */
 void CreateConsFC_AND(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr			  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -NAND */
 void CreateConsFC_NAND(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr			  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -OR */
 void CreateConsFC_OR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr		  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -NOR */
 void CreateConsFC_NOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr		  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -BUF */
 void CreateConsFC_BUF(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr			  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -INV */
 void CreateConsFC_INV(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr		  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -XOR */
 void CreateConsFC_XOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr			  /**< pointer to netlist */
 );
 
 /** create the faulty-circuit constraint -XNOR */
 void CreateConsFC_XNOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
+	CCaDiCaL* solver,       // ★追加
+	NLIST* netptr		  /**< pointer to netlist */
 );
 
 /** create the detection-circuit constraint */
 void CreateConsDC(
-	FNODE* target,			  /**< target fault */
-	int 				  numfault			  /**< target index */
+	CCaDiCaL* solver,       // ★追加
+	FNODE* target		  /**< target fault */
 );
 
 /** create the constraint for connect transitive-primary output */
 void CreateConsDC_XOR(
-	char** cons				  /**< constraint */
+	CCaDiCaL* solver     // ★追加
 );
 
 /** create the constraint for connect the xor outputs */
 void CreateConsDC_OR(
-	char** cons				  /**< constraint */
+	CCaDiCaL* solver     // ★追加
 );
 
 /** create the constraint for fault excitation */
 void CreateConsDC_FE(
-	char** cons,				  /**< constraint */
+	CCaDiCaL* solver,       // ★追加
 	FNODE* fnodeptr			  /**< pointer to fault node */
 );
 

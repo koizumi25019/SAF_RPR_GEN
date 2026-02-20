@@ -27,6 +27,7 @@ bool WriteTPGModel(
 
 /** create the tset pattern generaiton model */
 bool CreateTPGmodel(
+	CCaDiCaL* solver,
 	TARGET* target			  /**< target fault */
 );
 

@@ -3,7 +3,9 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+// ★追加: CaDiCaLのC言語APIヘッダ
+#include "ccadical.h" 
 
 #include "../createSGmodel.h"
 #include "./opb.h"
@@ -12,17 +14,20 @@
 #include "../../lib/lib.h"
 #include "../../netlist/netlist.h"
 
+// ※ヘッダファイルのプロトタイプ宣言も合わせて変更してください（numfault引数を削除し、solverを追加）
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC
-//	@function	�F	create the faulty-circuit constraint
-//	@return		�F	(bool) okay, error 
+//	@name		：	CreateConsFC
+//	@function	：	create the faulty-circuit constraint
+//	@return		：	(bool) okay, error 
 //*************************************************************************************************************
 bool CreateConsFC(
+	CCaDiCaL* solver,       // ★引数に追加
 	TARGET* target			  /**< target fault */
 )
 {
-	ALLOC_MEM_CONSFC(target->num);
+	// 文字列保存用のメモリ確保はもう不要なのでコメントアウト（または削除）
+	// ALLOC_MEM_CONSFC(target->num);
 
 	RESET_OPB;
 
@@ -41,22 +46,16 @@ bool CreateConsFC(
 				{
 					switch (nl[j].type)
 					{
-					case AND:	CreateConsFC_AND(&nl[j], i);		break;
-
-					case NAND:	CreateConsFC_NAND(&nl[j], i);		break;
-
-					case OR:	CreateConsFC_OR(&nl[j], i);			break;
-
-					case NOR:	CreateConsFC_NOR(&nl[j], i);		break;
-
-					case INV:	CreateConsFC_INV(&nl[j], i);		break;
-
+					// ★ solver を渡し、不要になった i (numfault) を削除
+					case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
+					case NAND:	CreateConsFC_NAND(solver, &nl[j]);		break;
+					case OR:	CreateConsFC_OR(solver, &nl[j]);		break;
+					case NOR:	CreateConsFC_NOR(solver, &nl[j]);		break;
+					case INV:	CreateConsFC_INV(solver, &nl[j]);		break;
 					case BUF:
-					case FOUT:	CreateConsFC_BUF(&nl[j], i);		break;
-
-					case EXOR:	CreateConsFC_XOR(&nl[j], i);		break;
-
-					case EXNOR:	CreateConsFC_XNOR(&nl[j], i);		break;
+					case FOUT:	CreateConsFC_BUF(solver, &nl[j]);		break;
+					case EXOR:	CreateConsFC_XOR(solver, &nl[j]);		break;
+					case EXNOR:	CreateConsFC_XNOR(solver, &nl[j]);		break;
 
 					case IN:
 					case DFF:										break;
@@ -64,14 +63,14 @@ bool CreateConsFC(
 					default:
 						printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
 						printf("some gates are not supported. \n\n");
-
 						return TPG_MODEL_ERROR;
 					}
 				}
 			}
 
 			/** create the detection-circuit constraint */
-			CreateConsDC(target->list[i], i);
+			// ★ CreateConsDC にも solver を渡すように変更が必要になります
+			CreateConsDC(solver, target->list[i]);
 		}
 	}
 
@@ -79,9 +78,9 @@ bool CreateConsFC(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@SearchTFO
-//	@function	�F	search for transitive-fout
-//	@return		�F	(void)
+//	@name		：	SearchTFO
+//	@function	：	search for transitive-fout
+//	@return		：	(void)
 //*************************************************************************************************************
 void SearchTFO(
 	FNODE* target			  /**< target fault */
@@ -105,8 +104,7 @@ void SearchTFO(
 		if ((netptr->flag & TFO) != TFO)
 		{
 			netptr->flag |= TFO;
-			netptr->varsfc = ++opb.total.vars;
-			//PrintDebugMessage("x%d��%s varsfc\n", netptr->varsfc,netptr->name);
+			netptr->varsfc = ++opb.total.vars; // ※これもint型になっている前提
 
 			numtrannet++;
 
@@ -129,214 +127,143 @@ void SearchTFO(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_AND
-//	@function	�F	create the faulty-circuit constraint -AND
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_AND
+//	@function	：	create the faulty-circuit constraint -AND
 //*************************************************************************************************************
-void CreateConsFC_AND(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_AND(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
-    char *p = cons; int rest = MAXSIZE_CONS;
+	// (¬in1 ∨ ¬in2 ∨ ... ∨ z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, -netptr->in[i]->varsfc);
+	}
+	ccadical_add(solver, netptr->varsfc);
+	ccadical_add(solver, 0);
 
-    // (¬in1 ∨ ¬in2 ∨ ... ∨ z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    p += snprintf(p, rest, "%u 0\n", netptr->varsfc);
-    rest = MAXSIZE_CONS - (p - cons);
-
-    // (in_i ∨ ¬z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "%u -%u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    netptr->consfc[numfault] = strdup(cons); free(cons);
+	// (in_i ∨ ¬z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, netptr->in[i]->varsfc);
+		ccadical_add(solver, -netptr->varsfc);
+		ccadical_add(solver, 0);
+	}
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_NAND
-//	@function	�F	create the faulty-circuit constraint -NAND
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_NAND
+//	@function	：	create the faulty-circuit constraint -NAND
 //*************************************************************************************************************
-void CreateConsFC_NAND(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_NAND(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
-    char *p = cons; int rest = MAXSIZE_CONS;
+	// (¬in1 ∨ ¬in2 ∨ ... ∨ ¬z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, -netptr->in[i]->varsfc);
+	}
+	ccadical_add(solver, -netptr->varsfc);
+	ccadical_add(solver, 0);
 
-    // (¬in1 ∨ ¬in2 ∨ ... ∨ ¬z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "-%u ", netptr->in[i]->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    p += snprintf(p, rest, "-%u 0\n", netptr->varsfc);
-    rest = MAXSIZE_CONS - (p - cons);
-
-    // (in_i ∨ z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "%u %u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    netptr->consfc[numfault] = strdup(cons); 
-	free(cons);
+	// (in_i ∨ z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, netptr->in[i]->varsfc);
+		ccadical_add(solver, netptr->varsfc);
+		ccadical_add(solver, 0);
+	}
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_OR
-//	@function	�F	create the faulty-circuit constriant -OR
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_OR
+//	@function	：	create the faulty-circuit constriant -OR
 //*************************************************************************************************************
-void CreateConsFC_OR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_OR(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
-    char *p = cons; int rest = MAXSIZE_CONS;
+	// (x1 ∨ x2 ∨ ... ∨ ¬z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, netptr->in[i]->varsfc);
+	}
+	ccadical_add(solver, -netptr->varsfc);
+	ccadical_add(solver, 0);
 
-    // (x1 ∨ x2 ∨ ... ∨ ¬z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "%u ", netptr->in[i]->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    p += snprintf(p, rest, "-%u 0\n", netptr->varsfc);
-    rest = MAXSIZE_CONS - (p - cons);
-
-    // (¬xi ∨ z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "-%u %u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    netptr->consfc[numfault] = strdup(cons); 
-	free(cons);
+	// (¬xi ∨ z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, -netptr->in[i]->varsfc);
+		ccadical_add(solver, netptr->varsfc);
+		ccadical_add(solver, 0);
+	}
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_NOR
-//	@function	�F	create the faulty-circuit constraint -NOR
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_NOR
+//	@function	：	create the faulty-circuit constraint -NOR
 //*************************************************************************************************************
-void CreateConsFC_NOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_NOR(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
-    char *p = cons; int rest = MAXSIZE_CONS;
+	// (x1 ∨ x2 ∨ ... ∨ z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, netptr->in[i]->varsfc);
+	}
+	ccadical_add(solver, netptr->varsfc);
+	ccadical_add(solver, 0);
 
-    // (x1 ∨ x2 ∨ ... ∨ z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "%u ", netptr->in[i]->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    p += snprintf(p, rest, "%u 0\n", netptr->varsfc);
-    rest = MAXSIZE_CONS - (p - cons);
-
-    // (¬xi ∨ ¬z)
-    for (int i = 0; i < netptr->n_in; i++) {
-        p += snprintf(p, rest, "-%u -%u 0\n", netptr->in[i]->varsfc, netptr->varsfc);
-        rest = MAXSIZE_CONS - (p - cons);
-    }
-    netptr->consfc[numfault] = strdup(cons); 
-	free(cons);
+	// (¬xi ∨ ¬z)
+	for (int i = 0; i < netptr->n_in; i++) {
+		ccadical_add(solver, -netptr->in[i]->varsfc);
+		ccadical_add(solver, -netptr->varsfc);
+		ccadical_add(solver, 0);
+	}
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_BUF
-//	@function	�F	create the faulty-circuit constraint -BUF
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_BUF
+//	@function	：	create the faulty-circuit constraint -BUF
 //*************************************************************************************************************
-void CreateConsFC_BUF(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_BUF(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
+	int in = netptr->in[0]->varsfc;
+	int z  = netptr->varsfc;
 
-    // (¬a ∨ z) ∧ (a ∨ ¬z)
-    snprintf(cons, MAXSIZE_CONS, "-%u %u 0\n%u -%u 0\n", 
-             netptr->in[0]->varsfc, netptr->varsfc, 
-             netptr->in[0]->varsfc, netptr->varsfc);
-    netptr->consfc[numfault] = strdup(cons); 
-	free(cons);
+	ccadical_add(solver, -in); ccadical_add(solver, z);  ccadical_add(solver, 0);
+	ccadical_add(solver, in);  ccadical_add(solver, -z); ccadical_add(solver, 0);
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_INV
-//	@function	�F	create the faulty-circuit constraint -INV
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_INV
+//	@function	：	create the faulty-circuit constraint -INV
 //*************************************************************************************************************
-void CreateConsFC_INV(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_INV(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
-    
-    // (a ∨ z) ∧ (¬a ∨ ¬z)
-    snprintf(cons, MAXSIZE_CONS, "%u %u 0\n-%u -%u 0\n", 
-             netptr->in[0]->varsfc, netptr->varsfc, 
-             netptr->in[0]->varsfc, netptr->varsfc);
-    netptr->consfc[numfault] = strdup(cons); 
-	free(cons);
+	int in = netptr->in[0]->varsfc;
+	int z  = netptr->varsfc;
+
+	ccadical_add(solver, in);  ccadical_add(solver, z);  ccadical_add(solver, 0);
+	ccadical_add(solver, -in); ccadical_add(solver, -z); ccadical_add(solver, 0);
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_XOR
-//	@function	�F	create the faulty-circuit constraint -XOR
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_XOR
+//	@function	：	create the faulty-circuit constraint -XOR
 //*************************************************************************************************************
-void CreateConsFC_XOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_XOR(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
+	int a = netptr->in[0]->varsfc;
+	int b = netptr->in[1]->varsfc;
+	int z = netptr->varsfc;
 
-    unsigned int a = netptr->in[0]->varsfc;
-    unsigned int b = netptr->in[1]->varsfc;
-    unsigned int z = netptr->varsfc;
-    
-    // (¬a ∨ ¬b ∨ ¬z) ∧ (a ∨ b ∨ ¬z) ∧ (a ∨ ¬b ∨ z) ∧ (¬a ∨ b ∨ z)
-    snprintf(cons, MAXSIZE_CONS, "-%u -%u -%u 0\n%u %u -%u 0\n%u -%u %u 0\n-%u %u %u 0\n",
-             a, b, z, a, b, z, a, b, z, a, b, z);
-    netptr->consfc[numfault] = strdup(cons); 
-	 free(cons);
+	ccadical_add(solver, -a); ccadical_add(solver, -b); ccadical_add(solver, -z); ccadical_add(solver, 0);
+	ccadical_add(solver, a);  ccadical_add(solver, b);  ccadical_add(solver, -z); ccadical_add(solver, 0);
+	ccadical_add(solver, a);  ccadical_add(solver, -b); ccadical_add(solver, z);  ccadical_add(solver, 0);
+	ccadical_add(solver, -a); ccadical_add(solver, b);  ccadical_add(solver, z);  ccadical_add(solver, 0);
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsFC_XNOR
-//	@function	�F	create the faulty-circuit constraint -XNOR
-//	@return		�F	(void)
+//	@name		：	CreateConsFC_XNOR
+//	@function	：	create the faulty-circuit constraint -XNOR
 //*************************************************************************************************************
-void CreateConsFC_XNOR(
-	NLIST* netptr,			  /**< pointer to netlist */
-	int					  numfault			  /**< number of faults */
-)
+void CreateConsFC_XNOR(CCaDiCaL* solver, NLIST* netptr)
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    if(!cons) return;
+	int a = netptr->in[0]->varsfc;
+	int b = netptr->in[1]->varsfc;
+	int z = netptr->varsfc;
 
-    unsigned int a = netptr->in[0]->varsfc;
-    unsigned int b = netptr->in[1]->varsfc;
-    unsigned int z = netptr->varsfc;
-    
-    // (a ∨ b ∨ z) ∧ (¬a ∨ ¬b ∨ z) ∧ (¬a ∨ b ∨ ¬z) ∧ (a ∨ ¬b ∨ ¬z)
-    snprintf(cons, MAXSIZE_CONS, "%u %u %u 0\n-%u -%u %u 0\n-%u %u -%u 0\n%u -%u -%u 0\n",
-             a, b, z, a, b, z, a, b, z, a, b, z);
-    netptr->consfc[numfault] = strdup(cons); 
-	 free(cons);
+	ccadical_add(solver, a);  ccadical_add(solver, b);  ccadical_add(solver, z);  ccadical_add(solver, 0);
+	ccadical_add(solver, -a); ccadical_add(solver, -b); ccadical_add(solver, z);  ccadical_add(solver, 0);
+	ccadical_add(solver, -a); ccadical_add(solver, b);  ccadical_add(solver, -z); ccadical_add(solver, 0);
+	ccadical_add(solver, a);  ccadical_add(solver, -b); ccadical_add(solver, -z); ccadical_add(solver, 0);
 }

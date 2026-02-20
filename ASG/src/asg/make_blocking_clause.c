@@ -8,20 +8,6 @@
 #include "./target.h"
 #include "ccadical.h"
 
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * @brief Create a blocking clause from a given XID file.
- *
- * This function reads a XID file and creates a blocking clause
- * based on the pattern in the file. The blocking clause is
- * returned as a string.
- *
- * @param[in] solver  The solver object to add the blocking clause to.
- * @param[in] target  The target object containing the XID file path.
- *
- * @return The blocking clause as a string, or NULL if an error occurred.
- */
-/*******  551267e9-1c34-43ff-80db-2c8b1cbcc6dd  *******/
 char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)
 {
     char xtp_file[256];
