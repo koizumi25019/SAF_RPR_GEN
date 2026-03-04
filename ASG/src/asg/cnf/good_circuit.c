@@ -5,12 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "./opb.h"
+#include "./cnf.h"
 #include "../createSGmodel.h"
 #include "../init.h"
 #include "../../netlist/netlist.h"
 #include "../../lib/lib.h"
-
 
 //*************************************************************************************************************
 //	@name		�F�@CreateConsGC
@@ -53,16 +52,16 @@ bool CreateConsGC(
 			printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
 			printf("some gates are not supported. \n\n");
 
-			return TPG_MODEL_ERROR;
+			return false;
 		}
 	}
-		return TPG_MODEL_OKAY;
+		return true;
 }
 
 //*************************************************************************************************************
-//	@name		�F�@AssigneVarsGC
-//	@function	�F	assigne the variable for good-circuit
-//	@return		�F	(void)
+//	@name		F@AssigneVarsGC
+//	@function	F	assigne the variable for good-circuit
+//	@return		F	(void)
 //*************************************************************************************************************
 void AssigneVarsGC(
 	void
@@ -86,29 +85,29 @@ void AssigneVarsGC(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateConsGC_AND
-//	@function	�F	create the good-circuit constraint -AND
-//	@return		�F	(void)
+//	@name		F@CreateConsGC_AND
+//	@function	F	create the good-circuit constraint -AND
+//	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_AND(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    char *p = cons; int rest = MAXSIZE_CONS;
+	char *cons = (char*)malloc(500000);
+    char *p = cons; int rest = 500000;
 
     // (¬x1 ∨ ¬x2 ∨ ... ∨ z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "-%u ", netptr->in[i]->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     p += snprintf(p, rest, "%u 0\n", netptr->varsgc);
-    rest = MAXSIZE_CONS - (p - cons);
+    rest = 500000 - (p - cons);
 
     // (xi ∨ ¬z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "%u -%u 0\n", netptr->in[i]->varsgc, netptr->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     netptr->consgc = strdup(cons); free(cons);
 }
@@ -122,21 +121,21 @@ void CreateConsGC_NAND(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-char *cons = (char*)malloc(MAXSIZE_CONS);
-    char *p = cons; int rest = MAXSIZE_CONS;
+char *cons = (char*)malloc(500000);
+    char *p = cons; int rest = 500000;
 
     // (¬x1 ∨ ¬x2 ∨ ... ∨ ¬z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "-%u ", netptr->in[i]->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     p += snprintf(p, rest, "-%u 0\n", netptr->varsgc);
-    rest = MAXSIZE_CONS - (p - cons);
+    rest = 500000 - (p - cons);
 
     // (xi ∨ z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "%u %u 0\n", netptr->in[i]->varsgc, netptr->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     netptr->consgc = strdup(cons); free(cons);
 }
@@ -150,21 +149,21 @@ void CreateConsGC_OR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    char *p = cons; int rest = MAXSIZE_CONS;
+	char *cons = (char*)malloc(500000);
+    char *p = cons; int rest = 500000;
 
     // (x1 ∨ x2 ∨ ... ∨ ¬z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "%u ", netptr->in[i]->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     p += snprintf(p, rest, "-%u 0\n", netptr->varsgc);
-    rest = MAXSIZE_CONS - (p - cons);
+    rest = 500000 - (p - cons);
 
     // (¬xi ∨ z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "-%u %u 0\n", netptr->in[i]->varsgc, netptr->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     netptr->consgc = strdup(cons); free(cons);
 }
@@ -178,21 +177,21 @@ void CreateConsGC_NOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    char *p = cons; int rest = MAXSIZE_CONS;
+	char *cons = (char*)malloc(500000);
+    char *p = cons; int rest = 500000;
 
     // (x1 ∨ x2 ∨ ... ∨ z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "%u ", netptr->in[i]->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     p += snprintf(p, rest, "%u 0\n", netptr->varsgc);
-    rest = MAXSIZE_CONS - (p - cons);
+    rest = 500000 - (p - cons);
 
     // (¬xi ∨ ¬z)
     for (int i = 0; i < netptr->n_in; i++) {
         p += snprintf(p, rest, "-%u -%u 0\n", netptr->in[i]->varsgc, netptr->varsgc);
-        rest = MAXSIZE_CONS - (p - cons);
+        rest = 500000 - (p - cons);
     }
     netptr->consgc = strdup(cons); free(cons);
 }
@@ -206,8 +205,8 @@ void CreateConsGC_BUF(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    snprintf(cons, MAXSIZE_CONS, "-%u %u 0\n%u -%u 0\n", 
+	char *cons = (char*)malloc(500000);
+    snprintf(cons, 500000, "-%u %u 0\n%u -%u 0\n", 
              netptr->in[0]->varsgc, netptr->varsgc, 
              netptr->in[0]->varsgc, netptr->varsgc);
     netptr->consgc = strdup(cons); free(cons);
@@ -222,11 +221,10 @@ void CreateConsGC_INV(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
-    snprintf(cons, MAXSIZE_CONS, "%u %u 0\n-%u -%u 0\n", 
+	char *cons = (char*)malloc(500000);
+    snprintf(cons, 500000, "%u %u 0\n-%u -%u 0\n", 
              netptr->in[0]->varsgc, netptr->varsgc, 
              netptr->in[0]->varsgc, netptr->varsgc);
-    OPBcalcSize(&opb.constant, 0, 2, 0, 0);
     netptr->consgc = strdup(cons); free(cons);
 }
 
@@ -239,11 +237,11 @@ void CreateConsGC_XOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-	char *cons = (char*)malloc(MAXSIZE_CONS);
+	char *cons = (char*)malloc(500000);
     unsigned int a = netptr->in[0]->varsgc;
     unsigned int b = netptr->in[1]->varsgc;
     unsigned int z = netptr->varsgc;
-    snprintf(cons, MAXSIZE_CONS, "-%u -%u -%u 0\n%u %u -%u 0\n%u -%u %u 0\n-%u %u %u 0\n",
+    snprintf(cons, 500000, "-%u -%u -%u 0\n%u %u -%u 0\n%u -%u %u 0\n-%u %u %u 0\n",
              a, b, z, a, b, z, a, b, z, a, b, z);
     netptr->consgc = strdup(cons); free(cons);
 }
@@ -257,11 +255,11 @@ void CreateConsGC_XNOR(
 	NLIST* netptr			  /**< pointer to netlist */
 )
 {
-char *cons = (char*)malloc(MAXSIZE_CONS);
+char *cons = (char*)malloc(500000);
     unsigned int a = netptr->in[0]->varsgc;
     unsigned int b = netptr->in[1]->varsgc;
     unsigned int z = netptr->varsgc;
-    snprintf(cons, MAXSIZE_CONS, "%u %u %u 0\n-%u -%u %u 0\n-%u %u -%u 0\n%u -%u -%u 0\n",
+    snprintf(cons, 500000, "%u %u %u 0\n-%u -%u %u 0\n-%u %u -%u 0\n%u -%u -%u 0\n",
              a, b, z, a, b, z, a, b, z, a, b, z);
     netptr->consgc = strdup(cons); free(cons);
 }

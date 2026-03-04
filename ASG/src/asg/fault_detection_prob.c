@@ -9,12 +9,11 @@
 
 #include "ccadical.h"
 #include "./createSGmodel.h"
-#include "./asg.h"
+#include "./fault_detection_prob.h"
 #include "./init.h"
 #include "./read.h"
-#include "./opb/opb.h"
-#include "./opb/clasp/cadical.h"
-#include"./MakeBlockingClause.h"
+#include "./cnf/cnf.h"
+#include "../opt/opt.h"
 
 //prototype declaration
 void RunBDD(
@@ -108,11 +107,11 @@ bool AnalyzeFaultDensity(
 	//initialize global variables
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
-	//read the fault file
-	if (ReadFile() != READ_OKAY) return AFD_ERROR;
+	/** read the fault */
+	if (ReadFault() != READ_OKAY) return READ_ERROR;
 
 	//create Good Circuit constraints
-	if (CreateConsGC() != TPG_MODEL_OKAY) return AFD_ERROR;
+	if (CreateConsGC() != true) return AFD_ERROR;
 
 	
 	while (readdata.fault.numrema != 0)
@@ -137,7 +136,7 @@ bool AnalyzeFaultDensity(
 		SetTarget(&remain, &target, loop++);
 
 		//write TPG model
-		if (WriteTPGModel(solver,&target) != W_TPG_MODEL_OKAY) return AFD_ERROR;
+		if (WriteTPGModel(solver,&target) != true) return AFD_ERROR;
 
 		//test generation loop count
 		int test_loop = 0;
@@ -156,8 +155,6 @@ bool AnalyzeFaultDensity(
 
 		//UNSAT判定時のテスト生成終了判定
 		while (1) {
-			// SAT判定時
-			// それ以外はUNSAT(存在しない) -> テスト終了
             int res = ccadical_solve(solver); // 10:SAT, 20:UNSAT
 
 			//if(RunCaDiCaL() != true) {
@@ -171,12 +168,12 @@ bool AnalyzeFaultDensity(
 
 				//BDD running
 				RunBDD(
-					gbm,                               // CUDD
-					n_pi,                              // 
-					opt.file.input.pattern_num_list,   // 
-					opt.file.input.list_size,          // 
-				    bdd_result,                        // 
-					total_prob_sums                    //
+					gbm, 
+					n_pi,                             
+					opt.file.input.pattern_num_list,   
+					opt.file.input.list_size,          
+				    bdd_result,                        
+					total_prob_sums                    
 				);
 
 				//BDD result file close
@@ -355,12 +352,10 @@ void FreeMemory(
 )
 {
 	/** free the target fault lists */
-	if (remain->list != NULL) {
+
 		free(remain->list);
-	}
-	if (target->list != NULL) {
+	
 		free(target->list);
-	}
 
 	return;
 }

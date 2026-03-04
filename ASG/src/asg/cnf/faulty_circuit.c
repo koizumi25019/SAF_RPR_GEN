@@ -4,17 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ★追加: CaDiCaLのC言語APIヘッダ
 #include "ccadical.h" 
-
 #include "../createSGmodel.h"
-#include "./opb.h"
-#include "../asg.h"
+#include "./cnf.h"
+#include "../fault_detection_prob.h"
 #include "../init.h"
 #include "../../lib/lib.h"
 #include "../../netlist/netlist.h"
-
-// ※ヘッダファイルのプロトタイプ宣言も合わせて変更してください（numfault引数を削除し、solverを追加）
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC
@@ -26,12 +22,9 @@ bool CreateConsFC(
 	TARGET* target			  /**< target fault */
 )
 {
-	// 文字列保存用のメモリ確保はもう不要なのでコメントアウト（または削除）
-	// ALLOC_MEM_CONSFC(target->num);
-
 	RESET_OPB;
 
-	for (int i = 0; i < target->num; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		printf("targetlist[%d]:%s\n", i, target->list[i]->name);
 		if (target->list[i]->detect == UNDETECTED)
@@ -63,7 +56,7 @@ bool CreateConsFC(
 					default:
 						printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
 						printf("some gates are not supported. \n\n");
-						return TPG_MODEL_ERROR;
+						return false;
 					}
 				}
 			}
@@ -74,7 +67,7 @@ bool CreateConsFC(
 		}
 	}
 
-	return TPG_MODEL_OKAY;
+	return true;
 }
 
 //*************************************************************************************************************

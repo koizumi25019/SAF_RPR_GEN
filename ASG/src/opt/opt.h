@@ -103,17 +103,3 @@ bool OPTcheck(
 bool OPTcheckFile(
 	void
 );
-
-/** display the help */
-void OPTdispHelp(
-	void
-);
-
-
-
-
-
-
-
-
-

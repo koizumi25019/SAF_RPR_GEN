@@ -1,7 +1,6 @@
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
-#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -25,9 +24,6 @@ bool OPT(
 	/** set the options */
 	if (OPTset(argc, argv) != OPT_OKAY)
 	{
-		/** display the help */
-		OPTdispHelp();
-
 		return OPT_ERROR;
 	}
 
@@ -77,12 +73,8 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
-		/** help */
-		if (strcmp(argv[i], "-help") == 0)
-			return OPT_ERROR;
-
 		/** netlist */
-		else if (strcmp(argv[i], "-net") == 0)
+		if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = _strdup(argv[++i]);
 
 		/** fault-list */
@@ -165,11 +157,8 @@ bool OPTread(
 		{
 			token1 = strtok_s(buffer, " \n\0", &context);
 
-			/** help */
-			if (strcmp(token1, "-help") == 0) return OPT_ERROR;
-
 			/** netlist */
-			else if (strcmp(token1, "-net") == 0)
+			if (strcmp(token1, "-net") == 0)
 			{
 				token2 = strtok_s(NULL, " \n\0", &context);
 
@@ -193,21 +182,6 @@ bool OPTread(
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
 						opt.file.input.fault = _strdup(strtok_s(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
-
-			/** test relation */
-			else if (strcmp(token1, "-relation") == 0)
-			{
-				token2 = strtok_s(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.input.relation = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -291,7 +265,6 @@ bool OPTread(
 			/** limit setting */
 			else if (strcmp(token1, "-limit") == 0)
 			{
-				// ���̃g�[�N���i���l�j���擾
 				token2 = strtok_s(NULL, " \n\0", &context);
 
 				// �O�̂���NULL�`�F�b�N
@@ -299,14 +272,13 @@ bool OPTread(
 				{
 					int val = atoi(token2);
 
-					//  0�̏ꍇ�̓��~�b�g�Ȃ��Ƃ���
 					if (val == 0)
 					{
-						opt.file.input.limit = 0;         // �l���ꉞ0�ɂ��Ă���
+						opt.file.input.limit = 0;
 					}
 					else
 					{
-						opt.file.input.limit = val;        // �w�肳�ꂽ���l���i�[
+						opt.file.input.limit = val;
 					}
 				}
 			}
@@ -387,51 +359,10 @@ bool OPTcheckFile(
 	if (opt.file.output.result == FILE_NOSET)
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
-		printf("no log file.\n\n");
+		printf("no result file.\n\n");
 		
 			return OPT_ERROR;
 	}
 
 	return	OPT_OKAY;
 }
-
-//*************************************************************************************************************
-//	@name		�F�@OPTdispHelp
-//	@function	�F	display the help
-//	@return		�F	(void)
-//*************************************************************************************************************
-void OPTdispHelp(
-	void
-)
-{
-	printf("\n	> help ***********************************************************************************\n\n");
-
-	printf("		command = -net <.v> -fault <.txt> -pin <.txt>\n");
-
-	printf("\n		>> file option \n");
-
-	printf("		   -net(essential)   :   netlist <.v> \n");
-	printf("		   -fault(essential)   :   fault list <.txt> \n");
-
-	printf("		   -log              :   log file <.txt>\n");
-	printf("		   -pin(essential)   :   pin file <.txt>\n");
-
-	printf("		   -set              :   setting options by file <.set> \n");
-
-	printf("\n		>> help \n");
-	printf("		   -help           :   print the help. \n");
-
-	printf("\n");
-	
-
-		return;
-}
-
-
-
-
-
-
-
-
-

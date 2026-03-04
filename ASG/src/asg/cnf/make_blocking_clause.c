@@ -5,7 +5,7 @@
 #include <math.h>
 
 #include "../netlist/netlist.h"
-#include "./target.h"
+#include "./target_fault.h"
 #include "ccadical.h"
 
 char* make_blocking_clause(CCaDiCaL *solver, TARGET* target)

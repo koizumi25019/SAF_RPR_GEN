@@ -7,14 +7,15 @@
 #include "./init.h"
 #include "./read.h"
 #include "../lib/lib.h"
-#include "../asg/opb/opb.h"
+#include "../asg/cnf/cnf.h"
 #include "../netlist/netlist.h"
-#include "../asg/asg.h"
+#include "../asg/fault_detection_prob.h"
+#include "../opt/opt.h"
 
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVars
-//	@function	�F	initialize the global variable
+//	@name		F@InitGlobalVars
+//	@function	F	initialize the global variable
 //	@return		�F	(bool) okay, error 
 //*************************************************************************************************************
 bool InitGlobalVars(
@@ -30,8 +31,6 @@ bool InitGlobalVars(
 	InitGlobalVarsOPB();
 
 	InitGlobalVarsREADDATA();
-
-	//InitGlobalVarsCLASP();
 
 	return INIT_OKAY;
 }
@@ -113,12 +112,8 @@ void InitGlobalVarsOPB(
 )
 {
 	opb.constant.cons = 0;
-	opb.constant.pros = 0;
-	opb.constant.spros = 0;
 	opb.constant.vars = 0;
 	opb.total.cons = 0;
-	opb.total.pros = 0;
-	opb.total.spros = 0;
 	opb.total.vars = 0;
 
 	return;
@@ -144,30 +139,6 @@ void InitGlobalVarsREADDATA(
 
 	return;
 }
-
-//*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsCLASP
-//	@function	�F	initialize the scip
-//	@return		�F	(void) 
-//*************************************************************************************************************
-/*void InitGlobalVarsCLASP(
-	void
-)
-{
-	clasp.sol = (char**)NULL;
-	clasp.sol = (char**)allocMemory(N_SOL, sizeof(char*));
-
-	/** for test pattern */
-	/*clasp.sol[SOL_TP] = (char*)allocMemory(n_dff + n_pi + 1, sizeof(char));
-	clasp.sol[SOL_TP][n_dff + n_pi] = '\0';
-
-	clasp.objval = CLASP_OBJVAL_ERROR;
-	clasp.status = CLASP_STATUS_ERROR;
-
-	return;
-}*/
-
-
 
 
 

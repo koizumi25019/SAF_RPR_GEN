@@ -6,8 +6,8 @@
 
 #include "ccadical.h" // CaDiCaL API
 
-#include "./opb.h"
-#include "../asg.h"
+#include "./cnf.h"
+#include "../fault_detection_prob.h"
 #include "../read.h"
 #include "../../lib/lib.h"
 
@@ -29,7 +29,6 @@ void CreateConsDC(
 	/** 故障励起（値を固定）と、最終的な検出条件（z=1）を設定 */
 	CreateConsDC_FE(solver, target);
 
-	// ※以前の consfc[numfault] への保存処理は不要になったため削除
 	return;
 }
 
@@ -93,8 +92,6 @@ void CreateConsDC_OR(
 		ccadical_add(solver, -z_var);
 		ccadical_add(solver, 0);
 	}
-	// POが1つだけなら、最後の XOR 変数がそのまま z_var になるので、
-	// 特に追加のORゲートは不要（opb.total.vars がそのまま検出フラグを指している）
 }
 
 //*************************************************************************************************************

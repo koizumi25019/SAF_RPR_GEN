@@ -9,7 +9,7 @@
 #include "./main.h"
 #include "./opt/opt.h"
 #include "./netlist/netlist.h"
-#include "./asg/asg.h"
+#include "./asg/fault_detection_prob.h"
 #include "./lib/lib.h"
 
 

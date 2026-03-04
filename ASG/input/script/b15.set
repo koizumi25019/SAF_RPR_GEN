@@ -1,0 +1,22 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/b15_C.v 
+
+# set fault list(.txt)
+-fault ../input/fault/b15.txt
+
+# set random pattern num list(.txt)
+-rp 100,200,500,1000,2000,5000,10000,20000,50000,100000
+
+# set log(.txt)
+-log ../output/log/b15_C_log.txt
+
+# set pin(.txt)
+-pin ../output/pin/b15_C_pin.txt
+
+# set result(.txt)
+-result ../output/result/b15_C_result.csv
+
+-limit 100
+
+

@@ -8,34 +8,12 @@
 #include "./read.h"
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
-
-//bool TestRelationCounts();
-
-//*************************************************************************************************************
-//	@name		�F�@ReadFile
-//	@function	�F	read the file
-//	@return		�F	(bool) okay, error
-//*************************************************************************************************************
-bool ReadFile(
-	void
-)
-{
-	/** read the fault */
-	if (ReadFault() != READ_OKAY) return READ_ERROR;
-
-	//if (TestRelationCounts() != READ_OKAY)
-	//{
-	//	fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
-	//	return READ_ERROR;
-	//}
-
-	return READ_OKAY;
-}
+#include "../opt/opt.h"
 
 //*************************************************************************************************************
-//	@name		�F�@ReadFault
-//	@function	�F	read the fault
-//	@return		�F	(bool) okay, error
+//	@name		F@ReadFault
+//	@function	F	read the fault
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool ReadFault(
 	void
@@ -179,12 +157,6 @@ FNODE* CreateFaultNode(
 	/** set the pointer to netlist */
 	fnodeptr_netptr___setNetPtr(fnodeptr->netptr, fnodeptr->name);
 
-	/** set the relaxation variables */
-	fnodeptr->relax = false;
-
-	//test relation num initialize
-	fnodeptr->test_relation_num = 0;
-
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
@@ -192,54 +164,4 @@ FNODE* CreateFaultNode(
 	fnodeptr->id = -1;
 
 	return fnodeptr;
-}
-
-
-//*************************************************************************************************************
-//	@name		�FTestRelationCounts
-//	@function	�F	read test relation file and update existing fault list
-//	@return		�F	(bool) okay, error
-//*************************************************************************************************************
-bool TestRelationCounts(
-)
-{
-	FILE* fp = NULL;
-	char  line_buffer[256];
-	char  fault_name[128];
-	char  fault_type[32];
-	int   relation_count = 0;
-	char  hash_buffer[256];
-	int   hash = 0;
-	FNODE* fnodeptr = (FNODE*)NULL;
-
-
-	//�e�X�g�֌WPI�t�@�C���I�[�v��
-	fileOpen(&fp, opt.file.input.relation, "r");
-
-	while (fgets(line_buffer, sizeof(line_buffer), fp) != NULL)
-	{
-
-		if (sscanf(line_buffer, "%s %s %d", fault_name, fault_type, &relation_count) == 3)
-		{
-			// �����p�̕����񐶐�
-			snprintf(hash_buffer, sizeof(hash_buffer), "%s\t%s\n", fault_name, fault_type);
-
-			//CreateFaultList �Ɠ����n�b�V���֐����Ăяo��
-			hash = calcHash(hash_buffer);
-
-			//�̏჊�X�g�T��
-			fnodeptr = searchFnodePtr(hash_buffer, readdata.fault.list[hash]);
-			if (fnodeptr == NULL) {
-				printf("fault not found\n");
-				exit(1);
-			}
-
-			// �e�X�g�֌W�����X�V
-			fnodeptr->test_relation_num = relation_count;
-
-		}
-	}
-
-	fclose(fp);
-	return READ_OKAY;
 }

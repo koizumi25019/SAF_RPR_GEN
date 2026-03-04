@@ -5,9 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "./target.h"
+#include "./target_fault.h"
 #include "./read.h"
-#include "../opt/opt.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
 
@@ -28,10 +27,6 @@
 
 /** fault reader -on */
 #define READER_FAULT_ON			if (opt.file.input.fault != FILE_NOSET)
-
-/** fault reader -on */
-#define READER_NECESSARY_ON		if (opt.file.input.necessary != FILE_NOSET)
-#define READER_NECESSARY_OFF	if (opt.file.input.necessary == FILE_NOSET)
 
 /** compare string and "End-Of-File" */
 #define COMP_EOF(string)		string != (char*)NULL
@@ -102,15 +97,6 @@ while (false);
 }																											  \
 while (false);
 
-/** xor-tap reader -on */
-#define READER_XOR_TAP_ON		if (opt.file.input.xortap != FILE_NOSET)
-
-/** scan-chain reader -on */
-#define READER_SCAN_CHAIN_ON	if (opt.file.input.scanchain != FILE_NOSET)
-
-/** seed generation mode -on */
-#define MODE_SEEDGENERATION			if (opt.mode.mode == SEED)
-
 //-------------------------------------------------------------------------------------------------------------
 //	structre
 //-------------------------------------------------------------------------------------------------------------
@@ -121,16 +107,10 @@ typedef struct FaultNode
 	char* string;					 /**< string */
 	char* name;						 /**< name */
 	int					  type;			      /**< fault type */
-	int					  relax;			  /**< relaxation varaibales */
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
-	char* nece;						/**< info necessary */
-	BIT_INT_XP* necenet;			/**< bit int necessary */
-	BIT_INT* edge;				    /**< compatible edge */
-	int n_edge;					    /**< num edge */
 	int id;							/**< id */
-	int test_relation_num;           //test_relation_num
 }
 FNODE;
 
@@ -162,10 +142,6 @@ READDATA			      readdata;			  /**< reading data */
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** read the file */
-bool ReadFile(
-	void
-);
 
 /** read the fault */
 bool ReadFault(

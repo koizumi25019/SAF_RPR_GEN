@@ -2,8 +2,8 @@
 //	include
 //-------------------------------------------------------------------------------------------------------------
 #include "./createSGmodel.h"
-#include "./target.h"
-#include "./opb/opb.h"
+#include "./target_fault.h"
+#include "./cnf/cnf.h"
 #include "ccadical.h"
 
 void AddClauseString(CCaDiCaL *solver, char* clause_str) {
@@ -23,7 +23,7 @@ void AddClauseString(CCaDiCaL *solver, char* clause_str) {
 
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     
-    // 1. 正常回路の制約
+    //正常回路の制約
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type != IN && nl[i].type != DFF) {
             // nl[i].consgc には "1 -2 3 0\n" のような文字列が入っているはず
@@ -46,18 +46,18 @@ bool WriteTPGModel(
 {
 
 	/** create the tpg model */
-	if (CreateTPGmodel(solver, target) != TPG_MODEL_OKAY) return W_TPG_MODEL_ERROR;
+	if (CreateTPGmodel(solver, target) != true) return false;
 
     // 作成された文字列データをソルバに直接投入
     LoadModelToSolver(solver, target);
 
-	return W_TPG_MODEL_OKAY;
+	return true;
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateTPGmodel
-//	@function	�F	create the test pattern generation model
-//	@return		�F	(bool) okay, error
+//	@name		F@CreateTPGmodel
+//	@function	F	create the test pattern generation model
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool CreateTPGmodel(
 CCaDiCaL* solver,
@@ -65,16 +65,7 @@ CCaDiCaL* solver,
 )
 {
 	/** create the constraint for faulty-circuit */
-	if (CreateConsFC(solver, target) != TPG_MODEL_OKAY) return TPG_MODEL_ERROR;
+	if (CreateConsFC(solver, target) != true) return false;
 
-	return TPG_MODEL_OKAY;
+	return true;
 }
-
-
-
-
-
-
-
-
-

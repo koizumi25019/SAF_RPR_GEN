@@ -5,16 +5,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./asg.h"
+#include "./fault_detection_prob.h"
 #include "./read.h"
-#include "./target.h"
-#include "../opt/opt.h"
+#include "./target_fault.h"
+#include "../cnf/cnf.h"
 #include "../lib/lib.h"
 
 //*************************************************************************************************************
-//	@name		�F�@DropDeteFault
-//	@function	�F	drop the detected fault
-//	@return		�F	(bool) okay, error
+//	@name		F@DropDeteFault
+//	@function	F	drop the detected fault
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool DropDeteFault(
 	TARGET* target
@@ -27,13 +27,7 @@ bool DropDeteFault(
 	int num_detect = 0;
 	char fault_buffer[200];
 
-	buffer = (char*)allocMemory(MAXSIZE_BUFFER, sizeof(char));
 
-	/** open the "detected fault file" in read-mode */
-	fileOpen(&fileptr, "./xid_fault.txt", "r");
-
-	while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
-	{
 	if (target->list[0]->type == SF0) {
 		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name, "sa0");
 	}
@@ -77,11 +71,8 @@ bool DropDeteFault(
 			}
 			tmp = tmp->nextptr;
 		}
-	}
 
 	/** close the "detected fault file" in read-mode */
-	fclose(fileptr);
 	free(buffer);
-
 	return true;
 }

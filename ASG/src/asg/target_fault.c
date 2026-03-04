@@ -6,15 +6,15 @@
 #include <ctype.h>
 #include <time.h>
 
-#include "./target.h"
+#include "./target_fault.h"
 #include "./read.h"
 #include "../lib/lib.h"
 
 
 //*************************************************************************************************************
-//	@name		�F�@SetTarget
-//	@function	�F	set the target-fault list
-//	@return		�F	(bool) okay, error
+//	@name		F@SetTarget
+//	@function	F	set the target-fault list
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool SetTarget(
 	TARGET* remain,			  /**< remain-fault list */
@@ -41,7 +41,6 @@ bool SetTarget(
 			{
 				/** add the fault in target-fault list */
 				remain->list[numfault] = tmp;
-				remain->list[numfault]->relax = true;
 				if (loop == 0)
 				{
 					tmp->id = numfault;
@@ -81,6 +80,5 @@ bool DirectInputTarget(
 	{
 		target->list[i] = remain->list[i];
 	}
-	target->list[0]->relax = false;
 	return TARGET_OKAY;
 }

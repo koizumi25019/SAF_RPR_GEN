@@ -2,13 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) 起動",
+            "name": "(gdb) Debug 起動",
             "type": "cppdbg",
             "request": "launch",
-            // 実行ファイルのパスをビルド出力先に合わせる
             "program": "${workspaceFolder}/ASG/src/main",
-            // プログラムに渡す引数がある場合はここに追加
-            "args": ["-set", "../input/script/s27_C.set"],
+            "args": ["-set", "../input/script/b15.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
@@ -21,8 +19,23 @@
                     "ignoreFailures": true
                 }
             ],
-            // ★重要：実行前に「プロジェクト全体ビルド」タスクを走らせる
+            // ★ここはDebug用のビルドを呼ぶ
             "preLaunchTask": "C/C++: gcc Debug ビルド (プロジェクト全体)",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        // ▼▼▼ ここから下を追加 ▼▼▼
+        {
+            "name": "Release 実行",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ASG/src/main",
+            "args": ["-set", "../input/script/s27_C.set"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/ASG/src",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "C/C++: gcc Release ビルド (プロジェクト全体)",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
