@@ -157,7 +157,6 @@ bool AnalyzeFaultDensity(
 		while (1) {
             int res = ccadical_solve(solver); // 10:SAT, 20:UNSAT
 
-			//if(RunCaDiCaL() != true) {
 			if(res == 20) { // 20:UNSAT
 
 				//test generation count output

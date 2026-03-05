@@ -34,7 +34,7 @@
             ],
             "options": { "cwd": "${workspaceFolder}/ASG/src" },
             "problemMatcher": ["$gcc"],
-            "group": { "kind": "build", "isDefault": true }
+            "group": { "kind": "build", "isDefault": false }
         },
         {
             "type": "cppbuild",

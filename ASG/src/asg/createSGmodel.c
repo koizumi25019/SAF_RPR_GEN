@@ -26,7 +26,6 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     //正常回路の制約
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type != IN && nl[i].type != DFF) {
-            // nl[i].consgc には "1 -2 3 0\n" のような文字列が入っているはず
             if (nl[i].consgc != NULL) {
                 AddClauseString(solver, nl[i].consgc);
             }

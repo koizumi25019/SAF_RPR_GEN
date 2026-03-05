@@ -8,7 +8,6 @@
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
-#define PROJECT_NAME      "Analyze Fault Detection Probability"
 
 #define RETCODE_OKAY	  true				  /**< return code   = okay */
 #define RETCODE_ERROR	  false				  /**< return code   = error */
@@ -24,7 +23,8 @@ void OutPIN(
 );
 
 void OutLogfile(
-	double time
+	double time,
+	double cpu_time
 );
 
 

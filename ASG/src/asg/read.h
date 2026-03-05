@@ -20,7 +20,6 @@
 #define MAXSIZE_BUFFER	  500000	          /**< maximum size of buffer */
 #define MAXSIZE_BITINT	  32		          /**< maximum size of bitint */
 #define MAXSIZE_CHAR	  5000
-#define LFSRBIT			  100
 
 #define FOUND			  true		          /**< return code   = true */
 #define NOT_FOUND		  false				  /**< return code   = false */

@@ -3,13 +3,8 @@
 #include <string.h>
 #include <cudd.h>
 #include <gmp.h>
-
-//prototype declaration
-void calculate_prob_with_gmp(const char* numStr, int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* accumulator);
-
-//�L���[�u��BDD�ɕϊ�
+#include "./gmp_wrapper.h"
 DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
-    // �ύ���BDD�́A�_���́u1�v(Cudd_ReadOne) ����n�߂�
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
     Cudd_Ref(cubeBdd);
 
@@ -18,32 +13,26 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
         DdNode* literalBdd = NULL;
 
         if (bit == '0') {
-            // '0' �̏ꍇ: ~x(i+1) �ɑΉ� (CUDD�ł̓C���f�b�N�X i)
             DdNode* varBdd = Cudd_bddIthVar(gbm, i);
             literalBdd = Cudd_Not(varBdd);
         }
         else if (bit == '1') {
-            // '1' �̏ꍇ: x(i+1) �ɑΉ� (CUDD�ł̓C���f�b�N�X i)
             literalBdd = Cudd_bddIthVar(gbm, i);
         }
         else if (bit == 'X') {
-            // 'X' (Don't Care) �̏ꍇ�A���̕ϐ��͐ύ��Ɋ܂߂Ȃ�
             Cudd_bddIthVar(gbm, i);
             continue;
         }
         else {
-            fprintf(stderr, "ERROR: '%c' �͕s���ȕ����ł�\n", bit);
+            fprintf(stderr, "ERROR: '%c' is not a valid bit\n", bit);
             exit(1);
         }
 
-        // ���݂̐ύ�BDD��AND�Ō���
         DdNode* tmp = Cudd_bddAnd(gbm, cubeBdd, literalBdd);
         Cudd_Ref(tmp);
 
-        // �ȑO��cubeBdd�̎Q�Ƃ����
         Cudd_RecursiveDeref(gbm, cubeBdd);
 
-        // cubeBdd���X�V
         cubeBdd = tmp;
     }
 
@@ -82,7 +71,6 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
     //
     fprintf(result_fp, "%d,", supportSize);
 
-    //���̌��J�E���g
     int digits;         // 
     DdApaNumber count;  // 
     count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);

@@ -24,9 +24,10 @@ int main(
 )
 {
 struct timespec start, end;
-    
+    clock_t cpu_start, cpu_end; // CPU時間計測用に追加
     // 計測開始
     clock_gettime(CLOCK_MONOTONIC, &start);
+	cpu_start = clock(); // CPU時間の計測開始
 
 	char txt_cmd[50];
 
@@ -45,12 +46,15 @@ struct timespec start, end;
 
 	// 計測終了
     clock_gettime(CLOCK_MONOTONIC, &end);
+	cpu_end = clock(); // CPU時間の計測終了
 
     // 秒単位の経過時間を計算
     double elapsed_time = (end.tv_sec - start.tv_sec) + 
                           (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+	 // CPU時間を計算
+	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC;
 						  
-	OutLogfile(elapsed_time);
+	OutLogfile(elapsed_time, cpu_time);
 
 	return 0;
 }
@@ -84,7 +88,8 @@ void OutPIN(
 //	@return		�F	(bool) okay, error
 //*************************************************************************************************************
 void OutLogfile(
-	double time
+	double time,
+	double cpu_time
 )
 {
 
@@ -97,6 +102,7 @@ void OutLogfile(
 	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	fprintf(fileptr, "//  Time                                      : %.3f sec\n", time);
+	fprintf(fileptr, "//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
@@ -107,7 +113,8 @@ void OutLogfile(
 	printf("//  Target Circuit                            : %s\n", net_name);
 	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	printf("//  Time                                    : %.3f sec\n", time);
+	printf("//  Time                                      : %.3f sec\n", time);
+	printf("//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
 	printf("//--------------------------------------------------------------------------------\n");
 
 	return;
