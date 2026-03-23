@@ -97,22 +97,6 @@ bool OPTset(
 		else if (strcmp(argv[i], "-limit") == 0)
 			opt.file.input.limit = atoi(argv[++i]);
 
-		/** random pattern count  */
-		else if (strcmp(argv[i], "-rpc") == 0)
-		{
-			int count = 0;
-
-			char* arg_str = argv[++i];
-
-			char* token = strtok(arg_str, ",");
-
-			while (token != NULL && count < 100) {
-				opt.file.input.pattern_num_list[count++] = atoi(token);
-				token = strtok(NULL, ",");
-			}
-			opt.file.input.list_size = count;
-		}
-
 		/** read the setfile */
 		else if (strcmp(argv[i], "-set") == 0)
 			return OPTread(argv[++i]);
@@ -227,36 +211,6 @@ bool OPTread(
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
 						opt.file.output.result = _strdup(strtok_s(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
-
-			/** random pattern list */
-			else if (strcmp(token1, "-rp") == 0)
-			{
-				token2 = strtok_s(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						int count = 0;
-						char* inner_context = NULL;
-						char* num_token = NULL;
-
-						num_token = strtok_s(&token2[i], ", \n\r", &inner_context);
-
-						while (num_token != NULL && count < 100)
-						{
-							// �������int�ɕϊ����Ċi�[
-							opt.file.input.pattern_num_list[count++] = atoi(num_token);
-
-							// ���̐��l���擾
-							num_token = strtok_s(NULL, ", \n\r", &inner_context);
-						}
-
-						opt.file.input.list_size = count;
 						break;
 					}
 				}

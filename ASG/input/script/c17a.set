@@ -3,10 +3,7 @@
 -net ../input/circuit/c17a.v 
 
 # set fault list(.txt)
--fault ../input/fault/c17a_c0.txt
-
-# set random pattern num list(.txt)
--rp 10,100,1000
+#-fault ../input/fault/c17a_rep.txt
 
 # set log(.txt)
 -log ../output/log/c17a_log.txt
@@ -15,7 +12,7 @@
 -pin ../output/pin/c17a_pin.txt
 
 # set result(.txt)
--result ../output/result/c17a_c0_result.csv
+-result ../output/result/c17a_result.csv
 
 -limit 100
 

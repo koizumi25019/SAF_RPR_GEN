@@ -23,10 +23,8 @@ bool SetTarget(
 )
 {
 	int		numfault = 0;
-	//int		relax_flag = 0;
 	FNODE* tmp = (FNODE*)NULL;
 
-	/** set the number of target-faults */
 	remain->num = readdata.fault.numrema;
 	remain->list = (FNODE**)allocMemory(remain->num, sizeof(FNODE*));
 

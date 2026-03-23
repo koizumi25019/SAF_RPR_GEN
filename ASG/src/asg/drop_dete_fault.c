@@ -29,10 +29,10 @@ bool DropDeteFault(
 
 
 	if (target->list[0]->type == SF0) {
-		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name, "sa0");
+		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name,"sa0");
 	}
 	else {
-		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name, "sa1");
+		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name,"sa1");
 	}
 
 		/* calulate hash */

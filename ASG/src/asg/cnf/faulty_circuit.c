@@ -26,7 +26,7 @@ bool CreateConsFC(
 
 	for (int i = 0; i < 1; i++)
 	{
-		printf("targetlist[%d]:%s\n", i, target->list[i]->name);
+		//printf("targetlist[%d]:%s\n", i, target->list[i]->name);
 		if (target->list[i]->detect == UNDETECTED)
 		{
 			/** search for transitive-fout */

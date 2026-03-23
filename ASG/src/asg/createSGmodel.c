@@ -43,7 +43,6 @@ bool WriteTPGModel(
 	TARGET* target
 )
 {
-
 	/** create the tpg model */
 	if (CreateTPGmodel(solver, target) != true) return false;
 
@@ -60,7 +59,7 @@ bool WriteTPGModel(
 //*************************************************************************************************************
 bool CreateTPGmodel(
 CCaDiCaL* solver,
-	TARGET* target			  /**< target fault */
+	TARGET* target
 )
 {
 	/** create the constraint for faulty-circuit */

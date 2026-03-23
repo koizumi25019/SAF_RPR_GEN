@@ -10,6 +10,8 @@
 #include "../netlist/netlist.h"
 #include "../opt/opt.h"
 
+void AnalyzeEquivalenceFaults(void);
+
 //*************************************************************************************************************
 //	@name		F@ReadFault
 //	@function	F	read the fault
@@ -19,7 +21,7 @@ bool ReadFault(
 	void
 )
 {
-	READER_FAULT_ON
+	if (opt.file.input.fault != FILE_NOSET)
 	{
 		FILE * fileptr = (FILE*)NULL;
 		char* buffer = (char*)NULL;
@@ -44,6 +46,38 @@ bool ReadFault(
 		/** close the "fault file" in read-mode */
 		fclose(fileptr);
 	}
+	else 
+	{
+		//-------------------------------------------------------------------
+		// 故障ファイルが指定されていない場合：全故障生成＆代表故障の抽出
+		//-------------------------------------------------------------------
+		int i;
+		char buffer[MAXSIZE_BUFFER];
+
+		readdata.fault.numinit = 0;
+		readdata.fault.numrema = 0;
+
+		// 等価故障のフラグ整理を実行
+		AnalyzeEquivalenceFaults();
+
+		// ネットリストを再度走査し、YESのフラグが残っているものだけ FNODE 化する
+		for (i = 0; i < n_net; i++)
+		{
+			if (nl[i].test_sf0 == YES)
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tsa0\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+
+			if (nl[i].test_sf1 == YES)
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tsa1\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+		}
+
+		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
+	}
 
 	return READ_OKAY;
 }
@@ -62,7 +96,7 @@ bool CreateFaultList(
 
 	/** calcurate the hash */
 	hash = calcHash(buffer);
-
+	
 	/** create the fault node */
 	if (searchFnode(buffer, readdata.fault.list[hash]) == NOT_FOUND)
 	{
@@ -164,4 +198,52 @@ FNODE* CreateFaultNode(
 	fnodeptr->id = -1;
 
 	return fnodeptr;
+}
+
+///*************************************************************************************************************
+//	@name		AnalyzeEquivalenceFaults
+//	@function	ネットリスト全体を走査し、等価故障のテストフラグをNOにする
+//*************************************************************************************************************
+void AnalyzeEquivalenceFaults()
+{
+	int i, j;
+
+	// 1. すべてのネットの故障をテスト対象(YES)として初期化
+	for (i = 0; i < n_net; i++)
+	{
+		nl[i].test_sf0 = YES;
+		nl[i].test_sf1 = YES;
+	}
+
+	// 2. ゲートのタイプに応じて等価故障を対象外(NO)にしていく
+	for (i = 0; i < n_net; i++)
+	{
+		switch (nl[i].type)
+		{
+			case BUF:
+			case INV:
+				nl[i].in[0]->test_sf0 = NO;
+				nl[i].in[0]->test_sf1 = NO;
+				break;
+
+			case AND:
+			case NAND:
+				// 入力信号線の0縮退故障は等価
+				for (j = 0; j < nl[i].n_in; j++) {
+					nl[i].in[j]->test_sf0 = NO;
+				}
+				break;
+
+			case OR:
+			case NOR:
+				// 入力信号線の1縮退故障は等価
+				for (j = 0; j < nl[i].n_in; j++) {
+					nl[i].in[j]->test_sf1 = NO;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
 }

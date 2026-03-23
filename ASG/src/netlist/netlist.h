@@ -33,14 +33,17 @@
 typedef struct _Netlist_Format_ {
 
 	char* name;							//���O
-	int				n;		            //ID�i���j�[�N�j
-	int				type;	            //�^�C�v
-	int				n_in;	            //���͐�
+	int	n;		           				//ID�i���j�[�N�j
+	int	type;	          				//�^�C�v
+	int	n_in;	            			//���͐�
 	struct _Netlist_Format_** in;		//���̓|�C���^�z��
 	int				n_out;	            //�o�͐�
 	struct _Netlist_Format_** out;      //�o�̓|�C���^�z��
 	char* name_port;					//�[�q�� pin��
 	char* name_ins;						//�C���X�^���X��
+
+	int	test_sf0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
+	int	test_sf1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
 
 	int				flag;			    /**< flag */
 	unsigned int	varsgc;			    /**< variables for good-circuit  */

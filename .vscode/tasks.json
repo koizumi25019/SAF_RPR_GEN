@@ -25,6 +25,8 @@
                 "-I${workspaceFolder}/ASG/src/lib",
                 "-I${workspaceFolder}/ASG/src/netlist",
                 "-I${workspaceFolder}/ASG/src/opt",
+                //XID SAF のヘッダーパス
+                "-I/home/20koizumi/src/FaultSim/Source",
                 // --- 外部ライブラリ ---
                 "-I/home/20koizumi/src/cadical/src",
                 "-L/home/20koizumi/src/cadical/build",
@@ -59,6 +61,8 @@
                 "-I${workspaceFolder}/ASG/src/lib",
                 "-I${workspaceFolder}/ASG/src/netlist",
                 "-I${workspaceFolder}/ASG/src/opt",
+
+                "-I/home/20koizumi/src/FaultSim/Source",
                 // --- 外部ライブラリ ---
                 "-I/home/20koizumi/src/cadical/src",
                 "-L/home/20koizumi/src/cadical/build",

@@ -40,9 +40,9 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDD
-void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE* result_fp, mpf_t* total_prob_sums) {
+void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
     FILE* fp;
-    char line[4096]; // �s�o�b�t�@
+    char line[4096];
 
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
@@ -89,12 +89,10 @@ void RunBDD(DdManager* gbm,int nvars, int* pattern_num_list,int list_size, FILE*
         strcpy(countStr, "0");
     }
     fclose(tmp_fp);
-
-	// 
     free(count);
 
     //GMP
-    calculate_prob_with_gmp(countStr, nvars, pattern_num_list,list_size, result_fp, total_prob_sums);
+    calculate_prob_with_gmp(countStr, nvars,result_fp);
 
     //
     Cudd_RecursiveDeref(gbm, finalBdd);

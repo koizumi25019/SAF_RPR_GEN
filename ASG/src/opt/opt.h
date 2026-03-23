@@ -18,6 +18,9 @@
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
 
+#define		YES				1
+#define		NO				0
+
 //-------------------------------------------------------------------------------------------------------------
 //	structre
 //-------------------------------------------------------------------------------------------------------------
@@ -26,10 +29,7 @@ typedef struct Input_File
 {
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
-	char* relation;           /**< test relation file */
-	int pattern_num_list[MAX_PATTERN]; // �p�^�[�������i�[����z��
-	int list_size;            // �p�^�[�������X�g�̃T�C�Y
-	int limit;                // �e�X�g�����ł��؂��
+	int limit;                // test generation limit */
 }
 INPUT;
 

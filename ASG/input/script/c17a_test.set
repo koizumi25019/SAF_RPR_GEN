@@ -5,9 +5,6 @@
 # set fault list(.txt)
 -fault ../input/fault/c17a_rep.txt
 
-# set random pattern num list(.txt)
--rp 10,100,1000
-
 # set log(.txt)
 -log ../output/log/c17a_log.txt
 

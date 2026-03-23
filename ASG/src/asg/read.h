@@ -24,9 +24,6 @@
 #define FOUND			  true		          /**< return code   = true */
 #define NOT_FOUND		  false				  /**< return code   = false */
 
-/** fault reader -on */
-#define READER_FAULT_ON			if (opt.file.input.fault != FILE_NOSET)
-
 /** compare string and "End-Of-File" */
 #define COMP_EOF(string)		string != (char*)NULL
 

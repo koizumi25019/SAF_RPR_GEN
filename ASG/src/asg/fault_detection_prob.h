@@ -33,6 +33,15 @@ bool AnalyzeFaultDensity(
 	void
 );
 
+void CallXidSaf(
+	const char* net_file, 
+	const char* pin_file
+);
+
+bool DropDeteFault(
+	TARGET * target	
+);
+
 /** output the solution */
 void OutSolution(
 	TARGET * target			  /**< target fault */

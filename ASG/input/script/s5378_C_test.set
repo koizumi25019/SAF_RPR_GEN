@@ -3,7 +3,7 @@
 -net ../input/circuit/s5378_C.v 
 
 # set fault list(.txt)
-#-fault ../input/fault/s5378_C_unred.txt
+-fault ../input/fault/s5378_C_test.txt
 
 # set log(.txt)
 -log ../output/log/s5378_C_log.txt
@@ -12,8 +12,8 @@
 -pin ../output/pin/s5378_C_pin.txt
 
 # set result(.txt)
--result ../output/result/s5378_result.csv
+-result ../output/result/s5378_test_result.csv
 
--limit 30
+-limit 100
 
 
