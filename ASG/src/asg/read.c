@@ -216,7 +216,7 @@ void AnalyzeEquivalenceFaults()
 	}
 
 	// 2. ゲートのタイプに応じて等価故障を対象外(NO)にしていく
-	for (i = 0; i < n_net; i++)
+	/*for (i = 0; i < n_net; i++)
 	{
 		switch (nl[i].type)
 		{
@@ -245,5 +245,5 @@ void AnalyzeEquivalenceFaults()
 			default:
 				break;
 		}
-	}
+	}*/
 }
