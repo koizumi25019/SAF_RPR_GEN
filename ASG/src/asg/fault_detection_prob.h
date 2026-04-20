@@ -30,7 +30,9 @@ char*					  net_name;
 //-------------------------------------------------------------------------------------------------------------
 ///** analyze the fault density */
 bool AnalyzeFaultDensity(
-	void
+	double* out_time_cadical,
+	double* out_time_bdd,
+	double* out_time_xid
 );
 
 void CallXidSaf(

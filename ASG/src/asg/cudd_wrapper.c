@@ -4,6 +4,8 @@
 #include <cudd.h>
 #include <gmp.h>
 #include "./gmp_wrapper.h"
+#include "../opt/opt.h"
+
 DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
     Cudd_Ref(cubeBdd);
@@ -68,8 +70,10 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
 
     //BDD
     int supportSize = Cudd_SupportSize(gbm, finalBdd);
-    //
-    fprintf(result_fp, "%d,", supportSize);
+    
+    if(opt.file.input.cube_analysis != FILE_NOSET){
+        fprintf(result_fp, "%d,", supportSize);
+    };
 
     int digits;         // 
     DdApaNumber count;  // 
@@ -94,7 +98,6 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
     //GMP
     calculate_prob_with_gmp(countStr, nvars,result_fp);
 
-    //
     Cudd_RecursiveDeref(gbm, finalBdd);
 
     return;

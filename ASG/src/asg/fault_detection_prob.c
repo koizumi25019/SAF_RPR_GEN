@@ -24,10 +24,9 @@ void GenerateTpAndFile(CCaDiCaL *solver, const char* filename) {
     if (!fp) return;
 
 for (int i = 0; i < n_pi; i++) {
-        
         // ピンの変数番号を取得
         int var = pi[i]->varsgc; 
-        
+		
         // SATソルバから値を取得
         int val = ccadical_val(solver, var);
         char bit_char = (val > 0) ? '1' : '0';
@@ -40,12 +39,14 @@ for (int i = 0; i < n_pi; i++) {
 }
 
 //*************************************************************************************************************
-//	@name		�F�@AnalyzeFaultDetectionProbability
-//	@function	F	analyze the fault detection probability
-//	@return		F	(bool) okay, error
+//	@name	    @AnalyzeFaultDetectionProbability
+//	@function   analyze the fault detection probability
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool AnalyzeFaultDensity(
-	void
+	double* out_time_cadical,
+    double* out_time_bdd,
+    double* out_time_xid
 )
 {
 	TARGET  remain;
@@ -53,13 +54,25 @@ bool AnalyzeFaultDensity(
 	FILE* fprpr = (FILE*)NULL;
 	FILE* bdd_result = (FILE*)NULL;
 	FILE* cube_file = (FILE*)NULL;
+	FILE* cube_analysis_fp = (FILE*)NULL;
 	int loop = 0;
 	int temp_numrema;
 	int count = 0;
 
+	// ===== CPU時間計測用変数 =====
+    clock_t t_start, t_end;
+    double time_cadical = 0.0;  // CaDiCaL合計CPU時間
+    double time_bdd     = 0.0;  // BDD合計CPU時間
+    double time_xid     = 0.0;  // ドントケア判定合計CPU時間
+    // ============================
+
+	//キューブ分析用ファイルオープン
+	if (opt.file.input.cube_analysis != FILE_NOSET) {
+		fileOpen(&cube_analysis_fp, opt.file.input.cube_analysis, "w");
+	}
+
 	//CUDD initialization
 	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
-
 	//shifting algorithm
 	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
@@ -67,27 +80,17 @@ bool AnalyzeFaultDensity(
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
 	//BDD result file header
-	fprintf(bdd_result, "name,type,cube,rel,var,den");
+	fprintf(bdd_result, "name,type,cube,rel,var,den\n");
 
-	fprintf(bdd_result, "\n");
-
-	//initialize global variables
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
-
-	/** read the fault */
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
-
-	//create Good Circuit constraints
 	if (CreateConsGC() != true) return AFD_ERROR;
-
 	
 	while (readdata.fault.numrema != 0)
 	{
-
 		// ソルバの初期化 
         CCaDiCaL *solver = ccadical_init();
-		
-		// 変数の未宣言エラーを回避するために factor オプションを無効化します
+		// 変数の未宣言エラーを回避するために factor オプションを無効化
         ccadical_set_option(solver, "factor", 0);
 
 		//open cube file
@@ -95,7 +98,6 @@ bool AnalyzeFaultDensity(
 
 		count++;
 		temp_numrema = readdata.fault.numrema;
-
 		//fault list set
 		SetTarget(&remain, &target, loop++);
 
@@ -105,21 +107,21 @@ bool AnalyzeFaultDensity(
 		//test generation loop count
 		int test_loop = 0;
 
-		//fault name output
+		//fault name,type output
 		fprintf(bdd_result, "%s,", target.list[0]->name);
-
-		//fault type output
-		if (target.list[0]->type == SF0)
-		{
-			fprintf(bdd_result, "sa0,");
-		}
-		else{
-			fprintf(bdd_result, "sa1,");
-		}
+        fprintf(bdd_result, (target.list[0]->type == SF0) ? "sa0," : "sa1,");
+		fprintf(cube_analysis_fp, "%s\n", target.list[0]->name);
+        fprintf(cube_analysis_fp, (target.list[0]->type == SF0) ? "sa0\n" : "sa1\n");
 
 		//UNSAT判定時のテスト生成終了判定
 		while (1) {
-            int res = ccadical_solve(solver); // 10:SAT, 20:UNSAT
+            // ========================================
+            // CaDiCaL CPU時間計測
+            // =========================================
+            t_start = clock();
+            int res = ccadical_solve(solver);// 10:SAT, 20:UNSAT
+            t_end   = clock();
+            time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
 
 			//test generation count increment
 			test_loop++;
@@ -132,21 +134,22 @@ bool AnalyzeFaultDensity(
 				//close cube file
 				fclose(cube_file);
 
-				//BDD running
-				RunBDD(
-					gbm, 
-					n_pi,                              
-				    bdd_result                               
-				);
+                // ========BDD CPU時間計測================
+                t_start = clock();
+                RunBDD(gbm, n_pi, bdd_result);
+				if(opt.file.input.cube_analysis != FILE_NOSET){
+					RunBDD(gbm, n_pi, cube_analysis_fp);
+					fprintf(cube_analysis_fp, ",");
+				}
+                t_end   = clock();
+                time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
 				//detected fault list deletion
 				DropDeteFault(&target);
-
 				//free memory
 				FreeMemory(&remain, &target);
 
 				break;
-
 			}
 			// SAT-> テスト生成続行
 			else {
@@ -154,27 +157,42 @@ bool AnalyzeFaultDensity(
 
 				//generate test pattern and output to file
 				GenerateTpAndFile(solver, "./tp.txt");
-
 				//output the xid test pattern
 				OutSolution(&target);
 
-				//dont care identification
-				CallXidSaf(
-					opt.file.input.net, 
-					opt.file.output.pin
-				);
+                // =========================================
+                // ドントケア判定 CPU時間計測
+                // =========================================
+                t_start = clock();
+                CallXidSaf(opt.file.input.net, opt.file.output.pin);
+                t_end   = clock();
+                time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
 				//generate blocking clause 
 				char* x_pattern = make_blocking_clause(solver,&target);
-
 				//output the blocking clause
 				fprintf(cube_file, "%s\n", x_pattern);
-
 				free(x_pattern);
+
+			    // =========================================
+                // キューブ分析モード: テスト生成ごとに RunBDD を流用
+                // =========================================
+                if (opt.file.input.cube_analysis != FILE_NOSET) {
+                    t_start = clock();
+                    RunBDD(gbm, n_pi, cube_analysis_fp);
+                    t_end   = clock();
+                    time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+                }
 			}
 		}
 		ccadical_release(solver);
 	}
+
+	// ===== CPU time =====
+    *out_time_cadical = time_cadical;
+    *out_time_bdd     = time_bdd;
+    *out_time_xid     = time_xid;
+
 	return AFD_OKAY;
 }
 
@@ -187,7 +205,6 @@ void OutSolution(
 	TARGET* target		  /**< target fault */
 )
 {
-
 	/** for xid  */
     FILE* filexid = fopen("./xid_fault.txt", "w");
     if (filexid == NULL) {
@@ -222,13 +239,7 @@ void CallXidSaf(const char* net_file, const char* pin_file) {
         "-otx ./xid_tp.txt "
         "-fm SAF -xid YES -m2004 YES", 
         net_file, pin_file);
-
-    int ret = system(cmd);
-    if (ret != 0) { 
-        printf("XID Command Failed with code: %d\n", ret); 
-    }
 }
-
 
 //*************************************************************************************************************
 //	@name		@FreeMemory
@@ -240,10 +251,7 @@ void FreeMemory(
 	TARGET* target			  /**< target fault */
 )
 {
-
-		free(remain->list);
-	
-		free(target->list);
-
+	free(remain->list);
+	free(target->list);
 	return;
 }

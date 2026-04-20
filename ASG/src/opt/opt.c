@@ -54,17 +54,18 @@ void OPTinitFile(
 	void
 )
 {
-	opt.file.input.fault		= FILE_NOSET;
-	opt.file.input.net			= FILE_NOSET;
-	opt.file.output.log			= FILE_NOSET;
+	opt.file.input.fault		 = FILE_NOSET;
+	opt.file.input.net			 = FILE_NOSET;
+	opt.file.input.cube_analysis = FILE_NOSET;
+	opt.file.output.log			 = FILE_NOSET;
 
 	return;
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPTset
-//	@function	�F	set the options
-//	@return		�F	(bool) okay, error
+//	@name		F@OPTset
+//	@function	F	set the options
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool OPTset(
 	int				      argc,				  /**< number of command-arguments */
@@ -80,6 +81,10 @@ bool OPTset(
 		/** fault-list */
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = _strdup(argv[++i]);
+
+	    /** cube analysis mode */
+		else if (strcmp(argv[i], "-cube_analysis") == 0)
+			opt.file.input.cube_analysis = _strdup(argv[++i]);
 
 		/** log */
 		else if (strcmp(argv[i], "-log") == 0)
@@ -151,6 +156,21 @@ bool OPTread(
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
 						opt.file.input.net = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						break;
+					}
+				}
+			}
+
+			/** cube analysis file */
+			else if (strcmp(token1, "-cube_analysis") == 0)
+			{
+				token2 = strtok_s(NULL, " \n\0", &context);
+
+				for (int i = 0; i < strlen(token2); i++)
+				{
+					if (token2[i] != ' ' && token2[i] != '\t')
+					{
+						opt.file.input.cube_analysis = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}

@@ -25,8 +25,14 @@ int main(
 {
 struct timespec start, end;
     clock_t cpu_start, cpu_end; // CPU時間計測用に追加
+
+	// CPU時間受け取り用
+    double time_cadical = 0.0;
+    double time_bdd     = 0.0;
+    double time_xid     = 0.0;
+
     // 計測開始
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);// 実実行時間の計測開始
 	cpu_start = clock(); // CPU時間の計測開始
 
 	char txt_cmd[50];
@@ -42,10 +48,10 @@ struct timespec start, end;
 	OutPIN();
 
 	//analyze the fault detection probability
-	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
+	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid) != AFD_OKAY) return RETCODE_ERROR;
 
 	// 計測終了
-    clock_gettime(CLOCK_MONOTONIC, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);// 実実行時間の計測終了
 	cpu_end = clock(); // CPU時間の計測終了
 
     // 秒単位の経過時間を計算
@@ -54,7 +60,7 @@ struct timespec start, end;
 	 // CPU時間を計算
 	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC;
 						  
-	OutLogfile(elapsed_time, cpu_time);
+	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid);
 
 	return 0;
 }
@@ -89,7 +95,10 @@ void OutPIN(
 //*************************************************************************************************************
 void OutLogfile(
 	double time,
-	double cpu_time
+	double cpu_time,
+    double time_cadical,
+    double time_bdd,
+    double time_xid
 )
 {
 
@@ -103,6 +112,9 @@ void OutLogfile(
 	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	fprintf(fileptr, "//  Time                                      : %.3f sec\n", time);
 	fprintf(fileptr, "//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
+	fprintf(fileptr, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
+    fprintf(fileptr, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
+    fprintf(fileptr, "//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
@@ -115,6 +127,9 @@ void OutLogfile(
 	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	printf("//  Time                                      : %.3f sec\n", time);
 	printf("//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
+	printf("//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
+    printf("//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
+    printf("//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
 	printf("//--------------------------------------------------------------------------------\n");
 
 	return;

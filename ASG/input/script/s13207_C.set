@@ -1,23 +1,23 @@
 # set File
 # set netlist(.v)
--net ./input/circuit/s13207_C.v 
+-net ../input/circuit/s13207_C.v 
 
 # set fault list(.txt)
--fault ./input/fault/s13207_C_unred.txt
+#-fault ./input/fault/s13207_C_unred.txt
 
 # set test relation(.txt)
--relation ./input/test_relation/s13207_C_test_relation.txt
+#-relation ./input/test_relation/s13207_C_test_relation.txt
 
 # set test relation(.txt)
--rp 10,100,1000,10000,100000
+#-rp 10,100,1000,10000,100000
 
 # set log(.txt)
--log ./output/log/s13207_C_log.txt
+-log ../output/log/s13207_C_log.txt
 
 # set pin(.txt)
--pin ./output/pin/s13207_C_pin.txt
+-pin ../output/pin/s13207_C_pin.txt
 
 # set result(.txt)
--result ./output/result/s13207_result.csv
+-result ../output/result/s13207_30_result.csv
 
--limit 100
+-limit 30

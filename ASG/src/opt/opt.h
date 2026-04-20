@@ -29,6 +29,7 @@ typedef struct Input_File
 {
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
+	char* cube_analysis;      // cube analysis file
 	int limit;                // test generation limit */
 }
 INPUT;

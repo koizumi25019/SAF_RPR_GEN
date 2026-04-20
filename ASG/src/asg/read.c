@@ -22,6 +22,7 @@ bool ReadFault(
 )
 {
 	if (opt.file.input.fault != FILE_NOSET)
+	
 	{
 		FILE * fileptr = (FILE*)NULL;
 		char* buffer = (char*)NULL;
