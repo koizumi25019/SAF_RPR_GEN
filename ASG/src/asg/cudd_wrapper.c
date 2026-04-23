@@ -42,14 +42,13 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDD
-void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
+void RunBDD(DdManager* gbm,int nvars, FILE* result_fp,FILE* cube_analysis_fp) {
     FILE* fp;
     char line[4096];
 
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
-    //
     if ((fp = fopen("./bdd_cube_file.txt", "r")) == NULL) {
         fprintf(stderr, "Error: file open error %s\n", "./bdd_cube_file.txt");
         Cudd_Quit(gbm);
@@ -71,12 +70,13 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
     //BDD
     int supportSize = Cudd_SupportSize(gbm, finalBdd);
     
-    if(opt.file.input.cube_analysis != FILE_NOSET){
-        fprintf(result_fp, "%d,", supportSize);
-    };
+    //BDD変数数を記述
+    //if(opt.file.input.cube_analysis == FILE_NOSET){
+    //    fprintf(result_fp, "%d,", supportSize);
+    //};
 
-    int digits;         // 
-    DdApaNumber count;  // 
+    int digits;
+    DdApaNumber count;
     count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
 
     // APA
@@ -88,7 +88,7 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
     Cudd_ApaPrintDecimal(tmp_fp, digits, count);
     rewind(tmp_fp);
 
-    char countStr[8192]; // �\���ȃT�C�Y
+    char countStr[8192];
     if (fgets(countStr, sizeof(countStr), tmp_fp) == NULL) {
         strcpy(countStr, "0");
     }
@@ -96,7 +96,7 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp) {
     free(count);
 
     //GMP
-    calculate_prob_with_gmp(countStr, nvars,result_fp);
+    calculate_prob_with_gmp(countStr, nvars,result_fp,cube_analysis_fp);
 
     Cudd_RecursiveDeref(gbm, finalBdd);
 

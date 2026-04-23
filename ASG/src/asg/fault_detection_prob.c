@@ -71,16 +71,16 @@ bool AnalyzeFaultDensity(
 		fileOpen(&cube_analysis_fp, opt.file.input.cube_analysis, "w");
 	}
 
-	//CUDD initialization
+	//CUDD初期化
 	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
-	//shifting algorithm
+	//シフトアルゴリズム使用
 	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
 	//result file open
 	fileOpen(&bdd_result, opt.file.output.result, "w");
 
-	//BDD result file header
-	fprintf(bdd_result, "name,type,cube,rel,var,den\n");
+	//result file header
+	fprintf(bdd_result, "net_name,f_type,cube_cnt,fdp\n");
 
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
@@ -92,7 +92,6 @@ bool AnalyzeFaultDensity(
         CCaDiCaL *solver = ccadical_init();
 		// 変数の未宣言エラーを回避するために factor オプションを無効化
         ccadical_set_option(solver, "factor", 0);
-
 		//open cube file
 		fileOpen(&cube_file, "./bdd_cube_file.txt", "w");
 
@@ -110,8 +109,10 @@ bool AnalyzeFaultDensity(
 		//fault name,type output
 		fprintf(bdd_result, "%s,", target.list[0]->name);
         fprintf(bdd_result, (target.list[0]->type == SF0) ? "sa0," : "sa1,");
-		fprintf(cube_analysis_fp, "%s\n", target.list[0]->name);
-        fprintf(cube_analysis_fp, (target.list[0]->type == SF0) ? "sa0\n" : "sa1\n");
+		if (opt.file.input.cube_analysis != FILE_NOSET) {
+		fprintf(cube_analysis_fp, "%s", target.list[0]->name);
+        fprintf(cube_analysis_fp, (target.list[0]->type == SF0) ? ",sa0" : ",sa1");
+	    }
 
 		//UNSAT判定時のテスト生成終了判定
 		while (1) {
@@ -130,17 +131,16 @@ bool AnalyzeFaultDensity(
 
 				//test generation count output
 				fprintf(bdd_result, "%d,", test_loop);
+				if (opt.file.input.cube_analysis != FILE_NOSET) {
+				fprintf(cube_analysis_fp, "\n");
+				}
 
 				//close cube file
 				fclose(cube_file);
 
                 // ========BDD CPU時間計測================
                 t_start = clock();
-                RunBDD(gbm, n_pi, bdd_result);
-				if(opt.file.input.cube_analysis != FILE_NOSET){
-					RunBDD(gbm, n_pi, cube_analysis_fp);
-					fprintf(cube_analysis_fp, ",");
-				}
+                RunBDD(gbm, n_pi, bdd_result,NULL);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -174,12 +174,15 @@ bool AnalyzeFaultDensity(
 				fprintf(cube_file, "%s\n", x_pattern);
 				free(x_pattern);
 
+				//バッファをファイルに反映してからRunBDD
+				fflush(cube_file);
+
 			    // =========================================
-                // キューブ分析モード: テスト生成ごとに RunBDD を流用
+                // キューブ分析モード: テスト生成ごとに RunBDD
                 // =========================================
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
                     t_start = clock();
-                    RunBDD(gbm, n_pi, cube_analysis_fp);
+                    RunBDD(gbm, n_pi, NULL,cube_analysis_fp);
                     t_end   = clock();
                     time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
                 }
@@ -231,14 +234,19 @@ void OutSolution(
 void CallXidSaf(const char* net_file, const char* pin_file) {
     char cmd[2048]; 
     snprintf(cmd, sizeof(cmd), 
-        "../../../../src/FaultSim/Build/Release/XID "
+        "/home/koizumi/FaultSim/Build/Release/XID "
         "-c %s "
         "-tx ./tp.txt "
         "-pin %s "
         "-flist ./xid_fault.txt "
         "-otx ./xid_tp.txt "
-        "-fm SAF -xid YES -m2004 YES", 
+        "-fm SAF -xid YES -m2004 YES"
+		" > /dev/null 2>&1", 
         net_file, pin_file);
+		int ret = system(cmd);
+    if (ret != 0) {
+        fprintf(stderr, "XID execution failed: %d\n", ret);
+    }
 }
 
 //*************************************************************************************************************

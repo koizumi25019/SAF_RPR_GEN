@@ -102,7 +102,7 @@ typedef struct FaultNode
 {
 	char* string;					 /**< string */
 	char* name;						 /**< name */
-	int					  type;			      /**< fault type */
+	int					  type;		/**< fault type */
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
@@ -158,4 +158,9 @@ bool searchFnode(
 /** create the fault node */
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
+);
+
+//等価故障解析
+void AnalyzeEquivalenceFaults(
+	void
 );

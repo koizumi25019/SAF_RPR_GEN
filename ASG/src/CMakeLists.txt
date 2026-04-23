@@ -5,7 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 set(SOURCES
     main.c
-    # asg/
     asg/createSGmodel.c
     asg/cudd_wrapper.c
     asg/drop_dete_fault.c
@@ -14,43 +13,40 @@ set(SOURCES
     asg/init.c
     asg/read.c
     asg/target_fault.c
-    # asg/cnf/
     asg/cnf/detection_circuit.c
     asg/cnf/faulty_circuit.c
     asg/cnf/good_circuit.c
     asg/cnf/make_blocking_clause.c
-    # lib/
     lib/lib.c
-    # netlist/
     netlist/netlist.c
-    # opt/
     opt/opt.c
+)
+
+set(COMMON_INCLUDES
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/asg
+    ${CMAKE_SOURCE_DIR}/asg/cnf
+    ${CMAKE_SOURCE_DIR}/lib
+    ${CMAKE_SOURCE_DIR}/netlist
+    ${CMAKE_SOURCE_DIR}/opt
+    $ENV{HOME}/local/include
+    /usr/local/include
+)
+
+link_directories(
+    $ENV{HOME}/local/lib
+    /usr/local/lib
 )
 
 # Debugビルド
 add_executable(main_debug ${SOURCES})
-target_compile_options(main_debug PRIVATE -g -O0)
-target_include_directories(main_debug PRIVATE
-    ${CMAKE_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/asg
-    ${CMAKE_SOURCE_DIR}/asg/cnf
-    ${CMAKE_SOURCE_DIR}/lib
-    ${CMAKE_SOURCE_DIR}/netlist
-    ${CMAKE_SOURCE_DIR}/opt
-    /usr/local/include
-)
-target_link_libraries(main_debug cudd gmp m cadical stdc++)
+target_compile_options(main_debug PRIVATE -g -O0 -DDEBUG -fcommon)
+
+target_include_directories(main_debug PRIVATE ${COMMON_INCLUDES})
+target_link_libraries(main_debug cadical cudd gmp m stdc++)
 
 # Releaseビルド
 add_executable(main_release ${SOURCES})
-target_compile_options(main_release PRIVATE -O2)
-target_include_directories(main_release PRIVATE
-    ${CMAKE_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/asg
-    ${CMAKE_SOURCE_DIR}/asg/cnf
-    ${CMAKE_SOURCE_DIR}/lib
-    ${CMAKE_SOURCE_DIR}/netlist
-    ${CMAKE_SOURCE_DIR}/opt
-    /usr/local/include
-)
-target_link_libraries(main_release cudd gmp m cadical stdc++)
+target_compile_options(main_release PRIVATE -O3 -DNDEBUG -fcommon)
+target_include_directories(main_release PRIVATE ${COMMON_INCLUDES})
+target_link_libraries(main_release cadical cudd gmp m stdc++)

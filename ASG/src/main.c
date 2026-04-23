@@ -40,7 +40,6 @@ struct timespec start, end;
 	//set the option
 	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
 
-
 	/** read the netlist */
 	read_nl(opt.file.input.net);
 

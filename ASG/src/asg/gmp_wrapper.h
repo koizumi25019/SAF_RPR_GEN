@@ -5,5 +5,6 @@
 void calculate_prob_with_gmp(
      const char* numStr,
      int nvars,
-     FILE* result_fp
+     FILE* result_fp,
+     FILE* cube_analysis_fp
     );

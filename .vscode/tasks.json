@@ -2,77 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: gcc Debug ビルド (プロジェクト全体)",
-            "command": "/bin/gcc",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",                 // デバッグ情報を付与
-                "-O0",                // 最適化オフ（デバッグしやすくするため）
-                "-DDEBUG",            // デバッグ用マクロ定義
-                // --- ソースファイル (.c) ---
-                "${workspaceFolder}/ASG/src/*.c",
-                "${workspaceFolder}/ASG/src/asg/*.c",
-                "${workspaceFolder}/ASG/src/asg/cnf/*.c",
-                "${workspaceFolder}/ASG/src/lib/*.c",
-                "${workspaceFolder}/ASG/src/netlist/*.c",
-                "${workspaceFolder}/ASG/src/opt/*.c",
-                "-o",
-                "${workspaceFolder}/ASG/src/main_debug",
-                // --- 自作ヘッダーパス (-I) ---
-                "-I${workspaceFolder}/ASG/src/asg",
-                "-I${workspaceFolder}/ASG/src/asg/cnf",
-                "-I${workspaceFolder}/ASG/src/lib",
-                "-I${workspaceFolder}/ASG/src/netlist",
-                "-I${workspaceFolder}/ASG/src/opt",
-                //XID SAF のヘッダーパス
-                "-I/home/20koizumi/src/FaultSim/Source",
-                // --- 外部ライブラリ ---
-                "-I/home/20koizumi/src/cadical/src",
-                "-L/home/20koizumi/src/cadical/build",
-                "-I${env:HOME}/local/include",
-                "-L${env:HOME}/local/lib",
-                "-lcadical", "-lcudd", "-lgmp", "-lm", "-lstdc++"
-            ],
-            "options": { "cwd": "${workspaceFolder}/ASG/src" },
-            "problemMatcher": ["$gcc"],
-            "group": { "kind": "build", "isDefault": false }
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: gcc Release ビルド (プロジェクト全体)",
-            "command": "/bin/gcc",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-O3",                // 最大限の最適化（実行速度が爆速になります）
-                "-DNDEBUG",           // assert 等を無効化して高速化
-                // --- ソースファイル (.c) ---
-                "${workspaceFolder}/ASG/src/*.c",
-                "${workspaceFolder}/ASG/src/asg/*.c",
-                "${workspaceFolder}/ASG/src/asg/cnf/*.c",
-                "${workspaceFolder}/ASG/src/lib/*.c",
-                "${workspaceFolder}/ASG/src/netlist/*.c",
-                "${workspaceFolder}/ASG/src/opt/*.c",
-                "-o",
-                "${workspaceFolder}/ASG/src/main_release",
-                // --- 自作ヘッダーパス (-I) ---
-                "-I${workspaceFolder}/ASG/src/asg",
-                "-I${workspaceFolder}/ASG/src/asg/cnf",
-                "-I${workspaceFolder}/ASG/src/lib",
-                "-I${workspaceFolder}/ASG/src/netlist",
-                "-I${workspaceFolder}/ASG/src/opt",
-
-                "-I/home/20koizumi/src/FaultSim/Source",
-                // --- 外部ライブラリ ---
-                "-I/home/20koizumi/src/cadical/src",
-                "-L/home/20koizumi/src/cadical/build",
-                "-I${env:HOME}/local/include",
-                "-L${env:HOME}/local/lib",
-                "-lcadical", "-lcudd", "-lgmp", "-lm", "-lstdc++"
-            ],
-            "options": { "cwd": "${workspaceFolder}/ASG/src" },
-            "problemMatcher": ["$gcc"],
-            "group": { "kind": "build", "isDefault": false }
+            "label": "CMake: build",
+            "type": "shell",
+            "command": "cmake --build ${workspaceFolder}/ASG/build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            }
         }
     ]
 }

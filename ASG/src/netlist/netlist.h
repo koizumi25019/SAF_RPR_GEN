@@ -32,9 +32,9 @@
 //�l�b�g���X�g�\���̒�`
 typedef struct _Netlist_Format_ {
 
-	char* name;							//���O
-	int	n;		           				//ID�i���j�[�N�j
-	int	type;	          				//�^�C�v
+	char* name;							//信号線名
+	int	n;		           				//ユニークID
+	int	type;	          				//ゲートタイプ
 	int	n_in;	            			//���͐�
 	struct _Netlist_Format_** in;		//���̓|�C���^�z��
 	int				n_out;	            //�o�͐�

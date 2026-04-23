@@ -10,8 +10,6 @@
 #include "../netlist/netlist.h"
 #include "../opt/opt.h"
 
-void AnalyzeEquivalenceFaults(void);
-
 //*************************************************************************************************************
 //	@name		F@ReadFault
 //	@function	F	read the fault

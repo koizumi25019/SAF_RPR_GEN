@@ -2,11 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Debug 起動",
+            "name": "Debug 起動",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ASG/src/main_debug",
-            "args": ["-set", "../input/script/c17a.set"],
+            "program": "${workspaceFolder}/ASG/build/main_debug",
+            "args": ["-set", "../input/script/s5378_C_test.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
@@ -19,23 +19,21 @@
                     "ignoreFailures": true
                 }
             ],
-            // ★ここはDebug用のビルドを呼ぶ
-            "preLaunchTask": "C/C++: gcc Debug ビルド (プロジェクト全体)",
+            "preLaunchTask": "CMake: build",
             "miDebuggerPath": "/usr/bin/gdb"
         },
-        // ▼▼▼ ここから下を追加 ▼▼▼
         {
             "name": "Release 実行",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ASG/src/main_release",
+            "program": "${workspaceFolder}/ASG/build/main_release",
             "args": ["-set", "../input/script/s5378_C.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "preLaunchTask": "C/C++: gcc Release ビルド (プロジェクト全体)",
+            "preLaunchTask": "CMake: build",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
