@@ -42,7 +42,7 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDD
-void RunBDD(DdManager* gbm,int nvars, FILE* result_fp,FILE* cube_analysis_fp,TARGET* target) {
+void RunBDD(DdManager* gbm,int nvars, FILE* result_fp,FILE* cube_analysis_fp,TARGET* target,int test_loop) {
     FILE* fp;
     char line[4096];
 
@@ -96,7 +96,7 @@ void RunBDD(DdManager* gbm,int nvars, FILE* result_fp,FILE* cube_analysis_fp,TAR
     free(count);
 
     //GMP
-    calculate_prob_with_gmp(countStr, nvars,result_fp,cube_analysis_fp,target);
+    calculate_prob_with_gmp(countStr, nvars,result_fp,cube_analysis_fp,target,test_loop);
 
     Cudd_RecursiveDeref(gbm, finalBdd);
 

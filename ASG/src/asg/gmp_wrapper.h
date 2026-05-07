@@ -8,5 +8,6 @@ void calculate_prob_with_gmp(
      int nvars,
      FILE* result_fp,
      FILE* cube_analysis_fp,
-     TARGET* target
+     TARGET* target,
+     int test_loop
     );

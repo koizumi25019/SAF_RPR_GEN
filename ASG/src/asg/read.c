@@ -212,8 +212,6 @@ void AnalyzeEquivalenceFaults()
 	{
 		nl[i].test_sa0 = YES;
 		nl[i].test_sa1 = YES;
-		nl[i].equiv_sa0 = NULL;
-        nl[i].equiv_sa1 = NULL;
 	}
 
 	// ゲートのタイプに応じて等価故障を対象外(NO)にしていく
@@ -225,14 +223,6 @@ void AnalyzeEquivalenceFaults()
 			case INV:
 				nl[i].in[0]->test_sa0 = NO;
 				nl[i].in[0]->test_sa1 = NO;
-				EQUIV_NODE* e0 = (EQUIV_NODE*)allocMemory(1, sizeof(EQUIV_NODE));
-                e0->net         = nl[i].in[0];
-                e0->next        = nl[i].equiv_sa0;
-                nl[i].equiv_sa0 = e0;
-                EQUIV_NODE* e1 = (EQUIV_NODE*)allocMemory(1, sizeof(EQUIV_NODE));
-                e1->net         = nl[i].in[0];
-                e1->next        = nl[i].equiv_sa1;
-                nl[i].equiv_sa1 = e1;
 				break;
 
 			case AND:
@@ -240,10 +230,6 @@ void AnalyzeEquivalenceFaults()
 				// 入力信号線の0縮退故障は等価
 				for (j = 0; j < nl[i].n_in; j++) {
 					nl[i].in[j]->test_sa0 = NO;
-					EQUIV_NODE* e = (EQUIV_NODE*)allocMemory(1, sizeof(EQUIV_NODE));
-                    e->net          = nl[i].in[j];									//等価故障信号線を登録
-                    e->next         = nl[i].equiv_sa0;								//新ノードのnextを既存ノードの先頭にする
-                    nl[i].equiv_sa0 = e;											//先頭ポインタを新ノードにする
 				}
 				break;
 
@@ -252,10 +238,6 @@ void AnalyzeEquivalenceFaults()
 				// 入力信号線の1縮退故障は等価
 				for (j = 0; j < nl[i].n_in; j++) {
 					nl[i].in[j]->test_sa1 = NO;
-					EQUIV_NODE* e = (EQUIV_NODE*)allocMemory(1, sizeof(EQUIV_NODE));
-                    e->net          = nl[i].in[j];
-                    e->next         = nl[i].equiv_sa1;
-                    nl[i].equiv_sa1 = e;
 				}
 				break;
 
@@ -263,61 +245,4 @@ void AnalyzeEquivalenceFaults()
 				break;
 		}
 	}
-
-
-	// --- ③ チェーンをフラット化 ---
-    // 等価故障として登録されたネットが、さらに別の代表故障の等価故障になっている場合に
-    // その下位の等価故障リストを上位の代表故障のリストに合流させる
-
-    // sa0のフラット化
-    for (i = 0; i < n_net; i++)
-    {
-        if (nl[i].equiv_sa0 != NULL)
-        {
-            EQUIV_NODE* e = nl[i].equiv_sa0;
-            while (e != NULL)
-            {
-                if (e->net->test_sa0 == NO && e->net->equiv_sa0 != NULL)
-                {
-                    // e->netのequiv_sa0リストの末尾を探す
-                    EQUIV_NODE* tail = e->net->equiv_sa0;
-                    while (tail->next != NULL) tail = tail->next;
-
-                    // nl[i]の現在のリストをe->netのリスト末尾に繋ぐ
-                    tail->next      = nl[i].equiv_sa0;
-                    // nl[i]の先頭をe->netのリスト先頭に付け替える
-                    nl[i].equiv_sa0 = e->net->equiv_sa0;
-                    // e->netのリストをクリア（合流済み）
-                    e->net->equiv_sa0 = NULL;
-                }
-                e = e->next;
-            }
-        }
-    }
-
-    // sa1のフラット化
-    for (i = 0; i < n_net; i++)
-    {
-        if (nl[i].equiv_sa1 != NULL)
-        {
-            EQUIV_NODE* e = nl[i].equiv_sa1;
-            while (e != NULL)
-            {
-                if (e->net->test_sa1 == NO && e->net->equiv_sa1 != NULL)
-                {
-                    // e->netのequiv_sa1リストの末尾を探す
-                    EQUIV_NODE* tail = e->net->equiv_sa1;
-                    while (tail->next != NULL) tail = tail->next;
-
-                    // nl[i]の現在のリストをe->netのリスト末尾に繋ぐ
-                    tail->next      = nl[i].equiv_sa1;
-                    // nl[i]の先頭をe->netのリスト先頭に付け替える
-                    nl[i].equiv_sa1 = e->net->equiv_sa1;
-                    // e->netのリストをクリア（合流済み）
-                    e->net->equiv_sa1 = NULL;
-                }
-                e = e->next;
-            }
-        }
-    }
 }

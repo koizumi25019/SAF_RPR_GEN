@@ -107,8 +107,6 @@ bool AnalyzeFaultDensity(
 		int test_loop = 0;
 
 		//fault name,type output
-		fprintf(bdd_result, "%s,", target.list[0]->name);
-        fprintf(bdd_result, (target.list[0]->type == SF0) ? "sa0," : "sa1,");
 		if (opt.file.input.cube_analysis != FILE_NOSET) {
 		fprintf(cube_analysis_fp, "%s", target.list[0]->name);
         fprintf(cube_analysis_fp, (target.list[0]->type == SF0) ? ",sa0" : ",sa1");
@@ -129,8 +127,6 @@ bool AnalyzeFaultDensity(
 				
             if (res == 20 || test_loop == opt.file.input.limit) {
 
-				//test generation count output
-				fprintf(bdd_result, "%d,", test_loop);
 				if (opt.file.input.cube_analysis != FILE_NOSET) {
 				fprintf(cube_analysis_fp, "\n");
 				}
@@ -140,7 +136,7 @@ bool AnalyzeFaultDensity(
 
                 // ========BDD CPU時間計測================
                 t_start = clock();
-                RunBDD(gbm, n_pi, bdd_result,NULL,&target);
+                RunBDD(gbm, n_pi, bdd_result,NULL,&target,test_loop);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -182,7 +178,7 @@ bool AnalyzeFaultDensity(
                 // =========================================
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
                     t_start = clock();
-                    RunBDD(gbm, n_pi, NULL,cube_analysis_fp,&target);
+                    RunBDD(gbm, n_pi, NULL,cube_analysis_fp,&target,test_loop);
                     t_end   = clock();
                     time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
                 }

@@ -29,12 +29,6 @@
 #define  GND	25
 #define  ACC	26
 
-
-typedef struct EquivNode {
-    struct _Netlist_Format_* net;  // 等価故障のネットポインタ
-    struct EquivNode*        next;
-} EQUIV_NODE;
-
 typedef struct _Netlist_Format_ {
 	char* name;							//信号線名
 	int	n;		           				//ユニークID
@@ -54,8 +48,6 @@ typedef struct _Netlist_Format_ {
 	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
 	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
-    EQUIV_NODE* equiv_sa0;  			// このネットのsa0と等価な故障リスト
-    EQUIV_NODE* equiv_sa1;  			// このネットのsa1と等価な故障リスト
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------

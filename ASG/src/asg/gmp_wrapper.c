@@ -4,13 +4,89 @@
 #include <gmp.h>
 #include"../netlist/netlist.h"
 #include "./target_fault.h"
+#include "../opt/opt.h"
+
+
+// 等価故障を再帰的に出力する関数
+void OutputEquivFaults(
+    FILE*  result_fp,
+    NLIST* net,
+    int    fault_type,
+    mpf_t  density
+)
+{
+    int j;
+
+    switch (net->type)
+    {
+        case AND:
+        case NAND:
+            if (fault_type == SF0)
+            {
+                for (j = 0; j < net->n_in; j++)
+                {
+                    if (net->in[j]->test_sa0 == NO)  // 等価故障としてマークされているもののみ
+                    {
+                        gmp_fprintf(result_fp, "%s,sa0,,%.10Fe\n",
+                            net->in[j]->name, density);
+                        OutputEquivFaults(result_fp, net->in[j], SF0, density);
+                    }
+                }
+            }
+            break;
+
+        case OR:
+        case NOR:
+            if (fault_type == SF1)
+            {
+                for (j = 0; j < net->n_in; j++)
+                {
+                    if (net->in[j]->test_sa1 == NO)  // 追加
+                    {
+                        gmp_fprintf(result_fp, "%s,sa1,,%.10Fe\n",
+                            net->in[j]->name, density);
+                        OutputEquivFaults(result_fp, net->in[j], SF1, density);
+                    }
+                }
+            }
+            break;
+
+        case BUF:
+            if (fault_type == SF0 && net->in[0]->test_sa0 == NO) {
+                gmp_fprintf(result_fp, "%s,sa0,,%.10Fe\n",
+                    net->in[0]->name, density);
+                OutputEquivFaults(result_fp, net->in[0], SF0, density);
+            } else if (fault_type == SF1 && net->in[0]->test_sa1 == NO) {
+                gmp_fprintf(result_fp, "%s,sa1,,%.10Fe\n",
+                    net->in[0]->name, density);
+                OutputEquivFaults(result_fp, net->in[0], SF1, density);
+            }
+            break;
+
+        case INV:
+            if (fault_type == SF0 && net->in[0]->test_sa1 == NO) {
+                gmp_fprintf(result_fp, "%s,sa1,,%.10Fe\n",
+                    net->in[0]->name, density);
+                OutputEquivFaults(result_fp, net->in[0], SF1, density);
+            } else if (fault_type == SF1 && net->in[0]->test_sa0 == NO) {
+                gmp_fprintf(result_fp, "%s,sa0,,%.10Fe\n",
+                    net->in[0]->name, density);
+                OutputEquivFaults(result_fp, net->in[0], SF0, density);
+            }
+            break;
+
+        default:
+            break;
+    }
+}
 
 void calculate_prob_with_gmp(
     const char* numStr,
      int nvars,
      FILE* result_fp,
      FILE* cube_analysis_fp,
-     TARGET* target
+     TARGET* target,
+     int test_loop
     ) 
     {
     mpf_t num, den, density;
@@ -28,36 +104,30 @@ void calculate_prob_with_gmp(
     mpf_mul_2exp(den, den, (unsigned long)nvars); // den = 1 * 2^nvars
     mpf_div(density, num, den);
 
-    if (result_fp != NULL) {
-        gmp_fprintf(result_fp, "%.10Fe\n", density);
-    }
     if (cube_analysis_fp != NULL) {
         gmp_fprintf(cube_analysis_fp, ",%.10Fe", density);
     }
 
     // 代表故障を出力
     if (result_fp != NULL) {
-        gmp_fprintf(result_fp, "%s,%s,%.10Fe\n",
+        gmp_fprintf(result_fp, "%s,%s,%d,%.10Fe\n",
             target->list[0]->name,
             (target->list[0]->type == SF0) ? "sa0" : "sa1",
+            test_loop,
             density);
     }
     
 
     //等価故障と故障検出確率は同様
     if (result_fp != NULL) {
-        EQUIV_NODE* e = (target->list[0]->type == SF0)
-            ? target->list[0]->netptr->equiv_sa0
-            : target->list[0]->netptr->equiv_sa1;
-        while (e != NULL) {
-            gmp_fprintf(result_fp, "%s,%s,,%.10Fe\n",
-                e->net->name,
-                (target->list[0]->type == SF0) ? "sa0" : "sa1",
-                density);
-            e = e->next;
+       if (result_fp != NULL)
+        {
+        OutputEquivFaults(result_fp,
+            target->list[0]->netptr,
+            target->list[0]->type,
+            density);
         }
     }
-    printf("testtesttest\n");
     mpf_clear(num);
     mpf_clear(den);
     mpf_clear(density);
