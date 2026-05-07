@@ -6,11 +6,11 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/ASG/build/main_debug",
-            "args": ["-set", "../input/script/s5378_C_test.set"],
+            "args": ["-set", "../input/script/c17a.set"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/ASG/src",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": false,//別のウィンドウにターミナルをポップアップするか否か
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -19,7 +19,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "CMake: build",
+            "preLaunchTask": "CMake: build",//debugする前に自動でbuildをする
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {

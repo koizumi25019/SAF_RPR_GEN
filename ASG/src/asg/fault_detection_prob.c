@@ -140,7 +140,7 @@ bool AnalyzeFaultDensity(
 
                 // ========BDD CPU時間計測================
                 t_start = clock();
-                RunBDD(gbm, n_pi, bdd_result,NULL);
+                RunBDD(gbm, n_pi, bdd_result,NULL,&target);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -182,7 +182,7 @@ bool AnalyzeFaultDensity(
                 // =========================================
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
                     t_start = clock();
-                    RunBDD(gbm, n_pi, NULL,cube_analysis_fp);
+                    RunBDD(gbm, n_pi, NULL,cube_analysis_fp,&target);
                     t_end   = clock();
                     time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
                 }

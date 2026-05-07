@@ -7,5 +7,6 @@ void RunBDD(
 	DdManager* gbm,
 	int nvars, 
 	FILE* result_fp,
-	FILE* cube_analysis_fp
+	FILE* cube_analysis_fp,
+	TARGET* target
 );

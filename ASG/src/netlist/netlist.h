@@ -29,30 +29,33 @@
 #define  GND	25
 #define  ACC	26
 
-//�l�b�g���X�g�\���̒�`
-typedef struct _Netlist_Format_ {
 
+typedef struct EquivNode {
+    struct _Netlist_Format_* net;  // 等価故障のネットポインタ
+    struct EquivNode*        next;
+} EQUIV_NODE;
+
+typedef struct _Netlist_Format_ {
 	char* name;							//信号線名
 	int	n;		           				//ユニークID
 	int	type;	          				//ゲートタイプ
-	int	n_in;	            			//���͐�
-	struct _Netlist_Format_** in;		//���̓|�C���^�z��
-	int				n_out;	            //�o�͐�
-	struct _Netlist_Format_** out;      //�o�̓|�C���^�z��
-	char* name_port;					//�[�q�� pin��
-	char* name_ins;						//�C���X�^���X��
-
-	int	test_sf0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
-	int	test_sf1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
-
+	int	n_in;	            			//
+	struct _Netlist_Format_** in;		//
+	int				n_out;	            //
+	struct _Netlist_Format_** out;      //
+	char* name_port;					//
+	char* name_ins;						//
 	int				flag;			    /**< flag */
 	unsigned int	varsgc;			    /**< variables for good-circuit  */
 	unsigned int	varsfc;				/**< variables for faulty-circuit  */
 	char* consgc;						/**< constraints for good-circuit  */
 	char** consfc;						/**< constraints for faulty-circuit  */
-	unsigned int suf_fc;				//�̏��H�̓Y����
-	unsigned int fault_pass;			//�̏ᓞ�B�\�p�X
-
+	unsigned int suf_fc;				//
+	unsigned int fault_pass;			//
+	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
+	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
+    EQUIV_NODE* equiv_sa0;  			// このネットのsa0と等価な故障リスト
+    EQUIV_NODE* equiv_sa1;  			// このネットのsa1と等価な故障リスト
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
