@@ -4,7 +4,7 @@
 
 #include "../../netlist/netlist.h"
 #include "../read.h"
-#include "../createSGmodel.h"
+#include "../create_TPG_model.h"
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre

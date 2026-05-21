@@ -6,13 +6,13 @@
 #-fault ../input/fault/s5378_C_unred.txt
 
 # set log(.txt)
--log ../output/log/s5378_C_log.txt
+-log ../output/log/s5378_C_log_30_rep.txt
 
 # set pin(.txt)
 -pin ../output/pin/s5378_C_pin.txt
 
 # set result(.txt)
--result ../output/result/s5378_result.csv
+-result ../output/result/s5378_result_30_rep.csv
 
 -limit 30
 

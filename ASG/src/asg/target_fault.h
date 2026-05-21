@@ -58,9 +58,7 @@ TARGET;
 //-------------------------------------------------------------------------------------------------------------
 /** set the target-fault list */
 bool SetTarget(
-	TARGET* remain,			  /**< remain-fault list */
-	TARGET* target,			  /**< target-fault list */
-	int loop				  /**< number of loop */
+	TARGET* target			  /**< target-fault list */
 );
 
 /* set the direct target */

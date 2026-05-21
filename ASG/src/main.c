@@ -61,6 +61,14 @@ struct timespec start, end;
 						  
 	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid);
 
+	//discordにメッセージ送信
+	 system(
+        "curl -H \"Content-Type: application/json\" "
+        "-X POST "
+        "-d '{\"content\":\"実験終了\"}' "
+        "https://discord.com/api/webhooks/1502285313316487319/e6m14JwtzCNtU7ARSKlk7SjsWznXIvPhC6ONMuFFpfpTkuNGu-_cID41AsdUzQ79YZIT"
+    );
+
 	return 0;
 }
 

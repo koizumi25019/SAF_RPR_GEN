@@ -8,7 +8,7 @@
 #include <gmp.h>
 
 #include "ccadical.h"
-#include "./createSGmodel.h"
+#include "./create_TPG_model.h"
 #include "./fault_detection_prob.h"
 #include "./init.h"
 #include "./read.h"
@@ -51,11 +51,10 @@ bool AnalyzeFaultDensity(
 {
 	TARGET  remain;
 	TARGET	target;
-	FILE* fprpr = (FILE*)NULL;
 	FILE* bdd_result = (FILE*)NULL;
 	FILE* cube_file = (FILE*)NULL;
 	FILE* cube_analysis_fp = (FILE*)NULL;
-	int loop = 0;
+	
 	int temp_numrema;
 	int count = 0;
 
@@ -98,7 +97,7 @@ bool AnalyzeFaultDensity(
 		count++;
 		temp_numrema = readdata.fault.numrema;
 		//fault list set
-		SetTarget(&remain, &target, loop++);
+		SetTarget(&target);
 
 		//write TPG model
 		if (WriteTPGModel(solver,&target) != true) return AFD_ERROR;

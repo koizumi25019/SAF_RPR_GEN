@@ -16,48 +16,66 @@
 //	@function	F	set the target-fault list
 //	@return		F	(bool) okay, error
 //*************************************************************************************************************
-bool SetTarget(
-	TARGET* remain,			  /**< remain-fault list */
-	TARGET* target,			  /**< target-fault list */
-	int loop				  /**< number of loop */
-)
+// bool SetTarget(
+// 	TARGET* remain,			  /**< remain-fault list */
+// 	TARGET* target,			  /**< target-fault list */
+// 	int loop				  /**< number of loop */
+// )
+// {
+// 	int		numfault = 0;
+// 	FNODE* tmp = (FNODE*)NULL;
+
+// 	remain->num = readdata.fault.numrema;
+// 	remain->list = (FNODE**)allocMemory(remain->num, sizeof(FNODE*));
+
+// 	/** set the target-fault */
+// 	for (int i = 0; i < MAXSIZE_HASH; i++)
+// 	{
+// 		tmp = readdata.fault.list[i];
+
+// 		while (tmp != NULL)
+// 		{
+// 			if (tmp->detect == UNDETECTED)
+// 			{
+// 				/** add the fault in target-fault list */
+// 				remain->list[numfault] = tmp;
+// 				if (loop == 0)
+// 				{
+// 					tmp->id = numfault;
+// 				}
+// 				numfault++;
+
+// 				/** if target number of fault is reached,.break */
+// 				if (numfault == remain->num) break;
+// 			}
+
+// 			tmp = tmp->nextptr;
+// 		}
+
+// 		if (numfault == remain->num) break;
+// 	}
+
+// 	if (DirectInputTarget(remain, target) != TARGET_OKAY) return TARGET_ERROR;
+
+// 	return TARGET_OKAY;
+// }
+
+bool SetTarget(TARGET* target)
 {
-	int		numfault = 0;
-	FNODE* tmp = (FNODE*)NULL;
-
-	remain->num = readdata.fault.numrema;
-	remain->list = (FNODE**)allocMemory(remain->num, sizeof(FNODE*));
-
-	/** set the target-fault */
-	for (int i = 0; i < MAXSIZE_HASH; i++)
-	{
-		tmp = readdata.fault.list[i];
-
-		while (tmp != NULL)
-		{
-			if (tmp->detect == UNDETECTED)
-			{
-				/** add the fault in target-fault list */
-				remain->list[numfault] = tmp;
-				if (loop == 0)
-				{
-					tmp->id = numfault;
-				}
-				numfault++;
-
-				/** if target number of fault is reached,.break */
-				if (numfault == remain->num) break;
-			}
-
-			tmp = tmp->nextptr;
-		}
-
-		if (numfault == remain->num) break;
-	}
-
-	if (DirectInputTarget(remain, target) != TARGET_OKAY) return TARGET_ERROR;
-
-	return TARGET_OKAY;
+    for (int i = 0; i < MAXSIZE_HASH; i++)
+    {
+        for (FNODE* p = readdata.fault.list[i]; p != NULL; p = p->nextptr)
+        {
+            if (p->detect == UNDETECTED)
+            {
+                target->num     = 1;
+                target->list    = (FNODE**)allocMemory(1, sizeof(FNODE*));
+                target->list[0] = p;
+                return TARGET_OKAY;
+            }
+        }
+    }
+    return TARGET_ERROR;
 }
 
 //*************************************************************************************************************

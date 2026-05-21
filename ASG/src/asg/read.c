@@ -194,7 +194,7 @@ FNODE* CreateFaultNode(
 	fnodeptr->nextptr = (FNODE*)NULL;
 
 	/** set the id */
-	fnodeptr->id = -1;
+	//fnodeptr->id = -1;
 
 	return fnodeptr;
 }

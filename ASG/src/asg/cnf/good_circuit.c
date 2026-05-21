@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "./cnf.h"
-#include "../createSGmodel.h"
+#include "../create_TPG_model.h"
 #include "../init.h"
 #include "../../netlist/netlist.h"
 #include "../../lib/lib.h"

@@ -106,7 +106,7 @@ typedef struct FaultNode
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
-	int id;							/**< id */
+	//int id;							/**< id */
 }
 FNODE;
 
