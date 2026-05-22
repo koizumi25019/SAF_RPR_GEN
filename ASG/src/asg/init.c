@@ -6,18 +6,17 @@
 
 #include "./init.h"
 #include "./read.h"
-#include "./opb/clasp/clasp.h"
-#include "../standard.h"
 #include "../lib/lib.h"
-#include "../asg/opb/opb.h"
+#include "../asg/cnf/cnf.h"
 #include "../netlist/netlist.h"
-#include "../asg/asg.h"
+#include "../asg/fault_detection_prob.h"
+#include "../opt/opt.h"
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVars
-//	@function	ÅF	initialize the global variable
-//	@return		ÅF	(bool) okay, error 
+//	@name		F@InitGlobalVars
+//	@function	F	initialize the global variable
+//	@return		ÔøΩF	(bool) okay, error 
 //*************************************************************************************************************
 bool InitGlobalVars(
 	void
@@ -33,15 +32,13 @@ bool InitGlobalVars(
 
 	InitGlobalVarsREADDATA();
 
-	InitGlobalVarsCLASP();
-
 	return INIT_OKAY;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsNLIST
-//	@function	ÅF	initialize the netlist
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsNLIST
+//	@function	ÔøΩF	initialize the netlist
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsNLIST(
 	void
@@ -72,9 +69,9 @@ void InitGlobalVarsNLIST(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsSTACK
-//	@function	ÅF	initialize the stack
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsSTACK
+//	@function	ÔøΩF	initialize the stack
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsSTACK(
 	void
@@ -88,9 +85,9 @@ void InitGlobalVarsSTACK(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsQUE
-//	@function	ÅF	initialize the queue
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsQUE
+//	@function	ÔøΩF	initialize the queue
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsQUE(
 	void
@@ -106,30 +103,26 @@ void InitGlobalVarsQUE(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsOPB
-//	@function	ÅF	initialize the opb
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsOPB
+//	@function	ÔøΩF	initialize the opb
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsOPB(
 	void
 )
 {
 	opb.constant.cons = 0;
-	opb.constant.pros = 0;
-	opb.constant.spros = 0;
 	opb.constant.vars = 0;
 	opb.total.cons = 0;
-	opb.total.pros = 0;
-	opb.total.spros = 0;
 	opb.total.vars = 0;
 
 	return;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsREADDATA
-//	@function	ÅF	initialize the reading data
-//	@return		ÅF	(void) 
+//	@name		ÔøΩFÔøΩ@InitGlobalVarsREADDATA
+//	@function	ÔøΩF	initialize the reading data
+//	@return		ÔøΩF	(void) 
 //*************************************************************************************************************
 void InitGlobalVarsREADDATA(
 	void
@@ -146,30 +139,6 @@ void InitGlobalVarsREADDATA(
 
 	return;
 }
-
-//*************************************************************************************************************
-//	@name		ÅFÅ@InitGlobalVarsCLASP
-//	@function	ÅF	initialize the scip
-//	@return		ÅF	(void) 
-//*************************************************************************************************************
-void InitGlobalVarsCLASP(
-	void
-)
-{
-	clasp.sol = (char**)NULL;
-	clasp.sol = (char**)allocMemory(N_SOL, sizeof(char*));
-
-	/** for test pattern */
-	clasp.sol[SOL_TP] = (char*)allocMemory(n_dff + n_pi + 1, sizeof(char));
-	clasp.sol[SOL_TP][n_dff + n_pi] = '\0';
-
-	clasp.objval = CLASP_OBJVAL_ERROR;
-	clasp.status = CLASP_STATUS_ERROR;
-
-	return;
-}
-
-
 
 
 

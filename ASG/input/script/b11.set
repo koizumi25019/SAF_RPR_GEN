@@ -1,0 +1,19 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/b11_C.v 
+
+# set fault list(.txt)
+#-fault ../input/fault/b11.txt
+
+# set log(.txt)
+-log ../output/log/b11_C_log30rep.txt
+
+# set pin(.txt)
+-pin ../output/pin/b11_C_pin.txt
+
+# set result(.txt)
+-result ../output/result/b11_C_30rep_result.csv
+
+-limit 30
+
+

@@ -5,10 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "./target.h"
+#include "./target_fault.h"
 #include "./read.h"
-#include "../standard.h"
-#include "../opt/opt.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
 
@@ -22,17 +20,9 @@
 #define MAXSIZE_BUFFER	  500000	          /**< maximum size of buffer */
 #define MAXSIZE_BITINT	  32		          /**< maximum size of bitint */
 #define MAXSIZE_CHAR	  5000
-#define LFSRBIT			  100
 
 #define FOUND			  true		          /**< return code   = true */
 #define NOT_FOUND		  false				  /**< return code   = false */
-
-/** fault reader -on */
-#define READER_FAULT_ON			if (opt.file.input.fault != FILE_NOSET)
-
-/** fault reader -on */
-#define READER_NECESSARY_ON		if (opt.file.input.necessary != FILE_NOSET)
-#define READER_NECESSARY_OFF	if (opt.file.input.necessary == FILE_NOSET)
 
 /** compare string and "End-Of-File" */
 #define COMP_EOF(string)		string != (char*)NULL
@@ -62,8 +52,8 @@
 	context = strtok_s(NULL, " \n\0", &context);															  \
 	if(context == NULL)																						  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("type of fault error.\n\n");														  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("type of fault error.\n\n");														  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 	if (!strcmp(context, "sa0"))																			  \
@@ -76,8 +66,8 @@
 	}																										  \
 	else																									  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("%c%s%c unexpected type of fault.\n\n",'"', context, '"');						  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("%c%s%c unexpected type of fault.\n\n",'"', context, '"');						  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 }																											  \
@@ -96,21 +86,12 @@ while (false);
 	}																										  \
 	if(netptr==(NLIST*)NULL)																				  \
 	{																										  \
-		PrintErrorMessage("\n	FILE ERROR: fault file reading failed. ");									  \
-		PrintErrorMessage("%c%s%c is thought.\n\n",	'"', buffer, '"');										  \
+		printf("\n	FILE ERROR: fault file reading failed. ");									  \
+		printf("%c%s%c is thought.\n\n",	'"', buffer, '"');										  \
 		return (FNODE*)NULL;																			      \
 	}																										  \
 }																											  \
 while (false);
-
-/** xor-tap reader -on */
-#define READER_XOR_TAP_ON		if (opt.file.input.xortap != FILE_NOSET)
-
-/** scan-chain reader -on */
-#define READER_SCAN_CHAIN_ON	if (opt.file.input.scanchain != FILE_NOSET)
-
-/** seed generation mode -on */
-#define MODE_SEEDGENERATION			if (opt.mode.mode == SEED)
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre
@@ -121,17 +102,11 @@ typedef struct FaultNode
 {
 	char* string;					 /**< string */
 	char* name;						 /**< name */
-	int					  type;			      /**< fault type */
-	int					  relax;			  /**< relaxation varaibales */
+	int					  type;		/**< fault type */
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
-	char* nece;						/**< info necessary */
-	BIT_INT_XP* necenet;			/**< bit int necessary */
-	BIT_INT* edge;				    /**< compatible edge */
-	int n_edge;					    /**< num edge */
-	int id;							/**< id */
-	int test_relation_num;           //test_relation_num
+	//int id;							/**< id */
 }
 FNODE;
 
@@ -163,10 +138,6 @@ READDATA			      readdata;			  /**< reading data */
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-/** read the file */
-bool ReadFile(
-	void
-);
 
 /** read the fault */
 bool ReadFault(
@@ -187,4 +158,9 @@ bool searchFnode(
 /** create the fault node */
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
+);
+
+//等価故障解析
+void AnalyzeEquivalenceFaults(
+	void
 );

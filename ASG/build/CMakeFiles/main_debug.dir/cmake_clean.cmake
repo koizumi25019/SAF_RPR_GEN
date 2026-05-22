@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/main_debug.dir/asg/cnf/detection_circuit.c.o"
+  "CMakeFiles/main_debug.dir/asg/cnf/detection_circuit.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/cnf/faulty_circuit.c.o"
+  "CMakeFiles/main_debug.dir/asg/cnf/faulty_circuit.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/cnf/good_circuit.c.o"
+  "CMakeFiles/main_debug.dir/asg/cnf/good_circuit.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/cnf/make_blocking_clause.c.o"
+  "CMakeFiles/main_debug.dir/asg/cnf/make_blocking_clause.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/createSGmodel.c.o"
+  "CMakeFiles/main_debug.dir/asg/createSGmodel.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/cudd_wrapper.c.o"
+  "CMakeFiles/main_debug.dir/asg/cudd_wrapper.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/drop_dete_fault.c.o"
+  "CMakeFiles/main_debug.dir/asg/drop_dete_fault.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/fault_detection_prob.c.o"
+  "CMakeFiles/main_debug.dir/asg/fault_detection_prob.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/gmp_wrapper.c.o"
+  "CMakeFiles/main_debug.dir/asg/gmp_wrapper.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/init.c.o"
+  "CMakeFiles/main_debug.dir/asg/init.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/read.c.o"
+  "CMakeFiles/main_debug.dir/asg/read.c.o.d"
+  "CMakeFiles/main_debug.dir/asg/target_fault.c.o"
+  "CMakeFiles/main_debug.dir/asg/target_fault.c.o.d"
+  "CMakeFiles/main_debug.dir/lib/lib.c.o"
+  "CMakeFiles/main_debug.dir/lib/lib.c.o.d"
+  "CMakeFiles/main_debug.dir/main.c.o"
+  "CMakeFiles/main_debug.dir/main.c.o.d"
+  "CMakeFiles/main_debug.dir/netlist/netlist.c.o"
+  "CMakeFiles/main_debug.dir/netlist/netlist.c.o.d"
+  "CMakeFiles/main_debug.dir/opt/opt.c.o"
+  "CMakeFiles/main_debug.dir/opt/opt.c.o.d"
+  "main_debug"
+  "main_debug.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/main_debug.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

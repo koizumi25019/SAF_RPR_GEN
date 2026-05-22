@@ -4,46 +4,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <assert.h>
 
 #include "./read.h"
-#include "../standard.h"
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
-
-bool TestRelationCounts();
-
-//*************************************************************************************************************
-//	@name		F@ReadFile
-//	@function	F	read the file
-//	@return		F	(bool) okay, error
-//*************************************************************************************************************
-bool ReadFile(
-	void
-)
-{
-	/** read the fault */
-	if (ReadFault() != READ_OKAY) return READ_ERROR;
-
-	//if (TestRelationCounts() != READ_OKAY)
-	//{
-	//	fprintf(stderr, "ERROR: Failed to update test relation counts.\n");
-	//	return READ_ERROR;
-	//}
-
-	return READ_OKAY;
-}
+#include "../opt/opt.h"
 
 //*************************************************************************************************************
-//	@name		F@ReadFault
-//	@function	F	read the fault
-//	@return		F	(bool) okay, error
+//	@name		F@ReadFault
+//	@function	F	read the fault
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool ReadFault(
 	void
 )
 {
-	READER_FAULT_ON
+	if (opt.file.input.fault != FILE_NOSET)
+	
 	{
 		FILE * fileptr = (FILE*)NULL;
 		char* buffer = (char*)NULL;
@@ -60,22 +37,54 @@ bool ReadFault(
 			{
 				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
 			}
-			PrintMessage("\r	Reading fault infomation progress  >> %d", readdata.fault.numinit);
+			printf("\r	Reading fault infomation progress  >> %d", readdata.fault.numinit);
 		}
-		PrintMessage("\n");
+		printf("\n");
 		free(buffer);
 
 		/** close the "fault file" in read-mode */
 		fclose(fileptr);
+	}
+	else 
+	{
+		//-------------------------------------------------------------------
+		// æ•…éšœãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„å ´åˆï¼šå…¨æ•…éšœç”Ÿæˆï¼†ä»£è¡¨æ•…éšœã®æŠ½å‡º
+		//-------------------------------------------------------------------
+		int i;
+		char buffer[MAXSIZE_BUFFER];
+
+		readdata.fault.numinit = 0;
+		readdata.fault.numrema = 0;
+
+		// ç­‰ä¾¡æ•…éšœã®ãƒ•ãƒ©ã‚°æ•´ç†ã‚’å®Ÿè¡Œ
+		AnalyzeEquivalenceFaults();
+
+		// ãƒãƒƒãƒˆãƒªã‚¹ãƒˆã‚’å†åº¦èµ°æŸ»ã—ã€YESã®ãƒ•ãƒ©ã‚°ãŒæ®‹ã£ã¦ã„ã‚‹ã‚‚ã®ã ã‘ FNODE åŒ–ã™ã‚‹
+		for (i = 0; i < n_net; i++)
+		{
+			if (nl[i].test_sa0 == YES)
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tsa0\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+
+			if (nl[i].test_sa1 == YES)
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tsa1\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+		}
+
+		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
 
 	return READ_OKAY;
 }
 
 //*************************************************************************************************************
-//	@name		F@CreateFaultList
-//	@function	F	create the fault list
-//	@return		F	(bool) okay, error
+//	@name		ï¿½Fï¿½@CreateFaultList
+//	@function	ï¿½F	create the fault list
+//	@return		ï¿½F	(bool) okay, error
 //*************************************************************************************************************
 bool CreateFaultList(
 	char* buffer			  /**< buffer */
@@ -86,7 +95,7 @@ bool CreateFaultList(
 
 	/** calcurate the hash */
 	hash = calcHash(buffer);
-
+	
 	/** create the fault node */
 	if (searchFnode(buffer, readdata.fault.list[hash]) == NOT_FOUND)
 	{
@@ -108,9 +117,9 @@ bool CreateFaultList(
 }
 
 //*************************************************************************************************************
-//	@name		F@searchFnode
-//	@function	F	search for fault node
-//	@return		F	(bool) found, not found
+//	@name		ï¿½Fï¿½@searchFnode
+//	@function	ï¿½F	search for fault node
+//	@return		ï¿½F	(bool) found, not found
 //*************************************************************************************************************
 bool searchFnode(
 	char* buffer,			  /**< buffer (key) */
@@ -130,9 +139,9 @@ bool searchFnode(
 }
 
 //*************************************************************************************************************
-//	@name		F@searchFnodePtr
-//	@function	F	find the fault node pointer by string
-//	@return		F	(FNODE*) pointer to found node, or NULL
+//	@name		ï¿½Fï¿½@searchFnodePtr
+//	@function	ï¿½F	find the fault node pointer by string
+//	@return		ï¿½F	(FNODE*) pointer to found node, or NULL
 //*************************************************************************************************************
 FNODE* searchFnodePtr(
 	char* buffer,
@@ -142,7 +151,7 @@ FNODE* searchFnodePtr(
 	FNODE* fnodeptr = head;
 	while (fnodeptr != NULL)
 	{
-		// CreateFaultNode ‚ÅƒZƒbƒg‚µ‚½ string (Š®‘S‚È "name type" •¶š—ñ) ‚Æ”äŠr
+		// CreateFaultNode ï¿½ÅƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ string (ï¿½ï¿½ï¿½Sï¿½ï¿½ "name type" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½Æ”ï¿½r
 		if (strcmp(fnodeptr->string, buffer) == 0)
 		{
 			return fnodeptr;
@@ -153,9 +162,9 @@ FNODE* searchFnodePtr(
 }
 
 //*************************************************************************************************************
-//	@name		F@CreateFaultNode
-//	@function	F	create the fault node
-//	@return		F	(FNODE*) pointer to fault node
+//	@name		ï¿½Fï¿½@CreateFaultNode
+//	@function	ï¿½F	create the fault node
+//	@return		ï¿½F	(FNODE*) pointer to fault node
 //*************************************************************************************************************
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
@@ -181,67 +190,59 @@ FNODE* CreateFaultNode(
 	/** set the pointer to netlist */
 	fnodeptr_netptr___setNetPtr(fnodeptr->netptr, fnodeptr->name);
 
-	/** set the relaxation variables */
-	fnodeptr->relax = false;
-
-	//test relation num initialize
-	fnodeptr->test_relation_num = 0;
-
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
 	/** set the id */
-	fnodeptr->id = -1;
+	//fnodeptr->id = -1;
 
 	return fnodeptr;
 }
 
-
+///*************************************************************************************************************
+//	@name		AnalyzeEquivalenceFaults
+//	@function	ãƒãƒƒãƒˆãƒªã‚¹ãƒˆå…¨ä½“ã‚’èµ°æŸ»ã—ã€ç­‰ä¾¡æ•…éšœã®ãƒ†ã‚¹ãƒˆãƒ•ãƒ©ã‚°ã‚’NOã«ã™ã‚‹
 //*************************************************************************************************************
-//	@name		FTestRelationCounts
-//	@function	F	read test relation file and update existing fault list
-//	@return		F	(bool) okay, error
-//*************************************************************************************************************
-bool TestRelationCounts(
-)
+void AnalyzeEquivalenceFaults()
 {
-	FILE* fp = NULL;
-	char  line_buffer[256];
-	char  fault_name[128];
-	char  fault_type[32];
-	int   relation_count = 0;
-	char  hash_buffer[256];
-	int   hash = 0;
-	FNODE* fnodeptr = (FNODE*)NULL;
+	int i, j;
 
-
-	//ƒeƒXƒgŠÖŒWPIƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
-	fileOpen(&fp, opt.file.input.relation, "r");
-
-	while (fgets(line_buffer, sizeof(line_buffer), fp) != NULL)
+	// ã™ã¹ã¦ã®ãƒãƒƒãƒˆã®æ•…éšœã‚’ãƒ†ã‚¹ãƒˆå¯¾è±¡(YES)ã¨ã—ã¦åˆæœŸåŒ–
+	for (i = 0; i < n_net; i++)
 	{
-
-		if (sscanf(line_buffer, "%s %s %d", fault_name, fault_type, &relation_count) == 3)
-		{
-			// ŒŸõ—p‚Ì•¶š—ñ¶¬
-			snprintf(hash_buffer, sizeof(hash_buffer), "%s\t%s\n", fault_name, fault_type);
-
-			//CreateFaultList ‚Æ“¯‚¶ƒnƒbƒVƒ…ŠÖ”‚ğŒÄ‚Ño‚·
-			hash = calcHash(hash_buffer);
-
-			//ŒÌáƒŠƒXƒg’Tõ
-			fnodeptr = searchFnodePtr(hash_buffer, readdata.fault.list[hash]);
-			if (fnodeptr == NULL) {
-				printf("fault not found\n");
-				exit(1);
-			}
-
-			// ƒeƒXƒgŠÖŒW”‚ğXV
-			fnodeptr->test_relation_num = relation_count;
-
-		}
+		nl[i].test_sa0 = YES;
+		nl[i].test_sa1 = YES;
 	}
 
-	fclose(fp);
-	return READ_OKAY;
+	// ã‚²ãƒ¼ãƒˆã®ã‚¿ã‚¤ãƒ—ã«å¿œã˜ã¦ç­‰ä¾¡æ•…éšœã‚’å¯¾è±¡å¤–(NO)ã«ã—ã¦ã„ã
+	for (i = 0; i < n_net; i++)
+	{
+		switch (nl[i].type)
+		{
+			case BUF:
+			case INV:
+				nl[i].in[0]->test_sa0 = NO;
+				nl[i].in[0]->test_sa1 = NO;
+				break;
+
+			case AND:
+			case NAND:
+				// å…¥åŠ›ä¿¡å·ç·šã®0ç¸®é€€æ•…éšœã¯ç­‰ä¾¡
+				for (j = 0; j < nl[i].n_in; j++) {
+					nl[i].in[j]->test_sa0 = NO;
+				}
+				break;
+
+			case OR:
+			case NOR:
+				// å…¥åŠ›ä¿¡å·ç·šã®1ç¸®é€€æ•…éšœã¯ç­‰ä¾¡
+				for (j = 0; j < nl[i].n_in; j++) {
+					nl[i].in[j]->test_sa1 = NO;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
 }

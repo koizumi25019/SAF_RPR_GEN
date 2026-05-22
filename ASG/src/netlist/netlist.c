@@ -3,7 +3,7 @@
 //File name : Netlist.c
 //Date : 2010/06/07
 //Designer : R.Inoue
-//Ver : 3.0i”z•zVerj
+//Ver : 3.0ï¿½iï¿½zï¿½zVerï¿½j
 //--------------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <string.h>
@@ -13,61 +13,61 @@
 #pragma warning(disable:4996)
 
 //--------------------------------------------------------------------------------------------------------------------
-// ’è‹`
+// ï¿½ï¿½`
 //--------------------------------------------------------------------------------------------------------------------
-#define MAXN 1028      // ƒlƒbƒgƒŠƒXƒgƒtƒ@ƒCƒ‹–¼ƒTƒCƒY
-#define STR_MAX 1024   //get_token—p
-#define SPRINT_MAX 256 //sprintf—p
-#define HASH_SIZE 5003 //ƒnƒbƒVƒ…•\ƒTƒCƒY
+#define MAXN 1028      // ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½Cï¿½Y
+#define STR_MAX 1024   //get_tokenï¿½p
+#define SPRINT_MAX 256 //sprintfï¿½p
+#define HASH_SIZE 5003 //ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½Tï¿½Cï¿½Y
 #define HASH_MODE
 #undef DEBUG_MA
 #undef DEBUG_NL
 
-//ƒ‚ƒWƒ…[ƒ‹”z—ñƒƒ“ƒo[
+//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ñƒƒï¿½ï¿½oï¿½[
 typedef struct _Module_Array_MEM_Format_ {
-	char* m_name_ins; //ƒCƒ“ƒXƒ^ƒ“ƒX–¼
-	int m_type;	      //ƒ^ƒCƒv
-	int m_n_in;	      //“ü—Í”
-	char* m_out_name; //o—Í–¼
-	char** m_in_name; //“ü—Í–¼”z—ñ
-	// exe. <’Êí>  A:[0], B:[1],EEE, J:[9]
+	char* m_name_ins; //ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
+	int m_type;	      //ï¿½^ï¿½Cï¿½v
+	int m_n_in;	      //ï¿½ï¿½ï¿½Íï¿½
+	char* m_out_name; //ï¿½oï¿½Í–ï¿½
+	char** m_in_name; //ï¿½ï¿½ï¿½Í–ï¿½ï¿½zï¿½ï¿½
+	// exe. <ï¿½Êï¿½>  A:[0], B:[1],ï¿½Eï¿½Eï¿½E, J:[9]
 	//      <DFF >  D:[0]
-	//      <RDFF>  D:[0], CD(ƒŠƒZƒbƒg):[1]
-	//      <DFFS>  D:[0], TI(ƒXƒLƒƒƒ“ƒCƒ“):[1], TE(ƒXƒLƒƒƒ“ƒCƒl[ƒuƒ‹):[2]
-	//      <RDFFS> D:[0], TI(ƒXƒLƒƒƒ“ƒCƒ“):[1], TE(ƒXƒLƒƒƒ“ƒCƒl[ƒuƒ‹):[2], CD(ƒŠƒZƒbƒg):[3]
-	int out_nid;    //o—ÍM†‚ÌƒlƒbƒgƒŠƒXƒgID
-	int* in_nid;    //“ü—ÍM†‚ÌƒlƒbƒgƒŠƒXƒgID”z—ñ
+	//      <RDFF>  D:[0], CD(ï¿½ï¿½ï¿½Zï¿½bï¿½g):[1]
+	//      <DFFS>  D:[0], TI(ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½):[1], TE(ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½lï¿½[ï¿½uï¿½ï¿½):[2]
+	//      <RDFFS> D:[0], TI(ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½):[1], TE(ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½lï¿½[ï¿½uï¿½ï¿½):[2], CD(ï¿½ï¿½ï¿½Zï¿½bï¿½g):[3]
+	int out_nid;    //ï¿½oï¿½ÍMï¿½ï¿½ï¿½Ìƒlï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gID
+	int* in_nid;    //ï¿½ï¿½ï¿½ÍMï¿½ï¿½ï¿½Ìƒlï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½zï¿½ï¿½
 } Module_Array_MEM;
 
-//M†–¼ƒnƒbƒVƒ…ƒƒ“ƒo[
+//ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½[
 typedef struct _Signal_Name_Hash_Format_ {
-	int nid;        //ƒlƒbƒgƒŠƒXƒgID
+	int nid;        //ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gID
 	struct _Signal_Name_Hash_Format_* next;
 } Signal_Name_Hash;
 
-//\•¶‰ğÍ”z—ñ
+//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½
 int* parser_array[2]; //for_in:[0], for_out[1]
 
 //--------------------------------------------------------------------------------------------------------------------
-// Ã“I•Ï”
+// ï¿½Ã“Iï¿½Ïï¿½
 //--------------------------------------------------------------------------------------------------------------------
-//’[q–¼”z—ñi10“ü—Í‚Ü‚Å‘Î‰ 04/03/16j
+//ï¿½[ï¿½qï¿½ï¿½ï¿½zï¿½ï¿½i10ï¿½ï¿½ï¿½Í‚Ü‚Å‘Î‰ï¿½ 04/03/16ï¿½j
 char pin_name_array[10] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
 
-//ƒ‚[ƒWƒ…[ƒ‹”z—ñ
+//ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½
 static Module_Array_MEM** module_array = NULL;
 
-//M†–¼ƒnƒbƒVƒ…ƒe[ƒuƒ‹
+//ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½eï¿½[ï¿½uï¿½ï¿½
 static Signal_Name_Hash** hash_t = NULL;
 
-//ƒ‚[ƒWƒ…[ƒ‹”
+//ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 static int n_module = 0;
 
-//‰¼‚ÌM†”
+//ï¿½ï¿½ï¿½ÌMï¿½ï¿½ï¿½ï¿½
 static int nl_num = 0;
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒvƒƒ^ƒCƒvéŒ¾
+// ï¿½vï¿½ï¿½ï¿½^ï¿½Cï¿½vï¿½éŒ¾
 //--------------------------------------------------------------------------------------------------------------------
 static void option(int, char**, char*);
 static void file_open(FILE**, char*);
@@ -109,44 +109,44 @@ static void debug_ma(void);
 static void debug_nl(void);
 
 //--------------------------------------------------------------------------------------------------------------------
-// ŠO•”ŠÖ”
+// ï¿½Oï¿½ï¿½ï¿½Öï¿½
 //--------------------------------------------------------------------------------------------------------------------
 int read_nl(char* v_name)
 {
-	FILE* r_fp; //ƒlƒbƒgƒŠƒXƒgƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
+	FILE* r_fp; //ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^
 
-	//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 	file_open(&r_fp, v_name);
 
-	//ŠO•”•Ï”‰Šú‰»
+	//ï¿½Oï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	init_global();
 
-	//ƒlƒbƒgƒŠƒXƒg“Ç‚İ‚İ
+	//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½Ç‚İï¿½ï¿½ï¿½
 	read_net(r_fp);
 
-	//ƒlƒbƒgƒŠƒXƒg”z—ñƒfƒoƒbƒO
+	//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½zï¿½ï¿½fï¿½oï¿½bï¿½O
 #ifdef DEBUG_NL
 	debug_nl();
 #endif
 
-	//ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 	fclose(r_fp);
 
-	//Šm”FƒƒbƒZ[ƒW
+	//ï¿½mï¿½Fï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½W
 	//fprintf(stderr, "Completion of Read_Netlist !!\n");
 
 	return 0;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// “à•”ŠÖ”
+// ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½
 //--------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------
-// ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“‚Ìˆ—
+// ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void option(int argc, char* argv[], char* v_name)
 {
-	//g‚¢•ûà–¾
+	//ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (argc != 2) {
 		printf("******** The usage of Netlist.exe *******\n");
 		printf("Netlist.exe [Verilog-HDL Netlist file]\n");
@@ -154,82 +154,82 @@ static void option(int argc, char* argv[], char* v_name)
 		exit(-1);
 	}
 
-	//ƒtƒ@ƒCƒ‹–¼æ“¾
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 	strcpy(v_name, argv[1]);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void file_open(FILE** r_fp, char* v_name)
 {
 	if ((*r_fp = fopen(v_name, "r")) == (FILE*)NULL) {
-		fprintf(stderr, "ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“¸”s(%s)\n", v_name);
+		fprintf(stderr, "ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½s(%s)\n", v_name);
 		exit(-1);
 	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ŠO•”•Ï”‰Šú‰»
+// ï¿½Oï¿½ï¿½ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void init_global(void)
 {
-	n_net = 0;    //M†”
-	n_pi = 0;     //ŠO•”“ü—Í”
-	n_po = 0;     //ŠO•”o—Íü
-	n_dff = 0;    //DFF”
-	n_rdff = 0;   //RDFF”
-	n_dffs = 0;   //DFFS”
-	n_rdffs = 0;  //RDFFS”
-	n_assign = 0; //assign”
+	n_net = 0;    //ï¿½Mï¿½ï¿½ï¿½ï¿½
+	n_pi = 0;     //ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Íï¿½
+	n_po = 0;     //ï¿½Oï¿½ï¿½ï¿½oï¿½Íï¿½
+	n_dff = 0;    //DFFï¿½ï¿½
+	n_rdff = 0;   //RDFFï¿½ï¿½
+	n_dffs = 0;   //DFFSï¿½ï¿½
+	n_rdffs = 0;  //RDFFSï¿½ï¿½
+	n_assign = 0; //assignï¿½ï¿½
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒlƒbƒgƒŠƒXƒg“Ç‚İ‚İ§Œä
+// ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½Ç‚İï¿½ï¿½İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_net(FILE* rfp)
 {
-	//ƒlƒbƒgƒŠƒXƒgƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 	read_file(rfp);
 
-	//ƒlƒbƒgƒŠƒXƒg”z—ñ,ŠO•”•Ï”,\•¶‰ğÍ”z—ñ —ÌˆæŠm•Û,‰Šú‰»
+	//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½zï¿½ï¿½,ï¿½Oï¿½ï¿½ï¿½Ïï¿½,ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ ï¿½Ìˆï¿½mï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	alloc_nl();
 
-	//\•¶‰ğÍ
+	//ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½
 	parser(rfp);
 
-	//ƒnƒbƒVƒ…•\‰ğ•ú
+	//ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½
 	free_hash();
 
-	//M†Ú‘±
+	//ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½
 	connection_signal();
 
-	//ƒ‚ƒWƒ…[ƒ‹”z—ñƒfƒoƒbƒO
+	//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½fï¿½oï¿½bï¿½O
 #ifdef DEBUG_MA
 	debug_ma();
 #endif
 
-	//ƒ‚ƒWƒ…[ƒ‹”z—ñ,\•¶‰ğÍ”z—ñ ‰ğ•ú
+	//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½,ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ ï¿½ï¿½ï¿½
 	free_module_array();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒlƒbƒgƒŠƒXƒgƒtƒ@ƒCƒ‹î•ñ“Ç‚İ‚İ
+// ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_file(FILE* rfp)
 {
-	//ƒ‚ƒWƒ…[ƒ‹”, PI”, PO”Zo & module–¼æ“¾
+	//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½, PIï¿½ï¿½, POï¿½ï¿½ï¿½Zï¿½o & moduleï¿½ï¿½ï¿½æ“¾
 	read_1st(rfp);
 
-	//ƒ‚ƒWƒ…[ƒ‹”z—ñ—ÌˆæŠm•Û, ‰Šú‰»
+	//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½Ìˆï¿½mï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	alloc_module_array();
 
-	//Šeƒ‚ƒWƒ…[ƒ‹“Ç‚İ‚İ
+	//ï¿½eï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 	read_2nd(rfp);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒ‚ƒWƒ…[ƒ‹”, PI”, PO”Zo & module–¼æ“¾
+// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½, PIï¿½ï¿½, POï¿½ï¿½ï¿½Zï¿½o & moduleï¿½ï¿½ï¿½æ“¾
 //--------------------------------------------------------------------------------------------------------------------
 static void read_1st(FILE* rfp)
 {
@@ -237,7 +237,7 @@ static void read_1st(FILE* rfp)
 	int c;
 
 	while (get_token(rfp, str, 1, 0) != EOF) {
-		//module–¼æ“¾
+		//moduleï¿½ï¿½ï¿½æ“¾
 		if (!strcmp(str, "module")) {
 			get_token(rfp, str, 1, 0);
 			module_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
@@ -245,17 +245,17 @@ static void read_1st(FILE* rfp)
 			while ((c = getc(rfp)) != ';'); continue;
 		}
 		else if (!strcmp(str, "wire")) { while ((c = getc(rfp)) != ';'); continue; }
-		//assign”Zo
+		//assignï¿½ï¿½ï¿½Zï¿½o
 		else if (!strcmp(str, "assign")) {
 			n_assign++;
 			while ((c = getc(rfp)) != ';'); continue;
 		}
 		else if (!strcmp(str, "endmodule")) { continue; }
-		//PI”Zo
+		//PIï¿½ï¿½ï¿½Zï¿½o
 		else if (!strcmp(str, "input")) calc_pi_po(rfp, 0);
-		//PO”Zo
+		//POï¿½ï¿½ï¿½Zï¿½o
 		else if (!strcmp(str, "output")) calc_pi_po(rfp, 1);
-		//ƒ‚ƒWƒ…[ƒ‹”Zo
+		//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½o
 		else {
 			n_module++;
 			while ((c = getc(rfp)) != ';'); continue;
@@ -265,22 +265,22 @@ static void read_1st(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI”, PO”Zo
+// PIï¿½ï¿½, POï¿½ï¿½ï¿½Zï¿½o
 //--------------------------------------------------------------------------------------------------------------------
 static void calc_pi_po(FILE* rfp, int mode)
 {
-	char str[STR_MAX]; //get_token—p
-	int bit_1, bit_2;  //ƒrƒbƒg•‚ª‚ ‚éê‡‚Ìƒrƒbƒg”ŒvZ—p
-	int re_no;         //•Ô‚è’l
+	char str[STR_MAX]; //get_tokenï¿½p
+	int bit_1, bit_2;  //ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Ìƒrï¿½bï¿½gï¿½ï¿½ï¿½vï¿½Zï¿½p
+	int re_no;         //ï¿½Ô‚ï¿½l
 	int num;
 	int c;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	re_no = num = 0;
 
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
-	//bit•‚ ‚è
+	//bitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (c == '[') {
 		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
 		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
@@ -293,12 +293,12 @@ static void calc_pi_po(FILE* rfp, int mode)
 		if (mode == 0) n_pi += (num * (abs(bit_1 - bit_2) + 1));
 		else if (mode == 1) n_po += (num * (abs(bit_1 - bit_2) + 1));
 	}
-	//bit•‚È‚µ
+	//bitï¿½ï¿½ï¿½È‚ï¿½
 	else {
 		ungetc(c, rfp);
 		re_no = get_token(rfp, str, 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
-			//ƒNƒƒbƒN“Ç‚İ”ò‚Î‚µ
+			//ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Ç‚İ”ï¿½Î‚ï¿½
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
 				re_no = get_token(rfp, str, 0, 0);
 				continue;
@@ -307,7 +307,7 @@ static void calc_pi_po(FILE* rfp, int mode)
 			else if ((re_no == 0) && (mode == 1)) n_po++;
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//ƒNƒƒbƒN“Ç‚İ”ò‚Î‚µiƒNƒƒbƒN‚Å‚È‚Á‚©‚½ê‡Àsj
+		//ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Ç‚İ”ï¿½Î‚ï¿½ï¿½iï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Å‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½ï¿½sï¿½j
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
 			if ((re_no == 1) && (mode == 0)) n_pi++;
 			else if ((re_no == 1) && (mode == 1)) n_po++;
@@ -316,7 +316,7 @@ static void calc_pi_po(FILE* rfp, int mode)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒ‚ƒWƒ…[ƒ‹”z—ñ—ÌˆæŠm•Û, ‰Šú‰»
+// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½Ìˆï¿½mï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_module_array(void)
 {
@@ -328,16 +328,16 @@ static void alloc_module_array(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// Šeƒ‚ƒWƒ…[ƒ‹‚Ì“Ç‚İ‚İ
+// ï¿½eï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_2nd(FILE* rfp)
 {
-	int in_num; //“ü—Í”“Ç‚İ‚İ—p
-	int m_no;   //Œ»İ“Ç‚ñ‚Å‚¢‚éƒ‚ƒWƒ…[ƒ‹”Ô†
+	int in_num; //ï¿½ï¿½ï¿½Íï¿½ï¿½Ç‚İï¿½ï¿½İ—p
+	int m_no;   //ï¿½ï¿½ï¿½İ“Ç‚ï¿½Å‚ï¿½ï¿½éƒ‚ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ôï¿½
 	char str[STR_MAX];
 	int c;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	in_num = m_no = 0;
 
 	while (get_token(rfp, str, 2, &in_num) != EOF) {
@@ -348,15 +348,15 @@ static void read_2nd(FILE* rfp)
 		else if (!strcmp(str, "assign")) { while ((c = getc(rfp)) != ';'); continue; }
 		else if (!strcmp(str, "endmodule")) { continue; }
 		else {
-			//“ü—Í”‚Ì“Ç‚İ‚İ
+			//ï¿½ï¿½ï¿½Íï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 			read_n_in(in_num, str, m_no);
-			//“ü—ÍM†–¼,“ü—ÍM†ƒlƒbƒgƒŠƒXƒgID”z—ñ‚Ì—ÌˆæŠm•Û
+			//ï¿½ï¿½ï¿½ÍMï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ÍMï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½zï¿½ï¿½Ì—Ìˆï¿½mï¿½ï¿½
 			alloc_in_name(m_no);
-			//ƒ‚ƒWƒ…[ƒ‹ƒ^ƒCƒv
+			//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½Cï¿½v
 			read_module_type(rfp, str, m_no);
-			//ƒCƒ“ƒXƒ^ƒ“ƒX–¼‚Ì“Ç‚İ‚İ
+			//ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 			read_ins(rfp, m_no);
-			//’[q, M†–¼‚Ì“Ç‚İ‚İ
+			//ï¿½[ï¿½q, ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 			read_pin(rfp, m_no);
 
 			in_num = 0;
@@ -368,7 +368,7 @@ static void read_2nd(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// “ü—Í”‚Ì“Ç‚İ‚İ
+// ï¿½ï¿½ï¿½Íï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_n_in(int in_num, char* str, int m_no)
 {
@@ -382,7 +382,7 @@ static void read_n_in(int in_num, char* str, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// “ü—Í”M†–¼,“ü—ÍƒnƒbƒVƒ…ƒ|ƒCƒ“ƒ^”z—ñ‚Ì—ÌˆæŠm•Û
+// ï¿½ï¿½ï¿½Íï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Íƒnï¿½bï¿½Vï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½zï¿½ï¿½Ì—Ìˆï¿½mï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_in_name(int m_no)
 {
@@ -391,7 +391,7 @@ static void alloc_in_name(int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒ‚ƒWƒ…[ƒ‹ƒ^ƒCƒv‚Ì“Ç‚İ‚İ
+// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½Cï¿½vï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_module_type(FILE* rfp, char* str, int m_no)
 {
@@ -403,7 +403,7 @@ static void read_module_type(FILE* rfp, char* str, int m_no)
 			break;
 	case 'E': if (strlen(str) == 4) module_array[m_no]->m_type = EXOR;
 			else module_array[m_no]->m_type = EXNOR;
-		//error : 2“ü—ÍˆÈŠO‚ÌEXOR, EXNOR‚ª‚ ‚Á‚½ê‡
+		//error : 2ï¿½ï¿½ï¿½ÍˆÈŠOï¿½ï¿½EXOR, EXNORï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 		if (module_array[m_no]->m_n_in != 2) {
 			get_token(rfp, str, 0, 0);
 			error(1, str);
@@ -421,11 +421,11 @@ static void read_module_type(FILE* rfp, char* str, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒCƒ“ƒXƒ^ƒ“ƒX–¼‚Ì“Ç‚İ‚İ
+// ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_ins(FILE* rfp, int m_no)
 {
-	char str[STR_MAX]; //get_token—p
+	char str[STR_MAX]; //get_tokenï¿½p
 
 	get_token(rfp, str, 0, 0);
 	module_array[m_no]->m_name_ins = (char*)malloc(sizeof(char) * (strlen(str) + 1));
@@ -433,22 +433,22 @@ static void read_ins(FILE* rfp, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ’[q,M†–¼‚Ì“Ç‚İ‚İ
+// ï¿½[ï¿½q,ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_pin(FILE* rfp, int m_no)
 {
-	char str[STR_MAX]; //get_token—p
+	char str[STR_MAX]; //get_tokenï¿½p
 	int i, j;
 
-	for (i = 0; i < module_array[m_no]->m_n_in + 1; i++) { //o—Íü•ª+1
+	for (i = 0; i < module_array[m_no]->m_n_in + 1; i++) { //ï¿½oï¿½Íï¿½ï¿½ï¿½+1
 		while (get_token(rfp, str, 0, 0) != 0);
-		//o—ÍM†
+		//ï¿½oï¿½ÍMï¿½ï¿½
 		if (str[0] == 'Z' || str[0] == 'Q') {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_out_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_out_name, str);
 		}
-		//ŠeDFF‚ÌDi“ü—Íj
+		//ï¿½eDFFï¿½ï¿½Dï¿½iï¿½ï¿½ï¿½Íj
 		else if (((str[0] == 'D') && (module_array[m_no]->m_type == DFF)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == RDFF)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == DFFS)) ||
@@ -457,12 +457,12 @@ static void read_pin(FILE* rfp, int m_no)
 			module_array[m_no]->m_in_name[0] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[0], str);
 		}
-		//ŠeDFF‚ÌCPiƒNƒƒbƒNj
+		//ï¿½eDFFï¿½ï¿½CPï¿½iï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½j
 		else if (!strcmp(str, "CP")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			i--;
 		}
-		//RDFF,RDFFS‚ÌCDiƒŠƒZƒbƒgj
+		//RDFF,RDFFSï¿½ï¿½CDï¿½iï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½j
 		else if (!strcmp(str, "CD")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			if (module_array[m_no]->m_type == RDFF) {
@@ -474,19 +474,19 @@ static void read_pin(FILE* rfp, int m_no)
 				strcpy(module_array[m_no]->m_in_name[3], str);
 			}
 		}
-		//DFFS,RDFFS‚ÌTIiƒXƒLƒƒƒ“ƒCƒ“j
+		//DFFS,RDFFSï¿½ï¿½TIï¿½iï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½j
 		else if (!strcmp(str, "TI")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_in_name[1] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[1], str);
 		}
-		//DFFS,RDFFS‚ÌTEiƒXƒLƒƒƒ“ƒCƒl[ƒuƒ‹j
+		//DFFS,RDFFSï¿½ï¿½TEï¿½iï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½lï¿½[ï¿½uï¿½ï¿½ï¿½j
 		else if (!strcmp(str, "TE")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_in_name[2] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[2], str);
 		}
-		//‚»‚Ì‘¼‚Ì“ü—ÍM†
+		//ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Ì“ï¿½ï¿½ÍMï¿½ï¿½
 		else {
 			j = 0;
 			while (pin_name_array[j] != str[0]) {
@@ -501,17 +501,17 @@ static void read_pin(FILE* rfp, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒlƒbƒgƒŠƒXƒg”z—ñ,ŠO•”•Ï”,\•¶‰ğÍ”z—ñ —ÌˆæŠm•Û,‰Šú‰»
+// ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½zï¿½ï¿½,ï¿½Oï¿½ï¿½ï¿½Ïï¿½,ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ ï¿½Ìˆï¿½mï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_nl(void)
 {
 	int i;
 
-	//‰¼‚ÌM†ü”
+	//ï¿½ï¿½ï¿½ÌMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	nl_num = n_pi + n_po + n_module;
 	for (i = 0; i < n_module; i++) nl_num += module_array[i]->m_n_in;
 
-	//—ÌˆæŠm•Û
+	//ï¿½Ìˆï¿½mï¿½ï¿½
 	nl = (NLIST*)malloc(sizeof(NLIST) * nl_num);
 	pi = (NLIST**)malloc(sizeof(NLIST*) * n_pi);
 	po = (NLIST**)malloc(sizeof(NLIST*) * n_po);
@@ -523,7 +523,7 @@ static void alloc_nl(void)
 	parser_array[0] = (int*)malloc(sizeof(int) * (nl_num));
 	parser_array[1] = (int*)malloc(sizeof(int) * (nl_num));
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (i = 0; i < nl_num; i++) {
 		nl[i].type = -1;
 		nl[i].n_in = 0;
@@ -536,25 +536,25 @@ static void alloc_nl(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// \•¶‰ğÍ
+// ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void parser(FILE* rfp)
 {
-	//ƒnƒbƒVƒ…•\‚Ì—ÌˆæŠm•Û
+	//ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½Ì—Ìˆï¿½mï¿½ï¿½
 	alloc_hash_table();
 
-	//M†î•ñ‚ÌŠi”[
+	//ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ÌŠiï¿½[
 	store_signal();
 
-	//PI,PO“Ç‚İ‚İ
+	//PI,POï¿½Ç‚İï¿½ï¿½ï¿½
 	store_pi_po(rfp);
 
-	//\•¶ƒGƒ‰[‰ğÍ
+	//ï¿½\ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½
 	analyze_asyntax_error();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒnƒbƒVƒ…•\‚Ì—ÌˆæŠm•Û
+// ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½Ì—Ìˆï¿½mï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_hash_table(void)
 {
@@ -565,77 +565,77 @@ static void alloc_hash_table(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†î•ñ‚ÌŠi”[
+// ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ÌŠiï¿½[
 //--------------------------------------------------------------------------------------------------------------------
 static void store_signal(void)
 {
 	Signal_Name_Hash* ptr;
-	int hash_value; //ƒnƒbƒVƒ…’l
+	int hash_value; //ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½l
 	int i, j;
 
 	for (i = 0; i < n_module; i++) {
-		//“ü—Í
+		//ï¿½ï¿½ï¿½ï¿½
 		for (j = 0; j < module_array[i]->m_n_in; j++) {
 			hash_value = hash_key(module_array[i]->m_in_name[j]);
-			//’Tõ
+			//ï¿½Tï¿½ï¿½
 			ptr = hash_t[hash_value];
 			while (ptr != NULL) {
 				if (!strcmp(nl[ptr->nid].name, module_array[i]->m_in_name[j])) {
-					//\•¶‰ğÍ”z—ñƒCƒ“ƒNƒŠƒƒ“ƒg
+					//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½g
 					parser_array[0][ptr->nid] ++;
-					//“ü—ÍM†ƒlƒbƒgƒŠƒXƒgID”z—ñ‘}“ü
+					//ï¿½ï¿½ï¿½ÍMï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½zï¿½ï¿½}ï¿½ï¿½
 					module_array[i]->in_nid[j] = ptr->nid;
 					break;
 				}
 				ptr = ptr->next;
 			}
-			//V‹Kì¬
+			//ï¿½Vï¿½Kï¿½ì¬
 			if (ptr == NULL) {
-				//ƒnƒbƒVƒ…•\‘}“ü
+				//ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½}ï¿½ï¿½
 				ptr = (Signal_Name_Hash*)malloc(sizeof(Signal_Name_Hash));
 				ptr->next = hash_t[hash_value];
 				hash_t[hash_value] = ptr;
 				ptr->nid = n_net;
-				//ƒlƒbƒgƒŠƒXƒg‘}“ü
+				//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½}ï¿½ï¿½
 				nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_in_name[j]) + 1));
 				strcpy(nl[n_net].name, module_array[i]->m_in_name[j]);
-				nl[n_net].n = n_net; //ƒlƒbƒgƒŠƒXƒgID
-				//\•¶‰ğÍ”z—ñ‘ã“ü
+				nl[n_net].n = n_net; //ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gID
+				//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ï¿½ï¿½
 				parser_array[0][n_net] = 1;
-				//“ü—ÍM†ƒlƒbƒgƒŠƒXƒgID”z—ñ‘}“ü
+				//ï¿½ï¿½ï¿½ÍMï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½zï¿½ï¿½}ï¿½ï¿½
 				module_array[i]->in_nid[j] = n_net;
 
 				n_net++;
 			}
 		}
-		//o—Í
+		//ï¿½oï¿½ï¿½
 		hash_value = hash_key(module_array[i]->m_out_name);
-		//’Tõ
+		//ï¿½Tï¿½ï¿½
 		ptr = hash_t[hash_value];
 		while (ptr != NULL) {
 			if (!strcmp(nl[ptr->nid].name, module_array[i]->m_out_name)) {
-				//\•¶‰ğÍ”z—ñƒCƒ“ƒNƒŠƒƒ“ƒg
+				//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½g
 				parser_array[1][ptr->nid] ++;
-				//o—ÍM†ƒlƒbƒgƒŠƒXƒgID‘}“ü
+				//ï¿½oï¿½ÍMï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½}ï¿½ï¿½
 				module_array[i]->out_nid = ptr->nid;
 				break;
 			}
 			ptr = ptr->next;
 		}
-		//V‹Kì¬
+		//ï¿½Vï¿½Kï¿½ì¬
 		if (ptr == NULL) {
-			//ƒnƒbƒVƒ…•\‘}“ü
+			//ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½}ï¿½ï¿½
 			ptr = (Signal_Name_Hash*)malloc(sizeof(Signal_Name_Hash));
 			ptr->next = hash_t[hash_value];
 			hash_t[hash_value] = ptr;
 			ptr->nid = n_net;
-			//ƒlƒbƒgƒŠƒXƒg‘}“ü
+			//ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½}ï¿½ï¿½
 			nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_out_name) + 1));
 			strcpy(nl[n_net].name, module_array[i]->m_out_name);
-			nl[n_net].n = n_net; //ƒlƒbƒgƒŠƒXƒgID
-			//\•¶‰ğÍ”z—ñ‘ã“ü
+			nl[n_net].n = n_net; //ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gID
+			//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ï¿½ï¿½
 			parser_array[1][n_net] = 1;
-			//o—ÍM†ƒlƒbƒgƒŠƒXƒgID‘}“ü
+			//ï¿½oï¿½ÍMï¿½ï¿½ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gIDï¿½}ï¿½ï¿½
 			module_array[i]->out_nid = n_net;
 
 			n_net++;
@@ -644,17 +644,17 @@ static void store_signal(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO“Ç‚İ‚İ§Œä
+// PI,POï¿½Ç‚İï¿½ï¿½İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void store_pi_po(FILE* rfp)
 {
-	char str[STR_MAX]; //get_token—p
+	char str[STR_MAX]; //get_tokenï¿½p
 	int pi_no;
 	int po_no;
 	int assign_no;
 	int c;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	pi_no = po_no = assign_no = 0;
 
 	while (get_token(rfp, str, 0, 0) != EOF) {
@@ -669,33 +669,33 @@ static void store_pi_po(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO“Ç‚İ‚İ
+// PI,POï¿½Ç‚İï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void read_pi_po(FILE* rfp, int* no, int mode)
 {
-	char str[STR_MAX];    //get_token—p
-	char tmp[SPRINT_MAX]; //sprint—p
-	int bit_1, bit_2;     //ƒrƒbƒg•‚ª‚ ‚éê‡‚Ìƒrƒbƒg”ŒvZ—p
-	int n_bit;            //ƒrƒbƒg”
-	int start_bit;        //Å‰‚Ìƒrƒbƒg”
-	int re_no;            //•Ô‚è’l
+	char str[STR_MAX];    //get_tokenï¿½p
+	char tmp[SPRINT_MAX]; //sprintï¿½p
+	int bit_1, bit_2;     //ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Ìƒrï¿½bï¿½gï¿½ï¿½ï¿½vï¿½Zï¿½p
+	int n_bit;            //ï¿½rï¿½bï¿½gï¿½ï¿½
+	int start_bit;        //ï¿½Åï¿½ï¿½Ìƒrï¿½bï¿½gï¿½ï¿½
+	int re_no;            //ï¿½Ô‚ï¿½l
 	int i, c;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	re_no = 0;
 
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
-	//bit•‚ ‚è
+	//bitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (c == '[') {
 		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
 		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
 		n_bit = abs(bit_1 - bit_2) + 1;
 		re_no = get_token(rfp, str, 0, 0);
-		//Å‰‚Ìƒrƒbƒg”
+		//ï¿½Åï¿½ï¿½Ìƒrï¿½bï¿½gï¿½ï¿½
 		if (bit_1 <= bit_2) start_bit = bit_1;
 		else start_bit = bit_2;
-		//•¡”ƒ|[ƒgéŒ¾
+		//ï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½[ï¿½gï¿½éŒ¾
 		while ((re_no != 1) && (re_no != 2)) {
 			for (i = 0; i < n_bit; i++) {
 				sprintf(tmp, "%s[%d]", str, i + start_bit);
@@ -703,7 +703,7 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			}
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//’P“Æƒ|[ƒgéŒ¾
+		//ï¿½Pï¿½Æƒ|ï¿½[ï¿½gï¿½éŒ¾
 		if (re_no == 1) {
 			for (i = 0; i < n_bit; i++) {
 				sprintf(tmp, "%s[%d]", str, i + start_bit);
@@ -711,12 +711,12 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			}
 		}
 	}
-	//bit•‚È‚µ
+	//bitï¿½ï¿½ï¿½È‚ï¿½
 	else {
 		ungetc(c, rfp);
 		re_no = get_token(rfp, str, 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
-			//ƒNƒƒbƒN“Ç‚İ”ò‚Î‚µ
+			//ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Ç‚İ”ï¿½Î‚ï¿½
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
 				re_no = get_token(rfp, str, 0, 0);
 				continue;
@@ -724,7 +724,7 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			if (re_no == 0) hash_search_pi_po(str, no, mode);
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//ƒNƒƒbƒN“Ç‚İ”ò‚Î‚µiƒNƒƒbƒN‚Å‚È‚Á‚©‚½ê‡Àsj
+		//ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Ç‚İ”ï¿½Î‚ï¿½ï¿½iï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Å‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½ï¿½sï¿½j
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
 			if (re_no == 1) hash_search_pi_po(str, no, mode);
 		}
@@ -732,11 +732,11 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO ƒnƒbƒVƒ…’Tõ
+// PI,PO ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½Tï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void hash_search_pi_po(char* word, int* no, int mode)
 {
-	int hash_value;   //ƒnƒbƒVƒ…’l
+	int hash_value;   //ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½l
 	Signal_Name_Hash* ptr;
 
 	hash_value = hash_key(word);
@@ -747,28 +747,28 @@ static void hash_search_pi_po(char* word, int* no, int mode)
 			if (mode == 0) {
 				//TYPE
 				nl[ptr->nid].type = IN;
-				//PI”z—ñ
+				//PIï¿½zï¿½ï¿½
 				pi[(*no)++] = &nl[ptr->nid];
 			}
 			//PO
 			else if (mode == 1) {
-				//PO”z—ñ
+				//POï¿½zï¿½ï¿½
 				po[(*no)++] = &nl[ptr->nid];
 			}
 			break;
 		}
 		ptr = ptr->next;
 	}
-	//error : M†‚ªƒXƒ‹[‚µ‚Ä‚¢‚éê‡
+	//error : ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 	if (ptr == NULL) error(3, word);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// assign“Ç‚İ‚İi2006.03.24 –¢‘Î‰j
+// assignï¿½Ç‚İï¿½ï¿½İi2006.03.24 ï¿½ï¿½ï¿½Î‰ï¿½ï¿½j
 //--------------------------------------------------------------------------------------------------------------------
 static void read_assign(FILE* rfp, int* assign_no)
 {
-	char str[STR_MAX]; //get_token—p
+	char str[STR_MAX]; //get_tokenï¿½p
 	int c;
 
 	get_token(rfp, str, 0, 0);
@@ -795,22 +795,22 @@ static void read_assign(FILE* rfp, int* assign_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// \•¶ƒGƒ‰[‰ğÍ
+// ï¿½\ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void analyze_asyntax_error(void)
 {
 	int i;
 
 	for (i = 0; i < n_net; i++) {
-		//PIƒoƒbƒeƒBƒ“ƒO
+		//PIï¿½oï¿½bï¿½eï¿½Bï¿½ï¿½ï¿½O
 		if ((parser_array[1][i] >= 1) && (nl[i].type == IN))	error(4, nl[i].name);
-		//“à•”M†ƒoƒbƒeƒBƒ“ƒO
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½oï¿½bï¿½eï¿½Bï¿½ï¿½ï¿½O
 		else if (parser_array[1][i] >= 2) error(5, nl[i].name);;
 	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒnƒbƒVƒ…’l‰‰Z
+// ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½lï¿½ï¿½ï¿½Z
 //--------------------------------------------------------------------------------------------------------------------
 static int hash_key(char* word)
 {
@@ -838,7 +838,7 @@ static int hash_key(char* word)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒnƒbƒVƒ…•\‰ğ•ú
+// ï¿½nï¿½bï¿½Vï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void free_hash(void)
 {
@@ -859,40 +859,40 @@ static void free_hash(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†Ú‘±§Œä
+// ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_signal(void)
 {
-	//ŠeM† n_in,n_out “Ç‚İ‚İ,—ÌˆæŠm•Û
+	//ï¿½eï¿½Mï¿½ï¿½ n_in,n_out ï¿½Ç‚İï¿½ï¿½ï¿½,ï¿½Ìˆï¿½mï¿½ï¿½
 	alloc_nl_in_out();
 
-	//ŠeM†Ú‘±
+	//ï¿½eï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½
 	connection_n_signal();
 
-	//ŠO•”“ü—ÍƒCƒ“ƒXƒ^ƒ“ƒX–¼,’[q–¼İ’è
+	//ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½,ï¿½[ï¿½qï¿½ï¿½ï¿½İ’ï¿½
 	set_pi_ins();
 
-	//FF”z—ñ‘}“ü
+	//FFï¿½zï¿½ï¿½}ï¿½ï¿½
 	set_ff_array();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ŠeM† n_in,n_out “Ç‚İ‚İ,—ÌˆæŠm•Û
+// ï¿½eï¿½Mï¿½ï¿½ n_in,n_out ï¿½Ç‚İï¿½ï¿½ï¿½,ï¿½Ìˆï¿½mï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_nl_in_out(void)
 {
 	int i, j;
 
-	//ŠeM† n_in ‚Ì“Ç‚İ‚İ
+	//ï¿½eï¿½Mï¿½ï¿½ n_in ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	for (i = 0; i < n_module; i++)
 		nl[module_array[i]->out_nid].n_in = module_array[i]->m_n_in;
 
-	//ŠeM† n_out ‚Ì“Ç‚İ‚İ
+	//ï¿½eï¿½Mï¿½ï¿½ n_out ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	for (i = 0; i < n_net; i++) nl[i].n_out = parser_array[0][i];
-	for (i = 0; i < n_po; i++) //PO‚ªFOUT‚µ‚Ä‚¢‚éê‡
+	for (i = 0; i < n_po; i++) //POï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 		if (parser_array[0][po[i]->n] >= 1) po[i]->n_out++;
 
-	//ŠeM† in,out —ÌˆæŠm•Û,‰Šú‰»
+	//ï¿½eï¿½Mï¿½ï¿½ in,out ï¿½Ìˆï¿½mï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (i = 0; i < n_net; i++) {
 		if (nl[i].n_in != 0) {
 			nl[i].in = (NLIST**)malloc(sizeof(NLIST*) * nl[i].n_in);
@@ -906,34 +906,34 @@ static void alloc_nl_in_out(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†Ú‘±
+// ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_n_signal(void)
 {
-	int po_fout_flag; //PO‚ªFOUTiYES:1 NO:0j
+	int po_fout_flag; //POï¿½ï¿½FOUTï¿½iYES:1 NO:0ï¿½j
 	int i, j, k;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	po_fout_flag = 0;
 
 	for (i = 0; i < n_module; i++) {
 		for (j = 0; j < module_array[i]->m_n_in; j++) {
-			//IN‘¤‚ªFOUT‚µ‚Ä‚¢‚È‚¢ê‡
+			//INï¿½ï¿½ï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡
 			if (nl[module_array[i]->in_nid[j]].n_out == 1) {
 				connection_no_fout(i, j);
 			}
-			//IN‘¤‚ªFOUT‚µ‚Ä‚¢‚éê‡
+			//INï¿½ï¿½ï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 			else if (nl[module_array[i]->in_nid[j]].n_out >= 2) {
 				connection_yes_fout(i, j);
-				//PO‚ªFOUT‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
+				//POï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½`ï¿½Fï¿½bï¿½N
 				for (k = 0; k < n_po; k++) {
 					if (nl[module_array[i]->in_nid[j]].n == po[k]->n) {
-						//PO”z—ñ‚ğ‘‚«Š·‚¦‚é
+						//POï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						po[k] = &nl[n_net];
 						po_fout_flag = 1; break;
 					}
 				}
-				//PO‚ªFOUT‚µ‚Ä‚¢‚éê‡
+				//POï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 				if (po_fout_flag == 1) {
 					connection_po_fout(i, j, k);
 				}
@@ -944,27 +944,27 @@ static void connection_n_signal(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†Ú‘± IN‘¤‚ªFOUT‚µ‚Ä‚¢‚È‚¢ê‡
+// ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½ INï¿½ï¿½ï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_no_fout(int m_no, int in_no)
 {
 	int no;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	no = 0;
 
-	//IN‘¤‚Ìo—ÍM†
+	//INï¿½ï¿½ï¿½Ìoï¿½ÍMï¿½ï¿½
 	nl[module_array[m_no]->in_nid[in_no]].out[0] = &nl[module_array[m_no]->out_nid];
-	//OUT‘¤‚Ì“ü—ÍM†
+	//OUTï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍMï¿½ï¿½
 	while (nl[module_array[m_no]->out_nid].in[no] != NULL) no++;
 	nl[module_array[m_no]->out_nid].in[no] = &nl[module_array[m_no]->in_nid[in_no]];
-	//OUT‘¤‚ÌTYPE
+	//OUTï¿½ï¿½ï¿½ï¿½TYPE
 	nl[module_array[m_no]->out_nid].type = module_array[m_no]->m_type;
-	//OUT‘¤‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼
+	//OUTï¿½ï¿½ï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 	nl[module_array[m_no]->out_nid].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[module_array[m_no]->out_nid].name_ins, module_array[m_no]->m_name_ins);
-	//OUT‘¤‚Ì’[q–¼
+	//OUTï¿½ï¿½ï¿½Ì’[ï¿½qï¿½ï¿½
 	nl[module_array[m_no]->out_nid].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
@@ -975,18 +975,18 @@ static void connection_no_fout(int m_no, int in_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†Ú‘± IN‘¤‚ªFOUT‚µ‚Ä‚¢‚éê‡
+// ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½ INï¿½ï¿½ï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_yes_fout(int m_no, int in_no)
 {
-	char tmp[SPRINT_MAX]; //sprint—p
+	char tmp[SPRINT_MAX]; //sprintï¿½p
 	//int no, i;
 	int no;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	no = 0;
 
-	//FOUTì¬
+	//FOUTï¿½ì¬
 	sprintf(tmp, "%s_%s_%c", nl[module_array[m_no]->in_nid[in_no]].name
 		, nl[module_array[m_no]->out_nid].name
 		, pin_name_array[in_no]);
@@ -998,25 +998,25 @@ static void connection_yes_fout(int m_no, int in_no)
 	nl[n_net].n_out = 1;
 	nl[n_net].in = (NLIST**)malloc(sizeof(NLIST*)); nl[n_net].in[0] = NULL;
 	nl[n_net].out = (NLIST**)malloc(sizeof(NLIST*)); nl[n_net].out[0] = NULL;
-	//Œ³‚ÌIN‘¤‚Ìo—ÍM†
+	//ï¿½ï¿½ï¿½ï¿½INï¿½ï¿½ï¿½Ìoï¿½ÍMï¿½ï¿½
 	while (nl[module_array[m_no]->in_nid[in_no]].out[no] != NULL) no++;
 	nl[module_array[m_no]->in_nid[in_no]].out[no] = &nl[n_net];
 	no = 0;
-	//OUT‘¤‚Ì“ü—ÍM†
+	//OUTï¿½ï¿½ï¿½Ì“ï¿½ï¿½ÍMï¿½ï¿½
 	while (nl[module_array[m_no]->out_nid].in[no] != NULL) no++;
 	nl[module_array[m_no]->out_nid].in[no] = &nl[n_net];
 	no = 0;
-	//OUT‘¤‚ÌTYPE
+	//OUTï¿½ï¿½ï¿½ï¿½TYPE
 	nl[module_array[m_no]->out_nid].type = module_array[m_no]->m_type;
-	//FOUT‚Ì“ü—ÍM†
+	//FOUTï¿½Ì“ï¿½ï¿½ÍMï¿½ï¿½
 	nl[n_net].in[0] = &nl[module_array[m_no]->in_nid[in_no]];
-	//FOUT‚Ìo—ÍM†
+	//FOUTï¿½Ìoï¿½ÍMï¿½ï¿½
 	nl[n_net].out[0] = &nl[module_array[m_no]->out_nid];
-	//FOUT‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼
+	//FOUTï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 	nl[n_net].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[n_net].name_ins, module_array[m_no]->m_name_ins);
-	//FOUT‚Ì’[q–¼
+	//FOUTï¿½Ì’[ï¿½qï¿½ï¿½
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
 		if (in_no == 0) {
@@ -1046,11 +1046,11 @@ static void connection_yes_fout(int m_no, int in_no)
 		nl[n_net].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 		nl[n_net].name_port[0] = pin_name_array[in_no];	nl[n_net].name_port[1] = '\0';
 	}
-	//OUT‘¤‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼
+	//OUTï¿½ï¿½ï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 	nl[module_array[m_no]->out_nid].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[module_array[m_no]->out_nid].name_ins, module_array[m_no]->m_name_ins);
-	//OUT‘¤‚Ì’[q–¼
+	//OUTï¿½ï¿½ï¿½Ì’[ï¿½qï¿½ï¿½
 	nl[module_array[m_no]->out_nid].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
@@ -1063,17 +1063,17 @@ static void connection_yes_fout(int m_no, int in_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// M†Ú‘± PO‚ªFOUT‚µ‚Ä‚¢‚éê‡ 2010.09.07•ÏX
+// ï¿½Mï¿½ï¿½ï¿½Ú‘ï¿½ POï¿½ï¿½FOUTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ 2010.09.07ï¿½ÏX
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_po_fout(int m_no, int in_no, int po_no)
 {
-	char tmp[SPRINT_MAX]; //sprint—p
+	char tmp[SPRINT_MAX]; //sprintï¿½p
 	int no;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	no = 0;
 
-	//FOUTì¬
+	//FOUTï¿½ì¬
 	nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(nl[module_array[m_no]->in_nid[in_no]].name) + 1));
 	strcpy(nl[n_net].name, nl[module_array[m_no]->in_nid[in_no]].name);
 	nl[n_net].n = n_net;
@@ -1082,16 +1082,16 @@ static void connection_po_fout(int m_no, int in_no, int po_no)
 	nl[n_net].in = (NLIST**)malloc(sizeof(NLIST*));
 	nl[n_net].in[0] = NULL;
 	nl[n_net].n_out = 0;
-	//Œ³‚ÌIN‘¤‚Ìo—ÍM†
+	//ï¿½ï¿½ï¿½ï¿½INï¿½ï¿½ï¿½Ìoï¿½ÍMï¿½ï¿½
 	while (nl[module_array[m_no]->in_nid[in_no]].out[no] != NULL) no++;
 	nl[module_array[m_no]->in_nid[in_no]].out[no] = &nl[n_net];
 	free(nl[module_array[m_no]->in_nid[in_no]].name);
 	sprintf(tmp, "%s_stem", nl[n_net].name);
 	nl[module_array[m_no]->in_nid[in_no]].name = (char*)malloc(sizeof(char) * (strlen(tmp) + 1));
 	strcpy(nl[module_array[m_no]->in_nid[in_no]].name, tmp);
-	//FOUT‚Ì“ü—ÍM†
+	//FOUTï¿½Ì“ï¿½ï¿½ÍMï¿½ï¿½
 	nl[n_net].in[0] = &nl[module_array[m_no]->in_nid[in_no]];
-	//FOUT‚ÌƒCƒ“ƒXƒ^ƒ“ƒX–¼,’[q–¼
+	//FOUTï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½,ï¿½[ï¿½qï¿½ï¿½
 	nl[n_net].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(nl[n_net].name) + 1));
 	strcpy(nl[n_net].name_ins, nl[n_net].name);
@@ -1101,7 +1101,7 @@ static void connection_po_fout(int m_no, int in_no, int po_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ŠO•”“ü—ÍƒCƒ“ƒXƒ^ƒ“ƒX–¼,’[q–¼İ’è
+// ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½,ï¿½[ï¿½qï¿½ï¿½ï¿½İ’ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void set_pi_ins(void)
 {
@@ -1115,14 +1115,14 @@ static void set_pi_ins(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// FF”z—ñ‘}“ü
+// FFï¿½zï¿½ï¿½}ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void set_ff_array(void)
 {
 	int dff_no, dffs_no, rdff_no, rdffs_no;
 	int i;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	dff_no = dffs_no = rdff_no = rdffs_no = 0;
 
 	for (i = 0; i < n_net; i++) {
@@ -1136,23 +1136,23 @@ static void set_ff_array(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// 1’PŒê“Ç‚Ş+ƒ¿
+// 1ï¿½Pï¿½ï¿½Ç‚ï¿½+ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 {
-	int aha_flag;     //isalpha”»•Ê—p
-	char c_in_num[3]; //“ü—Í”“Ç‚İ‚İ—p
+	int aha_flag;     //isalphaï¿½ï¿½ï¿½Ê—p
+	char c_in_num[3]; //ï¿½ï¿½ï¿½Íï¿½ï¿½Ç‚İï¿½ï¿½İ—p
 	int i, c;
 
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	i = aha_flag = 0;
 
-	//ˆê•¶š“Ç‚Ş
+	//ï¿½ê•¶ï¿½ï¿½ï¿½Ç‚ï¿½
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t') || (c == '\n')) c = fgetc(rfp);
-	if (c == EOF) return EOF;              //EOF‚Ìê‡
+	if (c == EOF) return EOF;              //EOFï¿½Ìê‡
 
-	//‹æØ‚è•¶š‚Ü‚Å“Ç‚İ‘±‚¯’PŒê‚ğì¬
+	//ï¿½ï¿½Ø‚è•¶ï¿½ï¿½ï¿½Ü‚Å“Ç‚İ‘ï¿½ï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½ï¿½ì¬
 	if (mode == 0) {
 		while ((c != '\t') && (c != '\n') && (c != ' ') && (c != ';') &&
 			(c != '(') && (c != ')') && (c != ',') && (c != ':') && (c != '=') && (c != '.')) {
@@ -1186,38 +1186,38 @@ static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 	}
 	s[i] = '\0';
 
-	//‚Ç‚Ì‹æØ‚è•¶š‚Ü‚Å“Ç‚ñ‚¾‚©‚ğ•Ô‚·
-	if ((c == ';') && (i != 0)) return 1;      //ÅŒã‚Ì•¶š‚ªu;v‚Ìê‡
-	else if ((c == ';') && (i == 0)) return 2; //ÅŒã‚Ì•¶š‚ªu;v‚Å‚©‚Â’P“Æ‚Ìê‡
-	else if (s[0] == '\0') return -2;      //•¶š—ñ‚ªì‚ê‚Ä‚¢‚È‚¢ê‡
-	else return 0;                        //’Êí
+	//ï¿½Ç‚Ì‹ï¿½Ø‚è•¶ï¿½ï¿½ï¿½Ü‚Å“Ç‚ñ‚¾‚ï¿½ï¿½ï¿½Ô‚ï¿½
+	if ((c == ';') && (i != 0)) return 1;      //ï¿½ÅŒï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½u;ï¿½vï¿½Ìê‡
+	else if ((c == ';') && (i == 0)) return 2; //ï¿½ÅŒï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½u;ï¿½vï¿½Å‚ï¿½ï¿½Â’Pï¿½Æ‚Ìê‡
+	else if (s[0] == '\0') return -2;      //ï¿½ï¿½ï¿½ï¿½ï¿½ñ‚ªï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡
+	else return 0;                        //ï¿½Êï¿½
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒGƒ‰[ˆ—
+// ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void error(int code, char* s)
 {
 	fprintf(stderr, "ERROR : ");
 	switch (code) {
 	case 1:
-		fprintf(stderr, "2“ü—ÍˆÈŠO‚ÌEXOR,EXNOR‚ª‘¶İ‚µ‚Ü‚·. instans_name : %s\n", s);
+		fprintf(stderr, "2ï¿½ï¿½ï¿½ÍˆÈŠOï¿½ï¿½EXOR,EXNORï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½Ü‚ï¿½. instans_name : %s\n", s);
 		break;
 	case 2:
-		fprintf(stderr, "11“ü—ÍˆÈã‚Í‘Î‰‚µ‚Ä‚¢‚Ü‚¹‚ñ. ’•¶‚É‚æ‚è‘¦‘Î‰H instans_name : %s\n", s);
+		fprintf(stderr, "11ï¿½ï¿½ï¿½ÍˆÈï¿½Í‘Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½è‘¦ï¿½Î‰ï¿½ï¿½H instans_name : %s\n", s);
 		break;
 	case 3:
-		fprintf(stderr, "M† \"%s\" ‚ªƒXƒ‹[‚µ‚Ä‚¢‚Ü‚·. ƒoƒbƒtƒ@‚ğ‘}“ü‚µ‚Ä‚­‚¾‚³‚¢.\n", s);
-		fprintf(stderr, "        ‚à‚µ‚­‚Í, M† \"%s\" ‚Ì‹Lq’†‚É‰üs‚ª“ü‚Á‚Ä‚¢‚é‰Â”\«‚ª‚ ‚è‚Ü‚·.\n", s);
+		fprintf(stderr, "ï¿½Mï¿½ï¿½ \"%s\" ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½. ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½}ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.\n", s);
+		fprintf(stderr, "        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Mï¿½ï¿½ \"%s\" ï¿½Ì‹Lï¿½qï¿½ï¿½ï¿½É‰ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Â”\n", s);
 		break;
 	case 4:
-		fprintf(stderr, "ŠO•”“ü—ÍM† \"%s\" ‚ªƒoƒbƒeƒBƒ“ƒO‚µ‚Ä‚¢‚Ü‚·. ‚¢‚©‚ê‚½‰ñ˜H‚ğ“Ç‚İ‚Ü‚¹‚È‚¢‚Å‰º‚³‚¢i“{j\n", s);
+		fprintf(stderr, "ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍMï¿½ï¿½ \"%s\" ï¿½ï¿½ï¿½oï¿½bï¿½eï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Hï¿½ï¿½Ç‚İï¿½ï¿½Ü‚ï¿½ï¿½È‚ï¿½ï¿½Å‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½{ï¿½j\n", s);
 		break;
 	case 5:
-		fprintf(stderr, "M† \"%s\" ‚ªƒoƒbƒeƒBƒ“ƒO‚µ‚Ü‚·. ‚¢‚©‚ê‚½‰ñ˜H‚ğ“Ç‚İ‚Ü‚¹‚È‚¢‚Å‰º‚³‚¢i“{j\n", s);
+		fprintf(stderr, "ï¿½Mï¿½ï¿½ \"%s\" ï¿½ï¿½ï¿½oï¿½bï¿½eï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Ü‚ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Hï¿½ï¿½Ç‚İï¿½ï¿½Ü‚ï¿½ï¿½È‚ï¿½ï¿½Å‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½{ï¿½j\n", s);
 		break;
 	case 6:
-		fprintf(stderr, "assign•¶‚ÍACC,GND‚Ì‚İ‘Î‰‚µ‚Ä‚¢‚Ü‚·. M† \"%s\" ‚ğŠO•”“ü—ÍéŒ¾‚©‚çæ‚é“™‚Å‘Î‰‚µ‚Ä‚­‚¾‚³‚¢.\n", s);
+		fprintf(stderr, "assignï¿½ï¿½ï¿½ï¿½ACC,GNDï¿½Ì‚İ‘Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½. ï¿½Mï¿½ï¿½ \"%s\" ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍéŒ¾ï¿½ï¿½ï¿½ï¿½ï¿½é“™ï¿½Å‘Î‰ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.\n", s);
 		break;
 	}
 
@@ -1225,13 +1225,13 @@ static void error(int code, char* s)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ƒ‚ƒWƒ…[ƒ‹”z—ñ,\•¶‰ğÍ”z—ñ ‰ğ•ú
+// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½,ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½ ï¿½ï¿½ï¿½
 //--------------------------------------------------------------------------------------------------------------------
 static void free_module_array(void)
 {
 	int i, j;
 
-	//ƒ‚ƒWƒ…[ƒ‹”z—ñ
+	//ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½
 	for (i = 0; i < n_module; i++) {
 		free(module_array[i]->m_out_name);
 		free(module_array[i]->m_name_ins);
@@ -1242,14 +1242,14 @@ static void free_module_array(void)
 	}
 	free(module_array);
 
-	//\•¶‰ğÍ”z—ñ
+	//ï¿½\ï¿½ï¿½ï¿½ï¿½Í”zï¿½ï¿½
 	free(parser_array[0]);
 	free(parser_array[1]);
 }
 
 #ifdef DEBUG_MA
 //--------------------------------------------------------------------------------------------------------------------
-// ƒ‚ƒWƒ…[ƒ‹”z—ñƒfƒoƒbƒO
+// ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½zï¿½ï¿½fï¿½oï¿½bï¿½O
 //--------------------------------------------------------------------------------------------------------------------
 static void debug_ma(void)
 {
@@ -1274,7 +1274,7 @@ static void debug_ma(void)
 
 #ifdef DEBUG_NL
 //--------------------------------------------------------------------------------------------------------------------
-// ƒlƒbƒgƒŠƒXƒg”z—ñƒfƒoƒbƒO
+// ï¿½lï¿½bï¿½gï¿½ï¿½ï¿½Xï¿½gï¿½zï¿½ï¿½fï¿½oï¿½bï¿½O
 //--------------------------------------------------------------------------------------------------------------------
 static void debug_nl(void)
 {

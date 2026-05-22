@@ -5,9 +5,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "../standard.h"
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
@@ -16,13 +13,13 @@
 
 #define	MAXSIZE_FILENAME		  100		  /**< maximum size of filename */
 
-#define MAX_PATTERN               100         // Å‘å100ŒÂ‚Ü‚ÅŽw’è‰Â”\
+#define MAX_PATTERN               100         // ï¿½Å‘ï¿½100ï¿½Â‚Ü‚ÅŽwï¿½ï¿½Â”\
 
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
 
-#define	PrintHelpMessage		  colorNo4 printf	  /**< help message */
-
+#define		YES				1
+#define		NO				0
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre
@@ -32,10 +29,8 @@ typedef struct Input_File
 {
 	char* net;				  /**< netlist file */
 	char* fault;			  /**< fault list file */
-	char* relation;           /**< test relation file */
-	int pattern_num_list[MAX_PATTERN]; // ƒpƒ^[ƒ“”‚ðŠi”[‚·‚é”z—ñ
-	int list_size;            // ƒpƒ^[ƒ“”ƒŠƒXƒg‚ÌƒTƒCƒY
-	int limit;                // ƒeƒXƒg¶¬‘Å‚¿Ø‚è‰ñ”
+	char* cube_analysis;      // cube analysis file
+	int limit;                // test generation limit */
 }
 INPUT;
 
@@ -109,17 +104,3 @@ bool OPTcheck(
 bool OPTcheckFile(
 	void
 );
-
-/** display the help */
-void OPTdispHelp(
-	void
-);
-
-
-
-
-
-
-
-
-

@@ -5,13 +5,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "./standard.h"
-
-
 //-------------------------------------------------------------------------------------------------------------
 //	define
 //-------------------------------------------------------------------------------------------------------------
-#define PROJECT_NAME      "SAF RPR GEN"
 
 #define RETCODE_OKAY	  true				  /**< return code   = okay */
 #define RETCODE_ERROR	  false				  /**< return code   = error */
@@ -27,7 +23,11 @@ void OutPIN(
 );
 
 void OutLogfile(
-	clock_t time
+	double time,
+	double cpu_time,
+    double time_cadical,
+    double time_bdd,
+    double time_xid
 );
 
 

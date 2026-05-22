@@ -1,0 +1,22 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/s5378_C.v 
+
+# set fault list(.txt)
+-fault ../input/fault/s5378_C_test.txt
+
+# set log(.txt)
+-log ../output/log/s5378_C_test_log.txt
+
+# set pin(.txt)
+-pin ../output/pin/s5378_C_pin.txt
+
+# set result(.txt)
+-result ../output/result/s5378_test_result.csv
+
+# cube_analysis(.txt)
+-cube_analysis ../output/cube_analysis/s5378_cube_analysis.csv
+
+-limit 10000
+
+

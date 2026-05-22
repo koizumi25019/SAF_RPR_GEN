@@ -1,25 +1,19 @@
 # set File
 # set netlist(.v)
--net ./input/circuit/s38417_C.v 
+-net ../input/circuit/s38417_C.v 
 
 # set fault list(.txt)
--fault ./input/fault/s38417_C_unred.txt
-
-# set test relation(.txt)
--relation ./input/test_relation/s38417_C_test_relation.txt
-
-# set test relation(.txt)
--rp 10,100,1000,10000,100000
+#-fault ./input/fault/s38417_C_unred.txt
 
 # set log(.txt)
--log ./output/log/s38417_C_log.txt
+-log ../output/log/s38417_C_log_30_rep.txt
 
 # set pin(.txt)
--pin ./output/pin/s38417_C_pin.txt
+-pin ../output/pin/s38417_C_pin.txt
 
 # set result(.txt)
--result ./output/result/s38417_result.csv
+-result ../output/result/s38417_30_result_rep.csv
 
--limit 100
+-limit 30
 
 

@@ -39,8 +39,6 @@ while(false);
 {																											  \
 	opb.total.vars	= opb.constant.vars;																	  \
 	opb.total.cons	= opb.constant.cons;																	  \
-	opb.total.pros	= opb.constant.pros;																	  \
-	opb.total.spros	= opb.constant.spros;																	  \
 }																											  \
 while (false);
 
@@ -77,7 +75,7 @@ void InitGlobalVarsQUE(
 	void
 );
 
-//CLASP•Ï”‰Šú‰»
+//CLASPï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void InitGlobalVarsCLASP(
 	void
 );

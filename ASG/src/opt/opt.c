@@ -1,19 +1,17 @@
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
-#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "./opt.h"
-#include "../standard.h"
 #include "../asg/read.h"
 #include "../lib/lib.h"
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPT
-//	@function	ÅF	analyze the option
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@OPT
+//	@function	ÔøΩF	analyze the option
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool OPT(
 	int					  argc,			      /**< number of command-arguments */
@@ -26,9 +24,6 @@ bool OPT(
 	/** set the options */
 	if (OPTset(argc, argv) != OPT_OKAY)
 	{
-		/** display the help */
-		OPTdispHelp();
-
 		return OPT_ERROR;
 	}
 
@@ -36,9 +31,9 @@ bool OPT(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTinit
-//	@function	ÅF	initialize the options
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@OPTinit
+//	@function	ÔøΩF	initialize the options
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void OPTinit(
 	void
@@ -47,32 +42,30 @@ void OPTinit(
 	/** initialize the filename */
 	OPTinitFile();
 
-
 	return;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTinitFile
-//	@function	ÅF	initialize the filename
-//	@return		ÅF	(void)
+//	@name		ÔøΩFÔøΩ@OPTinitFile
+//	@function	ÔøΩF	initialize the filename
+//	@return		ÔøΩF	(void)
 //*************************************************************************************************************
 void OPTinitFile(
 	void
 )
 {
-	opt.file.input.fault		= FILE_NOSET;
-	opt.file.input.net			= FILE_NOSET;
-
-	opt.file.output.log			= FILE_NOSET;
-
+	opt.file.input.fault		 = FILE_NOSET;
+	opt.file.input.net			 = FILE_NOSET;
+	opt.file.input.cube_analysis = FILE_NOSET;
+	opt.file.output.log			 = FILE_NOSET;
 
 	return;
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTset
-//	@function	ÅF	set the options
-//	@return		ÅF	(bool) okay, error
+//	@name		F@OPTset
+//	@function	F	set the options
+//	@return		F	(bool) okay, error
 //*************************************************************************************************************
 bool OPTset(
 	int				      argc,				  /**< number of command-arguments */
@@ -81,21 +74,17 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
-		/** help */
-		if (strcmp(argv[i], "-help") == 0)
-			return OPT_ERROR;
-
 		/** netlist */
-		else if (strcmp(argv[i], "-net") == 0)
+		if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = _strdup(argv[++i]);
 
 		/** fault-list */
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = _strdup(argv[++i]);
 
-		/** test relation file*/
-		else if (strcmp(argv[i], "-relation") == 0)
-			opt.file.input.relation = _strdup(argv[++i]);
+	    /** cube analysis mode */
+		else if (strcmp(argv[i], "-cube_analysis") == 0)
+			opt.file.input.cube_analysis = _strdup(argv[++i]);
 
 		/** log */
 		else if (strcmp(argv[i], "-log") == 0)
@@ -111,36 +100,17 @@ bool OPTset(
 
 		/** limit  */
 		else if (strcmp(argv[i], "-limit") == 0)
-			opt.file.input.limit = _strdup(argv[++i]);
+			opt.file.input.limit = atoi(argv[++i]);
 
-		/** random pattern   */
-		else if (strcmp(argv[i], "-rp") == 0)
-		{
-			int count = 0;
-
-			char* arg_str = argv[++i];
-
-			char* token = strtok(arg_str, ",");
-
-			while (token != NULL && count < 100) {
-				// ï∂éöóÒÇintÇ…ïœä∑ÇµÇƒîzóÒÇ…äiî[
-				opt.file.input.pattern_num_list[count++] = atoi(token);
-
-				// éüÇÃÉgÅ[ÉNÉìÇéÊìæ
-				token = strtok(NULL, ",");
-			}
-			opt.file.input.list_size = count;
-		}
-
-		/** read the option */
+		/** read the setfile */
 		else if (strcmp(argv[i], "-set") == 0)
 			return OPTread(argv[++i]);
 
 		else
 		{
-			PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-			PrintErrorMessage("%c%s%c is not expected.\n\n", '"', argv[i], '"');
-			colorDef
+			printf("\n	COMMAND ERROR: option setup is failed. ");
+			printf("%c%s%c is not expected.\n\n", '"', argv[i], '"');
+			
 			return OPT_ERROR;
 		}
 	}
@@ -150,9 +120,9 @@ bool OPTset(
 
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTread
-//	@function	ÅF	read the option-setting file
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@OPTread
+//	@function	ÔøΩF	read the option-setting file
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool OPTread(
 	char* filename			  /**< filename */
@@ -176,11 +146,8 @@ bool OPTread(
 		{
 			token1 = strtok_s(buffer, " \n\0", &context);
 
-			/** help */
-			if (strcmp(token1, "-help") == 0) return OPT_ERROR;
-
 			/** netlist */
-			else if (strcmp(token1, "-net") == 0)
+			if (strcmp(token1, "-net") == 0)
 			{
 				token2 = strtok_s(NULL, " \n\0", &context);
 
@@ -189,6 +156,21 @@ bool OPTread(
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
 						opt.file.input.net = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						break;
+					}
+				}
+			}
+
+			/** cube analysis file */
+			else if (strcmp(token1, "-cube_analysis") == 0)
+			{
+				token2 = strtok_s(NULL, " \n\0", &context);
+
+				for (int i = 0; i < strlen(token2); i++)
+				{
+					if (token2[i] != ' ' && token2[i] != '\t')
+					{
+						opt.file.input.cube_analysis = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -204,21 +186,6 @@ bool OPTread(
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
 						opt.file.input.fault = _strdup(strtok_s(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
-
-			/** test relation */
-			else if (strcmp(token1, "-relation") == 0)
-			{
-				token2 = strtok_s(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.input.relation = _strdup(strtok_s(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -269,64 +236,32 @@ bool OPTread(
 				}
 			}
 
-			/** random pattern list */
-			else if (strcmp(token1, "-rp") == 0)
-			{
-				token2 = strtok_s(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						int count = 0;
-						char* inner_context = NULL;
-						char* num_token = NULL;
-
-						num_token = strtok_s(&token2[i], ", \n\r", &inner_context);
-
-						while (num_token != NULL && count < 100)
-						{
-							// ï∂éöóÒÇintÇ…ïœä∑ÇµÇƒäiî[
-							opt.file.input.pattern_num_list[count++] = atoi(num_token);
-
-							// éüÇÃêîílÇéÊìæ
-							num_token = strtok_s(NULL, ", \n\r", &inner_context);
-						}
-
-						opt.file.input.list_size = count;
-						break;
-					}
-				}
-			}
-
 			/** limit setting */
 			else if (strcmp(token1, "-limit") == 0)
 			{
-				// éüÇÃÉgÅ[ÉNÉìÅiêîílÅjÇéÊìæ
 				token2 = strtok_s(NULL, " \n\0", &context);
 
-				// îOÇÃÇΩÇﬂNULLÉ`ÉFÉbÉN
+				// ÔøΩOÔøΩÃÇÔøΩÔøΩÔøΩNULLÔøΩ`ÔøΩFÔøΩbÔøΩN
 				if (token2 != NULL)
 				{
 					int val = atoi(token2);
 
-					//  0ÇÃèÍçáÇÕÉäÉ~ÉbÉgÇ»ÇµÇ∆Ç∑ÇÈ
 					if (val == 0)
 					{
-						opt.file.input.limit = 0;         // ílÇàÍâû0Ç…ÇµÇƒÇ®Ç≠
+						opt.file.input.limit = 0;
 					}
 					else
 					{
-						opt.file.input.limit = val;        // éwíËÇ≥ÇÍÇΩêîílÇäiî[
+						opt.file.input.limit = val;
 					}
 				}
 			}
 
 			else
 			{
-				PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-				PrintErrorMessage("%c%s%c is not expected.\n\n", '"', token1, '"');
-				colorDef
+				printf("\n	COMMAND ERROR: option setup is failed. ");
+				printf("%c%s%c is not expected.\n\n", '"', token1, '"');
+				
 				return OPT_ERROR;
 			}
 		}
@@ -340,9 +275,9 @@ bool OPTread(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTcheck
-//	@function	ÅF	check for essential options
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@OPTcheck
+//	@function	ÔøΩF	check for essential options
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool OPTcheck(
 	void
@@ -355,9 +290,9 @@ bool OPTcheck(
 }
 
 //*************************************************************************************************************
-//	@name		ÅFÅ@OPTcheckFile
-//	@function	ÅF	check for essential file
-//	@return		ÅF	(bool) okay, error
+//	@name		ÔøΩFÔøΩ@OPTcheckFile
+//	@function	ÔøΩF	check for essential file
+//	@return		ÔøΩF	(bool) okay, error
 //*************************************************************************************************************
 bool OPTcheckFile(
 	void
@@ -365,84 +300,43 @@ bool OPTcheckFile(
 {
 	if (opt.file.input.net == FILE_NOSET)
 	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no netlist file.\n\n");
-		colorDef
+		printf("\n	COMMAND ERROR: option setup is failed. ");
+		printf("no netlist file.\n\n");
+		
 		return OPT_ERROR;
 	}
 
 	if (opt.file.input.fault == FILE_NOSET)
 	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no fault list file.\n\n");
-		colorDef
+		printf("\n	COMMAND ERROR: option setup is failed. ");
+		printf("no fault list file.\n\n");
+		
 		return OPT_ERROR;
 	}
 
 	if (opt.file.output.pin == FILE_NOSET)
 	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no pin file.\n\n");
-		colorDef
+		printf("\n	COMMAND ERROR: option setup is failed. ");
+		printf("no pin file.\n\n");
+		
 		return OPT_ERROR;
 	}
 
 	if (opt.file.output.log == FILE_NOSET)
 	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no log file.\n\n");
-		colorDef
+		printf("\n	COMMAND ERROR: option setup is failed. ");
+		printf("no log file.\n\n");
+		
 			return OPT_ERROR;
 	}
 
 	if (opt.file.output.result == FILE_NOSET)
 	{
-		PrintErrorMessage("\n	COMMAND ERROR: option setup is failed. ");
-		PrintErrorMessage("no log file.\n\n");
-		colorDef
+		printf("\n	COMMAND ERROR: option setup is failed. ");
+		printf("no result file.\n\n");
+		
 			return OPT_ERROR;
 	}
 
 	return	OPT_OKAY;
 }
-
-//*************************************************************************************************************
-//	@name		ÅFÅ@OPTdispHelp
-//	@function	ÅF	display the help
-//	@return		ÅF	(void)
-//*************************************************************************************************************
-void OPTdispHelp(
-	void
-)
-{
-	PrintHelpMessage("\n	> help ***********************************************************************************\n\n");
-
-	PrintHelpMessage("		command = SAF_RPR_GEN.exe -net <.v> -fault <.txt> -pin <.txt>\n");
-
-	PrintHelpMessage("\n		>> file option \n");
-
-	PrintHelpMessage("		   -net(essential)   :   netlist <.v> \n");
-	PrintHelpMessage("		   -fault(essential)   :   fault list <.txt> \n");
-
-	PrintHelpMessage("		   -log              :   log file <.txt>\n");
-	PrintHelpMessage("		   -pin(essential)   :   pin file <.txt>\n");
-
-	PrintHelpMessage("		   -set              :   setting options by file <.set> \n");
-
-	PrintHelpMessage("\n		>> help \n");
-	PrintHelpMessage("		   -help           :   print the help. \n");
-
-	PrintHelpMessage("\n");
-	colorDef
-
-		return;
-}
-
-
-
-
-
-
-
-
-

@@ -176,31 +176,31 @@ bool isSingleByte(
 	int					  c					  /** characters */
 );
 
-//‘Sƒrƒbƒg‚ð0‚ÉƒZƒbƒg
+//ï¿½Sï¿½rï¿½bï¿½gï¿½ï¿½0ï¿½ÉƒZï¿½bï¿½g
 void All_INT_Zero_XP(BIT_INT_XP*);
 
-//‘Sƒrƒbƒg‚ð1‚ÉƒZƒbƒg
+//ï¿½Sï¿½rï¿½bï¿½gï¿½ï¿½1ï¿½ÉƒZï¿½bï¿½g
 void All_INT_One_XP(BIT_INT_XP*);
 
-//‘Sƒrƒbƒg‚ðX‚ÉƒZƒbƒg
+//ï¿½Sï¿½rï¿½bï¿½gï¿½ï¿½Xï¿½ÉƒZï¿½bï¿½g
 void All_Bit_X_XP(BIT_INT_XP*);
 
-//Žw’èƒrƒbƒg–Ú‚ð0‚ÉƒZƒbƒg
+//ï¿½wï¿½ï¿½rï¿½bï¿½gï¿½Ú‚ï¿½0ï¿½ÉƒZï¿½bï¿½g
 void Set_NINT_Zero_XP(BIT_INT_XP*, unsigned int);
 
-//Žw’èƒrƒbƒg–Ú‚ð1‚ÉƒZƒbƒg
+//ï¿½wï¿½ï¿½rï¿½bï¿½gï¿½Ú‚ï¿½1ï¿½ÉƒZï¿½bï¿½g
 void Set_NINT_One_XP(BIT_INT_XP*, unsigned int);
 
-//Žw’èƒrƒbƒg–Ú‚ðX‚ÉƒZƒbƒg
+//ï¿½wï¿½ï¿½rï¿½bï¿½gï¿½Ú‚ï¿½Xï¿½ÉƒZï¿½bï¿½g
 void Set_NBit_X_XP(BIT_INT_XP*, unsigned int);
 
-//Žw’èƒrƒbƒg–Ú‚Ì’l‚ðƒQƒbƒg(0, 1)
+//ï¿½wï¿½ï¿½rï¿½bï¿½gï¿½Ú‚Ì’lï¿½ï¿½ï¿½Qï¿½bï¿½g(0, 1)
 unsigned int  Get_NBit_INT_XP(BIT_INT_XP*, unsigned int);
 
-//Xƒoƒbƒtƒ@‚Ì‚Ý‚ÌŽw’èƒrƒbƒg‚Ì’l‚ð“¾‚é
+//Xï¿½oï¿½bï¿½tï¿½@ï¿½Ì‚Ý‚ÌŽwï¿½ï¿½rï¿½bï¿½gï¿½Ì’lï¿½ð“¾‚ï¿½
 unsigned int  Get_NBit_Xbuf(BIT_INT_XP*, unsigned int);
 
-//Žw’èƒrƒbƒg‚Ì’l‚ð“¾‚é(xbuf, pbuf)
+//ï¿½wï¿½ï¿½rï¿½bï¿½gï¿½Ì’lï¿½ð“¾‚ï¿½(xbuf, pbuf)
 unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num);
 
 
