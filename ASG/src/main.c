@@ -16,9 +16,9 @@
 
 
 //*************************************************************************************************************
-//	@name		ÔøΩFÔøΩ@main
-//	@function	ÔøΩF	main
-//	@return		ÔøΩF	(void)
+//	@name		ÅFÅ@main
+//	@function	ÅF	main
+//	@return		ÅF	(void)
 //*************************************************************************************************************
 bool main(
 	int					  argc,				 /**< number of command-arguments */
@@ -28,11 +28,11 @@ bool main(
 	clock_t start, end;
 	start = clock();
 
+	char txt_cmd[50];
+
 	/** set the option */
-	if (OPT(argc, argv) != OPT_OKAY) {
-		system("chcp 65001 && YuyaMail.exe");
-		return RETCODE_ERROR;
-	}
+	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
+
 
 	/** read the netlist */
 	read_nl(opt.file.input.net);
@@ -41,22 +41,24 @@ bool main(
 	OutPIN();
 
 	//analyze the fault density
-	if (AnalyzeFaultDensity() != AFD_OKAY) {
-		system("chcp 65001 && YuyaMail.exe");
-		return RETCODE_ERROR;
-	}
+	if (AnalyzeFaultDensity() != AFD_OKAY) return RETCODE_ERROR;
 
 	end = clock();
 	OutLogfile(end - start);
 
-	system("chcp 65001 && YuyaMail.exe");
-	return 0;
+	//ÉvÉçÉOÉâÉÄèIóπÉÅÅ[ÉãëóêM
+    system("chcp 65001");
+    sprintf(txt_cmd,"YuyaMail.exe");
+    system(txt_cmd);
+    system("chcp 932");
+
+		return 0;
 }
 
 //*************************************************************************************************************
-//	@name		ÔøΩFÔøΩ@OutPIN
-//	@function	ÔøΩF	output the pin
-//	@return		ÔøΩF	(void)
+//	@name		ÅFÅ@OutPIN
+//	@function	ÅF	output the pin
+//	@return		ÅF	(void)
 //*************************************************************************************************************
 void OutPIN(
 	void
@@ -77,9 +79,9 @@ void OutPIN(
 }
 
 //*************************************************************************************************************
-//	@name		ÔøΩFÔøΩ@OutLogfile
-//	@function	ÔøΩF	output the log
-//	@return		ÔøΩF	(bool) okay, error
+//	@name		ÅFÅ@OutLogfile
+//	@function	ÅF	output the log
+//	@return		ÅF	(bool) okay, error
 //*************************************************************************************************************
 void OutLogfile(
 	clock_t time
