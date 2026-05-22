@@ -1,0 +1,6 @@
+#ifndef DISCORD_CONFIG_H
+#define DISCORD_CONFIG_H
+
+#define DISCORD_WEBHOOK_URL "https://discord.com/api/webhooks/your/webhook/url"
+
+#endif

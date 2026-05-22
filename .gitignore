@@ -365,3 +365,4 @@ ASG/src/main
 ASG/output/
 ASG/src/main/*.txt
 ASG/build/*.txt
+ASG/src/discord_config.h
