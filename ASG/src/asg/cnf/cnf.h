@@ -97,6 +97,12 @@ void SearchTFO(
 	FNODE* target			  /**< target fault */
 );
 
+/** create fault propagation (D-chain) constraints */
+void CreateConsProp(
+	CCaDiCaL* solver,
+	FNODE* target
+);
+
 /** create the faulty-circuit constraint -AND */
 void CreateConsFC_AND(
 	CCaDiCaL* solver,       // ★追加
@@ -167,8 +173,3 @@ void CreateConsDC_FE(
 	FNODE* fnodeptr			  /**< pointer to fault node */
 );
 
-/** make the blocking clause */
-char* make_blocking_clause(
-	CCaDiCaL *solver, 
-	TARGET* target
-);

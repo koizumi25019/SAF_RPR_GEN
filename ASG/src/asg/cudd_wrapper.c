@@ -42,30 +42,18 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDD
-void RunBDD(DdManager* gbm,int nvars, FILE* result_fp,FILE* cube_analysis_fp,TARGET* target,int test_loop) {
-    FILE* fp;
-    char line[4096];
-
+void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_fp, FILE* cube_analysis_fp, TARGET* target, int test_loop) {
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
-    if ((fp = fopen("./bdd_cube_file.txt", "r")) == NULL) {
-        fprintf(stderr, "Error: file open error %s\n", "./bdd_cube_file.txt");
-        Cudd_Quit(gbm);
-    }
-
-    while (fgets(line, sizeof(line), fp) != NULL) {
-        line[strcspn(line, "\r\n")] = 0; // ���s�폜
-        if (strlen(line) == 0) continue;
-
-        DdNode* cubeBdd = parseCube(gbm, line, nvars);
+    for (int i = 0; i < n_cubes; i++) {
+        DdNode* cubeBdd = parseCube(gbm, cubes[i], nvars);
         DdNode* tmp = Cudd_bddOr(gbm, finalBdd, cubeBdd);
         Cudd_Ref(tmp);
         Cudd_RecursiveDeref(gbm, finalBdd);
         Cudd_RecursiveDeref(gbm, cubeBdd);
         finalBdd = tmp;
     }
-    fclose(fp);
 
     //BDD
     int supportSize = Cudd_SupportSize(gbm, finalBdd);

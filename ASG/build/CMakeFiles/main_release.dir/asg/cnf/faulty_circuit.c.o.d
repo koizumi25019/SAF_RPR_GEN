@@ -61,7 +61,7 @@ CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
- /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../createSGmodel.h \
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../create_TPG_model.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/.././target_fault.h \
  /usr/include/string.h \
@@ -86,4 +86,5 @@ CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o: \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../././../lib/lib.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/./cnf.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../fault_detection_prob.h \
- /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../init.h
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../init.h \
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../essential_assignment.h

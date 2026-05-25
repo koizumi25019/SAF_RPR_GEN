@@ -4,11 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ccadical.h" 
-#include "../createSGmodel.h"
+#include "ccadical.h"
+#include "../create_TPG_model.h"
 #include "./cnf.h"
 #include "../fault_detection_prob.h"
 #include "../init.h"
+#include "../essential_assignment.h"
 #include "../../lib/lib.h"
 #include "../../netlist/netlist.h"
 
@@ -61,9 +62,14 @@ bool CreateConsFC(
 				}
 			}
 
+			/** create fault propagation constraints (D-chain) */
+			CreateConsProp(solver, target->list[i]);
+
 			/** create the detection-circuit constraint */
-			// ★ CreateConsDC にも solver を渡すように変更が必要になります
 			CreateConsDC(solver, target->list[i]);
+
+			/** add necessary assignment unit clauses */
+			EssentialAssignment(solver, target->list[i]);
 		}
 	}
 
@@ -97,7 +103,8 @@ void SearchTFO(
 		if ((netptr->flag & TFO) != TFO)
 		{
 			netptr->flag |= TFO;
-			netptr->varsfc = ++opb.total.vars; // ※これもint型になっている前提
+			netptr->varsfc  = ++opb.total.vars;
+			netptr->varprop = ++opb.total.vars;
 
 			numtrannet++;
 
@@ -117,6 +124,52 @@ void SearchTFO(
 	}
 
 	return;
+}
+
+//*************************************************************************************************************
+//	@name		：	CreateConsProp
+//	@function	：	create fault propagation (D-chain) constraints
+//	@return		：	(void)
+//*************************************************************************************************************
+void CreateConsProp(
+	CCaDiCaL* solver,
+	FNODE* target
+)
+{
+	// 故障サイトでACT=1を強制（伝搬変数を有効化）
+	ccadical_add(solver, (int)target->netptr->varprop);
+	ccadical_add(solver, 0);
+
+	for (int i = 0; i < n_net; i++)
+	{
+		if ((nl[i].flag & TFO) != TFO) continue;
+
+		// Constraint A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
+		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
+		if (nl[i].n_out > 0)
+		{
+			ccadical_add(solver, -(int)nl[i].varprop);
+			for (int j = 0; j < nl[i].n_out; j++)
+			{
+				ccadical_add(solver, (int)nl[i].out[j]->varprop);
+			}
+			ccadical_add(solver, 0);
+		}
+
+		// Constraint B: ¬ACT(X) ∨ gc(X) ∨ fc(X)
+		// ACT(X)=1 なら少なくとも一方が1
+		ccadical_add(solver, -(int)nl[i].varprop);
+		ccadical_add(solver, (int)nl[i].varsgc);
+		ccadical_add(solver, (int)nl[i].varsfc);
+		ccadical_add(solver, 0);
+
+		// Constraint C: ¬ACT(X) ∨ ¬gc(X) ∨ ¬fc(X)
+		// ACT(X)=1 なら少なくとも一方が0（B+CでD値: gc≠fc を表現）
+		ccadical_add(solver, -(int)nl[i].varprop);
+		ccadical_add(solver, -(int)nl[i].varsgc);
+		ccadical_add(solver, -(int)nl[i].varsfc);
+		ccadical_add(solver, 0);
+	}
 }
 
 //*************************************************************************************************************

@@ -42,7 +42,13 @@ typedef struct _Netlist_Format_ {
 	int				flag;			    /**< flag */
 	unsigned int	varsgc;			    /**< variables for good-circuit  */
 	unsigned int	varsfc;				/**< variables for faulty-circuit  */
-	char* consgc;						/**< constraints for good-circuit  */
+	unsigned int	varprop;			/**< variables for fault propagation (D-chain) */
+	int				logic_value;		/**< logic value for essential assignment (-1=unknown) */
+	int				ea_flag;			/**< essential assignment flag (0=unassigned, 1=assigned) */
+	int				unique_flag;		/**< unique sentization flag (0=down, 1=up, 2=middle) */
+	int				level;				/**< topological level (0=PI) */
+	int* consgc;						/**< constraints for good-circuit (flat int array, 0-terminated clauses) */
+	int consgc_len;						/**< number of ints in consgc */
 	char** consfc;						/**< constraints for faulty-circuit  */
 	unsigned int suf_fc;				//
 	unsigned int fault_pass;			//

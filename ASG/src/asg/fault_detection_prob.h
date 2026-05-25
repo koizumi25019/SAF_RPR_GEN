@@ -35,22 +35,11 @@ bool AnalyzeFaultDensity(
 	double* out_time_xid
 );
 
-void CallXidSaf(
-	const char* net_file, 
-	const char* pin_file
-);
-
 bool DropDeteFault(
-	TARGET * target	
-);
-
-/** output the solution */
-void OutSolution(
-	TARGET * target			  /**< target fault */
+	TARGET * target
 );
 
 /** free the memory */
 void FreeMemory(
-	TARGET* remain,			  /**< remain fault */
 	TARGET* target			  /**< target fault */
 );

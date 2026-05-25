@@ -49,7 +49,7 @@
 /** set the type of fault  */
 #define	fnodeptr_type___setFaultType(type)	do																  \
 {																											  \
-	context = strtok_s(NULL, " \n\0", &context);															  \
+	context = strtok_r(NULL, " \n\0", &context);															  \
 	if(context == NULL)																						  \
 	{																										  \
 		printf("\n	FILE ERROR: fault file reading failed. ");									  \

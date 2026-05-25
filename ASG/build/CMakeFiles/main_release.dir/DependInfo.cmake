@@ -8,13 +8,19 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/XID.c" "CMakeFiles/main_release.dir/XID/XID.c.o" "gcc" "CMakeFiles/main_release.dir/XID/XID.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_adapter.c" "CMakeFiles/main_release.dir/XID/xid_adapter.c.o" "gcc" "CMakeFiles/main_release.dir/XID/xid_adapter.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp.c" "CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o" "gcc" "CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp_limited.c" "CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o" "gcc" "CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_forward_imp.c" "CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o" "gcc" "CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_fsim.c" "CMakeFiles/main_release.dir/XID/xid_fsim.c.o" "gcc" "CMakeFiles/main_release.dir/XID/xid_fsim.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/detection_circuit.c" "CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o" "gcc" "CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/faulty_circuit.c" "CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o" "gcc" "CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/good_circuit.c" "CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o" "gcc" "CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o.d"
-  "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/make_blocking_clause.c" "CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o" "gcc" "CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o.d"
-  "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/createSGmodel.c" "CMakeFiles/main_release.dir/asg/createSGmodel.c.o" "gcc" "CMakeFiles/main_release.dir/asg/createSGmodel.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/create_TPG_model.c" "CMakeFiles/main_release.dir/asg/create_TPG_model.c.o" "gcc" "CMakeFiles/main_release.dir/asg/create_TPG_model.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cudd_wrapper.c" "CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o" "gcc" "CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/drop_dete_fault.c" "CMakeFiles/main_release.dir/asg/drop_dete_fault.c.o" "gcc" "CMakeFiles/main_release.dir/asg/drop_dete_fault.c.o.d"
+  "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/essential_assignment.c" "CMakeFiles/main_release.dir/asg/essential_assignment.c.o" "gcc" "CMakeFiles/main_release.dir/asg/essential_assignment.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/fault_detection_prob.c" "CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o" "gcc" "CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/gmp_wrapper.c" "CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o" "gcc" "CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o.d"
   "/home/koizumi/SAF_RPR_GEN/ASG/src/asg/init.c" "CMakeFiles/main_release.dir/asg/init.c.o" "gcc" "CMakeFiles/main_release.dir/asg/init.c.o.d"

@@ -6,28 +6,13 @@
 #include "./cnf/cnf.h"
 #include "ccadical.h"
 
-void AddClauseString(CCaDiCaL *solver, char* clause_str) {
-    if (!clause_str) return;
-    
-    char* work_str = strdup(clause_str);
-    if (!work_str) return;
-
-    char *token = strtok(work_str, " \t\n");
-    while (token != NULL) {
-        int lit = atoi(token);
-        ccadical_add(solver, lit);
-        token = strtok(NULL, " \t\n");
-    }
-    free(work_str);
-}
-
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
-    
-    //正常回路の制約
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type != IN && nl[i].type != DFF) {
             if (nl[i].consgc != NULL) {
-                AddClauseString(solver, nl[i].consgc);
+                for (int j = 0; j < nl[i].consgc_len; j++) {
+                    ccadical_add(solver, nl[i].consgc[j]);
+                }
             }
         }
     }

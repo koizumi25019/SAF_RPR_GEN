@@ -83,19 +83,19 @@ CMakeFiles/main_release.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/main.c -o CMakeFiles/main_release.dir/main.c.s
 
-CMakeFiles/main_release.dir/asg/createSGmodel.c.o: CMakeFiles/main_release.dir/flags.make
-CMakeFiles/main_release.dir/asg/createSGmodel.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/createSGmodel.c
-CMakeFiles/main_release.dir/asg/createSGmodel.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main_release.dir/asg/createSGmodel.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/createSGmodel.c.o -MF CMakeFiles/main_release.dir/asg/createSGmodel.c.o.d -o CMakeFiles/main_release.dir/asg/createSGmodel.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/createSGmodel.c
+CMakeFiles/main_release.dir/asg/create_TPG_model.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/asg/create_TPG_model.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/create_TPG_model.c
+CMakeFiles/main_release.dir/asg/create_TPG_model.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main_release.dir/asg/create_TPG_model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/create_TPG_model.c.o -MF CMakeFiles/main_release.dir/asg/create_TPG_model.c.o.d -o CMakeFiles/main_release.dir/asg/create_TPG_model.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/create_TPG_model.c
 
-CMakeFiles/main_release.dir/asg/createSGmodel.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/asg/createSGmodel.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/asg/createSGmodel.c > CMakeFiles/main_release.dir/asg/createSGmodel.c.i
+CMakeFiles/main_release.dir/asg/create_TPG_model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/asg/create_TPG_model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/asg/create_TPG_model.c > CMakeFiles/main_release.dir/asg/create_TPG_model.c.i
 
-CMakeFiles/main_release.dir/asg/createSGmodel.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/createSGmodel.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/createSGmodel.c -o CMakeFiles/main_release.dir/asg/createSGmodel.c.s
+CMakeFiles/main_release.dir/asg/create_TPG_model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/create_TPG_model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/create_TPG_model.c -o CMakeFiles/main_release.dir/asg/create_TPG_model.c.s
 
 CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cudd_wrapper.c
@@ -125,10 +125,24 @@ CMakeFiles/main_release.dir/asg/drop_dete_fault.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/drop_dete_fault.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/drop_dete_fault.c -o CMakeFiles/main_release.dir/asg/drop_dete_fault.c.s
 
+CMakeFiles/main_release.dir/asg/essential_assignment.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/asg/essential_assignment.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/essential_assignment.c
+CMakeFiles/main_release.dir/asg/essential_assignment.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/main_release.dir/asg/essential_assignment.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/essential_assignment.c.o -MF CMakeFiles/main_release.dir/asg/essential_assignment.c.o.d -o CMakeFiles/main_release.dir/asg/essential_assignment.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/essential_assignment.c
+
+CMakeFiles/main_release.dir/asg/essential_assignment.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/asg/essential_assignment.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/asg/essential_assignment.c > CMakeFiles/main_release.dir/asg/essential_assignment.c.i
+
+CMakeFiles/main_release.dir/asg/essential_assignment.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/essential_assignment.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/essential_assignment.c -o CMakeFiles/main_release.dir/asg/essential_assignment.c.s
+
 CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/fault_detection_prob.c
 CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o -MF CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o.d -o CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/fault_detection_prob.c
 
 CMakeFiles/main_release.dir/asg/fault_detection_prob.c.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/main_release.dir/asg/fault_detection_prob.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/gmp_wrapper.c
 CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o -MF CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o.d -o CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/gmp_wrapper.c
 
 CMakeFiles/main_release.dir/asg/gmp_wrapper.c.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/main_release.dir/asg/gmp_wrapper.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/init.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/init.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/init.c
 CMakeFiles/main_release.dir/asg/init.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/main_release.dir/asg/init.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main_release.dir/asg/init.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/init.c.o -MF CMakeFiles/main_release.dir/asg/init.c.o.d -o CMakeFiles/main_release.dir/asg/init.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/init.c
 
 CMakeFiles/main_release.dir/asg/init.c.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/main_release.dir/asg/init.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/read.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/read.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/read.c
 CMakeFiles/main_release.dir/asg/read.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main_release.dir/asg/read.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/main_release.dir/asg/read.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/read.c.o -MF CMakeFiles/main_release.dir/asg/read.c.o.d -o CMakeFiles/main_release.dir/asg/read.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/read.c
 
 CMakeFiles/main_release.dir/asg/read.c.i: cmake_force
@@ -184,7 +198,7 @@ CMakeFiles/main_release.dir/asg/read.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/target_fault.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/target_fault.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/target_fault.c
 CMakeFiles/main_release.dir/asg/target_fault.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/main_release.dir/asg/target_fault.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/main_release.dir/asg/target_fault.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/target_fault.c.o -MF CMakeFiles/main_release.dir/asg/target_fault.c.o.d -o CMakeFiles/main_release.dir/asg/target_fault.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/target_fault.c
 
 CMakeFiles/main_release.dir/asg/target_fault.c.i: cmake_force
@@ -198,7 +212,7 @@ CMakeFiles/main_release.dir/asg/target_fault.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/detection_circuit.c
 CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o -MF CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o.d -o CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/detection_circuit.c
 
 CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.i: cmake_force
@@ -212,7 +226,7 @@ CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/faulty_circuit.c
 CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o -MF CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o.d -o CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/faulty_circuit.c
 
 CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.i: cmake_force
@@ -226,7 +240,7 @@ CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.s: cmake_force
 CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/good_circuit.c
 CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o -MF CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o.d -o CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/good_circuit.c
 
 CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.i: cmake_force
@@ -236,20 +250,6 @@ CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.i: cmake_force
 CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/good_circuit.c -o CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.s
-
-CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o: CMakeFiles/main_release.dir/flags.make
-CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/make_blocking_clause.c
-CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o -MF CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o.d -o CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/make_blocking_clause.c
-
-CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/make_blocking_clause.c > CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.i
-
-CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/make_blocking_clause.c -o CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.s
 
 CMakeFiles/main_release.dir/lib/lib.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/lib/lib.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/lib/lib.c
@@ -293,12 +293,97 @@ CMakeFiles/main_release.dir/opt/opt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/opt/opt.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/opt/opt.c -o CMakeFiles/main_release.dir/opt/opt.c.s
 
+CMakeFiles/main_release.dir/XID/xid_adapter.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/xid_adapter.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_adapter.c
+CMakeFiles/main_release.dir/XID/xid_adapter.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/main_release.dir/XID/xid_adapter.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/xid_adapter.c.o -MF CMakeFiles/main_release.dir/XID/xid_adapter.c.o.d -o CMakeFiles/main_release.dir/XID/xid_adapter.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_adapter.c
+
+CMakeFiles/main_release.dir/XID/xid_adapter.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/xid_adapter.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_adapter.c > CMakeFiles/main_release.dir/XID/xid_adapter.c.i
+
+CMakeFiles/main_release.dir/XID/xid_adapter.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/xid_adapter.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_adapter.c -o CMakeFiles/main_release.dir/XID/xid_adapter.c.s
+
+CMakeFiles/main_release.dir/XID/XID.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/XID.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/XID.c
+CMakeFiles/main_release.dir/XID/XID.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/main_release.dir/XID/XID.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/XID.c.o -MF CMakeFiles/main_release.dir/XID/XID.c.o.d -o CMakeFiles/main_release.dir/XID/XID.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/XID.c
+
+CMakeFiles/main_release.dir/XID/XID.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/XID.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/XID.c > CMakeFiles/main_release.dir/XID/XID.c.i
+
+CMakeFiles/main_release.dir/XID/XID.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/XID.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/XID.c -o CMakeFiles/main_release.dir/XID/XID.c.s
+
+CMakeFiles/main_release.dir/XID/xid_fsim.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/xid_fsim.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_fsim.c
+CMakeFiles/main_release.dir/XID/xid_fsim.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/main_release.dir/XID/xid_fsim.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/xid_fsim.c.o -MF CMakeFiles/main_release.dir/XID/xid_fsim.c.o.d -o CMakeFiles/main_release.dir/XID/xid_fsim.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_fsim.c
+
+CMakeFiles/main_release.dir/XID/xid_fsim.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/xid_fsim.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_fsim.c > CMakeFiles/main_release.dir/XID/xid_fsim.c.i
+
+CMakeFiles/main_release.dir/XID/xid_fsim.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/xid_fsim.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_fsim.c -o CMakeFiles/main_release.dir/XID/xid_fsim.c.s
+
+CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_forward_imp.c
+CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o -MF CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o.d -o CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_forward_imp.c
+
+CMakeFiles/main_release.dir/XID/xid_forward_imp.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/xid_forward_imp.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_forward_imp.c > CMakeFiles/main_release.dir/XID/xid_forward_imp.c.i
+
+CMakeFiles/main_release.dir/XID/xid_forward_imp.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/xid_forward_imp.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_forward_imp.c -o CMakeFiles/main_release.dir/XID/xid_forward_imp.c.s
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp.c
+CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o -MF CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o.d -o CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp.c
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/xid_backward_imp.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp.c > CMakeFiles/main_release.dir/XID/xid_backward_imp.c.i
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/xid_backward_imp.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp.c -o CMakeFiles/main_release.dir/XID/xid_backward_imp.c.s
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o: /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp_limited.c
+CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o -MF CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o.d -o CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o -c /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp_limited.c
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp_limited.c > CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.i
+
+CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/SAF_RPR_GEN/ASG/src/XID/xid_backward_imp_limited.c -o CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.s
+
 # Object files for target main_release
 main_release_OBJECTS = \
 "CMakeFiles/main_release.dir/main.c.o" \
-"CMakeFiles/main_release.dir/asg/createSGmodel.c.o" \
+"CMakeFiles/main_release.dir/asg/create_TPG_model.c.o" \
 "CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o" \
 "CMakeFiles/main_release.dir/asg/drop_dete_fault.c.o" \
+"CMakeFiles/main_release.dir/asg/essential_assignment.c.o" \
 "CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o" \
 "CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o" \
 "CMakeFiles/main_release.dir/asg/init.c.o" \
@@ -307,18 +392,24 @@ main_release_OBJECTS = \
 "CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o" \
 "CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o" \
 "CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o" \
-"CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o" \
 "CMakeFiles/main_release.dir/lib/lib.c.o" \
 "CMakeFiles/main_release.dir/netlist/netlist.c.o" \
-"CMakeFiles/main_release.dir/opt/opt.c.o"
+"CMakeFiles/main_release.dir/opt/opt.c.o" \
+"CMakeFiles/main_release.dir/XID/xid_adapter.c.o" \
+"CMakeFiles/main_release.dir/XID/XID.c.o" \
+"CMakeFiles/main_release.dir/XID/xid_fsim.c.o" \
+"CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o" \
+"CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o" \
+"CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o"
 
 # External object files for target main_release
 main_release_EXTERNAL_OBJECTS =
 
 main_release: CMakeFiles/main_release.dir/main.c.o
-main_release: CMakeFiles/main_release.dir/asg/createSGmodel.c.o
+main_release: CMakeFiles/main_release.dir/asg/create_TPG_model.c.o
 main_release: CMakeFiles/main_release.dir/asg/cudd_wrapper.c.o
 main_release: CMakeFiles/main_release.dir/asg/drop_dete_fault.c.o
+main_release: CMakeFiles/main_release.dir/asg/essential_assignment.c.o
 main_release: CMakeFiles/main_release.dir/asg/fault_detection_prob.c.o
 main_release: CMakeFiles/main_release.dir/asg/gmp_wrapper.c.o
 main_release: CMakeFiles/main_release.dir/asg/init.c.o
@@ -327,13 +418,18 @@ main_release: CMakeFiles/main_release.dir/asg/target_fault.c.o
 main_release: CMakeFiles/main_release.dir/asg/cnf/detection_circuit.c.o
 main_release: CMakeFiles/main_release.dir/asg/cnf/faulty_circuit.c.o
 main_release: CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.o
-main_release: CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o
 main_release: CMakeFiles/main_release.dir/lib/lib.c.o
 main_release: CMakeFiles/main_release.dir/netlist/netlist.c.o
 main_release: CMakeFiles/main_release.dir/opt/opt.c.o
+main_release: CMakeFiles/main_release.dir/XID/xid_adapter.c.o
+main_release: CMakeFiles/main_release.dir/XID/XID.c.o
+main_release: CMakeFiles/main_release.dir/XID/xid_fsim.c.o
+main_release: CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o
+main_release: CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o
+main_release: CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o
 main_release: CMakeFiles/main_release.dir/build.make
 main_release: CMakeFiles/main_release.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking C executable main_release"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/koizumi/SAF_RPR_GEN/ASG/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking C executable main_release"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_release.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

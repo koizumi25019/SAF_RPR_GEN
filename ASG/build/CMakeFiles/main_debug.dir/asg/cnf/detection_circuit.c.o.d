@@ -72,5 +72,5 @@ CMakeFiles/main_debug.dir/asg/cnf/detection_circuit.c.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/./../../lib/lib.h \
- /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/./../createSGmodel.h \
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/./../create_TPG_model.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../fault_detection_prob.h

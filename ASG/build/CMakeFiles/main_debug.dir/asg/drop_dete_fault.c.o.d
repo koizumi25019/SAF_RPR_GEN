@@ -68,7 +68,7 @@ CMakeFiles/main_debug.dir/asg/drop_dete_fault.c.o: \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/./././../netlist/netlist.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/./././../lib/lib.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../cnf/cnf.h \
- /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../cnf/../createSGmodel.h \
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf/../cnf/../create_TPG_model.h \
  /usr/local/include/ccadical.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \

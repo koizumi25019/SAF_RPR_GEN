@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/koizumi/SAF_RPR_GEN/ASG/src -I/home/koizumi/SAF_RPR_GEN/ASG/src/asg -I/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf -I/home/koizumi/SAF_RPR_GEN/ASG/src/lib -I/home/koizumi/SAF_RPR_GEN/ASG/src/netlist -I/home/koizumi/SAF_RPR_GEN/ASG/src/opt -I/home/koizumi/local/include
+C_INCLUDES = -I/home/koizumi/SAF_RPR_GEN/ASG/src -I/home/koizumi/SAF_RPR_GEN/ASG/src/asg -I/home/koizumi/SAF_RPR_GEN/ASG/src/asg/cnf -I/home/koizumi/SAF_RPR_GEN/ASG/src/lib -I/home/koizumi/SAF_RPR_GEN/ASG/src/netlist -I/home/koizumi/SAF_RPR_GEN/ASG/src/opt -I/home/koizumi/SAF_RPR_GEN/ASG/src/XID -I/home/koizumi/local/include
 
 C_FLAGS = -g -std=gnu11 -O3 -DNDEBUG -fcommon
 

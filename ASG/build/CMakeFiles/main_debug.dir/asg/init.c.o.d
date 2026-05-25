@@ -67,7 +67,7 @@ CMakeFiles/main_debug.dir/asg/init.c.o: \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/./../lib/lib.h \
  /home/koizumi/SAF_RPR_GEN/ASG/src/asg/../asg/cnf/cnf.h \
- /home/koizumi/SAF_RPR_GEN/ASG/src/asg/../asg/cnf/../createSGmodel.h \
+ /home/koizumi/SAF_RPR_GEN/ASG/src/asg/../asg/cnf/../create_TPG_model.h \
  /usr/local/include/ccadical.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \

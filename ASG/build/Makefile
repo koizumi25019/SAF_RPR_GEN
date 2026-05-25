@@ -142,6 +142,168 @@ main_release/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/build
 .PHONY : main_release/fast
 
+XID/XID.o: XID/XID.c.o
+.PHONY : XID/XID.o
+
+# target to build an object file
+XID/XID.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/XID.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/XID.c.o
+.PHONY : XID/XID.c.o
+
+XID/XID.i: XID/XID.c.i
+.PHONY : XID/XID.i
+
+# target to preprocess a source file
+XID/XID.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/XID.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/XID.c.i
+.PHONY : XID/XID.c.i
+
+XID/XID.s: XID/XID.c.s
+.PHONY : XID/XID.s
+
+# target to generate assembly for a file
+XID/XID.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/XID.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/XID.c.s
+.PHONY : XID/XID.c.s
+
+XID/xid_adapter.o: XID/xid_adapter.c.o
+.PHONY : XID/xid_adapter.o
+
+# target to build an object file
+XID/xid_adapter.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_adapter.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_adapter.c.o
+.PHONY : XID/xid_adapter.c.o
+
+XID/xid_adapter.i: XID/xid_adapter.c.i
+.PHONY : XID/xid_adapter.i
+
+# target to preprocess a source file
+XID/xid_adapter.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_adapter.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_adapter.c.i
+.PHONY : XID/xid_adapter.c.i
+
+XID/xid_adapter.s: XID/xid_adapter.c.s
+.PHONY : XID/xid_adapter.s
+
+# target to generate assembly for a file
+XID/xid_adapter.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_adapter.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_adapter.c.s
+.PHONY : XID/xid_adapter.c.s
+
+XID/xid_backward_imp.o: XID/xid_backward_imp.c.o
+.PHONY : XID/xid_backward_imp.o
+
+# target to build an object file
+XID/xid_backward_imp.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp.c.o
+.PHONY : XID/xid_backward_imp.c.o
+
+XID/xid_backward_imp.i: XID/xid_backward_imp.c.i
+.PHONY : XID/xid_backward_imp.i
+
+# target to preprocess a source file
+XID/xid_backward_imp.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp.c.i
+.PHONY : XID/xid_backward_imp.c.i
+
+XID/xid_backward_imp.s: XID/xid_backward_imp.c.s
+.PHONY : XID/xid_backward_imp.s
+
+# target to generate assembly for a file
+XID/xid_backward_imp.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp.c.s
+.PHONY : XID/xid_backward_imp.c.s
+
+XID/xid_backward_imp_limited.o: XID/xid_backward_imp_limited.c.o
+.PHONY : XID/xid_backward_imp_limited.o
+
+# target to build an object file
+XID/xid_backward_imp_limited.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp_limited.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.o
+.PHONY : XID/xid_backward_imp_limited.c.o
+
+XID/xid_backward_imp_limited.i: XID/xid_backward_imp_limited.c.i
+.PHONY : XID/xid_backward_imp_limited.i
+
+# target to preprocess a source file
+XID/xid_backward_imp_limited.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp_limited.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.i
+.PHONY : XID/xid_backward_imp_limited.c.i
+
+XID/xid_backward_imp_limited.s: XID/xid_backward_imp_limited.c.s
+.PHONY : XID/xid_backward_imp_limited.s
+
+# target to generate assembly for a file
+XID/xid_backward_imp_limited.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_backward_imp_limited.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_backward_imp_limited.c.s
+.PHONY : XID/xid_backward_imp_limited.c.s
+
+XID/xid_forward_imp.o: XID/xid_forward_imp.c.o
+.PHONY : XID/xid_forward_imp.o
+
+# target to build an object file
+XID/xid_forward_imp.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_forward_imp.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_forward_imp.c.o
+.PHONY : XID/xid_forward_imp.c.o
+
+XID/xid_forward_imp.i: XID/xid_forward_imp.c.i
+.PHONY : XID/xid_forward_imp.i
+
+# target to preprocess a source file
+XID/xid_forward_imp.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_forward_imp.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_forward_imp.c.i
+.PHONY : XID/xid_forward_imp.c.i
+
+XID/xid_forward_imp.s: XID/xid_forward_imp.c.s
+.PHONY : XID/xid_forward_imp.s
+
+# target to generate assembly for a file
+XID/xid_forward_imp.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_forward_imp.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_forward_imp.c.s
+.PHONY : XID/xid_forward_imp.c.s
+
+XID/xid_fsim.o: XID/xid_fsim.c.o
+.PHONY : XID/xid_fsim.o
+
+# target to build an object file
+XID/xid_fsim.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_fsim.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_fsim.c.o
+.PHONY : XID/xid_fsim.c.o
+
+XID/xid_fsim.i: XID/xid_fsim.c.i
+.PHONY : XID/xid_fsim.i
+
+# target to preprocess a source file
+XID/xid_fsim.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_fsim.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_fsim.c.i
+.PHONY : XID/xid_fsim.c.i
+
+XID/xid_fsim.s: XID/xid_fsim.c.s
+.PHONY : XID/xid_fsim.s
+
+# target to generate assembly for a file
+XID/xid_fsim.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/XID/xid_fsim.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/XID/xid_fsim.c.s
+.PHONY : XID/xid_fsim.c.s
+
 asg/cnf/detection_circuit.o: asg/cnf/detection_circuit.c.o
 .PHONY : asg/cnf/detection_circuit.o
 
@@ -223,59 +385,32 @@ asg/cnf/good_circuit.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/cnf/good_circuit.c.s
 .PHONY : asg/cnf/good_circuit.c.s
 
-asg/cnf/make_blocking_clause.o: asg/cnf/make_blocking_clause.c.o
-.PHONY : asg/cnf/make_blocking_clause.o
+asg/create_TPG_model.o: asg/create_TPG_model.c.o
+.PHONY : asg/create_TPG_model.o
 
 # target to build an object file
-asg/cnf/make_blocking_clause.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/cnf/make_blocking_clause.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.o
-.PHONY : asg/cnf/make_blocking_clause.c.o
+asg/create_TPG_model.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/create_TPG_model.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/create_TPG_model.c.o
+.PHONY : asg/create_TPG_model.c.o
 
-asg/cnf/make_blocking_clause.i: asg/cnf/make_blocking_clause.c.i
-.PHONY : asg/cnf/make_blocking_clause.i
-
-# target to preprocess a source file
-asg/cnf/make_blocking_clause.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/cnf/make_blocking_clause.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.i
-.PHONY : asg/cnf/make_blocking_clause.c.i
-
-asg/cnf/make_blocking_clause.s: asg/cnf/make_blocking_clause.c.s
-.PHONY : asg/cnf/make_blocking_clause.s
-
-# target to generate assembly for a file
-asg/cnf/make_blocking_clause.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/cnf/make_blocking_clause.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/cnf/make_blocking_clause.c.s
-.PHONY : asg/cnf/make_blocking_clause.c.s
-
-asg/createSGmodel.o: asg/createSGmodel.c.o
-.PHONY : asg/createSGmodel.o
-
-# target to build an object file
-asg/createSGmodel.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/createSGmodel.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/createSGmodel.c.o
-.PHONY : asg/createSGmodel.c.o
-
-asg/createSGmodel.i: asg/createSGmodel.c.i
-.PHONY : asg/createSGmodel.i
+asg/create_TPG_model.i: asg/create_TPG_model.c.i
+.PHONY : asg/create_TPG_model.i
 
 # target to preprocess a source file
-asg/createSGmodel.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/createSGmodel.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/createSGmodel.c.i
-.PHONY : asg/createSGmodel.c.i
+asg/create_TPG_model.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/create_TPG_model.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/create_TPG_model.c.i
+.PHONY : asg/create_TPG_model.c.i
 
-asg/createSGmodel.s: asg/createSGmodel.c.s
-.PHONY : asg/createSGmodel.s
+asg/create_TPG_model.s: asg/create_TPG_model.c.s
+.PHONY : asg/create_TPG_model.s
 
 # target to generate assembly for a file
-asg/createSGmodel.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/createSGmodel.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/createSGmodel.c.s
-.PHONY : asg/createSGmodel.c.s
+asg/create_TPG_model.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/create_TPG_model.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/create_TPG_model.c.s
+.PHONY : asg/create_TPG_model.c.s
 
 asg/cudd_wrapper.o: asg/cudd_wrapper.c.o
 .PHONY : asg/cudd_wrapper.o
@@ -330,6 +465,33 @@ asg/drop_dete_fault.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/drop_dete_fault.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/drop_dete_fault.c.s
 .PHONY : asg/drop_dete_fault.c.s
+
+asg/essential_assignment.o: asg/essential_assignment.c.o
+.PHONY : asg/essential_assignment.o
+
+# target to build an object file
+asg/essential_assignment.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/essential_assignment.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/essential_assignment.c.o
+.PHONY : asg/essential_assignment.c.o
+
+asg/essential_assignment.i: asg/essential_assignment.c.i
+.PHONY : asg/essential_assignment.i
+
+# target to preprocess a source file
+asg/essential_assignment.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/essential_assignment.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/essential_assignment.c.i
+.PHONY : asg/essential_assignment.c.i
+
+asg/essential_assignment.s: asg/essential_assignment.c.s
+.PHONY : asg/essential_assignment.s
+
+# target to generate assembly for a file
+asg/essential_assignment.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/asg/essential_assignment.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/asg/essential_assignment.c.s
+.PHONY : asg/essential_assignment.c.s
 
 asg/fault_detection_prob.o: asg/fault_detection_prob.c.o
 .PHONY : asg/fault_detection_prob.o
@@ -584,6 +746,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... main_debug"
 	@echo "... main_release"
+	@echo "... XID/XID.o"
+	@echo "... XID/XID.i"
+	@echo "... XID/XID.s"
+	@echo "... XID/xid_adapter.o"
+	@echo "... XID/xid_adapter.i"
+	@echo "... XID/xid_adapter.s"
+	@echo "... XID/xid_backward_imp.o"
+	@echo "... XID/xid_backward_imp.i"
+	@echo "... XID/xid_backward_imp.s"
+	@echo "... XID/xid_backward_imp_limited.o"
+	@echo "... XID/xid_backward_imp_limited.i"
+	@echo "... XID/xid_backward_imp_limited.s"
+	@echo "... XID/xid_forward_imp.o"
+	@echo "... XID/xid_forward_imp.i"
+	@echo "... XID/xid_forward_imp.s"
+	@echo "... XID/xid_fsim.o"
+	@echo "... XID/xid_fsim.i"
+	@echo "... XID/xid_fsim.s"
 	@echo "... asg/cnf/detection_circuit.o"
 	@echo "... asg/cnf/detection_circuit.i"
 	@echo "... asg/cnf/detection_circuit.s"
@@ -593,18 +773,18 @@ help:
 	@echo "... asg/cnf/good_circuit.o"
 	@echo "... asg/cnf/good_circuit.i"
 	@echo "... asg/cnf/good_circuit.s"
-	@echo "... asg/cnf/make_blocking_clause.o"
-	@echo "... asg/cnf/make_blocking_clause.i"
-	@echo "... asg/cnf/make_blocking_clause.s"
-	@echo "... asg/createSGmodel.o"
-	@echo "... asg/createSGmodel.i"
-	@echo "... asg/createSGmodel.s"
+	@echo "... asg/create_TPG_model.o"
+	@echo "... asg/create_TPG_model.i"
+	@echo "... asg/create_TPG_model.s"
 	@echo "... asg/cudd_wrapper.o"
 	@echo "... asg/cudd_wrapper.i"
 	@echo "... asg/cudd_wrapper.s"
 	@echo "... asg/drop_dete_fault.o"
 	@echo "... asg/drop_dete_fault.i"
 	@echo "... asg/drop_dete_fault.s"
+	@echo "... asg/essential_assignment.o"
+	@echo "... asg/essential_assignment.i"
+	@echo "... asg/essential_assignment.s"
 	@echo "... asg/fault_detection_prob.o"
 	@echo "... asg/fault_detection_prob.i"
 	@echo "... asg/fault_detection_prob.s"

@@ -16,50 +16,6 @@
 //	@function	F	set the target-fault list
 //	@return		F	(bool) okay, error
 //*************************************************************************************************************
-// bool SetTarget(
-// 	TARGET* remain,			  /**< remain-fault list */
-// 	TARGET* target,			  /**< target-fault list */
-// 	int loop				  /**< number of loop */
-// )
-// {
-// 	int		numfault = 0;
-// 	FNODE* tmp = (FNODE*)NULL;
-
-// 	remain->num = readdata.fault.numrema;
-// 	remain->list = (FNODE**)allocMemory(remain->num, sizeof(FNODE*));
-
-// 	/** set the target-fault */
-// 	for (int i = 0; i < MAXSIZE_HASH; i++)
-// 	{
-// 		tmp = readdata.fault.list[i];
-
-// 		while (tmp != NULL)
-// 		{
-// 			if (tmp->detect == UNDETECTED)
-// 			{
-// 				/** add the fault in target-fault list */
-// 				remain->list[numfault] = tmp;
-// 				if (loop == 0)
-// 				{
-// 					tmp->id = numfault;
-// 				}
-// 				numfault++;
-
-// 				/** if target number of fault is reached,.break */
-// 				if (numfault == remain->num) break;
-// 			}
-
-// 			tmp = tmp->nextptr;
-// 		}
-
-// 		if (numfault == remain->num) break;
-// 	}
-
-// 	if (DirectInputTarget(remain, target) != TARGET_OKAY) return TARGET_ERROR;
-
-// 	return TARGET_OKAY;
-// }
-
 bool SetTarget(TARGET* target)
 {
     for (int i = 0; i < MAXSIZE_HASH; i++)
@@ -76,25 +32,4 @@ bool SetTarget(TARGET* target)
         }
     }
     return TARGET_ERROR;
-}
-
-//*************************************************************************************************************
-//	@name		�F�@DirectInputTarget
-//	@function	�F	set the direct target
-//	@return		�F	(bool) okay, error
-//*************************************************************************************************************
-bool DirectInputTarget(
-	TARGET* remain,			  /**< remain-fault list */
-	TARGET* target			  /**< target-fault list */
-)
-{
-	target->num = 1;
-
-	target->list = (FNODE**)allocMemory(target->num, sizeof(FNODE*));
-
-	for (int i = 0;i < target->num;i++)
-	{
-		target->list[i] = remain->list[i];
-	}
-	return TARGET_OKAY;
 }

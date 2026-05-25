@@ -76,27 +76,27 @@ bool OPTset(
 	{
 		/** netlist */
 		if (strcmp(argv[i], "-net") == 0)
-			opt.file.input.net = _strdup(argv[++i]);
+			opt.file.input.net = strdup(argv[++i]);
 
 		/** fault-list */
 		else if (strcmp(argv[i], "-fault") == 0)
-			opt.file.input.fault = _strdup(argv[++i]);
+			opt.file.input.fault = strdup(argv[++i]);
 
 	    /** cube analysis mode */
 		else if (strcmp(argv[i], "-cube_analysis") == 0)
-			opt.file.input.cube_analysis = _strdup(argv[++i]);
+			opt.file.input.cube_analysis = strdup(argv[++i]);
 
 		/** log */
 		else if (strcmp(argv[i], "-log") == 0)
-			opt.file.output.log = _strdup(argv[++i]);
+			opt.file.output.log = strdup(argv[++i]);
 
 		/** pin */
 		else if (strcmp(argv[i], "-pin") == 0)
-			opt.file.output.pin = _strdup(argv[++i]);
+			opt.file.output.pin = strdup(argv[++i]);
 
 		/** result  */
 		else if (strcmp(argv[i], "-result") == 0)
-			opt.file.output.result = _strdup(argv[++i]);
+			opt.file.output.result = strdup(argv[++i]);
 
 		/** limit  */
 		else if (strcmp(argv[i], "-limit") == 0)
@@ -144,18 +144,18 @@ bool OPTread(
 	{
 		if (buffer[0] == '-')
 		{
-			token1 = strtok_s(buffer, " \n\0", &context);
+			token1 = strtok_r(buffer, " \n\0", &context);
 
 			/** netlist */
 			if (strcmp(token1, "-net") == 0)
 			{
-				token2 = strtok_s(NULL, " \n\0", &context);
+				token2 = strtok_r(NULL, " \n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.input.net = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.input.net = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -164,13 +164,13 @@ bool OPTread(
 			/** cube analysis file */
 			else if (strcmp(token1, "-cube_analysis") == 0)
 			{
-				token2 = strtok_s(NULL, " \n\0", &context);
+				token2 = strtok_r(NULL, " \n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.input.cube_analysis = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.input.cube_analysis = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -179,13 +179,13 @@ bool OPTread(
 			/** fault list */
 			else if (strcmp(token1, "-fault") == 0)
 			{
-				token2 = strtok_s(NULL, "\n\0", &context);
+				token2 = strtok_r(NULL, "\n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.input.fault = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.input.fault = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -194,13 +194,13 @@ bool OPTread(
 			/** log */
 			else if (strcmp(token1, "-log") == 0)
 			{
-				token2 = strtok_s(NULL, "\n\0", &context);
+				token2 = strtok_r(NULL, "\n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.output.log = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.output.log = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -209,13 +209,13 @@ bool OPTread(
 			/** pin */
 			else if (strcmp(token1, "-pin") == 0)
 			{
-				token2 = strtok_s(NULL, "\n\0", &context);
+				token2 = strtok_r(NULL, "\n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.output.pin = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.output.pin = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -224,13 +224,13 @@ bool OPTread(
 			/** result fault */
 			else if (strcmp(token1, "-result") == 0)
 			{
-				token2 = strtok_s(NULL, "\n\0", &context);
+				token2 = strtok_r(NULL, "\n\0", &context);
 
 				for (int i = 0; i < strlen(token2); i++)
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.output.result = _strdup(strtok_s(&token2[i], " \n\0", &context));
+						opt.file.output.result = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -239,7 +239,7 @@ bool OPTread(
 			/** limit setting */
 			else if (strcmp(token1, "-limit") == 0)
 			{
-				token2 = strtok_s(NULL, " \n\0", &context);
+				token2 = strtok_r(NULL, " \n\0", &context);
 
 				// �O�̂���NULL�`�F�b�N
 				if (token2 != NULL)

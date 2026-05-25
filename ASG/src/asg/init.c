@@ -40,29 +40,55 @@ bool InitGlobalVars(
 //	@function	�F	initialize the netlist
 //	@return		�F	(void) 
 //*************************************************************************************************************
+static void ComputeLevels(void)
+{
+	for (int i = 0; i < n_net; i++)
+		nl[i].level = 0;
+
+	for (int iter = 0; iter < n_net; iter++)
+	{
+		for (int i = 0; i < n_net; i++)
+		{
+			if (nl[i].type == IN || nl[i].type == DFF) continue;
+			for (int j = 0; j < nl[i].n_in; j++)
+			{
+				int candidate = nl[i].in[j]->level + 1;
+				if (candidate > nl[i].level)
+					nl[i].level = candidate;
+			}
+		}
+	}
+}
+
 void InitGlobalVarsNLIST(
 	void
 )
 {
 	for (int i = 0; i < n_net; i++)
 	{
-		nl[i].varsgc = UNASSIGN;
-		nl[i].varsfc = UNASSIGN;
-		nl[i].flag = RESET;
-		nl[i].consgc = (char*)NULL;
-		nl[i].consfc = (char**)NULL;
+		nl[i].varsgc      = UNASSIGN;
+		nl[i].varsfc      = UNASSIGN;
+		nl[i].flag        = RESET;
+		nl[i].logic_value = -1;
+		nl[i].ea_flag     = 0;
+		nl[i].unique_flag = 0;
+		nl[i].consgc      = (int*)NULL;
+		nl[i].consgc_len  = 0;
+		nl[i].consfc      = (char**)NULL;
 	}
+
+	ComputeLevels();
 
 	char* buffer = (char*)NULL;
 	char* token = (char*)NULL;
 	char* context = (char*)NULL;
 	buffer = (char*)allocMemory(MAXSIZE_BUFFER, sizeof(char));
-	strcpy_s(buffer,MAXSIZE_BUFFER, opt.file.input.net);
-	token = strtok_s(buffer, "/", &context);
-	token = strtok_s(NULL, "/", &context);
-	token = strtok_s(NULL, "/", &context);
-	token = strtok_s(NULL, ".", &context);
-	net_name = _strdup(token);
+	strncpy(buffer, opt.file.input.net, MAXSIZE_BUFFER);
+	token = strtok_r(buffer, "/", &context);
+	token = strtok_r(NULL, "/", &context);
+	token = strtok_r(NULL, "/", &context);
+	token = strtok_r(NULL, ".", &context);
+	net_name = strdup(token);
 
 	free(buffer);
 	return;

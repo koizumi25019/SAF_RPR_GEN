@@ -176,10 +176,10 @@ FNODE* CreateFaultNode(
 	fnodeptr = (FNODE*)allocMemory(1, sizeof(FNODE));
 
 	/** set the string */
-	fnodeptr->string = _strdup(buffer);
+	fnodeptr->string = strdup(buffer);
 
 	/** set the name */
-	fnodeptr->name = _strdup(strtok_s(buffer, " \t\n", &context));
+	fnodeptr->name = strdup(strtok_r(buffer, " \t\n", &context));
 
 	/** set the type */
 	fnodeptr_type___setFaultType(fnodeptr->type);
