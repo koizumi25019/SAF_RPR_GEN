@@ -1,0 +1,6 @@
+[submodule "ASG/tools/cadical"]
+	path = ASG/tools/cadical
+	url = https://github.com/arminbiere/cadical.git
+[submodule "ASG/tools/cudd"]
+	path = ASG/tools/cudd
+	url = https://github.com/ivmai/cudd.git
