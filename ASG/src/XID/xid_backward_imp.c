@@ -2,7 +2,7 @@
 
 
 // ===================================================================
-// ƒQ[ƒg•ÊŒã•ûŠÜˆÓŠÖ”‚Ìƒwƒ‹ƒp[ŠÖ”(XID—p)
+// ã‚²ãƒ¼ãƒˆåˆ¥å¾Œæ–¹å«æ„é–¢æ•°ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼é–¢æ•°(XIDç”¨)
 // ===================================================================
 
 typedef void (*xid_bimp_func_t)(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v);
@@ -15,7 +15,7 @@ static void xid_bimp_unsupported(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net,
 
 static void xid_bimp_skip(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
 	(void)bwd_q; (void)jus_q; (void)t_net; (void)var_info; (void)xid_tag_base; (void)n3v; (void)f3v;
-	// ‰½‚à‚µ‚È‚¢
+	// ä½•ã‚‚ã—ãªã„
 }
 
 // -------------------------------------------------------------
@@ -76,10 +76,10 @@ static void xid_bimp_inv(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t 
 }
 
 // -------------------------------------------------------------
-// AND / NAND / OR / NOR ‚Ì”Ä—pŒã•ûŠÜˆÓ
+// AND / NAND / OR / NOR ã®æ±ç”¨å¾Œæ–¹å«æ„
 // -------------------------------------------------------------
-// c_val  : §Œä’l (AND/NAND=0, OR/NOR=1)
-// is_inv : o—Í”½“] (AND/OR=0, NAND/NOR=1)
+// c_val  : åˆ¶å¾¡å€¤ (AND/NAND=0, OR/NOR=1)
+// is_inv : å‡ºåŠ›åè»¢ (AND/OR=0, NAND/NOR=1)
 static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v, int c_val, int is_inv) {
 	const int nc_val = c_val ^ 1;
 	const int trigger_force = (is_inv) ? c_val : nc_val;
@@ -88,12 +88,12 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 	NLIST_t* n_cand = NULL, * f_cand = NULL;
 	int n_cnt = 0, f_cnt = 0;
 
-	// o—Í‚ªu’TõƒgƒŠƒK[v‚Å‚È‚¯‚ê‚ÎA’TõŠ®—¹(done)ˆµ‚¢
+	// å‡ºåŠ›ãŒã€Œæ¢ç´¢ãƒˆãƒªã‚¬ãƒ¼ã€ã§ãªã‘ã‚Œã°ã€æ¢ç´¢å®Œäº†(done)æ‰±ã„
 	int n_done = (n3v != trigger_search);
 	int f_done = (f3v != trigger_search);
 
 	// -------------------------------------------------------------
-	// ƒƒCƒ“ƒ‹[ƒv (Force‚Ìˆ—‚ÆASearch‚ÌŒó•â’T‚µ)
+	// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ— (Forceã®å‡¦ç†ã¨ã€Searchã®å€™è£œæ¢ã—)
 	// -------------------------------------------------------------
 	for (size_t i = 0; i < t_net->n_in; ++i) {
 		NLIST_t* in_node = t_net->in[i];
@@ -103,9 +103,9 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 		if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 		_Bool updated = 0;
 
-		// --- ³í’l (Normal) ---
+		// --- æ­£å¸¸å€¤ (Normal) ---
 		if (n3v == trigger_force) {
-			// Force: “ü—Í‚ğ‚·‚×‚Äu”ñ§Œä’lv‚É‚·‚é
+			// Force: å…¥åŠ›ã‚’ã™ã¹ã¦ã€Œéåˆ¶å¾¡å€¤ã€ã«ã™ã‚‹
 			if (!(current_tag & XID_FLAG_NORMAL)) {
 				in_info->normal_3value = nc_val;
 				current_tag |= XID_FLAG_NORMAL;
@@ -113,17 +113,17 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 			}
 		}
 		else if (n3v == trigger_search) {
-			// Search: “ü—Í‚Ìu§Œä’lv‚ğ’T‚·
+			// Search: å…¥åŠ›ã®ã€Œåˆ¶å¾¡å€¤ã€ã‚’æ¢ã™
 			if (current_tag & XID_FLAG_NORMAL) {
 				if (in_info->normal_3value == c_val) { n_done = 1; }
 			}
-			else if (in_info->normal_2value == c_val) { // XID_X ‚Ìê‡
+			else if (in_info->normal_2value == c_val) { // XID_X ã®å ´åˆ
 				n_cand = in_node;
 				n_cnt++;
 			}
 		}
 
-		// --- ŒÌá’l (Fault) ---
+		// --- æ•…éšœå€¤ (Fault) ---
 		if (f3v == trigger_force) {
 			if (!(current_tag & XID_FLAG_FAULT)) {
 				in_info->fault_3value = nc_val;
@@ -135,13 +135,13 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 			if (current_tag & XID_FLAG_FAULT) {
 				if (in_info->fault_3value == c_val) { f_done = 1; }
 			}
-			else if (in_info->fault_2value == c_val) { // XID_X ‚Ìê‡
+			else if (in_info->fault_2value == c_val) { // XID_X ã®å ´åˆ
 				f_cand = in_node;
 				f_cnt++;
 			}
 		}
 
-		// Forceˆ—‚Å’l‚ªXV‚³‚ê‚½ê‡‚Ì‚İ‘‚«–ß‚µ‚ÄƒGƒ“ƒLƒ…[
+		// Forceå‡¦ç†ã§å€¤ãŒæ›´æ–°ã•ã‚ŒãŸå ´åˆã®ã¿æ›¸ãæˆ»ã—ã¦ã‚¨ãƒ³ã‚­ãƒ¥ãƒ¼
 		if (updated) {
 			in_info->xid_tag = current_tag;
 			enqueue(bwd_q, in_node);
@@ -149,19 +149,19 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 	}
 
 	// -------------------------------------------------------------
-	// ŒÀ’èŠÜˆÓ
+	// é™å®šå«æ„
 	// -------------------------------------------------------------
 	NLIST_t* last_enqueued = NULL;
 
-	// ³í’l
+	// æ­£å¸¸å€¤
 	if (!n_done && n_cnt == 1) {
 		n_done = 1;
 		XID_VAR_INFO* c_info = &var_info[n_cand->n];
 		size_t c_tag = c_info->xid_tag;
 		if (c_tag < xid_tag_base) { c_tag = xid_tag_base; }
 
-		// ƒ‹[ƒv“à‚ÌFault‘¤Force‚ÅƒLƒ…[‚ÉÏ‚Ü‚ê‚Ä‚¢‚é‰Â”\«‚à‚ ‚é‚ª
-		// ƒ^ƒO‚ğ“Ç‚ñ‚Å–¢Šm’è‚È‚çİ’è‚·‚é
+		// ãƒ«ãƒ¼ãƒ—å†…ã®Faultå´Forceã§ã‚­ãƒ¥ãƒ¼ã«ç©ã¾ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ã‚‚ã‚ã‚‹ãŒ
+		// ã‚¿ã‚°ã‚’èª­ã‚“ã§æœªç¢ºå®šãªã‚‰è¨­å®šã™ã‚‹
 		if (!(c_tag & XID_FLAG_NORMAL)) {
 			c_info->normal_3value = c_val;
 			c_tag |= XID_FLAG_NORMAL;
@@ -171,7 +171,7 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 		}
 	}
 
-	// ŒÌá’l
+	// æ•…éšœå€¤
 	if (!f_done && f_cnt == 1) {
 		f_done = 1;
 		XID_VAR_INFO* c_info = &var_info[f_cand->n];
@@ -189,7 +189,7 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 	}
 
 	// -------------------------------------------------------------
-	// J-Frontier “o˜^
+	// J-Frontier ç™»éŒ²
 	// -------------------------------------------------------------
 	if (jus_q != NULL) {
 		if ((!n_done && n_cnt >= 2) || (!f_done && f_cnt >= 2)) {
@@ -198,7 +198,7 @@ static void xid_bimp_universal(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, s
 	}
 }
 
-// ƒQ[ƒgƒ^ƒCƒv•Ê‚ÌŒÄ‚Ño‚µƒ‰ƒbƒp[
+// ã‚²ãƒ¼ãƒˆã‚¿ã‚¤ãƒ—åˆ¥ã®å‘¼ã³å‡ºã—ãƒ©ãƒƒãƒ‘ãƒ¼
 static void xid_bimp_and(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
 	xid_bimp_universal(bwd_q, jus_q, t_net, xid_tag_base, var_info, n3v, f3v, XID_ZERO, 0);
 }
@@ -226,7 +226,7 @@ static void xid_bimp_exor(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t
 		if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 		_Bool updated = 0;
 
-		// XID_X ‚Ì‘ã‚í‚è‚Éƒtƒ‰ƒO‚ğŠm”F‚µ‚ÄA2’l(³‰ğ’l)‚ğŠ„‚è“–‚Ä‚é
+		// XID_X ã®ä»£ã‚ã‚Šã«ãƒ•ãƒ©ã‚°ã‚’ç¢ºèªã—ã¦ã€2å€¤(æ­£è§£å€¤)ã‚’å‰²ã‚Šå½“ã¦ã‚‹
 		if (!(current_tag & XID_FLAG_NORMAL)) {
 			in_info->normal_3value = in_info->normal_2value;
 			current_tag |= XID_FLAG_NORMAL;
@@ -268,8 +268,8 @@ void init_xid_bimp_table(void) {
 	xid_bimp[EXNOR] = xid_bimp_exor;
 }
 
-// in <- t_net •ûŒü
-// t_net‚Ìn3v/f3v‚ª{0,1}‚ÉŒˆ‚Ü‚Á‚Ä‚¢‚é‚Æ‚«Ain•ûŒü‚Ìn3v/f3v‚ğXV‚·‚é
+// in <- t_net æ–¹å‘
+// t_netã®n3v/f3vãŒ{0,1}ã«æ±ºã¾ã£ã¦ã„ã‚‹ã¨ãã€inæ–¹å‘ã®n3v/f3vã‚’æ›´æ–°ã™ã‚‹
 void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
 
 	size_t t_tag = var_info[t_net->n].xid_tag;
@@ -278,7 +278,7 @@ void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid
 	int n3v = (valid_flags & XID_FLAG_NORMAL) ? var_info[t_net->n].normal_3value : XID_X;
 	int f3v = (valid_flags & XID_FLAG_FAULT) ? var_info[t_net->n].fault_3value : XID_X;
 
-	if (n3v == XID_X && f3v == XID_X) return; // Œã•ûŠÜˆÓ‘ŠúI—¹
+	if (n3v == XID_X && f3v == XID_X) return; // å¾Œæ–¹å«æ„æ—©æœŸçµ‚äº†
 
 	(*xid_bimp[t_net->type])(bwd_q, jus_q, t_net, xid_tag_base, var_info, n3v, f3v);
 }

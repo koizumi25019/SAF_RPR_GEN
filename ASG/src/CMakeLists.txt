@@ -28,6 +28,8 @@ set(SOURCES
     XID/xid_backward_imp_limited.c
 )
 
+set(TOOLS_DIR ${CMAKE_SOURCE_DIR}/../tools)
+
 set(COMMON_INCLUDES
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/asg
@@ -36,13 +38,14 @@ set(COMMON_INCLUDES
     ${CMAKE_SOURCE_DIR}/netlist
     ${CMAKE_SOURCE_DIR}/opt
     ${CMAKE_SOURCE_DIR}/XID
-    $ENV{HOME}/local/include
-    /usr/local/include
+    ${TOOLS_DIR}/cadical/src
+    ${TOOLS_DIR}/cudd
+    ${TOOLS_DIR}/cudd/cudd
 )
 
 link_directories(
-    $ENV{HOME}/local/lib
-    /usr/local/lib
+    ${TOOLS_DIR}/cadical/build
+    ${TOOLS_DIR}/cudd/cudd/.libs
 )
 
 # Debugビルド

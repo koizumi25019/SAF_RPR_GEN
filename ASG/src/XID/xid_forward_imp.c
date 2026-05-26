@@ -32,7 +32,7 @@ static void xid_fimp_buf(Queue_t* fwd_q, NLIST_t* out, size_t xid_tag_base, XID_
 	}
 	
 	if (updated) { 
-		out_info->xid_tag = current_tag; // ƒ^ƒO‘‚«–ß‚µ
+		out_info->xid_tag = current_tag; // ã‚¿ã‚°æ›¸ãæˆ»ã—
 		enqueue(fwd_q, out);
 	}
 }
@@ -57,7 +57,7 @@ static void xid_fimp_inv(Queue_t* fwd_q, NLIST_t* out, size_t xid_tag_base, XID_
 	}
 	
 	if (updated) { 
-		out_info->xid_tag = current_tag; // ƒ^ƒO‘‚«–ß‚µ
+		out_info->xid_tag = current_tag; // ã‚¿ã‚°æ›¸ãæˆ»ã—
 		enqueue(fwd_q, out);
 	}
 }
@@ -79,15 +79,15 @@ static XidFimpScan scan_inputs(const NLIST_t* node, size_t xid_tag_base, XID_VAR
 	for (size_t i = 0; i < node->n_in; ++i) {
 		XID_VAR_INFO* in_info = &var_info[in[i]->n];
 		
-		// “ü—Í‚ÌŒ»İ‚Ì—LŒø‚Èƒtƒ‰ƒO‚ğæ“¾
+		// å…¥åŠ›ã®ç¾åœ¨ã®æœ‰åŠ¹ãªãƒ•ãƒ©ã‚°ã‚’å–å¾—
 		size_t in_tag = in_info->xid_tag;
 		size_t valid_flags = (in_tag >= xid_tag_base) ? (in_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
 
-		// ³í’l‚Ì”»’è
+		// æ­£å¸¸å€¤ã®åˆ¤å®š
 		if (!(valid_flags & XID_FLAG_NORMAL)) { scan.n_unknown_found = 1; }
 		else if (in_info->normal_3value == c_val) { scan.n_control_found = 1; }
 
-		// ŒÌá’l‚Ì”»’è
+		// æ•…éšœå€¤ã®åˆ¤å®š
 		if (!(valid_flags & XID_FLAG_FAULT)) { scan.f_unknown_found = 1; }
 		else if (in_info->fault_3value == c_val) { scan.f_control_found = 1; }
 	}
@@ -104,7 +104,7 @@ static void xid_fimp_universal(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 	int nc_val = c_val ^ 1;
 	_Bool updated = 0;
 
-	// ³í’l‚Ì‘O•ûŠÜˆÓ
+	// æ­£å¸¸å€¤ã®å‰æ–¹å«æ„
 	if (!(current_tag & XID_FLAG_NORMAL)) {
 		if (scan.n_control_found) {
 			info->normal_3value = (is_inv) ? nc_val : c_val;
@@ -118,7 +118,7 @@ static void xid_fimp_universal(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 		}
 	}
 	
-	// ŒÌá’l‚Ì‘O•ûŠÜˆÓ
+	// æ•…éšœå€¤ã®å‰æ–¹å«æ„
 	if (!(current_tag & XID_FLAG_FAULT)) {
 		if (scan.f_control_found) {
 			info->fault_3value = (is_inv) ? nc_val : c_val;
@@ -170,11 +170,11 @@ static XidFimpScanXor scan_inputs_exor(const NLIST_t* node, size_t xid_tag_base,
 		size_t in_tag = in_info->xid_tag;
 		size_t valid_flags = (in_tag >= xid_tag_base) ? (in_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
 
-		// ³í’l
+		// æ­£å¸¸å€¤
 		if (!(valid_flags & XID_FLAG_NORMAL)) { scan.n_unknown_found = 1; }
 		else if (in_info->normal_3value == XID_ONE) { scan.n_one_count++; }
 		
-		// ŒÌá’l
+		// æ•…éšœå€¤
 		if (!(valid_flags & XID_FLAG_FAULT)) { scan.f_unknown_found = 1; }
 		else if (in_info->fault_3value == XID_ONE) { scan.f_one_count++; }
 	}
@@ -190,7 +190,7 @@ static void xid_fimp_univ_exor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 	XidFimpScanXor scan = scan_inputs_exor(node, xid_tag_base, var_info);
 	_Bool updated = 0;
 
-	// ³í’l‚Ì‘O•ûŠÜˆÓi–¢’m“ü—Í‚ª‚È‚¢ê‡‚Ì‚İŠm’èj
+	// æ­£å¸¸å€¤ã®å‰æ–¹å«æ„ï¼ˆæœªçŸ¥å…¥åŠ›ãŒãªã„å ´åˆã®ã¿ç¢ºå®šï¼‰
 	if (!(current_tag & XID_FLAG_NORMAL) && !scan.n_unknown_found) {
 		int out_val = (scan.n_one_count & 1ULL) ? XID_ONE : XID_ZERO;
 		info->normal_3value = (is_inv) ? (out_val ^ 1) : out_val;
@@ -198,7 +198,7 @@ static void xid_fimp_univ_exor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 		updated = 1;
 	}
 	
-	// ŒÌá’l‚Ì‘O•ûŠÜˆÓ
+	// æ•…éšœå€¤ã®å‰æ–¹å«æ„
 	if (!(current_tag & XID_FLAG_FAULT) && !scan.f_unknown_found) {
 		int out_val = (scan.f_one_count & 1ULL) ? XID_ONE : XID_ZERO;
 		info->fault_3value = (is_inv) ? (out_val ^ 1) : out_val;
@@ -241,19 +241,19 @@ void init_xid_fimp_table(void) {
 	xid_fimp[EXNOR] = xid_fimp_exnor;
 }
 
-// t_net -> out •ûŒü
-// t_net‚Ìn3v/f3v‚ª{0,1}‚ÉŒˆ‚Ü‚Á‚Ä‚¢‚é‚Æ‚«Aout•ûŒü‚Ìn3v/f3v‚ğXV‚·‚é
+// t_net -> out æ–¹å‘
+// t_netã®n3v/f3vãŒ{0,1}ã«æ±ºã¾ã£ã¦ã„ã‚‹ã¨ãã€outæ–¹å‘ã®n3v/f3vã‚’æ›´æ–°ã™ã‚‹
 void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
 
-	// t_net‚ÌŒ»İ‚Ì—LŒø‚Èƒtƒ‰ƒO‚©‚ç’l‚ğ’Šo
+	// t_netã®ç¾åœ¨ã®æœ‰åŠ¹ãªãƒ•ãƒ©ã‚°ã‹ã‚‰å€¤ã‚’æŠ½å‡º
 	size_t t_tag = var_info[t_net->n].xid_tag;
 	size_t valid_flags = (t_tag >= xid_tag_base) ? (t_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
 
-	// ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢ê‡‚Í XID_X ‚Æ‚µ‚Äˆµ‚¤
+	// ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ãªã„å ´åˆã¯ XID_X ã¨ã—ã¦æ‰±ã†
 	int n3v = (valid_flags & XID_FLAG_NORMAL) ? var_info[t_net->n].normal_3value : XID_X;
 	int f3v = (valid_flags & XID_FLAG_FAULT) ? var_info[t_net->n].fault_3value : XID_X;
 
-	// —¼•û‚Æ‚à–¢Šm’è‚Ìê‡‚Í“`”À‚·‚é‚à‚Ì‚ª‚È‚¢
+	// ä¸¡æ–¹ã¨ã‚‚æœªç¢ºå®šã®å ´åˆã¯ä¼æ¬ã™ã‚‹ã‚‚ã®ãŒãªã„
 	if (n3v == XID_X && f3v == XID_X) return;
 
 	for (size_t i = 0; i < t_net->n_out; ++i) {

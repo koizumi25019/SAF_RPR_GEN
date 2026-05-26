@@ -12,8 +12,8 @@
 -pin ../output/pin/s5378_C_pin.txt
 
 # set result(.txt)
--result ../output/result/s5378_result_30_rep.csv
+-result ../output/result/s5378_result_100000_rep.csv
 
--limit 30
+-limit 1000000
 
 

@@ -9,16 +9,16 @@
 enum { EXIT_FAIL = 0, EXIT_FUNC_SUCCESS = 1 };
 
 typedef size_t vsize_t;      
-#define VSIZE_INVALID SIZE_MAX // size_tÇÃç≈ëÂílÇñ≥å¯ílÇ∆Ç∑ÇÈ
+#define VSIZE_INVALID SIZE_MAX // size_t„ÅÆÊúÄÂ§ßÂÄ§„ÇíÁÑ°ÂäπÂÄ§„Å®„Åô„Çã
 
 #define ALLOC_MEM(size)	allocMem(size, __FILE__, __func__, __LINE__)
 #define ALLOC_CON(count, size) allocCon(count, size, __FILE__, __func__, __LINE__)
 
 #define PRINTF(fmt, ...)	 printf_s(fmt, __VA_ARGS__)
-#define ERROR_PRINTF(fmt, ...) printf("\x1b[31m" fmt "\x1b[0m", __VA_ARGS__) // ê‘
+#define ERROR_PRINTF(fmt, ...) printf("\x1b[31m" fmt "\x1b[0m", __VA_ARGS__) // Ëµ§
 
 #ifdef _DEBUG
-#define DEBUG_PRINTF(fmt, ...) printf("\x1b[32m"fmt"\033[0m", __VA_ARGS__)//óŒ
+#define DEBUG_PRINTF(fmt, ...) printf("\x1b[32m"fmt"\033[0m", __VA_ARGS__)//Á∑ë
 #else
 #define DEBUG_PRINTF(fmt, ...) ((void)0)
 #endif

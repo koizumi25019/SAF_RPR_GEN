@@ -16,4 +16,6 @@
 
 -limit 100
 
+-cube_analysis ../output/cube_analysis/c17a_cube_analysis.txt
+
 
