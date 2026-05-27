@@ -4,7 +4,7 @@
         {
             "label": "CMake: build",
             "type": "shell",
-            "command": "cmake --build ${workspaceFolder}/ASG/build",
+            "command": "cmake --build ${workspaceFolder}/FDP/build",
             "group": {
                 "kind": "build",
                 "isDefault": true
