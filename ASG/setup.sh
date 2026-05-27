@@ -16,7 +16,6 @@ make -j$(nproc)
 echo ""
 echo "=== CUDD をビルド ==="
 cd "$TOOLS_DIR/cudd"
-autoreconf -fi 2>/dev/null || true
 ./configure
 make -j$(nproc)
 
