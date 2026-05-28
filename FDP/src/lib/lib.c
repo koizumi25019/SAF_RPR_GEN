@@ -11,9 +11,9 @@
 
 
 //*************************************************************************************************************
-//	@name		�F�@fileOpen
-//	@function	�F	open the file
-//	@return		�F	(void)
+//	@name		fileOpen
+//	@function	open the file
+//	@return		(void)
 //*************************************************************************************************************
 void fileOpen(
     FILE** fileptr,           /**< pointer to file */
@@ -36,9 +36,9 @@ void fileOpen(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@allocMemory
-//	@function	�F	allocate the memory
-//	@return		�F	(void*) pointer to allocated the memory
+//	@name		allocMemory
+//	@function	allocate the memory
+//	@return		(void*) pointer to allocated the memory
 //*************************************************************************************************************
 void* allocMemory(
 	size_t			      count,			  /**< number of counts of alloc memory */
@@ -59,9 +59,9 @@ void* allocMemory(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@calcHash
-//	@function	�F	calculate the hash value
-//	@return		�F	(int) hash value
+//	@name		calcHash
+//	@function	calculate the hash value
+//	@return		(int) hash value
 //*************************************************************************************************************
 int calcHash(
 	char* buffer			  /** buffer */
@@ -78,9 +78,9 @@ int calcHash(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@stackPUSH
-//	@function	�F	push the netlist in stack
-//	@return		�F	(viod)
+//	@name		stackPUSH
+//	@function	push the netlist in stack
+//	@return		(viod)
 //*************************************************************************************************************
 void stackPUSH(
 	NLIST* netptr			  /** pointer to netlist */
@@ -99,9 +99,9 @@ void stackPUSH(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@stackPOP
-//	@function	�F	pop the netlist from stack
-//	@return		�F	(NLIST*) pointer to netlist
+//	@name		stackPOP
+//	@function	pop the netlist from stack
+//	@return		(NLIST*) pointer to netlist
 //*************************************************************************************************************
 NLIST* stackPOP(
 	void
@@ -118,9 +118,9 @@ NLIST* stackPOP(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@queENQ
-//	@function	�F	enqueue the netlist to queue
-//	@return		�F	(void)
+//	@name		queENQ
+//	@function	enqueue the netlist to queue
+//	@return		(void)
 //*************************************************************************************************************
 void queENQ(
 	NLIST* netptr,			  /** pointer to netlist */
@@ -192,9 +192,9 @@ void queENQ(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@queDEQ
-//	@function	�F	dequeue the netlist from queue
-//	@return		�F	(NLIST*) pointer to nelist
+//	@name		queDEQ
+//	@function	dequeue the netlist from queue
+//	@return		(NLIST*) pointer to nelist
 //*************************************************************************************************************
 NLIST* queDEQ(
 	void
@@ -221,10 +221,10 @@ NLIST* queDEQ(
 }
 
 //=========================================================================
-//  �֐��� : queue_emp
-//  �@  �\ : �X�^�b�N���󂩔���
-//  �߂�l : 0�i���j�C1�i�L�j
-//  ��  �� : �Ȃ�
+//  関数名 : queue_emp
+//  機  能 : キューが空か判断
+//  戻り値 : 0（空）, 1（有）
+//  引  数 : なし
 //=========================================================================
 int queue_emp() {
 
@@ -237,9 +237,9 @@ int queue_emp() {
 }
 
 //*************************************************************************************************************
-//	@name		�F�@bitintSetAll_One
-//	@function	�F	set the all-bits to one
-//	@return		�F	(void)
+//	@name		bitintSetAll_One
+//	@function	set the all-bits to one
+//	@return		(void)
 //*************************************************************************************************************
 void bitintSetAll_One(
 	BIT_INT* bitint			  /** bit int */
@@ -255,9 +255,9 @@ void bitintSetAll_One(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@bitintSetAll_Zero
-//	@function	�F	set the all-bits to zero
-//	@return		�F	(void)
+//	@name		bitintSetAll_Zero
+//	@function	set the all-bits to zero
+//	@return		(void)
 //*************************************************************************************************************
 void bitintSetAll_Zero(
 	BIT_INT* bitint			  /** bit int */
@@ -273,9 +273,9 @@ void bitintSetAll_Zero(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@bitintSetNbit_One
-//	@function	�F	set the n-bits to one
-//	@return		�F	(void)
+//	@name		bitintSetNbit_One
+//	@function	set the n-bits to one
+//	@return		(void)
 //*************************************************************************************************************
 void bitintSetNbit_One(
 	BIT_INT* bitint,			  /** bit int */
@@ -288,9 +288,9 @@ void bitintSetNbit_One(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@bitintSetNbit_Zero
-//	@function	�F	set the n-bits to zero
-//	@return		�F	(void)
+//	@name		bitintSetNbit_Zero
+//	@function	set the n-bits to zero
+//	@return		(void)
 //*************************************************************************************************************
 void bitintSetNbit_Zero(
 	BIT_INT* bitint,			  /** bit int */
@@ -304,9 +304,9 @@ void bitintSetNbit_Zero(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@bitintGetNbit
-//	@function	�F	get the n-bit
-//	@return		�F	(void)
+//	@name		bitintGetNbit
+//	@function	get the n-bit
+//	@return		(void)
 //*************************************************************************************************************
 unsigned int bitintGetNbit(
 	BIT_INT* bitint,			  /** bit int */
@@ -354,9 +354,9 @@ unsigned int bitintGetNbit(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@isSingleByte
-//	@function	�F	determines if single-byte characters are used
-//	@return		�F	(bool) true, false
+//	@name		isSingleByte
+//	@function	determines if single-byte characters are used
+//	@return		(bool) true, false
 //*************************************************************************************************************
 bool isSingleByte(
 	int					  c					  /** characters */
@@ -371,10 +371,10 @@ bool isSingleByte(
 }
 
 //------------------------------------------------------------------------
-//  �֐��� : All_INT_One_XP
-//  �@  �\ : �S�r�b�g��1�ɃZ�b�g( flag=1 )
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��(�t���O�i�[��)
+//  関数名 : All_INT_One_XP
+//  機  能 : 全ビットを1にセット( flag=1 )
+//  戻り値 : なし
+//  引  数 : ポインタ渡し（フラグ配列ポインタ）
 //------------------------------------------------------------------------
 void All_INT_One_XP(BIT_INT_XP* all_one)
 {
@@ -390,10 +390,10 @@ void All_INT_One_XP(BIT_INT_XP* all_one)
 
 
 //------------------------------------------------------------------------
-//  �֐��� : All_INT_Zero_XP
-//  �@  �\ : �S�r�b�g��0�ɃZ�b�g( flag=0 )
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��(�t���O�i�[��)
+//  関数名 : All_INT_Zero_XP
+//  機  能 : 全ビットを0にセット( flag=0 )
+//  戻り値 : なし
+//  引  数 : ポインタ渡し（フラグ配列ポインタ）
 //------------------------------------------------------------------------
 void All_INT_Zero_XP(BIT_INT_XP* all_zero)
 {
@@ -408,10 +408,10 @@ void All_INT_Zero_XP(BIT_INT_XP* all_zero)
 
 
 //------------------------------------------------------------------------
-//  �֐��� : All_Bit_X_XP
-//  �@  �\ : �S�r�b�g��X(�h���g�P�A)�ɃZ�b�g( X�o�b�t�@=0 ,P�o�b�t�@=0 )
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��(�e�X�g�p�^�[���i�[��)
+//  関数名 : All_Bit_X_XP
+//  機  能 : 全ビットをX(ドントケア)にセット( Xバッファ=0, Pバッファ=0 )
+//  戻り値 : なし
+//  引  数 : ポインタ渡し（テストパターンポインタ）
 //------------------------------------------------------------------------
 void All_Bit_X_XP(BIT_INT_XP* all_x)
 {
@@ -426,10 +426,10 @@ void All_Bit_X_XP(BIT_INT_XP* all_x)
 
 
 //------------------------------------------------------------------------
-//  �֐��� : Set_NINT_One_XP
-//  �@  �\ : �w��r�b�g�ڂ�1���Z�b�g
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��, �w��r�b�g��
+//  関数名 : Set_NINT_One_XP
+//  機  能 : 指定ビットを1にセット
+//  戻り値 : なし
+//  引  数 : ポインタ渡し, 指定ビット番号
 //------------------------------------------------------------------------
 void Set_NINT_One_XP(BIT_INT_XP* one_set, unsigned int pi_num) {
 
@@ -439,10 +439,10 @@ void Set_NINT_One_XP(BIT_INT_XP* one_set, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  �֐��� : Set_NINT_Zero_XP
-//  �@  �\ : �w��r�b�g�ڂ�0���Z�b�g
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��, �w��r�b�g��
+//  関数名 : Set_NINT_Zero_XP
+//  機  能 : 指定ビットを0にセット
+//  戻り値 : なし
+//  引  数 : ポインタ渡し, 指定ビット番号
 //------------------------------------------------------------------------
 void Set_NINT_Zero_XP(BIT_INT_XP* zero_set, unsigned int pi_num) {
 
@@ -452,10 +452,10 @@ void Set_NINT_Zero_XP(BIT_INT_XP* zero_set, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  �֐��� : Set_NBit_X_XP
-//  �@  �\ : �w��r�b�g�ڂ�X���Z�b�g( X�o�b�t�@=1 ,P�o�b�t�@=1 )
-//  �߂�l : �Ȃ�
-//  ��  �� : �|�C���^�z��(�e�X�g�p�^�[���i�[��), �w��r�b�g��
+//  関数名 : Set_NBit_X_XP
+//  機  能 : 指定ビットをXにセット( Xバッファ=1, Pバッファ=1 )
+//  戻り値 : なし
+//  引  数 : ポインタ渡し（テストパターンポインタ）, 指定ビット番号
 //------------------------------------------------------------------------
 void Set_NBit_X_XP(BIT_INT_XP* x_set, unsigned int pi_num)
 {
@@ -467,19 +467,19 @@ void Set_NBit_X_XP(BIT_INT_XP* x_set, unsigned int pi_num)
 
 
 //------------------------------------------------------------------------
-//  �֐��� : Get_NBit_INT_XP
-//  �@  �\ : �w��r�b�g�̒l�𓾂�( 0 or 1 or X ?)
-//  �߂�l : �i�[�l( 0 or 1 or X )
-//  ��  �� : �|�C���^�z��, �w��r�b�g��
+//  関数名 : Get_NBit_INT_XP
+//  機  能 : 指定ビットの値を取得( 0 or 1 or X ? )
+//  戻り値 : 整数( 0 or 1 or X )
+//  引  数 : ポインタ渡し, 指定ビット番号
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
-	// �w��r�b�g�̒T��
+	// 指定ビットの探索
 	//=======================================================================
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//=======================================================================
 		if (pi_num == 0) {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)	return 0; // (x_buf=0 , p_buf=1)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -487,13 +487,13 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("�i�[ ERROR\n");
+				printf("[ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
 		//=======================================================================
 		else {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 0; // (x_buf=0 , p_buf=1)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -501,7 +501,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("�i�[ ERROR\n");
+				printf("[ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
@@ -509,7 +509,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 	}
 	//=======================================================================
 	else {
-		// �w��r�b�g�̒��g���m�F(0, 1)
+		// 指定ビットの値の確認(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 0; // (x_buf=0 , p_buf=1)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 1; // (x_buf=1 , p_buf=0)
@@ -517,7 +517,7 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 		else {
-			printf("�i�[ ERROR\n");
+			printf("[ERROR] Invalid bit value\n");
 			exit(-1);
 		}
 	}
@@ -527,37 +527,37 @@ unsigned int  Get_NBit_INT_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
 
 //------------------------------------------------------------------------
-//  �֐��� : Get_NBit_Xbuf
-//  �@  �\ : X�o�b�t�@�݂̂̎w��r�b�g�̒l�𓾂�( 0 or 1 ?)
-//  �߂�l : �i�[�l( 0 or 1 )
-//  ��  �� : �|�C���^�z��(�e�X�g�p�^�[���i�[��), �w��r�b�g��
+//  関数名 : Get_NBit_Xbuf
+//  機  能 : Xバッファの指しているビット値を取得( 0 or 1 ? )
+//  戻り値 : 整数( 0 or 1 )
+//  引  数 : ポインタ渡し（テストパターンポインタ）, 指定ビット番号
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_Xbuf(BIT_INT_XP* get_n, unsigned int pi_num)
 {
 
-	// �w��r�b�g�̒T��
+	// 指定ビットの探索
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//====================================================================
 		if (pi_num == 0) {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0) return 0; // (x_buf=0)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0) return 1; // (x_buf=1)
 
 			else {
-				printf("TP�i�[ ERROR\n");
+				printf("[TP ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
 		//====================================================================
 		else {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 0; // (x_buf=0)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 1; // (x_buf=1)
 
 			else {
-				printf("TP�i�[ ERROR\n");
+				printf("[TP ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
@@ -565,31 +565,31 @@ unsigned int  Get_NBit_Xbuf(BIT_INT_XP* get_n, unsigned int pi_num)
 	}
 	//====================================================================
 	else {
-		// �w��r�b�g�̒��g���m�F(0, 1)
+		// 指定ビットの値の確認(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 0; // (x_buf=0)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 1; // (x_buf=1)
 
 		else {
-			printf("TP�i�[ ERROR\n");
+			printf("[TP ERROR] Invalid bit value\n");
 			exit(-1);
 		}
 	}
 }
 //------------------------------------------------------------------------
-//  �֐��� : Get_NBit_XP
-//  �@  �\ : �w��r�b�g�̒l�𓾂�(xbuf,pbuf)
-//  �߂�l : �i�[�l( 0 or 1 or 2 or 3 )
-//  ��  �� : �|�C���^�z��, �w��r�b�g��
+//  関数名 : Get_NBit_XP
+//  機  能 : 指定ビットの値を取得(xbuf, pbuf)
+//  戻り値 : 整数( 0 or 1 or 2 or 3 )
+//  引  数 : ポインタ渡し, 指定ビット番号
 //------------------------------------------------------------------------
 unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 
-	// �w��r�b�g�̒T��
+	// 指定ビットの探索
 	//=======================================================================
 	if ((pi_num % (8 * sizeof(unsigned int))) == 0) {
 		//=======================================================================
 		if (pi_num == 0) {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) == 0)	return 0; // (x_buf=0 , p_buf=0)
 
 			else if ((get_n->x_buf[0] & MASK_INT[0]) == 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)	return 1; // (x_buf=0 , p_buf=1)
@@ -599,13 +599,13 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[0] & MASK_INT[0]) != 0 && (get_n->p_buf[0] & MASK_INT[0]) != 0)return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("�i�[ ERROR\n");
+				printf("[ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
 		//=======================================================================
 		else {
-			// �w��r�b�g�̒��g���m�F(0, 1)
+			// 指定ビットの値の確認(0, 1)
 			if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0) return 0; // (x_buf=0 , p_buf=0)
 
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) == 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 1; // (x_buf=0 , p_buf=1)
@@ -615,7 +615,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 			else if ((get_n->x_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0 && (get_n->p_buf[pi_num / (8 * sizeof(unsigned int))] & MASK_INT[0]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 			else {
-				printf("�i�[ ERROR\n");
+				printf("[ERROR] Invalid bit value\n");
 				exit(-1);
 			}
 		}
@@ -623,7 +623,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 	}
 	//=======================================================================
 	else {
-		// �w��r�b�g�̒��g���m�F(0, 1)
+		// 指定ビットの値の確認(0, 1)
 		if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0) return 0; // (x_buf=0 , p_buf=0)
 
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) == 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 1; // (x_buf=0 , p_buf=1)
@@ -633,7 +633,7 @@ unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num) {
 		else if ((get_n->x_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0 && (get_n->p_buf[(pi_num / (8 * sizeof(unsigned int)))] & MASK_INT[pi_num % (8 * sizeof(unsigned int))]) != 0) return 3; // (x_buf=1 , p_buf=1)
 
 		else {
-			printf("�i�[ ERROR\n");
+			printf("[ERROR] Invalid bit value\n");
 			exit(-1);
 		}
 	}

@@ -18,16 +18,13 @@
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
-void OutPIN(
-	void
-);
-
 void OutLogfile(
 	double time,
 	double cpu_time,
     double time_cadical,
     double time_bdd,
-    double time_xid
+    double time_xid,
+    double time_read
 );
 
 

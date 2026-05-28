@@ -3,7 +3,7 @@
 //File name : Netlist.c
 //Date : 2010/06/07
 //Designer : R.Inoue
-//Ver : 3.0�i�z�zVer�j
+//Ver : 3.0（以前のVer）
 //--------------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <string.h>
@@ -13,57 +13,57 @@
 #pragma warning(disable:4996)
 
 //--------------------------------------------------------------------------------------------------------------------
-// ��`
+// 構造体
 //--------------------------------------------------------------------------------------------------------------------
-#define MAXN 1028      // �l�b�g���X�g�t�@�C�����T�C�Y
-#define STR_MAX 1024   //get_token�p
-#define SPRINT_MAX 256 //sprintf�p
-#define HASH_SIZE 5003 //�n�b�V���\�T�C�Y
+#define MAXN 1028      // ネットリストファイルサイズ�C�Y
+#define STR_MAX 1024   //get_token用
+#define SPRINT_MAX 256 //sprintf用
+#define HASH_SIZE 5003 //ハッシュサイズ�C�Y
 #define HASH_MODE
 #undef DEBUG_MA
 #undef DEBUG_NL
 
-//���W���[���z�񃁃��o�[
+//モジュール配列メンバー
 typedef struct _Module_Array_MEM_Format_ {
-	char* m_name_ins; //�C���X�^���X��
-	int m_type;	      //�^�C�v
-	int m_n_in;	      //���͐�
-	char* m_out_name; //�o�͖�
-	char** m_in_name; //���͖��z��
-	// exe. <�ʏ�>  A:[0], B:[1],�E�E�E, J:[9]
+	char* m_name_ins; //インスタンス名��
+	int m_type;	      //タイプ
+	int m_n_in;	      //入力数
+	char* m_out_name; //出力名
+	char** m_in_name; //入力名配列
+	// exe. <通常>  A:[0], B:[1],…, J:[9]
 	//      <DFF >  D:[0]
-	//      <RDFF>  D:[0], CD(���Z�b�g):[1]
-	//      <DFFS>  D:[0], TI(�X�L�����C��):[1], TE(�X�L�����C�l�[�u��):[2]
-	//      <RDFFS> D:[0], TI(�X�L�����C��):[1], TE(�X�L�����C�l�[�u��):[2], CD(���Z�b�g):[3]
-	int out_nid;    //�o�͐M���̃l�b�g���X�gID
-	int* in_nid;    //���͐M���̃l�b�g���X�gID�z��
+	//      <RDFF>  D:[0], CD(リセット):[1]
+	//      <DFFS>  D:[0], TI(スキャンイン):[1], TE(スキャンイネーブル):[2]
+	//      <RDFFS> D:[0], TI(スキャンイン):[1], TE(スキャンイネーブル):[2], CD(リセット):[3]
+	int out_nid;    //出力信号のネットリストID
+	int* in_nid;    //入力信号のネットリストID配列
 } Module_Array_MEM;
 
-//�M�����n�b�V�������o�[
+//信号名ハッシュメンバー
 typedef struct _Signal_Name_Hash_Format_ {
-	int nid;        //�l�b�g���X�gID
+	int nid;        //ネットリストID
 	struct _Signal_Name_Hash_Format_* next;
 } Signal_Name_Hash;
 
-//�\����͔z��
+//パーサ配列
 int* parser_array[2]; //for_in:[0], for_out[1]
 
 //--------------------------------------------------------------------------------------------------------------------
-// �ÓI�ϐ�
+// 静的変数
 //--------------------------------------------------------------------------------------------------------------------
-//�[�q���z��i10���͂܂őΉ� 04/03/16�j
+//ピン名配列（10ピンまで対応 04/03/16）
 char pin_name_array[10] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
 
-//���[�W���[���z��
+//モジュール配列
 static Module_Array_MEM** module_array = NULL;
 
-//�M�����n�b�V���e�[�u��
+//信号名ハッシュテーブル
 static Signal_Name_Hash** hash_t = NULL;
 
-//���[�W���[����
+//モジュール数
 static int n_module = 0;
 
-//���̐M����
+//総信号線数
 static int nl_num = 0;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -507,7 +507,7 @@ static void alloc_nl(void)
 {
 	int i;
 
-	//���̐M������
+	//総信号線数��
 	nl_num = n_pi + n_po + n_module;
 	for (i = 0; i < n_module; i++) nl_num += module_array[i]->m_n_in;
 
@@ -581,7 +581,7 @@ static void store_signal(void)
 			ptr = hash_t[hash_value];
 			while (ptr != NULL) {
 				if (!strcmp(nl[ptr->nid].name, module_array[i]->m_in_name[j])) {
-					//�\����͔z��C���N�������g
+					//パーサ配列C���N�������g
 					parser_array[0][ptr->nid] ++;
 					//���͐M���l�b�g���X�gID�z��}��
 					module_array[i]->in_nid[j] = ptr->nid;
@@ -600,7 +600,7 @@ static void store_signal(void)
 				nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_in_name[j]) + 1));
 				strcpy(nl[n_net].name, module_array[i]->m_in_name[j]);
 				nl[n_net].n = n_net; //�l�b�g���X�gID
-				//�\����͔z����
+				//パーサ配列��
 				parser_array[0][n_net] = 1;
 				//���͐M���l�b�g���X�gID�z��}��
 				module_array[i]->in_nid[j] = n_net;
@@ -614,7 +614,7 @@ static void store_signal(void)
 		ptr = hash_t[hash_value];
 		while (ptr != NULL) {
 			if (!strcmp(nl[ptr->nid].name, module_array[i]->m_out_name)) {
-				//�\����͔z��C���N�������g
+				//パーサ配列C���N�������g
 				parser_array[1][ptr->nid] ++;
 				//�o�͐M���l�b�g���X�gID�}��
 				module_array[i]->out_nid = ptr->nid;
@@ -633,7 +633,7 @@ static void store_signal(void)
 			nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_out_name) + 1));
 			strcpy(nl[n_net].name, module_array[i]->m_out_name);
 			nl[n_net].n = n_net; //�l�b�g���X�gID
-			//�\����͔z����
+			//パーサ配列��
 			parser_array[1][n_net] = 1;
 			//�o�͐M���l�b�g���X�gID�}��
 			module_array[i]->out_nid = n_net;
@@ -1242,7 +1242,7 @@ static void free_module_array(void)
 	}
 	free(module_array);
 
-	//�\����͔z��
+	//パーサ配列
 	free(parser_array[0]);
 	free(parser_array[1]);
 }

@@ -26,7 +26,8 @@
 bool AnalyzeFaultDensity(
 	double* out_time_cadical,
     double* out_time_bdd,
-    double* out_time_xid
+    double* out_time_xid,
+    double* out_time_read
 )
 {
 	TARGET	target;
@@ -35,13 +36,12 @@ bool AnalyzeFaultDensity(
 
 	int count = 0;
 
-    printf("D-chain ON\n");
-
 	// ===== CPU時間計測用変数 =====
     clock_t t_start, t_end;
     double time_cadical = 0.0;
     double time_bdd     = 0.0;
     double time_xid     = 0.0;
+    double time_read    = 0.0;
     // ============================
 
 	//キューブ分析用ファイルオープン
@@ -54,11 +54,17 @@ bool AnalyzeFaultDensity(
 	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
 	//result file open
-	fileOpen(&bdd_result, opt.file.output.result, "w");
+	fileOpen(&bdd_result, opt.file.output.fdp, "w");
 	fprintf(bdd_result, "net_name,f_type,cube_cnt,complete,fdp\n");
 
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
+
+    t_start = clock();
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
+    t_end = clock();
+    time_read = (double)(t_end - t_start) / CLOCKS_PER_SEC;
+	printf("ReadFault: %.3f sec\n", time_read);
+
 	if (CreateConsGC() != true) return AFD_ERROR;
 
 	while (readdata.fault.numrema != 0)
@@ -139,6 +145,7 @@ bool AnalyzeFaultDensity(
     *out_time_cadical = time_cadical;
     *out_time_bdd     = time_bdd;
     *out_time_xid     = time_xid;
+    *out_time_read    = time_read;
 
 	return AFD_OKAY;
 }

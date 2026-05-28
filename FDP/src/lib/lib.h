@@ -176,31 +176,31 @@ bool isSingleByte(
 	int					  c					  /** characters */
 );
 
-//�S�r�b�g��0�ɃZ�b�g
+//全ビットを0にセット
 void All_INT_Zero_XP(BIT_INT_XP*);
 
-//�S�r�b�g��1�ɃZ�b�g
+//全ビットを1にセット
 void All_INT_One_XP(BIT_INT_XP*);
 
-//�S�r�b�g��X�ɃZ�b�g
+//全ビットをXにセット
 void All_Bit_X_XP(BIT_INT_XP*);
 
-//�w��r�b�g�ڂ�0�ɃZ�b�g
+//指定ビットを0にセット
 void Set_NINT_Zero_XP(BIT_INT_XP*, unsigned int);
 
-//�w��r�b�g�ڂ�1�ɃZ�b�g
+//指定ビットを1にセット
 void Set_NINT_One_XP(BIT_INT_XP*, unsigned int);
 
-//�w��r�b�g�ڂ�X�ɃZ�b�g
+//指定ビットをXにセット
 void Set_NBit_X_XP(BIT_INT_XP*, unsigned int);
 
-//�w��r�b�g�ڂ̒l���Q�b�g(0, 1)
+//指定ビットの値を取得(0, 1)
 unsigned int  Get_NBit_INT_XP(BIT_INT_XP*, unsigned int);
 
-//X�o�b�t�@�݂̂̎w��r�b�g�̒l�𓾂�
+//Xバッファの指しているビット値を取得
 unsigned int  Get_NBit_Xbuf(BIT_INT_XP*, unsigned int);
 
-//�w��r�b�g�̒l�𓾂�(xbuf, pbuf)
+//指定ビットの値を取得(xbuf, pbuf)
 unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num);
 
 

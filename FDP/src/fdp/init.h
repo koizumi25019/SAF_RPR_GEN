@@ -75,7 +75,7 @@ void InitGlobalVarsQUE(
 	void
 );
 
-//CLASP�ϐ�������
+//CLASP変数の初期化
 void InitGlobalVarsCLASP(
 	void
 );

@@ -6,7 +6,6 @@
 #include <time.h>
 
 #include "./target_fault.h"
-#include "./read.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
 
@@ -46,52 +45,6 @@
 #define	UNDETECTED		  17				  /**< fault undetected */
 #define	REDEUNDANT		  27				  /**< fault redeundant */
 
-/** set the type of fault  */
-#define	fnodeptr_type___setFaultType(type)	do																  \
-{																											  \
-	context = strtok_r(NULL, " \n\0", &context);															  \
-	if(context == NULL)																						  \
-	{																										  \
-		printf("\n	FILE ERROR: fault file reading failed. ");									  \
-		printf("type of fault error.\n\n");														  \
-		return (FNODE*)NULL;																			      \
-	}																										  \
-	if (!strcmp(context, "sa0"))																			  \
-	{																										  \
-		type = SF0;																							  \
-	}																										  \
-	else if (!strcmp(context, "sa1"))																		  \
-	{																										  \
-		type = SF1;																							  \
-	}																										  \
-	else																									  \
-	{																										  \
-		printf("\n	FILE ERROR: fault file reading failed. ");									  \
-		printf("%c%s%c unexpected type of fault.\n\n",'"', context, '"');						  \
-		return (FNODE*)NULL;																			      \
-	}																										  \
-}																											  \
-while (false);
-
-/** set the pointer to netlist  */
-#define	fnodeptr_netptr___setNetPtr(netptr, buffer)	do														  \
-{																											  \
-	netptr = (NLIST*)NULL;																					  \
-	for (int i = 0; i < n_net; i++)																			  \
-	{																										  \
-		if (!strcmp(nl[i].name, buffer))																	  \
-		{																									  \
-			netptr = &nl[i];																				  \
-		}																									  \
-	}																										  \
-	if(netptr==(NLIST*)NULL)																				  \
-	{																										  \
-		printf("\n	FILE ERROR: fault file reading failed. ");									  \
-		printf("%c%s%c is thought.\n\n",	'"', buffer, '"');										  \
-		return (FNODE*)NULL;																			      \
-	}																										  \
-}																											  \
-while (false);
 
 //-------------------------------------------------------------------------------------------------------------
 //	structre
@@ -153,6 +106,12 @@ bool CreateFaultList(
 bool searchFnode(
 	char* buffer,			  /**< buffer (key) */
 	FNODE* fnode				  /**< pointer to fault node */
+);
+
+/** find fault node pointer by string */
+FNODE* searchFnodePtr(
+	char* buffer,			  /**< buffer (key) */
+	FNODE* head				  /**< head of hash-fault list */
 );
 
 /** create the fault node */

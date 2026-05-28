@@ -78,8 +78,8 @@ CMakeFiles/main_release.dir/fdp/drop_dete_fault.c.o: \
  /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/./././read.h \
  /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/./././../netlist/netlist.h \
  /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/./././../lib/lib.h \
- /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/cnf/../cnf/cnf.h \
- /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/cnf/../cnf/../create_TPG_model.h \
+ /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/./cnf/cnf.h \
+ /home/koizumi/SAF_RPR_GEN/FDP/src/fdp/./cnf/../create_TPG_model.h \
  /home/koizumi/SAF_RPR_GEN/FDP/src/../tools/cadical/src/ccadical.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \

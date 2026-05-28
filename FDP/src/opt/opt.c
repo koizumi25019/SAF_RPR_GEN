@@ -9,9 +9,9 @@
 #include "../lib/lib.h"
 
 //*************************************************************************************************************
-//	@name		�F�@OPT
-//	@function	�F	analyze the option
-//	@return		�F	(bool) okay, error
+//	@name		OPT
+//	@function	analyze the option
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool OPT(
 	int					  argc,			      /**< number of command-arguments */
@@ -31,9 +31,9 @@ bool OPT(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPTinit
-//	@function	�F	initialize the options
-//	@return		�F	(void)
+//	@name		OPTinit
+//	@function	initialize the options
+//	@return		(void)
 //*************************************************************************************************************
 void OPTinit(
 	void
@@ -46,9 +46,9 @@ void OPTinit(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPTinitFile
-//	@function	�F	initialize the filename
-//	@return		�F	(void)
+//	@name		OPTinitFile
+//	@function	initialize the filename
+//	@return		(void)
 //*************************************************************************************************************
 void OPTinitFile(
 	void
@@ -90,13 +90,9 @@ bool OPTset(
 		else if (strcmp(argv[i], "-log") == 0)
 			opt.file.output.log = strdup(argv[++i]);
 
-		/** pin */
-		else if (strcmp(argv[i], "-pin") == 0)
-			opt.file.output.pin = strdup(argv[++i]);
-
-		/** result  */
-		else if (strcmp(argv[i], "-result") == 0)
-			opt.file.output.result = strdup(argv[++i]);
+		/** fdp result  */
+		else if (strcmp(argv[i], "-fdp") == 0)
+			opt.file.output.fdp = strdup(argv[++i]);
 
 		/** limit  */
 		else if (strcmp(argv[i], "-limit") == 0)
@@ -120,9 +116,9 @@ bool OPTset(
 
 
 //*************************************************************************************************************
-//	@name		�F�@OPTread
-//	@function	�F	read the option-setting file
-//	@return		�F	(bool) okay, error
+//	@name		OPTread
+//	@function	read the option-setting file
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool OPTread(
 	char* filename			  /**< filename */
@@ -206,8 +202,8 @@ bool OPTread(
 				}
 			}
 
-			/** pin */
-			else if (strcmp(token1, "-pin") == 0)
+			/** fdp result */
+			else if (strcmp(token1, "-fdp") == 0)
 			{
 				token2 = strtok_r(NULL, "\n\0", &context);
 
@@ -215,22 +211,7 @@ bool OPTread(
 				{
 					if (token2[i] != ' ' && token2[i] != '\t')
 					{
-						opt.file.output.pin = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
-
-			/** result fault */
-			else if (strcmp(token1, "-result") == 0)
-			{
-				token2 = strtok_r(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.output.result = strdup(strtok_r(&token2[i], " \n\0", &context));
+						opt.file.output.fdp = strdup(strtok_r(&token2[i], " \n\0", &context));
 						break;
 					}
 				}
@@ -241,7 +222,7 @@ bool OPTread(
 			{
 				token2 = strtok_r(NULL, " \n\0", &context);
 
-				// �O�̂���NULL�`�F�b�N
+				// 次トークンのNULLチェック
 				if (token2 != NULL)
 				{
 					int val = atoi(token2);
@@ -275,9 +256,9 @@ bool OPTread(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPTcheck
-//	@function	�F	check for essential options
-//	@return		�F	(bool) okay, error
+//	@name		OPTcheck
+//	@function	check for essential options
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool OPTcheck(
 	void
@@ -290,9 +271,9 @@ bool OPTcheck(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OPTcheckFile
-//	@function	�F	check for essential file
-//	@return		�F	(bool) okay, error
+//	@name		OPTcheckFile
+//	@function	check for essential file
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool OPTcheckFile(
 	void
@@ -314,14 +295,6 @@ bool OPTcheckFile(
 		return OPT_ERROR;
 	}
 
-	if (opt.file.output.pin == FILE_NOSET)
-	{
-		printf("\n	COMMAND ERROR: option setup is failed. ");
-		printf("no pin file.\n\n");
-		
-		return OPT_ERROR;
-	}
-
 	if (opt.file.output.log == FILE_NOSET)
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
@@ -330,11 +303,11 @@ bool OPTcheckFile(
 			return OPT_ERROR;
 	}
 
-	if (opt.file.output.result == FILE_NOSET)
+	if (opt.file.output.fdp == FILE_NOSET)
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
-		printf("no result file.\n\n");
-		
+		printf("no fdp result file.\n\n");
+
 			return OPT_ERROR;
 	}
 

@@ -2,10 +2,10 @@
 
 #define DEBUG_XID_FSIM 0
 //===================================================================
-// �Q�[�g�ʃC�x���g�h���u���̏�V�~�����[�V�����֐��̃w���p�[�֐�
+// ゲートイベントドリブンシミュレーション関数のヘルパー関数
 //===================================================================
 static inline int in_val(size_t in_id, size_t ed_tag, XID_VAR_INFO* var_info) {
-	// �v�Z�ς� or �̏�ݒu�_�i�ݒu�_�͖��v�Z�ł� fault_value ���L���j
+	// 計算済み or 前置換サイト(置換サイトは未計算) fault_value を有効化
 	return (var_info[in_id].ed_tag == ed_tag)
 		? var_info[in_id].fault_2value
 		: var_info[in_id].normal_2value;
@@ -82,7 +82,7 @@ static void init_ed_sppfp_table(void) {
 	ed_fsim[EXOR] = ed_fsim_exor;
 	ed_fsim[EXNOR] = ed_fsim_exnor;
 
-	// DFF/RDFF/DFFS/RDFFS/GND/ACC �͎d�l���s���̂��ߖ��Ή��i�K�v�Ȃ�����j
+	// DFF/RDFF/DFFS/RDFFS/GND/ACC は仕様未対応のため非対応（必要ないため）
 }
 
 static void ED_push_out(NLIST_t* net, size_t ed_tag, XID_VAR_INFO* var_info) {
@@ -99,9 +99,9 @@ static void ED_push_out(NLIST_t* net, size_t ed_tag, XID_VAR_INFO* var_info) {
 void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po) {
 	init_ed_sppfp_table();
 
-	/* --------------------�@�C�x���g�h���u�������@------------------------ */
+	/* -------------------- イベントドリブン処理 ------------------------ */
 	size_t ed_tag = 2;
-	// �̏�l�}��
+	// 故障値の設定（正常値を反転）
 	var_info[fsigID].fault_2value = var_info[fsigID].normal_2value ^ 1;
 	var_info[fsigID].ed_tag = ed_tag;
 	NLIST_t* tmp_net = &nl[fsigID];
@@ -110,13 +110,13 @@ void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po) {
 	}
 	ED_push_out(tmp_net, ed_tag, var_info);
 
-	// �`���l�v�Z
+	// 新しい値を計算
 	vsize_t event_lev = tmp_net->level;
 	while (get_total_net_count()) {
 		event_lev = check_lev(event_lev);
 		tmp_net = pop_lev_net(event_lev);
 
-		// ���Z
+		// 演算
 		size_t tmp_id = tmp_net->n;
 		var_info[tmp_id].ed_tag = ed_tag;
 		(*ed_fsim[tmp_net->type])(tmp_net, tmp_id, ed_tag, var_info);
@@ -126,10 +126,10 @@ void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po) {
 			var_info[tmp_id].normal_2value, var_info[tmp_id].fault_2value);
 #endif
 
-		// ��`��
+		// 変化なし
 		if (var_info[tmp_id].fault_2value == var_info[tmp_id].normal_2value) { continue; }
 
-		// �`��
+		// 変化あり
 		if (tmp_net->n_out == 0) {
 			detect_po->po_id[detect_po->n_det_po++] = tmp_net->n;
 		}

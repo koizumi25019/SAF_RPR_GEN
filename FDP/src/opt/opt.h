@@ -13,7 +13,7 @@
 
 #define	MAXSIZE_FILENAME		  100		  /**< maximum size of filename */
 
-#define MAX_PATTERN               100         // �ő�100�܂Ŏw��\
+#define MAX_PATTERN               100         // 最大100まで指定可能
 
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
@@ -38,8 +38,7 @@ INPUT;
 typedef struct Output_File
 {
 	char* log;			      /**< log file */
-	char* pin;                /**< pin file */
-	char* result;             //< result file */
+	char* fdp;                /**< fdp result file */
 }
 OUTPUT;
 

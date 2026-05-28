@@ -16,7 +16,7 @@
 //*************************************************************************************************************
 //	@name		F@InitGlobalVars
 //	@function	F	initialize the global variable
-//	@return		�F	(bool) okay, error 
+//	@return		(bool) okay, error 
 //*************************************************************************************************************
 bool InitGlobalVars(
 	void
@@ -36,9 +36,9 @@ bool InitGlobalVars(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsNLIST
-//	@function	�F	initialize the netlist
-//	@return		�F	(void) 
+//	@name		ComputeLevels
+//	@function	compute the logic level of each net
+//	@return		(void)
 //*************************************************************************************************************
 static void ComputeLevels(void)
 {
@@ -60,6 +60,11 @@ static void ComputeLevels(void)
 	}
 }
 
+//*************************************************************************************************************
+//	@name		InitGlobalVarsNLIST
+//	@function	initialize the netlist
+//	@return		(void)
+//*************************************************************************************************************
 void InitGlobalVarsNLIST(
 	void
 )
@@ -95,9 +100,9 @@ void InitGlobalVarsNLIST(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsSTACK
-//	@function	�F	initialize the stack
-//	@return		�F	(void) 
+//	@name		InitGlobalVarsSTACK
+//	@function	initialize the stack
+//	@return		(void) 
 //*************************************************************************************************************
 void InitGlobalVarsSTACK(
 	void
@@ -111,9 +116,9 @@ void InitGlobalVarsSTACK(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsQUE
-//	@function	�F	initialize the queue
-//	@return		�F	(void) 
+//	@name		InitGlobalVarsQUE
+//	@function	initialize the queue
+//	@return		(void) 
 //*************************************************************************************************************
 void InitGlobalVarsQUE(
 	void
@@ -129,9 +134,9 @@ void InitGlobalVarsQUE(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsOPB
-//	@function	�F	initialize the opb
-//	@return		�F	(void) 
+//	@name		InitGlobalVarsOPB
+//	@function	initialize the opb
+//	@return		(void) 
 //*************************************************************************************************************
 void InitGlobalVarsOPB(
 	void
@@ -146,9 +151,9 @@ void InitGlobalVarsOPB(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@InitGlobalVarsREADDATA
-//	@function	�F	initialize the reading data
-//	@return		�F	(void) 
+//	@name		InitGlobalVarsREADDATA
+//	@function	initialize the reading data
+//	@return		(void) 
 //*************************************************************************************************************
 void InitGlobalVarsREADDATA(
 	void

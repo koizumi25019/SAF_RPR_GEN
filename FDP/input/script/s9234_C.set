@@ -5,19 +5,11 @@
 # set fault list(.txt)
 #-fault ../input/fault/s9234_C_unred.txt
 
-# set test relation(.txt)
-#-relation ./input/test_relation/s9234_C_test_relation.txt
-
-# set test relation(.txt)
-#-rp 10,100,1000,10000,100000
-
 # set log(.txt)
 -log ../output/log/s9234_C_log_30_rep.txt
 
-# set pin(.txt)
--pin ../output/pin/s9234_C_pin.txt
 
-# set result(.txt)
--result ../output/result/s9234_30_result_rep.csv
+# set fdp result(.csv)
+-fdp ../output/fdp/s9234_30_result_rep.csv
 
 -limit 30

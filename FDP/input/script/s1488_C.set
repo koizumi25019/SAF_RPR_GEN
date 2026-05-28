@@ -14,10 +14,8 @@
 # set log(.txt)
 -log ./output/log/s1488_C_log.txt
 
-# set pin(.txt)
--pin ./output/pin/s1488_C_pin.txt
 
-# set result(.txt)
--result ./output/result/s1488_result.csv
+# set fdp result(.csv)
+-fdp ./output/fdp/s1488_result.csv
 
 

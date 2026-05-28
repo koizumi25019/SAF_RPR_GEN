@@ -32,7 +32,8 @@ char*					  net_name;
 bool AnalyzeFaultDensity(
 	double* out_time_cadical,
 	double* out_time_bdd,
-	double* out_time_xid
+	double* out_time_xid,
+	double* out_time_read
 );
 
 bool DropDeteFault(

@@ -11,11 +11,9 @@
 # set log(.txt)
 -log ../output/log/s27_C_log.txt
 
-# set pin(.txt)
--pin ../output/pin/s27_C_pin.txt
 
-# set result(.txt)
--result ../output/result/s27_result.csv
+# set fdp result(.csv)
+-fdp ../output/fdp/s27_result.csv
 
 # set sat test count limit(.txt)
 -limit 100

@@ -8,11 +8,9 @@
 # set log(.txt)
 -log ../output/log/b15_C_log_30_rep.txt
 
-# set pin(.txt)
--pin ../output/pin/b15_C_pin.txt
 
-# set result(.txt)
--result ../output/result/b15_C_30_result_rep.csv
+# set fdp result(.csv)
+-fdp ../output/fdp/b15_C_30_result_rep.csv
 
 -limit 30
 

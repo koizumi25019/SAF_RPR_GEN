@@ -14,9 +14,9 @@
 
 
 //*************************************************************************************************************
-//	@name		�F�@main
-//	@function	�F	main
-//	@return		�F	(void)
+//	@name		main
+//	@function	main
+//	@return		(void)
 //*************************************************************************************************************
 int main(
 	int					  argc,				 /**< number of command-arguments */
@@ -30,6 +30,7 @@ struct timespec start, end;
     double time_cadical = 0.0;
     double time_bdd     = 0.0;
     double time_xid     = 0.0;
+    double time_read    = 0.0;
 
     // 計測開始
     clock_gettime(CLOCK_MONOTONIC, &start);// 実実行時間の計測開始
@@ -41,11 +42,8 @@ struct timespec start, end;
 	/** read the netlist */
 	read_nl(opt.file.input.net);
 
-	/** output the pin */
-	OutPIN();
-
 	//analyze the fault detection probability
-	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid) != AFD_OKAY) return RETCODE_ERROR;
+	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
 
 	// 計測終了
     clock_gettime(CLOCK_MONOTONIC, &end);// 実実行時間の計測終了
@@ -57,7 +55,7 @@ struct timespec start, end;
 	 // CPU時間を計算
 	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC;
 						  
-	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid);
+	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	//discordにメッセージ送信
 	 system(
@@ -71,39 +69,17 @@ struct timespec start, end;
 }
 
 //*************************************************************************************************************
-//	@name		�F�@OutPIN
-//	@function	�F	output the pin
-//	@return		�F	(void)
-//*************************************************************************************************************
-void OutPIN(
-	void
-)
-{
-	FILE* fileptr = (FILE*)NULL;
-
-	fileOpen(&fileptr, opt.file.output.pin, "w");
-
-	for (int i = 0; i < n_pi; i++)
-	{
-		fprintf(fileptr, "%s\n", pi[i]->name);
-	}
-
-	fclose(fileptr);
-
-	return;
-}
-
-//*************************************************************************************************************
-//	@name		�F�@OutLogfile
-//	@function	�F	output the log
-//	@return		�F	(bool) okay, error
+//	@name		OutLogfile
+//	@function	output the log
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 void OutLogfile(
 	double time,
 	double cpu_time,
     double time_cadical,
     double time_bdd,
-    double time_xid
+    double time_xid,
+    double time_read
 )
 {
 
@@ -120,6 +96,7 @@ void OutLogfile(
 	fprintf(fileptr, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
     fprintf(fileptr, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
     fprintf(fileptr, "//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
+    fprintf(fileptr, "//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
 	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
 
 
@@ -131,10 +108,11 @@ void OutLogfile(
 	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	printf("//  Time                                      : %.3f sec\n", time);
-	printf("//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
+	printf("//  CPU Time                                  : %.3f sec\n", cpu_time);
 	printf("//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
     printf("//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
     printf("//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
+    printf("//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
 	printf("//--------------------------------------------------------------------------------\n");
 
 	return;

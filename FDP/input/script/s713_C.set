@@ -14,10 +14,8 @@
 # set log(.txt)
 -log ./output/log/s713_C_log.txt
 
-# set pin(.txt)
--pin ./output/pin/s713_C_pin.txt
 
-# set result(.txt)
--result ./output/result/s713_result.csv
+# set fdp result(.csv)
+-fdp ./output/fdp/s713_result.csv
 
 

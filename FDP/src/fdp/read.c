@@ -82,9 +82,9 @@ bool ReadFault(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateFaultList
-//	@function	�F	create the fault list
-//	@return		�F	(bool) okay, error
+//	@name		CreateFaultList
+//	@function	create the fault list
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool CreateFaultList(
 	char* buffer			  /**< buffer */
@@ -117,9 +117,9 @@ bool CreateFaultList(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@searchFnode
-//	@function	�F	search for fault node
-//	@return		�F	(bool) found, not found
+//	@name		searchFnode
+//	@function	search for fault node
+//	@return		(bool) found, not found
 //*************************************************************************************************************
 bool searchFnode(
 	char* buffer,			  /**< buffer (key) */
@@ -139,9 +139,9 @@ bool searchFnode(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@searchFnodePtr
-//	@function	�F	find the fault node pointer by string
-//	@return		�F	(FNODE*) pointer to found node, or NULL
+//	@name		searchFnodePtr
+//	@function	find the fault node pointer by string
+//	@return		(FNODE*) pointer to found node, or NULL
 //*************************************************************************************************************
 FNODE* searchFnodePtr(
 	char* buffer,
@@ -151,7 +151,7 @@ FNODE* searchFnodePtr(
 	FNODE* fnodeptr = head;
 	while (fnodeptr != NULL)
 	{
-		// CreateFaultNode �ŃZ�b�g���� string (���S�� "name type" ������) �Ɣ�r
+		// CreateFaultNode でセットされた string (完全な "name type" 文字列) と比較
 		if (strcmp(fnodeptr->string, buffer) == 0)
 		{
 			return fnodeptr;
@@ -162,9 +162,64 @@ FNODE* searchFnodePtr(
 }
 
 //*************************************************************************************************************
-//	@name		�F�@CreateFaultNode
-//	@function	�F	create the fault node
-//	@return		�F	(FNODE*) pointer to fault node
+//	@name		ParseFaultType
+//	@function	parse fault type token ("sa0"/"sa1") from strtok_r context and set type
+//	@return		(bool) okay, error
+//*************************************************************************************************************
+static bool ParseFaultType(
+	char** saveptr,			/**< strtok_r saveptr */
+	int* type_out			/**< output: SF0 or SF1 */
+)
+{
+	char* token = strtok_r(NULL, " \n\0", saveptr);
+	if (token == NULL)
+	{
+		printf("\n\tFILE ERROR: fault file reading failed. ");
+		printf("type of fault error.\n\n");
+		return false;
+	}
+	if (!strcmp(token, "sa0"))
+	{
+		*type_out = SF0;
+	}
+	else if (!strcmp(token, "sa1"))
+	{
+		*type_out = SF1;
+	}
+	else
+	{
+		printf("\n\tFILE ERROR: fault file reading failed. ");
+		printf("%c%s%c unexpected type of fault.\n\n", '"', token, '"');
+		return false;
+	}
+	return true;
+}
+
+//*************************************************************************************************************
+//	@name		FindNetByName
+//	@function	search netlist for a net whose name matches the given string
+//	@return		(NLIST*) pointer to matching net, or NULL if not found
+//*************************************************************************************************************
+static NLIST* FindNetByName(
+	const char* name		/**< net name to search */
+)
+{
+	for (int i = 0; i < n_net; i++)
+	{
+		if (!strcmp(nl[i].name, name))
+		{
+			return &nl[i];
+		}
+	}
+	printf("\n\tFILE ERROR: fault file reading failed. ");
+	printf("%c%s%c is thought.\n\n", '"', name, '"');
+	return (NLIST*)NULL;
+}
+
+//*************************************************************************************************************
+//	@name		CreateFaultNode
+//	@function	create the fault node
+//	@return		(FNODE*) pointer to fault node
 //*************************************************************************************************************
 FNODE* CreateFaultNode(
 	char* buffer			  /**< buffer */
@@ -182,19 +237,29 @@ FNODE* CreateFaultNode(
 	fnodeptr->name = strdup(strtok_r(buffer, " \t\n", &context));
 
 	/** set the type */
-	fnodeptr_type___setFaultType(fnodeptr->type);
+	if (!ParseFaultType(&context, &fnodeptr->type))
+	{
+		free(fnodeptr->string);
+		free(fnodeptr->name);
+		free(fnodeptr);
+		return (FNODE*)NULL;
+	}
 
 	/** set the detect */
 	fnodeptr->detect = UNDETECTED;
 
 	/** set the pointer to netlist */
-	fnodeptr_netptr___setNetPtr(fnodeptr->netptr, fnodeptr->name);
+	fnodeptr->netptr = FindNetByName(fnodeptr->name);
+	if (fnodeptr->netptr == (NLIST*)NULL)
+	{
+		free(fnodeptr->string);
+		free(fnodeptr->name);
+		free(fnodeptr);
+		return (FNODE*)NULL;
+	}
 
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
-
-	/** set the id */
-	//fnodeptr->id = -1;
 
 	return fnodeptr;
 }

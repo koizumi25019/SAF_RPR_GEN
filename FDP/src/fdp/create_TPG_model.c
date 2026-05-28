@@ -19,9 +19,9 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
 }
 
 //*************************************************************************************************************
-//	@name		�F�@WriteTPGModel
-//	@function	�F	Write the test pattern generation model
-//	@return		�F	(bool) okay, error
+//	@name		WriteTPGModel
+//	@function	Write the test pattern generation model
+//	@return		(bool) okay, error
 //*************************************************************************************************************
 bool WriteTPGModel(
 	CCaDiCaL *solver,
