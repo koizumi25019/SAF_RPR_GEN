@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include "ccadical.h"
+#include "./cnf/act_clause.h"
 #include "./essential_assignment.h"
 #include "./init.h"
 #include "../lib/lib.h"
@@ -72,11 +73,11 @@ static void assign_ea_value(CCaDiCaL* solver, NLIST* netptr, int val)
     netptr->logic_value = val;
 
     if (val == 1) {
-        ccadical_add(solver,  (int)netptr->varsgc);
+        cadd(solver,  (int)netptr->varsgc);
     } else {
-        ccadical_add(solver, -(int)netptr->varsgc);
+        cadd(solver, -(int)netptr->varsgc);
     }
-    ccadical_add(solver, 0);
+    cadd(solver, 0);
 
     if (netptr->type != DFF) {
         queENQ(netptr, QUE_MODE_ONE);

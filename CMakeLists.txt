@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 11)
 set(SOURCES
     src/main.c
     src/fdp/create_TPG_model.c
+    src/fdp/cube_set.c
     src/fdp/cudd_wrapper.c
     src/fdp/drop_dete_fault.c
     src/fdp/essential_assignment.c

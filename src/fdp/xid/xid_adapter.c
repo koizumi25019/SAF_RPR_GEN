@@ -42,6 +42,12 @@ int isQueueEmpty(const Queue_t* q) {
     return q->count == 0;
 }
 
+void resetQueue(Queue_t* q) {
+    q->front = 0;
+    q->rear  = 0;
+    q->count = 0;
+}
+
 /* ================================================================== */
 /* Level stack                                                         */
 /* ================================================================== */

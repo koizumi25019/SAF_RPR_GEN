@@ -13,14 +13,30 @@
 #include "./fault_detection_prob.h"
 #include "./init.h"
 #include "./read.h"
+#include "./cube_set.h"
 #include "./cnf/cnf.h"
+#include "./cnf/act_clause.h"
 #include "../opt/opt.h"
 #include "./cudd_wrapper.h"
 #include "./xid/XID.h"
 
+//-------------------------------------------------------------------------------------------------------------
+//	インクリメンタルSAT：故障ごとにソルバを作り直さず、1つのソルバを使い回す。
+//	正常回路CNFと学習節を再利用するための活性化変数(g_act_lit)で各故障の制約をオン/オフする。
+//	変数が増え続けるため、INCR_BATCH 故障ごとにソルバを作り直してメモリを抑える。
+//-------------------------------------------------------------------------------------------------------------
+#define INCR_BATCH 1000
+
+//*************************************************************************************************************
+//	@name		g_act_lit
+//	@function	現在処理中の故障の活性化変数（act_clause.h の cadd / 各故障専用節が参照）
+//*************************************************************************************************************
+int g_act_lit = 0;
+
 //*************************************************************************************************************
 //	@name		AddBlockingClauseFromCube
-//	@function	保存済みキューブ文字列からブロッキング節をソルバに追加する
+//	@function	キューブ文字列（'0'/'1'/'X' を n_pi 文字）からブロッキング節をソルバに追加する。
+//	            cadd 経由なので現在の故障の活性化変数 g_act_lit でガードされる（その故障専用）。
 //*************************************************************************************************************
 static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 {
@@ -29,9 +45,22 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
         int lit = 0;
         if      (cube[i] == '0') lit =  (int)pi[i]->varsgc;
         else if (cube[i] == '1') lit = -(int)pi[i]->varsgc;
-        if (lit != 0) ccadical_add(solver, lit);
+        if (lit != 0) cadd(solver, lit);
     }
-    ccadical_add(solver, 0);
+    cadd(solver, 0);
+}
+
+//*************************************************************************************************************
+//	@name		NewSolverWithGoodCircuit
+//	@function	新しいソルバを作り、正常回路CNFを一度だけ載せる。故障回路変数の採番もここで初期化。
+//*************************************************************************************************************
+static CCaDiCaL* NewSolverWithGoodCircuit(void)
+{
+	CCaDiCaL* solver = ccadical_init();
+	ccadical_set_option(solver, "factor", 0);
+	LoadModelToSolver(solver, NULL);          // 正常回路CNF（共有・恒久）
+	opb.total.vars = opb.constant.vars;       // 故障回路変数はここから採番し直す
+	return solver;
 }
 
 //*************************************************************************************************************
@@ -84,100 +113,113 @@ bool AnalyzeFaultDensity(
 
 	if (CreateConsGC() != true) return AFD_ERROR;
 
+	// 正常回路を載せたソルバを1つ用意して全故障で使い回す
+	CCaDiCaL* solver = NewSolverWithGoodCircuit();
+	int faults_in_batch = 0;
+
 	while (readdata.fault.numrema != 0)
 	{
-		// ソルバの初期化
-        CCaDiCaL *solver = ccadical_init();
-        ccadical_set_option(solver, "factor", 0);
-
-		int cubes_cap = (opt.file.input.limit > 0) ? opt.file.input.limit : 30;
-		int n_cubes = 0;
-		char** cubes = (char**)malloc(cubes_cap * sizeof(char*));
+		// 変数が増えすぎないよう、一定故障数ごとにソルバを作り直す
+		if (faults_in_batch >= INCR_BATCH) {
+			ccadical_release(solver);
+			solver = NewSolverWithGoodCircuit();
+			faults_in_batch = 0;
+		}
 
 		count++;
 		SetTarget(&target);
+		FNODE* f = target.list[0];
 
-		if (WriteTPGModel(solver,&target) != true) return AFD_ERROR;
+		// この故障の活性化変数を確保し、故障専用の制約はすべて (¬g_act_lit ∨ …) で追加する
+		g_act_lit = ++opb.total.vars;
+		if (CreateConsFC(solver, &target) != true) return AFD_ERROR;
+		faults_in_batch++;
 
-		// 被支配故障（dominators）の保存済みキューブを初期キューブとして流用
-		for (int k = 0; k < target.list[0]->n_dominators; k++)
+		// f のテストキューブを集める集合
+		CubeSet cubes;
+		cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
+
+		// 部分集合側の故障（subset_faults）のキューブを種＋禁止節として流用する。
+		// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
+		// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
+		for (int k = 0; k < f->n_subset_faults; k++)
 		{
-			FNODE* dom = target.list[0]->dominators[k];
-			for (int m = 0; m < dom->n_saved_cubes; m++)
+			FNODE* src = f->subset_faults[k];
+
+			for (int m = 0; m < src->cubes.n; m++)
 			{
-				if (n_cubes == cubes_cap) {
-					cubes_cap *= 2;
-					cubes = (char**)realloc(cubes, cubes_cap * sizeof(char*));
-				}
-				cubes[n_cubes++] = strdup(dom->saved_cubes[m]);
-				AddBlockingClauseFromCube(solver, dom->saved_cubes[m]);
+				cubeset_push(&cubes, strdup(src->cubes.data[m]));
+				AddBlockingClauseFromCube(solver, src->cubes.data[m]);
 			}
+
+			// この親で src のキューブを使い切る。最後の消費者ならここで解放
+			if (--src->n_pending == 0)
+				cubeset_free(&src->cubes);
 		}
 
 		if (opt.file.input.cube_analysis != FILE_NOSET) {
-			fprintf(cube_analysis_fp, "%s", target.list[0]->name);
-            fprintf(cube_analysis_fp, (target.list[0]->type == SF0) ? ",sa0" : ",sa1");
+			fprintf(cube_analysis_fp, "%s", f->name);
+			fprintf(cube_analysis_fp, (f->type == SF0) ? ",sa0" : ",sa1");
 		}
 
-		//UNSAT判定時のテスト生成終了判定
+		// UNSAT もしくは limit 到達でテスト生成を終了する
 		while (1) {
+			ccadical_assume(solver, g_act_lit);   // この故障の制約を今回の solve だけ有効化
+
             t_start = clock();
             int res = ccadical_solve(solver);
             t_end   = clock();
             time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
 
-            if (res == 20 || n_cubes == opt.file.input.limit) {
-                bool limit_hit = (n_cubes == opt.file.input.limit && res != 20);
+            if (res == 20 || cubes.n == opt.file.input.limit) {
+                bool limit_hit = (cubes.n == opt.file.input.limit && res != 20);
 
 				if (opt.file.input.cube_analysis != FILE_NOSET) {
 					fprintf(cube_analysis_fp, "\n");
 				}
 
                 t_start = clock();
-                RunBDD(gbm, n_pi, cubes, n_cubes, bdd_result, NULL, &target, n_cubes, limit_hit);
+                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, limit_hit);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
-				// キューブを保存（支配故障から流用される可能性がある）
-				target.list[0]->saved_cubes   = (char**)malloc(n_cubes * sizeof(char*));
-				target.list[0]->n_saved_cubes = n_cubes;
-				for (int i = 0; i < n_cubes; i++)
-					target.list[0]->saved_cubes[i] = strdup(cubes[i]);
+				// キューブの所有権を故障へ移す（深いコピーはしない）。
+				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
+				f->cubes = cubes;
+				if (f->n_pending == 0)
+					cubeset_free(&f->cubes);
 
 				DropDeteFault(&target);
 				FreeMemory(&target);
-
-				for (int i = 0; i < n_cubes; i++) free(cubes[i]);
-				free(cubes);
-
 				break;
 			}
-			// SAT → InlineXID でドントケア判定＋ブロッキング節追加
+			// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
 			else {
 				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
 
                 t_start = clock();
-                char* x_pattern = InlineXID(solver, target.list[0]->netptr);
+                char* x_pattern = InlineXID(solver, f->netptr);
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
-				// キューブを配列に追加
-				if (n_cubes == cubes_cap) {
-					cubes_cap *= 2;
-					cubes = (char**)realloc(cubes, cubes_cap * sizeof(char*));
-				}
-				cubes[n_cubes++] = x_pattern;
+				AddBlockingClauseFromCube(solver, x_pattern);
+				cubeset_push(&cubes, x_pattern);
 
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
                     t_start = clock();
-                    RunBDD(gbm, n_pi, cubes, n_cubes, NULL, cube_analysis_fp, &target, n_cubes, false);
+                    RunBDD(gbm, n_pi, cubes.data, cubes.n, NULL, cube_analysis_fp, &target, cubes.n, false);
                     t_end   = clock();
                     time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
                 }
 			}
 		}
-		ccadical_release(solver);
+
+		// この故障の制約を恒久的に無効化（retire）：単位節 (¬g_act_lit) を素のまま追加する
+		ccadical_add(solver, -g_act_lit);
+		ccadical_add(solver, 0);
+		g_act_lit = 0;
 	}
+	ccadical_release(solver);
 
 	// ===== CPU time =====
     *out_time_cadical = time_cadical;

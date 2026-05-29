@@ -8,6 +8,34 @@
 static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_info);
 
 /* -----------------------------------------------------------------------
+ * Persistent scratch buffers (allocated once, reused across InlineXID calls)
+ * to avoid per-call malloc/free churn. The XID algorithm fully resets
+ * var_info each call and drains the level stack / queues to empty, so the
+ * buffers are safe to reuse without per-call reallocation.
+ * ----------------------------------------------------------------------- */
+static XID_VAR_INFO* s_var_info  = NULL;
+static size_t*       s_po_id     = NULL;
+static Queue_t*      s_fwd_q     = NULL;
+static Queue_t*      s_bwd_q     = NULL;
+static Queue_t*      s_jus_q     = NULL;
+static _Bool         s_xid_ready = 0;
+
+static void xid_ensure_scratch(void) {
+    if (s_xid_ready) return;
+    init_xid_fpath_table();
+    init_xid_bimp_table();
+    init_xid_fimp_table();
+    init_xid_bimp_limited_table();
+    s_var_info = (XID_VAR_INFO*)ALLOC_MEM((size_t)n_net * sizeof(XID_VAR_INFO));
+    s_po_id    = (size_t*)ALLOC_CON((size_t)n_po, sizeof(size_t));
+    s_fwd_q    = createQueue((size_t)n_net);
+    s_bwd_q    = createQueue((size_t)n_net);
+    s_jus_q    = createQueue((size_t)n_net);
+    xid_lev_init();   /* levels are fixed after ComputeLevels; init once */
+    s_xid_ready = 1;
+}
+
+/* -----------------------------------------------------------------------
  * xid_fpath: fault propagation path selection (backward from fault site)
  * ----------------------------------------------------------------------- */
 typedef void (*xid_fpath_func_t)(Queue_t* imp_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info);
@@ -186,13 +214,12 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     NLIST_t* tmp_net = &nl[po_id];
     ED_push_Xpath(tmp_net, xid_tag_base, var_info);
 
-    Queue_t* fwd_q = createQueue((size_t)n_net);
-    Queue_t* bwd_q = createQueue((size_t)n_net);
-    Queue_t* jus_q = createQueue((size_t)n_net);
-    if (!fwd_q || !bwd_q || !jus_q) {
-        destroyQueue(fwd_q); destroyQueue(bwd_q); destroyQueue(jus_q);
-        return 0;
-    }
+    Queue_t* fwd_q = s_fwd_q;
+    Queue_t* bwd_q = s_bwd_q;
+    Queue_t* jus_q = s_jus_q;
+    resetQueue(fwd_q);
+    resetQueue(bwd_q);
+    resetQueue(jus_q);
 
     vsize_t event_lev = (vsize_t)tmp_net->level;
     _Bool stop_xpath = 0;
@@ -234,9 +261,7 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
         }
     }
 
-    destroyQueue(fwd_q);
-    destroyQueue(bwd_q);
-    destroyQueue(jus_q);
+    /* queues are persistent scratch; the loop above left them empty */
 
     /* fix up: signals not on influence cone get normal value */
     for (int i = 0; i < n_net; ++i) {
@@ -257,53 +282,48 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
 
 /* -----------------------------------------------------------------------
  * InlineXID: PI don't-care filling (replaces external XID process call)
- * Returns malloc'd char[n_pi+2]: '0'/'1'/'X' per PI, '\n', '\0'.
- * Also adds the blocking clause to solver. Caller must free().
+ * Returns malloc'd char[n_pi+1]: '0'/'1'/'X' per PI + '\0'.
+ * The blocking clause is added by the caller (AddBlockingClauseFromCube).
+ * Caller must free() the returned string.
  * ----------------------------------------------------------------------- */
 char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
-    init_xid_fpath_table();
-    init_xid_bimp_table();
-    init_xid_fimp_table();
-    init_xid_bimp_limited_table();
+    xid_ensure_scratch();
 
     size_t fsigID = (size_t)(fault_net - nl);
 
-    XID_VAR_INFO* var_info = (XID_VAR_INFO*)ALLOC_MEM((size_t)n_net * sizeof(XID_VAR_INFO));
-    DETECT_PO detect_po = { 0, NULL };
-    detect_po.po_id = (size_t*)ALLOC_CON((size_t)n_po, sizeof(size_t));
+    XID_VAR_INFO* var_info = s_var_info;
+    DETECT_PO detect_po = { 0, s_po_id };
 
-    /* initialize all signals to X */
+    /* reset per-call state: init every signal to X, then overwrite the
+       good-circuit value from the SAT model in a single pass */
     for (int i = 0; i < n_net; ++i) {
         var_info[i].ed_tag        = 0;
         var_info[i].edx_tag       = 0;
         var_info[i].xid_tag       = 0;
-        var_info[i].normal_2value = XID_X;
-        var_info[i].fault_2value  = XID_X;
         var_info[i].normal_3value = XID_X;
         var_info[i].fault_3value  = XID_X;
-    }
 
-    /* load good-circuit SAT model values */
-    for (int i = 0; i < n_net; ++i) {
         unsigned int var = nl[i].varsgc;
-        if (var == 0) continue;
-        int sat_val = ccadical_val(solver, (int)var);
-        var_info[i].normal_2value = (sat_val > 0) ? XID_ONE : XID_ZERO;
-        var_info[i].fault_2value  = var_info[i].normal_2value;
+        if (var != 0) {
+            int v = (ccadical_val(solver, (int)var) > 0) ? XID_ONE : XID_ZERO;
+            var_info[i].normal_2value = v;
+            var_info[i].fault_2value  = v;
+        } else {
+            var_info[i].normal_2value = XID_X;
+            var_info[i].fault_2value  = XID_X;
+        }
     }
 
-    /* 2-value fault simulation */
-    xid_lev_init();
+    /* 2-value fault simulation (drains the level stack back to empty) */
     xid_fsim(fsigID, var_info, &detect_po);
 
     /* X-filling toward the first detecting PO */
     if (detect_po.n_det_po > 0) {
         Xfilling(fsigID, var_info, detect_po.po_id[0], 0);
     }
-    xid_lev_free();
 
-    /* build result string: '0'/'1'/'X' per PI */
-    char* result = (char*)malloc((size_t)n_pi + 2);
+    /* build result string: '0'/'1'/'X' per PI ('\0'-terminated, no trailing newline) */
+    char* result = (char*)malloc((size_t)n_pi + 1);
     if (!result) { fprintf(stderr, "InlineXID: malloc failed\n"); exit(1); }
 
     for (int i = 0; i < n_pi; ++i) {
@@ -312,21 +332,7 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
         int n3v = (current_tag & XID_FLAG_NORMAL) ? var_info[sigID].normal_3value : XID_X;
         result[i] = (n3v == XID_ZERO) ? '0' : (n3v == XID_ONE) ? '1' : 'X';
     }
-    result[n_pi]     = '\n';
-    result[n_pi + 1] = '\0';
-
-    /* add blocking clause to solver */
-    for (int i = 0; i < n_pi; i++) {
-        char bit    = result[i];
-        int var_idx = (int)pi[i]->varsgc;
-        int lit = (bit == '0') ?  var_idx :
-                  (bit == '1') ? -var_idx : 0;
-        if (lit != 0) ccadical_add(solver, lit);
-    }
-    ccadical_add(solver, 0);
-
-    FREE(var_info);
-    FREE(detect_po.po_id);
+    result[n_pi] = '\0';
 
     return result;
 }

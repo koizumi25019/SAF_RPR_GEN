@@ -9,6 +9,12 @@
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
+//** load the good-circuit CNF (consgc) into the solver */
+void LoadModelToSolver(
+	CCaDiCaL *solver,
+	TARGET* target			  /**< target fault (unused) */
+);
+
 //** write the tset pattern generaiton model */
 bool WriteTPGModel(
 	CCaDiCaL *solver,

@@ -7,6 +7,7 @@
 #include "ccadical.h" // CaDiCaL API
 
 #include "./cnf.h"
+#include "./act_clause.h"
 #include "../fault_detection_prob.h"
 #include "../read.h"
 #include "../../lib/lib.h"
@@ -52,10 +53,10 @@ void CreateConsDC_XOR(
 
 			// CNF for XOR: z = x ⊕ y
 			// (-x -y -z 0), (-x y z 0), (x -y z 0), (x y -z 0)
-			ccadical_add(solver, -gc); ccadical_add(solver, -fc); ccadical_add(solver, -diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver, -gc); ccadical_add(solver,  fc); ccadical_add(solver,  diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver,  gc); ccadical_add(solver, -fc); ccadical_add(solver,  diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver,  gc); ccadical_add(solver,  fc); ccadical_add(solver, -diff_var); ccadical_add(solver, 0);
+			cadd(solver, -gc); cadd(solver, -fc); cadd(solver, -diff_var); cadd(solver, 0);
+			cadd(solver, -gc); cadd(solver,  fc); cadd(solver,  diff_var); cadd(solver, 0);
+			cadd(solver,  gc); cadd(solver, -fc); cadd(solver,  diff_var); cadd(solver, 0);
+			cadd(solver,  gc); cadd(solver,  fc); cadd(solver, -diff_var); cadd(solver, 0);
 		}
 	}
 }
@@ -79,18 +80,18 @@ void CreateConsDC_OR(
 		// 1. Forward: いずれかの不一致(x)が1なら、出力(z)は1
 		for (int x_var = first_xor_var; x_var < z_var; x_var++)
 		{
-			ccadical_add(solver, -x_var);
-			ccadical_add(solver, z_var);
-			ccadical_add(solver, 0);
+			cadd(solver, -x_var);
+			cadd(solver, z_var);
+			cadd(solver, 0);
 		}
 
 		// 2. Backward: 出力(z)が1なら、どれか少なくとも1つの不一致(x)は1
 		for (int x_var = first_xor_var; x_var < z_var; x_var++)
 		{
-			ccadical_add(solver, x_var);
+			cadd(solver, x_var);
 		}
-		ccadical_add(solver, -z_var);
-		ccadical_add(solver, 0);
+		cadd(solver, -z_var);
+		cadd(solver, 0);
 	}
 }
 
@@ -110,18 +111,18 @@ void CreateConsDC_FE(
 	if (fnodeptr->type == SF0) // Stuck-at 0 故障
 	{
 		// 検出のためには「正常なら1」でなければならない
-		ccadical_add(solver,  gc); ccadical_add(solver, 0); // gc = 1
-		ccadical_add(solver, -fc); ccadical_add(solver, 0); // fc = 0 (固定値)
+		cadd(solver,  gc); cadd(solver, 0); // gc = 1
+		cadd(solver, -fc); cadd(solver, 0); // fc = 0 (固定値)
 	}
 	else if (fnodeptr->type == SF1) // Stuck-at 1 故障
 	{
 		// 検出のためには「正常なら0」でなければならない
-		ccadical_add(solver, -gc); ccadical_add(solver, 0); // gc = 0
-		ccadical_add(solver,  fc); ccadical_add(solver, 0); // fc = 1 (固定値)
+		cadd(solver, -gc); cadd(solver, 0); // gc = 0
+		cadd(solver,  fc); cadd(solver, 0); // fc = 1 (固定値)
 	}
 
 	// 2. 最終出力（検出フラグ）を 1 に固定
 	// opb.total.vars は直前の OR または XOR で作成された「最終出力」を指している
-	ccadical_add(solver, opb.total.vars);
-	ccadical_add(solver, 0);
+	cadd(solver, opb.total.vars);
+	cadd(solver, 0);
 }
