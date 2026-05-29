@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/koizumi/SAF_RPR_GEN/FDP/src -I/home/koizumi/SAF_RPR_GEN/FDP/src/fdp -I/home/koizumi/SAF_RPR_GEN/FDP/src/fdp/cnf -I/home/koizumi/SAF_RPR_GEN/FDP/src/lib -I/home/koizumi/SAF_RPR_GEN/FDP/src/netlist -I/home/koizumi/SAF_RPR_GEN/FDP/src/opt -I/home/koizumi/SAF_RPR_GEN/FDP/src/fdp/xid -I/home/koizumi/SAF_RPR_GEN/FDP/src/../tools/cadical/src -I/home/koizumi/SAF_RPR_GEN/FDP/src/../tools/cudd -I/home/koizumi/SAF_RPR_GEN/FDP/src/../tools/cudd/cudd
+C_INCLUDES = -I/home/koizumi/fdp/src -I/home/koizumi/fdp/src/fdp -I/home/koizumi/fdp/src/fdp/cnf -I/home/koizumi/fdp/src/lib -I/home/koizumi/fdp/src/netlist -I/home/koizumi/fdp/src/opt -I/home/koizumi/fdp/src/fdp/xid -I/home/koizumi/fdp/external/cadical/src -I/home/koizumi/fdp/external/cudd -I/home/koizumi/fdp/external/cudd/cudd
 
 C_FLAGS = -std=gnu11 -g -O0 -DDEBUG -fcommon
 

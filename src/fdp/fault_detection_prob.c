@@ -19,6 +19,22 @@
 #include "./xid/XID.h"
 
 //*************************************************************************************************************
+//	@name		AddBlockingClauseFromCube
+//	@function	保存済みキューブ文字列からブロッキング節をソルバに追加する
+//*************************************************************************************************************
+static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
+{
+    for (int i = 0; i < n_pi; i++)
+    {
+        int lit = 0;
+        if      (cube[i] == '0') lit =  (int)pi[i]->varsgc;
+        else if (cube[i] == '1') lit = -(int)pi[i]->varsgc;
+        if (lit != 0) ccadical_add(solver, lit);
+    }
+    ccadical_add(solver, 0);
+}
+
+//*************************************************************************************************************
 //	@name	    @AnalyzeFaultDensity
 //	@function   analyze the fault detection probability
 //	@return		(bool) okay, error
@@ -60,6 +76,7 @@ bool AnalyzeFaultDensity(
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
     t_start = clock();
+	printf("Reading fault data...\n");
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
     t_end = clock();
     time_read = (double)(t_end - t_start) / CLOCKS_PER_SEC;
@@ -81,6 +98,21 @@ bool AnalyzeFaultDensity(
 		SetTarget(&target);
 
 		if (WriteTPGModel(solver,&target) != true) return AFD_ERROR;
+
+		// 被支配故障（dominators）の保存済みキューブを初期キューブとして流用
+		for (int k = 0; k < target.list[0]->n_dominators; k++)
+		{
+			FNODE* dom = target.list[0]->dominators[k];
+			for (int m = 0; m < dom->n_saved_cubes; m++)
+			{
+				if (n_cubes == cubes_cap) {
+					cubes_cap *= 2;
+					cubes = (char**)realloc(cubes, cubes_cap * sizeof(char*));
+				}
+				cubes[n_cubes++] = strdup(dom->saved_cubes[m]);
+				AddBlockingClauseFromCube(solver, dom->saved_cubes[m]);
+			}
+		}
 
 		if (opt.file.input.cube_analysis != FILE_NOSET) {
 			fprintf(cube_analysis_fp, "%s", target.list[0]->name);
@@ -105,6 +137,12 @@ bool AnalyzeFaultDensity(
                 RunBDD(gbm, n_pi, cubes, n_cubes, bdd_result, NULL, &target, n_cubes, limit_hit);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+
+				// キューブを保存（支配故障から流用される可能性がある）
+				target.list[0]->saved_cubes   = (char**)malloc(n_cubes * sizeof(char*));
+				target.list[0]->n_saved_cubes = n_cubes;
+				for (int i = 0; i < n_cubes; i++)
+					target.list[0]->saved_cubes[i] = strdup(cubes[i]);
 
 				DropDeteFault(&target);
 				FreeMemory(&target);

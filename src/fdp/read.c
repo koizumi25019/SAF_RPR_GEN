@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "./read.h"
 #include "../lib/lib.h"
@@ -45,7 +46,7 @@ bool ReadFault(
 		/** close the "fault file" in read-mode */
 		fclose(fileptr);
 	}
-	else 
+	else
 	{
 		//-------------------------------------------------------------------
 		// 故障ファイルが指定されていない場合：全故障生成＆代表故障の抽出
@@ -77,6 +78,13 @@ bool ReadFault(
 
 		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
+
+	struct timespec _adfs, _adfe;
+	clock_gettime(CLOCK_MONOTONIC, &_adfs);
+	AnalyzeDominanceFaults();
+	clock_gettime(CLOCK_MONOTONIC, &_adfe);
+	printf("AnalyzeDominanceFaults: %.3f sec\n",
+		(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
 
 	return READ_OKAY;
 }
@@ -261,7 +269,28 @@ FNODE* CreateFaultNode(
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
+	fnodeptr->dominators    = (FNODE**)NULL;
+	fnodeptr->n_dominators  = 0;
+	fnodeptr->saved_cubes   = (char**)NULL;
+	fnodeptr->n_saved_cubes = 0;
+
 	return fnodeptr;
+}
+
+//*************************************************************************************************************
+//	@name		FindFnodeByNameType
+//	@function	find fault node by net name and fault type
+//	@return		(FNODE*) pointer to fault node, or NULL if not found
+//*************************************************************************************************************
+static FNODE* FindFnodeByNameType(
+	const char* name,
+	int type
+)
+{
+	char buf[MAXSIZE_BUFFER];
+	snprintf(buf, sizeof(buf), "%s\t%s\n", name, (type == SF0) ? "sa0" : "sa1");
+	int hash = calcHash(buf);
+	return searchFnodePtr(buf, readdata.fault.list[hash]);
 }
 
 ///*************************************************************************************************************
@@ -310,4 +339,44 @@ void AnalyzeEquivalenceFaults()
 				break;
 		}
 	}
+}
+
+//*************************************************************************************************************
+//	@name		AnalyzeDominanceFaults
+//	@function	支配関係を解析し、各故障の dominators リストを構築する
+//	@note		支配関係: AND/NOR の出力SA1 は各入力SA1 に支配される（入力SA1のテスト集合⊆出力SA1のテスト集合）
+//	            OR/NAND  の出力SA0 は各入力SA0 に支配される
+//*************************************************************************************************************
+void AnalyzeDominanceFaults(void)
+{
+	int count = 0;
+
+	for (int i = 0; i < n_net; i++)
+	{
+		int ftype;
+		switch (nl[i].type)
+		{
+		case AND: case NOR:   ftype = SF1; break;
+		case OR:  case NAND:  ftype = SF0; break;
+		default: continue;
+		}
+
+		// ゲート出力の故障（支配故障）を検索
+		FNODE* dominated = FindFnodeByNameType(nl[i].name, ftype);
+		if (!dominated) continue;
+
+		// 各入力の同タイプ故障（被支配故障）を dominators に追加
+		for (int j = 0; j < nl[i].n_in; j++)
+		{
+			FNODE* dom = FindFnodeByNameType(nl[i].in[j]->name, ftype);
+			if (!dom) continue;
+
+			dominated->dominators = (FNODE**)realloc(dominated->dominators,
+				(dominated->n_dominators + 1) * sizeof(FNODE*));
+			dominated->dominators[dominated->n_dominators++] = dom;
+			count++;
+		}
+	}
+
+	printf("Dominance fault analysis: %d dominance pairs\n", count);
 }

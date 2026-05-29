@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#include <limits.h>
 
 #include "./target_fault.h"
 #include "./read.h"
@@ -18,18 +19,25 @@
 //*************************************************************************************************************
 bool SetTarget(TARGET* target)
 {
+    FNODE* best       = (FNODE*)NULL;
+    int    best_level = INT_MAX;
+
     for (int i = 0; i < MAXSIZE_HASH; i++)
     {
         for (FNODE* p = readdata.fault.list[i]; p != NULL; p = p->nextptr)
         {
-            if (p->detect == UNDETECTED)
+            if (p->detect == UNDETECTED && p->netptr->level < best_level)
             {
-                target->num     = 1;
-                target->list    = (FNODE**)allocMemory(1, sizeof(FNODE*));
-                target->list[0] = p;
-                return TARGET_OKAY;
+                best_level = p->netptr->level;
+                best       = p;
             }
         }
     }
-    return TARGET_ERROR;
+
+    if (best == (FNODE*)NULL) return TARGET_ERROR;
+
+    target->num     = 1;
+    target->list    = (FNODE**)allocMemory(1, sizeof(FNODE*));
+    target->list[0] = best;
+    return TARGET_OKAY;
 }

@@ -59,7 +59,11 @@ typedef struct FaultNode
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
-	//int id;							/**< id */
+
+	struct FaultNode** dominators;   /**< faults that dominate this fault (their cubes are reusable for this fault) */
+	int                n_dominators; /**< number of dominators */
+	char**             saved_cubes;  /**< test cubes saved after processing, for reuse by dominated faults */
+	int                n_saved_cubes;/**< number of saved cubes */
 }
 FNODE;
 
@@ -121,5 +125,10 @@ FNODE* CreateFaultNode(
 
 //等価故障解析
 void AnalyzeEquivalenceFaults(
+	void
+);
+
+//支配故障解析
+void AnalyzeDominanceFaults(
 	void
 );

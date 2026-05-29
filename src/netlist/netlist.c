@@ -15,17 +15,17 @@
 //--------------------------------------------------------------------------------------------------------------------
 // 構造体
 //--------------------------------------------------------------------------------------------------------------------
-#define MAXN 1028      // ネットリストファイルサイズ�C�Y
+#define MAXN 1028      // ネットリストファイルサイズ
 #define STR_MAX 1024   //get_token用
 #define SPRINT_MAX 256 //sprintf用
-#define HASH_SIZE 5003 //ハッシュサイズ�C�Y
+#define HASH_SIZE 5003 //ハッシュサイズ
 #define HASH_MODE
 #undef DEBUG_MA
 #undef DEBUG_NL
 
 //モジュール配列メンバー
 typedef struct _Module_Array_MEM_Format_ {
-	char* m_name_ins; //インスタンス名��
+	char* m_name_ins; //インスタンス名
 	int m_type;	      //タイプ
 	int m_n_in;	      //入力数
 	char* m_out_name; //出力名
@@ -67,7 +67,7 @@ static int n_module = 0;
 static int nl_num = 0;
 
 //--------------------------------------------------------------------------------------------------------------------
-// �v���^�C�v�錾
+// プロトタイプ宣言
 //--------------------------------------------------------------------------------------------------------------------
 static void option(int, char**, char*);
 static void file_open(FILE**, char*);
@@ -109,44 +109,44 @@ static void debug_ma(void);
 static void debug_nl(void);
 
 //--------------------------------------------------------------------------------------------------------------------
-// �O���֐�
+// グローバル関数
 //--------------------------------------------------------------------------------------------------------------------
 int read_nl(char* v_name)
 {
-	FILE* r_fp; //�l�b�g���X�g�t�@�C���|�C���^
+	FILE* r_fp; //ネットリストファイルポインタ
 
-	//�t�@�C���I�[�v��
+	//ファイルオープン
 	file_open(&r_fp, v_name);
 
-	//�O���ϐ�������
+	//グローバル変数初期化
 	init_global();
 
-	//�l�b�g���X�g�ǂݍ���
+	//ネットリスト読み込み
 	read_net(r_fp);
 
-	//�l�b�g���X�g�z��f�o�b�O
+	//ネットリスト配列デバッグ
 #ifdef DEBUG_NL
 	debug_nl();
 #endif
 
-	//�t�@�C���N���[�Y
+	//ファイルクローズ
 	fclose(r_fp);
 
-	//�m�F���b�Z�[�W
+	//確認メッセージ
 	//fprintf(stderr, "Completion of Read_Netlist !!\n");
 
 	return 0;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �����֐�
+// ローカル関数
 //--------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------
-// �R�}���h���C���̏���
+// コマンドラインの処理
 //--------------------------------------------------------------------------------------------------------------------
 static void option(int argc, char* argv[], char* v_name)
 {
-	//�g��������
+	//使い方確認
 	if (argc != 2) {
 		printf("******** The usage of Netlist.exe *******\n");
 		printf("Netlist.exe [Verilog-HDL Netlist file]\n");
@@ -154,82 +154,82 @@ static void option(int argc, char* argv[], char* v_name)
 		exit(-1);
 	}
 
-	//�t�@�C�����擾
+	//ファイル名取得
 	strcpy(v_name, argv[1]);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �t�@�C���I�[�v��
+// ファイルオープン
 //--------------------------------------------------------------------------------------------------------------------
 static void file_open(FILE** r_fp, char* v_name)
 {
 	if ((*r_fp = fopen(v_name, "r")) == (FILE*)NULL) {
-		fprintf(stderr, "�t�@�C���I�[�v�����s(%s)\n", v_name);
+		fprintf(stderr, "ファイルオープン失敗(%s)\n", v_name);
 		exit(-1);
 	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �O���ϐ�������
+// グローバル変数初期化
 //--------------------------------------------------------------------------------------------------------------------
 static void init_global(void)
 {
-	n_net = 0;    //�M����
-	n_pi = 0;     //�O�����͐�
-	n_po = 0;     //�O���o�͐�
-	n_dff = 0;    //DFF��
-	n_rdff = 0;   //RDFF��
-	n_dffs = 0;   //DFFS��
-	n_rdffs = 0;  //RDFFS��
-	n_assign = 0; //assign��
+	n_net = 0;    //信号線数
+	n_pi = 0;     //外部入力数
+	n_po = 0;     //外部出力数
+	n_dff = 0;    //DFF数
+	n_rdff = 0;   //RDFF数
+	n_dffs = 0;   //DFFS数
+	n_rdffs = 0;  //RDFFS数
+	n_assign = 0; //assign数
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �l�b�g���X�g�ǂݍ��ݐ���
+// ネットリスト読み込み処理
 //--------------------------------------------------------------------------------------------------------------------
 static void read_net(FILE* rfp)
 {
-	//�l�b�g���X�g�t�@�C���ǂݍ���
+	//ネットリストファイル読み込み
 	read_file(rfp);
 
-	//�l�b�g���X�g�z��,�O���ϐ�,�\����͔z�� �̈�m��,������
+	//ネットリスト配列、グローバル変数、構造体入力配列 領域確保、初期化
 	alloc_nl();
 
-	//�\�����
+	//パーサ実行
 	parser(rfp);
 
-	//�n�b�V���\���
+	//ハッシュ構造体解放
 	free_hash();
 
-	//�M���ڑ�
+	//信号接続
 	connection_signal();
 
-	//���W���[���z��f�o�b�O
+	//モジュール配列デバッグ
 #ifdef DEBUG_MA
 	debug_ma();
 #endif
 
-	//���W���[���z��,�\����͔z�� ���
+	//モジュール配列、構造体入力配列 解放
 	free_module_array();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �l�b�g���X�g�t�@�C�����ǂݍ���
+// ネットリストファイルの読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_file(FILE* rfp)
 {
-	//���W���[����, PI��, PO���Z�o & module���擾
+	//モジュール数, PI数, PO数算出 & module情報取得
 	read_1st(rfp);
 
-	//���W���[���z��̈�m��, ������
+	//モジュール配列領域確保, 初期化
 	alloc_module_array();
 
-	//�e���W���[���ǂݍ���
+	//各モジュール読み込み
 	read_2nd(rfp);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���W���[����, PI��, PO���Z�o & module���擾
+// モジュール数, PI数, PO数算出 & module情報取得
 //--------------------------------------------------------------------------------------------------------------------
 static void read_1st(FILE* rfp)
 {
@@ -237,7 +237,7 @@ static void read_1st(FILE* rfp)
 	int c;
 
 	while (get_token(rfp, str, 1, 0) != EOF) {
-		//module���擾
+		//module情報取得
 		if (!strcmp(str, "module")) {
 			get_token(rfp, str, 1, 0);
 			module_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
@@ -245,17 +245,17 @@ static void read_1st(FILE* rfp)
 			while ((c = getc(rfp)) != ';'); continue;
 		}
 		else if (!strcmp(str, "wire")) { while ((c = getc(rfp)) != ';'); continue; }
-		//assign���Z�o
+		//assign数算出
 		else if (!strcmp(str, "assign")) {
 			n_assign++;
 			while ((c = getc(rfp)) != ';'); continue;
 		}
 		else if (!strcmp(str, "endmodule")) { continue; }
-		//PI���Z�o
+		//PI数算出
 		else if (!strcmp(str, "input")) calc_pi_po(rfp, 0);
-		//PO���Z�o
+		//PO数算出
 		else if (!strcmp(str, "output")) calc_pi_po(rfp, 1);
-		//���W���[�����Z�o
+		//モジュール数算出
 		else {
 			n_module++;
 			while ((c = getc(rfp)) != ';'); continue;
@@ -265,22 +265,22 @@ static void read_1st(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI��, PO���Z�o
+// PI数, PO数算出
 //--------------------------------------------------------------------------------------------------------------------
 static void calc_pi_po(FILE* rfp, int mode)
 {
-	char str[STR_MAX]; //get_token�p
-	int bit_1, bit_2;  //�r�b�g��������ꍇ�̃r�b�g���v�Z�p
-	int re_no;         //�Ԃ�l
+	char str[STR_MAX]; //get_token用
+	int bit_1, bit_2;  //ビット指定がある場合のビット数計算用
+	int re_no;         //戻り値
 	int num;
 	int c;
 
-	//������
+	//初期化
 	re_no = num = 0;
 
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
-	//bit������
+	//bit指定あり
 	if (c == '[') {
 		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
 		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
@@ -293,12 +293,12 @@ static void calc_pi_po(FILE* rfp, int mode)
 		if (mode == 0) n_pi += (num * (abs(bit_1 - bit_2) + 1));
 		else if (mode == 1) n_po += (num * (abs(bit_1 - bit_2) + 1));
 	}
-	//bit���Ȃ�
+	//bitなし
 	else {
 		ungetc(c, rfp);
 		re_no = get_token(rfp, str, 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
-			//�N���b�N�ǂݔ�΂�
+				//CLK読み飛ばし
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
 				re_no = get_token(rfp, str, 0, 0);
 				continue;
@@ -307,7 +307,7 @@ static void calc_pi_po(FILE* rfp, int mode)
 			else if ((re_no == 0) && (mode == 1)) n_po++;
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//�N���b�N�ǂݔ�΂��i�N���b�N�łȂ������ꍇ���s�j
+		//CLK読み飛ばし（CLKでなかった場合実行）
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
 			if ((re_no == 1) && (mode == 0)) n_pi++;
 			else if ((re_no == 1) && (mode == 1)) n_po++;
@@ -316,7 +316,7 @@ static void calc_pi_po(FILE* rfp, int mode)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���W���[���z��̈�m��, ������
+// モジュール配列領域確保, 初期化
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_module_array(void)
 {
@@ -328,16 +328,16 @@ static void alloc_module_array(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �e���W���[���̓ǂݍ���
+// 各モジュールの読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_2nd(FILE* rfp)
 {
-	int in_num; //���͐��ǂݍ��ݗp
-	int m_no;   //���ݓǂ�ł��郂�W���[���ԍ�
+	int in_num; //入力数読み込み用
+	int m_no;   //現在読んでいるモジュール番号
 	char str[STR_MAX];
 	int c;
 
-	//������
+	//初期化
 	in_num = m_no = 0;
 
 	while (get_token(rfp, str, 2, &in_num) != EOF) {
@@ -348,15 +348,15 @@ static void read_2nd(FILE* rfp)
 		else if (!strcmp(str, "assign")) { while ((c = getc(rfp)) != ';'); continue; }
 		else if (!strcmp(str, "endmodule")) { continue; }
 		else {
-			//���͐��̓ǂݍ���
+				//入力数の読み込み
 			read_n_in(in_num, str, m_no);
-			//���͐M����,���͐M���l�b�g���X�gID�z��̗̈�m��
+				//入力信号名、入力信号ネットリストID配列の領域確保
 			alloc_in_name(m_no);
-			//���W���[���^�C�v
+				//モジュールタイプ
 			read_module_type(rfp, str, m_no);
-			//�C���X�^���X���̓ǂݍ���
+				//インスタンス名の読み込み
 			read_ins(rfp, m_no);
-			//�[�q, �M�����̓ǂݍ���
+				//端子、信号名の読み込み
 			read_pin(rfp, m_no);
 
 			in_num = 0;
@@ -368,7 +368,7 @@ static void read_2nd(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���͐��̓ǂݍ���
+// 入力数の読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_n_in(int in_num, char* str, int m_no)
 {
@@ -382,7 +382,7 @@ static void read_n_in(int in_num, char* str, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���͐��M����,���̓n�b�V���|�C���^�z��̗̈�m��
+// 入力信号名,入力ハッシュポインタ配列の領域確保
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_in_name(int m_no)
 {
@@ -391,7 +391,7 @@ static void alloc_in_name(int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���W���[���^�C�v�̓ǂݍ���
+// モジュールタイプの読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_module_type(FILE* rfp, char* str, int m_no)
 {
@@ -403,7 +403,7 @@ static void read_module_type(FILE* rfp, char* str, int m_no)
 			break;
 	case 'E': if (strlen(str) == 4) module_array[m_no]->m_type = EXOR;
 			else module_array[m_no]->m_type = EXNOR;
-		//error : 2���͈ȊO��EXOR, EXNOR���������ꍇ
+		//error : 2入力以外のEXOR, EXNORが存在する場合
 		if (module_array[m_no]->m_n_in != 2) {
 			get_token(rfp, str, 0, 0);
 			error(1, str);
@@ -421,11 +421,11 @@ static void read_module_type(FILE* rfp, char* str, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �C���X�^���X���̓ǂݍ���
+// インスタンス名の読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_ins(FILE* rfp, int m_no)
 {
-	char str[STR_MAX]; //get_token�p
+	char str[STR_MAX]; //get_token用
 
 	get_token(rfp, str, 0, 0);
 	module_array[m_no]->m_name_ins = (char*)malloc(sizeof(char) * (strlen(str) + 1));
@@ -433,22 +433,22 @@ static void read_ins(FILE* rfp, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �[�q,�M�����̓ǂݍ���
+// 端子,信号名の読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_pin(FILE* rfp, int m_no)
 {
-	char str[STR_MAX]; //get_token�p
+	char str[STR_MAX]; //get_token用
 	int i, j;
 
-	for (i = 0; i < module_array[m_no]->m_n_in + 1; i++) { //�o�͐���+1
+	for (i = 0; i < module_array[m_no]->m_n_in + 1; i++) { //出力数分+1
 		while (get_token(rfp, str, 0, 0) != 0);
-		//�o�͐M��
+		//出力信号
 		if (str[0] == 'Z' || str[0] == 'Q') {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_out_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_out_name, str);
 		}
-		//�eDFF��D�i���́j
+		//各DFFのD（入力）
 		else if (((str[0] == 'D') && (module_array[m_no]->m_type == DFF)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == RDFF)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == DFFS)) ||
@@ -457,12 +457,12 @@ static void read_pin(FILE* rfp, int m_no)
 			module_array[m_no]->m_in_name[0] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[0], str);
 		}
-		//�eDFF��CP�i�N���b�N�j
+		//各DFFのCP（クロック）
 		else if (!strcmp(str, "CP")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			i--;
 		}
-		//RDFF,RDFFS��CD�i���Z�b�g�j
+		//RDFF,RDFFSのCD（リセット）
 		else if (!strcmp(str, "CD")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			if (module_array[m_no]->m_type == RDFF) {
@@ -474,19 +474,19 @@ static void read_pin(FILE* rfp, int m_no)
 				strcpy(module_array[m_no]->m_in_name[3], str);
 			}
 		}
-		//DFFS,RDFFS��TI�i�X�L�����C���j
+		//DFFS,RDFFSのTI（スキャンイン）
 		else if (!strcmp(str, "TI")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_in_name[1] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[1], str);
 		}
-		//DFFS,RDFFS��TE�i�X�L�����C�l�[�u���j
+		//DFFS,RDFFSのTE（スキャンイネーブル）
 		else if (!strcmp(str, "TE")) {
 			while (get_token(rfp, str, 0, 0) != 0);
 			module_array[m_no]->m_in_name[2] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[2], str);
 		}
-		//���̑��̓��͐M��
+		//その他の入力信号
 		else {
 			j = 0;
 			while (pin_name_array[j] != str[0]) {
@@ -501,17 +501,17 @@ static void read_pin(FILE* rfp, int m_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �l�b�g���X�g�z��,�O���ϐ�,�\����͔z�� �̈�m��,������
+// ネットリスト配列、グローバル変数、構造体入力配列 領域確保、初期化
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_nl(void)
 {
 	int i;
 
-	//総信号線数��
+	//総信号線数計算
 	nl_num = n_pi + n_po + n_module;
 	for (i = 0; i < n_module; i++) nl_num += module_array[i]->m_n_in;
 
-	//�̈�m��
+	//領域確保
 	nl = (NLIST*)malloc(sizeof(NLIST) * nl_num);
 	pi = (NLIST**)malloc(sizeof(NLIST*) * n_pi);
 	po = (NLIST**)malloc(sizeof(NLIST*) * n_po);
@@ -523,7 +523,7 @@ static void alloc_nl(void)
 	parser_array[0] = (int*)malloc(sizeof(int) * (nl_num));
 	parser_array[1] = (int*)malloc(sizeof(int) * (nl_num));
 
-	//������
+	//初期化
 	for (i = 0; i < nl_num; i++) {
 		nl[i].type = -1;
 		nl[i].n_in = 0;
@@ -536,25 +536,25 @@ static void alloc_nl(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �\�����
+// パーサ実行
 //--------------------------------------------------------------------------------------------------------------------
 static void parser(FILE* rfp)
 {
-	//�n�b�V���\�̗̈�m��
+	//ハッシュ構造体領域確保
 	alloc_hash_table();
 
-	//�M�����̊i�[
+	//信号名の格納
 	store_signal();
 
-	//PI,PO�ǂݍ���
+	//PI,PO読み込み
 	store_pi_po(rfp);
 
-	//�\���G���[���
+	//パーサエラー確認
 	analyze_asyntax_error();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �n�b�V���\�̗̈�m��
+// ハッシュ構造体領域確保
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_hash_table(void)
 {
@@ -565,77 +565,77 @@ static void alloc_hash_table(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M�����̊i�[
+// 信号名の格納
 //--------------------------------------------------------------------------------------------------------------------
 static void store_signal(void)
 {
 	Signal_Name_Hash* ptr;
-	int hash_value; //�n�b�V���l
+	int hash_value; //ハッシュ値
 	int i, j;
 
 	for (i = 0; i < n_module; i++) {
-		//����
+		//入力
 		for (j = 0; j < module_array[i]->m_n_in; j++) {
 			hash_value = hash_key(module_array[i]->m_in_name[j]);
-			//�T��
+			//探索
 			ptr = hash_t[hash_value];
 			while (ptr != NULL) {
 				if (!strcmp(nl[ptr->nid].name, module_array[i]->m_in_name[j])) {
-					//パーサ配列C���N�������g
+						//パーサ配列インクリメント
 					parser_array[0][ptr->nid] ++;
-					//���͐M���l�b�g���X�gID�z��}��
+						//入力信号ネットリストID配列挿入
 					module_array[i]->in_nid[j] = ptr->nid;
 					break;
 				}
 				ptr = ptr->next;
 			}
-			//�V�K�쐬
+			//新規作成
 			if (ptr == NULL) {
-				//�n�b�V���\�}��
+					//ハッシュ構造体挿入
 				ptr = (Signal_Name_Hash*)malloc(sizeof(Signal_Name_Hash));
 				ptr->next = hash_t[hash_value];
 				hash_t[hash_value] = ptr;
 				ptr->nid = n_net;
-				//�l�b�g���X�g�}��
+					//ネットリスト挿入
 				nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_in_name[j]) + 1));
 				strcpy(nl[n_net].name, module_array[i]->m_in_name[j]);
-				nl[n_net].n = n_net; //�l�b�g���X�gID
-				//パーサ配列��
+					nl[n_net].n = n_net; //ネットリストID
+					//パーサ配列セット
 				parser_array[0][n_net] = 1;
-				//���͐M���l�b�g���X�gID�z��}��
+					//入力信号ネットリストID配列挿入
 				module_array[i]->in_nid[j] = n_net;
 
 				n_net++;
 			}
 		}
-		//�o��
+		//出力
 		hash_value = hash_key(module_array[i]->m_out_name);
-		//�T��
+		//探索
 		ptr = hash_t[hash_value];
 		while (ptr != NULL) {
 			if (!strcmp(nl[ptr->nid].name, module_array[i]->m_out_name)) {
-				//パーサ配列C���N�������g
+					//パーサ配列インクリメント
 				parser_array[1][ptr->nid] ++;
-				//�o�͐M���l�b�g���X�gID�}��
+					//出力信号ネットリストID挿入
 				module_array[i]->out_nid = ptr->nid;
 				break;
 			}
 			ptr = ptr->next;
 		}
-		//�V�K�쐬
+		//新規作成
 		if (ptr == NULL) {
-			//�n�b�V���\�}��
+			//ハッシュ構造体挿入
 			ptr = (Signal_Name_Hash*)malloc(sizeof(Signal_Name_Hash));
 			ptr->next = hash_t[hash_value];
 			hash_t[hash_value] = ptr;
 			ptr->nid = n_net;
-			//�l�b�g���X�g�}��
+			//ネットリスト挿入
 			nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(module_array[i]->m_out_name) + 1));
 			strcpy(nl[n_net].name, module_array[i]->m_out_name);
-			nl[n_net].n = n_net; //�l�b�g���X�gID
-			//パーサ配列��
+			nl[n_net].n = n_net; //ネットリストID
+			//パーサ配列セット
 			parser_array[1][n_net] = 1;
-			//�o�͐M���l�b�g���X�gID�}��
+			//出力信号ネットリストID挿入
 			module_array[i]->out_nid = n_net;
 
 			n_net++;
@@ -644,17 +644,17 @@ static void store_signal(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO�ǂݍ��ݐ���
+// PI,PO読み込み処理
 //--------------------------------------------------------------------------------------------------------------------
 static void store_pi_po(FILE* rfp)
 {
-	char str[STR_MAX]; //get_token�p
+	char str[STR_MAX]; //get_token用
 	int pi_no;
 	int po_no;
 	int assign_no;
 	int c;
 
-	//������
+	//初期化
 	pi_no = po_no = assign_no = 0;
 
 	while (get_token(rfp, str, 0, 0) != EOF) {
@@ -669,33 +669,33 @@ static void store_pi_po(FILE* rfp)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO�ǂݍ���
+// PI,PO読み込み
 //--------------------------------------------------------------------------------------------------------------------
 static void read_pi_po(FILE* rfp, int* no, int mode)
 {
-	char str[STR_MAX];    //get_token�p
-	char tmp[SPRINT_MAX]; //sprint�p
-	int bit_1, bit_2;     //�r�b�g��������ꍇ�̃r�b�g���v�Z�p
-	int n_bit;            //�r�b�g��
-	int start_bit;        //�ŏ��̃r�b�g��
-	int re_no;            //�Ԃ�l
+	char str[STR_MAX];    //get_token用
+	char tmp[SPRINT_MAX]; //sprint用
+	int bit_1, bit_2;     //ビット指定がある場合のビット数計算用
+	int n_bit;            //ビット数
+	int start_bit;        //最初のビット番号
+	int re_no;            //戻り値
 	int i, c;
 
-	//������
+	//初期化
 	re_no = 0;
 
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
-	//bit������
+	//bit指定あり
 	if (c == '[') {
 		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
 		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
 		n_bit = abs(bit_1 - bit_2) + 1;
 		re_no = get_token(rfp, str, 0, 0);
-		//�ŏ��̃r�b�g��
+		//最初のビット番号
 		if (bit_1 <= bit_2) start_bit = bit_1;
 		else start_bit = bit_2;
-		//�����|�[�g�錾
+		//複数ポート宣言
 		while ((re_no != 1) && (re_no != 2)) {
 			for (i = 0; i < n_bit; i++) {
 				sprintf(tmp, "%s[%d]", str, i + start_bit);
@@ -703,7 +703,7 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			}
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//�P�ƃ|�[�g�錾
+		//単一ポート宣言
 		if (re_no == 1) {
 			for (i = 0; i < n_bit; i++) {
 				sprintf(tmp, "%s[%d]", str, i + start_bit);
@@ -711,12 +711,12 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			}
 		}
 	}
-	//bit���Ȃ�
+	//bitなし
 	else {
 		ungetc(c, rfp);
 		re_no = get_token(rfp, str, 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
-			//�N���b�N�ǂݔ�΂�
+				//CLK読み飛ばし
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
 				re_no = get_token(rfp, str, 0, 0);
 				continue;
@@ -724,7 +724,7 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 			if (re_no == 0) hash_search_pi_po(str, no, mode);
 			re_no = get_token(rfp, str, 0, 0);
 		}
-		//�N���b�N�ǂݔ�΂��i�N���b�N�łȂ������ꍇ���s�j
+		//CLK読み飛ばし（CLKでなかった場合実行）
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
 			if (re_no == 1) hash_search_pi_po(str, no, mode);
 		}
@@ -732,11 +732,11 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// PI,PO �n�b�V���T��
+// PI,PO ハッシュ探索
 //--------------------------------------------------------------------------------------------------------------------
 static void hash_search_pi_po(char* word, int* no, int mode)
 {
-	int hash_value;   //�n�b�V���l
+	int hash_value;   //ハッシュ値
 	Signal_Name_Hash* ptr;
 
 	hash_value = hash_key(word);
@@ -747,28 +747,28 @@ static void hash_search_pi_po(char* word, int* no, int mode)
 			if (mode == 0) {
 				//TYPE
 				nl[ptr->nid].type = IN;
-				//PI�z��
+					//PI配列
 				pi[(*no)++] = &nl[ptr->nid];
 			}
 			//PO
 			else if (mode == 1) {
-				//PO�z��
+					//PO配列
 				po[(*no)++] = &nl[ptr->nid];
 			}
 			break;
 		}
 		ptr = ptr->next;
 	}
-	//error : �M�����X���[���Ă���ꍇ
+	//error : 信号名スルーしている場合
 	if (ptr == NULL) error(3, word);
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// assign�ǂݍ��݁i2006.03.24 ���Ή��j
+// assignの読み込み（2006.03.24 未対応）
 //--------------------------------------------------------------------------------------------------------------------
 static void read_assign(FILE* rfp, int* assign_no)
 {
-	char str[STR_MAX]; //get_token�p
+	char str[STR_MAX]; //get_token用
 	int c;
 
 	get_token(rfp, str, 0, 0);
@@ -795,22 +795,22 @@ static void read_assign(FILE* rfp, int* assign_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �\���G���[���
+// パーサエラー確認
 //--------------------------------------------------------------------------------------------------------------------
 static void analyze_asyntax_error(void)
 {
 	int i;
 
 	for (i = 0; i < n_net; i++) {
-		//PI�o�b�e�B���O
+		//PIバッティング
 		if ((parser_array[1][i] >= 1) && (nl[i].type == IN))	error(4, nl[i].name);
-		//�����M���o�b�e�B���O
+		//複数信号バッティング
 		else if (parser_array[1][i] >= 2) error(5, nl[i].name);;
 	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �n�b�V���l���Z
+// ハッシュ値演算
 //--------------------------------------------------------------------------------------------------------------------
 static int hash_key(char* word)
 {
@@ -838,7 +838,7 @@ static int hash_key(char* word)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �n�b�V���\���
+// ハッシュ構造体解放
 //--------------------------------------------------------------------------------------------------------------------
 static void free_hash(void)
 {
@@ -859,40 +859,40 @@ static void free_hash(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M���ڑ�����
+// 信号接続処理
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_signal(void)
 {
-	//�e�M�� n_in,n_out �ǂݍ���,�̈�m��
+	//各信号 n_in,n_out 読み込み,領域確保
 	alloc_nl_in_out();
 
-	//�e�M���ڑ�
+	//各信号接続
 	connection_n_signal();
 
-	//�O�����̓C���X�^���X��,�[�q���ݒ�
+	//外部入力インスタンス名,端子名設定
 	set_pi_ins();
 
-	//FF�z��}��
+	//FF配列挿入
 	set_ff_array();
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �e�M�� n_in,n_out �ǂݍ���,�̈�m��
+// 各信号 n_in,n_out 読み込み,領域確保
 //--------------------------------------------------------------------------------------------------------------------
 static void alloc_nl_in_out(void)
 {
 	int i, j;
 
-	//�e�M�� n_in �̓ǂݍ���
+	//各信号 n_in の読み込み
 	for (i = 0; i < n_module; i++)
 		nl[module_array[i]->out_nid].n_in = module_array[i]->m_n_in;
 
-	//�e�M�� n_out �̓ǂݍ���
+	//各信号 n_out の読み込み
 	for (i = 0; i < n_net; i++) nl[i].n_out = parser_array[0][i];
-	for (i = 0; i < n_po; i++) //PO��FOUT���Ă���ꍇ
+	for (i = 0; i < n_po; i++) //POにFOUTしている場合
 		if (parser_array[0][po[i]->n] >= 1) po[i]->n_out++;
 
-	//�e�M�� in,out �̈�m��,������
+	//各信号 in,out 領域確保、初期化
 	for (i = 0; i < n_net; i++) {
 		if (nl[i].n_in != 0) {
 			nl[i].in = (NLIST**)malloc(sizeof(NLIST*) * nl[i].n_in);
@@ -906,34 +906,34 @@ static void alloc_nl_in_out(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M���ڑ�
+// 信号接続
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_n_signal(void)
 {
-	int po_fout_flag; //PO��FOUT�iYES:1 NO:0�j
+	int po_fout_flag; //POにFOUT（YES:1 NO:0）
 	int i, j, k;
 
-	//������
+	//初期化
 	po_fout_flag = 0;
 
 	for (i = 0; i < n_module; i++) {
 		for (j = 0; j < module_array[i]->m_n_in; j++) {
-			//IN����FOUT���Ă��Ȃ��ꍇ
+				//INからFOUTしていない場合
 			if (nl[module_array[i]->in_nid[j]].n_out == 1) {
 				connection_no_fout(i, j);
 			}
-			//IN����FOUT���Ă���ꍇ
+				//INからFOUTしている場合
 			else if (nl[module_array[i]->in_nid[j]].n_out >= 2) {
 				connection_yes_fout(i, j);
-				//PO��FOUT���Ă��邩�`�F�b�N
+					//POにFOUTしているかチェック
 				for (k = 0; k < n_po; k++) {
 					if (nl[module_array[i]->in_nid[j]].n == po[k]->n) {
-						//PO�z�������������
+									//PO配列を書き換え
 						po[k] = &nl[n_net];
 						po_fout_flag = 1; break;
 					}
 				}
-				//PO��FOUT���Ă���ꍇ
+					//POにFOUTしている場合
 				if (po_fout_flag == 1) {
 					connection_po_fout(i, j, k);
 				}
@@ -944,27 +944,27 @@ static void connection_n_signal(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M���ڑ� IN����FOUT���Ă��Ȃ��ꍇ
+// 信号接続 INからFOUTしていない場合
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_no_fout(int m_no, int in_no)
 {
 	int no;
 
-	//������
+	//初期化
 	no = 0;
 
-	//IN���̏o�͐M��
+	//IN側の出力信号
 	nl[module_array[m_no]->in_nid[in_no]].out[0] = &nl[module_array[m_no]->out_nid];
-	//OUT���̓��͐M��
+	//OUT側の入力信号
 	while (nl[module_array[m_no]->out_nid].in[no] != NULL) no++;
 	nl[module_array[m_no]->out_nid].in[no] = &nl[module_array[m_no]->in_nid[in_no]];
-	//OUT����TYPE
+	//OUT側のTYPE
 	nl[module_array[m_no]->out_nid].type = module_array[m_no]->m_type;
-	//OUT���̃C���X�^���X��
+	//OUT側のインスタンス名
 	nl[module_array[m_no]->out_nid].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[module_array[m_no]->out_nid].name_ins, module_array[m_no]->m_name_ins);
-	//OUT���̒[�q��
+	//OUT側の端子名
 	nl[module_array[m_no]->out_nid].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
@@ -975,18 +975,18 @@ static void connection_no_fout(int m_no, int in_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M���ڑ� IN����FOUT���Ă���ꍇ
+// 信号接続 INからFOUTしている場合
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_yes_fout(int m_no, int in_no)
 {
-	char tmp[SPRINT_MAX]; //sprint�p
+	char tmp[SPRINT_MAX]; //sprint用
 	//int no, i;
 	int no;
 
-	//������
+	//初期化
 	no = 0;
 
-	//FOUT�쐬
+	//FOUT作成
 	sprintf(tmp, "%s_%s_%c", nl[module_array[m_no]->in_nid[in_no]].name
 		, nl[module_array[m_no]->out_nid].name
 		, pin_name_array[in_no]);
@@ -998,25 +998,25 @@ static void connection_yes_fout(int m_no, int in_no)
 	nl[n_net].n_out = 1;
 	nl[n_net].in = (NLIST**)malloc(sizeof(NLIST*)); nl[n_net].in[0] = NULL;
 	nl[n_net].out = (NLIST**)malloc(sizeof(NLIST*)); nl[n_net].out[0] = NULL;
-	//����IN���̏o�͐M��
+	//元のIN側の出力信号
 	while (nl[module_array[m_no]->in_nid[in_no]].out[no] != NULL) no++;
 	nl[module_array[m_no]->in_nid[in_no]].out[no] = &nl[n_net];
 	no = 0;
-	//OUT���̓��͐M��
+	//OUT側の入力信号
 	while (nl[module_array[m_no]->out_nid].in[no] != NULL) no++;
 	nl[module_array[m_no]->out_nid].in[no] = &nl[n_net];
 	no = 0;
-	//OUT����TYPE
+	//OUT側のTYPE
 	nl[module_array[m_no]->out_nid].type = module_array[m_no]->m_type;
-	//FOUT�̓��͐M��
+	//FOUTの入力信号
 	nl[n_net].in[0] = &nl[module_array[m_no]->in_nid[in_no]];
-	//FOUT�̏o�͐M��
+	//FOUTの出力信号
 	nl[n_net].out[0] = &nl[module_array[m_no]->out_nid];
-	//FOUT�̃C���X�^���X��
+	//FOUTのインスタンス名
 	nl[n_net].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[n_net].name_ins, module_array[m_no]->m_name_ins);
-	//FOUT�̒[�q��
+	//FOUTの端子名
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
 		if (in_no == 0) {
@@ -1046,11 +1046,11 @@ static void connection_yes_fout(int m_no, int in_no)
 		nl[n_net].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 		nl[n_net].name_port[0] = pin_name_array[in_no];	nl[n_net].name_port[1] = '\0';
 	}
-	//OUT���̃C���X�^���X��
+	//OUT側のインスタンス名
 	nl[module_array[m_no]->out_nid].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(module_array[m_no]->m_name_ins) + 1));
 	strcpy(nl[module_array[m_no]->out_nid].name_ins, module_array[m_no]->m_name_ins);
-	//OUT���̒[�q��
+	//OUT側の端子名
 	nl[module_array[m_no]->out_nid].name_port = (char*)malloc(sizeof(char) * (1 + 1));
 	if (nl[module_array[m_no]->out_nid].type == DFF || nl[module_array[m_no]->out_nid].type == RDFF ||
 		nl[module_array[m_no]->out_nid].type == DFFS || nl[module_array[m_no]->out_nid].type == RDFFS) {
@@ -1063,17 +1063,17 @@ static void connection_yes_fout(int m_no, int in_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �M���ڑ� PO��FOUT���Ă���ꍇ 2010.09.07�ύX
+// 信号接続 POにFOUTしている場合 2010.09.07変更
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_po_fout(int m_no, int in_no, int po_no)
 {
-	char tmp[SPRINT_MAX]; //sprint�p
+	char tmp[SPRINT_MAX]; //sprint用
 	int no;
 
-	//������
+	//初期化
 	no = 0;
 
-	//FOUT�쐬
+	//FOUT作成
 	nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(nl[module_array[m_no]->in_nid[in_no]].name) + 1));
 	strcpy(nl[n_net].name, nl[module_array[m_no]->in_nid[in_no]].name);
 	nl[n_net].n = n_net;
@@ -1082,16 +1082,16 @@ static void connection_po_fout(int m_no, int in_no, int po_no)
 	nl[n_net].in = (NLIST**)malloc(sizeof(NLIST*));
 	nl[n_net].in[0] = NULL;
 	nl[n_net].n_out = 0;
-	//����IN���̏o�͐M��
+	//元のIN側の出力信号
 	while (nl[module_array[m_no]->in_nid[in_no]].out[no] != NULL) no++;
 	nl[module_array[m_no]->in_nid[in_no]].out[no] = &nl[n_net];
 	free(nl[module_array[m_no]->in_nid[in_no]].name);
 	sprintf(tmp, "%s_stem", nl[n_net].name);
 	nl[module_array[m_no]->in_nid[in_no]].name = (char*)malloc(sizeof(char) * (strlen(tmp) + 1));
 	strcpy(nl[module_array[m_no]->in_nid[in_no]].name, tmp);
-	//FOUT�̓��͐M��
+	//FOUTの入力信号
 	nl[n_net].in[0] = &nl[module_array[m_no]->in_nid[in_no]];
-	//FOUT�̃C���X�^���X��,�[�q��
+	//FOUTのインスタンス名,端子名
 	nl[n_net].name_ins
 		= (char*)malloc(sizeof(char) * (strlen(nl[n_net].name) + 1));
 	strcpy(nl[n_net].name_ins, nl[n_net].name);
@@ -1101,7 +1101,7 @@ static void connection_po_fout(int m_no, int in_no, int po_no)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �O�����̓C���X�^���X��,�[�q���ݒ�
+// 外部入力インスタンス名,端子名設定
 //--------------------------------------------------------------------------------------------------------------------
 static void set_pi_ins(void)
 {
@@ -1115,14 +1115,14 @@ static void set_pi_ins(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// FF�z��}��
+// FF配列挿入
 //--------------------------------------------------------------------------------------------------------------------
 static void set_ff_array(void)
 {
 	int dff_no, dffs_no, rdff_no, rdffs_no;
 	int i;
 
-	//������
+	//初期化
 	dff_no = dffs_no = rdff_no = rdffs_no = 0;
 
 	for (i = 0; i < n_net; i++) {
@@ -1136,23 +1136,23 @@ static void set_ff_array(void)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// 1�P��ǂ�+��
+// 1単語読み+α
 //--------------------------------------------------------------------------------------------------------------------
 static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 {
-	int aha_flag;     //isalpha���ʗp
-	char c_in_num[3]; //���͐��ǂݍ��ݗp
+	int aha_flag;     //isalpha結果用
+	char c_in_num[3]; //入力数読み込み用
 	int i, c;
 
-	//������
+	//初期化
 	i = aha_flag = 0;
 
-	//�ꕶ���ǂ�
+	//一文字読む
 	c = fgetc(rfp);
 	while ((c == ' ') || (c == '\t') || (c == '\n')) c = fgetc(rfp);
-	if (c == EOF) return EOF;              //EOF�̏ꍇ
+	if (c == EOF) return EOF;              //EOFの場合
 
-	//��؂蕶���܂œǂݑ����P����쐬
+	//区切り文字まで読み進み単語を作成
 	if (mode == 0) {
 		while ((c != '\t') && (c != '\n') && (c != ' ') && (c != ';') &&
 			(c != '(') && (c != ')') && (c != ',') && (c != ':') && (c != '=') && (c != '.')) {
@@ -1186,38 +1186,38 @@ static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 	}
 	s[i] = '\0';
 
-	//�ǂ̋�؂蕶���܂œǂ񂾂���Ԃ�
-	if ((c == ';') && (i != 0)) return 1;      //�Ō�̕������u;�v�̏ꍇ
-	else if ((c == ';') && (i == 0)) return 2; //�Ō�̕������u;�v�ł��P�Ƃ̏ꍇ
-	else if (s[0] == '\0') return -2;      //�����񂪍��Ă��Ȃ��ꍇ
-	else return 0;                        //�ʏ�
+	//どの区切り文字まで読んだかを返す
+	if ((c == ';') && (i != 0)) return 1;      //最後の文字が「;」の場合
+	else if ((c == ';') && (i == 0)) return 2; //最後の文字が「;」で単一の場合
+	else if (s[0] == '\0') return -2;      //文字列が来ていない場合
+	else return 0;                        //通常
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// �G���[����
+// エラー処理
 //--------------------------------------------------------------------------------------------------------------------
 static void error(int code, char* s)
 {
 	fprintf(stderr, "ERROR : ");
 	switch (code) {
 	case 1:
-		fprintf(stderr, "2���͈ȊO��EXOR,EXNOR�����݂��܂�. instans_name : %s\n", s);
+		fprintf(stderr, "2入力以外のEXOR,EXNORが存在します. instans_name : %s\n", s);
 		break;
 	case 2:
-		fprintf(stderr, "11���͈ȏ�͑Ή����Ă��܂���. �����ɂ�葦�Ή��H instans_name : %s\n", s);
+		fprintf(stderr, "11入力以上は対応していません. 手動にて対応？ instans_name : %s\n", s);
 		break;
 	case 3:
-		fprintf(stderr, "�M�� \"%s\" ���X���[���Ă��܂�. �o�b�t�@��}�����Ă�������.\n", s);
-		fprintf(stderr, "        ��������, �M�� \"%s\" �̋L�q���ɉ��s�������Ă���\n", s);
+		fprintf(stderr, "信号 \"%s\" がスルーしています. バッファを挿入してください.\n", s);
+		fprintf(stderr, "        また, 信号 \"%s\" の記述前に改行がされている\n", s);
 		break;
 	case 4:
-		fprintf(stderr, "�O�����͐M�� \"%s\" ���o�b�e�B���O���Ă��܂�. �����ꂽ��H��ǂݍ��܂��Ȃ��ŉ������i�{�j\n", s);
+		fprintf(stderr, "外部入力信号 \"%s\" がバッティングしています. 削除されたか？読み込まれないで以上です（本）\n", s);
 		break;
 	case 5:
-		fprintf(stderr, "�M�� \"%s\" ���o�b�e�B���O���܂�. �����ꂽ��H��ǂݍ��܂��Ȃ��ŉ������i�{�j\n", s);
+		fprintf(stderr, "信号 \"%s\" がバッティングします. 削除されたか？読み込まれないで以上です（本）\n", s);
 		break;
 	case 6:
-		fprintf(stderr, "assign����ACC,GND�̂ݑΉ����Ă��܂�. �M�� \"%s\" ���O�����͐錾�����铙�őΉ����Ă�������.\n", s);
+		fprintf(stderr, "assignのみACC,GNDのみ対応しています. 信号 \"%s\" を外部入力宣言した等で対応してください.\n", s);
 		break;
 	}
 
@@ -1225,13 +1225,13 @@ static void error(int code, char* s)
 }
 
 //--------------------------------------------------------------------------------------------------------------------
-// ���W���[���z��,�\����͔z�� ���
+// モジュール配列、構造体入力配列 解放
 //--------------------------------------------------------------------------------------------------------------------
 static void free_module_array(void)
 {
 	int i, j;
 
-	//���W���[���z��
+	//モジュール配列
 	for (i = 0; i < n_module; i++) {
 		free(module_array[i]->m_out_name);
 		free(module_array[i]->m_name_ins);
@@ -1249,7 +1249,7 @@ static void free_module_array(void)
 
 #ifdef DEBUG_MA
 //--------------------------------------------------------------------------------------------------------------------
-// ���W���[���z��f�o�b�O
+// モジュール配列デバッグ
 //--------------------------------------------------------------------------------------------------------------------
 static void debug_ma(void)
 {
@@ -1274,7 +1274,7 @@ static void debug_ma(void)
 
 #ifdef DEBUG_NL
 //--------------------------------------------------------------------------------------------------------------------
-// �l�b�g���X�g�z��f�o�b�O
+// ネットリスト配列デバッグ
 //--------------------------------------------------------------------------------------------------------------------
 static void debug_nl(void)
 {

@@ -1,4 +1,4 @@
-# Install script for directory: /home/koizumi/SAF_RPR_GEN/FDP/src
+# Install script for directory: /home/koizumi/fdp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/koizumi/SAF_RPR_GEN/FDP/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/koizumi/fdp/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
