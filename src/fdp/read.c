@@ -204,6 +204,34 @@ static bool ParseFaultType(
 }
 
 //*************************************************************************************************************
+//	@name		net-name hash : name -> NLIST*（初回に一度だけ構築し、FindNetByName を平均 O(1) にする）
+//*************************************************************************************************************
+typedef struct NetHashEntry { NLIST* net; struct NetHashEntry* next; } NetHashEntry;
+static NetHashEntry** net_hash      = (NetHashEntry**)NULL;
+static int            net_hash_size = 0;
+
+static unsigned long NetNameHash(const char* s)
+{
+	unsigned long h = 5381;                       // djb2
+	for (; *s; ++s) h = ((h << 5) + h) + (unsigned char)*s;
+	return h;
+}
+
+static void BuildNetHash(void)
+{
+	net_hash_size = n_net * 2 + 1;                // 充填率 ~0.5
+	net_hash = (NetHashEntry**)calloc((size_t)net_hash_size, sizeof(NetHashEntry*));
+	for (int i = 0; i < n_net; i++)
+	{
+		unsigned long h = NetNameHash(nl[i].name) % (unsigned long)net_hash_size;
+		NetHashEntry* e = (NetHashEntry*)malloc(sizeof(NetHashEntry));
+		e->net      = &nl[i];
+		e->next     = net_hash[h];
+		net_hash[h] = e;
+	}
+}
+
+//*************************************************************************************************************
 //	@name		FindNetByName
 //	@function	search netlist for a net whose name matches the given string
 //	@return		(NLIST*) pointer to matching net, or NULL if not found
@@ -212,13 +240,14 @@ static NLIST* FindNetByName(
 	const char* name		/**< net name to search */
 )
 {
-	for (int i = 0; i < n_net; i++)
+	if (net_hash == (NetHashEntry**)NULL) BuildNetHash();
+
+	unsigned long h = NetNameHash(name) % (unsigned long)net_hash_size;
+	for (NetHashEntry* e = net_hash[h]; e != NULL; e = e->next)
 	{
-		if (!strcmp(nl[i].name, name))
-		{
-			return &nl[i];
-		}
+		if (!strcmp(e->net->name, name)) return e->net;
 	}
+
 	printf("\n\tFILE ERROR: fault file reading failed. ");
 	printf("%c%s%c is thought.\n\n", '"', name, '"');
 	return (NLIST*)NULL;
@@ -269,10 +298,10 @@ FNODE* CreateFaultNode(
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
-	fnodeptr->dominators    = (FNODE**)NULL;
-	fnodeptr->n_dominators  = 0;
-	fnodeptr->saved_cubes   = (char**)NULL;
-	fnodeptr->n_saved_cubes = 0;
+	fnodeptr->subset_faults   = (FNODE**)NULL;
+	fnodeptr->n_subset_faults = 0;
+	fnodeptr->cubes           = (CubeSet){ 0 };
+	fnodeptr->n_pending       = 0;
 
 	return fnodeptr;
 }
@@ -343,13 +372,14 @@ void AnalyzeEquivalenceFaults()
 
 //*************************************************************************************************************
 //	@name		AnalyzeDominanceFaults
-//	@function	支配関係を解析し、各故障の dominators リストを構築する
-//	@note		支配関係: AND/NOR の出力SA1 は各入力SA1 に支配される（入力SA1のテスト集合⊆出力SA1のテスト集合）
-//	            OR/NAND  の出力SA0 は各入力SA0 に支配される
+//	@function	支配関係を解析し、各故障に「キューブを流用できる部分集合故障」を結びつける
+//	@note		AND/NOR 出力SA1 のテスト集合は各入力SA1 のテスト集合を包含する（T(入力)⊆T(出力)）。
+//	            OR/NAND 出力SA0 も同様。出力故障の処理時に入力故障のキューブを流用するため、
+//	            出力故障（支配する側）に入力故障（部分集合側）を subset_faults として登録する。
 //*************************************************************************************************************
 void AnalyzeDominanceFaults(void)
 {
-	int count = 0;
+	int edges = 0;
 
 	for (int i = 0; i < n_net; i++)
 	{
@@ -361,22 +391,22 @@ void AnalyzeDominanceFaults(void)
 		default: continue;
 		}
 
-		// ゲート出力の故障（支配故障）を検索
-		FNODE* dominated = FindFnodeByNameType(nl[i].name, ftype);
-		if (!dominated) continue;
+		// ゲート出力の故障（支配する側）
+		FNODE* out = FindFnodeByNameType(nl[i].name, ftype);
+		if (!out) continue;
 
-		// 各入力の同タイプ故障（被支配故障）を dominators に追加
+		// ファンイン数ぶんを一括確保し、存在する入力故障（部分集合側）だけを詰める
+		out->subset_faults = (FNODE**)malloc((size_t)nl[i].n_in * sizeof(FNODE*));
 		for (int j = 0; j < nl[i].n_in; j++)
 		{
-			FNODE* dom = FindFnodeByNameType(nl[i].in[j]->name, ftype);
-			if (!dom) continue;
+			FNODE* in = FindFnodeByNameType(nl[i].in[j]->name, ftype);
+			if (!in) continue;
 
-			dominated->dominators = (FNODE**)realloc(dominated->dominators,
-				(dominated->n_dominators + 1) * sizeof(FNODE*));
-			dominated->dominators[dominated->n_dominators++] = dom;
-			count++;
+			out->subset_faults[out->n_subset_faults++] = in;
+			in->n_pending++;   // in のキューブを流用する親が 1 つ増えた
+			edges++;
 		}
 	}
 
-	printf("Dominance fault analysis: %d dominance pairs\n", count);
+	printf("Dominance fault analysis: %d reuse edges\n", edges);
 }

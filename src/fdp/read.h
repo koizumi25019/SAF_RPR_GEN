@@ -6,6 +6,7 @@
 #include <time.h>
 
 #include "./target_fault.h"
+#include "./cube_set.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
 
@@ -60,10 +61,10 @@ typedef struct FaultNode
 	NLIST* netptr;					 /**< pointer to netlist */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
 
-	struct FaultNode** dominators;   /**< faults that dominate this fault (their cubes are reusable for this fault) */
-	int                n_dominators; /**< number of dominators */
-	char**             saved_cubes;  /**< test cubes saved after processing, for reuse by dominated faults */
-	int                n_saved_cubes;/**< number of saved cubes */
+	struct FaultNode** subset_faults;   /**< テスト集合がこの故障の部分集合になる故障（ゲート入力故障）。これらのキューブはこの故障の正当なテストなので種＋禁止節として流用できる */
+	int                n_subset_faults; /**< subset_faults の要素数 */
+	CubeSet            cubes;           /**< この故障のテストキューブ集合（後続の支配故障が流用する） */
+	int                n_pending;       /**< まだこのキューブを流用する未処理の親故障の数。0 になれば cubes を解放してよい */
 }
 FNODE;
 

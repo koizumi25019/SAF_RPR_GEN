@@ -42,6 +42,7 @@ extern void     destroyQueue(Queue_t* q);
 extern void     enqueue(Queue_t* q, void* item);
 extern void*    dequeue(Queue_t* q);
 extern int      isQueueEmpty(const Queue_t* q);
+extern void     resetQueue(Queue_t* q);
 
 /* ------------------------------------------------------------------ */
 /* Level stack (replaces CompletionNetlist level stack)                */

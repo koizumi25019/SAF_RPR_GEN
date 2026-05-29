@@ -40,24 +40,30 @@ bool InitGlobalVars(
 //	@function	compute the logic level of each net
 //	@return		(void)
 //*************************************************************************************************************
+//	level(IN/DFF)=0, level(gate)=1+max(input levels)。各 net を一度だけ計算し
+//	（メモ化）、各辺を一度だけ辿るので O(V+E)。旧版は同じ緩和を n_net 回まわす O(n_net^2)。
+static int ComputeLevelOf(NLIST* net)
+{
+	if (net->level >= 0) return net->level;            // 計算済み（メモ化）
+	if (net->type == IN || net->type == DFF)           // レベル0の起点
+		return net->level = 0;
+
+	int lev = 0;
+	for (int j = 0; j < net->n_in; j++)
+	{
+		int c = ComputeLevelOf(net->in[j]) + 1;
+		if (c > lev) lev = c;
+	}
+	return net->level = lev;
+}
+
 static void ComputeLevels(void)
 {
 	for (int i = 0; i < n_net; i++)
-		nl[i].level = 0;
+		nl[i].level = -1;                              // -1 = 未計算
 
-	for (int iter = 0; iter < n_net; iter++)
-	{
-		for (int i = 0; i < n_net; i++)
-		{
-			if (nl[i].type == IN || nl[i].type == DFF) continue;
-			for (int j = 0; j < nl[i].n_in; j++)
-			{
-				int candidate = nl[i].in[j]->level + 1;
-				if (candidate > nl[i].level)
-					nl[i].level = candidate;
-			}
-		}
-	}
+	for (int i = 0; i < n_net; i++)
+		ComputeLevelOf(&nl[i]);
 }
 
 //*************************************************************************************************************
