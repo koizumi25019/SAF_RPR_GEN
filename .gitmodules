@@ -1,8 +1,8 @@
-[submodule "FDP/tools/cadical"]
-	path = FDP/tools/cadical
+[submodule "external/cadical"]
+	path = external/cadical
 	url = https://github.com/arminbiere/cadical.git
 	ignore = dirty
-[submodule "FDP/tools/cudd"]
-	path = FDP/tools/cudd
+[submodule "external/cudd"]
+	path = external/cudd
 	url = https://github.com/ivmai/cudd.git
 	ignore = dirty
