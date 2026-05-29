@@ -15,15 +15,22 @@
 #include "./read.h"
 #include "./cube_set.h"
 #include "./cnf/cnf.h"
+#include "./cnf/faulty_miter.h"
 #include "../opt/opt.h"
 #include "./cudd_wrapper.h"
 #include "./xid/XID.h"
 
+//-------------------------------------------------------------------------------------------------------------
+//	全回路ミター方式（実験）：限定化せず全故障回路＋per-net 注入スイッチを一度だけ構築し、
+//	故障は assumption で選択する。CNF が固定なので学習節を全故障で再利用できる。
+//	各故障専用の節（ブロッキング節）だけは活性化変数 e でガードし、終了後 (¬e) で無効化する。
+//-------------------------------------------------------------------------------------------------------------
+
 //*************************************************************************************************************
-//	@name		AddBlockingClauseFromCube
-//	@function	キューブ文字列（'0'/'1'/'X' を n_pi 文字）からブロッキング節をソルバに追加する
+//	@name		AddBlockingClauseGuarded
+//	@function	キューブのブロッキング節を (元の節 ∨ ¬e) として追加（その故障専用にする）
 //*************************************************************************************************************
-static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
+static void AddBlockingClauseGuarded(CCaDiCaL* solver, const char* cube, int e)
 {
     for (int i = 0; i < n_pi; i++)
     {
@@ -32,7 +39,19 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
         else if (cube[i] == '1') lit = -(int)pi[i]->varsgc;
         if (lit != 0) ccadical_add(solver, lit);
     }
+    ccadical_add(solver, -e);   // この故障のときだけ有効
     ccadical_add(solver, 0);
+}
+
+//*************************************************************************************************************
+//	@name		AssumeFaultSelection
+//	@function	故障 k(sa-v) を選ぶ：act_k=1, sval_k=v, それ以外は act_j=0 を仮定する
+//*************************************************************************************************************
+static void AssumeFaultSelection(CCaDiCaL* solver, int k, int v)
+{
+    for (int j = 0; j < n_net; j++)
+        ccadical_assume(solver, (j == k) ? mt_act[j] : -mt_act[j]);
+    ccadical_assume(solver, v ? mt_sval[k] : -mt_sval[k]);
 }
 
 //*************************************************************************************************************
@@ -85,36 +104,35 @@ bool AnalyzeFaultDensity(
 
 	if (CreateConsGC() != true) return AFD_ERROR;
 
+	// 正常回路＋全回路ミターを一度だけ構築し、全故障で使い回す
+	CCaDiCaL* solver = ccadical_init();
+	ccadical_set_option(solver, "factor", 0);
+	LoadModelToSolver(solver, NULL);   // 正常回路CNF（恒久）
+	AllocMiterVars();
+	BuildFaultyMiter(solver);          // 故障回路＋注入スイッチ＋検出条件（恒久）
+
 	while (readdata.fault.numrema != 0)
 	{
-		// ソルバの初期化
-		CCaDiCaL* solver = ccadical_init();
-		ccadical_set_option(solver, "factor", 0);
-
 		count++;
 		SetTarget(&target);
 		FNODE* f = target.list[0];
-
-		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
+		int k = (int)(f->netptr - nl);          // 故障サイトのネット番号
+		int v = (f->type == SF0) ? 0 : 1;        // 縮退値
+		int e = ++opb.total.vars;                // この故障のブロッキング節の活性化変数
 
 		// f のテストキューブを集める集合
 		CubeSet cubes;
 		cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
 
 		// 部分集合側の故障（subset_faults）のキューブを種＋禁止節として流用する。
-		// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
-		// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
-		for (int k = 0; k < f->n_subset_faults; k++)
+		for (int kk = 0; kk < f->n_subset_faults; kk++)
 		{
-			FNODE* src = f->subset_faults[k];
-
+			FNODE* src = f->subset_faults[kk];
 			for (int m = 0; m < src->cubes.n; m++)
 			{
 				cubeset_push(&cubes, strdup(src->cubes.data[m]));
-				AddBlockingClauseFromCube(solver, src->cubes.data[m]);
+				AddBlockingClauseGuarded(solver, src->cubes.data[m], e);
 			}
-
-			// この親で src のキューブを使い切る。最後の消費者ならここで解放
 			if (--src->n_pending == 0)
 				cubeset_free(&src->cubes);
 		}
@@ -126,6 +144,9 @@ bool AnalyzeFaultDensity(
 
 		// UNSAT もしくは limit 到達でテスト生成を終了する
 		while (1) {
+			AssumeFaultSelection(solver, k, v);   // 故障 k を選択（毎 solve 必要）
+			ccadical_assume(solver, e);           // この故障のブロッキング節を有効化
+
             t_start = clock();
             int res = ccadical_solve(solver);
             t_end   = clock();
@@ -143,8 +164,6 @@ bool AnalyzeFaultDensity(
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
-				// キューブの所有権を故障へ移す（深いコピーはしない）。
-				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
 				f->cubes = cubes;
 				if (f->n_pending == 0)
 					cubeset_free(&f->cubes);
@@ -162,7 +181,7 @@ bool AnalyzeFaultDensity(
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
-				AddBlockingClauseFromCube(solver, x_pattern);
+				AddBlockingClauseGuarded(solver, x_pattern, e);
 				cubeset_push(&cubes, x_pattern);
 
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
@@ -173,8 +192,12 @@ bool AnalyzeFaultDensity(
                 }
 			}
 		}
-		ccadical_release(solver);
+
+		// この故障のブロッキング節を恒久的に無効化（retire）
+		ccadical_add(solver, -e);
+		ccadical_add(solver, 0);
 	}
+	ccadical_release(solver);
 
 	// ===== CPU time =====
     *out_time_cadical = time_cadical;
