@@ -131,8 +131,8 @@ bool AnalyzeFaultDensity(
             t_end   = clock();
             time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
 
-            if (res == 20 || cubes.n == opt.file.input.limit) {
-                bool limit_hit = (cubes.n == opt.file.input.limit && res != 20);
+            if (res == 20 || cubes.n >= opt.file.input.limit) {
+                bool limit_hit = (cubes.n >= opt.file.input.limit && res != 20);
 
 				if (opt.file.input.cube_analysis != FILE_NOSET) {
 					fprintf(cube_analysis_fp, "\n");
