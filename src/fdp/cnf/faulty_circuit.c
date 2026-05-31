@@ -63,13 +63,13 @@ bool CreateConsFC(
 			}
 
 			/** create fault propagation constraints (D-chain) */
-			CreateConsProp(solver, target->list[i]);
+			if (!getenv("MDC_NOPROP")) CreateConsProp(solver, target->list[i]);
 
 			/** create the detection-circuit constraint */
 			CreateConsDC(solver, target->list[i]);
 
 			/** add necessary assignment unit clauses */
-			EssentialAssignment(solver, target->list[i]);
+			if (!getenv("MDC_NOEA")) EssentialAssignment(solver, target->list[i]);
 		}
 	}
 

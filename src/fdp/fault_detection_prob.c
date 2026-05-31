@@ -58,6 +58,50 @@ static void mdc_dump(void){
         mdc_hardcubes?(double)(mdc_hardorig-mdc_hardprime)/mdc_hardcubes:0);
 }
 
+/* INDEPENDENT ground-truth: Monte-Carlo true FDP via direct logic simulation
+   (no SAT, no oracle). Evaluates good vs faulty circuit, detect = any PO differs. */
+static int* sim_topo=NULL; static int sim_ntopo=0;
+static void sim_build_topo(void){
+    if (sim_topo) return;
+    sim_topo = (int*)malloc(n_net*sizeof(int));
+    int maxlev=0; for(int i=0;i<n_net;i++) if(nl[i].level>maxlev) maxlev=nl[i].level;
+    int idx=0;
+    for(int L=0;L<=maxlev;L++) for(int i=0;i<n_net;i++) if(nl[i].level==L) sim_topo[idx++]=i;
+    sim_ntopo=idx;
+}
+static inline int sim_gate(int type, int acc0, NLIST* nd, const int* val){
+    switch(type){
+        case BUF: case FOUT: return val[nd->in[0]->n];
+        case INV: return val[nd->in[0]->n]^1;
+        case AND: case NAND: { int a=1; for(int k=0;k<nd->n_in;k++){a&=val[nd->in[k]->n]; if(!a)break;} return (type==NAND)?a^1:a; }
+        case OR:  case NOR:  { int a=0; for(int k=0;k<nd->n_in;k++){a|=val[nd->in[k]->n]; if(a)break;} return (type==NOR)?a^1:a; }
+        case EXOR:case EXNOR:{ int a=0; for(int k=0;k<nd->n_in;k++)a^=val[nd->in[k]->n]; return (type==EXNOR)?a^1:a; }
+        default: return acc0; /* IN/DFF: keep PI value */
+    }
+}
+static double FdpBySim(FNODE* f, long N){
+    sim_build_topo();
+    static int *vg=NULL,*vf=NULL; if(!vg){vg=malloc(n_net*sizeof(int)); vf=malloc(n_net*sizeof(int));}
+    size_t fsig=(size_t)(f->netptr - nl); int stuck=(f->type==SF0)?0:1;
+    long det=0;
+    for(long s=0;s<N;s++){
+        for(int i=0;i<n_pi;i++){ int b=rand()&1; vg[pi[i]->n]=b; vf[pi[i]->n]=b; }
+        for(int t=0;t<sim_ntopo;t++){ int i=sim_topo[t]; int ty=nl[i].type;
+            if(ty==IN||ty==DFF) continue;
+            vg[i]=sim_gate(ty,vg[i],&nl[i],vg);
+            vf[i]=sim_gate(ty,vf[i],&nl[i],vf);
+        }
+        vf[fsig]=stuck;                                   /* inject fault */
+        for(int t=0;t<sim_ntopo;t++){ int i=sim_topo[t]; int ty=nl[i].type;
+            if(ty==IN||ty==DFF||(size_t)i==fsig) continue;
+            vf[i]=sim_gate(ty,vf[i],&nl[i],vf);
+        }
+        int diff=0; for(int i=0;i<n_net;i++) if(nl[i].n_out==0 && vg[i]!=vf[i]){diff=1;break;}
+        if(diff) det++;
+    }
+    return (double)det/N;
+}
+
 /* build the undetection oracle for the CURRENT target (call right after
    WriteTPGModel so TFO flags / varsfc / numtranpo are set for this fault) */
 static void MDC_BuildOracle(CCaDiCaL* u, TARGET* target){
@@ -216,9 +260,9 @@ bool AnalyzeFaultDensity(
 				if (ccadical_solve(solver)==10) det++;
 				if (u_oracle && ccadical_solve(u_oracle)==10) oun++;
 			}
-			fprintf(stderr,"[MC] fault=%s/%s  TRUE_FDP=%.6f  oracle_UNDETECT=%.6f  (1-TRUE=%.6f) %s\n",
-				f->name,(f->type==SF0)?"sa0":"sa1",(double)det/N,(double)oun/N,1.0-(double)det/N,
-				(u_oracle && (oun+det>N*1.02 || oun+det<N*0.98))?"<-- ORACLE INCONSISTENT":"");
+			double sim = FdpBySim(f, 200000);   /* independent ground truth */
+			fprintf(stderr,"[MC] fault=%s/%s  SIM_TRUE_FDP=%.6f | detSolver=%.6f oracle_detect=%.6f (det+undet=%.4f)\n",
+				f->name,(f->type==SF0)?"sa0":"sa1", sim, (double)det/N, 1.0-(double)oun/N, (double)(det+oun)/N);
 		}
 
 		// f のテストキューブを集める集合
