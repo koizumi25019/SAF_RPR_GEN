@@ -8,6 +8,7 @@
 #include <cudd.h>
 #include <gmp.h>
 
+#include <stdlib.h>
 #include "ccadical.h"
 #include "./create_TPG_model.h"
 #include "./fault_detection_prob.h"
@@ -33,6 +34,78 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
         if (lit != 0) ccadical_add(solver, lit);
     }
     ccadical_add(solver, 0);
+}
+
+/* =====================================================================
+ *  EXPERIMENT (env MAXDC_MEASURE): don't-care headroom measurement.
+ *  Builds an "undetection oracle" CNF (good ^ faulty-cone ^ fc[site]=stuck
+ *  ^ all-PO-equal i.e. z=0) and, for each XID cube, greedily drops care
+ *  bits while (cube\b ^ undetection) stays UNSAT  ==> prime implicant.
+ *  Reports how many MORE bits could be X'd (the headroom for 案1).
+ *  Inert unless MAXDC_MEASURE is set; production behaviour unchanged.
+ * ===================================================================== */
+static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fail=0;
+static long mdc_hardcubes=0, mdc_hardorig=0, mdc_hardprime=0;   /* capped faults only */
+static long mdc_fcubes=0, mdc_forig=0, mdc_fprime=0;            /* per-fault accumulator */
+static void mdc_dump(void){
+    fprintf(stderr,"\n[MAXDC] cubes=%ld  care/cube: orig=%.2f prime=%.2f  headroom=%.2f bits/cube (%.0f%% of cubes shrink)  sanity_fail=%ld\n",
+        mdc_cubes, mdc_cubes?(double)mdc_orig/mdc_cubes:0, mdc_cubes?(double)mdc_prime/mdc_cubes:0,
+        mdc_cubes?(double)(mdc_orig-mdc_prime)/mdc_cubes:0, mdc_cubes?100.0*mdc_hr_cubes/mdc_cubes:0, mdc_sanity_fail);
+    fprintf(stderr,"[MAXDC] capped-fault cubes=%ld  orig=%.2f prime=%.2f headroom=%.2f bits/cube\n",
+        mdc_hardcubes, mdc_hardcubes?(double)mdc_hardorig/mdc_hardcubes:0,
+        mdc_hardcubes?(double)mdc_hardprime/mdc_hardcubes:0,
+        mdc_hardcubes?(double)(mdc_hardorig-mdc_hardprime)/mdc_hardcubes:0);
+}
+
+/* build the undetection oracle for the CURRENT target (call right after
+   WriteTPGModel so TFO flags / varsfc / numtranpo are set for this fault) */
+static void MDC_BuildOracle(CCaDiCaL* u, TARGET* target){
+    FNODE* f = target->list[0];
+    LoadModelToSolver(u, target);                 /* good circuit (varsgc) */
+    for (int j=0;j<n_net;j++){                    /* faulty cone gates (varsfc) */
+        if (((nl[j].flag & TFO)==TFO) && ((nl[j].flag & FP)!=FP)){
+            switch(nl[j].type){
+                case AND:  CreateConsFC_AND (u,&nl[j]); break;
+                case NAND: CreateConsFC_NAND(u,&nl[j]); break;
+                case OR:   CreateConsFC_OR  (u,&nl[j]); break;
+                case NOR:  CreateConsFC_NOR (u,&nl[j]); break;
+                case INV:  CreateConsFC_INV (u,&nl[j]); break;
+                case BUF:
+                case FOUT: CreateConsFC_BUF (u,&nl[j]); break;
+                case EXOR: CreateConsFC_XOR (u,&nl[j]); break;
+                case EXNOR:CreateConsFC_XNOR(u,&nl[j]); break;
+                default: break;
+            }
+        }
+    }
+    int fc = f->netptr->varsfc;                   /* fault site stuck value */
+    if (f->type==SF0){ ccadical_add(u,-fc); ccadical_add(u,0); }
+    else             { ccadical_add(u, fc); ccadical_add(u,0); }
+    CreateConsDC_XOR(u);                           /* per-PO diff = gc XOR fc */
+    CreateConsDC_OR(u);                            /* z = OR diffs */
+    int z = opb.total.vars;
+    ccadical_add(u,-z); ccadical_add(u,0);         /* z=0 : undetection (no PO differs) */
+}
+
+/* greedy prime-implicant: how many care bits of `cube` can become X */
+static void MDC_Measure(CCaDiCaL* u, const char* cube){
+    static int* care=NULL; static char* kept=NULL; static int cap=0;
+    if (cap<n_pi){ care=realloc(care,n_pi*sizeof(int)); kept=realloc(kept,n_pi); cap=n_pi; }
+    int nc=0;
+    for (int i=0;i<n_pi;i++) if (cube[i]!='X'){ care[nc]=i; kept[nc]=1; nc++; }
+    if (nc==0) return;
+    /* sanity: full cube must imply detection (oracle UNSAT) */
+    for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,(cube[i]=='1')?(int)pi[i]->varsgc:-(int)pi[i]->varsgc); }
+    if (ccadical_solve(u)!=20) mdc_sanity_fail++;
+    /* greedy drop */
+    for (int b=0;b<nc;b++){
+        for (int k=0;k<nc;k++){ if (k==b||!kept[k]) continue; int i=care[k];
+            ccadical_assume(u,(cube[i]=='1')?(int)pi[i]->varsgc:-(int)pi[i]->varsgc); }
+        if (ccadical_solve(u)==20) kept[b]=0;     /* UNSAT -> bit unnecessary */
+    }
+    int prime=0; for (int k=0;k<nc;k++) prime+=kept[k];
+    mdc_cubes++; mdc_orig+=nc; mdc_prime+=prime; if (prime<nc) mdc_hr_cubes++;
+    mdc_fcubes++; mdc_forig+=nc; mdc_fprime+=prime;
 }
 
 //*************************************************************************************************************
@@ -97,6 +170,16 @@ bool AnalyzeFaultDensity(
 
 		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
 
+		// 伸び代測定用：非検出オラクル（env MAXDC_MEASURE 指定時のみ）
+		CCaDiCaL* u_oracle = NULL;
+		if (getenv("MAXDC_MEASURE")) {
+			if (mdc_cubes==0 && mdc_fcubes==0) atexit(mdc_dump);
+			u_oracle = ccadical_init();
+			ccadical_set_option(u_oracle, "factor", 0);
+			MDC_BuildOracle(u_oracle, &target);
+			mdc_fcubes=0; mdc_forig=0; mdc_fprime=0;
+		}
+
 		// f のテストキューブを集める集合
 		CubeSet cubes;
 		cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
@@ -143,6 +226,12 @@ bool AnalyzeFaultDensity(
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
+				// 伸び代測定：この故障が capped なら hard 集計に加算し、オラクルを解放
+				if (u_oracle) {
+					if (limit_hit) { mdc_hardcubes+=mdc_fcubes; mdc_hardorig+=mdc_forig; mdc_hardprime+=mdc_fprime; }
+					ccadical_release(u_oracle); u_oracle=NULL;
+				}
+
 				// キューブの所有権を故障へ移す（深いコピーはしない）。
 				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
 				f->cubes = cubes;
@@ -161,6 +250,8 @@ bool AnalyzeFaultDensity(
                 char* x_pattern = InlineXID(solver, f->netptr);
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+
+				if (u_oracle) MDC_Measure(u_oracle, x_pattern);
 
 				AddBlockingClauseFromCube(solver, x_pattern);
 				cubeset_push(&cubes, x_pattern);

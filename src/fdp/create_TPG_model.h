@@ -9,6 +9,9 @@
 //-------------------------------------------------------------------------------------------------------------
 //	prototype declaration
 //-------------------------------------------------------------------------------------------------------------
+/** load the (global) good-circuit clauses into a solver */
+void LoadModelToSolver(CCaDiCaL *solver, TARGET* target);
+
 //** write the tset pattern generaiton model */
 bool WriteTPGModel(
 	CCaDiCaL *solver,
