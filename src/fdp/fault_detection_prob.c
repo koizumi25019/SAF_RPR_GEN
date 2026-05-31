@@ -44,13 +44,14 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
  *  Reports how many MORE bits could be X'd (the headroom for 案1).
  *  Inert unless MAXDC_MEASURE is set; production behaviour unchanged.
  * ===================================================================== */
-static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fail=0;
+static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fail=0, mdc_revert=0;
 static long mdc_hardcubes=0, mdc_hardorig=0, mdc_hardprime=0;   /* capped faults only */
 static long mdc_fcubes=0, mdc_forig=0, mdc_fprime=0;            /* per-fault accumulator */
 static void mdc_dump(void){
     fprintf(stderr,"\n[MAXDC] cubes=%ld  care/cube: orig=%.2f prime=%.2f  headroom=%.2f bits/cube (%.0f%% of cubes shrink)  sanity_fail=%ld\n",
         mdc_cubes, mdc_cubes?(double)mdc_orig/mdc_cubes:0, mdc_cubes?(double)mdc_prime/mdc_cubes:0,
         mdc_cubes?(double)(mdc_orig-mdc_prime)/mdc_cubes:0, mdc_cubes?100.0*mdc_hr_cubes/mdc_cubes:0, mdc_sanity_fail);
+    fprintf(stderr,"[MAXDC] reverts (unsafe expansions caught) = %ld\n", mdc_revert);
     fprintf(stderr,"[MAXDC] capped-fault cubes=%ld  orig=%.2f prime=%.2f headroom=%.2f bits/cube\n",
         mdc_hardcubes, mdc_hardcubes?(double)mdc_hardorig/mdc_hardcubes:0,
         mdc_hardcubes?(double)mdc_hardprime/mdc_hardcubes:0,
@@ -87,25 +88,51 @@ static void MDC_BuildOracle(CCaDiCaL* u, TARGET* target){
     ccadical_add(u,-z); ccadical_add(u,0);         /* z=0 : undetection (no PO differs) */
 }
 
-/* greedy prime-implicant: how many care bits of `cube` can become X */
-static void MDC_Measure(CCaDiCaL* u, const char* cube){
-    static int* care=NULL; static char* kept=NULL; static int cap=0;
-    if (cap<n_pi){ care=realloc(care,n_pi*sizeof(int)); kept=realloc(kept,n_pi); cap=n_pi; }
-    int nc=0;
-    for (int i=0;i<n_pi;i++) if (cube[i]!='X'){ care[nc]=i; kept[nc]=1; nc++; }
+static inline int mdc_lit(const char* cube, int i){
+    return (cube[i]=='1') ? (int)pi[i]->varsgc : -(int)pi[i]->varsgc;
+}
+
+/* 案1: expand `cube` toward a prime implicant IN PLACE (care bits -> 'X').
+   Cheap method: assume all care literals once; on UNSAT, the unsat core
+   (ccadical_failed) is a sufficient subset, so every care bit NOT in the
+   core can be dropped to X simultaneously. Optional extra greedy rounds
+   minimise further (env MAXDC_ROUNDS, default 1 = core-only).            */
+static void MDC_Expand(CCaDiCaL* u, char* cube){
+    static int* care=NULL; static char* save=NULL; static int cap=0;
+    if (cap<n_pi){ care=realloc(care,n_pi*sizeof(int)); save=realloc(save,n_pi+1); cap=n_pi; }
+    int nc=0; for (int i=0;i<n_pi;i++) if (cube[i]!='X') care[nc++]=i;
     if (nc==0) return;
-    /* sanity: full cube must imply detection (oracle UNSAT) */
-    for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,(cube[i]=='1')?(int)pi[i]->varsgc:-(int)pi[i]->varsgc); }
-    if (ccadical_solve(u)!=20) mdc_sanity_fail++;
-    /* greedy drop */
-    for (int b=0;b<nc;b++){
-        for (int k=0;k<nc;k++){ if (k==b||!kept[k]) continue; int i=care[k];
-            ccadical_assume(u,(cube[i]=='1')?(int)pi[i]->varsgc:-(int)pi[i]->varsgc); }
-        if (ccadical_solve(u)==20) kept[b]=0;     /* UNSAT -> bit unnecessary */
+    memcpy(save, cube, n_pi+1);       /* keep original to revert if needed */
+    int orig=nc;
+    int use_core = getenv("MAXDC_CORE") ? 1 : 0;  /* default: sound per-bit greedy */
+
+    if (use_core) {
+        /* cheap one-shot: keep only the unsat core, then verify+revert */
+        for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,mdc_lit(cube,i)); }
+        if (ccadical_solve(u)==20){
+            for (int k=0;k<nc;k++){ int i=care[k]; if (!ccadical_failed(u,mdc_lit(cube,i))) cube[i]='X'; }
+            int live=0; for (int k=0;k<nc;k++){ int i=care[k]; if (cube[i]!='X'){ ccadical_assume(u,mdc_lit(cube,i)); live++; } }
+            if (live<orig && ccadical_solve(u)!=20){ memcpy(cube,save,n_pi+1); mdc_revert++; }
+        } else mdc_sanity_fail++;
+    } else {
+        /* sound greedy: drop bit b only if (cube\b) still implies detection (UNSAT) */
+        /* first confirm the full cube implies detection at all */
+        for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,mdc_lit(cube,i)); }
+        if (ccadical_solve(u)!=20){ mdc_sanity_fail++; }
+        else {
+            for (int b=0;b<nc;b++){
+                int ib=care[b];
+                for (int k=0;k<nc;k++){ int i=care[k]; if (i==ib||cube[i]=='X') continue; ccadical_assume(u,mdc_lit(cube,i)); }
+                if (ccadical_solve(u)==20) cube[ib]='X';   /* still UNSAT without b -> drop */
+            }
+        }
     }
-    int prime=0; for (int k=0;k<nc;k++) prime+=kept[k];
-    mdc_cubes++; mdc_orig+=nc; mdc_prime+=prime; if (prime<nc) mdc_hr_cubes++;
-    mdc_fcubes++; mdc_forig+=nc; mdc_fprime+=prime;
+
+    if (getenv("MAXDC_NOMUT")) memcpy(cube, save, n_pi+1);  /* diagnostic: measure but don't change cube */
+
+    int prime=0; for (int k=0;k<nc;k++) if (cube[care[k]]!='X') prime++;
+    mdc_cubes++; mdc_orig+=orig; mdc_prime+=prime; if (prime<orig) mdc_hr_cubes++;
+    mdc_fcubes++; mdc_forig+=orig; mdc_fprime+=prime;
 }
 
 //*************************************************************************************************************
@@ -170,9 +197,9 @@ bool AnalyzeFaultDensity(
 
 		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
 
-		// 伸び代測定用：非検出オラクル（env MAXDC_MEASURE 指定時のみ）
+		// 案1: 素項展開用 非検出オラクル（env MAXDC 指定時のみ。未指定なら従来動作）
 		CCaDiCaL* u_oracle = NULL;
-		if (getenv("MAXDC_MEASURE")) {
+		if (getenv("MAXDC")) {
 			if (mdc_cubes==0 && mdc_fcubes==0) atexit(mdc_dump);
 			u_oracle = ccadical_init();
 			ccadical_set_option(u_oracle, "factor", 0);
@@ -251,7 +278,7 @@ bool AnalyzeFaultDensity(
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
-				if (u_oracle) MDC_Measure(u_oracle, x_pattern);
+				if (u_oracle) MDC_Expand(u_oracle, x_pattern);  // 案1: キューブを素項へ拡大（in place）
 
 				AddBlockingClauseFromCube(solver, x_pattern);
 				cubeset_push(&cubes, x_pattern);
