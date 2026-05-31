@@ -199,12 +199,26 @@ bool AnalyzeFaultDensity(
 
 		// 案1: 素項展開用 非検出オラクル（env MAXDC 指定時のみ。未指定なら従来動作）
 		CCaDiCaL* u_oracle = NULL;
-		if (getenv("MAXDC")) {
+		if (getenv("MAXDC") || (getenv("MDC_MC") && strcmp(f->name,getenv("MDC_MC"))==0)) {
 			if (mdc_cubes==0 && mdc_fcubes==0) atexit(mdc_dump);
 			u_oracle = ccadical_init();
 			ccadical_set_option(u_oracle, "factor", 0);
 			MDC_BuildOracle(u_oracle, &target);
 			mdc_fcubes=0; mdc_forig=0; mdc_fprime=0;
+		}
+
+		// 診断: 真のFDP(検出ソルバ) と オラクルの非検出率 をモンテカルロで突き合わせ
+		if (getenv("MDC_MC") && strcmp(f->name, getenv("MDC_MC"))==0) {
+			long N = 100000, det = 0, oun = 0;
+			for (long s=0;s<N;s++){
+				/* same random PI pattern for both solvers */
+				for (int i=0;i<n_pi;i++){ int v=(int)pi[i]->varsgc; if(v){ int L=(rand()&1)?v:-v; ccadical_assume(solver,L); if(u_oracle) ccadical_assume(u_oracle,L);} }
+				if (ccadical_solve(solver)==10) det++;
+				if (u_oracle && ccadical_solve(u_oracle)==10) oun++;
+			}
+			fprintf(stderr,"[MC] fault=%s/%s  TRUE_FDP=%.6f  oracle_UNDETECT=%.6f  (1-TRUE=%.6f) %s\n",
+				f->name,(f->type==SF0)?"sa0":"sa1",(double)det/N,(double)oun/N,1.0-(double)det/N,
+				(u_oracle && (oun+det>N*1.02 || oun+det<N*0.98))?"<-- ORACLE INCONSISTENT":"");
 		}
 
 		// f のテストキューブを集める集合
