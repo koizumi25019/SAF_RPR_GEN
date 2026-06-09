@@ -28,7 +28,7 @@ bool InitGlobalVars(
 
 	InitGlobalVarsQUE();
 
-	InitGlobalVarsOPB();
+	InitGlobalVarsCNF();
 
 	InitGlobalVarsREADDATA();
 
@@ -140,18 +140,18 @@ void InitGlobalVarsQUE(
 }
 
 //*************************************************************************************************************
-//	@name		InitGlobalVarsOPB
-//	@function	initialize the opb
+//	@name		InitGlobalVarsCNF
+//	@function	initialize the cnf
 //	@return		(void) 
 //*************************************************************************************************************
-void InitGlobalVarsOPB(
+void InitGlobalVarsCNF(
 	void
 )
 {
-	opb.constant.cons = 0;
-	opb.constant.vars = 0;
-	opb.total.cons = 0;
-	opb.total.vars = 0;
+	cnf.constant.clauses = 0;
+	cnf.constant.vars = 0;
+	cnf.total.clauses = 0;
+	cnf.total.vars = 0;
 
 	return;
 }

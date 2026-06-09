@@ -1,0 +1,14 @@
+# set File — s1494 冗長故障チェック用（全故障・無制限）
+# expected/README.md の期待値生成条件に従う：
+#   -fault を書かない → ネットリストから全故障（代表故障）を生成
+#   -limit を書かない → UNSAT まで完全列挙（complete=1）
+# fdp==0 の故障が冗長故障。expected/s1494_C_red.txt と照合する。
+
+# set netlist(.v)
+-net ./data/circuit/s1494_C.v
+
+# set log(.txt)
+-log ./output/log/s1494_C_red_log.txt
+
+# set fdp result(.csv)
+-fdp ./output/fdp/s1494_red_result.csv

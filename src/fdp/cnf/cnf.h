@@ -10,25 +10,25 @@
 //	structre
 //-------------------------------------------------------------------------------------------------------------
 /** problem size */
-typedef struct OPBproblemSize
+typedef struct CNFproblemSize
 {
 	int					  vars;			      /**< number of variables */
-	int					  cons;				  /**< number of constraints */
+	int					  clauses;				  /**< number of clauses */
 }
-OPBSIZE;
+CNFSIZE;
 
-/** opb */
-typedef struct OPBproblem
+/** cnf */
+typedef struct CNFproblem
 {
-	OPBSIZE				  constant;			  /**< constant size */
-	OPBSIZE				  total;			  /**< total size */
+	CNFSIZE				  constant;			  /**< constant size */
+	CNFSIZE				  total;			  /**< total size */
 }
-OPB;
+CNF;
 
 //-------------------------------------------------------------------------------------------------------------
 //	global variable
 //-------------------------------------------------------------------------------------------------------------
-OPB							opb;				/**< opb */
+CNF							cnf;				/**< cnf */
 unsigned int				fc_po;				/* function output */
 int							constraint;			/* constraint */
 int							CONS_SIZE;

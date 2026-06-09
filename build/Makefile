@@ -250,6 +250,33 @@ src/fdp/create_TPG_model.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/src/fdp/create_TPG_model.c.s
 .PHONY : src/fdp/create_TPG_model.c.s
 
+src/fdp/cube_set.o: src/fdp/cube_set.c.o
+.PHONY : src/fdp/cube_set.o
+
+# target to build an object file
+src/fdp/cube_set.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/src/fdp/cube_set.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/src/fdp/cube_set.c.o
+.PHONY : src/fdp/cube_set.c.o
+
+src/fdp/cube_set.i: src/fdp/cube_set.c.i
+.PHONY : src/fdp/cube_set.i
+
+# target to preprocess a source file
+src/fdp/cube_set.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/src/fdp/cube_set.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/src/fdp/cube_set.c.i
+.PHONY : src/fdp/cube_set.c.i
+
+src/fdp/cube_set.s: src/fdp/cube_set.c.s
+.PHONY : src/fdp/cube_set.s
+
+# target to generate assembly for a file
+src/fdp/cube_set.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_debug.dir/build.make CMakeFiles/main_debug.dir/src/fdp/cube_set.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_release.dir/build.make CMakeFiles/main_release.dir/src/fdp/cube_set.c.s
+.PHONY : src/fdp/cube_set.c.s
+
 src/fdp/cudd_wrapper.o: src/fdp/cudd_wrapper.c.o
 .PHONY : src/fdp/cudd_wrapper.o
 
@@ -758,6 +785,9 @@ help:
 	@echo "... src/fdp/create_TPG_model.o"
 	@echo "... src/fdp/create_TPG_model.i"
 	@echo "... src/fdp/create_TPG_model.s"
+	@echo "... src/fdp/cube_set.o"
+	@echo "... src/fdp/cube_set.i"
+	@echo "... src/fdp/cube_set.s"
 	@echo "... src/fdp/cudd_wrapper.o"
 	@echo "... src/fdp/cudd_wrapper.i"
 	@echo "... src/fdp/cudd_wrapper.s"

@@ -202,11 +202,3 @@ unsigned int  Get_NBit_Xbuf(BIT_INT_XP*, unsigned int);
 
 //指定ビットの値を取得(xbuf, pbuf)
 unsigned int  Get_NBit_XP(BIT_INT_XP* get_n, unsigned int pi_num);
-
-
-
-
-
-
-
-

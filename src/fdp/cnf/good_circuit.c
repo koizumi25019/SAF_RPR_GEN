@@ -68,13 +68,13 @@ void AssigneVarsGC(
 {
 	/** assigne the variable for primary inputs */
 	for (int i = 0; i < n_pi; i++) {
-		pi[i]->varsgc = ++opb.constant.vars;
+		pi[i]->varsgc = ++cnf.constant.vars;
 	}
 	/** assigne the variable for others */
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].varsgc == UNASSIGN)
-			nl[i].varsgc = ++opb.constant.vars;
+			nl[i].varsgc = ++cnf.constant.vars;
 	}
 
 	return;

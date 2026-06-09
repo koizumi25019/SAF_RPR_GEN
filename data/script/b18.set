@@ -1,9 +1,9 @@
 # set File
 # set netlist(.v)
--net ../input/circuit/b18_C.v 
+-net ../data/circuit/b18_C.v 
 
 # set fault list(.txt)
-#-fault ../input/fault/b18.txt
+#-fault ../data/fault/b18.txt
 
 # set log(.txt)
 -log ../output/log/b18_C_log_30_rep.txt

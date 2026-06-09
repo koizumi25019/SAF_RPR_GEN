@@ -1,9 +1,9 @@
 # set File
 # set netlist(.v)
--net ../input/circuit/c17a.v 
+-net ../data/circuit/c17a.v 
 
 # set fault list(.txt)
-#-fault ../input/fault/c17a_rep.txt
+#-fault ../data/fault/c17a_rep.txt
 
 # set log(.txt)
 -log ../output/log/c17a_log.txt
@@ -15,6 +15,6 @@
 # cube_analysis(.txt)
 -cube_analysis ../output/cube_analysis/c17a_cube_analysis.csv
 
--limit 100
+# -limit は書かない → 上限なし（無制限・UNSATまで完全列挙）。期待値生成条件に合わせる。
 
 

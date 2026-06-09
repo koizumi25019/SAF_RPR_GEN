@@ -35,10 +35,10 @@ while (false);
 while(false);
 
 /** reset the problem size */
-#define RESET_OPB		do																				      \
+#define RESET_CNF		do																				      \
 {																											  \
-	opb.total.vars	= opb.constant.vars;																	  \
-	opb.total.cons	= opb.constant.cons;																	  \
+	cnf.total.vars	= cnf.constant.vars;																	  \
+	cnf.total.clauses	= cnf.constant.clauses;																	  \
 }																											  \
 while (false);
 
@@ -60,8 +60,8 @@ void InitGlobalVarsSTACK(
 	void
 );
 
-/** initialize the opb */
-void InitGlobalVarsOPB(
+/** initialize the cnf */
+void InitGlobalVarsCNF(
 	void
 );
 

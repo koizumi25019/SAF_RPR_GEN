@@ -46,7 +46,7 @@ void CreateConsDC_XOR(
 		if ((nl[i].flag & TPO) == TPO)
 		{
 			// XORの出力変数を新しく確保（この変数が 1 なら「このPOで不一致」という意味）
-			int diff_var = ++opb.total.vars; 
+			int diff_var = ++cnf.total.vars; 
 			int gc = nl[i].varsgc;
 			int fc = nl[i].varsfc;
 
@@ -71,7 +71,7 @@ void CreateConsDC_OR(
 	// 伝播先POが複数ある場合のみ、それらを束ねるORゲートを作る
 	if (numtranpo > 1)
 	{
-		int z_var = ++opb.total.vars; // 最終的な「検出成功」フラグ
+		int z_var = ++cnf.total.vars; // 最終的な「検出成功」フラグ
 		
 		// XORの結果が格納されている変数は、直前に作成された numtranpo 分の変数
 		int first_xor_var = z_var - numtranpo;
@@ -121,7 +121,7 @@ void CreateConsDC_FE(
 	}
 
 	// 2. 最終出力（検出フラグ）を 1 に固定
-	// opb.total.vars は直前の OR または XOR で作成された「最終出力」を指している
-	ccadical_add(solver, opb.total.vars);
+	// cnf.total.vars は直前の OR または XOR で作成された「最終出力」を指している
+	ccadical_add(solver, cnf.total.vars);
 	ccadical_add(solver, 0);
 }

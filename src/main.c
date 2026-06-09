@@ -58,7 +58,7 @@ struct timespec start, end;
 	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	//discordにメッセージ送信
-	 system(
+	 if (!getenv("NO_DISCORD")) system(
         "curl -H \"Content-Type: application/json\" "
         "-X POST "
         "-d '{\"content\":\"実験終了\"}' "

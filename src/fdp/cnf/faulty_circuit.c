@@ -23,7 +23,7 @@ bool CreateConsFC(
 	TARGET* target			  /**< target fault */
 )
 {
-	RESET_OPB;
+	RESET_CNF;
 
 	for (int i = 0; i < 1; i++)
 	{
@@ -103,8 +103,8 @@ void SearchTFO(
 		if ((netptr->flag & TFO) != TFO)
 		{
 			netptr->flag |= TFO;
-			netptr->varsfc  = ++opb.total.vars;
-			netptr->varprop = ++opb.total.vars;
+			netptr->varsfc  = ++cnf.total.vars;
+			netptr->varprop = ++cnf.total.vars;
 
 			numtrannet++;
 

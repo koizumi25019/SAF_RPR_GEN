@@ -2,7 +2,7 @@
 //  essential_assignment.c
 //  必須割り当てによる単位節の追加
 //  参考: assignment_extraction.c (T.Aono, 2025/03/23)
-//  OPB文字列生成 → ccadical_add() の単位節に変換
+//  CNF文字列生成 → ccadical_add() の単位節に変換
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
