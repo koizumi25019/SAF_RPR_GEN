@@ -1,0 +1,4 @@
+[GT] v12E,sa0,cubes=48,complete=1,sound=0,exact=0,fdp_cube=3.6938476562e-01,fdp_true=3.6914062500e-01
+[GT] C141DE,sa0,cubes=3,complete=1,sound=0,exact=0,fdp_cube=6.3476562500e-03,fdp_true=5.8593750000e-03
+[XSTAT] xid=inline cubes_bits=134904 x_bits=66542 x_ratio=0.4933
+[GT] summary: checked=1506  UNSOUND=2  complete-but-NOT-exact=2  ** MISMATCH **

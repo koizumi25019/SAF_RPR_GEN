@@ -1,0 +1,3 @@
+-net ../data/circuit/s208_C.v
+-fdp ../verification/gt_bdd/results/s208.fdp.csv
+-log ../verification/gt_bdd/results/s208.log

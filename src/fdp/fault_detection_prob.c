@@ -37,6 +37,67 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 }
 
 /* =====================================================================
+ *  EXPERIMENT (env XID_EXTERNAL=<bin>): 旧・外部実行体XID(Miyase2004)で
+ *  ドントケアを埋める。現行 InlineXID(故障値考慮) との「X判定単体効果」を
+ *  比較するため、モデル/ソルバ/回路/limit/帰還を固定したままX判定だけ差替え。
+ *  返り値は InlineXID と同じ malloc 済み char[n_pi+1]（'0'/'1'/'X'）。
+ *  PINファイル（pi[] 順の信号名）は初回のみ書き出してキャッシュする。
+ * ===================================================================== */
+static const char* s_xid_pin = NULL;   // PINファイルパス（pi[]順、初回生成）
+
+static char* ExternalXID(CCaDiCaL* solver, FNODE* f)
+{
+    const char* bin = getenv("XID_EXTERNAL");
+    const char* tp  = "./xidext_tp.txt";
+    const char* fl  = "./xidext_flist.txt";
+    const char* ot  = "./xidext_otx.txt";
+
+    // 初回: PINファイル（pi[] 順の信号名を1行ずつ）を書き出す
+    if (!s_xid_pin) {
+        FILE* p = fopen("./xidext_pin.txt", "w");
+        if (!p) { fprintf(stderr, "ExternalXID: cannot write pin file\n"); exit(1); }
+        for (int i = 0; i < n_pi; i++) fprintf(p, "%s\n", pi[i]->name);
+        fclose(p);
+        s_xid_pin = "./xidext_pin.txt";
+    }
+
+    // 1) SATモデルから完全指定の入力パターン（0/1）を tp.txt に書く
+    FILE* fp = fopen(tp, "w");
+    if (!fp) { fprintf(stderr, "ExternalXID: cannot write tp\n"); exit(1); }
+    for (int i = 0; i < n_pi; i++)
+        fputc((ccadical_val(solver, (int)pi[i]->varsgc) > 0) ? '1' : '0', fp);
+    fputc('\n', fp);
+    fclose(fp);
+
+    // 2) 故障リスト（SF0/SF1 信号名）
+    fp = fopen(fl, "w");
+    fprintf(fp, "%s %s\n", (f->type == SF0) ? "SF0" : "SF1", f->name);
+    fclose(fp);
+
+    // 3) 外部XID呼び出し（回路は毎回読み直すため遅い）
+    char cmd[4096];
+    snprintf(cmd, sizeof(cmd),
+        "%s -c %s -tx %s -pin %s -flist %s -otx %s -fm SAF -xid YES -m2004 YES > /dev/null 2>&1",
+        bin, opt.file.input.net, tp, s_xid_pin, fl, ot);
+    if (system(cmd) != 0) fprintf(stderr, "ExternalXID: invocation failed\n");
+
+    // 4) X埋め結果（'0'/'1'/'X' を pi[] 順）を読み戻す
+    char* result = (char*)malloc((size_t)n_pi + 1);
+    if (!result) { fprintf(stderr, "ExternalXID: malloc failed\n"); exit(1); }
+    fp = fopen(ot, "r");
+    if (!fp) { fprintf(stderr, "ExternalXID: cannot read otx\n"); exit(1); }
+    int c, k = 0;
+    while (k < n_pi && (c = fgetc(fp)) != EOF) {
+        if (c == '0' || c == '1') result[k++] = (char)c;
+        else if (c == 'X' || c == 'x') result[k++] = 'X';
+    }
+    fclose(fp);
+    while (k < n_pi) result[k++] = 'X';   // 安全側（読み欠け時）
+    result[n_pi] = '\0';
+    return result;
+}
+
+/* =====================================================================
  *  EXPERIMENT (env MAXDC_MEASURE): don't-care headroom measurement.
  *  Builds an "undetection oracle" CNF (good ^ faulty-cone ^ fc[site]=stuck
  *  ^ all-PO-equal i.e. z=0) and, for each XID cube, greedily drops care
@@ -100,6 +161,187 @@ static double FdpBySim(FNODE* f, long N){
         if(diff) det++;
     }
     return (double)det/N;
+}
+
+/* =====================================================================
+ *  検証(env GT_BDD=1): SAT/CNF/XID/キューブ列挙を一切使わない独立グラウンド
+ *  トゥルース。ネットリストから正常回路と故障回路の BDD を直接構築し、
+ *  検出関数 D_f = OR_{PO} (good XOR faulty) を厳密に得る。これとパイプライン
+ *  が生成したキューブ和集合を「同一 CUDD マネージャ内のポインタ比較」で照合：
+ *    sound : 和集合 ⊆ D_f（非検出ミンタームを含まない）→ 全故障で成立すべき
+ *    exact : 和集合 = D_f                              → complete=1 なら成立すべき
+ *  共有するのはネットリスト構造体と CUDD/数値計算のみで、疑わしい箇所
+ *  （TPGモデルCNF・XID・支配流用・キューブ処理）は全て迂回する。
+ * ===================================================================== */
+#include <math.h>
+static DdManager* gt_mgr   = NULL;
+static DdNode**   gt_good  = NULL;   /* 正常回路: net id -> BDD（一度だけ構築、常駐） */
+static DdNode**   gt_fault = NULL;   /* 故障回路: TFOコーンのみ故障ごとに構築/解放 */
+static int*       gt_piidx = NULL;   /* net id -> pi[] index（PIでなければ -1） */
+static int*       gt_mark  = NULL;   /* TFOコーン所属フラグ */
+static long gt_n=0, gt_unsound=0, gt_inexact=0;
+
+static void gt_dump(void){
+    fprintf(stderr, "[GT] summary: checked=%ld  UNSOUND=%ld  complete-but-NOT-exact=%ld  %s\n",
+        gt_n, gt_unsound, gt_inexact,
+        (gt_unsound==0 && gt_inexact==0) ? "ALL VERIFIED" : "** MISMATCH **");
+}
+
+/* ゲート1個のBDD。入力 j の値は mark[j] が立っていれば fb[j]（故障側）、
+   さもなくば gb[j]（正常側）。正常回路構築時は mark=NULL で gb のみ参照。 */
+static DdNode* gt_gate_bdd(DdManager* m, NLIST* nd, DdNode** gb, DdNode** fb, const int* mark){
+    #define GT_IN(k) ((mark && mark[nd->in[k]->n]) ? fb[nd->in[k]->n] : gb[nd->in[k]->n])
+    DdNode *r, *t;
+    switch (nd->type) {
+        case BUF: case FOUT: r = GT_IN(0); Cudd_Ref(r); return r;
+        case INV:            r = Cudd_Not(GT_IN(0)); Cudd_Ref(r); return r;
+        case GND:            r = Cudd_ReadLogicZero(m); Cudd_Ref(r); return r;
+        case ACC:            r = Cudd_ReadOne(m); Cudd_Ref(r); return r;
+        case AND: case NAND:
+            r = Cudd_ReadOne(m); Cudd_Ref(r);
+            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddAnd(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            if (nd->type==NAND){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            return r;
+        case OR: case NOR:
+            r = Cudd_ReadLogicZero(m); Cudd_Ref(r);
+            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddOr(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            if (nd->type==NOR){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            return r;
+        case EXOR: case EXNOR:
+            r = Cudd_ReadLogicZero(m); Cudd_Ref(r);
+            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddXor(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            if (nd->type==EXNOR){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            return r;
+        default:
+            fprintf(stderr, "[GT] unsupported gate type %d (net %s)\n", nd->type, nd->name);
+            exit(1);
+    }
+    #undef GT_IN
+}
+
+/* 初回のみ: 正常回路の全ネットBDDをトポロジカル順に構築する。
+   BDD変数 i は pi[i]（parseCube と同じ対応）。 */
+static void gt_init(void){
+    if (gt_mgr) return;
+    sim_build_topo();
+    gt_mgr   = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+    Cudd_AutodynEnable(gt_mgr, CUDD_REORDER_SIFT);
+    gt_good  = calloc(n_net, sizeof(DdNode*));
+    gt_fault = calloc(n_net, sizeof(DdNode*));
+    gt_mark  = calloc(n_net, sizeof(int));
+    gt_piidx = malloc(n_net * sizeof(int));
+    for (int i=0;i<n_net;i++) gt_piidx[i] = -1;
+    for (int i=0;i<n_pi;i++)  gt_piidx[pi[i]->n] = i;
+    for (int t=0;t<sim_ntopo;t++){
+        int i = sim_topo[t];
+        if (gt_piidx[i] >= 0){ gt_good[i] = Cudd_bddIthVar(gt_mgr, gt_piidx[i]); Cudd_Ref(gt_good[i]); }
+        else if (nl[i].type==IN || nl[i].type==DFF){
+            fprintf(stderr, "[GT] input-like net %s is not in pi[]\n", nl[i].name); exit(1);
+        }
+        else gt_good[i] = gt_gate_bdd(gt_mgr, &nl[i], gt_good, NULL, NULL);
+    }
+    atexit(gt_dump);
+}
+
+/* 1故障ぶんの検証。RunBDD 直後（キューブ集合が生きている間）に呼ぶ。 */
+static void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
+    gt_init();
+    DdManager* m = gt_mgr;
+    int fsig = (int)(f->netptr - nl);
+
+    /* 故障サイトのTFOコーンを out 辺で収集 */
+    static int *stack=NULL, *cone=NULL;
+    if (!stack){ stack=malloc(n_net*sizeof(int)); cone=malloc(n_net*sizeof(int)); }
+    int ncone=0, sp=0;
+    stack[sp++]=fsig; gt_mark[fsig]=1;
+    while (sp){
+        int i = stack[--sp]; cone[ncone++]=i;
+        for (int k=0;k<nl[i].n_out;k++){
+            int j = nl[i].out[k]->n;
+            if (!gt_mark[j]){ gt_mark[j]=1; stack[sp++]=j; }
+        }
+    }
+
+    /* 故障回路: コーン内だけトポロジカル順に再構築（故障サイトは定数） */
+    for (int t=0;t<sim_ntopo;t++){
+        int i = sim_topo[t];
+        if (!gt_mark[i]) continue;
+        if (i==fsig){ gt_fault[i] = (f->type==SF0)?Cudd_ReadLogicZero(m):Cudd_ReadOne(m); Cudd_Ref(gt_fault[i]); }
+        else gt_fault[i] = gt_gate_bdd(m, &nl[i], gt_good, gt_fault, gt_mark);
+    }
+
+    /* D_f = OR_{PO∈コーン} (good XOR faulty)。コーン外POは差分0 */
+    DdNode* det = Cudd_ReadLogicZero(m); Cudd_Ref(det);
+    for (int t=0;t<ncone;t++){
+        int i = cone[t];
+        if (nl[i].n_out != 0) continue;
+        DdNode* d = Cudd_bddXor(m, gt_good[i], gt_fault[i]); Cudd_Ref(d);
+        DdNode* o = Cudd_bddOr(m, det, d); Cudd_Ref(o);
+        Cudd_RecursiveDeref(m,det); Cudd_RecursiveDeref(m,d); det=o;
+    }
+
+    /* キューブ和集合（変数対応は parseCube と同一: ビット i ↔ pi[i]） */
+    DdNode* uni = Cudd_ReadLogicZero(m); Cudd_Ref(uni);
+    for (int c=0;c<cubes->n;c++){
+        const char* s = cubes->data[c];
+        DdNode* cb = Cudd_ReadOne(m); Cudd_Ref(cb);
+        for (int i=0;i<n_pi;i++){
+            DdNode* lit;
+            if      (s[i]=='1') lit = Cudd_bddIthVar(m,i);
+            else if (s[i]=='0') lit = Cudd_Not(Cudd_bddIthVar(m,i));
+            else continue;
+            DdNode* t2 = Cudd_bddAnd(m,cb,lit); Cudd_Ref(t2); Cudd_RecursiveDeref(m,cb); cb=t2;
+        }
+        DdNode* o = Cudd_bddOr(m,uni,cb); Cudd_Ref(o);
+        Cudd_RecursiveDeref(m,uni); Cudd_RecursiveDeref(m,cb); uni=o;
+    }
+
+    int sound = Cudd_bddLeq(m, uni, det);   /* uni ⇒ det */
+    int exact = (uni == det);               /* 同一マネージャ内なので完全等価 ⇔ 同一ノード */
+
+    /* 診断(env GT_CUBES=1): 非健全キューブを特定し、X のうち「どれか1ビットを
+       固定すれば健全になる」候補（XIDが誤ってXにした必要PI）を列挙する */
+    if (!sound && getenv("GT_CUBES")){
+        for (int c=0;c<cubes->n;c++){
+            const char* s = cubes->data[c];
+            DdNode* cb = Cudd_ReadOne(m); Cudd_Ref(cb);
+            for (int i=0;i<n_pi;i++){
+                DdNode* lit;
+                if      (s[i]=='1') lit = Cudd_bddIthVar(m,i);
+                else if (s[i]=='0') lit = Cudd_Not(Cudd_bddIthVar(m,i));
+                else continue;
+                DdNode* t2 = Cudd_bddAnd(m,cb,lit); Cudd_Ref(t2); Cudd_RecursiveDeref(m,cb); cb=t2;
+            }
+            if (!Cudd_bddLeq(m, cb, det)){
+                fprintf(stderr, "[GT_CUBE] %s,%s cube#%d UNSOUND: %s\n",
+                    f->name, (f->type==SF0)?"sa0":"sa1", c, s);
+                for (int i=0;i<n_pi;i++){
+                    if (s[i]!='X') continue;
+                    DdNode* v = Cudd_bddIthVar(m,i);
+                    DdNode* c1 = Cudd_bddAnd(m,cb,v);            Cudd_Ref(c1);
+                    DdNode* c0 = Cudd_bddAnd(m,cb,Cudd_Not(v));  Cudd_Ref(c0);
+                    if (Cudd_bddLeq(m,c1,det)) fprintf(stderr, "[GT_CUBE]   fix %s=1 would be sound\n", pi[i]->name);
+                    if (Cudd_bddLeq(m,c0,det)) fprintf(stderr, "[GT_CUBE]   fix %s=0 would be sound\n", pi[i]->name);
+                    Cudd_RecursiveDeref(m,c1); Cudd_RecursiveDeref(m,c0);
+                }
+            }
+            Cudd_RecursiveDeref(m,cb);
+        }
+    }
+    int complete = !limit_hit;
+    gt_n++;
+    if (!sound) gt_unsound++;
+    if (complete && !exact) gt_inexact++;
+    /* 完全列挙なのに不一致 / 健全性違反のときだけ詳細を出す（OK行は GT_VERBOSE で） */
+    if (!sound || (complete && !exact) || getenv("GT_VERBOSE")){
+        double pu = ldexp(Cudd_CountMinterm(m,uni,n_pi), -n_pi);
+        double pd = ldexp(Cudd_CountMinterm(m,det,n_pi), -n_pi);
+        fprintf(stderr, "[GT] %s,%s,cubes=%d,complete=%d,sound=%d,exact=%d,fdp_cube=%.10e,fdp_true=%.10e\n",
+            f->name, (f->type==SF0)?"sa0":"sa1", cubes->n, complete, sound, exact, pu, pd);
+    }
+
+    Cudd_RecursiveDeref(m,det); Cudd_RecursiveDeref(m,uni);
+    for (int t=0;t<ncone;t++){ int i=cone[t]; Cudd_RecursiveDeref(m,gt_fault[i]); gt_fault[i]=NULL; gt_mark[i]=0; }
 }
 
 /* build the undetection oracle for the CURRENT target (call right after
@@ -265,6 +507,8 @@ bool AnalyzeFaultDensity(
     double time_cadical = 0.0;
     double time_bdd     = 0.0;
     double time_xid     = 0.0;
+    long   xstat_x      = 0;   // 全キューブ中のX(ドントケア)ビット総数（X率計測用）
+    long   xstat_bits   = 0;   // 全キューブのビット総数 = Σ n_pi
     double time_read    = 0.0;
     // ============================
 
@@ -301,6 +545,35 @@ bool AnalyzeFaultDensity(
 		count++;
 		SetTarget(&target);
 		FNODE* f = target.list[0];
+
+		// 診断(env FDPSIM_LIST=<file>): 指定故障の真値FDP(FdpBySim)を1パスで出力。
+		// ファイルは1行 "name sa0|sa1"。該当故障が対象になった時点で [SIM] 行を出す。
+		if (getenv("FDPSIM_LIST")) {
+			static char (*sim_keys)[160] = NULL;
+			static int sim_n = -1;
+			if (sim_n < 0) {   // 初回のみロード
+				sim_n = 0;
+				FILE* lf = fopen(getenv("FDPSIM_LIST"), "r");
+				if (lf) {
+					sim_keys = malloc(sizeof(*sim_keys) * 4096);
+					char line[160];
+					while (sim_n < 4096 && fgets(line, sizeof(line), lf)) {
+						line[strcspn(line, "\r\n")] = '\0';
+						if (line[0]) strcpy(sim_keys[sim_n++], line);
+					}
+					fclose(lf);
+				}
+			}
+			char key[160];
+			snprintf(key, sizeof(key), "%s %s", f->name, (f->type == SF0) ? "sa0" : "sa1");
+			for (int i = 0; i < sim_n; i++) {
+				if (strcmp(sim_keys[i], key) == 0) {
+					fprintf(stderr, "[SIM] %s,%s,%.10f\n",
+						f->name, (f->type == SF0) ? "sa0" : "sa1", FdpBySim(f, 200000));
+					break;
+				}
+			}
+		}
 
 		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
 
@@ -386,6 +659,9 @@ bool AnalyzeFaultDensity(
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
+				// 検証(env GT_BDD=1): 回路から直接構築した検出関数とキューブ和集合を厳密照合
+				if (getenv("GT_BDD")) GT_Check(f, &cubes, limit_hit);
+
 				// 伸び代測定：この故障が capped なら hard 集計に加算し、オラクルを解放
 				if (u_oracle) {
 					if (limit_hit) { mdc_hardcubes+=mdc_fcubes; mdc_hardorig+=mdc_forig; mdc_hardprime+=mdc_fprime; }
@@ -407,7 +683,9 @@ bool AnalyzeFaultDensity(
 				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
 
                 t_start = clock();
-                char* x_pattern = InlineXID(solver, f->netptr);
+                char* x_pattern = getenv("XID_EXTERNAL")
+                                    ? ExternalXID(solver, f)             // 旧・外部XID(比較用)
+                                    : InlineXID(solver, f->netptr);      // 現行・故障値考慮XID
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -417,9 +695,22 @@ bool AnalyzeFaultDensity(
 				cubeset_push(&cubes, x_pattern);
 				prev_cube = x_pattern;   // 案2: 次回 solve の多様化参照
 
+				// X率計測: このキューブのXビット数を集計
+				for (int xi = 0; xi < n_pi; xi++) if (x_pattern[xi] == 'X') xstat_x++;
+				xstat_bits += n_pi;
+
 				// 計測: 特定故障のキューブ列を stderr にダンプ（env CUBE_DUMP=<net>）
-				if (getenv("CUBE_DUMP") && strcmp(f->name, getenv("CUBE_DUMP"))==0)
+				if (getenv("CUBE_DUMP") && strcmp(f->name, getenv("CUBE_DUMP"))==0) {
+					static int cube_hdr_done = 0;
+					if (!cube_hdr_done) {
+						cube_hdr_done = 1;
+						fprintf(stderr, "[PIORDER]");
+						for (int pidx = 0; pidx < n_pi; pidx++)
+							fprintf(stderr, " %s", pi[pidx]->name);
+						fprintf(stderr, "\n");
+					}
 					fprintf(stderr, "[CUBE] %s\n", x_pattern);
+				}
 
                 if (opt.file.input.cube_analysis != FILE_NOSET) {
                     t_start = clock();
@@ -437,6 +728,12 @@ bool AnalyzeFaultDensity(
     *out_time_bdd     = time_bdd;
     *out_time_xid     = time_xid;
     *out_time_read    = time_read;
+
+    // X率サマリー（InlineXID/外部XID 両方で出力、比較用）
+    fprintf(stderr, "[XSTAT] xid=%s cubes_bits=%ld x_bits=%ld x_ratio=%.4f\n",
+            getenv("XID_EXTERNAL") ? "external" : "inline",
+            xstat_bits, xstat_x,
+            xstat_bits ? (double)xstat_x / (double)xstat_bits : 0.0);
 
 	return AFD_OKAY;
 }

@@ -1,0 +1,4 @@
+-net ../data/circuit/s5378_C.v
+-fdp ../verification/gt_bdd/results/s5378_noea.fdp.csv
+-log ../verification/gt_bdd/results/s5378_noea.log
+-limit 30

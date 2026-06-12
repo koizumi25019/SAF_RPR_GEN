@@ -1,0 +1,11 @@
+[GT] G379,sa0,cubes=74,complete=1,sound=0,exact=0,fdp_cube=4.7378236800e-01,fdp_true=4.5221698657e-01
+[GT] G379,sa1,cubes=73,complete=1,sound=0,exact=0,fdp_cube=4.8116647080e-01,fdp_true=4.5221698657e-01
+[GT] G359_G214_B,sa1,cubes=89,complete=1,sound=0,exact=0,fdp_cube=2.3871198297e-02,fdp_true=2.3103080690e-02
+[GT] G356_G210_B,sa1,cubes=102,complete=1,sound=0,exact=0,fdp_cube=2.4044901133e-02,fdp_true=2.3832924664e-02
+[GT] G397,sa0,cubes=449,complete=1,sound=0,exact=0,fdp_cube=1.8884094059e-01,fdp_true=1.8864066899e-01
+[GT] G397,sa1,cubes=169,complete=1,sound=0,exact=0,fdp_cube=1.2646086514e-01,fdp_true=1.2641997635e-01
+[GT] G393,sa0,cubes=510,complete=1,sound=0,exact=0,fdp_cube=5.8519631624e-02,fdp_true=5.8461934328e-02
+[GT] G393,sa1,cubes=189,complete=1,sound=0,exact=0,fdp_cube=2.6913672686e-02,fdp_true=2.6871711016e-02
+[GT] G395,sa0,cubes=498,complete=1,sound=0,exact=0,fdp_cube=1.0004869103e-01,fdp_true=9.9831253290e-02
+[XSTAT] xid=inline cubes_bits=1903338 x_bits=1477504 x_ratio=0.7763
+[GT] summary: checked=463  UNSOUND=9  complete-but-NOT-exact=9  ** MISMATCH **

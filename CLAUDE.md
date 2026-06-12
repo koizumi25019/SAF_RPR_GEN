@@ -96,6 +96,10 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
 - `MDC_MC=<故障名>` — モンテカルロ突き合わせ：SAT を使わない論理シミュレーションの真値（`FdpBySim`）と、
   検出ソルバの FDP、非検出オラクルの `1-非検出率` の3値を比較し、CNF モデル/オラクルの健全性を検証する。
 - `CUBE_DUMP=<故障名>` — 1故障分の生成キューブ列を stderr にダンプする。
+- `GT_BDD=1` — 独立グラウンドトゥルース検証：ネットリストから検出関数 D_f を BDD で直接構築し、
+  キューブ和集合と厳密比較（sound=⊆ / exact==）。不一致故障を stderr に出力し、終了時に
+  `[GT] summary` を出す（`verification/gt_bdd/SUMMARY.md` 参照）。`GT_VERBOSE=1` で全故障出力。
+- `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価バグの切り分け用）。
 
 `experiment/*` ブランチがこれらを持ち、`master` がベースライン。各実験コミットが何を確認したかは
 `git log` を参照。

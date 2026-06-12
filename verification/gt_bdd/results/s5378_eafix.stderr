@@ -1,0 +1,30 @@
+[GT] n1880gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=3.5888463565e-01,fdp_true=3.5918479252e-01
+[GT] n1880gat,sa1,cubes=30,complete=0,sound=0,exact=0,fdp_cube=3.5893793612e-01,fdp_true=3.5918479252e-01
+[GT] n2060gat,sa1,cubes=30,complete=0,sound=0,exact=0,fdp_cube=1.7961649131e-01,fdp_true=1.9646333624e-01
+[GT] n1898gat,sa1,cubes=30,complete=0,sound=0,exact=0,fdp_cube=7.8219413757e-02,fdp_true=8.3328247070e-02
+[GT] n2439gat_n2193gat_B,sa0,cubes=28,complete=1,sound=0,exact=0,fdp_cube=1.7086982727e-01,fdp_true=1.7013740540e-01
+[GT] n2402gat_n2211gat_B,sa0,cubes=21,complete=1,sound=0,exact=0,fdp_cube=2.0235824585e-01,fdp_true=2.0113754272e-01
+[GT] n1891gat_n2055gat_A,sa0,cubes=19,complete=1,sound=0,exact=0,fdp_cube=2.8868579865e-01,fdp_true=2.8850269318e-01
+[GT] n1963gat_n1962gat_A,sa0,cubes=29,complete=1,sound=0,exact=0,fdp_cube=9.5405578613e-03,fdp_true=9.1743469238e-03
+[GT] n1845gat_n1847gat_B,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=3.2604254782e-01,fdp_true=3.7330938876e-01
+[GT] n1963gat_n1958gat_A,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=2.0911407471e-01,fdp_true=2.2097304370e-01
+[GT] n1956gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=1.4863491058e-02,fdp_true=2.3059844971e-02
+[GT] n1893gat,sa0,cubes=25,complete=1,sound=0,exact=0,fdp_cube=1.1054453626e-01,fdp_true=1.1035766173e-01
+[GT] n2726gat_n411gat_B,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=1.9332885742e-02,fdp_true=4.6505406499e-02
+[GT] n2726gat_n356gat_A,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=7.5942488224e-03,fdp_true=2.7341331006e-02
+[GT] n1442gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=7.1137468331e-04,fdp_true=1.4720275998e-02
+[GT] n1893gat_n1962gat_B,sa0,cubes=30,complete=1,sound=0,exact=0,fdp_cube=4.5871734619e-03,fdp_true=4.2152404785e-03
+[GT] n1893gat_n1846gat_B,sa0,cubes=27,complete=1,sound=0,exact=0,fdp_cube=6.2215518206e-02,fdp_true=6.2215406448e-02
+[GT] n1893gat_n1967gat_A,sa0,cubes=6,complete=1,sound=0,exact=0,fdp_cube=9.6229553223e-02,fdp_true=9.5857620239e-02
+[GT] n2151gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=2.9979705811e-01,fdp_true=4.0351486206e-01
+[GT] n1584gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=5.9371801792e-02,fdp_true=1.8269954374e-01
+[GT] n374gat_n411gat_A,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=1.7148672044e-01,fdp_true=2.4569298746e-01
+[GT] n1444gat,sa1,cubes=30,complete=0,sound=0,exact=0,fdp_cube=1.8422133289e-03,fdp_true=1.4720275998e-02
+[GT] n356gat,sa1,cubes=30,complete=0,sound=0,exact=0,fdp_cube=6.7006710868e-02,fdp_true=3.6637667497e-01
+[GT] n2151gat_n2210gat_B,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=2.0186233521e-01,fdp_true=2.0113754272e-01
+[GT] n1968gat_n1967gat_B,sa0,cubes=22,complete=1,sound=0,exact=0,fdp_cube=2.8868865967e-01,fdp_true=2.8850269318e-01
+[GT] n670gat,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=9.3808174133e-03,fdp_true=3.1738281250e-02
+[GT] n670gat_n977gat_A,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=7.5221061707e-04,fdp_true=1.3427734375e-02
+[GT] n670gat_n801gat_B,sa0,cubes=30,complete=0,sound=0,exact=0,fdp_cube=8.3184242249e-03,fdp_true=1.8310546875e-02
+[XSTAT] xid=inline cubes_bits=21490950 x_bits=20428988 x_ratio=0.9506
+[GT] summary: checked=4551  UNSOUND=28  complete-but-NOT-exact=9  ** MISMATCH **

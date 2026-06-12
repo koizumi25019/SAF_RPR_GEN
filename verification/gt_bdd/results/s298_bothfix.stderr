@@ -1,0 +1,4 @@
+[GT] G96,sa0,cubes=13,complete=1,sound=0,exact=0,fdp_cube=1.8359375000e-01,fdp_true=1.7968750000e-01
+[GT] G50_G26_B,sa1,cubes=1,complete=1,sound=0,exact=0,fdp_cube=1.2500000000e-01,fdp_true=1.1718750000e-01
+[XSTAT] xid=inline cubes_bits=31773 x_bits=22617 x_ratio=0.7118
+[GT] summary: checked=308  UNSOUND=2  complete-but-NOT-exact=2  ** MISMATCH **
