@@ -68,7 +68,7 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
    （環境変数 `MDC_NODOM` で流用を止めると完全列挙になる＝支配解析の検証用。）
 2. **TPG モデル**（`src/fdp/create_TPG_model.c` + `src/fdp/cnf/`）：テスト生成用 CNF を構築する
    ── 正常回路、故障コーン、検出（PO 差分）節 ── を CaDiCaL に渡す。
-3. **キューブ生成ループ**：`MaxHamSolve` が CaDiCaL を呼ぶ。SAT なら `InlineXID`（`src/fdp/xid/`）が
+3. **キューブ生成ループ**：CaDiCaL を solve する。SAT なら `InlineXID`（`src/fdp/xid/`）が
    外部入力のドントケアを埋め、キューブ文字列（PI ごとに `'0'/'1'/'X'`）を生成。それを禁止節として追加し
    `CubeSet` に push する。ループは UNSAT（完全）または `-limit` 到達（打ち切り）で終了。
 4. **FDP 算出**：`RunBDD`（`src/fdp/cudd_wrapper.c`, CUDD）がキューブの和集合を BDD として構築し、
@@ -86,20 +86,28 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
 順方向/逆方向含意と故障シミュレーションで、あるテストにおいてどの PI がドントケアかを判定し、各キューブを広げる。
 これは `cube_cnt` には影響するが `fdp` には影響しない。
 
-## 実験ブランチのフック（環境変数で制御、デフォルト無効）
+## 検証・実験モジュール（環境変数で制御、デフォルト無効）
 
-`fault_detection_prob.c` には研究用の計測コードが入っているが、**環境変数を設定しない限り無効**で、
-本番出力は変わらない。生きたコードと混同しないよう、存在を把握しておくこと：
+本体 `fault_detection_prob.c` はパイプラインのみ。検証・研究コードは別ファイルに分離されており、
+**環境変数を設定しない限り無効**で本番出力は変わらない：
 
-- `MAXDC` / `MAXDC_MEASURE` — 「非検出オラクル」CNF を構築し、各キューブを貪欲に素項へ拡大して
-  ドントケアの伸び代を測定する（`MDC_BuildOracle`, `MDC_Expand`, `mdc_dump`）。
-- `MDC_MC=<故障名>` — モンテカルロ突き合わせ：SAT を使わない論理シミュレーションの真値（`FdpBySim`）と、
-  検出ソルバの FDP、非検出オラクルの `1-非検出率` の3値を比較し、CNF モデル/オラクルの健全性を検証する。
-- `CUBE_DUMP=<故障名>` — 1故障分の生成キューブ列を stderr にダンプする。
-- `GT_BDD=1` — 独立グラウンドトゥルース検証：ネットリストから検出関数 D_f を BDD で直接構築し、
-  キューブ和集合と厳密比較（sound=⊆ / exact==）。不一致故障を stderr に出力し、終了時に
-  `[GT] summary` を出す（`verification/gt_bdd/SUMMARY.md` 参照）。`GT_VERBOSE=1` で全故障出力。
-- `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価バグの切り分け用）。
+- **`src/fdp/gt_verify.c`** — 回帰検証ツール（恒久保守）。
+  - `GT_BDD=1` — 独立グラウンドトゥルース検証：ネットリストから検出関数 D_f を BDD で直接構築し、
+    キューブ和集合と厳密比較（sound=⊆ / exact==）。不一致故障を stderr に出力（独立シミュレーション
+    値 `fdp_sim` も併記）し、終了時に `[GT] summary` を出す。**挙動が変わりうる変更をしたら
+    c17a ゴールデン比較に加えて `verification/gt_bdd/*.set` を流し ALL VERIFIED を確認すること**
+    （`verification/gt_bdd/SUMMARY.md` 参照）。
+  - `GT_VERBOSE=1` — 一致した故障も全行出力。
+  - `GT_CUBES=1` — 非健全キューブを特定し「どのXを1ビット固定すれば健全になるか」候補を列挙。
+- **`src/fdp/experiment.c`** — 研究用フック。
+  - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測
+    （`MAXDC_CORE`=UNSATコア一括法, `MAXDC_NOMUT`=計測のみ）。
+  - `MAXHAM`（案2・却下済み）— 最大ハミング距離制約による解の多様化（`MAXHAM_K`=目標距離）。
+    評価と却下理由は `verification/SUMMARY.md`。
+- 本体・他モジュール内の切り分けスイッチ：
+  - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
+  - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
 
 `experiment/*` ブランチがこれらを持ち、`master` がベースライン。各実験コミットが何を確認したかは
-`git log` を参照。
+`git log` を参照。過去にあった `MDC_MC`/`FDPSIM_LIST`/`CUBE_DUMP`/`XID_EXTERNAL`/`XID_DBG`/`XID_PO`
+は GT_BDD で代替できるため削除済み（必要なら git 履歴から復元）。
