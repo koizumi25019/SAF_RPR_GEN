@@ -270,13 +270,19 @@ void init_xid_bimp_table(void) {
 
 // in <- t_net 方向
 // t_netのn3v/f3vが{0,1}に決まっているとき、in方向のn3v/f3vを更新する
-void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
+void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, size_t fsig_id) {
 
 	size_t t_tag = var_info[t_net->n].xid_tag;
 	size_t valid_flags = (t_tag >= xid_tag_base) ? (t_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
 
 	int n3v = (valid_flags & XID_FLAG_NORMAL) ? var_info[t_net->n].normal_3value : XID_X;
 	int f3v = (valid_flags & XID_FLAG_FAULT) ? var_info[t_net->n].fault_3value : XID_X;
+
+	/* 故障サイトの故障側3値(=縮退値)は公理であり、駆動ゲートの入力から
+	   正当化される値ではない。これを通常の含意として逆伝搬すると、
+	   分岐故障でステムに偽の故障値が立ち、その前方含意が他経路の故障側
+	   要求を「偽正当化」して必要PIのcareビットを消す（FDP過大評価）。 */
+	if ((size_t)t_net->n == fsig_id) f3v = XID_X;
 
 	if (n3v == XID_X && f3v == XID_X) return; // 後方含意早期終了
 

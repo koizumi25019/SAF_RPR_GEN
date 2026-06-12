@@ -214,6 +214,12 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     NLIST_t* tmp_net = &nl[po_id];
     ED_push_Xpath(tmp_net, xid_tag_base, var_info);
 
+    /* 故障サイトを「故障源」として固定: その故障3値(=注入したstuck効果)を
+       その駆動ゲートからの前方含意で上書きさせない。これを怠ると分岐故障で
+       故障サイトの fault_3value がステム値に潰れ、D効果が消えて活性化条件が
+       後方含意されず、必要PIがXとして出力される(過大評価)。 */
+    ED_push_Xpath(&nl[fsigID], xid_tag_base, var_info);
+
     Queue_t* fwd_q = s_fwd_q;
     Queue_t* bwd_q = s_bwd_q;
     Queue_t* jus_q = s_jus_q;
@@ -233,7 +239,7 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
         }
         else if (!isQueueEmpty(bwd_q)) {
             NLIST_t* net = (NLIST_t*)dequeue(bwd_q);
-            xid_backward_imp(bwd_q, jus_q, net, xid_tag_base, var_info);
+            xid_backward_imp(bwd_q, jus_q, net, xid_tag_base, var_info, fsigID);
             if (net->n_out >= 2) {
                 xid_forward_imp(fwd_q, net, xid_tag_base, var_info);
             }
@@ -257,7 +263,7 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
         }
         else {
             NLIST_t* jus_net = (NLIST_t*)dequeue(jus_q);
-            xid_backward_imp_limited(bwd_q, jus_net, xid_tag_base, var_info);
+            xid_backward_imp_limited(bwd_q, jus_net, xid_tag_base, var_info, fsigID);
         }
     }
 
@@ -317,6 +323,18 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
     /* 2-value fault simulation (drains the level stack back to empty) */
     xid_fsim(fsigID, var_info, &detect_po);
 
+    /* 診断(env XID_PO=1): fsim が検出した PO 列と、選択 PO・モデル(PI 2値)を出力 */
+    if (getenv("XID_PO")) {
+        fprintf(stderr, "[XID_PO] ndet=%zu first=%s pos=", (size_t)detect_po.n_det_po,
+                detect_po.n_det_po ? nl[detect_po.po_id[0]].name : "-");
+        for (size_t k = 0; k < (size_t)detect_po.n_det_po; ++k)
+            fprintf(stderr, "%s%s", k ? "," : "", nl[detect_po.po_id[k]].name);
+        fprintf(stderr, " model=");
+        for (int i = 0; i < n_pi; ++i)
+            fputc(var_info[pi[i]->n].normal_2value == XID_ONE ? '1' : '0', stderr);
+        fputc('\n', stderr);
+    }
+
     /* X-filling toward the first detecting PO */
     if (detect_po.n_det_po > 0) {
         Xfilling(fsigID, var_info, detect_po.po_id[0], 0);
@@ -333,6 +351,24 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
         result[i] = (n3v == XID_ZERO) ? '0' : (n3v == XID_ONE) ? '1' : 'X';
     }
     result[n_pi] = '\0';
+
+    /* 診断(env XID_DBG=<netname>): 指定ネットの最終3値と2値を毎キューブ出力 */
+    {
+        const char* dbg = getenv("XID_DBG");
+        if (dbg) {
+            for (int i = 0; i < n_net; ++i) {
+                if (nl[i].name && strcmp(nl[i].name, dbg) == 0) {
+                    size_t t = var_info[i].xid_tag;
+                    int n3 = (t & XID_FLAG_NORMAL) ? var_info[i].normal_3value : -1;
+                    int f3 = (t & XID_FLAG_FAULT)  ? var_info[i].fault_3value  : -1;
+                    fprintf(stderr, "[XID_DBG] %s n2v=%d f2v=%d  n3v=%d f3v=%d  tag=%zu ed_tag=%zu\n",
+                            dbg, var_info[i].normal_2value, var_info[i].fault_2value,
+                            n3, f3, t, (size_t)var_info[i].ed_tag);
+                    break;
+                }
+            }
+        }
+    }
 
     return result;
 }

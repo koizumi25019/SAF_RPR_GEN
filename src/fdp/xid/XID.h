@@ -51,9 +51,12 @@ extern char* InlineXID(CCaDiCaL* solver, NLIST* fault_net);
 
 extern void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po);
 
-extern void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info);
+/* fsig_id: 故障サイトの net id。サイトの故障側3値は「縮退の公理」であって
+   駆動側から正当化される値ではないため、サイトを通る故障側の後方含意は
+   遮断する（正常側=活性化要求の逆伝搬は正常回路の含意なので正当・維持）。 */
+extern void xid_backward_imp(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, size_t fsig_id);
 extern void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info);
-extern void xid_backward_imp_limited(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info);
+extern void xid_backward_imp_limited(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, size_t fsig_id);
 
 extern void init_xid_fpath_table(void);
 extern void init_xid_bimp_table(void);
