@@ -364,3 +364,5 @@ FodyWeavers.xsd
 ASG/output/
 ASG/src/main/*.txt
 ASG/build/*.txt
+# 暴走ループで巨大化した出力（履歴から除去済み・regen時は -f で追加）
+verification/gt_bdd/results/g14.fdp.csv
