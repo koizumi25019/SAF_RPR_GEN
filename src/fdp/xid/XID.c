@@ -292,7 +292,7 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
  * The blocking clause is added by the caller (AddBlockingClauseFromCube).
  * Caller must free() the returned string.
  * ----------------------------------------------------------------------- */
-char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
+char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
     xid_ensure_scratch();
 
     size_t fsigID = (size_t)(fault_net - nl);
@@ -323,9 +323,15 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net) {
     /* 2-value fault simulation (drains the level stack back to empty) */
     xid_fsim(fsigID, var_info, &detect_po);
 
-    /* X-filling toward the first detecting PO */
+    /* X-filling toward one detecting PO（既定: fsim が最初に見つけた PO。
+       preferred_po が検出PO列にあればそちらを正当化先にする） */
     if (detect_po.n_det_po > 0) {
-        Xfilling(fsigID, var_info, detect_po.po_id[0], 0);
+        size_t po = detect_po.po_id[0];
+        if (preferred_po >= 0) {
+            for (size_t k = 0; k < detect_po.n_det_po; ++k)
+                if (detect_po.po_id[k] == (size_t)preferred_po) { po = detect_po.po_id[k]; break; }
+        }
+        Xfilling(fsigID, var_info, po, 0);
     }
 
     /* build result string: '0'/'1'/'X' per PI ('\0'-terminated, no trailing newline) */

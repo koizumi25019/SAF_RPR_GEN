@@ -45,9 +45,11 @@ typedef struct DETECT_PO {
 } DETECT_PO;
 
 /* PI don't-care filling (replaces external XID process call).
-   Returns malloc'd char[n_pi+2]: '0'/'1'/'X' per PI + '\n' + '\0'.
-   Also adds the blocking clause to solver. Caller must free(). */
-extern char* InlineXID(CCaDiCaL* solver, NLIST* fault_net);
+   Returns malloc'd char[n_pi+1]: '0'/'1'/'X' per PI + '\0'. Caller must free().
+   preferred_po: X-filling の正当化先 PO の net id。負値または検出PO列に
+   無ければ従来どおり fsim が最初に見つけた検出POを使う（実験 DIVPO 用：
+   SAT に assume した検出POと正当化先を揃え、構造的に異なるキューブを得る）。 */
+extern char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po);
 
 extern void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po);
 

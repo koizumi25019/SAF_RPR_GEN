@@ -182,7 +182,7 @@ bool AnalyzeFaultDensity(
 				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
 
                 t_start = clock();
-                char* x_pattern = InlineXID(solver, f->netptr);
+                char* x_pattern = InlineXID(solver, f->netptr, EXP_PreferredPONet());
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 

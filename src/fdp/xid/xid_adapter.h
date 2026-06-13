@@ -95,10 +95,4 @@ static inline void* xid_alloc_con(size_t count, size_t size) {
 #endif
 #define DEBUG_ASSERT(cond)      assert(cond)
 
-/* ------------------------------------------------------------------ */
-/* InlineXID: PI don't-care filling (replaces external XID call)       */
-/* Returns malloc'd char[] of length n_pi+1: '0','1','X' per PI, '\0' */
-/* Caller must free() the returned string.                             */
-/* Also adds the blocking clause to solver.                            */
-/* ------------------------------------------------------------------ */
-extern char* InlineXID(CCaDiCaL* solver, NLIST* fault_net);
+/* InlineXID のプロトタイプは XID.h 側にある（重複宣言しない） */

@@ -23,3 +23,7 @@ int EXP_Solve(CCaDiCaL* solver, const char* prev_cube);
 
 /* 案2: 故障ごとの aux 変数採番器を初期化（CNF構築後に呼ぶ） */
 void EXP_ResetPerFault(void);
+
+/* 多様化(env DIVPO): 直前の solve で検出先に指定した PO の net id（なければ -1）。
+   InlineXID の正当化先を SAT の検出先と揃えるために使う。 */
+int EXP_PreferredPONet(void);

@@ -19,6 +19,7 @@
 
 #include "./experiment.h"
 #include "./create_TPG_model.h"
+#include "./fault_detection_prob.h"   /* numtranpo */
 #include "./read.h"
 #include "./cnf/cnf.h"
 #include "../netlist/netlist.h"
@@ -69,7 +70,24 @@ static void mdc_build_oracle(CCaDiCaL* u, TARGET* target){
     ccadical_add(u,-z); ccadical_add(u,0);         /* z=0 : undetection (no PO differs) */
 }
 
+/* DIVPO 用: WriteTPGModel 直後の最終変数番号(=検出フラグ z)と伝播PO数を捕捉。
+   diff変数(各POの gc XOR fc)は z-numtranpo .. z-1 の連番（detection_circuit.c）。
+   本関数は MAXDC 不使用でも main から毎故障呼ばれるため、ここで捕捉する。 */
+static int divpo_z = 0, divpo_n = 0;
+static int* divpo_netid = NULL;            /* p 番目の diff 変数に対応する PO の net id */
+
 CCaDiCaL* EXP_MaybeBuildOracle(TARGET* target){
+    divpo_z = cnf.total.vars;
+    divpo_n = numtranpo;
+    if (getenv("DIVPO") && divpo_n > 0){
+        /* diff変数は CreateConsDC_XOR が nl[] を昇順走査して TPO ネットに
+           割り当てた連番。同じ順で走査して p 番目 -> net id の対応を作る */
+        static int netid_cap = 0;
+        if (netid_cap < divpo_n){ divpo_netid = realloc(divpo_netid, divpo_n*sizeof(int)); netid_cap = divpo_n; }
+        int k = 0;
+        for (int i = 0; i < n_net && k < divpo_n; i++)
+            if ((nl[i].flag & TPO) == TPO) divpo_netid[k++] = i;
+    }
     if (!getenv("MAXDC")) return NULL;
     if (mdc_cubes==0 && mdc_fcubes==0) atexit(mdc_dump);
     CCaDiCaL* u = ccadical_init();
@@ -141,8 +159,58 @@ void EXP_OracleDone(CCaDiCaL** oracle, bool limit_hit){
  */
 static int maxham_aux = 0;   /* 故障ごとに cnf.total.vars+1 で初期化する aux 採番器 */
 
+/* ===================== 多様化案A (env DIVPO=1): 検出PO指定 =====================
+ * 検出条件は z = OR(diff_po) で「どのPOで検出するか」をソルバ任せにしているが、
+ * これを assume(diff_p) で1リテラル指定し、POを round-robin で巡回する。
+ * 異なるPOへの伝搬は構造的に異なる正当化を要求するため、入力空間の離れた
+ * 領域から解が出る（=多様なキューブ）ことを狙う。あるPOが(累積ブロッキング下で)
+ * UNSATになったらそのPOは打ち止め。完全性: T(f)=∪_p T_p(f) なので全PO打ち止め後の
+ * 素solveがUNSATなら従来と同じ完全列挙。assume方式なので恒久的な制約は残らない。
+ */
+static unsigned char* divpo_dead = NULL;   /* PO p が UNSAT 済みか（故障ごとにリセット） */
+static int divpo_cap = 0, divpo_idx = 0;
+static int divpo_last = -1;                /* 直前の solve で assume した PO の net id（なければ -1） */
+
+static int divpo_solve(CCaDiCaL* s){
+    divpo_last = -1;
+    if (divpo_n <= 1 || !divpo_dead) return ccadical_solve(s);
+    for (int tried = 0; tried < divpo_n; tried++){
+        int p = (divpo_idx + tried) % divpo_n;
+        if (divpo_dead[p]) continue;
+        ccadical_assume(s, divpo_z - divpo_n + p);
+        if (ccadical_solve(s) == 10){
+            divpo_idx = (p + 1) % divpo_n;
+            divpo_last = divpo_netid ? divpo_netid[p] : -1;
+            return 10;
+        }
+        divpo_dead[p] = 1;             /* ブロッキングは増える一方なので恒久にUNSAT */
+    }
+    return ccadical_solve(s);          /* 全PO打ち止め → 素solveで完全性を確定 */
+}
+
+/* 直前の solve で検出先に指定した PO の net id（XID の正当化先を揃えるため）。
+   指定なし（DIVPO無効/素solve）なら -1。 */
+int EXP_PreferredPONet(void){ return divpo_last; }
+
+/* ============== 多様化案B (env DIVPHASE=1): PI位相ランダム化 ==============
+ * CDCL の phase saving は前回の解の極性を保持するため、ブロッキング節1本では
+ * 「前回の近傍解」に落ちやすい。各 solve 前に PI 変数の優先位相をランダムに
+ * 設定し、毎回解空間の別の隅から探索させる。制約は一切加えないので
+ * 健全性・完全性とも自明に不変。 */
+static void divphase_randomize(CCaDiCaL* s){
+    for (int i = 0; i < n_pi; i++){
+        int v = (int)pi[i]->varsgc;
+        if (v) ccadical_phase(s, (rand() & 1) ? v : -v);
+    }
+}
+
 void EXP_ResetPerFault(void){
     maxham_aux = cnf.total.vars + 1;
+    divpo_idx = 0;
+    if (divpo_n > 0){
+        if (divpo_cap < divpo_n){ divpo_dead = realloc(divpo_dead, divpo_n); divpo_cap = divpo_n; }
+        memset(divpo_dead, 0, divpo_n);
+    }
 }
 
 /* e[0..m-1] の真を高々 R 個に制限する制約を act でガードして追加 (Sinz LT_SEQ) */
@@ -172,6 +240,8 @@ static void maxham_atmost(CCaDiCaL* s, int* e, int m, int R, int act)
 /* 多様性付き solve。prev のケア領域と離れた解を優先しつつ、終了判定は素 solve。 */
 int EXP_Solve(CCaDiCaL* s, const char* prev)
 {
+    if (getenv("DIVPHASE")) divphase_randomize(s);   /* 案B: 位相ランダム化 */
+    if (getenv("DIVPO"))    return divpo_solve(s);   /* 案A: 検出PO指定 */
     if (!getenv("MAXHAM") || !prev) return ccadical_solve(s);
 
     static int* e = NULL; static int cap = 0;

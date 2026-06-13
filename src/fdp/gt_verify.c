@@ -153,7 +153,81 @@ static DdNode* gt_cube_bdd(DdManager* m, const char* s){
     return cb;
 }
 
+/* =====================================================================
+ *  計測(env GT_GAIN=1): キューブ列挙の「多様性の逓減」を厳密に定量化する。
+ *  各キューブ i の限界カバレッジ g_i = |∪_{1..i}| - |∪_{1..i-1}|（ミンターム数、
+ *  厳密）を測り、列挙が進むほど新規カバーが減る現象を故障ごとに出力する。
+ *  あわせて連続キューブのケアビット類似度（Jaccard: 両方ケアかつ同値 / どちらか
+ *  がケア）を測る。支配流用の種が混ざると観察が濁るので MDC_NODOM=1 推奨。
+ *    出力: [GAIN] 故障, cubes, k50/k90(累積50%/90%到達に要した本数),
+ *           tail1%(限界寄与<1%の本数), jacc(平均類似度)
+ *    終了時: [GAIN] summary（全故障集計）
+ * ===================================================================== */
+static long   gain_faults=0, gain_cubes=0, gain_tail1=0, gain_k90_sum=0, gain_k50_sum=0;
+static double gain_jacc_sum=0;
+
+static void gain_dump(void){
+    if (!gain_faults) return;
+    fprintf(stderr, "[GAIN] summary: faults=%ld  cubes/fault=%.1f  k50=%.1f  k90=%.1f  "
+        "tail1%%=%.0f%%  consec_jaccard=%.3f\n",
+        gain_faults, (double)gain_cubes/gain_faults,
+        (double)gain_k50_sum/gain_faults, (double)gain_k90_sum/gain_faults,
+        100.0*gain_tail1/gain_cubes, gain_jacc_sum/gain_faults);
+}
+
+static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes){
+    int n = cubes->n;
+    if (n < 2) return;
+
+    /* 限界カバレッジ列 */
+    double* g = malloc(n*sizeof(double));
+    DdNode* uni = Cudd_ReadLogicZero(m); Cudd_Ref(uni);
+    double prev = 0.0;
+    for (int c=0;c<n;c++){
+        DdNode* cb = gt_cube_bdd(m, cubes->data[c]);
+        DdNode* o = Cudd_bddOr(m,uni,cb); Cudd_Ref(o);
+        Cudd_RecursiveDeref(m,uni); Cudd_RecursiveDeref(m,cb); uni=o;
+        double cur = Cudd_CountMinterm(m,uni,n_pi);
+        g[c] = cur - prev; prev = cur;
+    }
+    Cudd_RecursiveDeref(m,uni);
+    double total = prev;
+    if (total <= 0){ free(g); return; }
+
+    /* k50/k90: 累積 50%/90% に達するまでの本数。tail1: 寄与 <1% の本数 */
+    int k50=n, k90=n; long tail1=0; double acc=0;
+    for (int c=0;c<n;c++){
+        acc += g[c];
+        if (k50==n && acc >= 0.50*total) k50=c+1;
+        if (k90==n && acc >= 0.90*total) k90=c+1;
+        if (g[c] < 0.01*total) tail1++;
+    }
+
+    /* 連続キューブのケア類似度（位置と値の Jaccard） */
+    double jsum=0; int jcnt=0;
+    for (int c=1;c<n;c++){
+        const char *a=cubes->data[c-1], *b=cubes->data[c];
+        int both=0, either=0;
+        for (int i=0;i<n_pi;i++){
+            int ca=(a[i]!='X'), cb2=(b[i]!='X');
+            if (ca||cb2) either++;
+            if (ca&&cb2&&a[i]==b[i]) both++;
+        }
+        if (either){ jsum += (double)both/either; jcnt++; }
+    }
+    double jacc = jcnt ? jsum/jcnt : 0;
+
+    fprintf(stderr, "[GAIN] %s,%s,cubes=%d,k50=%d,k90=%d,tail1%%=%ld(%.0f%%),jacc=%.3f\n",
+        f->name, (f->type==SF0)?"sa0":"sa1", n, k50, k90, tail1, 100.0*tail1/n, jacc);
+
+    if (!gain_faults) atexit(gain_dump);
+    gain_faults++; gain_cubes+=n; gain_tail1+=tail1; gain_k50_sum+=k50; gain_k90_sum+=k90;
+    gain_jacc_sum+=jacc;
+    free(g);
+}
+
 void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
+    if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes); }
     if (!getenv("GT_BDD")) return;
     gt_init();
     DdManager* m = gt_mgr;
