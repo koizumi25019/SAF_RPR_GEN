@@ -741,6 +741,104 @@ CMakeFiles/main_release.dir/src/fdp/essential_assignment.c.o: /home/koizumi/fdp/
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
+CMakeFiles/main_release.dir/src/fdp/experiment.c.o: /home/koizumi/fdp/src/fdp/experiment.c \
+  /home/koizumi/fdp/external/cadical/src/ccadical.h \
+  /home/koizumi/fdp/src/lib/lib.h \
+  /home/koizumi/fdp/src/netlist/netlist.h \
+  /home/koizumi/fdp/src/fdp/cube_set.h \
+  /home/koizumi/fdp/src/fdp/read.h \
+  /home/koizumi/fdp/src/fdp/target_fault.h \
+  /home/koizumi/fdp/src/fdp/cnf/cnf.h \
+  /home/koizumi/fdp/src/fdp/create_TPG_model.h \
+  /home/koizumi/fdp/src/fdp/experiment.h \
+  /home/koizumi/fdp/src/fdp/fault_detection_prob.h \
+  /usr/include/alloca.h \
+  /usr/include/endian.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
+  /usr/include/stdio.h \
+  /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
+
 CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.o: /home/koizumi/fdp/src/fdp/fault_detection_prob.c \
   /home/koizumi/fdp/external/cadical/src/ccadical.h \
   /home/koizumi/fdp/external/cudd/cudd/cudd.h \
@@ -753,7 +851,9 @@ CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.o: /home/koizumi/fdp/
   /home/koizumi/fdp/src/fdp/cnf/cnf.h \
   /home/koizumi/fdp/src/fdp/create_TPG_model.h \
   /home/koizumi/fdp/src/fdp/cudd_wrapper.h \
+  /home/koizumi/fdp/src/fdp/experiment.h \
   /home/koizumi/fdp/src/fdp/fault_detection_prob.h \
+  /home/koizumi/fdp/src/fdp/gt_verify.h \
   /home/koizumi/fdp/src/fdp/init.h \
   /home/koizumi/fdp/src/fdp/xid/XID.h \
   /home/koizumi/fdp/src/fdp/xid/xid_adapter.h \
@@ -965,6 +1065,110 @@ CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o: /home/koizumi/fdp/src/fdp/g
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
+
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o: /home/koizumi/fdp/src/fdp/gt_verify.c \
+  /home/koizumi/fdp/external/cudd/cudd/cudd.h \
+  /home/koizumi/fdp/src/lib/lib.h \
+  /home/koizumi/fdp/src/netlist/netlist.h \
+  /home/koizumi/fdp/src/fdp/cube_set.h \
+  /home/koizumi/fdp/src/fdp/target_fault.h \
+  /home/koizumi/fdp/src/fdp/read.h \
+  /home/koizumi/fdp/src/fdp/gt_verify.h \
+  /usr/include/alloca.h \
+  /usr/include/endian.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/inttypes.h \
+  /usr/include/math.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/stdint.h \
+  /usr/include/stdio.h \
+  /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/time.h \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/sys/select.h \
+  /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/main_release.dir/src/fdp/init.c.o: /home/koizumi/fdp/src/fdp/init.c \
   /home/koizumi/fdp/external/cadical/src/ccadical.h \
@@ -2068,9 +2272,9 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 
 /home/koizumi/fdp/src/fdp/xid/xid_fsim.c:
 
-/home/koizumi/fdp/src/fdp/xid/xid_adapter.c:
-
 /usr/include/ctype.h:
+
+/home/koizumi/fdp/src/fdp/gt_verify.c:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
@@ -2089,6 +2293,8 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 /usr/include/math.h:
 
 /home/koizumi/fdp/src/fdp/gmp_wrapper.c:
+
+/usr/include/x86_64-linux-gnu/sys/resource.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
@@ -2154,6 +2360,10 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
+/home/koizumi/fdp/src/fdp/xid/xid_adapter.c:
+
+/home/koizumi/fdp/src/fdp/experiment.c:
+
 /usr/include/alloca.h:
 
 /home/koizumi/fdp/src/fdp/cnf/cnf.h:
@@ -2193,6 +2403,12 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 /home/koizumi/fdp/src/fdp/cube_set.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_rusage.h:
+
+/home/koizumi/fdp/external/cudd/cudd/cudd.h:
+
+/home/koizumi/fdp/external/cadical/src/ccadical.h:
 
 /home/koizumi/fdp/src/lib/lib.h:
 
@@ -2292,8 +2508,6 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/include/x86_64-linux-gnu/sys/resource.h:
-
 /home/koizumi/fdp/src/fdp/xid/xid_forward_imp.c:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
@@ -2310,17 +2524,13 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
-/home/koizumi/fdp/external/cudd/cudd/cudd.h:
-
-/home/koizumi/fdp/external/cadical/src/ccadical.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_rusage.h:
-
 /home/koizumi/fdp/src/fdp/cnf/good_circuit.c:
 
 /home/koizumi/fdp/src/fdp/cudd_wrapper.c:
 
 /usr/include/x86_64-linux-gnu/gmp.h:
+
+/home/koizumi/fdp/src/fdp/experiment.h:
 
 /home/koizumi/fdp/src/opt/opt.h:
 
@@ -2351,6 +2561,8 @@ CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c \
 /home/koizumi/fdp/src/fdp/xid/xid_adapter.h:
 
 /home/koizumi/fdp/src/fdp/drop_dete_fault.c:
+
+/home/koizumi/fdp/src/fdp/gt_verify.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 

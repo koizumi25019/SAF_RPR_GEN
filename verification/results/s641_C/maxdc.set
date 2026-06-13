@@ -1,0 +1,3 @@
+-net ../data/circuit/s641_C.v
+-fdp ../verification/results/s641_C/maxdc.fdp.csv
+-log ../verification/results/s641_C/maxdc.log

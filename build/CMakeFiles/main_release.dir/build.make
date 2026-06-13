@@ -167,10 +167,38 @@ CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/fdp/src/fdp/fault_detection_prob.c -o CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.s
 
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o: /home/koizumi/fdp/src/fdp/gt_verify.c
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o -MF CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o.d -o CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o -c /home/koizumi/fdp/src/fdp/gt_verify.c
+
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/src/fdp/gt_verify.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/fdp/src/fdp/gt_verify.c > CMakeFiles/main_release.dir/src/fdp/gt_verify.c.i
+
+CMakeFiles/main_release.dir/src/fdp/gt_verify.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/src/fdp/gt_verify.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/fdp/src/fdp/gt_verify.c -o CMakeFiles/main_release.dir/src/fdp/gt_verify.c.s
+
+CMakeFiles/main_release.dir/src/fdp/experiment.c.o: CMakeFiles/main_release.dir/flags.make
+CMakeFiles/main_release.dir/src/fdp/experiment.c.o: /home/koizumi/fdp/src/fdp/experiment.c
+CMakeFiles/main_release.dir/src/fdp/experiment.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/main_release.dir/src/fdp/experiment.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/experiment.c.o -MF CMakeFiles/main_release.dir/src/fdp/experiment.c.o.d -o CMakeFiles/main_release.dir/src/fdp/experiment.c.o -c /home/koizumi/fdp/src/fdp/experiment.c
+
+CMakeFiles/main_release.dir/src/fdp/experiment.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_release.dir/src/fdp/experiment.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/koizumi/fdp/src/fdp/experiment.c > CMakeFiles/main_release.dir/src/fdp/experiment.c.i
+
+CMakeFiles/main_release.dir/src/fdp/experiment.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_release.dir/src/fdp/experiment.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/koizumi/fdp/src/fdp/experiment.c -o CMakeFiles/main_release.dir/src/fdp/experiment.c.s
+
 CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o: /home/koizumi/fdp/src/fdp/gmp_wrapper.c
 CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o -MF CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o.d -o CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o -c /home/koizumi/fdp/src/fdp/gmp_wrapper.c
 
 CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.i: cmake_force
@@ -184,7 +212,7 @@ CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/init.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/init.c.o: /home/koizumi/fdp/src/fdp/init.c
 CMakeFiles/main_release.dir/src/fdp/init.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/main_release.dir/src/fdp/init.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/main_release.dir/src/fdp/init.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/init.c.o -MF CMakeFiles/main_release.dir/src/fdp/init.c.o.d -o CMakeFiles/main_release.dir/src/fdp/init.c.o -c /home/koizumi/fdp/src/fdp/init.c
 
 CMakeFiles/main_release.dir/src/fdp/init.c.i: cmake_force
@@ -198,7 +226,7 @@ CMakeFiles/main_release.dir/src/fdp/init.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/read.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/read.c.o: /home/koizumi/fdp/src/fdp/read.c
 CMakeFiles/main_release.dir/src/fdp/read.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/main_release.dir/src/fdp/read.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/main_release.dir/src/fdp/read.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/read.c.o -MF CMakeFiles/main_release.dir/src/fdp/read.c.o.d -o CMakeFiles/main_release.dir/src/fdp/read.c.o -c /home/koizumi/fdp/src/fdp/read.c
 
 CMakeFiles/main_release.dir/src/fdp/read.c.i: cmake_force
@@ -212,7 +240,7 @@ CMakeFiles/main_release.dir/src/fdp/read.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/target_fault.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/target_fault.c.o: /home/koizumi/fdp/src/fdp/target_fault.c
 CMakeFiles/main_release.dir/src/fdp/target_fault.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/main_release.dir/src/fdp/target_fault.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/main_release.dir/src/fdp/target_fault.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/target_fault.c.o -MF CMakeFiles/main_release.dir/src/fdp/target_fault.c.o.d -o CMakeFiles/main_release.dir/src/fdp/target_fault.c.o -c /home/koizumi/fdp/src/fdp/target_fault.c
 
 CMakeFiles/main_release.dir/src/fdp/target_fault.c.i: cmake_force
@@ -226,7 +254,7 @@ CMakeFiles/main_release.dir/src/fdp/target_fault.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o: /home/koizumi/fdp/src/fdp/cnf/detection_circuit.c
 CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o -MF CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o.d -o CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.o -c /home/koizumi/fdp/src/fdp/cnf/detection_circuit.c
 
 CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.i: cmake_force
@@ -240,7 +268,7 @@ CMakeFiles/main_release.dir/src/fdp/cnf/detection_circuit.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o: /home/koizumi/fdp/src/fdp/cnf/faulty_circuit.c
 CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o -MF CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o.d -o CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.o -c /home/koizumi/fdp/src/fdp/cnf/faulty_circuit.c
 
 CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.i: cmake_force
@@ -254,7 +282,7 @@ CMakeFiles/main_release.dir/src/fdp/cnf/faulty_circuit.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o: /home/koizumi/fdp/src/fdp/cnf/good_circuit.c
 CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o -MF CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o.d -o CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.o -c /home/koizumi/fdp/src/fdp/cnf/good_circuit.c
 
 CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.i: cmake_force
@@ -268,7 +296,7 @@ CMakeFiles/main_release.dir/src/fdp/cnf/good_circuit.c.s: cmake_force
 CMakeFiles/main_release.dir/src/lib/lib.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/lib/lib.c.o: /home/koizumi/fdp/src/lib/lib.c
 CMakeFiles/main_release.dir/src/lib/lib.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/main_release.dir/src/lib/lib.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/main_release.dir/src/lib/lib.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/lib/lib.c.o -MF CMakeFiles/main_release.dir/src/lib/lib.c.o.d -o CMakeFiles/main_release.dir/src/lib/lib.c.o -c /home/koizumi/fdp/src/lib/lib.c
 
 CMakeFiles/main_release.dir/src/lib/lib.c.i: cmake_force
@@ -282,7 +310,7 @@ CMakeFiles/main_release.dir/src/lib/lib.c.s: cmake_force
 CMakeFiles/main_release.dir/src/netlist/netlist.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/netlist/netlist.c.o: /home/koizumi/fdp/src/netlist/netlist.c
 CMakeFiles/main_release.dir/src/netlist/netlist.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/main_release.dir/src/netlist/netlist.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/main_release.dir/src/netlist/netlist.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/netlist/netlist.c.o -MF CMakeFiles/main_release.dir/src/netlist/netlist.c.o.d -o CMakeFiles/main_release.dir/src/netlist/netlist.c.o -c /home/koizumi/fdp/src/netlist/netlist.c
 
 CMakeFiles/main_release.dir/src/netlist/netlist.c.i: cmake_force
@@ -296,7 +324,7 @@ CMakeFiles/main_release.dir/src/netlist/netlist.c.s: cmake_force
 CMakeFiles/main_release.dir/src/opt/opt.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/opt/opt.c.o: /home/koizumi/fdp/src/opt/opt.c
 CMakeFiles/main_release.dir/src/opt/opt.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/main_release.dir/src/opt/opt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/main_release.dir/src/opt/opt.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/opt/opt.c.o -MF CMakeFiles/main_release.dir/src/opt/opt.c.o.d -o CMakeFiles/main_release.dir/src/opt/opt.c.o -c /home/koizumi/fdp/src/opt/opt.c
 
 CMakeFiles/main_release.dir/src/opt/opt.c.i: cmake_force
@@ -310,7 +338,7 @@ CMakeFiles/main_release.dir/src/opt/opt.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o: /home/koizumi/fdp/src/fdp/xid/xid_adapter.c
 CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.o -c /home/koizumi/fdp/src/fdp/xid/xid_adapter.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.i: cmake_force
@@ -324,7 +352,7 @@ CMakeFiles/main_release.dir/src/fdp/xid/xid_adapter.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o: /home/koizumi/fdp/src/fdp/xid/XID.c
 CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/XID.c.o -c /home/koizumi/fdp/src/fdp/xid/XID.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/XID.c.i: cmake_force
@@ -338,7 +366,7 @@ CMakeFiles/main_release.dir/src/fdp/xid/XID.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o: /home/koizumi/fdp/src/fdp/xid/xid_fsim.c
 CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.o -c /home/koizumi/fdp/src/fdp/xid/xid_fsim.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.i: cmake_force
@@ -352,7 +380,7 @@ CMakeFiles/main_release.dir/src/fdp/xid/xid_fsim.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o: /home/koizumi/fdp/src/fdp/xid/xid_forward_imp.c
 CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.o -c /home/koizumi/fdp/src/fdp/xid/xid_forward_imp.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.i: cmake_force
@@ -366,7 +394,7 @@ CMakeFiles/main_release.dir/src/fdp/xid/xid_forward_imp.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o: /home/koizumi/fdp/src/fdp/xid/xid_backward_imp.c
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o -c /home/koizumi/fdp/src/fdp/xid/xid_backward_imp.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.i: cmake_force
@@ -380,7 +408,7 @@ CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.s: cmake_force
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o: CMakeFiles/main_release.dir/flags.make
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o: /home/koizumi/fdp/src/fdp/xid/xid_backward_imp_limited.c
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o: CMakeFiles/main_release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o -MF CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o.d -o CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o -c /home/koizumi/fdp/src/fdp/xid/xid_backward_imp_limited.c
 
 CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.i: cmake_force
@@ -400,6 +428,8 @@ main_release_OBJECTS = \
 "CMakeFiles/main_release.dir/src/fdp/drop_dete_fault.c.o" \
 "CMakeFiles/main_release.dir/src/fdp/essential_assignment.c.o" \
 "CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.o" \
+"CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o" \
+"CMakeFiles/main_release.dir/src/fdp/experiment.c.o" \
 "CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o" \
 "CMakeFiles/main_release.dir/src/fdp/init.c.o" \
 "CMakeFiles/main_release.dir/src/fdp/read.c.o" \
@@ -427,6 +457,8 @@ main_release: CMakeFiles/main_release.dir/src/fdp/cudd_wrapper.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/drop_dete_fault.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/essential_assignment.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/fault_detection_prob.c.o
+main_release: CMakeFiles/main_release.dir/src/fdp/gt_verify.c.o
+main_release: CMakeFiles/main_release.dir/src/fdp/experiment.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/gmp_wrapper.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/init.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/read.c.o
@@ -445,7 +477,7 @@ main_release: CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp.c.o
 main_release: CMakeFiles/main_release.dir/src/fdp/xid/xid_backward_imp_limited.c.o
 main_release: CMakeFiles/main_release.dir/build.make
 main_release: CMakeFiles/main_release.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Linking C executable main_release"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/koizumi/fdp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking C executable main_release"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_release.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -175,7 +175,36 @@ static void gain_dump(void){
         100.0*gain_tail1/gain_cubes, gain_jacc_sum/gain_faults);
 }
 
-static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes){
+/* 計測(env GT_CUBEDUMP): 故障のキューブ列を「先頭H本＋末尾H本」、各行に
+   X 数(=ドントケア数)を付けて出力する。スライドの「最初はXが多く、最後は
+   ケアビットが大半」を実物で確認するため（H は GT_CUBEDUMP_H、既定15）。
+     GT_CUBEDUMP=<net>  指定故障のみ。
+     GT_CUBEDUMP=AUTO   complete=1 かつ本数 >= GT_CUBEDUMP_MIN(既定100) の
+                        故障を、最初に見つかった1件だけダンプして以降抑制。 */
+static int gt_cubedump_done = 0;
+static void gt_cubedump(FNODE* f, CubeSet* cubes, bool limit_hit){
+    const char* want = getenv("GT_CUBEDUMP");
+    if (!want) return;
+    int n = cubes->n;
+    if (strcmp(want, "AUTO") == 0){
+        int mn = getenv("GT_CUBEDUMP_MIN") ? atoi(getenv("GT_CUBEDUMP_MIN")) : 100;
+        if (gt_cubedump_done || limit_hit || n < mn) return;
+        gt_cubedump_done = 1;   /* 完全列挙できた重い故障を1件だけ */
+    } else if (strcmp(f->name, want) != 0) return;
+    int H = getenv("GT_CUBEDUMP_H") ? atoi(getenv("GT_CUBEDUMP_H")) : 15;
+    fprintf(stderr, "[CUBEDUMP] %s,%s  cubes=%d  (PI順, 各行末は X数/全%d)\n",
+        f->name, (f->type==SF0)?"sa0":"sa1", n, n_pi);
+    for (int c=0;c<n;c++){
+        if (n > 2*H && c==H){ fprintf(stderr, "   ... (中略 %d本) ...\n", n-2*H); }
+        if (n > 2*H && c>=H && c<n-H) continue;
+        const char* s = cubes->data[c];
+        int nx=0; for (int i=0;i<n_pi;i++) if (s[i]=='X') nx++;
+        fprintf(stderr, "  #%-4d %s  X=%d\n", c, s, nx);
+    }
+}
+
+static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes, bool limit_hit){
+    gt_cubedump(f, cubes, limit_hit);
     int n = cubes->n;
     if (n < 2) return;
 
@@ -227,7 +256,7 @@ static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes){
 }
 
 void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
-    if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes); }
+    if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes, limit_hit); }
     if (!getenv("GT_BDD")) return;
     gt_init();
     DdManager* m = gt_mgr;

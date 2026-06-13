@@ -1,0 +1,3 @@
+-net ../data/circuit/c17a.v
+-fdp ../verification/results/c17a/maxham.fdp.csv
+-log ../verification/results/c17a/maxham.log

@@ -1,0 +1,362 @@
+//------------------------------------------------------------------------
+//File name : SAF_FOUT_CPT.c
+//Date : 2013/2/1
+//Designer : H.Yamazaki
+//Ver : 0.01
+//------------------------------------------------------------------------
+#include	<stdio.h>
+#include    <stdlib.h>
+#include	"../../../Netlist/netlist.h"
+#include	"../../../Lib/bit_tp.h"
+#include	"../../../Lib/bit_int.h"
+#include	"../../../StandardHead.h"
+#include	"../../../option.h"
+
+//---------------------------------------------------------------------
+// プロトタイプ宣言
+//---------------------------------------------------------------------
+void	SAF_2v_CPT0_Ndrop		(int, unsigned int, NLIST*);
+void	SAF_2v_CPT1_Ndrop		(int, unsigned int, NLIST*);
+void	SAF_3v_CPT0_Ndrop		(int, unsigned int, NLIST*);
+void	SAF_3v_CPT1_Ndrop		(int, unsigned int, NLIST*);
+void	dtob					(unsigned int, int);
+
+
+//---------------------------------------------------------------------
+// 定義
+//---------------------------------------------------------------------
+	//#define ED_DEBUG
+	//#define DEBUG
+
+//---------------------------------------------------------------------
+// 静的変数
+//---------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+//  外部関数
+//------------------------------------------------------------------------
+//----------------------------------------------
+//  関数名 : FOUT_2v_CPT_Ndrop
+//  機  能 : POまで故障伝搬したTPが何番目か判定し，CPT関数実行
+//  戻り値 : なし
+//  引  数 : ffr_id(ステムのFFR番号), stem_net(ステム信号線), ui_num(unsigned int番目), det_tp_list(POまで故障伝搬したTPリスト【0:未伝搬 1:伝搬(=故障検出)】), t_po(故障伝搬したPO)
+//----------------------------------------------
+void	FOUT_2v_CPT_Ndrop	(int ffr_id, NLIST* stem_net, int ui_num, unsigned int* det_tp_list, NLIST* t_po){
+
+	int				i;
+	int				tp_id;		//テストパターンの何番目か
+	unsigned int	x_buff;		//FOUT-STEM信号線の正常値
+	unsigned int	fault_tp;	//故障伝搬したTP
+#ifdef DEBUG
+	int				j;
+#endif
+	
+	//===========================================================
+	// POの故障伝搬テストパターン判定(故障伝搬パターンに1が立つ)
+	//===========================================================
+	fault_tp = t_po->nval->x_buf[ui_num] ^ t_po->x_fault;	//PO正常値 EXOR PO故障値
+#ifdef DEBUG
+	printf("\nSTEM(%s) : PO(%s)の故障伝搬テストパターン判定\n",stem_net->name, t_po->name);
+	dtob(fault_tp, 6);
+#endif
+
+	//===========================================================
+	// テストパターン数が32未満(確保したunsinged int が1個)
+	//===========================================================
+	if(n_tp_int == 1){
+		for(i=0; i<n_tp; i++){
+			//------------------------------------------------
+			//det_tp_listのi番目=0(テストパターンi番目が未検出)
+			//------------------------------------------------
+			if((*det_tp_list & MASKbit[i]) == 0){
+			
+				//------------------------------------------------
+				//fault_tpのiビット目に『1』が立っているか？(故障検出パターンか)
+				//------------------------------------------------
+				if( (fault_tp & MASKbit[i]) != 0){			
+
+#ifdef DEBUG
+					printf("%dパターン目：", i);
+					for(j=0; j<n_pi; j++)printf("%d", Get_NBit_Xbuf(pi[j]->nval, i));
+					printf("\n");
+#endif
+					//------------------------------------------------
+					//FOUT-STEMの正常値計算
+					//------------------------------------------------
+					x_buff = stem_net->nval->x_buf[ui_num] & MASKbit[i];	//ステム信号線のXbufのj番目以外全て0の状態にする
+				
+					//==========================================
+					// 0縮退故障検出可能(正常値==1)
+					//==========================================
+					if(x_buff != 0){	//i番目に1が立ってる
+								
+						*det_tp_list |= MASKbit[i];						//det_tp_listのi番目に『1』を立てる
+						tp_id = i;										//テストパターン番号を求める
+
+						//検出回数がopt.n_drop回以下なら検出回数等を保存
+						if(ffr[ffr_id].FoutStem->det_sf0<opt.n_drop && ffr[ffr_id].FoutStem->test_sf0==YES){
+							ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+							ffr[ffr_id].FoutStem->det_sf0++;							//対象信号線の0縮退故障の検出回数更新
+							Set_NINT_One(fdic_sa0[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+						}
+												
+						//正常値1のCPT開始
+						SAF_2v_CPT1_Ndrop(ffr_id, tp_id, stem_net);
+					}
+								
+					//==========================================
+					// 1縮退故障検出可能(正常値==0)
+					//==========================================
+					else{	//全部0になった
+						*det_tp_list |= MASKbit[i];					//det_tp_listのi番目に『1』を立てる
+						tp_id = i;										//テストパターン番号を求める
+
+						//検出回数がopt.n_drop回以下なら検出回数等を保存
+						if(ffr[ffr_id].FoutStem->det_sf1<opt.n_drop && ffr[ffr_id].FoutStem->test_sf1==YES){
+							ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+							ffr[ffr_id].FoutStem->det_sf1++;						//対象信号線の1縮退故障の検出回数更新
+							Set_NINT_One(fdic_sa1[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+						}
+								
+						//正常値0のCPT開始
+						SAF_2v_CPT0_Ndrop(ffr_id, tp_id, stem_net);						
+					}
+				}
+			}
+		}
+	}
+
+	//===========================================================
+	// テストパターン数が32以上
+	//===========================================================
+	else{
+		for(i=0; i<32; i++){
+
+			//------------------------------------------------
+			//det_tp_listのi番目=0(テストパターンi番目が未検出)
+			//------------------------------------------------
+			if((*det_tp_list & MASKbit[i]) == 0){
+			
+				//------------------------------------------------
+				//fault_tpのiビット目に『1』が立っているか？(故障検出パターンか)
+				//------------------------------------------------
+				if( (fault_tp & MASKbit[i]) != 0){			
+
+					//------------------------------------------------
+					//FOUT-STEMの正常値計算
+					//------------------------------------------------
+					x_buff = stem_net->nval->x_buf[ui_num] & MASKbit[i];	//ステム信号線のXbufのj番目以外全て0の状態にする
+				
+
+					//==========================================
+					// 0縮退故障検出可能(正常値==1)
+					//==========================================
+					if(x_buff != 0){	//i番目に1が立ってる
+								
+						*det_tp_list |= MASKbit[i];					//det_tp_listのi番目に『1』を立てる
+						tp_id = (ui_num*32)+i;						//テストパターン番号を求める
+						
+						//一番最後のunsigned intの未使用bit対策
+						if(tp_id < n_tp){
+							
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf0<opt.n_drop && ffr[ffr_id].FoutStem->test_sf0==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf0++;							//対象信号線の0縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa0[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値1のCPT開始
+							SAF_2v_CPT1_Ndrop(ffr_id, tp_id, stem_net);
+						}
+					}
+								
+					//==========================================
+					// 1縮退故障検出可能(正常値==0)
+					//==========================================
+					else{	//全部0になった
+						*det_tp_list |= MASKbit[i];					//det_tp_listのi番目に『1』を立てる
+						tp_id = (ui_num*32)+i;							//テストパターン番号を求める
+
+						//一番最後のunsigned intの未使用bit対策
+						if(tp_id < n_tp){
+							
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf1<opt.n_drop && ffr[ffr_id].FoutStem->test_sf1==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf1++;						//対象信号線の1縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa1[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値0のCPT開始
+							SAF_2v_CPT0_Ndrop(ffr_id, tp_id, stem_net);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+//----------------------------------------------
+//  関数名 : SAF_FOUT_3v_CPT_Ndrop
+//  機  能 : POまで故障伝搬したTPが何番目か判定し，CPT関数実行
+//  戻り値 : なし
+//  引  数 : ffr_id(ステムのFFR番号), stem_net(ステム信号線), ui_num(unsigned int番目), det_tp_list(POまで故障伝搬したTPリスト【0:未伝搬 1:伝搬(=故障検出)】), t_po(故障伝搬したPO)
+//----------------------------------------------
+void	SAF_FOUT_3v_CPT_Ndrop	(int ffr_id, NLIST* stem_net, int ui_num, unsigned int* det_tp_list, NLIST* t_po){
+
+	int				i;
+	int				tp_id;		//テストパターンの何番目か
+	unsigned int	x_buff;		//正常値x_buff一時保存
+	unsigned int	p_buff;		//正常値p_buff一時保存
+	unsigned int	fault_tp;	//故障伝搬したTP
+
+	//===========================================================
+	// POの故障伝搬テストパターン判定(故障伝搬パターンに1が立つ)
+	//===========================================================
+	fault_tp = (t_po->nval->x_buf[ui_num] ^ t_po->x_fault) & (t_po->nval->p_buf[ui_num] ^ t_po->p_fault);	//(X-buff同士のEXOR)AND(P-buff同士のEXOR)
+#ifdef DEBUG
+	printf("\nPO(%s)の故障伝搬テストパターン判定\n", t_po->name);
+	dtob(fault_tp, 32);
+#endif
+
+
+	//===========================================================
+	// テストパターン数が32未満(確保したunsinged int が1個)
+	//===========================================================
+	if(n_tp_int == 1){
+		for(i=0; i<n_tp; i++){
+			//------------------------------------------------
+			//det_tp_listのi番目=0(テストパターンi番目が未検出)
+			//------------------------------------------------
+			if((*det_tp_list & MASKbit[i]) == 0){	
+								
+				//------------------------------------------------
+				//fault_tpのiビット目に『1』が立っているか？(故障検出パターンか)
+				//------------------------------------------------
+				if( (fault_tp & MASKbit[i]) != 0){
+					
+					//------------------------------------------------
+					//FOUT-STEMの正常値計算
+					//------------------------------------------------
+					x_buff = stem_net->nval->x_buf[ui_num] & MASKbit[i];	//ステム信号線のXbufのj番目以外全て0の状態にする
+					p_buff = stem_net->nval->p_buf[ui_num] & MASKbit[i];	//ステム信号線のPbufのj番目以外全て0の状態にする
+											
+					//------------------------------------------------
+					//ステム信号線の正常値がXbitじゃない場合
+					//------------------------------------------------
+					if((x_buff&p_buff)==0){
+
+						//==========================================
+						// 0縮退故障検出可能(正常値==1)
+						//==========================================
+						if(x_buff != 0){	//i番目に1が立ってる
+								
+							*det_tp_list |= MASKbit[i];		//det_tp_listのi番目に『1』を立てる
+							tp_id = i;							//テストパターン番号を求める
+
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf0<opt.n_drop && ffr[ffr_id].FoutStem->test_sf0==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf0++;						//対象信号線の0縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa0[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値1のCPT開始
+							SAF_3v_CPT1_Ndrop(ffr_id, tp_id, stem_net);
+						}
+								
+						//==========================================
+						// 1縮退故障検出可能(正常値==0)
+						//==========================================
+						else{	//全部0になった
+							*det_tp_list |= MASKbit[i];		//det_tp_listのi番目に『1』を立てる
+							tp_id = i;							//テストパターン番号を求める
+
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf1<opt.n_drop && ffr[ffr_id].FoutStem->test_sf1==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf1++;						//対象信号線の1縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa1[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値0のCPT開始
+							SAF_3v_CPT0_Ndrop(ffr_id, tp_id, stem_net);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//===========================================================
+	// テストパターン数が32以上
+	//===========================================================
+	else{
+		for(i=0; i<32; i++){
+			//------------------------------------------------
+			//det_tp_listのi番目=0(テストパターンi番目が未検出)
+			//------------------------------------------------
+			if((*det_tp_list & MASKbit[i]) == 0){
+								
+				//------------------------------------------------
+				//fault_tpのiビット目に『1』が立っているか？(故障検出パターンか)
+				//------------------------------------------------
+				if( (fault_tp & MASKbit[i]) != 0){
+					
+					//------------------------------------------------
+					//FOUT-STEMの正常値計算
+					//------------------------------------------------				
+					x_buff = stem_net->nval->x_buf[ui_num] & MASKbit[i];	//ステム信号線のXbufのj番目以外全て0の状態にする
+					p_buff = stem_net->nval->p_buf[ui_num] & MASKbit[i];	//ステム信号線のPbufのj番目以外全て0の状態にする
+						
+					//------------------------------------------------
+					//ステム信号線の正常値がXbitじゃない場合
+					//------------------------------------------------
+					if((x_buff&p_buff)==0){
+
+						//==========================================
+						// 0縮退故障検出可能(正常値==1)
+						//==========================================
+						if(x_buff != 0){	//i番目に1が立ってる
+								
+							*det_tp_list |= MASKbit[i];					//det_tp_listのi番目に『1』を立てる
+							tp_id = (ui_num*32)+i;							//テストパターン番号を求める
+
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf0<opt.n_drop && ffr[ffr_id].FoutStem->test_sf0==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf0++;						//対象信号線の0縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa0[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値1のCPT開始
+							SAF_3v_CPT1_Ndrop(ffr_id, tp_id, stem_net);
+						}
+								
+						//==========================================
+						// 1縮退故障検出可能(正常値==0)
+						//==========================================
+						else{	//全部0になった
+							*det_tp_list |= MASKbit[i];					//det_tp_listのi番目に『1』を立てる
+							tp_id = (ui_num*32)+i;							//テストパターン番号を求める
+
+							//検出回数がopt.n_drop回以下なら検出回数等を保存
+							if(ffr[ffr_id].FoutStem->det_sf1<opt.n_drop && ffr[ffr_id].FoutStem->test_sf1==YES){
+								ffr[ffr_id].n_detect++;									//FFR内の検出故障数更新
+								ffr[ffr_id].FoutStem->det_sf1++;						//対象信号線の1縮退故障の検出回数更新
+								Set_NINT_One(fdic_sa1[tp_id], ffr[ffr_id].FoutStem->n);	//故障辞書にフラグ立て
+							}
+								
+							//正常値0のCPT開始
+							SAF_3v_CPT0_Ndrop(ffr_id, tp_id, stem_net);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}

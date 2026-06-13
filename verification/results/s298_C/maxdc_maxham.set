@@ -1,0 +1,3 @@
+-net ../data/circuit/s298_C.v
+-fdp ../verification/results/s298_C/maxdc_maxham.fdp.csv
+-log ../verification/results/s298_C/maxdc_maxham.log

@@ -1,0 +1,4 @@
+-net ../data/circuit/s5378_C.v
+-fdp ../verification/results/s5378_C/maxdc.fdp.csv
+-log ../verification/results/s5378_C/maxdc.log
+-limit 30

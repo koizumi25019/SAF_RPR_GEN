@@ -1,0 +1,3 @@
+-net ../data/circuit/c17a.v
+-fdp ../verification/results/c17a/maxdc.fdp.csv
+-log ../verification/results/c17a/maxdc.log

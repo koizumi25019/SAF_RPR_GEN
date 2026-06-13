@@ -1,0 +1,635 @@
+//------------------------------------------------------------------------
+//File name : SAF_3v_XID_ED_PPSFP.c
+//Date : 2012/8/20
+//Designer : H.Yamazaki
+//Ver : 0.01
+//------------------------------------------------------------------------
+#include	<stdio.h>
+#include    <stdlib.h>
+#include	"../../../Netlist/netlist.h"
+#include	"../../../Lib/bit_tp.h"
+#include	"../../../Lib/bit_int.h"
+#include	"../../../StandardHead.h"
+#include	"../../../option.h"
+#include	"../../Xidentification.h"
+
+//---------------------------------------------------------------------
+// プロトタイプ宣言
+//---------------------------------------------------------------------
+void		SAF_EDpush				(NLIST*,unsigned int);
+void		SAF_FOUT_3v_XID_CPT		(int, NLIST*, int, unsigned int*, NLIST*);
+
+void SAF_3v_xid_ppsfp_ED_fout		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_buf		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_inv		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_and		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_nand		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_or			(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_nor		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_exor		(NLIST*, int, unsigned int);
+void SAF_3v_xid_ppsfp_ED_exnor		(NLIST*, int, unsigned int);
+
+//---------------------------------------------------------------------
+// 定義
+//---------------------------------------------------------------------
+	//#define ED_DEBUG
+	//#define DEBUG
+
+//---------------------------------------------------------------------
+// 静的変数
+//---------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+//  外部関数
+//------------------------------------------------------------------------
+//----------------------------------------------
+//  関数名 : FPointer_SAF_3v_XID_ED_PPSFP
+//  機  能 : 【関数ポインタ作成】X抽出後テスト集合用の3値PPSFP関数ポインタ作成
+//  戻り値 : なし
+//  引  数 : なし
+//----------------------------------------------
+void	FPointer_SAF_3v_XID_ED_PPSFP(){
+
+	//=========================================================
+	// 関数ポインタ作成
+	//=========================================================
+	func_3v_ppsfp[FOUT]		= SAF_3v_xid_ppsfp_ED_fout;
+	func_3v_ppsfp[BUF]		= SAF_3v_xid_ppsfp_ED_buf;
+	func_3v_ppsfp[INV]		= SAF_3v_xid_ppsfp_ED_inv;
+	func_3v_ppsfp[AND]		= SAF_3v_xid_ppsfp_ED_and;
+	func_3v_ppsfp[NAND]		= SAF_3v_xid_ppsfp_ED_nand;
+	func_3v_ppsfp[OR]		= SAF_3v_xid_ppsfp_ED_or;
+	func_3v_ppsfp[NOR]		= SAF_3v_xid_ppsfp_ED_nor;
+	func_3v_ppsfp[EXOR]		= SAF_3v_xid_ppsfp_ED_exor;
+	func_3v_ppsfp[EXNOR]	= SAF_3v_xid_ppsfp_ED_exnor;
+}
+
+
+//----------------------------------------------
+//  関数名 : SAF_3v_XID_ED_PPSFP
+//  機  能 : 【X抽出後用】STEMからの3値縮退故障PPSFPイベントドリブン
+//  戻り値 : なし
+//  引  数 : ffr_id(ステムのFFR番号), stem_net(ステム信号線), ed_flag(計算済みフラグ値), ui_num(unsigned int番目)
+//----------------------------------------------
+void	SAF_3v_XID_ED_PPSFP (int ffr_id, NLIST* stem_net, unsigned int ed_flag, int ui_num){
+
+	int				i;
+	int				level_flag=0;		//event_lev更新時にbreakしないようにする
+	int				event_lev;			//イベント計算するレベル(※計算しながら更新)
+	NLIST			*temp_net;			//レベライズスタックから取り出した信号線を一時的に格納
+	unsigned int	det_tp_list=0;		//POまで故障伝搬したTPリスト【0:未伝搬 1:伝搬(=故障検出)】	
+#ifdef DEBUG
+	int				xval;
+	int				pval;
+#endif
+	
+	//=========================================================
+	// FOUTステム信号線の次イベントをレベライズスタックへプッシュ
+	//=========================================================
+	SAF_EDpush(stem_net, ed_flag);
+
+
+	//=========================================================
+	// イベントドリブン開始レベル決定
+	//=========================================================
+	event_lev = stem_net->out[0]->level;
+
+	for(i=1; i<stem_net->n_out; i++){
+		if(event_lev > stem_net->out[i]->level){
+			event_lev = stem_net->out[i]->level;	//低いレベルがあったら更新
+		}
+	}
+
+	//=========================================================
+	// イベントドリブン実行
+	//=========================================================
+	while(event_lev != (max_level+1) ){
+
+		//===============================================
+		// 対象FFR内の全故障を検出
+		//===============================================
+		if(ffr[ffr_id].n_xid_detect == ffr[ffr_id].n_det_fault){
+			
+			//レベライズスタック内を初期化
+			for(i=event_lev; i<max_level+1; i++){
+				if(lev_temp[i].n_net != 0){
+					lev_temp[i].n_net = 0;
+				}
+			}
+
+			break;
+		}
+		
+		//===============================================
+		// 対象FFR内に未検出故障が存在
+		//===============================================
+		else{
+			//-------------------------------------------
+			// レベライズスタックから信号線を取り出す
+			//-------------------------------------------
+			temp_net = lev_temp[event_lev].net[lev_temp[event_lev].n_net-1];	//ケツから取り出す
+
+			//-------------------------------------------
+			// 計算済みフラグを代入
+			//-------------------------------------------
+			temp_net->flag = ed_flag;
+
+			//-------------------------------------------
+			// temp_netの故障値計算
+			//-------------------------------------------
+			(*func_3v_ppsfp[temp_net->type])(temp_net, ui_num, ed_flag);
+		
+	#ifdef DEBUG
+			//--DEBUG-----------------------------------------
+			printf("%s故障値\n", temp_net->name);
+			for(i=0; i<n_tp; i++){
+				xval = temp_net->x_fault & MASK[i];
+				pval = temp_net->p_fault & MASK[i];
+				//0の場合
+				if(xval==0 && pval!=0){
+					printf("0");
+				}
+				//1の場合
+				else if(xval!=0 && pval==0){
+					printf("1");
+				}
+				//Xの場合
+				else if(xval!=0 && pval!=0){
+					printf("X");
+				}
+			}
+			printf("\n");
+			//------------------------------------------------
+	#endif
+
+			//-------------------------------------------
+			// temp_netの正常値==故障値(故障値消滅⇒出力代表信号線はプッシュしない)
+			//-------------------------------------------
+			if(temp_net->xid_nval->x_buf[ui_num]==temp_net->x_fault && temp_net->xid_nval->p_buf[ui_num]==temp_net->p_fault){
+				lev_temp[event_lev].n_net--;		//現在レベルのレベライズスタックの保持信号線数をデクリメント
+			}
+			
+			//-------------------------------------------
+			// temp_netの正常値≠故障値(故障伝搬)
+			//-------------------------------------------
+			else{
+			
+				//--------------------------------------------------------------------
+				//★temp_netが外部出力の場合CPT (※FFR内全故障が検出するまで何回もCPTやる)
+				//--------------------------------------------------------------------
+				if(temp_net->n_out == 0){
+
+					//CPT開始
+					SAF_FOUT_3v_XID_CPT(ffr_id, stem_net, ui_num, &det_tp_list, temp_net);
+
+					//現在レベルのレベライズスタックの保持信号線数をデクリメント
+					lev_temp[event_lev].n_net--;
+
+					//------------------------------------------------------
+					//★det_tp_listがオール1になった(32bit分すべて故障検出)
+					//------------------------------------------------------
+					if(det_tp_list == 0xFFFFFFFF){
+
+						//レベライズスタック内を初期化
+						for(i=event_lev; i<max_level+1; i++){
+							if(lev_temp[i].n_net != 0){
+								lev_temp[i].n_net = 0;
+							}
+						}
+					
+						//一応レベルフラグを0にしとく
+						level_flag = 0;
+					
+						break;	//イベントドリブン終了
+					}
+
+				}
+			
+				//--------------------------------------------------------------------
+				//内部信号線の場合は出力代表信号線をレベライズスタックへプッシュ
+				//--------------------------------------------------------------------
+				else{
+					SAF_EDpush(temp_net, ed_flag);	//temp_netの出力をプッシュ
+					lev_temp[event_lev].n_net--;		//現在レベルのレベライズスタックの保持信号線数をデクリメント
+				}
+			}
+		
+			//-------------------------------------------
+			// event_levを更新(現event_levのスタック内信号線保持数が0になったとき)
+			//-------------------------------------------
+			if(lev_temp[event_lev].n_net == 0){
+
+				//レベライズスタック内を探索
+				for(i=event_lev+1; i<=max_level; i++){
+					//保持信号線数≠0のレベルスタック発見
+					if(lev_temp[i].n_net != 0){
+						event_lev = i;		//event_lev更新
+						level_flag++;		//break阻止
+						break;
+					}
+				}
+
+				//レベライズスタックの中身が全部空だった
+				if(level_flag == 0){
+					break;	//イベントドリブン終了
+				}
+
+				//次のevent_lev更新時に備えてlevel_flagを初期化
+				level_flag = 0;
+
+			}
+		}
+
+	}//while
+
+
+	//*******************************************
+	// バグチェック //
+	/*
+	for(i=0; i<=max_level; i++){
+		//保持信号線数≠0のレベルスタック発見
+		if(lev_temp[i].n_net != 0){
+			printf("\n\n//-------------------------------\n");
+			printf("// ERROR：レベルスタック保持信号線数≠0\n");
+			printf("//-------------------------------\n");
+			printf("STEM:%s [%d]  ed_flag:%u ui_num:%d\n", stem_net->name, ffr_id, ed_flag, ui_num);
+			printf("レベル:%d 個数:%d\n", i, lev_temp[i].n_net);
+			exit(-1);
+		}
+	}
+	*/
+	//********************************************
+
+}
+//******************************************************************************************************
+// 関数ポインタさんの中身
+//******************************************************************************************************
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_fout
+//  機  能 : 【FOUT】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_fout(NLIST *t_net, int ui_num, unsigned int ed_flag){
+//static void	SAF_3v_xid_ppsfp_ED_fout(NLIST *t_net, int ui_num, unsigned int ed_flag){ プロトタイプ宣言と一致していないため，staticを削除
+
+	//================================================
+	//そのまま引き継ぎ
+	//================================================
+	t_net->x_fault = t_net->in[0]->x_fault;
+	t_net->p_fault = t_net->in[0]->p_fault;
+
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_buf
+//  機  能 : 【BUF】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_buf(NLIST *t_net, int ui_num, unsigned int ed_flag){
+	
+	//================================================
+	//そのまま引き継ぎ
+	//================================================
+	t_net->x_fault = t_net->in[0]->x_fault;
+	t_net->p_fault = t_net->in[0]->p_fault;
+	
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_inv
+//  機  能 : 【INV】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_inv(NLIST *t_net, int ui_num, unsigned int ed_flag){
+	
+	//================================================
+	//INV処理(入れ替える)
+	//================================================
+	t_net->x_fault = t_net->in[0]->p_fault;
+	t_net->p_fault = t_net->in[0]->x_fault;
+
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_and
+//  機  能 : 【AND】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_and(NLIST *t_net, int ui_num, unsigned int ed_flag){
+
+	int				i;
+	
+	//================================================
+	//入力の0番目の影響信号線値代入
+	//================================================
+	//-----------------------------------
+	//入力が計算済み ⇒ 故障値を代入
+	//-----------------------------------
+	if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = t_net->in[0]->x_fault;
+		t_net->p_fault = t_net->in[0]->p_fault;
+	}
+	//-----------------------------------
+	//正常値を代入
+	//-----------------------------------
+	else{
+		t_net->x_fault = t_net->in[0]->xid_nval->x_buf[ui_num];
+		t_net->p_fault = t_net->in[0]->xid_nval->p_buf[ui_num];
+	}
+	
+	//================================================
+	//残りの入力の影響信号線値計算
+	//================================================
+	for(i=1; i<t_net->n_in; i++){
+		
+		//-----------------------------------
+		//入力が計算済み ⇒ 故障値で計算
+		//-----------------------------------
+		if(t_net->in[i]->flag == ed_flag){
+			t_net->x_fault &= t_net->in[i]->x_fault;
+			t_net->p_fault |= t_net->in[i]->p_fault;
+		}
+
+		//-----------------------------------
+		//正常値で計算
+		//-----------------------------------
+		else{
+			t_net->x_fault &= t_net->in[i]->xid_nval->x_buf[ui_num];
+			t_net->p_fault |= t_net->in[i]->xid_nval->p_buf[ui_num];
+		}
+	}
+	
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_nand
+//  機  能 : 【NAND】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_nand(NLIST *t_net, int ui_num, unsigned int ed_flag){
+
+	int				i;
+	unsigned int	not_x;	//x_faultの反転値を一時保存
+	
+	//================================================
+	//入力の0番目の影響信号線値代入
+	//================================================
+	//-----------------------------------
+	//入力が計算済み ⇒ 故障値を代入
+	//-----------------------------------
+	if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = t_net->in[0]->x_fault;
+		t_net->p_fault = t_net->in[0]->p_fault;
+	}
+	//-----------------------------------
+	//正常値を代入
+	//-----------------------------------
+	else{
+		t_net->x_fault = t_net->in[0]->xid_nval->x_buf[ui_num];
+		t_net->p_fault = t_net->in[0]->xid_nval->p_buf[ui_num];
+	}
+	
+	//================================================
+	//残りの入力の影響信号線値計算
+	//================================================
+	for(i=1; i<t_net->n_in; i++){
+		
+		//-----------------------------------
+		//入力が計算済み ⇒ 故障値で計算
+		//-----------------------------------
+		if(t_net->in[i]->flag == ed_flag){
+			t_net->x_fault &= t_net->in[i]->x_fault;
+			t_net->p_fault |= t_net->in[i]->p_fault;
+		}
+
+		//-----------------------------------
+		//正常値で計算
+		//-----------------------------------
+		else{
+			t_net->x_fault &= t_net->in[i]->xid_nval->x_buf[ui_num];
+			t_net->p_fault |= t_net->in[i]->xid_nval->p_buf[ui_num];
+		}
+	}
+	
+	
+	//================================================
+	//出力結果を反転(x_fault と p_faultを入れ替える)
+	//================================================
+	not_x = t_net->x_fault;				//x_faultを一時保存
+	t_net->x_fault = t_net->p_fault;
+	t_net->p_fault = not_x;
+
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_or
+//  機  能 : 【OR】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_or(NLIST *t_net, int ui_num, unsigned int ed_flag){
+
+	int				i;
+	
+	//================================================
+	//入力の0番目の影響信号線値代入
+	//================================================
+	//-----------------------------------
+	//入力が計算済み ⇒ 故障値を代入
+	//-----------------------------------
+	if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = t_net->in[0]->x_fault;
+		t_net->p_fault = t_net->in[0]->p_fault;
+	}
+	//-----------------------------------
+	//正常値を代入
+	//-----------------------------------
+	else{
+		t_net->x_fault = t_net->in[0]->xid_nval->x_buf[ui_num];
+		t_net->p_fault = t_net->in[0]->xid_nval->p_buf[ui_num];
+	}
+	
+	//================================================
+	//残りの入力の影響信号線値計算
+	//================================================
+	for(i=1; i<t_net->n_in; i++){
+		
+		//-----------------------------------
+		//入力が計算済み ⇒ 故障値で計算
+		//-----------------------------------
+		if(t_net->in[i]->flag == ed_flag){
+			t_net->x_fault |= t_net->in[i]->x_fault;
+			t_net->p_fault &= t_net->in[i]->p_fault;
+		}
+		
+		//-----------------------------------
+		//正常値で計算
+		//-----------------------------------
+		else{
+			t_net->x_fault |= t_net->in[i]->xid_nval->x_buf[ui_num];
+			t_net->p_fault &= t_net->in[i]->xid_nval->p_buf[ui_num];
+		}
+	}
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_nor
+//  機  能 : 【NOR】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_nor(NLIST *t_net, int ui_num, unsigned int ed_flag){
+
+	int				i;
+	unsigned int	not_x;	//x_faultの反転値を一時保存
+
+	//================================================
+	//入力の0番目の影響信号線値代入
+	//================================================
+	//-----------------------------------
+	//入力が計算済み ⇒ 故障値を代入
+	//-----------------------------------
+	if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = t_net->in[0]->x_fault;
+		t_net->p_fault = t_net->in[0]->p_fault;
+	}
+	//-----------------------------------
+	//正常値を代入
+	//-----------------------------------
+	else{
+		t_net->x_fault = t_net->in[0]->xid_nval->x_buf[ui_num];
+		t_net->p_fault = t_net->in[0]->xid_nval->p_buf[ui_num];
+	}
+	
+	//================================================
+	//残りの入力の影響信号線値計算
+	//================================================
+	for(i=1; i<t_net->n_in; i++){
+		
+		//-----------------------------------
+		//入力が計算済み ⇒ 故障値で計算
+		//-----------------------------------
+		if(t_net->in[i]->flag == ed_flag){
+			t_net->x_fault |= t_net->in[i]->x_fault;
+			t_net->p_fault &= t_net->in[i]->p_fault;
+		}
+		
+		//-----------------------------------
+		//正常値で計算
+		//-----------------------------------
+		else{
+			t_net->x_fault |= t_net->in[i]->xid_nval->x_buf[ui_num];
+			t_net->p_fault &= t_net->in[i]->xid_nval->p_buf[ui_num];
+		}
+	}
+	
+	
+	//================================================
+	//出力結果を反転(x_fault と p_faultを入れ替える)
+	//================================================
+	not_x = t_net->x_fault;				//x_faultを一時保存
+	t_net->x_fault = t_net->p_fault;
+	t_net->p_fault = not_x;
+
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_exor
+//  機  能 : 【EXOR】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//※2入力のみ対応
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_exor(NLIST *t_net, int ui_num, unsigned int ed_flag){
+
+	
+	//------------------------------------------------
+	// 2入力とも計算済み⇒両方故障値で計算
+	//------------------------------------------------
+	if(t_net->in[0]->flag==ed_flag && t_net->in[1]->flag==ed_flag){
+		t_net->x_fault = (t_net->in[0]->x_fault & t_net->in[1]->p_fault) | (t_net->in[0]->p_fault & t_net->in[1]->x_fault);
+		t_net->p_fault = (t_net->in[0]->p_fault | t_net->in[1]->x_fault) & (t_net->in[0]->x_fault | t_net->in[1]->p_fault);
+	}
+	//------------------------------------------------
+	// 0番目入力のみ計算済み(0番目入力のみ故障値で計算)
+	//------------------------------------------------
+	else if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = (t_net->in[0]->x_fault & t_net->in[1]->xid_nval->p_buf[ui_num]) | (t_net->in[0]->p_fault & t_net->in[1]->xid_nval->x_buf[ui_num]);
+		t_net->p_fault = (t_net->in[0]->p_fault | t_net->in[1]->xid_nval->x_buf[ui_num]) & (t_net->in[0]->x_fault | t_net->in[1]->xid_nval->p_buf[ui_num]);
+	}
+	
+	//------------------------------------------------
+	// 1番目入力のみ計算済み(1番目入力のみ故障値で計算)
+	//------------------------------------------------
+	else if(t_net->in[1]->flag == ed_flag){
+		t_net->x_fault = (t_net->in[0]->xid_nval->x_buf[ui_num] & t_net->in[1]->p_fault) | (t_net->in[0]->xid_nval->p_buf[ui_num] & t_net->in[1]->x_fault);
+		t_net->p_fault = (t_net->in[0]->xid_nval->p_buf[ui_num] | t_net->in[1]->x_fault) & (t_net->in[0]->xid_nval->x_buf[ui_num] | t_net->in[1]->p_fault);
+	}
+	
+	//------------------------------------------------
+	// 2入力とも正常値計算
+	//------------------------------------------------
+	else{
+		t_net->x_fault = (t_net->in[0]->xid_nval->x_buf[ui_num] & t_net->in[1]->xid_nval->p_buf[ui_num]) | (t_net->in[0]->xid_nval->p_buf[ui_num] & t_net->in[1]->xid_nval->x_buf[ui_num]);
+		t_net->p_fault = (t_net->in[0]->xid_nval->p_buf[ui_num] | t_net->in[1]->xid_nval->x_buf[ui_num]) & (t_net->in[0]->xid_nval->x_buf[ui_num] | t_net->in[1]->xid_nval->p_buf[ui_num]);
+	}
+
+}
+
+//------------------------------------------------------------------------------------
+//  関数名 : SAF_3v_xid_ppsfp_ED_exnor
+//  機  能 : 【EXNOR】3値縮退故障イベントドリブン(故障値計算)
+//  戻り値 : なし
+//  引  数 : t_net(対象信号線), ui_num(unsigned intの何番目か), ed_flag(現在のイベントフラグ値)
+//※2入力のみ対応
+//------------------------------------------------------------------------------------
+void	SAF_3v_xid_ppsfp_ED_exnor(NLIST *t_net, int ui_num, unsigned int ed_flag){
+	
+	
+	unsigned int	not_x;	//x_faultの反転値を一時保存
+
+	//------------------------------------------------
+	// 2入力とも計算済み⇒両方故障値で計算
+	//------------------------------------------------
+	if(t_net->in[0]->flag==ed_flag && t_net->in[1]->flag==ed_flag){
+		t_net->x_fault = (t_net->in[0]->x_fault & t_net->in[1]->p_fault) | (t_net->in[0]->p_fault & t_net->in[1]->x_fault);
+		t_net->p_fault = (t_net->in[0]->p_fault | t_net->in[1]->x_fault) & (t_net->in[0]->x_fault | t_net->in[1]->p_fault);
+	}
+	//------------------------------------------------
+	// 0番目入力のみ計算済み(0番目入力のみ故障値で計算)
+	//------------------------------------------------
+	else if(t_net->in[0]->flag == ed_flag){
+		t_net->x_fault = (t_net->in[0]->x_fault & t_net->in[1]->xid_nval->p_buf[ui_num]) | (t_net->in[0]->p_fault & t_net->in[1]->xid_nval->x_buf[ui_num]);
+		t_net->p_fault = (t_net->in[0]->p_fault | t_net->in[1]->xid_nval->x_buf[ui_num]) & (t_net->in[0]->x_fault | t_net->in[1]->xid_nval->p_buf[ui_num]);
+	}
+	
+	//------------------------------------------------
+	// 1番目入力のみ計算済み(1番目入力のみ故障値で計算)
+	//------------------------------------------------
+	else if(t_net->in[1]->flag == ed_flag){
+		t_net->x_fault = (t_net->in[0]->xid_nval->x_buf[ui_num] & t_net->in[1]->p_fault) | (t_net->in[0]->xid_nval->p_buf[ui_num] & t_net->in[1]->x_fault);
+		t_net->p_fault = (t_net->in[0]->xid_nval->p_buf[ui_num] | t_net->in[1]->x_fault) & (t_net->in[0]->xid_nval->x_buf[ui_num] | t_net->in[1]->p_fault);
+	}
+	
+	//------------------------------------------------
+	// 2入力とも正常値計算
+	//------------------------------------------------
+	else{
+		t_net->x_fault = (t_net->in[0]->xid_nval->x_buf[ui_num] & t_net->in[1]->xid_nval->p_buf[ui_num]) | (t_net->in[0]->xid_nval->p_buf[ui_num] & t_net->in[1]->xid_nval->x_buf[ui_num]);
+		t_net->p_fault = (t_net->in[0]->xid_nval->p_buf[ui_num] | t_net->in[1]->xid_nval->x_buf[ui_num]) & (t_net->in[0]->xid_nval->x_buf[ui_num] | t_net->in[1]->xid_nval->p_buf[ui_num]);
+	}
+
+
+	//================================================
+	//出力結果を反転(x_fault と p_faultを入れ替える)
+	//================================================
+	not_x = t_net->x_fault;				//x_faultを一時保存
+	t_net->x_fault = t_net->p_fault;
+	t_net->p_fault = not_x;
+
+}
