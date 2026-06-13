@@ -8,7 +8,7 @@
 -net ./data/circuit/s1494_C.v
 
 # set log(.txt)
--log ./output/log/s1494_C_red_log.txt
+-log ../output/full/log/s1494_C_red.txt
 
 # set fdp result(.csv)
--fdp ./output/fdp/s1494_red_result.csv
+-fdp ../output/full/fdp/s1494_C_red.csv

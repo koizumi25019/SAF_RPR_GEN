@@ -33,6 +33,11 @@ cd build && ./main_debug -set ../data/script/c17a.set
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）。
 
+出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log,cube_analysis}/<回路>.{csv,txt}`。
+`<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。
+ファイル名は回路名のみ（`-net` のベース名。`_red`/`_test` など変種は `.set` 名を採用）。
+条件をファイル名に埋め込まないので、`-limit` を変えたら出力先ディレクトリが自動で変わる。
+
 `NO_DISCORD=1` を設定すると、`main.c` が完了時に送る Discord webhook を抑止できる。検証実行では必ず付けること。
 
 ## 回帰テスト
@@ -44,7 +49,7 @@ cd build && ./main_debug -set ../data/script/c17a.set
 ```bash
 cd build && NO_DISCORD=1 ./main_debug -set ../data/script/c17a.set
 diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
-     <(cut -d, -f1,2,5 output/fdp/c17a_result.csv | sort)
+     <(cut -d, -f1,2,5 output/full/fdp/c17a.csv | sort)
 ```
 
 比較するのは `net_name,f_type,fdp`（1,2,5列）**のみ**。`cube_cnt` 列はソルバの解順序やドントケア判定で

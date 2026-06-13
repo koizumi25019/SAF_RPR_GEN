@@ -5,13 +5,13 @@
 
 ## 使い方
 
-1. プログラムを実行して `output/fdp/*.csv` を生成する
+1. プログラムを実行して `output/<条件>/fdp/*.csv` を生成する（c17a なら `output/full/fdp/c17a.csv`）
 2. 期待値と **fdp 列**を照合する（cube_cnt は無視する）：
 
    ```bash
    # 例: c17a — net_name,f_type,fdp の3列だけ比較
-   diff <(cut -d, -f1,2,5 expected/c17a_result.csv  | sort) \
-        <(cut -d, -f1,2,5 output/fdp/c17a_result.csv | sort)
+   diff <(cut -d, -f1,2,5 expected/c17a_result.csv   | sort) \
+        <(cut -d, -f1,2,5 output/full/fdp/c17a.csv   | sort)
    ```
 
    差分が出なければ回帰なし。差分が出たら、その変更が意図したものか確認する。
@@ -31,11 +31,13 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 
 ## 命名規則
 
-出力ファイルと同名にする（比較を単純にするため）。
+出力は **条件ごとのディレクトリ**に分ける（`output/<条件>/fdp/<回路>.csv`、
+条件 = `-limit` 値→`limit30` 等 / `-limit` 無し→`full`）。期待値ファイルは固定条件
+（`-fault` 無し＝全故障・`-limit` 無し＝無制限）で生成するので、対応する出力は常に `full/` 配下。
 
 | 出力 | 期待値 |
 |------|--------|
-| `output/fdp/c17a_result.csv` | `expected/c17a_result.csv` |
+| `output/full/fdp/c17a.csv` | `expected/c17a_result.csv` |
 
 ## 生成条件
 
@@ -56,8 +58,8 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 
 ```
 -net   ../data/circuit/c17a.v
--fdp   ../output/fdp/c17a_result.csv
--log   ../output/log/c17a_log.txt
+-fdp   ../output/full/fdp/c17a.csv
+-log   ../output/full/log/c17a.txt
 # -fault は書かない → 全故障
-# -limit は書かない → 上限なし（無制限）
+# -limit は書かない → 上限なし（無制限）→ 出力は full/ 配下
 ```

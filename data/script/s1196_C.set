@@ -8,10 +8,10 @@
 
 
 # set log(.txt)
--log ./output/log/s1196_C_log.txt
+-log ../output/full/log/s1196_C.txt
 
 
 # set fdp result(.csv)
--fdp ./output/fdp/s1196_result.csv
+-fdp ../output/full/fdp/s1196_C.csv
 
 

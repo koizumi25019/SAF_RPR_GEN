@@ -6,11 +6,11 @@
 #-fault ../data/fault/s5378_C_unred.txt
 
 # set log(.txt)
--log ../output/log/s5378_C_log_30_rep.txt
+-log ../output/limit30/log/s5378_C.txt
 
 
 # set fdp result(.csv)
--fdp ../output/fdp/s5378_result_30_rep.csv
+-fdp ../output/limit30/fdp/s5378_C.csv
 
 -limit 30
 

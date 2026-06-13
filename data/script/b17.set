@@ -6,11 +6,11 @@
 #-fault ../data/fault/b17.txt
 
 # set log(.txt)
--log ../output/log/b17_C_log_30_rep.txt
+-log ../output/limit30/log/b17_C.txt
 
 
 # set fdp result(.csv)
--fdp ../output/fdp/b17_C_30_result_rep.csv
+-fdp ../output/limit30/fdp/b17_C.csv
 
 -limit 30
 
