@@ -366,3 +366,6 @@ ASG/src/main/*.txt
 ASG/build/*.txt
 # 暴走ループで巨大化した出力（履歴から除去済み・regen時は -f で追加）
 verification/gt_bdd/results/g14.fdp.csv
+
+# CMake のビルド生成物（cmake .. && make で再生成されるので追跡しない）
+/build/
