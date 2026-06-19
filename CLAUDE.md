@@ -38,8 +38,6 @@ cd build && ./main_debug -set ../data/script/c17a.set
 ファイル名は回路名のみ（`-net` のベース名。`_red`/`_test` など変種は `.set` 名を採用）。
 条件をファイル名に埋め込まないので、`-limit` を変えたら出力先ディレクトリが自動で変わる。
 
-`NO_DISCORD=1` を設定すると、`main.c` が完了時に送る Discord webhook を抑止できる。検証実行では必ず付けること。
-
 ## 回帰テスト
 
 ユニットテストの仕組みは無い。正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する
@@ -47,7 +45,7 @@ cd build && ./main_debug -set ../data/script/c17a.set
 `expected/c17a_result.csv` と一致することを確認する**：
 
 ```bash
-cd build && NO_DISCORD=1 ./main_debug -set ../data/script/c17a.set
+cd build && ./main_debug -set ../data/script/c17a.set
 diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
      <(cut -d, -f1,2,5 output/full/fdp/c17a.csv | sort)
 ```

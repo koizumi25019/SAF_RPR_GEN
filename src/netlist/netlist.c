@@ -1238,6 +1238,7 @@ static void free_module_array(void)
 		free(module_array[i]->in_nid);
 		for (j = 0; j < module_array[i]->m_n_in; j++)
 			free(module_array[i]->m_in_name[j]);
+		free(module_array[i]->m_in_name);
 		free(module_array[i]);
 	}
 	free(module_array);
@@ -1245,6 +1246,31 @@ static void free_module_array(void)
 	//パーサ配列
 	free(parser_array[0]);
 	free(parser_array[1]);
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+// ネットリスト配列解放
+//--------------------------------------------------------------------------------------------------------------------
+void free_netlist(void)
+{
+	int i;
+
+	for (i = 0; i < n_net; i++) {
+		free(nl[i].name);
+		free(nl[i].in);
+		free(nl[i].out);
+		free(nl[i].name_ins);
+		free(nl[i].name_port);
+	}
+	free(nl);
+	free(pi);
+	free(po);
+	free(dff);
+	free(rdff);
+	free(dffs);
+	free(rdffs);
+	free(assign);
+	free(module_name);
 }
 
 #ifdef DEBUG_MA

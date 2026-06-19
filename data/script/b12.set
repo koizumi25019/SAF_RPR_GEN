@@ -8,10 +8,7 @@
 # set log(.txt)
 -log ../output/limit30/log/b12_C.txt
 
-
 # set fdp result(.csv)
 -fdp ../output/limit30/fdp/b12_C.csv
 
 -limit 30
-
-

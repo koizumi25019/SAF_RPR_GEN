@@ -10,11 +10,11 @@
 # 両方を有効にすると後に書いた方が勝つ(上書き)ので、片方は必ず # で無効化すること。
 
 # ----- limit 100 -----
--log ../output/limit100/log/b15_C.txt
--fdp ../output/limit100/fdp/b15_C.csv
--limit 100
+#-log ../output/limit100/log/b15_C.txt
+#-fdp ../output/limit100/fdp/b15_C.csv
+#limit 100
 
 # ----- limit 30 -----
-#-log ../output/limit30/log/b15_C.txt
-#-fdp ../output/limit30/fdp/b15_C.csv
-#-limit 30
+-log ../output/limit30/log/b15_C.txt
+-fdp ../output/limit30/fdp/b15_C.csv
+-limit 30
