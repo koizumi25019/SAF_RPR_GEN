@@ -1,0 +1,75 @@
+===== c17a / baseline (env: none) =====
+  >> rc=0 wall=0.013s
+===== c17a / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.009s
+===== c17a / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=0.008s
+===== c17a / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.009s
+===== s27_C / baseline (env: none) =====
+  >> rc=0 wall=0.008s
+===== s27_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.010s
+===== s27_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=0.008s
+===== s27_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.011s
+===== s208_C / baseline (env: none) =====
+  >> rc=0 wall=0.417s
+===== s208_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.575s
+===== s208_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=3.922s
+===== s208_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.596s
+===== s298_C / baseline (env: none) =====
+  >> rc=0 wall=0.152s
+===== s298_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.225s
+===== s298_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=0.182s
+===== s298_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.239s
+===== s386_C / baseline (env: none) =====
+  >> rc=0 wall=0.265s
+===== s386_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.401s
+===== s386_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=0.337s
+===== s386_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.430s
+===== s444_C / baseline (env: none) =====
+  >> rc=0 wall=0.400s
+===== s444_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=0.542s
+===== s444_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=0.615s
+===== s444_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=0.601s
+===== s510_C / baseline (env: none) =====
+  >> rc=0 wall=0.686s
+===== s510_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=1.067s
+===== s510_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=1.044s
+===== s510_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=1.223s
+===== s641_C / baseline (env: none) =====
+  >> rc=0 wall=4.904s
+===== s641_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=9.916s
+===== s641_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=73.489s
+===== s641_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=11.638s
+===== s713_C / baseline (env: none) =====
+  >> rc=0 wall=5.917s
+===== s713_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=11.963s
+===== s713_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=47.454s
+===== s713_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=14.534s
+===== s838_C / baseline (env: none) =====
+  >> TIMEOUT (300s)
+===== s838_C / maxdc (env: MAXDC=1) =====

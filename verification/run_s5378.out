@@ -1,0 +1,9 @@
+===== s5378_C / baseline (env: none) =====
+  >> rc=0 wall=57.869s
+===== s5378_C / maxdc (env: MAXDC=1) =====
+  >> rc=0 wall=135.741s
+===== s5378_C / maxham (env: MAXHAM=1) =====
+  >> rc=0 wall=46.291s
+===== s5378_C / maxdc_maxham (env: MAXDC=1 MAXHAM=1) =====
+  >> rc=0 wall=134.121s
+DONE

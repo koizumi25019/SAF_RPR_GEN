@@ -1,0 +1,3 @@
+-net ../input/circuit/s510_C.v
+-fdp ../verification/results/s510_C/maxdc_maxham.fdp.csv
+-log ../verification/results/s510_C/maxdc_maxham.log

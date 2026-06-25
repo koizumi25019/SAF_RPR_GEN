@@ -1,0 +1,4 @@
+-net ../input/circuit/s15850_C.v
+-fdp ../verification/xid_fvalue/results/s15850_C_external.fdp.csv
+-log ../verification/xid_fvalue/results/s15850_C_external.log
+-limit 30

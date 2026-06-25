@@ -89,17 +89,35 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
 順方向/逆方向含意と故障シミュレーションで、あるテストにおいてどの PI がドントケアかを判定し、各キューブを広げる。
 これは `cube_cnt` には影響するが `fdp` には影響しない。
 
-## ブランチ構成（baseline / verification）
+## 検証・実験モジュール（環境変数で制御、デフォルト無効）
 
-- **`baseline`（このブランチ）** — 本番パイプラインのみ。`fault_detection_prob.c` は SAT→XID→BDD の
-  本体処理だけを持ち、検証・研究用のコード（`gt_verify.c`/`cube_trend.c`/`experiment.c` や
-  `verification/` ディレクトリ）は含まない。
-- **`verification`** — 上記に加えて検証・研究系を全部入りで保持するブランチ。GT_BDD 厳密検証器、
-  キューブ傾向観察(CUBE_TREND)、研究フック(MAXDC/MAXHAM/DIVPO 等)、外部XID比較(XID_EXTERNAL)、
-  X率計測(XSTAT)、および `verification/` 配下の実験記録・SUMMARY 群はこちらにある。
-  **検証・厳密照合をしたいときは `verification` を使う。**
+本体 `fault_detection_prob.c` はパイプラインのみ。検証・研究コードは別ファイルに分離されており、
+**環境変数を設定しない限り無効**で本番出力は変わらない：
 
-baseline に残る切り分けスイッチ（環境変数、既定無効）：
+- **`src/fdp/gt_verify.c`** — 回帰検証ツール（恒久保守）。
+  - `GT_BDD=1` — 独立グラウンドトゥルース検証：ネットリストから検出関数 D_f を BDD で直接構築し、
+    キューブ和集合と厳密比較（sound=⊆ / exact==）。不一致故障を stderr に出力（独立シミュレーション
+    値 `fdp_sim` も併記）し、終了時に `[GT] summary` を出す。**挙動が変わりうる変更をしたら
+    c17a ゴールデン比較に加えて `verification/gt_bdd/*.set` を流し ALL VERIFIED を確認すること**
+    （`verification/gt_bdd/SUMMARY.md` 参照）。
+  - `GT_VERBOSE=1` — 一致した故障も全行出力。
+  - `GT_CUBES=1` — 非健全キューブを特定し「どのXを1ビット固定すれば健全になるか」候補を列挙。
+- **`src/fdp/cube_trend.c`** — キューブ生成傾向の観察ツール（本体は読むだけ）。
+  - `CUBE_TREND=1` — 故障ごとにキューブ列の X 数・X マスク重複率・X位置集中度・連続キューブ差分を
+    集計し stderr に `[CT]` 1行。終了時にキューブ数バケット別の `avg_X% / mask_reuse%` 集計を出す
+    （「キューブ生成回数が多い故障ほど X が少ない/マスク使い回しか」の仮説検証）。
+  - `CUBE_TREND_CSV=path` — 故障×キューブの明細を CSV 追記（`x_count` vs `idx` 等のプロット用）。
+    生成順を純粋に見るときは `MDC_NODOM=1` 併用（種キューブが先頭に入らない）。詳細は
+    `verification/cube_trend/SUMMARY.md`。
+- **`src/fdp/experiment.c`** — 研究用フック。
+  - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測
+    （`MAXDC_CORE`=UNSATコア一括法, `MAXDC_NOMUT`=計測のみ）。
+  - `MAXHAM`（案2・却下済み）— 最大ハミング距離制約による解の多様化（`MAXHAM_K`=目標距離）。
+    評価と却下理由は `verification/SUMMARY.md`。
+- 本体・他モジュール内の切り分けスイッチ：
+  - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
+  - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
 
-- `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
-- `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
+`experiment/*` ブランチがこれらを持ち、`master` がベースライン。各実験コミットが何を確認したかは
+`git log` を参照。過去にあった `MDC_MC`/`FDPSIM_LIST`/`CUBE_DUMP`/`XID_EXTERNAL`/`XID_DBG`/`XID_PO`
+は GT_BDD で代替できるため削除済み（必要なら git 履歴から復元）。

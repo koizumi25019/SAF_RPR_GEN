@@ -1,0 +1,5 @@
+-net ../input/circuit/s9234_C.v
+-fault ../verification/gt_bdd/s9234_sample.flist
+-fdp ../verification/gt_bdd/results/s9234_gain.fdp.csv
+-log ../verification/gt_bdd/results/s9234_gain.log
+-limit 100

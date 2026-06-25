@@ -1,0 +1,3 @@
+-net ../input/circuit/s5378_C.v
+-fault ../verification/xid_bug/f.flist
+-fdp ../verification/xid_bug/out.csv

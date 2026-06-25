@@ -1,0 +1,22 @@
+独立検証（FdpBySim=SATを使わない論理シミュレーション, detSolver=検出SATソルバのMC）による真値。
+実行: build/ で  NO_DISCORD=1 MDC_MC=<故障名> ./main_release -set ../verification/results/<回路>/baseline.set
+（注意: MDC_MC は名指し故障のキューブを実際に展開するので、結果CSVは汚染される。診断専用に別実行すること）
+
+== s298 G14 ==
+[MC] fault=G14/sa0  SIM_TRUE_FDP=0.366020  detSolver=0.365080   (det+undet=1.0000)
+[MC] fault=G14/sa1  SIM_TRUE_FDP=0.366115  detSolver=0.366060
+  baseline(BDD) fdp: G14/sa0=0.37365722656  G14/sa1=0.38739013672   ← 過大評価
+  maxdc(BDD)    fdp: G14/sa0=0.36572265625  G14/sa1=0.36572265625   ← 真値にほぼ一致
+  → この故障では baseline が過大評価、maxdc(案1)が正しい。
+
+== s641 G120 ==
+[MC] fault=G120/sa1 SIM_TRUE_FDP=0.334845  detSolver=0.336950
+  baseline(BDD) fdp: G120/sa1=0.33393859863   ← 真値にほぼ一致
+  maxham(BDD)   fdp: G120/sa1=0.34956359863   ← 過大評価(+0.015)
+  → この故障では baseline が正しく、maxham(案2)が過大評価。
+
+== 解釈 ==
+detSolver(検出SATモデル)と FdpBySim(独立sim)は常に一致 → これが真値の参照。
+最終FDP(BDD=キューブ和集合)がそれより高い場合がある = キューブ集合が真の検出集合より広い
+= 非検出ミンタームを含む(過大評価)。誰が外れるかは故障依存で、baseline も常に正しくはない。
+ズレ(0.008〜0.015)は MCサンプリング誤差(±0.001)を大きく超える=実在の健全性バグ。

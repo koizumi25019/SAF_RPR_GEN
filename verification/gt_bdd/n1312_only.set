@@ -1,0 +1,4 @@
+-net ../input/circuit/s5378_C.v
+-fault ../verification/gt_bdd/n1312.flist
+-fdp ../verification/gt_bdd/results/n1312_only.fdp.csv
+-limit 600

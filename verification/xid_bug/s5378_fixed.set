@@ -1,0 +1,3 @@
+-net ../input/circuit/s5378_C.v
+-fdp ../verification/xid_bug/s5378_fixed.csv
+-limit 30

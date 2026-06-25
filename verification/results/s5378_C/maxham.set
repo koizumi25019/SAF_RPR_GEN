@@ -1,0 +1,4 @@
+-net ../input/circuit/s5378_C.v
+-fdp ../verification/results/s5378_C/maxham.fdp.csv
+-log ../verification/results/s5378_C/maxham.log
+-limit 30
