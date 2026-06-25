@@ -13,7 +13,6 @@
 |---|---|---|---|
 | `archive/incremental-sat` | 活性化リテラルによるインクリメンタルSAT | `0cd6209` | `git switch -c retry/incremental-sat archive/incremental-sat` |
 | `archive/full-miter-incremental` | 全回路ミター + net毎 故障注入スイッチ（assumptionベース） | `cb76242` | `git switch -c retry/full-miter archive/full-miter-incremental` |
-| `archive/develop_xid` | 旧XID開発（xid系プログラム/s208テストセット/netlist構造変更） | `18e66a8` | `git switch -c retry/develop_xid archive/develop_xid` |
 
 ## 詳細
 
@@ -26,10 +25,9 @@ commit メッセージ上は "kept as record"（＝採用せず記録のみ）�
 故障ごとに TPG モデル（正常回路＋故障コーン＋検出節）を作り直す代わりに、**全回路ミターを一度だけ
 構築し、assumption で対象 net の故障注入を ON/OFF** して使い回す方式。詳細は `git show 49aa759`。
 
-### archive/develop_xid
-インライン XID（`InlineXID`）に置き換わる前の、初期の XID 実装・テストセット作成・netlist 構造
-変更を含む旧開発ブランチ。現行とは XID の実装思想が異なるので、過去実装の参照用。詳細は
-`git log archive/develop_xid`。
+> 旧 `develop_xid`（初期 XID 開発の並行ブランチ, 2026-04）は、3値故障シミュレーション等を含む初期版
+> だったが、その内容は現行のインライン XID（`src/fdp/xid/`）に成熟版として統合済みで固有価値が無い
+> ため、2026-06-25 に完全削除した（タグ・リモートとも）。
 
 ---
 （注）各タグ末尾には当時の "limit check >= 修正" など重複コミットも含まれるが、これは現 `baseline`
