@@ -20,6 +20,7 @@ set(SOURCES
     src/fdp/target_fault.c
     src/fdp/cnf/detection_circuit.c
     src/fdp/cnf/faulty_circuit.c
+    src/fdp/cnf/faulty_miter.c
     src/fdp/cnf/good_circuit.c
     src/lib/lib.c
     src/netlist/netlist.c
