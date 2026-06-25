@@ -1,3 +1,0 @@
--net ../input/circuit/s298_C.v
--fault ../verification/gt_bdd/g14.flist
--fdp ../verification/gt_bdd/results/g14.fdp.csv

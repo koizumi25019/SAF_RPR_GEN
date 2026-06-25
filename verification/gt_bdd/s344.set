@@ -1,3 +1,0 @@
--net ../input/circuit/s344_C.v
--fdp ../verification/gt_bdd/results/s344.fdp.csv
--log ../verification/gt_bdd/results/s344.log

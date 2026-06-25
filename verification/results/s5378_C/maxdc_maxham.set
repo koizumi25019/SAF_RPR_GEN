@@ -1,4 +1,0 @@
--net ../input/circuit/s5378_C.v
--fdp ../verification/results/s5378_C/maxdc_maxham.fdp.csv
--log ../verification/results/s5378_C/maxdc_maxham.log
--limit 30

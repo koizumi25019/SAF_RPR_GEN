@@ -1,3 +1,0 @@
--net ../input/circuit/s1494_C.v
--fdp ../verification/gt_bdd/results/s1494.fdp.csv
--log ../verification/gt_bdd/results/s1494.log

@@ -1,3 +1,0 @@
--net ../input/circuit/s641_C.v
--fdp ../verification/gt_bdd/results/s641.fdp.csv
--log ../verification/gt_bdd/results/s641.log

@@ -1,3 +1,0 @@
--net ../input/circuit/s444_C.v
--fdp ../verification/results/s444_C/baseline.fdp.csv
--log ../verification/results/s444_C/baseline.log

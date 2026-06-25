@@ -1,3 +1,0 @@
--net ../input/circuit/s9234_C.v
--fdp ../verification/xid_bug/s9234_fixed.csv
--limit 30

@@ -1,3 +1,0 @@
--net ../input/circuit/s641_C.v
--fdp ../verification/results/s641_C/maxdc_maxham.fdp.csv
--log ../verification/results/s641_C/maxdc_maxham.log

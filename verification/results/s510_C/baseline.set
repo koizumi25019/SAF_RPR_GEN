@@ -1,3 +1,0 @@
--net ../input/circuit/s510_C.v
--fdp ../verification/results/s510_C/baseline.fdp.csv
--log ../verification/results/s510_C/baseline.log

@@ -1,9 +1,0 @@
-===== s5378_C / inline (limit=30) =====
-  >> rc=0 wall=59.7s  [XSTAT] xid=inline cubes_bits=21481320 x_bits=20419907 x_ratio=0.9506
-===== s5378_C / external (limit=30) =====
-  >> rc=0 wall=621.7s  [XSTAT] xid=external cubes_bits=20673256 x_bits=19683358 x_ratio=0.9521
-===== s9234_C / inline (limit=30) =====
-  >> rc=0 wall=144.3s  [XSTAT] xid=inline cubes_bits=32625242 x_bits=30461841 x_ratio=0.9337
-===== s9234_C / external (limit=30) =====
-  >> rc=0 wall=1355.1s  [XSTAT] xid=external cubes_bits=31345782 x_bits=28975993 x_ratio=0.9244
-DONE

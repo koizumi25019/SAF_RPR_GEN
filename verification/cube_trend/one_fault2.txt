@@ -1,1 +1,0 @@
-MEMORY_REG_0__0__SCAN_IN	sa0

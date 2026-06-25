@@ -1,4 +1,0 @@
--net ../input/circuit/s13207_C.v
--fdp ../verification/gt_bdd/results/s13207_l30.fdp.csv
--log ../verification/gt_bdd/results/s13207_l30.log
--limit 30

@@ -1,3 +1,0 @@
--net ../input/circuit/c17a.v
--fdp ../verification/results/c17a/maxdc_maxham.fdp.csv
--log ../verification/results/c17a/maxdc_maxham.log

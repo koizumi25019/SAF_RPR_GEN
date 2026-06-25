@@ -1,3 +1,0 @@
--net ../input/circuit/s298_C.v
--fault ../verification/gt_bdd/g50b.flist
--fdp ../verification/gt_bdd/results/g50b.fdp.csv

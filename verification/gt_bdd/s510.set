@@ -1,3 +1,0 @@
--net ../input/circuit/s510_C.v
--fdp ../verification/gt_bdd/results/s510.fdp.csv
--log ../verification/gt_bdd/results/s510.log

@@ -1,3 +1,0 @@
--net ../input/circuit/s386_C.v
--fdp ../verification/results/s386_C/maxdc.fdp.csv
--log ../verification/results/s386_C/maxdc.log

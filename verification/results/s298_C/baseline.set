@@ -1,3 +1,0 @@
--net ../input/circuit/s298_C.v
--fdp ../verification/results/s298_C/baseline.fdp.csv
--log ../verification/results/s298_C/baseline.log

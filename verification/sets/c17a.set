@@ -1,3 +1,0 @@
--net ../input/circuit/c17a.v
--fdp ../verification/results/c17a/__CONFIG__.fdp.csv
--log ../verification/results/c17a/__CONFIG__.log
