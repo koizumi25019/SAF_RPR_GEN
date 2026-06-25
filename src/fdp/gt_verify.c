@@ -26,48 +26,97 @@
 #include "../netlist/netlist.h"
 
 /* ============== 独立2値シミュレーション（GT自体の三重照合用） ============== */
-static int* sim_topo = NULL; static int sim_ntopo = 0;
-static void sim_build_topo(void){
+static int* sim_topo  = NULL;   /* net id をトポロジカル順（level 昇順）に並べた配列 */
+static int  sim_ntopo = 0;
+
+/* level 昇順（PI→PO）に net id を並べた評価順を一度だけ作る。 */
+static void sim_build_topo(void)
+{
     if (sim_topo) return;
-    sim_topo = (int*)malloc(n_net*sizeof(int));
-    int maxlev=0; for(int i=0;i<n_net;i++) if(nl[i].level>maxlev) maxlev=nl[i].level;
-    int idx=0;
-    for(int L=0;L<=maxlev;L++) for(int i=0;i<n_net;i++) if(nl[i].level==L) sim_topo[idx++]=i;
-    sim_ntopo=idx;
+    sim_topo = (int*)malloc(n_net * sizeof(int));
+
+    int maxlev = 0;
+    for (int i = 0; i < n_net; i++)
+        if (nl[i].level > maxlev) maxlev = nl[i].level;
+
+    int idx = 0;
+    for (int L = 0; L <= maxlev; L++)
+        for (int i = 0; i < n_net; i++)
+            if (nl[i].level == L) sim_topo[idx++] = i;
+    sim_ntopo = idx;
 }
-static inline int sim_gate(int type, int acc0, NLIST* nd, const int* val){
-    switch(type){
-        case BUF: case FOUT: return val[nd->in[0]->n];
-        case INV: return val[nd->in[0]->n]^1;
-        case AND: case NAND: { int a=1; for(int k=0;k<nd->n_in;k++){a&=val[nd->in[k]->n]; if(!a)break;} return (type==NAND)?a^1:a; }
-        case OR:  case NOR:  { int a=0; for(int k=0;k<nd->n_in;k++){a|=val[nd->in[k]->n]; if(a)break;} return (type==NOR)?a^1:a; }
-        case EXOR:case EXNOR:{ int a=0; for(int k=0;k<nd->n_in;k++)a^=val[nd->in[k]->n]; return (type==EXNOR)?a^1:a; }
-        default: return acc0; /* IN/DFF: keep PI value */
+
+/* ゲート1個の2値評価。入力値は val[net id] から引く。IN/DFF は acc0（PI値）を保つ。 */
+static inline int sim_gate(int type, int acc0, NLIST* nd, const int* val)
+{
+    switch (type) {
+        case BUF: case FOUT:
+            return val[nd->in[0]->n];
+        case INV:
+            return val[nd->in[0]->n] ^ 1;
+        case AND: case NAND: {
+            int a = 1;
+            for (int k = 0; k < nd->n_in; k++) { a &= val[nd->in[k]->n]; if (!a) break; }
+            return (type == NAND) ? a ^ 1 : a;
+        }
+        case OR: case NOR: {
+            int a = 0;
+            for (int k = 0; k < nd->n_in; k++) { a |= val[nd->in[k]->n]; if (a) break; }
+            return (type == NOR) ? a ^ 1 : a;
+        }
+        case EXOR: case EXNOR: {
+            int a = 0;
+            for (int k = 0; k < nd->n_in; k++) a ^= val[nd->in[k]->n];
+            return (type == EXNOR) ? a ^ 1 : a;
+        }
+        default:
+            return acc0;   /* IN/DFF: keep PI value */
     }
 }
 
 /* モンテカルロ真値FDP（SAT/BDD不使用の独立実装）。N回サンプリング。 */
-static double FdpBySim(FNODE* f, long N){
+static double FdpBySim(FNODE* f, long N)
+{
     sim_build_topo();
-    static int *vg=NULL,*vf=NULL; if(!vg){vg=malloc(n_net*sizeof(int)); vf=malloc(n_net*sizeof(int));}
-    size_t fsig=(size_t)(f->netptr - nl); int stuck=(f->type==SF0)?0:1;
-    long det=0;
-    for(long s=0;s<N;s++){
-        for(int i=0;i<n_pi;i++){ int b=rand()&1; vg[pi[i]->n]=b; vf[pi[i]->n]=b; }
-        for(int t=0;t<sim_ntopo;t++){ int i=sim_topo[t]; int ty=nl[i].type;
-            if(ty==IN||ty==DFF) continue;
-            vg[i]=sim_gate(ty,vg[i],&nl[i],vg);
-            vf[i]=sim_gate(ty,vf[i],&nl[i],vf);
-        }
-        vf[fsig]=stuck;                                   /* inject fault */
-        for(int t=0;t<sim_ntopo;t++){ int i=sim_topo[t]; int ty=nl[i].type;
-            if(ty==IN||ty==DFF||(size_t)i==fsig) continue;
-            vf[i]=sim_gate(ty,vf[i],&nl[i],vf);
-        }
-        int diff=0; for(int i=0;i<n_net;i++) if(nl[i].n_out==0 && vg[i]!=vf[i]){diff=1;break;}
-        if(diff) det++;
+
+    static int *vg = NULL, *vf = NULL;   /* 正常値 / 故障値（net id 添字） */
+    if (!vg) {
+        vg = malloc(n_net * sizeof(int));
+        vf = malloc(n_net * sizeof(int));
     }
-    return (double)det/N;
+
+    size_t fsig  = (size_t)(f->netptr - nl);
+    int    stuck = (f->type == SF0) ? 0 : 1;
+    long   det   = 0;
+
+    for (long s = 0; s < N; s++) {
+        /* PI にランダム値を与える（正常・故障とも同じ入力） */
+        for (int i = 0; i < n_pi; i++) {
+            int b = rand() & 1;
+            vg[pi[i]->n] = b;
+            vf[pi[i]->n] = b;
+        }
+        /* 故障なしで全ゲートを評価 */
+        for (int t = 0; t < sim_ntopo; t++) {
+            int i = sim_topo[t], ty = nl[i].type;
+            if (ty == IN || ty == DFF) continue;
+            vg[i] = sim_gate(ty, vg[i], &nl[i], vg);
+            vf[i] = sim_gate(ty, vf[i], &nl[i], vf);
+        }
+        /* 故障サイトに縮退値を注入し、コーンを再評価 */
+        vf[fsig] = stuck;
+        for (int t = 0; t < sim_ntopo; t++) {
+            int i = sim_topo[t], ty = nl[i].type;
+            if (ty == IN || ty == DFF || (size_t)i == fsig) continue;
+            vf[i] = sim_gate(ty, vf[i], &nl[i], vf);
+        }
+        /* 観測点(n_out==0)のどれかで正常≠故障なら検出 */
+        int diff = 0;
+        for (int i = 0; i < n_net; i++)
+            if (nl[i].n_out == 0 && vg[i] != vf[i]) { diff = 1; break; }
+        if (diff) det++;
+    }
+    return (double)det / N;
 }
 
 /* ============================ BDD グラウンドトゥルース ============================ */
@@ -90,24 +139,33 @@ static DdNode* gt_gate_bdd(DdManager* m, NLIST* nd, DdNode** gb, DdNode** fb, co
     #define GT_IN(k) ((mark && mark[nd->in[k]->n]) ? fb[nd->in[k]->n] : gb[nd->in[k]->n])
     DdNode *r, *t;
     switch (nd->type) {
-        case BUF: case FOUT: r = GT_IN(0); Cudd_Ref(r); return r;
+        case BUF: case FOUT: r = GT_IN(0);          Cudd_Ref(r); return r;
         case INV:            r = Cudd_Not(GT_IN(0)); Cudd_Ref(r); return r;
         case GND:            r = Cudd_ReadLogicZero(m); Cudd_Ref(r); return r;
-        case ACC:            r = Cudd_ReadOne(m); Cudd_Ref(r); return r;
+        case ACC:            r = Cudd_ReadOne(m);       Cudd_Ref(r); return r;
         case AND: case NAND:
             r = Cudd_ReadOne(m); Cudd_Ref(r);
-            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddAnd(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
-            if (nd->type==NAND){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            for (int k = 0; k < nd->n_in; k++) {
+                t = Cudd_bddAnd(m, r, GT_IN(k)); Cudd_Ref(t);
+                Cudd_RecursiveDeref(m, r); r = t;
+            }
+            if (nd->type == NAND) { t = Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m, r); r = t; }
             return r;
         case OR: case NOR:
             r = Cudd_ReadLogicZero(m); Cudd_Ref(r);
-            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddOr(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
-            if (nd->type==NOR){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            for (int k = 0; k < nd->n_in; k++) {
+                t = Cudd_bddOr(m, r, GT_IN(k)); Cudd_Ref(t);
+                Cudd_RecursiveDeref(m, r); r = t;
+            }
+            if (nd->type == NOR) { t = Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m, r); r = t; }
             return r;
         case EXOR: case EXNOR:
             r = Cudd_ReadLogicZero(m); Cudd_Ref(r);
-            for (int k=0;k<nd->n_in;k++){ t=Cudd_bddXor(m,r,GT_IN(k)); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
-            if (nd->type==EXNOR){ t=Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m,r); r=t; }
+            for (int k = 0; k < nd->n_in; k++) {
+                t = Cudd_bddXor(m, r, GT_IN(k)); Cudd_Ref(t);
+                Cudd_RecursiveDeref(m, r); r = t;
+            }
+            if (nd->type == EXNOR) { t = Cudd_Not(r); Cudd_Ref(t); Cudd_RecursiveDeref(m, r); r = t; }
             return r;
         default:
             fprintf(stderr, "[GT] unsupported gate type %d (net %s)\n", nd->type, nd->name);
@@ -262,16 +320,21 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
     DdManager* m = gt_mgr;
     int fsig = (int)(f->netptr - nl);
 
-    /* 故障サイトのTFOコーンを out 辺で収集 */
-    static int *stack=NULL, *cone=NULL;
-    if (!stack){ stack=malloc(n_net*sizeof(int)); cone=malloc(n_net*sizeof(int)); }
-    int ncone=0, sp=0;
-    stack[sp++]=fsig; gt_mark[fsig]=1;
-    while (sp){
-        int i = stack[--sp]; cone[ncone++]=i;
-        for (int k=0;k<nl[i].n_out;k++){
+    /* 故障サイトの TFO（推移的ファンアウト）コーンを out 辺で DFS 収集する */
+    static int *stack = NULL, *cone = NULL;
+    if (!stack) {
+        stack = malloc(n_net * sizeof(int));
+        cone  = malloc(n_net * sizeof(int));
+    }
+    int ncone = 0, sp = 0;
+    stack[sp++] = fsig;
+    gt_mark[fsig] = 1;
+    while (sp) {
+        int i = stack[--sp];
+        cone[ncone++] = i;
+        for (int k = 0; k < nl[i].n_out; k++) {
             int j = nl[i].out[k]->n;
-            if (!gt_mark[j]){ gt_mark[j]=1; stack[sp++]=j; }
+            if (!gt_mark[j]) { gt_mark[j] = 1; stack[sp++] = j; }
         }
     }
 
@@ -343,6 +406,13 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
         fputc('\n', stderr);
     }
 
-    Cudd_RecursiveDeref(m,det); Cudd_RecursiveDeref(m,uni);
-    for (int t=0;t<ncone;t++){ int i=cone[t]; Cudd_RecursiveDeref(m,gt_fault[i]); gt_fault[i]=NULL; gt_mark[i]=0; }
+    /* 後始末: 検出関数・和集合・このコーンの故障BDDを解放し、mark をリセット */
+    Cudd_RecursiveDeref(m, det);
+    Cudd_RecursiveDeref(m, uni);
+    for (int t = 0; t < ncone; t++) {
+        int i = cone[t];
+        Cudd_RecursiveDeref(m, gt_fault[i]);
+        gt_fault[i] = NULL;
+        gt_mark[i]  = 0;
+    }
 }

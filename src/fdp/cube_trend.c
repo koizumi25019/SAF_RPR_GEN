@@ -34,11 +34,15 @@ static void ct_dump(void)
     for (int b = 0; edge[b] != -1 || b == 0; b++) {
         long lo = (b == 0) ? 1 : edge[b-1] + 1;
         long hi = edge[b];                       /* hi==-1 は上限なし */
-        long cnt = 0; double sc = 0, sx = 0, sm = 0;
+        long cnt = 0;
+        double sc = 0, sx = 0, sm = 0;   /* Σcube数, Σ平均X率, Σマスク重複率 */
         for (int i = 0; i < nrec; i++) {
             if (recs[i].n < lo) continue;
             if (hi != -1 && recs[i].n > hi) continue;
-            cnt++; sc += recs[i].n; sx += recs[i].xfrac; sm += recs[i].mask_reuse;
+            cnt++;
+            sc += recs[i].n;
+            sx += recs[i].xfrac;
+            sm += recs[i].mask_reuse;
         }
         if (cnt == 0) { if (hi == -1) break; else continue; }
         char range[32];
@@ -53,8 +57,14 @@ static void ct_dump(void)
 static void ct_record(long n, double xfrac, double mask_reuse)
 {
     if (nrec == 0) atexit(ct_dump);
-    if (nrec == reccap) { reccap = reccap ? reccap*2 : 256; recs = realloc(recs, reccap*sizeof(CTRec)); }
-    recs[nrec].n = n; recs[nrec].xfrac = xfrac; recs[nrec].mask_reuse = mask_reuse; nrec++;
+    if (nrec == reccap) {
+        reccap = reccap ? reccap * 2 : 256;
+        recs = realloc(recs, reccap * sizeof(CTRec));
+    }
+    recs[nrec].n          = n;
+    recs[nrec].xfrac      = xfrac;
+    recs[nrec].mask_reuse = mask_reuse;
+    nrec++;
 }
 
 /* ===================== 明細 CSV（任意・プロット用） ===================== */

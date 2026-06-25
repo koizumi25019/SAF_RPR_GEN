@@ -29,15 +29,26 @@ static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fai
 static long mdc_hardcubes=0, mdc_hardorig=0, mdc_hardprime=0;   /* capped faults only */
 static long mdc_fcubes=0, mdc_forig=0, mdc_fprime=0;            /* per-fault accumulator */
 
+/* 0除算を避ける平均（分母0なら0） */
+static double mdc_avg(double num, long den){ return den ? num / den : 0.0; }
+
 static void mdc_dump(void){
-    fprintf(stderr,"\n[MAXDC] cubes=%ld  care/cube: orig=%.2f prime=%.2f  headroom=%.2f bits/cube (%.0f%% of cubes shrink)  sanity_fail=%ld\n",
-        mdc_cubes, mdc_cubes?(double)mdc_orig/mdc_cubes:0, mdc_cubes?(double)mdc_prime/mdc_cubes:0,
-        mdc_cubes?(double)(mdc_orig-mdc_prime)/mdc_cubes:0, mdc_cubes?100.0*mdc_hr_cubes/mdc_cubes:0, mdc_sanity_fail);
-    fprintf(stderr,"[MAXDC] reverts (unsafe expansions caught) = %ld\n", mdc_revert);
-    fprintf(stderr,"[MAXDC] capped-fault cubes=%ld  orig=%.2f prime=%.2f headroom=%.2f bits/cube\n",
-        mdc_hardcubes, mdc_hardcubes?(double)mdc_hardorig/mdc_hardcubes:0,
-        mdc_hardcubes?(double)mdc_hardprime/mdc_hardcubes:0,
-        mdc_hardcubes?(double)(mdc_hardorig-mdc_hardprime)/mdc_hardcubes:0);
+    fprintf(stderr,
+        "\n[MAXDC] cubes=%ld  care/cube: orig=%.2f prime=%.2f  "
+        "headroom=%.2f bits/cube (%.0f%% of cubes shrink)  sanity_fail=%ld\n",
+        mdc_cubes,
+        mdc_avg(mdc_orig,  mdc_cubes),
+        mdc_avg(mdc_prime, mdc_cubes),
+        mdc_avg(mdc_orig - mdc_prime, mdc_cubes),
+        100.0 * mdc_avg(mdc_hr_cubes, mdc_cubes),
+        mdc_sanity_fail);
+    fprintf(stderr, "[MAXDC] reverts (unsafe expansions caught) = %ld\n", mdc_revert);
+    fprintf(stderr,
+        "[MAXDC] capped-fault cubes=%ld  orig=%.2f prime=%.2f headroom=%.2f bits/cube\n",
+        mdc_hardcubes,
+        mdc_avg(mdc_hardorig,  mdc_hardcubes),
+        mdc_avg(mdc_hardprime, mdc_hardcubes),
+        mdc_avg(mdc_hardorig - mdc_hardprime, mdc_hardcubes));
 }
 
 /* 非検出オラクルを構築する（WriteTPGModel 直後に呼ぶこと：
@@ -108,38 +119,67 @@ void EXP_Expand(CCaDiCaL* u, char* cube){
     if (!u) return;
     static int* care=NULL; static char* save=NULL; static int cap=0;
     if (cap<n_pi){ care=realloc(care,n_pi*sizeof(int)); save=realloc(save,n_pi+1); cap=n_pi; }
-    int nc=0; for (int i=0;i<n_pi;i++) if (cube[i]!='X') care[nc++]=i;
-    if (nc==0) return;
+    int nc = 0;
+    for (int i = 0; i < n_pi; i++)
+        if (cube[i] != 'X') care[nc++] = i;
+    if (nc == 0) return;
     memcpy(save, cube, n_pi+1);       /* keep original to revert if needed */
-    int orig=nc;
+    int orig = nc;
 
     if (getenv("MAXDC_CORE")) {
         /* cheap one-shot: keep only the unsat core, then verify+revert */
-        for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,mdc_lit(cube,i)); }
-        if (ccadical_solve(u)==20){
-            for (int k=0;k<nc;k++){ int i=care[k]; if (!ccadical_failed(u,mdc_lit(cube,i))) cube[i]='X'; }
-            int live=0; for (int k=0;k<nc;k++){ int i=care[k]; if (cube[i]!='X'){ ccadical_assume(u,mdc_lit(cube,i)); live++; } }
-            if (live<orig && ccadical_solve(u)!=20){ memcpy(cube,save,n_pi+1); mdc_revert++; }
-        } else mdc_sanity_fail++;
+        for (int k = 0; k < nc; k++)
+            ccadical_assume(u, mdc_lit(cube, care[k]));
+
+        if (ccadical_solve(u) == 20) {
+            /* コア外（failed でない）ビットは検出に不要なので X に落とす */
+            for (int k = 0; k < nc; k++) {
+                int i = care[k];
+                if (!ccadical_failed(u, mdc_lit(cube, i))) cube[i] = 'X';
+            }
+            /* 念のため：残ったケアだけで本当に非検出が UNSAT か再確認し、駄目なら戻す */
+            int live = 0;
+            for (int k = 0; k < nc; k++) {
+                int i = care[k];
+                if (cube[i] != 'X') { ccadical_assume(u, mdc_lit(cube, i)); live++; }
+            }
+            if (live < orig && ccadical_solve(u) != 20) { memcpy(cube, save, n_pi+1); mdc_revert++; }
+        } else {
+            mdc_sanity_fail++;
+        }
     } else {
-        /* sound greedy: drop bit b only if (cube\b) still implies detection (UNSAT) */
-        /* first confirm the full cube implies detection at all */
-        for (int k=0;k<nc;k++){ int i=care[k]; ccadical_assume(u,mdc_lit(cube,i)); }
-        if (ccadical_solve(u)!=20){ mdc_sanity_fail++; }
-        else {
-            for (int b=0;b<nc;b++){
-                int ib=care[b];
-                for (int k=0;k<nc;k++){ int i=care[k]; if (i==ib||cube[i]=='X') continue; ccadical_assume(u,mdc_lit(cube,i)); }
-                if (ccadical_solve(u)==20) cube[ib]='X';   /* still UNSAT without b -> drop */
+        /* sound greedy: ビット b を抜いても (cube\b) が検出を含意（非検出が UNSAT）なら落とす。
+           まず完全キューブが検出を含意することを確認する。 */
+        for (int k = 0; k < nc; k++)
+            ccadical_assume(u, mdc_lit(cube, care[k]));
+
+        if (ccadical_solve(u) != 20) {
+            mdc_sanity_fail++;
+        } else {
+            for (int b = 0; b < nc; b++) {
+                int ib = care[b];
+                /* ib 以外の生きているケアビットだけを assume */
+                for (int k = 0; k < nc; k++) {
+                    int i = care[k];
+                    if (i == ib || cube[i] == 'X') continue;
+                    ccadical_assume(u, mdc_lit(cube, i));
+                }
+                if (ccadical_solve(u) == 20) cube[ib] = 'X';   /* b 無しでも UNSAT → 落とす */
             }
         }
     }
 
     if (getenv("MAXDC_NOMUT")) memcpy(cube, save, n_pi+1);  /* diagnostic: measure but don't change cube */
 
-    int prime=0; for (int k=0;k<nc;k++) if (cube[care[k]]!='X') prime++;
-    mdc_cubes++; mdc_orig+=orig; mdc_prime+=prime; if (prime<orig) mdc_hr_cubes++;
-    mdc_fcubes++; mdc_forig+=orig; mdc_fprime+=prime;
+    int prime = 0;
+    for (int k = 0; k < nc; k++)
+        if (cube[care[k]] != 'X') prime++;
+
+    /* 全体集計 */
+    mdc_cubes++; mdc_orig += orig; mdc_prime += prime;
+    if (prime < orig) mdc_hr_cubes++;
+    /* この故障ぶんの集計（capped 判定で hardcubes へ繰り入れる） */
+    mdc_fcubes++; mdc_forig += orig; mdc_fprime += prime;
 }
 
 void EXP_OracleDone(CCaDiCaL** oracle, bool limit_hit){
