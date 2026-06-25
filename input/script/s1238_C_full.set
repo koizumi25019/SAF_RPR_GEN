@@ -1,0 +1,3 @@
+-net ../input/circuit/s1238_C.v
+-log ../output/full/log/s1238_C.txt
+-fdp ../output/full/fdp/s1238_C.csv

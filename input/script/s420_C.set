@@ -1,0 +1,17 @@
+# set File
+# set netlist(.v)
+-net ./input/circuit/s420_C.v 
+
+# set fault list(.txt)
+-fault ./input/fault/det_s420_C.txt
+
+
+
+# set log(.txt)
+-log ../output/full/log/s420_C.txt
+
+
+# set fdp result(.csv)
+-fdp ../output/full/fdp/s420_C.csv
+
+

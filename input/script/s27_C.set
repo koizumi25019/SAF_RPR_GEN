@@ -1,0 +1,19 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/s27_C.v 
+
+# set fault list(.txt)
+#-fault ../input/fault/det_s27_C.txt
+
+
+# set log(.txt)
+-log ../output/limit100/log/s27_C.txt
+
+
+# set fdp result(.csv)
+-fdp ../output/limit100/fdp/s27_C.csv
+
+# set sat test count limit(.txt)
+-limit 100
+
+

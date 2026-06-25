@@ -54,10 +54,10 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
   `limit <= 0` を「無制限」として扱う。
   正の値を指定するとその回数で打ち切られ `complete=0` の行が出るので、期待値生成では指定しない。
 
-`.set` の最小例（c17a / [data/script/c17a.set](../data/script/c17a.set)）:
+`.set` の最小例（c17a / [input/script/c17a.set](../input/script/c17a.set)）:
 
 ```
--net   ../data/circuit/c17a.v
+-net   ../input/circuit/c17a.v
 -fdp   ../output/full/fdp/c17a.csv
 -log   ../output/full/log/c17a.txt
 # -fault は書かない → 全故障

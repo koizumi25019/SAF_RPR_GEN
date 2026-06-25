@@ -1,4 +1,0 @@
-
-[MAXDC] cubes=20916  care/cube: orig=11.01 prime=9.59  headroom=1.42 bits/cube (60% of cubes shrink)  sanity_fail=283
-[MAXDC] reverts (unsafe expansions caught) = 0
-[MAXDC] capped-fault cubes=0  orig=0.00 prime=0.00 headroom=0.00 bits/cube

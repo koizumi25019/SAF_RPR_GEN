@@ -6,16 +6,14 @@
 #   ./run_itc99.sh                # 下の CIRCUITS リストを順に実行
 #   ./run_itc99.sh b04 b07 b11    # 引数で回路を指定（リストより優先）
 #
-# 回路名は data/script/<name>.set に対応する。
+# 回路名は input/script/<name>.set に対応する。
 # 全 .set は -limit 30・全故障。必須割当て/支配故障解析はデフォルト ON。
 
 set -u
 
 # ----- 実行したい回路をここに並べる-----
 CIRCUITS=(
-b05
-b07
-b12
+b22
 )
 
 # 引数があればそちらを優先する
@@ -32,7 +30,7 @@ failed=()   # 失敗した回路を記録
 for i in "${!CIRCUITS[@]}"; do
     c="${CIRCUITS[$i]}"
     n=$((i + 1))
-    setfile="../data/script/${c}.set"
+    setfile="../input/script/${c}.set"
 
     echo "===== [$n/$total] $c 開始 $(date '+%T') ====="
 

@@ -1,0 +1,5 @@
+# b12 をキューブ1000本で打ち切り、生成傾向(CUBE_TREND)を観察するための .set
+-net ../input/circuit/b12_C.v
+-log ../output/limit1000/log/b12_C.txt
+-fdp ../output/limit1000/fdp/b12_C.csv
+-limit 1000

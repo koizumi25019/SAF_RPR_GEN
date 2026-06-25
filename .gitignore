@@ -369,3 +369,15 @@ verification/gt_bdd/results/g14.fdp.csv
 
 # CMake のビルド生成物（cmake .. && make で再生成されるので追跡しない）
 /build/
+
+# --- 実行で再生成される生成物（リポジトリ肥大防止のため追跡しない） ---
+# 本体の出力（output/<条件>/{fdp,log,cube_analysis}）
+output/
+# 検証・実験で生成される大量データ（結論は各 SUMMARY.md に残す）
+verification/**/*.csv
+*.progress
+*.stderr
+*.runinfo
+*.pkl
+# バイナリ資料
+*.pptx

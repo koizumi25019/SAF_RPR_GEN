@@ -4,14 +4,14 @@
 # 使い方:
 #   ./run_b15.sh
 #
-# 回路名は data/script/b15.set に対応する。-limit 30・全故障。
+# 回路名は input/script/b15.set に対応する。-limit 30・全故障。
 
 set -u
 
 # .set 内のパスは build/ からの相対なので build/ で実行する
 cd "$(dirname "$0")/build" || { echo "build ディレクトリが無い"; exit 1; }
 
-setfile="../data/script/b15.set"
+setfile="../input/script/b15.set"
 if [ ! -f "$setfile" ]; then
     echo "$setfile が見つからない"
     exit 1

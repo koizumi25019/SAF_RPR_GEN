@@ -6,7 +6,7 @@
 #   ./run_experiments.sh                 # 下の CIRCUITS リストを順に実行
 #   ./run_experiments.sh s5378_C s9234_C # 引数で回路を指定（リストより優先）
 #
-# 回路名は data/script/<name>.set に対応する。
+# 回路名は input/script/<name>.set に対応する。
 
 set -u
 
@@ -35,7 +35,7 @@ failed=()   # 失敗した回路を記録
 for i in "${!CIRCUITS[@]}"; do
     c="${CIRCUITS[$i]}"
     n=$((i + 1))
-    setfile="../data/script/${c}.set"
+    setfile="../input/script/${c}.set"
 
     echo "===== [$n/$total] $c 開始 $(date '+%T') ====="
 

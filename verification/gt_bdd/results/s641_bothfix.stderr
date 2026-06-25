@@ -1,4 +1,0 @@
-[GT] G359_G214_B,sa1,cubes=87,complete=1,sound=0,exact=0,fdp_cube=2.3847416043e-02,fdp_true=2.3103080690e-02
-[GT] G356_G210_B,sa1,cubes=92,complete=1,sound=0,exact=0,fdp_cube=2.4044901133e-02,fdp_true=2.3832924664e-02
-[XSTAT] xid=inline cubes_bits=1915758 x_bits=1486552 x_ratio=0.7760
-[GT] summary: checked=463  UNSOUND=2  complete-but-NOT-exact=2  ** MISMATCH **

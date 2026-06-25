@@ -1,0 +1,17 @@
+# set File
+# set netlist(.v)
+-net ./input/circuit/s1238_C.v 
+
+# set fault list(.txt)
+-fault ./input/fault/det_s1238_C.txt
+
+
+
+# set log(.txt)
+-log ../output/full/log/s1238_C.txt
+
+
+# set fdp result(.csv)
+-fdp ../output/full/fdp/s1238_C.csv
+
+

@@ -1,0 +1,5 @@
+-net ../input/circuit/b12_C.v
+-fault ../verification/cube_trend/one_fault2.txt
+-log ../output/limit1000/log/b12_dump2.txt
+-fdp ../output/limit1000/fdp/b12_dump2.csv
+-limit 80
