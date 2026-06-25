@@ -1,4 +1,4 @@
--net ../data/circuit/s5378_C.v
+-net ../input/circuit/s5378_C.v
 -fdp ../verification/results/s5378_C/baseline.fdp.csv
 -log ../verification/results/s5378_C/baseline.log
 -limit 30

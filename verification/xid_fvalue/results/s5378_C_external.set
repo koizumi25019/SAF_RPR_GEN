@@ -1,4 +1,4 @@
--net ../data/circuit/s5378_C.v
+-net ../input/circuit/s5378_C.v
 -fdp ../verification/xid_fvalue/results/s5378_C_external.fdp.csv
 -log ../verification/xid_fvalue/results/s5378_C_external.log
 -limit 30

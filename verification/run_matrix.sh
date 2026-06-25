@@ -32,7 +32,7 @@ env_for() {
 }
 
 for c in "${CIRCUITS[@]}"; do
-  v="$ROOT/data/circuit/${c}.v"
+  v="$ROOT/input/circuit/${c}.v"
   if [ ! -f "$v" ]; then echo "skip $c (no .v)"; continue; fi
   outdir="$ROOT/verification/results/${c}"
   mkdir -p "$outdir"
@@ -41,7 +41,7 @@ for c in "${CIRCUITS[@]}"; do
     setfile="$outdir/${cfg}.set"
     # .set 内のパスは build/ 基準（main_release を build/ で実行するため）
     {
-      echo "-net ../data/circuit/${c}.v"
+      echo "-net ../input/circuit/${c}.v"
       echo "-fdp ../verification/results/${c}/${cfg}.fdp.csv"
       echo "-log ../verification/results/${c}/${cfg}.log"
       # -fault なし=全故障 / LIMIT 未設定なら無制限

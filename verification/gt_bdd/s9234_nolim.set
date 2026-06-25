@@ -1,0 +1,3 @@
+-net ../input/circuit/s9234_C.v
+-fdp ../verification/gt_bdd/results/s9234_nolim.fdp.csv
+-log ../verification/gt_bdd/results/s9234_nolim.log

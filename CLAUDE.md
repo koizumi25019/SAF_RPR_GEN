@@ -26,7 +26,7 @@ mkdir -p build && cd build && cmake .. && make   # main_debug と main_release �
 `.set` スクリプトファイルで駆動する。`.set` 内のパスは **`build/` からの相対パス**なので、`build/` で実行する：
 
 ```bash
-cd build && ./main_debug -set ../data/script/c17a.set
+cd build && ./main_debug -set ../input/script/c17a.set
 ```
 
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
@@ -45,7 +45,7 @@ cd build && ./main_debug -set ../data/script/c17a.set
 `expected/c17a_result.csv` と一致することを確認する**：
 
 ```bash
-cd build && ./main_debug -set ../data/script/c17a.set
+cd build && ./main_debug -set ../input/script/c17a.set
 diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
      <(cut -d, -f1,2,5 output/full/fdp/c17a.csv | sort)
 ```
@@ -102,6 +102,13 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     （`verification/gt_bdd/SUMMARY.md` 参照）。
   - `GT_VERBOSE=1` — 一致した故障も全行出力。
   - `GT_CUBES=1` — 非健全キューブを特定し「どのXを1ビット固定すれば健全になるか」候補を列挙。
+- **`src/fdp/cube_trend.c`** — キューブ生成傾向の観察ツール（本体は読むだけ）。
+  - `CUBE_TREND=1` — 故障ごとにキューブ列の X 数・X マスク重複率・X位置集中度・連続キューブ差分を
+    集計し stderr に `[CT]` 1行。終了時にキューブ数バケット別の `avg_X% / mask_reuse%` 集計を出す
+    （「キューブ生成回数が多い故障ほど X が少ない/マスク使い回しか」の仮説検証）。
+  - `CUBE_TREND_CSV=path` — 故障×キューブの明細を CSV 追記（`x_count` vs `idx` 等のプロット用）。
+    生成順を純粋に見るときは `MDC_NODOM=1` 併用（種キューブが先頭に入らない）。詳細は
+    `verification/cube_trend/SUMMARY.md`。
 - **`src/fdp/experiment.c`** — 研究用フック。
   - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測
     （`MAXDC_CORE`=UNSATコア一括法, `MAXDC_NOMUT`=計測のみ）。

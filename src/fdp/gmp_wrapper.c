@@ -28,7 +28,7 @@ void OutputEquivFaults(
                 {
                     if (net->in[j]->test_sa0 == NO)  // 等価故障としてマークされているもののみ
                     {
-                        gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe\n",
+                        gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe,\n",
                             net->in[j]->name, density);
                         OutputEquivFaults(result_fp, net->in[j], SF0, density);
                     }
@@ -44,7 +44,7 @@ void OutputEquivFaults(
                 {
                     if (net->in[j]->test_sa1 == NO)  // 追加
                     {
-                        gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe\n",
+                        gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe,\n",
                             net->in[j]->name, density);
                         OutputEquivFaults(result_fp, net->in[j], SF1, density);
                     }
@@ -54,11 +54,11 @@ void OutputEquivFaults(
 
         case BUF:
             if (fault_type == SF0 && net->in[0]->test_sa0 == NO) {
-                gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe\n",
+                gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe,\n",
                     net->in[0]->name, density);
                 OutputEquivFaults(result_fp, net->in[0], SF0, density);
             } else if (fault_type == SF1 && net->in[0]->test_sa1 == NO) {
-                gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe\n",
+                gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe,\n",
                     net->in[0]->name, density);
                 OutputEquivFaults(result_fp, net->in[0], SF1, density);
             }
@@ -66,11 +66,11 @@ void OutputEquivFaults(
 
         case INV:
             if (fault_type == SF0 && net->in[0]->test_sa1 == NO) {
-                gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe\n",
+                gmp_fprintf(result_fp, "%s,sa1,,,%.10Fe,\n",
                     net->in[0]->name, density);
                 OutputEquivFaults(result_fp, net->in[0], SF1, density);
             } else if (fault_type == SF1 && net->in[0]->test_sa0 == NO) {
-                gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe\n",
+                gmp_fprintf(result_fp, "%s,sa0,,,%.10Fe,\n",
                     net->in[0]->name, density);
                 OutputEquivFaults(result_fp, net->in[0], SF0, density);
             }
@@ -88,6 +88,7 @@ void calculate_prob_with_gmp(
      FILE* cube_analysis_fp,
      TARGET* target,
      int cube_cnt,
+     int seeded_cnt,
      bool limit_hit
     )
     {
@@ -112,12 +113,13 @@ void calculate_prob_with_gmp(
 
     // 代表故障を出力
     if (result_fp != NULL) {
-        gmp_fprintf(result_fp, "%s,%s,%d,%d,%.10Fe\n",
+        gmp_fprintf(result_fp, "%s,%s,%d,%d,%.10Fe,%d\n",
             target->list[0]->name,
             (target->list[0]->type == SF0) ? "sa0" : "sa1",
             cube_cnt,
             limit_hit ? 0 : 1,
-            density);
+            density,
+            seeded_cnt);
     }
     
 

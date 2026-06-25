@@ -43,7 +43,7 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
 }
 
 // BDD
-void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_fp, FILE* cube_analysis_fp, TARGET* target, int cube_cnt, bool limit_hit) {
+void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_fp, FILE* cube_analysis_fp, TARGET* target, int cube_cnt, int seeded_cnt, bool limit_hit) {
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
@@ -85,7 +85,7 @@ void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_f
     free(count);
 
     //GMP
-    calculate_prob_with_gmp(countStr, nvars,result_fp,cube_analysis_fp,target,cube_cnt,limit_hit);
+    calculate_prob_with_gmp(countStr, nvars,result_fp,cube_analysis_fp,target,cube_cnt,seeded_cnt,limit_hit);
 
     Cudd_RecursiveDeref(gbm, finalBdd);
 

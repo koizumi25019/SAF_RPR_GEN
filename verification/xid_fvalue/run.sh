@@ -19,7 +19,7 @@ run_one() {  # $1=circuit  $2=variant(inline|external)
   local c="$1" v="$2"
   local set="$OUT/${c}_${v}.set"
   {
-    echo "-net ../data/circuit/${c}.v"
+    echo "-net ../input/circuit/${c}.v"
     echo "-fdp ../verification/xid_fvalue/results/${c}_${v}.fdp.csv"
     echo "-log ../verification/xid_fvalue/results/${c}_${v}.log"
     echo "-limit ${LIMIT}"

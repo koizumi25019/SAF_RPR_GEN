@@ -1,0 +1,4 @@
+-net ../input/circuit/s9234_C.v
+-fdp ../verification/gt_bdd/results/s9234_l30.fdp.csv
+-log ../verification/gt_bdd/results/s9234_l30.log
+-limit 30

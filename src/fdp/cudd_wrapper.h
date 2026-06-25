@@ -13,5 +13,6 @@ void RunBDD(
 	FILE* cube_analysis_fp,
 	TARGET* target,
 	int cube_cnt,
+	int seeded_cnt,
 	bool limit_hit
 );

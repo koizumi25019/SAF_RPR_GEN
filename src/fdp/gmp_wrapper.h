@@ -11,5 +11,6 @@ void calculate_prob_with_gmp(
      FILE* cube_analysis_fp,
      TARGET* target,
      int cube_cnt,
+     int seeded_cnt,
      bool limit_hit
     );

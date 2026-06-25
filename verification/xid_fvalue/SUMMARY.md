@@ -5,6 +5,62 @@
 モデル/ソルバ/回路/limit(30)/ブロッキング帰還は完全固定 → **X判定の単体効果のみ**を分離。
 データ: `results/{s5378_C,s9234_C}_{inline,external}.*` / 旧XID実体: `FaultSim/FaultSim/Build/Release/my_app`
 
+---
+
+## 更新 (2026-06-22): 健全性バグ修正後の inline 再測定
+
+下の本文（6/10時点）の inline 数値は**健全性バグ修正前**のもの。修正
+（[[xid-fault-site-pin-bug]] + EA観測点 / XID J-frontier / XIDサイト逆含意の3バグ、
+詳細は `../gt_bdd/SUMMARY.md`）を入れた現行バイナリで inline を取り直した。
+external は旧バイナリ（変更なし）なので 6/10 値を参考併記。limit 30・全故障・同条件。
+
+| 指標 | s5378 旧inline(6/10) | **s5378 新inline(6/22)** | s9234 旧inline(6/10) | **s9234 新inline(6/22)** |
+|---|---:|---:|---:|---:|
+| 列挙故障(cube有) | 4,551 | 4,551 | 6,927 | 6,927 |
+| cube総数 | 108,098 | **105,977** | 144,503 | **143,267** |
+| X率 | 95.06% | **95.16%** | 93.37% | **93.49%** |
+| complete=1 | 1,466 | **1,571** | 2,958 | **3,039** |
+| incomplete | 3,085 | 2,980 | 3,969 | 3,888 |
+| wall | 59.7s | 58.8s | 144.3s | 146.4s |
+
+**読み方**:
+- **列挙故障数は不変**（4,551 / 6,927）。手法に依らず不変な量で、修正でも当然動かない。
+- **X率はほぼ不変**（+0.1pt 程度）。ドントケア判定の「量」は修正で変わっていない。
+- **complete=1 が増加**（s5378 +105 / s9234 +81）。キューブが健全＝正しくなった分、limit 30 内で
+  UNSAT まで到達できる故障が増えた（列挙効率が上がった）。cube総数は微減。
+- **過大評価は解消**。6/10 で問題だった「inline が complete=1 で過大」（下記 33/34・54/61）は
+  上記3バグが原因で、修正後は `gt_bdd/SUMMARY.md` の通り s5378 limit30 で **ALL VERIFIED**
+  （complete=1 は厳密等価、complete=0 も健全性⊆を全数証明）。
+  ※ s5378/s9234 では検出関数BDDの直接構築は重く GT を毎回は回さない方針。今回は再測定の
+  　数値（X率/cube/complete=1）のみ更新し、健全性は既存の gt_bdd 記録を根拠とする。
+
+### 修正後inline(6/22) vs external(6/10) の比較
+
+external は**修正前バイナリ**の 6/10 値（残っていた `results/*_external.*`）をそのまま使用。
+∴ inline と external では **X判定だけでなくCNFモデル（EA修正の有無）も違う**点に注意。
+
+| 指標 | s5378 inline | s5378 external | s9234 inline | s9234 external |
+|---|---:|---:|---:|---:|
+| 列挙故障(cube有) | 4,551 | 4,551 | 6,927 | 6,927 |
+| X率 | 95.16% | 95.21% | 93.49% | 92.44% |
+| cube総数 | 105,977 | 104,134 (+1.8%) | 143,267 | 138,482 (+3.5%) |
+| complete=1 | 1,571 | 1,684 | 3,039 | 3,196 |
+| 両complete=1のfdp不一致 | — | 34（**inline>ext 34 / ext>inline 0**） | — | 38（**inline>ext 38 / ext>inline 0**） |
+
+**読み方**:
+- **X判定そのものの比較（X率・cube・速度）は 6/10 と同傾向で安定**: X率は inline/external で±1pt未満、
+  cube は inline がわずかに多い（+1.8% / +3.5%）、列挙故障数は完全一致、速度は inline が約10倍速。
+- **fdp の大小はこの比較からは健全性結論にできない**（モデル差が混入）。6/10は「inline過大 33/34」だったが
+  今回は**全不一致で逆向き inline>external**（34 / 38, 逆向き0）。これは inline 悪化ではなく、**external が
+  修正前のEA過小評価モデルで走り低めに出ている**のが主因。`gt_bdd/SUMMARY.md` で修正後inlineは
+  s5378 complete=1 が厳密一致(ALL VERIFIED)と独立証明済み ⇒ inline=真値・旧external=過小、の向きで整合。
+- external の complete=1 が多い（1,684>1,571 等）のも、旧モデルが偽冗長などで早く「完了」扱いになった
+  影響と推測（X判定差でなくモデル差）。
+- ∴ **クリーンに XID 方式差を見るなら X率/cube/速度**。fdpの大小比較は修正前後のモデル差が混ざるため不適。
+
+> 以下は 6/10 の初版記録（**inline は修正前**の値）。external 比較と過大評価の分析はこの時点のもので、
+> 過大評価の原因と解消は上記＋ `gt_bdd/SUMMARY.md` を参照。
+
 ## TL;DR（s5378・s9234 共通の傾向）
 1. **X率はほぼ同等**（差は±1pt未満）。故障値考慮化は「X判定の量」を大きく変えていない。
    s5378: inline 95.06% / external 95.21%（inline −0.15pt）。s9234: inline 93.37% / external 92.44%（inline +0.93pt）。**符号も不安定＝差は小さい**。
@@ -54,4 +110,7 @@ complete=1（UNSATまで完全列挙）同士なら、X判定が健全(各cube�
 - 集計: `summarize.py` → `summary.csv` / ドライバ: `run.sh`（`LIMIT=`で打切り指定）
 - 真値生データ: 上記 MC 出力（一時set `/tmp/s5378_gt.set` 使用、結果setは非汚染）
 - 実装: `src/fdp/fault_detection_prob.c` の `ExternalXID()`（env `XID_EXTERNAL` で有効）＋ X率集計 `[XSTAT]`。
+  - 6/22 追記: X率集計 `[XSTAT]` は一度削除（`bfcdc80`）したが再測定のため env `XSTAT=1` ゲートで最小復元
+    （`AnalyzeFaultDensity` でキューブの X ビット率を集計し stderr に1行）。通常実行には無影響。
+    再測定コマンド: `cd build && env XSTAT=1 ./main_release -set ../verification/xid_fvalue/results/<c>_inline.set`
 - 旧XIDビルド: `FaultSim/FaultSim/Makefile` に `-fcommon` と `-lm` を追加（リンクのみ修正）。

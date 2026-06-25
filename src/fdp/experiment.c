@@ -170,16 +170,35 @@ static int maxham_aux = 0;   /* 故障ごとに cnf.total.vars+1 で初期化す
 static unsigned char* divpo_dead = NULL;   /* PO p が UNSAT 済みか（故障ごとにリセット） */
 static int divpo_cap = 0, divpo_idx = 0;
 static int divpo_last = -1;                /* 直前の solve で assume した PO の net id（なければ -1） */
+static char* divpo_prevcube = NULL;        /* 直前キューブ（DIVPO_JACC モードの類似度判定用） */
+static int  divpo_pcap = 0;
 
-static int divpo_solve(CCaDiCaL* s){
+/* 連続キューブのケア類似度（両方ケア&同値 / どちらかケア）。gt_verify.c の定義と同じ。 */
+static double cube_jaccard(const char* a, const char* b){
+    int both = 0, either = 0;
+    for (int i = 0; i < n_pi; i++){
+        int ca = (a[i] != 'X'), cb = (b[i] != 'X');
+        if (ca || cb) either++;
+        if (ca && cb && a[i] == b[i]) both++;
+    }
+    return either ? (double)both / either : 0.0;
+}
+
+/* PO指定solveの中核。
+ *   advance_on_sat=1: SAT毎に次POへ進む（従来の DIVPO=毎キューブ round-robin）。
+ *   advance_on_sat=0: SATでも同じPOに留まる（DIVPO_JACC モード）。
+ *   force_advance=1 : この回だけ強制で次POへ（直前2キューブの類似度が閾値超のとき）。
+ * UNSATのPOは恒久に打ち止め、全PO打ち止め後の素solveで完全性を確定するのは従来通り。 */
+static int divpo_solve_core(CCaDiCaL* s, int advance_on_sat, int force_advance){
     divpo_last = -1;
     if (divpo_n <= 1 || !divpo_dead) return ccadical_solve(s);
+    if (force_advance) divpo_idx = (divpo_idx + 1) % divpo_n;
     for (int tried = 0; tried < divpo_n; tried++){
         int p = (divpo_idx + tried) % divpo_n;
         if (divpo_dead[p]) continue;
         ccadical_assume(s, divpo_z - divpo_n + p);
         if (ccadical_solve(s) == 10){
-            divpo_idx = (p + 1) % divpo_n;
+            divpo_idx = advance_on_sat ? (p + 1) % divpo_n : p;
             divpo_last = divpo_netid ? divpo_netid[p] : -1;
             return 10;
         }
@@ -210,6 +229,8 @@ void EXP_ResetPerFault(void){
     if (divpo_n > 0){
         if (divpo_cap < divpo_n){ divpo_dead = realloc(divpo_dead, divpo_n); divpo_cap = divpo_n; }
         memset(divpo_dead, 0, divpo_n);
+        if (divpo_pcap < n_pi + 1){ divpo_prevcube = realloc(divpo_prevcube, n_pi + 1); divpo_pcap = n_pi + 1; }
+        divpo_prevcube[0] = '\0';      /* 故障の先頭では比較対象なし */
     }
 }
 
@@ -241,7 +262,17 @@ static void maxham_atmost(CCaDiCaL* s, int* e, int m, int R, int act)
 int EXP_Solve(CCaDiCaL* s, const char* prev)
 {
     if (getenv("DIVPHASE")) divphase_randomize(s);   /* 案B: 位相ランダム化 */
-    if (getenv("DIVPO"))    return divpo_solve(s);   /* 案A: 検出PO指定 */
+    if (getenv("DIVPO")){                            /* 案A: 検出PO指定 */
+        const char* jt = getenv("DIVPO_JACC");
+        if (!jt) return divpo_solve_core(s, 1, 0);   /* 従来: 毎キューブ巡回 */
+        /* DIVPO_JACC モード: 直前2キューブの Jaccard が閾値超のときだけ PO 切替 */
+        double thr = atof(jt);
+        int adv = (prev && divpo_prevcube && divpo_prevcube[0]
+                   && cube_jaccard(divpo_prevcube, prev) > thr);
+        int r = divpo_solve_core(s, 0, adv);
+        if (prev && divpo_prevcube){ memcpy(divpo_prevcube, prev, n_pi); divpo_prevcube[n_pi] = '\0'; }
+        return r;
+    }
     if (!getenv("MAXHAM") || !prev) return ccadical_solve(s);
 
     static int* e = NULL; static int cap = 0;

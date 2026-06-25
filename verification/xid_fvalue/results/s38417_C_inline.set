@@ -1,0 +1,4 @@
+-net ../input/circuit/s38417_C.v
+-fdp ../verification/xid_fvalue/results/s38417_C_inline.fdp.csv
+-log ../verification/xid_fvalue/results/s38417_C_inline.log
+-limit 30
