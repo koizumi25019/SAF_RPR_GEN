@@ -123,15 +123,12 @@ void calculate_prob_with_gmp(
     }
     
 
-    //等価故障と故障検出確率は同様
+    //等価故障の検出確率は代表故障と同じ
     if (result_fp != NULL) {
-       if (result_fp != NULL)
-        {
         OutputEquivFaults(result_fp,
             target->list[0]->netptr,
             target->list[0]->type,
             density);
-        }
     }
     mpf_clear(num);
     mpf_clear(den);

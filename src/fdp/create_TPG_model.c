@@ -8,12 +8,10 @@
 
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     for (int i = 0; i < n_net; i++) {
-        if (nl[i].type != IN && nl[i].type != DFF) {
-            if (nl[i].consgc != NULL) {
-                for (int j = 0; j < nl[i].consgc_len; j++) {
-                    ccadical_add(solver, nl[i].consgc[j]);
-                }
-            }
+        if (nl[i].type == IN || nl[i].type == DFF) continue;
+        if (nl[i].consgc == NULL) continue;
+        for (int j = 0; j < nl[i].consgc_len; j++) {
+            ccadical_add(solver, nl[i].consgc[j]);
         }
     }
 }

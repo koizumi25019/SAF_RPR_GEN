@@ -56,14 +56,6 @@ void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_f
         finalBdd = tmp;
     }
 
-    //BDD
-    int supportSize = Cudd_SupportSize(gbm, finalBdd);
-    
-    //BDD変数数を記述
-    //if(opt.file.input.cube_analysis == FILE_NOSET){
-    //    fprintf(result_fp, "%d,", supportSize);
-    //};
-
     int digits;
     DdApaNumber count;
     count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
