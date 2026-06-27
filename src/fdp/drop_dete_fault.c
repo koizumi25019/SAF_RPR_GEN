@@ -20,44 +20,24 @@ bool DropDeteFault(
 	TARGET* target
 )
 {
-	/* variable declaration */
-	FNODE* tmp = (FNODE*)NULL;
-	char fault_buffer[200];
+	/* target->list[0] はハッシュ表内の FNODE そのもの（SetTarget が
+	   readdata.fault.list[] のノードを直接代入する）。文字列を作り直して
+	   ハッシュ表を引き直す必要はなく、検出情報を直接更新すればよい。 */
+	FNODE* fault = target->list[0];
 
-
-	if (target->list[0]->type == SF0) {
-		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name,"sa0");
+	if (fault->detect == UNDETECTED)
+	{
+		fault->detect = DETECTED;
+		readdata.fault.numdete++;
+		readdata.fault.numrema--;
 	}
-	else {
-		sprintf(fault_buffer, "%s\t%s\n", target->list[0]->name,"sa1");
+	else if (fault->detect == REDEUNDANT)
+	{
+		fault->detect = DETECTED;
+		readdata.fault.numdete++;
+		readdata.fault.numrema--;
+		readdata.fault.numred--;
 	}
-
-		/* calulate hash */
-		int hash = calcHash(fault_buffer);
-		tmp = readdata.fault.list[hash];
-
-		/* search fault and update detection infomation */
-		while (tmp != (FNODE*)NULL)
-		{
-			if (!strcmp(tmp->string, fault_buffer))
-			{
-				if (tmp->detect == UNDETECTED)
-				{
-					tmp->detect = DETECTED;
-					readdata.fault.numdete++;
-					readdata.fault.numrema--;
-				}
-				else if (tmp->detect == REDEUNDANT)
-				{
-					tmp->detect = DETECTED;
-					readdata.fault.numdete++;
-					readdata.fault.numrema--;
-					readdata.fault.numred--;
-				}
-				break;
-			}
-			tmp = tmp->nextptr;
-		}
 
 	return true;
 }

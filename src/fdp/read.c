@@ -102,9 +102,8 @@ bool CreateFaultList(
 	FNODE* fnodeptr = (FNODE*)NULL;
 
 	/* 入力行を正規形 "name\tsaX\n" に揃える（区切りが空白でもタブでも可）。
-	   DropDeteFault / FindFnodeByNameType はこの正規形でハッシュ・照合する
-	   ため、生の行のまま登録するとスペース区切りの故障リストでは完了マーク
-	   が永遠に付かず、同じ故障を無限に再列挙する。 */
+	   FindFnodeByNameType はこの正規形でハッシュ・照合するため、生の行のまま
+	   登録するとスペース区切りの故障リストでは支配解析の照合に失敗する。 */
 	{
 		static char name[MAXSIZE_BUFFER];
 		char type[8];
