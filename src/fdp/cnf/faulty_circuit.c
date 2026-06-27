@@ -19,59 +19,54 @@
 //	@return		：	(bool) okay, error 
 //*************************************************************************************************************
 bool CreateConsFC(
-	CCaDiCaL* solver,       // ★引数に追加
+	CCaDiCaL* solver,
 	TARGET* target			  /**< target fault */
 )
 {
 	RESET_CNF;
 
-	for (int i = 0; i < 1; i++)
+	FNODE* fault = target->list[0];
+	if (fault->detect != UNDETECTED) return true;
+
+	/** search for transitive-fout */
+	SearchTFO(fault);
+
+	/** create the faulty-circuit constraint */
+	for (int j = 0; j < n_net; j++)
 	{
-		//printf("targetlist[%d]:%s\n", i, target->list[i]->name);
-		if (target->list[i]->detect == UNDETECTED)
+		if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
 		{
-			/** search for transitive-fout */
-			SearchTFO(target->list[i]);
-
-			/** create the faulty-circuit constraint */
-			for (int j = 0; j < n_net; j++)
+			switch (nl[j].type)
 			{
-				if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
-				{
-					switch (nl[j].type)
-					{
-					// ★ solver を渡し、不要になった i (numfault) を削除
-					case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
-					case NAND:	CreateConsFC_NAND(solver, &nl[j]);		break;
-					case OR:	CreateConsFC_OR(solver, &nl[j]);		break;
-					case NOR:	CreateConsFC_NOR(solver, &nl[j]);		break;
-					case INV:	CreateConsFC_INV(solver, &nl[j]);		break;
-					case BUF:
-					case FOUT:	CreateConsFC_BUF(solver, &nl[j]);		break;
-					case EXOR:	CreateConsFC_XOR(solver, &nl[j]);		break;
-					case EXNOR:	CreateConsFC_XNOR(solver, &nl[j]);		break;
+			case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
+			case NAND:	CreateConsFC_NAND(solver, &nl[j]);		break;
+			case OR:	CreateConsFC_OR(solver, &nl[j]);		break;
+			case NOR:	CreateConsFC_NOR(solver, &nl[j]);		break;
+			case INV:	CreateConsFC_INV(solver, &nl[j]);		break;
+			case BUF:
+			case FOUT:	CreateConsFC_BUF(solver, &nl[j]);		break;
+			case EXOR:	CreateConsFC_XOR(solver, &nl[j]);		break;
+			case EXNOR:	CreateConsFC_XNOR(solver, &nl[j]);		break;
 
-					case IN:
-					case DFF:										break;
+			case IN:
+			case DFF:										break;
 
-					default:
-						printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
-						printf("some gates are not supported. \n\n");
-						return false;
-					}
-				}
+			default:
+				printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
+				printf("some gates are not supported. \n\n");
+				return false;
 			}
-
-			/** create fault propagation constraints (D-chain) */
-			if (!getenv("MDC_NOPROP")) CreateConsProp(solver, target->list[i]);
-
-			/** create the detection-circuit constraint */
-			CreateConsDC(solver, target->list[i]);
-
-			/** add necessary assignment unit clauses */
-			if (!getenv("MDC_NOEA")) EssentialAssignment(solver, target->list[i]);
 		}
 	}
+
+	/** create fault propagation constraints (D-chain) */
+	if (!getenv("MDC_NOPROP")) CreateConsProp(solver, fault);
+
+	/** create the detection-circuit constraint */
+	CreateConsDC(solver, fault);
+
+	/** add necessary assignment unit clauses */
+	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, fault);
 
 	return true;
 }

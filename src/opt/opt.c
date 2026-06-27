@@ -116,6 +116,29 @@ bool OPTset(
 
 
 //*************************************************************************************************************
+//	@name		OPTreadValue
+//	@function	ディレクティブ行から値（先頭の空白を飛ばした最初のトークン）を取り出して複製する
+//	@return		(char*) strdup した値。値が無ければ NULL
+//	@note		first_delim は最初の取り出しの区切り。"-net"/"-cube_analysis" は空白区切り
+//	            (" \n\0")、それ以外は行末まで ("\n\0") という従来挙動をそのまま渡す。
+//*************************************************************************************************************
+static char* OPTreadValue(
+	char** context,			  /**< strtok_r の saveptr */
+	const char* first_delim	  /**< 最初の取り出しに使う区切り文字 */
+)
+{
+	char* token = strtok_r(NULL, first_delim, context);
+	if (token == NULL) return (char*)NULL;
+
+	for (int i = 0; token[i] != '\0'; i++)
+	{
+		if (token[i] != ' ' && token[i] != '\t')
+			return strdup(strtok_r(&token[i], " \n\0", context));
+	}
+	return (char*)NULL;
+}
+
+//*************************************************************************************************************
 //	@name		OPTread
 //	@function	read the option-setting file
 //	@return		(bool) okay, error
@@ -144,78 +167,23 @@ bool OPTread(
 
 			/** netlist */
 			if (strcmp(token1, "-net") == 0)
-			{
-				token2 = strtok_r(NULL, " \n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.input.net = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
+				opt.file.input.net = OPTreadValue(&context, " \n\0");
 
 			/** cube analysis file */
 			else if (strcmp(token1, "-cube_analysis") == 0)
-			{
-				token2 = strtok_r(NULL, " \n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.input.cube_analysis = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
+				opt.file.input.cube_analysis = OPTreadValue(&context, " \n\0");
 
 			/** fault list */
 			else if (strcmp(token1, "-fault") == 0)
-			{
-				token2 = strtok_r(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.input.fault = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
+				opt.file.input.fault = OPTreadValue(&context, "\n\0");
 
 			/** log */
 			else if (strcmp(token1, "-log") == 0)
-			{
-				token2 = strtok_r(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.output.log = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
+				opt.file.output.log = OPTreadValue(&context, "\n\0");
 
 			/** fdp result */
 			else if (strcmp(token1, "-fdp") == 0)
-			{
-				token2 = strtok_r(NULL, "\n\0", &context);
-
-				for (int i = 0; i < strlen(token2); i++)
-				{
-					if (token2[i] != ' ' && token2[i] != '\t')
-					{
-						opt.file.output.fdp = strdup(strtok_r(&token2[i], " \n\0", &context));
-						break;
-					}
-				}
-			}
+				opt.file.output.fdp = OPTreadValue(&context, "\n\0");
 
 			/** limit setting */
 			else if (strcmp(token1, "-limit") == 0)

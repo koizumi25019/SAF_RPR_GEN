@@ -67,6 +67,31 @@ struct timespec start, end;
 //	@function	output the log
 //	@return		(bool) okay, error
 //*************************************************************************************************************
+static void WriteReport(
+	FILE* fp,
+	double time,
+	double cpu_time,
+	double time_cadical,
+	double time_bdd,
+	double time_xid,
+	double time_read
+)
+{
+	fprintf(fp, "//--------------------------------------------------------------------------------\n");
+	fprintf(fp, "//                AnalyzeFaultDetectionProbability Information\n");
+	fprintf(fp, "//--------------------------------------------------------------------------------\n");
+	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
+	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
+	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
+	fprintf(fp, "//  Time                                      : %.3f sec\n", time);
+	fprintf(fp, "//  CPU Time                                  : %.3f sec\n", cpu_time);
+	fprintf(fp, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
+	fprintf(fp, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
+	fprintf(fp, "//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
+	fprintf(fp, "//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
+	fprintf(fp, "//--------------------------------------------------------------------------------\n");
+}
+
 void OutLogfile(
 	double time,
 	double cpu_time,
@@ -76,38 +101,12 @@ void OutLogfile(
     double time_read
 )
 {
-
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
-	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//                AnalyzeFaultDetectionProbability Information\n");
-	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-	fprintf(fileptr, "//  Target Circuit                            : %s\n", net_name);
-	fprintf(fileptr, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
-	fprintf(fileptr, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fileptr, "//  Time                                      : %.3f sec\n", time);
-	fprintf(fileptr, "//  CPU Time                                  : %.3f sec\n", cpu_time);  // CPU時間
-	fprintf(fileptr, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
-    fprintf(fileptr, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
-    fprintf(fileptr, "//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
-    fprintf(fileptr, "//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
-	fprintf(fileptr, "//--------------------------------------------------------------------------------\n");
-
+	WriteReport(fileptr, time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	printf("\n\n");
-	printf("//--------------------------------------------------------------------------------\n");
-	printf("//                AnalyzeFaultDetectionProbability Information\n");
-	printf("//--------------------------------------------------------------------------------\n");
-	printf("//  Target Circuit                            : %s\n", net_name);
-	printf("//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
-	printf("//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	printf("//  Time                                      : %.3f sec\n", time);
-	printf("//  CPU Time                                  : %.3f sec\n", cpu_time);
-	printf("//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
-    printf("//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
-    printf("//  CPU Time (Don't care)                     : %.3f sec\n", time_xid);
-    printf("//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
-	printf("//--------------------------------------------------------------------------------\n");
+	WriteReport(stdout, time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	return;
 }
