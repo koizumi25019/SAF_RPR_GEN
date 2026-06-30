@@ -102,6 +102,9 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     （`verification/gt_bdd/SUMMARY.md` 参照）。
   - `GT_VERBOSE=1` — 一致した故障も全行出力。
   - `GT_CUBES=1` — 非健全キューブを特定し「どのXを1ビット固定すれば健全になるか」候補を列挙。
+  - `GT_COVER=1` — 各故障で D_f の冗長度を測る：生成キューブ数に対し D_f の BDDノード数・
+    1-パス数(=disjointカバーのサイズ)を `[GT_COVER]` で出す。`paths≪cubes` なら
+    「ほぼ素項なのに冗長な near-duplicate カバーを量産」が爆発主因と確定（`verification/maxdc_qx/SUMMARY.md`）。
 - **`src/fdp/cube_trend.c`** — キューブ生成傾向の観察ツール（本体は読むだけ）。
   - `CUBE_TREND=1` — 故障ごとにキューブ列の X 数・X マスク重複率・X位置集中度・連続キューブ差分を
     集計し stderr に `[CT]` 1行。終了時にキューブ数バケット別の `avg_X% / mask_reuse%` 集計を出す
@@ -110,8 +113,13 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     生成順を純粋に見るときは `MDC_NODOM=1` 併用（種キューブが先頭に入らない）。詳細は
     `verification/cube_trend/SUMMARY.md`。
 - **`src/fdp/experiment.c`** — 研究用フック。
-  - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測
-    （`MAXDC_CORE`=UNSATコア一括法, `MAXDC_NOMUT`=計測のみ）。
+  - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測。**爆発故障の決定打**
+    （XID は局所DCしか見ず、グローバルには1本で済む空間を52万本に刻む＝冗長カバー。素項展開が
+    広域禁止節で潰す。b12 最重故障 521,746→1〜2本）。縮約法を選ぶ：
+    - `MAXDC_CORE` — UNSATコア一括(1 solve/cube)。最速だが ~34% で revert（縮約破棄）。
+    - `MAXDC_QX` — QuickXplain による真の極小素項。revert ゼロ・常に健全。複雑回路では割高。
+    - `MAXDC_CORE MAXDC_HYB` — core を試し、revert する分だけ QX で救済する中間案。
+    - `MAXDC_NOMUT`=計測のみ。評価は `verification/maxdc_qx/SUMMARY.md`。
   - `MAXHAM`（案2・却下済み）— 最大ハミング距離制約による解の多様化（`MAXHAM_K`=目標距離）。
     評価と却下理由は `verification/SUMMARY.md`。
 - 本体・他モジュール内の切り分けスイッチ：

@@ -20,6 +20,7 @@
 #include "./cudd_wrapper.h"
 #include "./xid/XID.h"
 #include "./gt_verify.h"     /* 検証: env GT_BDD=1 で厳密照合（既定無効） */
+#include "./cnf_dump.h"      /* 検証: env DUMP_CNF で検出CNFをDIMACS出力（既定無効） */
 #include "./cube_trend.h"    /* 検証: env CUBE_TREND=1 でキューブ列の傾向観察（既定無効） */
 #include "./experiment.h"    /* 研究: env MAXDC / MAXHAM（既定無効） */
 
@@ -161,7 +162,25 @@ bool AnalyzeFaultDensity(
 		SetTarget(&target);
 		FNODE* f = target.list[0];
 
+		// 検証(env DUMP_CNF=dir): この故障の検出CNFを DIMACS 出力して即終了。
+		// 厳密モデルカウンタで Vi=#SAT を直接数え、キューブ列挙と比較するため。
+		const char* dump_dir = getenv("DUMP_CNF");
+		if (dump_dir) {
+			char path[2048];
+			snprintf(path, sizeof(path), "%s/%s_%s.cnf",
+			         dump_dir, f->name, (f->type == SF0) ? "sa0" : "sa1");
+			cnf_tee_begin(path);
+		}
+
 		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
+
+		if (dump_dir) {
+			cnf_tee_end(cnf.total.vars);
+			fprintf(stderr, "[DUMP_CNF] %s_%s -> n_pi=%d vars=%d (Vi=#SAT, FDP=Vi/2^n_pi)\n",
+			        f->name, (f->type == SF0) ? "sa0" : "sa1", n_pi, cnf.total.vars);
+			ccadical_release(solver);
+			exit(0);   // 対象は単一故障flistで回す前提。最初の故障を出して終了
+		}
 
 		// 案1(env MAXDC): 素項展開用 非検出オラクル。未設定なら NULL で従来動作
 		CCaDiCaL* u_oracle = EXP_MaybeBuildOracle(&target);

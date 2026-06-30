@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "ccadical.h"
+#include "../cnf_dump.h"
 #include "../create_TPG_model.h"
 #include "./cnf.h"
 #include "../fault_detection_prob.h"
@@ -132,8 +133,8 @@ void CreateConsProp(
 )
 {
 	// 故障サイトでACT=1を強制（伝搬変数を有効化）
-	ccadical_add(solver, (int)target->netptr->varprop);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, (int)target->netptr->varprop);
+	CNF_ADD(solver, 0);
 
 	for (int i = 0; i < n_net; i++)
 	{
@@ -143,27 +144,27 @@ void CreateConsProp(
 		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
 		if (nl[i].n_out > 0)
 		{
-			ccadical_add(solver, -(int)nl[i].varprop);
+			CNF_ADD(solver, -(int)nl[i].varprop);
 			for (int j = 0; j < nl[i].n_out; j++)
 			{
-				ccadical_add(solver, (int)nl[i].out[j]->varprop);
+				CNF_ADD(solver, (int)nl[i].out[j]->varprop);
 			}
-			ccadical_add(solver, 0);
+			CNF_ADD(solver, 0);
 		}
 
 		// Constraint B: ¬ACT(X) ∨ gc(X) ∨ fc(X)
 		// ACT(X)=1 なら少なくとも一方が1
-		ccadical_add(solver, -(int)nl[i].varprop);
-		ccadical_add(solver, (int)nl[i].varsgc);
-		ccadical_add(solver, (int)nl[i].varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, -(int)nl[i].varprop);
+		CNF_ADD(solver, (int)nl[i].varsgc);
+		CNF_ADD(solver, (int)nl[i].varsfc);
+		CNF_ADD(solver, 0);
 
 		// Constraint C: ¬ACT(X) ∨ ¬gc(X) ∨ ¬fc(X)
 		// ACT(X)=1 なら少なくとも一方が0（B+CでD値: gc≠fc を表現）
-		ccadical_add(solver, -(int)nl[i].varprop);
-		ccadical_add(solver, -(int)nl[i].varsgc);
-		ccadical_add(solver, -(int)nl[i].varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, -(int)nl[i].varprop);
+		CNF_ADD(solver, -(int)nl[i].varsgc);
+		CNF_ADD(solver, -(int)nl[i].varsfc);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -175,16 +176,16 @@ void CreateConsFC_AND(CCaDiCaL* solver, NLIST* netptr)
 {
 	// (¬in1 ∨ ¬in2 ∨ ... ∨ z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, -netptr->in[i]->varsfc);
+		CNF_ADD(solver, -netptr->in[i]->varsfc);
 	}
-	ccadical_add(solver, netptr->varsfc);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, netptr->varsfc);
+	CNF_ADD(solver, 0);
 
 	// (in_i ∨ ¬z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, netptr->in[i]->varsfc);
-		ccadical_add(solver, -netptr->varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, netptr->in[i]->varsfc);
+		CNF_ADD(solver, -netptr->varsfc);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -196,16 +197,16 @@ void CreateConsFC_NAND(CCaDiCaL* solver, NLIST* netptr)
 {
 	// (¬in1 ∨ ¬in2 ∨ ... ∨ ¬z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, -netptr->in[i]->varsfc);
+		CNF_ADD(solver, -netptr->in[i]->varsfc);
 	}
-	ccadical_add(solver, -netptr->varsfc);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, -netptr->varsfc);
+	CNF_ADD(solver, 0);
 
 	// (in_i ∨ z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, netptr->in[i]->varsfc);
-		ccadical_add(solver, netptr->varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, netptr->in[i]->varsfc);
+		CNF_ADD(solver, netptr->varsfc);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -217,16 +218,16 @@ void CreateConsFC_OR(CCaDiCaL* solver, NLIST* netptr)
 {
 	// (x1 ∨ x2 ∨ ... ∨ ¬z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, netptr->in[i]->varsfc);
+		CNF_ADD(solver, netptr->in[i]->varsfc);
 	}
-	ccadical_add(solver, -netptr->varsfc);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, -netptr->varsfc);
+	CNF_ADD(solver, 0);
 
 	// (¬xi ∨ z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, -netptr->in[i]->varsfc);
-		ccadical_add(solver, netptr->varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, -netptr->in[i]->varsfc);
+		CNF_ADD(solver, netptr->varsfc);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -238,16 +239,16 @@ void CreateConsFC_NOR(CCaDiCaL* solver, NLIST* netptr)
 {
 	// (x1 ∨ x2 ∨ ... ∨ z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, netptr->in[i]->varsfc);
+		CNF_ADD(solver, netptr->in[i]->varsfc);
 	}
-	ccadical_add(solver, netptr->varsfc);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, netptr->varsfc);
+	CNF_ADD(solver, 0);
 
 	// (¬xi ∨ ¬z)
 	for (int i = 0; i < netptr->n_in; i++) {
-		ccadical_add(solver, -netptr->in[i]->varsfc);
-		ccadical_add(solver, -netptr->varsfc);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, -netptr->in[i]->varsfc);
+		CNF_ADD(solver, -netptr->varsfc);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -260,8 +261,8 @@ void CreateConsFC_BUF(CCaDiCaL* solver, NLIST* netptr)
 	int in = netptr->in[0]->varsfc;
 	int z  = netptr->varsfc;
 
-	ccadical_add(solver, -in); ccadical_add(solver, z);  ccadical_add(solver, 0);
-	ccadical_add(solver, in);  ccadical_add(solver, -z); ccadical_add(solver, 0);
+	CNF_ADD(solver, -in); CNF_ADD(solver, z);  CNF_ADD(solver, 0);
+	CNF_ADD(solver, in);  CNF_ADD(solver, -z); CNF_ADD(solver, 0);
 }
 
 //*************************************************************************************************************
@@ -273,8 +274,8 @@ void CreateConsFC_INV(CCaDiCaL* solver, NLIST* netptr)
 	int in = netptr->in[0]->varsfc;
 	int z  = netptr->varsfc;
 
-	ccadical_add(solver, in);  ccadical_add(solver, z);  ccadical_add(solver, 0);
-	ccadical_add(solver, -in); ccadical_add(solver, -z); ccadical_add(solver, 0);
+	CNF_ADD(solver, in);  CNF_ADD(solver, z);  CNF_ADD(solver, 0);
+	CNF_ADD(solver, -in); CNF_ADD(solver, -z); CNF_ADD(solver, 0);
 }
 
 //*************************************************************************************************************
@@ -287,10 +288,10 @@ void CreateConsFC_XOR(CCaDiCaL* solver, NLIST* netptr)
 	int b = netptr->in[1]->varsfc;
 	int z = netptr->varsfc;
 
-	ccadical_add(solver, -a); ccadical_add(solver, -b); ccadical_add(solver, -z); ccadical_add(solver, 0);
-	ccadical_add(solver, a);  ccadical_add(solver, b);  ccadical_add(solver, -z); ccadical_add(solver, 0);
-	ccadical_add(solver, a);  ccadical_add(solver, -b); ccadical_add(solver, z);  ccadical_add(solver, 0);
-	ccadical_add(solver, -a); ccadical_add(solver, b);  ccadical_add(solver, z);  ccadical_add(solver, 0);
+	CNF_ADD(solver, -a); CNF_ADD(solver, -b); CNF_ADD(solver, -z); CNF_ADD(solver, 0);
+	CNF_ADD(solver, a);  CNF_ADD(solver, b);  CNF_ADD(solver, -z); CNF_ADD(solver, 0);
+	CNF_ADD(solver, a);  CNF_ADD(solver, -b); CNF_ADD(solver, z);  CNF_ADD(solver, 0);
+	CNF_ADD(solver, -a); CNF_ADD(solver, b);  CNF_ADD(solver, z);  CNF_ADD(solver, 0);
 }
 
 //*************************************************************************************************************
@@ -303,8 +304,8 @@ void CreateConsFC_XNOR(CCaDiCaL* solver, NLIST* netptr)
 	int b = netptr->in[1]->varsfc;
 	int z = netptr->varsfc;
 
-	ccadical_add(solver, a);  ccadical_add(solver, b);  ccadical_add(solver, z);  ccadical_add(solver, 0);
-	ccadical_add(solver, -a); ccadical_add(solver, -b); ccadical_add(solver, z);  ccadical_add(solver, 0);
-	ccadical_add(solver, -a); ccadical_add(solver, b);  ccadical_add(solver, -z); ccadical_add(solver, 0);
-	ccadical_add(solver, a);  ccadical_add(solver, -b); ccadical_add(solver, -z); ccadical_add(solver, 0);
+	CNF_ADD(solver, a);  CNF_ADD(solver, b);  CNF_ADD(solver, z);  CNF_ADD(solver, 0);
+	CNF_ADD(solver, -a); CNF_ADD(solver, -b); CNF_ADD(solver, z);  CNF_ADD(solver, 0);
+	CNF_ADD(solver, -a); CNF_ADD(solver, b);  CNF_ADD(solver, -z); CNF_ADD(solver, 0);
+	CNF_ADD(solver, a);  CNF_ADD(solver, -b); CNF_ADD(solver, -z); CNF_ADD(solver, 0);
 }

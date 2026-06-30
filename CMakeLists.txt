@@ -14,6 +14,7 @@ set(SOURCES
     src/fdp/gt_verify.c
     src/fdp/cube_trend.c
     src/fdp/experiment.c
+    src/fdp/cnf_dump.c
     src/fdp/gmp_wrapper.c
     src/fdp/init.c
     src/fdp/read.c

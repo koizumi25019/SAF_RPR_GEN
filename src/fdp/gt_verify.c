@@ -367,6 +367,17 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
     int sound = Cudd_bddLeq(m, uni, det);   /* uni ⇒ det */
     int exact = (uni == det);               /* 同一マネージャ内なので完全等価 ⇔ 同一ノード */
 
+    /* 診断(env GT_COVER=1): D_f の「冗長度」を測る。生成キューブ数に対し、
+       D_f の BDD ノード数・1-パス数(=BDD が誘導する disjoint カバーのサイズ)を並べる。
+       paths << cubes なら「ほぼ素項なのに重複した冗長カバーを量産」が爆発の主因と確定する。 */
+    if (getenv("GT_COVER")){
+        double paths = Cudd_CountPath(det);
+        int    nodes = Cudd_DagSize(det);
+        double pd = ldexp(Cudd_CountMinterm(m,det,n_pi), -n_pi);
+        fprintf(stderr, "[GT_COVER] %s,%s cubes=%d det_paths=%.0f det_nodes=%d fdp=%.6f\n",
+            f->name, (f->type==SF0)?"sa0":"sa1", cubes->n, paths, nodes, pd);
+    }
+
     /* 診断(env GT_CUBES=1): 非健全キューブを特定し、X のうち「どれか1ビットを
        固定すれば健全になる」候補（XIDが誤ってXにした必要PI）を列挙する */
     if (!sound && getenv("GT_CUBES")){

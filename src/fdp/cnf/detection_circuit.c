@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ccadical.h" // CaDiCaL API
+#include "ccadical.h"
+#include "../cnf_dump.h" // CaDiCaL API
 
 #include "./cnf.h"
 #include "../fault_detection_prob.h"
@@ -52,10 +53,10 @@ void CreateConsDC_XOR(
 
 			// CNF for XOR: z = x ⊕ y
 			// (-x -y -z 0), (-x y z 0), (x -y z 0), (x y -z 0)
-			ccadical_add(solver, -gc); ccadical_add(solver, -fc); ccadical_add(solver, -diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver, -gc); ccadical_add(solver,  fc); ccadical_add(solver,  diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver,  gc); ccadical_add(solver, -fc); ccadical_add(solver,  diff_var); ccadical_add(solver, 0);
-			ccadical_add(solver,  gc); ccadical_add(solver,  fc); ccadical_add(solver, -diff_var); ccadical_add(solver, 0);
+			CNF_ADD(solver, -gc); CNF_ADD(solver, -fc); CNF_ADD(solver, -diff_var); CNF_ADD(solver, 0);
+			CNF_ADD(solver, -gc); CNF_ADD(solver,  fc); CNF_ADD(solver,  diff_var); CNF_ADD(solver, 0);
+			CNF_ADD(solver,  gc); CNF_ADD(solver, -fc); CNF_ADD(solver,  diff_var); CNF_ADD(solver, 0);
+			CNF_ADD(solver,  gc); CNF_ADD(solver,  fc); CNF_ADD(solver, -diff_var); CNF_ADD(solver, 0);
 		}
 	}
 }
@@ -79,18 +80,18 @@ void CreateConsDC_OR(
 		// 1. Forward: いずれかの不一致(x)が1なら、出力(z)は1
 		for (int x_var = first_xor_var; x_var < z_var; x_var++)
 		{
-			ccadical_add(solver, -x_var);
-			ccadical_add(solver, z_var);
-			ccadical_add(solver, 0);
+			CNF_ADD(solver, -x_var);
+			CNF_ADD(solver, z_var);
+			CNF_ADD(solver, 0);
 		}
 
 		// 2. Backward: 出力(z)が1なら、どれか少なくとも1つの不一致(x)は1
 		for (int x_var = first_xor_var; x_var < z_var; x_var++)
 		{
-			ccadical_add(solver, x_var);
+			CNF_ADD(solver, x_var);
 		}
-		ccadical_add(solver, -z_var);
-		ccadical_add(solver, 0);
+		CNF_ADD(solver, -z_var);
+		CNF_ADD(solver, 0);
 	}
 }
 
@@ -110,18 +111,18 @@ void CreateConsDC_FE(
 	if (fnodeptr->type == SF0) // Stuck-at 0 故障
 	{
 		// 検出のためには「正常なら1」でなければならない
-		ccadical_add(solver,  gc); ccadical_add(solver, 0); // gc = 1
-		ccadical_add(solver, -fc); ccadical_add(solver, 0); // fc = 0 (固定値)
+		CNF_ADD(solver,  gc); CNF_ADD(solver, 0); // gc = 1
+		CNF_ADD(solver, -fc); CNF_ADD(solver, 0); // fc = 0 (固定値)
 	}
 	else if (fnodeptr->type == SF1) // Stuck-at 1 故障
 	{
 		// 検出のためには「正常なら0」でなければならない
-		ccadical_add(solver, -gc); ccadical_add(solver, 0); // gc = 0
-		ccadical_add(solver,  fc); ccadical_add(solver, 0); // fc = 1 (固定値)
+		CNF_ADD(solver, -gc); CNF_ADD(solver, 0); // gc = 0
+		CNF_ADD(solver,  fc); CNF_ADD(solver, 0); // fc = 1 (固定値)
 	}
 
 	// 2. 最終出力（検出フラグ）を 1 に固定
 	// cnf.total.vars は直前の OR または XOR で作成された「最終出力」を指している
-	ccadical_add(solver, cnf.total.vars);
-	ccadical_add(solver, 0);
+	CNF_ADD(solver, cnf.total.vars);
+	CNF_ADD(solver, 0);
 }

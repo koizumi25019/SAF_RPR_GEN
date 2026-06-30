@@ -112,6 +112,39 @@ static inline int mdc_lit(const char* cube, int i){
     return (cube[i]=='1') ? (int)pi[i]->varsgc : -(int)pi[i]->varsgc;
 }
 
+/* 非検出オラクル u に対し、care 添字集合 sub[0..n) を assume して UNSAT(=検出を含意)か。 */
+static int mdc_unsat(CCaDiCaL* u, const char* cube, const int* sub, int n){
+    for (int k = 0; k < n; k++) ccadical_assume(u, mdc_lit(cube, sub[k]));
+    return ccadical_solve(u) == 20;
+}
+
+/* QuickXplain (Junker 2004): B∪S が UNSAT のとき、B∪D が UNSAT となる極小な D⊆S を返す。
+   ここで「B∪D が UNSAT」= 「D のケアビットだけで検出が含意される」＝ D が素項。
+   out に D の添字を書き、|D| を返す。solve 回数は O(|D|·log(|S|/|D|))、revert 不要で常に健全。 */
+static int mdc_qx(CCaDiCaL* u, const char* cube,
+                  const int* B, int nb, const int* S, int ns, int* out){
+    /* B だけで既に UNSAT なら S からは何も要らない */
+    if (nb > 0 && mdc_unsat(u, cube, B, nb)) return 0;
+    if (ns == 1) { out[0] = S[0]; return 1; }
+
+    int half = ns / 2;
+    int* scratch = malloc((size_t)(nb + ns) * sizeof(int));
+    int* D1      = malloc((size_t)ns * sizeof(int));
+
+    /* D1 = QX(B∪S1, S2) */
+    if (nb) memcpy(scratch, B, (size_t)nb * sizeof(int));   /* B==NULL,nb==0 の memcpy 回避 */
+    memcpy(scratch + nb, S, (size_t)half * sizeof(int));
+    int nd1 = mdc_qx(u, cube, scratch, nb + half, S + half, ns - half, D1);
+
+    /* D2 = QX(B∪D1, S1)（out に直接書く） */
+    memcpy(scratch + nb, D1, (size_t)nd1 * sizeof(int));
+    int nd2 = mdc_qx(u, cube, scratch, nb + nd1, S, half, out);
+
+    memcpy(out + nd2, D1, (size_t)nd1 * sizeof(int));
+    free(scratch); free(D1);
+    return nd2 + nd1;
+}
+
 /* キューブを素項へ拡大（in place、ケアビット -> 'X'）。
    既定: sound な per-bit 貪欲法（b を抜いても非検出が UNSAT のままなら落とす）。
    MAXDC_CORE: UNSATコア一括法（コア外を一括で落とし、検証+revert）。 */
@@ -126,8 +159,24 @@ void EXP_Expand(CCaDiCaL* u, char* cube){
     memcpy(save, cube, n_pi+1);       /* keep original to revert if needed */
     int orig = nc;
 
-    if (getenv("MAXDC_CORE")) {
-        /* cheap one-shot: keep only the unsat core, then verify+revert */
+    if (getenv("MAXDC_QX")) {
+        /* QuickXplain で真の極小素項を求める（revert 不要・常に健全）。
+           まず完全キューブが検出を含意すること（B∪S が UNSAT）を確認する。 */
+        if (!mdc_unsat(u, cube, care, nc)) {
+            mdc_sanity_fail++;
+        } else {
+            static int* keep = NULL; static int kcap = 0;
+            if (kcap < n_pi) { keep = realloc(keep, n_pi * sizeof(int)); kcap = n_pi; }
+            int nk = mdc_qx(u, cube, NULL, 0, care, nc, keep);
+            /* 一旦すべての care を X にし、keep に残った素項ビットだけ元値を復元 */
+            for (int k = 0; k < nc; k++) cube[care[k]] = 'X';
+            for (int k = 0; k < nk; k++) cube[keep[k]] = save[keep[k]];
+        }
+    } else if (getenv("MAXDC_CORE")) {
+        /* cheap one-shot: keep only the unsat core, then verify+revert。
+           MAXDC_HYB=1 のとき、revert する代わりに QuickXplain で救済する
+           （coreの1-solveで済む大多数は高速のまま、core が外した分だけ minimal 化）。 */
+        int hyb = getenv("MAXDC_HYB") != NULL;
         for (int k = 0; k < nc; k++)
             ccadical_assume(u, mdc_lit(cube, care[k]));
 
@@ -143,7 +192,19 @@ void EXP_Expand(CCaDiCaL* u, char* cube){
                 int i = care[k];
                 if (cube[i] != 'X') { ccadical_assume(u, mdc_lit(cube, i)); live++; }
             }
-            if (live < orig && ccadical_solve(u) != 20) { memcpy(cube, save, n_pi+1); mdc_revert++; }
+            if (live < orig && ccadical_solve(u) != 20) {
+                memcpy(cube, save, n_pi+1);
+                if (hyb) {
+                    /* QuickXplain で救済（save=完全キューブから minimal prime を求める） */
+                    static int* keep = NULL; static int kcap = 0;
+                    if (kcap < n_pi) { keep = realloc(keep, n_pi * sizeof(int)); kcap = n_pi; }
+                    int nk = mdc_qx(u, cube, NULL, 0, care, nc, keep);
+                    for (int k = 0; k < nc; k++) cube[care[k]] = 'X';
+                    for (int k = 0; k < nk; k++) cube[keep[k]] = save[keep[k]];
+                } else {
+                    mdc_revert++;
+                }
+            }
         } else {
             mdc_sanity_fail++;
         }

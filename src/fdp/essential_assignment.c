@@ -2,12 +2,13 @@
 //  essential_assignment.c
 //  必須割り当てによる単位節の追加
 //  参考: assignment_extraction.c (T.Aono, 2025/03/23)
-//  CNF文字列生成 → ccadical_add() の単位節に変換
+//  CNF文字列生成 → CNF_ADD() の単位節に変換
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "ccadical.h"
+#include "./cnf_dump.h"
 #include "./essential_assignment.h"
 #include "./init.h"
 #include "../lib/lib.h"
@@ -72,11 +73,11 @@ static void assign_ea_value(CCaDiCaL* solver, NLIST* netptr, int val)
     netptr->logic_value = val;
 
     if (val == 1) {
-        ccadical_add(solver,  (int)netptr->varsgc);
+        CNF_ADD(solver,  (int)netptr->varsgc);
     } else {
-        ccadical_add(solver, -(int)netptr->varsgc);
+        CNF_ADD(solver, -(int)netptr->varsgc);
     }
-    ccadical_add(solver, 0);
+    CNF_ADD(solver, 0);
 
     if (netptr->type != DFF) {
         queENQ(netptr, QUE_MODE_ONE);

@@ -5,13 +5,14 @@
 #include "./target_fault.h"
 #include "./cnf/cnf.h"
 #include "ccadical.h"
+#include "./cnf_dump.h"
 
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type == IN || nl[i].type == DFF) continue;
         if (nl[i].consgc == NULL) continue;
         for (int j = 0; j < nl[i].consgc_len; j++) {
-            ccadical_add(solver, nl[i].consgc[j]);
+            CNF_ADD(solver, nl[i].consgc[j]);
         }
     }
 }
