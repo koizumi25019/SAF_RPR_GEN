@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,8 +18,8 @@
 //	@return		(void)
 //*************************************************************************************************************
 int main(
-	int					  argc,				 /**< number of command-arguments */
-	char** argv								 /**< command-arguments */
+	int					  argc,				 /**< コマンド引数の数 */
+	char** argv								 /**< コマンド引数 */
 )
 {
 	clock_t cpu_start, cpu_end; // CPU時間計測用
@@ -32,13 +32,13 @@ int main(
 
 	cpu_start = clock(); // CPU時間の計測開始
 
-	//set the option
+	// オプションを設定する
 	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
 
-	/** read the netlist */
+	/** ネットリストを読み込む */
 	read_nl(opt.file.input.net);
 
-	//analyze the fault detection probability
+	// 故障検出確率を算出する
 	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
 
 	cpu_end = clock(); // CPU時間の計測終了

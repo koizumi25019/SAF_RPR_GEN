@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,13 +12,13 @@
 
 //*************************************************************************************************************
 //	@name		fileOpen
-//	@function	open the file
+//	@function	ファイルを開く
 //	@return		(void)
 //*************************************************************************************************************
 void fileOpen(
-    FILE** fileptr,           /**< pointer to file */
-    const char* filename,     /**< filename */
-    const char* mode          /**< mode */
+    FILE** fileptr,           /**< ファイルポインタ */
+    const char* filename,     /**< ファイル名 */
+    const char* mode          /**< モード */
 )
 {
     // 標準関数 fopen を使用し、戻り値をポインタの参照先に代入する
@@ -37,12 +37,12 @@ void fileOpen(
 
 //*************************************************************************************************************
 //	@name		allocMemory
-//	@function	allocate the memory
-//	@return		(void*) pointer to allocated the memory
+//	@function	メモリを確保する
+//	@return		(void*) 確保したメモリへのポインタ
 //*************************************************************************************************************
 void* allocMemory(
-	size_t			      count,			  /**< number of counts of alloc memory */
-	size_t			      size				  /**< typesizeof */
+	size_t			      count,			  /**< 確保する要素数 */
+	size_t			      size				  /**< 型のサイズ */
 )
 {
 	void* ptr = (void*)NULL;
@@ -60,11 +60,11 @@ void* allocMemory(
 
 //*************************************************************************************************************
 //	@name		calcHash
-//	@function	calculate the hash value
-//	@return		(int) hash value
+//	@function	ハッシュ値を計算する
+//	@return		(int) ハッシュ値
 //*************************************************************************************************************
 int calcHash(
-	char* buffer			  /** buffer */
+	char* buffer			  /** バッファ */
 )
 {
 	int hashval = 0;
@@ -79,11 +79,11 @@ int calcHash(
 
 //*************************************************************************************************************
 //	@name		stackPUSH
-//	@function	push the netlist in stack
+//	@function	ネットリストをスタックにpushする
 //	@return		(viod)
 //*************************************************************************************************************
 void stackPUSH(
-	NLIST* netptr			  /** pointer to netlist */
+	NLIST* netptr			  /** ネットリストへのポインタ */
 )
 {
 	stack.stk[stack.ptr++] = netptr;
@@ -100,8 +100,8 @@ void stackPUSH(
 
 //*************************************************************************************************************
 //	@name		stackPOP
-//	@function	pop the netlist from stack
-//	@return		(NLIST*) pointer to netlist
+//	@function	ネットリストをスタックからpopする
+//	@return		(NLIST*) ネットリストへのポインタ
 //*************************************************************************************************************
 NLIST* stackPOP(
 	void
@@ -119,12 +119,12 @@ NLIST* stackPOP(
 
 //*************************************************************************************************************
 //	@name		queENQ
-//	@function	enqueue the netlist to queue
+//	@function	ネットリストをキューにenqueueする
 //	@return		(void)
 //*************************************************************************************************************
 void queENQ(
-	NLIST* netptr,			  /** pointer to netlist */
-	int				      mode				  /** mode */
+	NLIST* netptr,			  /** ネットリストへのポインタ */
+	int				      mode				  /** モード */
 )
 {
 	switch (mode)
@@ -193,8 +193,8 @@ void queENQ(
 
 //*************************************************************************************************************
 //	@name		queDEQ
-//	@function	dequeue the netlist from queue
-//	@return		(NLIST*) pointer to nelist
+//	@function	ネットリストをキューからdequeueする
+//	@return		(NLIST*) ネットリストへのポインタ
 //*************************************************************************************************************
 NLIST* queDEQ(
 	void

@@ -1,6 +1,6 @@
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <time.h>
@@ -12,54 +12,54 @@
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	define
+//	定義
 //-------------------------------------------------------------------------------------------------------------
-#define READ_OKAY		  true		          /**< return code   = ture */
-#define READ_ERROR		  false				  /**< return code   = false */
+#define READ_OKAY		  true		          /**< 戻り値   = true */
+#define READ_ERROR		  false				  /**< 戻り値   = false */
 
-#define MAXSIZE_BUFFER	  500000	          /**< maximum size of buffer */
-#define MAXSIZE_BITINT	  32		          /**< maximum size of bitint */
+#define MAXSIZE_BUFFER	  500000	          /**< バッファの最大サイズ */
+#define MAXSIZE_BITINT	  32		          /**< bitintの最大サイズ */
 #define MAXSIZE_CHAR	  5000
 
-#define FOUND			  true		          /**< return code   = true */
-#define NOT_FOUND		  false				  /**< return code   = false */
+#define FOUND			  true		          /**< 戻り値   = true */
+#define NOT_FOUND		  false				  /**< 戻り値   = false */
 
-/** compare string and "End-Of-File" */
+/** 文字列と「ファイル終端(EOF)」を比較する */
 #define COMP_EOF(string)		string != (char*)NULL
 
-/** compare string and "New-Line" */
-#define COMP_NEWLINE(string)	strcmp(string, "\n")!=0	
+/** 文字列と「改行」を比較する */
+#define COMP_NEWLINE(string)	strcmp(string, "\n")!=0
 
-#define	MAXSIZE_HASH	  100				  /**< size of fault list */
-#define TFR				  2			          /**< transition fault model   = rise */
-#define	TFF				  4			          /**< transition fault model   = fall */
-#define SF0				  8			          /**< stack-at fault model   = 0 */
-#define	SF1				  16			      /**< stack-at fault model   = 1 */
+#define	MAXSIZE_HASH	  100				  /**< 故障リストのサイズ */
+#define TFR				  2			          /**< 遷移故障モデル   = rise */
+#define	TFF				  4			          /**< 遷移故障モデル   = fall */
+#define SF0				  8			          /**< 縮退故障モデル   = 0 */
+#define	SF1				  16			      /**< 縮退故障モデル   = 1 */
 
-#define	FP				  1					  /**< flag type   = fault point */
-#define	TFO				  2			          /**< flag type   = transitive fout */
-#define	TPO				  4					  /**< flag type   = transitive priamary-output */
-#define	TFO_TPO			  (TFO|TPO)			  /**< flag type   = TFO & TPO */
-#define	FP_TPO			  (FP|TPO)			  /**< flag type   = FP & TPO */
+#define	FP				  1					  /**< フラグ種別   = 故障点 */
+#define	TFO				  2			          /**< フラグ種別   = 伝搬先(TFO) */
+#define	TPO				  4					  /**< フラグ種別   = 伝搬先外部出力(TPO) */
+#define	TFO_TPO			  (TFO|TPO)			  /**< フラグ種別   = TFO & TPO */
+#define	FP_TPO			  (FP|TPO)			  /**< フラグ種別   = FP & TPO */
 
-#define	DETECTED		  7					  /**< fault detected */
-#define	UNDETECTED		  17				  /**< fault undetected */
-#define	REDEUNDANT		  27				  /**< fault redeundant */
+#define	DETECTED		  7					  /**< 故障検出済み */
+#define	UNDETECTED		  17				  /**< 故障未検出 */
+#define	REDEUNDANT		  27				  /**< 冗長故障 */
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	structre
+//	構造体
 //-------------------------------------------------------------------------------------------------------------
 
-/** fault node structre */
+/** 故障ノード構造体 */
 typedef struct FaultNode
 {
-	char* string;					 /**< string */
-	char* name;						 /**< name */
-	int					  type;		/**< fault type */
-	int					  detect;			  /**< detected??? */
-	NLIST* netptr;					 /**< pointer to netlist */
-	struct FaultNode* nextptr;				  /**< pointer to next node */
+	char* string;					 /**< 文字列 */
+	char* name;						 /**< 名前 */
+	int					  type;		/**< 故障タイプ */
+	int					  detect;			  /**< 検出済みか */
+	NLIST* netptr;					 /**< ネットリストへのポインタ */
+	struct FaultNode* nextptr;				  /**< 次ノードへのポインタ */
 
 	struct FaultNode** subset_faults;   /**< テスト集合がこの故障の部分集合になる故障（ゲート入力故障）。これらのキューブはこの故障の正当なテストなので種＋禁止節として流用できる */
 	int                n_subset_faults; /**< subset_faults の要素数 */
@@ -68,60 +68,60 @@ typedef struct FaultNode
 }
 FNODE;
 
-/** fault list structres */
+/** 故障リスト構造体 */
 typedef struct FaultList
 {
-	int					  numrema;			  /**< number of remaining faults */
-	int					  numinit;			  /**< number of initial faults */
-	int					  numdete;			  /**< number of detected faults */
-	int					  numred;			  /**< number of redundant faults */
-	struct FaultNode* list[MAXSIZE_HASH]; /**< fault list */
+	int					  numrema;			  /**< 残り故障数 */
+	int					  numinit;			  /**< 初期故障数 */
+	int					  numdete;			  /**< 検出済み故障数 */
+	int					  numred;			  /**< 冗長故障数 */
+	struct FaultNode* list[MAXSIZE_HASH]; /**< 故障リスト */
 }
 FLIST;
 
 
-/** read data structres */
+/** 読み込みデータ構造体 */
 typedef struct ReadData
 {
-	struct FaultList	  fault;			  /**< fault list data */
+	struct FaultList	  fault;			  /**< 故障リストデータ */
 }
 READDATA;
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	global variable
+//	グローバル変数
 //-------------------------------------------------------------------------------------------------------------
-READDATA			      readdata;			  /**< reading data */
+READDATA			      readdata;			  /**< 読み込みデータ */
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
 
-/** read the fault */
+/** 故障を読み込む */
 bool ReadFault(
 	void
 );
 
-/** create the fault lists */
+/** 故障リストを作成する */
 bool CreateFaultList(
-	char* buffer			  /**< buffer */
+	char* buffer			  /**< バッファ */
 );
 
-/** search for fault node */
+/** 故障ノードを探索する */
 bool searchFnode(
-	char* buffer,			  /**< buffer (key) */
-	FNODE* fnode				  /**< pointer to fault node */
+	char* buffer,			  /**< バッファ（キー） */
+	FNODE* fnode				  /**< 故障ノードへのポインタ */
 );
 
-/** find fault node pointer by string */
+/** 文字列から故障ノードのポインタを探す */
 FNODE* searchFnodePtr(
-	char* buffer,			  /**< buffer (key) */
-	FNODE* head				  /**< head of hash-fault list */
+	char* buffer,			  /**< バッファ（キー） */
+	FNODE* head				  /**< ハッシュ故障リストの先頭 */
 );
 
-/** create the fault node */
+/** 故障ノードを作成する */
 FNODE* CreateFaultNode(
-	char* buffer			  /**< buffer */
+	char* buffer			  /**< バッファ */
 );
 
 //等価故障解析

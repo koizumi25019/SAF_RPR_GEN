@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <string.h>
 #include <stdlib.h>
@@ -13,25 +13,25 @@
 
 //*************************************************************************************************************
 //	@name		F@ReadFault
-//	@function	F	read the fault
-//	@return		F	(bool) okay, error
+//	@function	F	故障を読み込む
+//	@return		F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool ReadFault(
 	void
 )
 {
 	if (opt.file.input.fault != FILE_NOSET)
-	
+
 	{
 		FILE * fileptr = (FILE*)NULL;
 		char* buffer = (char*)NULL;
 
-		/** open the "fault file" in read-mode */
+		/** 「故障ファイル」を読み込みモードで開く */
 		fileOpen(&fileptr, opt.file.input.fault, "r");
 
 		buffer = (char*)allocMemory(MAXSIZE_BUFFER, sizeof(char));
 
-		/** create the fault list */
+		/** 故障リストを作成する */
 		while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
 		{
 			if (COMP_NEWLINE(buffer))
@@ -43,7 +43,7 @@ bool ReadFault(
 		printf("\n");
 		free(buffer);
 
-		/** close the "fault file" in read-mode */
+		/** 「故障ファイル」を閉じる */
 		fclose(fileptr);
 	}
 	else
@@ -91,11 +91,11 @@ bool ReadFault(
 
 //*************************************************************************************************************
 //	@name		CreateFaultList
-//	@function	create the fault list
-//	@return		(bool) okay, error
+//	@function	故障リストを作成する
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool CreateFaultList(
-	char* buffer			  /**< buffer */
+	char* buffer			  /**< バッファ */
 )
 {
 	int			hash = 0;
@@ -111,10 +111,10 @@ bool CreateFaultList(
 			snprintf(buffer, MAXSIZE_BUFFER, "%s\t%s\n", name, type);
 	}
 
-	/** calcurate the hash */
+	/** ハッシュ値を計算する */
 	hash = calcHash(buffer);
-	
-	/** create the fault node */
+
+	/** 故障ノードを作成する */
 	if (searchFnode(buffer, readdata.fault.list[hash]) == NOT_FOUND)
 	{
 		if ((fnodeptr = CreateFaultNode(buffer)) != NULL)
@@ -136,12 +136,12 @@ bool CreateFaultList(
 
 //*************************************************************************************************************
 //	@name		searchFnode
-//	@function	search for fault node
+//	@function	故障ノードを探索する
 //	@return		(bool) found, not found
 //*************************************************************************************************************
 bool searchFnode(
-	char* buffer,			  /**< buffer (key) */
-	FNODE* tmp				  /**< pointer to hash-fault list */
+	char* buffer,			  /**< バッファ（キー） */
+	FNODE* tmp				  /**< ハッシュ故障リストへのポインタ */
 )
 {
 	while (tmp != NULL)
@@ -158,8 +158,8 @@ bool searchFnode(
 
 //*************************************************************************************************************
 //	@name		searchFnodePtr
-//	@function	find the fault node pointer by string
-//	@return		(FNODE*) pointer to found node, or NULL
+//	@function	文字列から故障ノードのポインタを探す
+//	@return		(FNODE*) 見つかったノードへのポインタ、無ければ NULL
 //*************************************************************************************************************
 FNODE* searchFnodePtr(
 	char* buffer,
@@ -181,12 +181,12 @@ FNODE* searchFnodePtr(
 
 //*************************************************************************************************************
 //	@name		ParseFaultType
-//	@function	parse fault type token ("sa0"/"sa1") from strtok_r context and set type
-//	@return		(bool) okay, error
+//	@function	strtok_r のcontextから故障タイプトークン("sa0"/"sa1")を解析しtypeに設定する
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 static bool ParseFaultType(
-	char** saveptr,			/**< strtok_r saveptr */
-	int* type_out			/**< output: SF0 or SF1 */
+	char** saveptr,			/**< strtok_r の saveptr */
+	int* type_out			/**< 出力: SF0 または SF1 */
 )
 {
 	char* token = strtok_r(NULL, " \n\0", saveptr);
@@ -222,7 +222,7 @@ static int            net_hash_size = 0;
 
 static unsigned long NetNameHash(const char* s)
 {
-	unsigned long h = 5381;                       // djb2
+	unsigned long h = 5381;                       // djb2ハッシュ
 	for (; *s; ++s) h = ((h << 5) + h) + (unsigned char)*s;
 	return h;
 }
@@ -243,11 +243,11 @@ static void BuildNetHash(void)
 
 //*************************************************************************************************************
 //	@name		FindNetByName
-//	@function	search netlist for a net whose name matches the given string
-//	@return		(NLIST*) pointer to matching net, or NULL if not found
+//	@function	指定した名前に一致するネットをネットリストから探す
+//	@return		(NLIST*) 一致するネットへのポインタ、無ければ NULL
 //*************************************************************************************************************
 static NLIST* FindNetByName(
-	const char* name		/**< net name to search */
+	const char* name		/**< 探索するネット名 */
 )
 {
 	if (net_hash == (NetHashEntry**)NULL) BuildNetHash();
@@ -265,11 +265,11 @@ static NLIST* FindNetByName(
 
 //*************************************************************************************************************
 //	@name		CreateFaultNode
-//	@function	create the fault node
-//	@return		(FNODE*) pointer to fault node
+//	@function	故障ノードを作成する
+//	@return		(FNODE*) 故障ノードへのポインタ
 //*************************************************************************************************************
 FNODE* CreateFaultNode(
-	char* buffer			  /**< buffer */
+	char* buffer			  /**< バッファ */
 )
 {
 	char* context = (char*)NULL;
@@ -277,13 +277,13 @@ FNODE* CreateFaultNode(
 
 	fnodeptr = (FNODE*)allocMemory(1, sizeof(FNODE));
 
-	/** set the string */
+	/** 文字列を設定する */
 	fnodeptr->string = strdup(buffer);
 
-	/** set the name */
+	/** 名前を設定する */
 	fnodeptr->name = strdup(strtok_r(buffer, " \t\n", &context));
 
-	/** set the type */
+	/** タイプを設定する */
 	if (!ParseFaultType(&context, &fnodeptr->type))
 	{
 		free(fnodeptr->string);
@@ -292,10 +292,10 @@ FNODE* CreateFaultNode(
 		return (FNODE*)NULL;
 	}
 
-	/** set the detect */
+	/** 検出状態を設定する */
 	fnodeptr->detect = UNDETECTED;
 
-	/** set the pointer to netlist */
+	/** ネットリストへのポインタを設定する */
 	fnodeptr->netptr = FindNetByName(fnodeptr->name);
 	if (fnodeptr->netptr == (NLIST*)NULL)
 	{
@@ -305,7 +305,7 @@ FNODE* CreateFaultNode(
 		return (FNODE*)NULL;
 	}
 
-	/** set the pointer to next node */
+	/** 次ノードへのポインタを設定する */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
 	fnodeptr->subset_faults   = (FNODE**)NULL;
@@ -318,8 +318,8 @@ FNODE* CreateFaultNode(
 
 //*************************************************************************************************************
 //	@name		FindFnodeByNameType
-//	@function	find fault node by net name and fault type
-//	@return		(FNODE*) pointer to fault node, or NULL if not found
+//	@function	ネット名と故障タイプから故障ノードを探す
+//	@return		(FNODE*) 故障ノードへのポインタ、無ければ NULL
 //*************************************************************************************************************
 static FNODE* FindFnodeByNameType(
 	const char* name,

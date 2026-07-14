@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <string.h>
 #include <stdlib.h>
@@ -10,18 +10,18 @@
 
 //*************************************************************************************************************
 //	@name		OPT
-//	@function	analyze the option
-//	@return		(bool) okay, error
+//	@function	オプションを解析する
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool OPT(
-	int					  argc,			      /**< number of command-arguments */
-	char** argv			      /**< command-arguments */
+	int					  argc,			      /**< コマンド引数の数 */
+	char** argv			      /**< コマンド引数 */
 )
 {
-	/** initialize the options */
+	/** オプションを初期化する */
 	OPTinit();
 
-	/** set the options */
+	/** オプションを設定する */
 	if (OPTset(argc, argv) != OPT_OKAY)
 	{
 		return OPT_ERROR;
@@ -32,14 +32,14 @@ bool OPT(
 
 //*************************************************************************************************************
 //	@name		OPTinit
-//	@function	initialize the options
+//	@function	オプションを初期化する
 //	@return		(void)
 //*************************************************************************************************************
 void OPTinit(
 	void
 )
 {
-	/** initialize the filename */
+	/** ファイル名を初期化する */
 	OPTinitFile();
 
 	return;
@@ -47,7 +47,7 @@ void OPTinit(
 
 //*************************************************************************************************************
 //	@name		OPTinitFile
-//	@function	initialize the filename
+//	@function	ファイル名を初期化する
 //	@return		(void)
 //*************************************************************************************************************
 void OPTinitFile(
@@ -63,37 +63,37 @@ void OPTinitFile(
 
 //*************************************************************************************************************
 //	@name		F@OPTset
-//	@function	F	set the options
-//	@return		F	(bool) okay, error
+//	@function	F	オプションを設定する
+//	@return		F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool OPTset(
-	int				      argc,				  /**< number of command-arguments */
-	char** argv				  /**< command-arguments */
+	int				      argc,				  /**< コマンド引数の数 */
+	char** argv				  /**< コマンド引数 */
 )
 {
 	for (int i = 1; i < argc; i++)
 	{
-		/** netlist */
+		/** ネットリスト */
 		if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = strdup(argv[++i]);
 
-		/** fault-list */
+		/** 故障リスト */
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = strdup(argv[++i]);
 
-		/** log */
+		/** ログ */
 		else if (strcmp(argv[i], "-log") == 0)
 			opt.file.output.log = strdup(argv[++i]);
 
-		/** fdp result  */
+		/** fdp結果  */
 		else if (strcmp(argv[i], "-fdp") == 0)
 			opt.file.output.fdp = strdup(argv[++i]);
 
-		/** limit  */
+		/** limit（テスト生成上限） */
 		else if (strcmp(argv[i], "-limit") == 0)
 			opt.file.input.limit = atoi(argv[++i]);
 
-		/** read the setfile */
+		/** set ファイルを読み込む */
 		else if (strcmp(argv[i], "-set") == 0)
 			return OPTread(argv[++i]);
 
@@ -101,7 +101,7 @@ bool OPTset(
 		{
 			printf("\n	COMMAND ERROR: option setup is failed. ");
 			printf("%c%s%c is not expected.\n\n", '"', argv[i], '"');
-			
+
 			return OPT_ERROR;
 		}
 	}
@@ -135,11 +135,11 @@ static char* OPTreadValue(
 
 //*************************************************************************************************************
 //	@name		OPTread
-//	@function	read the option-setting file
-//	@return		(bool) okay, error
+//	@function	設定ファイルを読み込む
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool OPTread(
-	char* filename			  /**< filename */
+	char* filename			  /**< ファイル名 */
 )
 {
 	FILE* fileptr = (FILE*)NULL;
@@ -148,35 +148,35 @@ bool OPTread(
 	char* token1 = (char*)NULL;
 	char* token2 = (char*)NULL;
 
-	/** open the "setting file" in read-mode */
+	/** 「設定ファイル」を読み込みモードで開く */
 	fileOpen(&fileptr, filename, "r");
 
 	buffer = allocMemory(MAXSIZE_BUFFER, sizeof(char));
 
-	/** read the option */
+	/** オプションを読み込む */
 	while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
 	{
 		if (buffer[0] == '-')
 		{
 			token1 = strtok_r(buffer, " \n\0", &context);
 
-			/** netlist */
+			/** ネットリスト */
 			if (strcmp(token1, "-net") == 0)
 				opt.file.input.net = OPTreadValue(&context, " \n\0");
 
-			/** fault list */
+			/** 故障リスト */
 			else if (strcmp(token1, "-fault") == 0)
 				opt.file.input.fault = OPTreadValue(&context, "\n\0");
 
-			/** log */
+			/** ログ */
 			else if (strcmp(token1, "-log") == 0)
 				opt.file.output.log = OPTreadValue(&context, "\n\0");
 
-			/** fdp result */
+			/** fdp結果 */
 			else if (strcmp(token1, "-fdp") == 0)
 				opt.file.output.fdp = OPTreadValue(&context, "\n\0");
 
-			/** limit setting */
+			/** limit 設定 */
 			else if (strcmp(token1, "-limit") == 0)
 			{
 				token2 = strtok_r(NULL, " \n\0", &context);
@@ -201,7 +201,7 @@ bool OPTread(
 			{
 				printf("\n	COMMAND ERROR: option setup is failed. ");
 				printf("%c%s%c is not expected.\n\n", '"', token1, '"');
-				
+
 				return OPT_ERROR;
 			}
 		}
@@ -216,8 +216,8 @@ bool OPTread(
 
 //*************************************************************************************************************
 //	@name		OPTcheck
-//	@function	check for essential options
-//	@return		(bool) okay, error
+//	@function	必須オプションをチェックする
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool OPTcheck(
 	void
@@ -231,8 +231,8 @@ bool OPTcheck(
 
 //*************************************************************************************************************
 //	@name		OPTcheckFile
-//	@function	check for essential file
-//	@return		(bool) okay, error
+//	@function	必須ファイルをチェックする
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool OPTcheckFile(
 	void
@@ -242,7 +242,7 @@ bool OPTcheckFile(
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
 		printf("no netlist file.\n\n");
-		
+
 		return OPT_ERROR;
 	}
 
@@ -250,7 +250,7 @@ bool OPTcheckFile(
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
 		printf("no fault list file.\n\n");
-		
+
 		return OPT_ERROR;
 	}
 
@@ -258,7 +258,7 @@ bool OPTcheckFile(
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
 		printf("no log file.\n\n");
-		
+
 			return OPT_ERROR;
 	}
 

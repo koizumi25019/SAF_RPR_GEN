@@ -8,26 +8,26 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-/* ASG netlist: provides NLIST, nl, n_net, pi, n_pi, po, n_po, etc. */
+/* ASG ネットリスト：NLIST, nl, n_net, pi, n_pi, po, n_po などを提供する */
 #include "netlist/netlist.h"
 
-/* CaDiCaL SAT solver */
+/* CaDiCaL SATソルバ */
 #include "ccadical.h"
 
-/* NLIST_t: alias for struct _Netlist_Format_ (same as ASG's NLIST) */
+/* NLIST_t: struct _Netlist_Format_ の別名（ASG の NLIST と同じ） */
 typedef struct _Netlist_Format_ NLIST_t;
 
-/* Gate type constants */
-#define IN_G          IN   /* IN=0 in netlist.h */
-#define MAX_GATE_TYPE 27   /* ACC=26 is highest gate type */
+/* ゲートタイプ定数 */
+#define IN_G          IN   /* netlist.h では IN=0 */
+#define MAX_GATE_TYPE 27   /* ACC=26 が最大のゲートタイプ */
 
-/* PRId8 fallback (node->type is int in ASG, not int8_t) */
+/* PRId8 のフォールバック（ASG では node->type は int8_t ではなく int） */
 #ifndef PRId8
 #define PRId8 "d"
 #endif
 
 /* ------------------------------------------------------------------ */
-/* Queue                                                               */
+/* キュー                                                              */
 /* ------------------------------------------------------------------ */
 typedef struct XID_Queue {
     void**  items;
@@ -45,7 +45,7 @@ extern int      isQueueEmpty(const Queue_t* q);
 extern void     resetQueue(Queue_t* q);
 
 /* ------------------------------------------------------------------ */
-/* Level stack (replaces CompletionNetlist level stack)                */
+/* レベルスタック（CompletionNetlist のレベルスタックの代替）         */
 /* ------------------------------------------------------------------ */
 typedef size_t vsize_t;
 #define VSIZE_INVALID SIZE_MAX
@@ -68,7 +68,7 @@ extern vsize_t  check_lev_reverse(vsize_t lev);
 extern void     Reset_lev_tmp(size_t event_lev);
 
 /* ------------------------------------------------------------------ */
-/* Memory helpers                                                      */
+/* メモリ確保ヘルパー                                                  */
 /* ------------------------------------------------------------------ */
 static inline void* xid_alloc_mem(size_t size) {
     void* p = malloc(size);
@@ -85,7 +85,7 @@ static inline void* xid_alloc_con(size_t count, size_t size) {
 #define FREE(x)             (free(x), (x) = NULL)
 
 /* ------------------------------------------------------------------ */
-/* Debug helpers                                                        */
+/* デバッグヘルパー                                                    */
 /* ------------------------------------------------------------------ */
 #define ERROR_PRINTF(fmt, ...)  fprintf(stderr, fmt, ##__VA_ARGS__)
 #ifdef DEBUG

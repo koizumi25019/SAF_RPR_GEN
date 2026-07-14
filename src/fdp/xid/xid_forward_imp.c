@@ -220,7 +220,7 @@ static void xid_fimp_exnor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, X
 }
 
 // -------------------------------------------------------------
-// Table & Entry
+// テーブルとエントリ
 // -------------------------------------------------------------
 static xid_fimp_func_t xid_fimp[MAX_GATE_TYPE] = { 0 };
 

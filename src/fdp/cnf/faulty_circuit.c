@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,12 +15,12 @@
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC
-//	@function	：	create the faulty-circuit constraint
-//	@return		：	(bool) okay, error 
+//	@function	：	故障回路の制約を作成する
+//	@return		：	(bool) 正常, 異常 
 //*************************************************************************************************************
 bool CreateConsFC(
 	CCaDiCaL* solver,
-	TARGET* target			  /**< target fault */
+	TARGET* target			  /**< 対象故障 */
 )
 {
 	RESET_CNF;
@@ -28,10 +28,10 @@ bool CreateConsFC(
 	FNODE* fault = target->list[0];
 	if (fault->detect != UNDETECTED) return true;
 
-	/** search for transitive-fout */
+	/** 伝搬先(TFO)を探索する */
 	SearchTFO(fault);
 
-	/** create the faulty-circuit constraint */
+	/** 故障回路の制約を作成する */
 	for (int j = 0; j < n_net; j++)
 	{
 		if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
@@ -59,13 +59,13 @@ bool CreateConsFC(
 		}
 	}
 
-	/** create fault propagation constraints (D-chain) */
+	/** 故障伝搬(Dチェーン)制約を作成する */
 	if (!getenv("MDC_NOPROP")) CreateConsProp(solver, fault);
 
-	/** create the detection-circuit constraint */
+	/** 検出回路の制約を作成する */
 	CreateConsDC(solver, fault);
 
-	/** add necessary assignment unit clauses */
+	/** 必須割当ての単位節を追加する */
 	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, fault);
 
 	return true;
@@ -77,7 +77,7 @@ bool CreateConsFC(
 //	@return		：	(void)
 //*************************************************************************************************************
 void SearchTFO(
-	FNODE* target			  /**< target fault */
+	FNODE* target			  /**< 対象故障 */
 )
 {
 	NLIST* netptr = (NLIST*)NULL;
@@ -139,7 +139,7 @@ void CreateConsProp(
 	{
 		if ((nl[i].flag & TFO) != TFO) continue;
 
-		// Constraint A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
+		// 制約A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
 		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
 		if (nl[i].n_out > 0)
 		{
@@ -151,14 +151,14 @@ void CreateConsProp(
 			ccadical_add(solver, 0);
 		}
 
-		// Constraint B: ¬ACT(X) ∨ gc(X) ∨ fc(X)
+		// 制約B: ¬ACT(X) ∨ gc(X) ∨ fc(X)
 		// ACT(X)=1 なら少なくとも一方が1
 		ccadical_add(solver, -(int)nl[i].varprop);
 		ccadical_add(solver, (int)nl[i].varsgc);
 		ccadical_add(solver, (int)nl[i].varsfc);
 		ccadical_add(solver, 0);
 
-		// Constraint C: ¬ACT(X) ∨ ¬gc(X) ∨ ¬fc(X)
+		// 制約C: ¬ACT(X) ∨ ¬gc(X) ∨ ¬fc(X)
 		// ACT(X)=1 なら少なくとも一方が0（B+CでD値: gc≠fc を表現）
 		ccadical_add(solver, -(int)nl[i].varprop);
 		ccadical_add(solver, -(int)nl[i].varsgc);
@@ -169,7 +169,7 @@ void CreateConsProp(
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_AND
-//	@function	：	create the faulty-circuit constraint -AND
+//	@function	：	故障回路の制約を作成する -AND
 //*************************************************************************************************************
 void CreateConsFC_AND(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -190,7 +190,7 @@ void CreateConsFC_AND(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_NAND
-//	@function	：	create the faulty-circuit constraint -NAND
+//	@function	：	故障回路の制約を作成する -NAND
 //*************************************************************************************************************
 void CreateConsFC_NAND(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -232,7 +232,7 @@ void CreateConsFC_OR(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_NOR
-//	@function	：	create the faulty-circuit constraint -NOR
+//	@function	：	故障回路の制約を作成する -NOR
 //*************************************************************************************************************
 void CreateConsFC_NOR(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -253,7 +253,7 @@ void CreateConsFC_NOR(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_BUF
-//	@function	：	create the faulty-circuit constraint -BUF
+//	@function	：	故障回路の制約を作成する -BUF
 //*************************************************************************************************************
 void CreateConsFC_BUF(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -266,7 +266,7 @@ void CreateConsFC_BUF(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_INV
-//	@function	：	create the faulty-circuit constraint -INV
+//	@function	：	故障回路の制約を作成する -INV
 //*************************************************************************************************************
 void CreateConsFC_INV(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -279,7 +279,7 @@ void CreateConsFC_INV(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_XOR
-//	@function	：	create the faulty-circuit constraint -XOR
+//	@function	：	故障回路の制約を作成する -XOR
 //*************************************************************************************************************
 void CreateConsFC_XOR(CCaDiCaL* solver, NLIST* netptr)
 {
@@ -295,7 +295,7 @@ void CreateConsFC_XOR(CCaDiCaL* solver, NLIST* netptr)
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC_XNOR
-//	@function	：	create the faulty-circuit constraint -XNOR
+//	@function	：	故障回路の制約を作成する -XNOR
 //*************************************************************************************************************
 void CreateConsFC_XNOR(CCaDiCaL* solver, NLIST* netptr)
 {

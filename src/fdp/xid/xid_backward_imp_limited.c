@@ -139,7 +139,7 @@ static void xid_bimp_limited_nor(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_
 
 
 // -------------------------------------------------------------
-// Table & Entry
+// テーブルとエントリ
 // -------------------------------------------------------------
 static xid_bimp_limited_func_t xid_bimp_limited[MAX_GATE_TYPE] = { 0 };
 

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdbool.h>
@@ -38,8 +38,8 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 
 //*************************************************************************************************************
 //	@name	    @AnalyzeFaultDensity
-//	@function   analyze the fault detection probability
-//	@return		(bool) okay, error
+//	@function   故障検出確率を算出する
+//	@return	F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool AnalyzeFaultDensity(
 	double* out_time_cadical,
@@ -68,7 +68,7 @@ bool AnalyzeFaultDensity(
 	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
 	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
-	//result file open
+	// 結果ファイルを開く
 	fileOpen(&bdd_result, opt.file.output.fdp, "w");
 	fprintf(bdd_result, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
 
@@ -180,7 +180,7 @@ bool AnalyzeFaultDensity(
 			dom_total_cubes, dom_seeded_cubes, sat_calls, reduction);
 	}
 
-	// ===== CPU time =====
+	// ===== CPU時間 =====
     *out_time_cadical = time_cadical;
     *out_time_bdd     = time_bdd;
     *out_time_xid     = time_xid;

@@ -1,20 +1,20 @@
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include "../netlist/netlist.h"
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	define
+//	定義
 //-------------------------------------------------------------------------------------------------------------
-#define	RESET			  0					  /**< flag type = reset */
-#define UNASSIGN          0					  /**< flag type = unassign  */
+#define	RESET			  0					  /**< フラグ種別 = リセット */
+#define UNASSIGN          0					  /**< フラグ種別 = 未割当  */
 
-#define INIT_OKAY		  true		          /**< return code = true */
-#define INIT_ERROR		  false		          /**< return code = false */
+#define INIT_OKAY		  true		          /**< 戻り値 = true */
+#define INIT_ERROR		  false		          /**< 戻り値 = false */
 
-/** reset the flag */
+/** フラグをリセットする */
 #define RESET_FLAG		do																				      \
 {																											  \
 	for(int i= 0; i < n_net; i++)																			  \
@@ -24,7 +24,7 @@
 }																											  \
 while (false);
 
-/** reset the variables for faulty-circuit */
+/** 故障回路用変数をリセットする */
 #define RESET_VARSFC	do																					  \
 {																											  \
 	for(int i = 0;i < n_net; i++)																			  \
@@ -34,7 +34,7 @@ while (false);
 }																											  \
 while(false);
 
-/** reset the problem size */
+/** 問題サイズをリセットする */
 #define RESET_CNF		do																				      \
 {																											  \
 	cnf.total.vars	= cnf.constant.vars;																	  \
@@ -43,34 +43,34 @@ while(false);
 while (false);
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
-/** initialize the global variable */
+/** グローバル変数を初期化する */
 bool InitGlobalVars(
 	void
 );
 
-/** initialize the netlist */
+/** ネットリストを初期化する */
 void InitGlobalVarsNLIST(
 	void
 );
 
-/** initialize the stack */
+/** スタックを初期化する */
 void InitGlobalVarsSTACK(
 	void
 );
 
-/** initialize the cnf */
+/** CNFを初期化する */
 void InitGlobalVarsCNF(
 	void
 );
 
-/** initialize the reading data */
+/** 読み込みデータを初期化する */
 void InitGlobalVarsREADDATA(
 	void
 );
 
-/** initialize the queue */
+/** キューを初期化する */
 void InitGlobalVarsQUE(
 	void
 );

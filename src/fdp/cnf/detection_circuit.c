@@ -1,10 +1,10 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ccadical.h" // CaDiCaL API
+#include "ccadical.h" // CaDiCaL のAPI
 
 #include "./cnf.h"
 #include "../fault_detection_prob.h"
@@ -13,7 +13,7 @@
 
 //*************************************************************************************************************
 //	@name		：	CreateConsDC
-//	@function	：	create the detection-circuit constraint
+//	@function	：	検出回路の制約を作成する
 //*************************************************************************************************************
 void CreateConsDC(
 	CCaDiCaL* solver,
@@ -50,7 +50,7 @@ void CreateConsDC_XOR(
 			int gc = nl[i].varsgc;
 			int fc = nl[i].varsfc;
 
-			// CNF for XOR: z = x ⊕ y
+			// XOR の CNF: z = x ⊕ y
 			// (-x -y -z 0), (-x y z 0), (x -y z 0), (x y -z 0)
 			ccadical_add(solver, -gc); ccadical_add(solver, -fc); ccadical_add(solver, -diff_var); ccadical_add(solver, 0);
 			ccadical_add(solver, -gc); ccadical_add(solver,  fc); ccadical_add(solver,  diff_var); ccadical_add(solver, 0);

@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------------------------------------------
 //Netlist 構造体, グローバル変数, PROTOTYPE
-//File name : nelist.h
-//Date : 2006/03/26
-//Designer : R.Inoue
+//ファイル名 : nelist.h
+//日付 : 2006/03/26
+//設計者 : R.Inoue
 //Ver : 3.00（以前のVer）
 //--------------------------------------------------------------------------------------------------------------------
 #pragma once
@@ -39,21 +39,21 @@ typedef struct _Netlist_Format_ {
 	struct _Netlist_Format_** out;      //
 	char* name_port;					//
 	char* name_ins;						//
-	int				flag;			    /**< flag */
-	unsigned int	varsgc;			    /**< variables for good-circuit  */
-	unsigned int	varsfc;				/**< variables for faulty-circuit  */
-	unsigned int	varprop;			/**< variables for fault propagation (D-chain) */
-	int				logic_value;		/**< logic value for essential assignment (-1=unknown) */
-	int				ea_flag;			/**< essential assignment flag (0=unassigned, 1=assigned) */
-	int				unique_flag;		/**< unique sentization flag (0=down, 1=up, 2=middle) */
-	int				level;				/**< topological level (0=PI) */
-	int* consgc;						/**< constraints for good-circuit (flat int array, 0-terminated clauses) */
-	int consgc_len;						/**< number of ints in consgc */
-	char** consfc;						/**< constraints for faulty-circuit  */
+	int				flag;			    /**< フラグ */
+	unsigned int	varsgc;			    /**< 正常回路用変数  */
+	unsigned int	varsfc;				/**< 故障回路用変数  */
+	unsigned int	varprop;			/**< 故障伝搬用変数 (Dチェーン) */
+	int				logic_value;		/**< 必須割当ての論理値 (-1=不明) */
+	int				ea_flag;			/**< 必須割当てフラグ (0=未割当, 1=割当済み) */
+	int				unique_flag;		/**< ユニーク化フラグ (0=down, 1=up, 2=middle) */
+	int				level;				/**< トポロジカルレベル (0=PI) */
+	int* consgc;						/**< 正常回路用制約 (フラットなint配列、0終端の節) */
+	int consgc_len;						/**< consgc に格納されているint数 */
+	char** consfc;						/**< 故障回路用制約  */
 	unsigned int suf_fc;				//
 	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
-	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
+	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない)
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ NLIST** assign;
 int n_assign;
 
 //--------------------------------------------------------------------------------------------------------------------
-// PROTOTYPE
+// プロトタイプ宣言
 //--------------------------------------------------------------------------------------------------------------------
 int		read_nl(char*);
 void	free_netlist(void);

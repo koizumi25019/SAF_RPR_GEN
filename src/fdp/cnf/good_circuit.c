@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdlib.h>
 #include <string.h>
@@ -12,17 +12,17 @@
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC
-//	@function	F	create the good-circuit constraint
-//	@return		F	(bool) okay, error
+//	@function	F	正常回路の制約を作成する
+//	@return	F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool CreateConsGC(
 	void
 )
 {
-	/** assigne the variable for good-circuit */
+	/** 正常回路用の変数を割り当てる */
 	AssigneVarsGC();
 
-	/** create the good-circuit constraint */
+	/** 正常回路の制約を作成する */
 	for (int i = 0; i < n_net; i++)
 	{
 		switch (nl[i].type)
@@ -59,18 +59,18 @@ bool CreateConsGC(
 
 //*************************************************************************************************************
 //	@name		F@AssigneVarsGC
-//	@function	F	assigne the variable for good-circuit
+//	@function	F	正常回路用の変数を割り当てる
 //	@return		F	(void)
 //*************************************************************************************************************
 void AssigneVarsGC(
 	void
 )
 {
-	/** assigne the variable for primary inputs */
+	/** 外部入力用の変数を割り当てる */
 	for (int i = 0; i < n_pi; i++) {
 		pi[i]->varsgc = ++cnf.constant.vars;
 	}
-	/** assigne the variable for others */
+	/** その他の変数を割り当てる */
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].varsgc == UNASSIGN)
@@ -82,15 +82,15 @@ void AssigneVarsGC(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_AND
-//	@function	F	create the good-circuit constraint -AND
+//	@function	F	正常回路の制約を作成する -AND
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_AND(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int n = netptr->n_in;
-	// clause1: n+1 lits + 0;  n clauses of 2 lits + 0
+	// 節1: n+1リテラル + 0；n個の節（各2リテラル + 0）
 	int sz = (n + 2) + n * 3;
 	int* arr = (int*)malloc(sz * sizeof(int));
 	int idx = 0;
@@ -114,11 +114,11 @@ void CreateConsGC_AND(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_NAND
-//	@function	F	create the good-circuit constraint -NAND
+//	@function	F	正常回路の制約を作成する -NAND
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_NAND(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int n = netptr->n_in;
@@ -145,11 +145,11 @@ void CreateConsGC_NAND(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_OR
-//	@function	F	create the good-circuit constraint -OR
+//	@function	F	正常回路の制約を作成する -OR
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_OR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int n = netptr->n_in;
@@ -176,11 +176,11 @@ void CreateConsGC_OR(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_NOR
-//	@function	F	create the good-circuit constraint -NOR
+//	@function	F	正常回路の制約を作成する -NOR
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_NOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int n = netptr->n_in;
@@ -207,11 +207,11 @@ void CreateConsGC_NOR(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_BUF
-//	@function	F	create the good-circuit constraint -BUF
+//	@function	F	正常回路の制約を作成する -BUF
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_BUF(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int a = (int)netptr->in[0]->varsgc;
@@ -225,11 +225,11 @@ void CreateConsGC_BUF(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_INV
-//	@function	F	create the good-circuit constraint -INV
+//	@function	F	正常回路の制約を作成する -INV
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_INV(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int a = (int)netptr->in[0]->varsgc;
@@ -243,11 +243,11 @@ void CreateConsGC_INV(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_XOR
-//	@function	F	create the good-circuit constraint -XOR
+//	@function	F	正常回路の制約を作成する -XOR
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_XOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int a = (int)netptr->in[0]->varsgc;
@@ -267,11 +267,11 @@ void CreateConsGC_XOR(
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC_XNOR
-//	@function	F	create the good-circuit constraint -XNOR
+//	@function	F	正常回路の制約を作成する -XNOR
 //	@return		F	(void)
 //*************************************************************************************************************
 void CreateConsGC_XNOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
 	int a = (int)netptr->in[0]->varsgc;

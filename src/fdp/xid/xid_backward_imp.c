@@ -246,7 +246,7 @@ static void xid_bimp_exor(Queue_t* bwd_q, Queue_t* jus_q, NLIST_t* t_net, size_t
 }
 
 // -------------------------------------------------------------
-// Table & Entry
+// テーブルとエントリ
 // -------------------------------------------------------------
 static xid_bimp_func_t xid_bimp[MAX_GATE_TYPE] = { 0 };
 

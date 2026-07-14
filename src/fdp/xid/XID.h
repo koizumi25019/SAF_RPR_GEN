@@ -44,8 +44,8 @@ typedef struct DETECT_PO {
     size_t* po_id;
 } DETECT_PO;
 
-/* PI don't-care filling (replaces external XID process call).
-   Returns malloc'd char[n_pi+1]: '0'/'1'/'X' per PI + '\0'. Caller must free().
+/* 外部入力(PI)のドントケア埋め（外部XIDプロセス呼び出しの代替）。
+   malloc 済みの char[n_pi+1] を返す：PI ごとに '0'/'1'/'X' + 終端 '\0'。呼び出し側が free する。
    preferred_po: X-filling の正当化先 PO の net id。負値または検出PO列に
    無ければ従来どおり fsim が最初に見つけた検出POを使う（実験 DIVPO 用：
    SAT に assume した検出POと正当化先を揃え、構造的に異なるキューブを得る）。 */

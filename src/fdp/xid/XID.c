@@ -4,14 +4,15 @@
 #define DEBUG_XFILL_SHORT 0
 #define MODE_XID_LOOP_PO  0
 
-/* forward declarations */
+/* 前方宣言 */
 static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_info);
 
 /* -----------------------------------------------------------------------
- * Persistent scratch buffers (allocated once, reused across InlineXID calls)
- * to avoid per-call malloc/free churn. The XID algorithm fully resets
- * var_info each call and drains the level stack / queues to empty, so the
- * buffers are safe to reuse without per-call reallocation.
+ * 呼び出しごとの malloc/free を避けるため、一度だけ確保して
+ * InlineXID の呼び出し間で使い回す永続スクラッチバッファ。
+ * XID アルゴリズムは呼び出しごとに var_info を完全にリセットし、
+ * レベルスタック・キューも空になるまで使い切るため、
+ * 再確保せずにバッファを使い回して安全。
  * ----------------------------------------------------------------------- */
 static XID_VAR_INFO* s_var_info  = NULL;
 static size_t*       s_po_id     = NULL;
@@ -31,12 +32,12 @@ static void xid_ensure_scratch(void) {
     s_fwd_q    = createQueue((size_t)n_net);
     s_bwd_q    = createQueue((size_t)n_net);
     s_jus_q    = createQueue((size_t)n_net);
-    xid_lev_init();   /* levels are fixed after ComputeLevels; init once */
+    xid_lev_init();   /* レベルは ComputeLevels 後に固定されるため一度だけ初期化する */
     s_xid_ready = 1;
 }
 
 /* -----------------------------------------------------------------------
- * xid_fpath: fault propagation path selection (backward from fault site)
+ * xid_fpath: 故障伝搬パスの選択（故障サイトからの後方探索）
  * ----------------------------------------------------------------------- */
 typedef void (*xid_fpath_func_t)(Queue_t* imp_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info);
 
@@ -185,7 +186,7 @@ void init_xid_fpath_table(void) {
 }
 
 /* -----------------------------------------------------------------------
- * ED_push_Xpath: mark a net as being on the fault-propagation path
+ * ED_push_Xpath: ネットを故障伝搬パス上にあるとしてマークする
  * ----------------------------------------------------------------------- */
 static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
     size_t id = net->n;
@@ -208,7 +209,7 @@ static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_i
 }
 
 /* -----------------------------------------------------------------------
- * Xfilling: 3-value X-filling from detecting PO back to fault site
+ * Xfilling: 検出POから故障サイトへ向かう3値X埋め
  * ----------------------------------------------------------------------- */
 static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_t xid_tag_base) {
     NLIST_t* tmp_net = &nl[po_id];
@@ -267,9 +268,9 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
         }
     }
 
-    /* queues are persistent scratch; the loop above left them empty */
+    /* キューは永続スクラッチであり、上のループで空になっている */
 
-    /* fix up: signals not on influence cone get normal value */
+    /* 補正: 影響コーン外の信号には正常値を設定する */
     for (int i = 0; i < n_net; ++i) {
         size_t current_tag = var_info[i].xid_tag;
         if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
@@ -287,10 +288,10 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
 }
 
 /* -----------------------------------------------------------------------
- * InlineXID: PI don't-care filling (replaces external XID process call)
- * Returns malloc'd char[n_pi+1]: '0'/'1'/'X' per PI + '\0'.
- * The blocking clause is added by the caller (AddBlockingClauseFromCube).
- * Caller must free() the returned string.
+ * InlineXID: 外部入力(PI)のドントケア埋め（外部XIDプロセス呼び出しの代替）
+ * malloc 済みの char[n_pi+1] を返す：PI ごとに '0'/'1'/'X' + '\0'。
+ * ブロッキング節は呼び出し側（AddBlockingClauseFromCube）が追加する。
+ * 呼び出し側が返り値の文字列を free() すること。
  * ----------------------------------------------------------------------- */
 char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
     xid_ensure_scratch();
@@ -300,8 +301,8 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
     XID_VAR_INFO* var_info = s_var_info;
     DETECT_PO detect_po = { 0, s_po_id };
 
-    /* reset per-call state: init every signal to X, then overwrite the
-       good-circuit value from the SAT model in a single pass */
+    /* 呼び出しごとの状態をリセット：全信号をXに初期化した後、
+       1パスでSATモデルから正常回路の値を上書きする */
     for (int i = 0; i < n_net; ++i) {
         var_info[i].ed_tag        = 0;
         var_info[i].edx_tag       = 0;
@@ -320,7 +321,7 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
         }
     }
 
-    /* 2-value fault simulation (drains the level stack back to empty) */
+    /* 2値故障シミュレーション（レベルスタックを空になるまで使い切る） */
     xid_fsim(fsigID, var_info, &detect_po);
 
     /* X-filling toward one detecting PO（既定: fsim が最初に見つけた PO。
@@ -334,7 +335,7 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
         Xfilling(fsigID, var_info, po, 0);
     }
 
-    /* build result string: '0'/'1'/'X' per PI ('\0'-terminated, no trailing newline) */
+    /* 結果文字列を構築する: PIごとに '0'/'1'/'X'（'\0'終端、末尾改行なし） */
     char* result = (char*)malloc((size_t)n_pi + 1);
     if (!result) { fprintf(stderr, "InlineXID: malloc failed\n"); exit(1); }
 

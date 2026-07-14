@@ -1,27 +1,27 @@
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdbool.h>
 #include "ccadical.h"
 #include "./target_fault.h"
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
-/** load the (global) good-circuit clauses into a solver */
+/** 正常回路節（グローバル）をソルバに読み込む */
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target);
 
-//** write the tset pattern generaiton model */
+/** テストパタン生成モデルを構築する */
 bool WriteTPGModel(
 	CCaDiCaL *solver,
-	TARGET* target			  /**< target fault */
+	TARGET* target			  /**< 対象故障 */
 );
 
-/** create the tset pattern generaiton model */
+/** テストパタン生成モデルを作成する */
 bool CreateTPGmodel(
 	CCaDiCaL* solver,
-	TARGET* target			  /**< target fault */
+	TARGET* target			  /**< 対象故障 */
 );
 
 

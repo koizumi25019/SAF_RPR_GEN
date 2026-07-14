@@ -7,169 +7,168 @@
 #include "../create_TPG_model.h"
 
 //-------------------------------------------------------------------------------------------------------------
-//	structre
+//	構造体
 //-------------------------------------------------------------------------------------------------------------
-/** problem size */
+/** 問題サイズ */
 typedef struct CNFproblemSize
 {
-	int					  vars;			      /**< number of variables */
-	int					  clauses;				  /**< number of clauses */
+	int					  vars;			      /**< 変数数 */
+	int					  clauses;				  /**< 節数 */
 }
 CNFSIZE;
 
 /** cnf */
 typedef struct CNFproblem
 {
-	CNFSIZE				  constant;			  /**< constant size */
-	CNFSIZE				  total;			  /**< total size */
+	CNFSIZE				  constant;			  /**< 固定サイズ */
+	CNFSIZE				  total;			  /**< 合計サイズ */
 }
 CNF;
 
 //-------------------------------------------------------------------------------------------------------------
-//	global variable
+//	グローバル変数
 //-------------------------------------------------------------------------------------------------------------
 CNF							cnf;				/**< cnf */
-unsigned int				fc_po;				/* function output */
-int							constraint;			/* constraint */
+unsigned int				fc_po;				/* 出力の故障回路変数 */
+int							constraint;			/* 制約 */
 int							CONS_SIZE;
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
-/** create the good-circuit constraint */
+/** 正常回路の制約を作成する */
 bool CreateConsGC(
 	void
 );
 
-/** assigne the variable for good-circuit */
+/** 正常回路用の変数を割り当てる */
 void AssigneVarsGC(
 	void
 );
 
-/** create the good-circuit constraint -AND */
+/** 正常回路の制約を作成する -AND */
 void CreateConsGC_AND(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -NAND */
+/** 正常回路の制約を作成する -NAND */
 void CreateConsGC_NAND(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -OR */
+/** 正常回路の制約を作成する -OR */
 void CreateConsGC_OR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -NOR */
+/** 正常回路の制約を作成する -NOR */
 void CreateConsGC_NOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -BUF */
+/** 正常回路の制約を作成する -BUF */
 void CreateConsGC_BUF(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -INV */
+/** 正常回路の制約を作成する -INV */
 void CreateConsGC_INV(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -XOR */
+/** 正常回路の制約を作成する -XOR */
 void CreateConsGC_XOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the good-circuit constraint -XNOR */
+/** 正常回路の制約を作成する -XNOR */
 void CreateConsGC_XNOR(
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint */
+/** 故障回路の制約を作成する */
 bool CreateConsFC(
 	CCaDiCaL* solver,       // ★追加
-	TARGET* target			  /**< target fault */
+	TARGET* target			  /**< 対象故障 */
 );
 
-/** search for transitive-fout */
+/** 伝搬先(TFO)を探索する */
 void SearchTFO(
-	FNODE* target			  /**< target fault */
+	FNODE* target			  /**< 対象故障 */
 );
 
-/** create fault propagation (D-chain) constraints */
+/** 故障伝搬 (Dチェーン) 制約を作成する */
 void CreateConsProp(
 	CCaDiCaL* solver,
 	FNODE* target
 );
 
-/** create the faulty-circuit constraint -AND */
+/** 故障回路の制約を作成する -AND */
 void CreateConsFC_AND(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -NAND */
+/** 故障回路の制約を作成する -NAND */
 void CreateConsFC_NAND(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -OR */
+/** 故障回路の制約を作成する -OR */
 void CreateConsFC_OR(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr		  /**< pointer to netlist */
+	NLIST* netptr		  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -NOR */
+/** 故障回路の制約を作成する -NOR */
 void CreateConsFC_NOR(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr		  /**< pointer to netlist */
+	NLIST* netptr		  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -BUF */
+/** 故障回路の制約を作成する -BUF */
 void CreateConsFC_BUF(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -INV */
+/** 故障回路の制約を作成する -INV */
 void CreateConsFC_INV(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr		  /**< pointer to netlist */
+	NLIST* netptr		  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -XOR */
+/** 故障回路の制約を作成する -XOR */
 void CreateConsFC_XOR(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr			  /**< pointer to netlist */
+	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
-/** create the faulty-circuit constraint -XNOR */
+/** 故障回路の制約を作成する -XNOR */
 void CreateConsFC_XNOR(
 	CCaDiCaL* solver,       // ★追加
-	NLIST* netptr		  /**< pointer to netlist */
+	NLIST* netptr		  /**< ネットリストへのポインタ */
 );
 
-/** create the detection-circuit constraint */
+/** 検出回路の制約を作成する */
 void CreateConsDC(
 	CCaDiCaL* solver,       // ★追加
-	FNODE* target		  /**< target fault */
+	FNODE* target		  /**< 対象故障 */
 );
 
-/** create the constraint for connect transitive-primary output */
+/** 伝搬先外部出力を接続する制約を作成する */
 void CreateConsDC_XOR(
 	CCaDiCaL* solver     // ★追加
 );
 
-/** create the constraint for connect the xor outputs */
+/** XOR出力を接続する制約を作成する */
 void CreateConsDC_OR(
 	CCaDiCaL* solver     // ★追加
 );
 
-/** create the constraint for fault excitation */
+/** 故障励起の制約を作成する */
 void CreateConsDC_FE(
 	CCaDiCaL* solver,       // ★追加
-	FNODE* fnodeptr			  /**< pointer to fault node */
+	FNODE* fnodeptr			  /**< 故障ノードへのポインタ */
 );
-

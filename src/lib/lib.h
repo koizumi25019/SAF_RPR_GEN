@@ -1,6 +1,6 @@
 #pragma once 
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 
@@ -8,84 +8,84 @@
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	define
+//	定義
 //-------------------------------------------------------------------------------------------------------------
-#define	MAXSIZE_STACK     100				  /**< maximum size of stack */
-#define	MAXSIZE_QUEUE     100				  /**< maximum size of queue */
-#define	QUE_MODE_ONE      1 				  /**< mode= "only one netlist" */
-#define	QUE_MODE_ALLIN    2 				  /**< mode= "all input netlist" */
-#define	QUE_MODE_ALLOUT   3 				  /**< mode= "all output netlist" */
-#define POSSIBLE		  1					  /**< flag type = possible  */
-#define UNPOSSIBLE		  0					  /**< flag type = unpossible  */
+#define	MAXSIZE_STACK     100				  /**< スタックの最大サイズ */
+#define	MAXSIZE_QUEUE     100				  /**< キューの最大サイズ */
+#define	QUE_MODE_ONE      1 				  /**< モード = 「ネットリスト1個のみ」 */
+#define	QUE_MODE_ALLIN    2 				  /**< モード = 「全入力ネットリスト」 */
+#define	QUE_MODE_ALLOUT   3 				  /**< モード = 「全出力ネットリスト」 */
+#define POSSIBLE		  1					  /**< フラグ種別 = 可能  */
+#define UNPOSSIBLE		  0					  /**< フラグ種別 = 不可  */
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	structre
+//	構造体
 //-------------------------------------------------------------------------------------------------------------
-/** stack */
+/** スタック */
 typedef struct Stack
 {
-	int					  maxnum;			  /**< maximum number of elements */
-	int					  ptr;				  /**< number of elements */
-	NLIST** stk;				  /**< stack */
+	int					  maxnum;			  /**< 要素の最大数 */
+	int					  ptr;				  /**< 要素数 */
+	NLIST** stk;				  /**< スタック */
 }
 STACK;
 
-/** queue */
+/** キュー */
 typedef struct Queue
 {
-	int					  maxnum;			  /**< maximum number of elements */
-	int					  num;				  /**< number of elements */
-	int					  front;			  /**< front index */
-	int					  rear;				  /**< rear index */
-	NLIST** que;				  /**< que */
+	int					  maxnum;			  /**< 要素の最大数 */
+	int					  num;				  /**< 要素数 */
+	int					  front;			  /**< 先頭インデックス */
+	int					  rear;				  /**< 末尾インデックス */
+	NLIST** que;				  /**< キュー */
 }
 QUE;
 
 //-------------------------------------------------------------------------------------------------------------
-//	global variable
+//	グローバル変数
 //-------------------------------------------------------------------------------------------------------------
-STACK					   stack;			  /**< stack */
-QUE						   que;				  /**< que */
+STACK					   stack;			  /**< スタック */
+QUE						   que;				  /**< キュー */
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
-/** open the file */
+/** ファイルを開く */
 void fileOpen(
-	FILE** fileptr,			  /**< pointer to file */
-	const char* filename,			  /**< filename */
-	const char* mode				  /**< mode */
+	FILE** fileptr,			  /**< ファイルポインタ */
+	const char* filename,			  /**< ファイル名 */
+	const char* mode				  /**< モード */
 );
 
-/** allocate the memory */
+/** メモリを確保する */
 void* allocMemory(
-	size_t			      count,			  /**< number of counts of alloc memory */
-	size_t			      size				  /**< typesizeof */
+	size_t			      count,			  /**< 確保する要素数 */
+	size_t			      size				  /**< 型のサイズ */
 );
 
-/** calculate the hash value */
+/** ハッシュ値を計算する */
 int calcHash(
-	char* buffer			  /** buffer */
+	char* buffer			  /** バッファ */
 );
 
-/** push the netlist in stack */
+/** ネットリストをスタックにpushする */
 void stackPUSH(
-	NLIST* netptr			  /** pointer to netlist */
+	NLIST* netptr			  /** ネットリストへのポインタ */
 );
 
-/** pop the netlist from stack */
+/** ネットリストをスタックからpopする */
 NLIST* stackPOP(
 	void
 );
 
-/** enqueue the netlist to queue */
+/** ネットリストをキューにenqueueする */
 void queENQ(
-	NLIST* netptr,			  /** pointer to netlist */
-	int				      mode				  /** mode */
+	NLIST* netptr,			  /** ネットリストへのポインタ */
+	int				      mode				  /** モード */
 );
 
-/** dequeue the netlist from queue */
+/** ネットリストをキューからdequeueする */
 NLIST* queDEQ(
 	void
 );

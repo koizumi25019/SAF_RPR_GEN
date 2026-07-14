@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include "./create_TPG_model.h"
 #include "./target_fault.h"
@@ -18,15 +18,15 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
 
 //*************************************************************************************************************
 //	@name		WriteTPGModel
-//	@function	Write the test pattern generation model
-//	@return		(bool) okay, error
+//	@function	テストパタン生成モデルを構築する
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool WriteTPGModel(
 	CCaDiCaL *solver,
 	TARGET* target
 )
 {
-	/** create the tpg model */
+	/** TPGモデルを作成する */
 	if (CreateTPGmodel(solver, target) != true) return false;
 
     // 作成された文字列データをソルバに直接投入
@@ -37,15 +37,15 @@ bool WriteTPGModel(
 
 //*************************************************************************************************************
 //	@name		F@CreateTPGmodel
-//	@function	F	create the test pattern generation model
-//	@return		F	(bool) okay, error
+//	@function	F	テストパタン生成モデルを作成する
+//	@return		F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool CreateTPGmodel(
 CCaDiCaL* solver,
 	TARGET* target
 )
 {
-	/** create the constraint for faulty-circuit */
+	/** 故障回路の制約を作成する */
 	if (CreateConsFC(solver, target) != true) return false;
 
 	return true;

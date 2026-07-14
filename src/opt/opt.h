@@ -1,104 +1,104 @@
 #pragma once
 //-------------------------------------------------------------------------------------------------------------
-//	include
+//	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdbool.h>
 
 //-------------------------------------------------------------------------------------------------------------
-//	define
+//	定義
 //-------------------------------------------------------------------------------------------------------------
-#define	OPT_OKAY				  true		  /**< return code   = okay */
-#define	OPT_ERROR				  false		  /**< return code   = error */
+#define	OPT_OKAY				  true		  /**< 戻り値 = 正常 */
+#define	OPT_ERROR				  false		  /**< 戻り値 = 異常 */
 
-#define	MAXSIZE_FILENAME		  100		  /**< maximum size of filename */
+#define	MAXSIZE_FILENAME		  100		  /**< ファイル名の最大サイズ */
 
 #define MAX_PATTERN               100         // 最大100まで指定可能
 
-#define FILE_NOSET			      (char*)NULL /**< initial filename */
-#define MODE_NOSET			      -1          /**< initial mode */
+#define FILE_NOSET			      (char*)NULL /**< ファイル名の初期値 */
+#define MODE_NOSET			      -1          /**< モードの初期値 */
 
 #define		YES				1
 #define		NO				0
 
 //-------------------------------------------------------------------------------------------------------------
-//	structre
+//	構造体
 //-------------------------------------------------------------------------------------------------------------
-/** input file structre */
+/** 入力ファイル構造体 */
 typedef struct Input_File
 {
-	char* net;				  /**< netlist file */
-	char* fault;			  /**< fault list file */
-	int limit;                // test generation limit */
+	char* net;				  /**< ネットリストファイル */
+	char* fault;			  /**< 故障リストファイル */
+	int limit;                // テスト生成の上限 */
 }
 INPUT;
 
-/** output file structre */
+/** 出力ファイル構造体 */
 typedef struct Output_File
 {
-	char* log;			      /**< log file */
-	char* fdp;                /**< fdp result file */
+	char* log;			      /**< ログファイル */
+	char* fdp;                /**< fdp結果ファイル */
 }
 OUTPUT;
 
-/** file structre */
+/** ファイル構造体 */
 typedef struct File
 {
-	INPUT				  input;			  /**< input files */
-	OUTPUT				  output;			  /**< output files */
+	INPUT				  input;			  /**< 入力ファイル */
+	OUTPUT				  output;			  /**< 出力ファイル */
 }
 FILES;
 
-/** option structre */
+/** オプション構造体 */
 typedef struct Option
 {
-	FILES			      file;			      /**< files */
+	FILES			      file;			      /**< ファイル */
 }
 OPTION;
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	global variable
+//	グローバル変数
 //-------------------------------------------------------------------------------------------------------------
-OPTION					   opt;				  /**< option */
+OPTION					   opt;				  /**< オプション */
 
 
 //-------------------------------------------------------------------------------------------------------------
-//	prototype declaration
+//	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
-/** set the options */
+/** オプションを設定する */
 bool OPT(
-	int					  argc,			      /**< number of command-arguments */
-	char** argv			      /**< arguments */
+	int					  argc,			      /**< コマンド引数の数 */
+	char** argv			      /**< 引数 */
 );
 
-/** initialize the options */
+/** オプションを初期化する */
 void OPTinit(
 	void
 );
 
-/** initialize the files */
+/** ファイルを初期化する */
 void OPTinitFile(
 	void
 );
 
-/** set the options */
+/** オプションを設定する */
 bool OPTset(
-	int				      argc,				  /**< number of command-arguments */
-	char** argv				  /**< command-arguments */
+	int				      argc,				  /**< コマンド引数の数 */
+	char** argv				  /**< コマンド引数 */
 );
 
-/** read the setting file */
+/** 設定ファイルを読み込む */
 bool OPTread(
-	char* filename			  /**< filename */
+	char* filename			  /**< ファイル名 */
 );
 
-/** check for essential options */
+/** 必須オプションをチェックする */
 bool OPTcheck(
 	void
 );
 
-/** check for files */
+/** ファイルをチェックする */
 bool OPTcheckFile(
 	void
 );
