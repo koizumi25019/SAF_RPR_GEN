@@ -39,8 +39,3 @@ bool AnalyzeFaultDensity(
 bool DropDeteFault(
 	TARGET * target
 );
-
-/** free the memory */
-void FreeMemory(
-	TARGET* target			  /**< target fault */
-);

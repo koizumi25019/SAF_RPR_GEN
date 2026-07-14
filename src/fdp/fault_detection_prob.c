@@ -152,7 +152,7 @@ bool AnalyzeFaultDensity(
 					cubeset_free(&f->cubes);
 
 				DropDeteFault(&target);
-				FreeMemory(&target);
+				free(target.list);
 				break;
 			}
 			// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
@@ -187,17 +187,4 @@ bool AnalyzeFaultDensity(
     *out_time_read    = time_read;
 
 	return AFD_OKAY;
-}
-
-//*************************************************************************************************************
-//	@name		@FreeMemory
-//	@function	free the memory
-//	@return		(void)
-//*************************************************************************************************************
-void FreeMemory(
-	TARGET* target
-)
-{
-	free(target->list);
-	return;
 }
