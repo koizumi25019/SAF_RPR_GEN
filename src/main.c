@@ -1,4 +1,3 @@
-#define _POSIX_C_SOURCE 199309L
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -23,17 +22,14 @@ int main(
 	char** argv								 /**< command-arguments */
 )
 {
-struct timespec start, end;
-    clock_t cpu_start, cpu_end; // CPU時間計測用に追加
+	clock_t cpu_start, cpu_end; // CPU時間計測用
 
 	// CPU時間受け取り用
-    double time_cadical = 0.0;
-    double time_bdd     = 0.0;
-    double time_xid     = 0.0;
-    double time_read    = 0.0;
+	double time_cadical = 0.0;
+	double time_bdd     = 0.0;
+	double time_xid     = 0.0;
+	double time_read    = 0.0;
 
-    // 計測開始
-    clock_gettime(CLOCK_MONOTONIC, &start);// 実実行時間の計測開始
 	cpu_start = clock(); // CPU時間の計測開始
 
 	//set the option
@@ -45,17 +41,12 @@ struct timespec start, end;
 	//analyze the fault detection probability
 	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
 
-	// 計測終了
-    clock_gettime(CLOCK_MONOTONIC, &end);// 実実行時間の計測終了
 	cpu_end = clock(); // CPU時間の計測終了
 
-    // 秒単位の経過時間を計算
-    double elapsed_time = (end.tv_sec - start.tv_sec) + 
-                          (end.tv_nsec - start.tv_nsec) / 1000000000.0;
-	 // CPU時間を計算
+	// CPU時間を計算
 	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC;
-						  
-	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
+
+	OutLogfile(cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	free_netlist();
 
@@ -69,7 +60,6 @@ struct timespec start, end;
 //*************************************************************************************************************
 static void WriteReport(
 	FILE* fp,
-	double time,
 	double cpu_time,
 	double time_cadical,
 	double time_bdd,
@@ -83,7 +73,6 @@ static void WriteReport(
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-	fprintf(fp, "//  Time                                      : %.3f sec\n", time);
 	fprintf(fp, "//  CPU Time                                  : %.3f sec\n", cpu_time);
 	fprintf(fp, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
 	fprintf(fp, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
@@ -93,27 +82,19 @@ static void WriteReport(
 }
 
 void OutLogfile(
-	double time,
 	double cpu_time,
-    double time_cadical,
-    double time_bdd,
-    double time_xid,
-    double time_read
+	double time_cadical,
+	double time_bdd,
+	double time_xid,
+	double time_read
 )
 {
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
-	WriteReport(fileptr, time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
+	WriteReport(fileptr, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	printf("\n\n");
-	WriteReport(stdout, time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
+	WriteReport(stdout, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
 	return;
 }
-
-
-
-
-
-
-
