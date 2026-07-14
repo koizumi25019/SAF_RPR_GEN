@@ -4,6 +4,9 @@
 #include <cudd.h>
 #include <gmp.h>
 
+/* キューブ文字列（'0'/'1'/'X' を nvars 文字）を BDD にして返す（参照済み） */
+DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars);
+
 void RunBDD(
 	DdManager* gbm,
 	int nvars,

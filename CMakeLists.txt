@@ -12,6 +12,8 @@ set(SOURCES
     src/fdp/essential_assignment.c
     src/fdp/fault_detection_prob.c
     src/fdp/gt_verify.c
+    src/fdp/pcount.c
+    src/fdp/aig_dump.c
     src/fdp/cube_trend.c
     src/fdp/experiment.c
     src/fdp/cnf_dump.c

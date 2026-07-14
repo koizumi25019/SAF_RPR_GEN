@@ -10,6 +10,12 @@
 //	  「前回キューブと >=k ビット違う」制約(Sinz at-most)を活性化リテラルで
 //	  ガードして優先 solve する。終了判定は素 solve なので完全性は不変。
 //	  追加 env: MAXHAM_K(目標k; 既定 max(2, m/3))。
+//	案3 (env DUAL): 双対列挙。非検出空間 ¬D_f のキューブも並行列挙し、
+//	  U∪V の閉包 or ¬D_f 列挙完了で det 側の UNSAT を待たずに完了する。
+//	  詳細はファイル末尾の 案3 セクション冒頭コメントを参照。
+//	案4 (env SPLIT): Shannon 分割による完全化。打ち切り故障の未被覆空間を PI で
+//	  二分しながら両側（検出/非検出）を SAT 列挙し、必ず停止して complete にする。
+//	  詳細はファイル末尾の 案4 セクション冒頭コメントを参照。
 //
 //	実験の評価と結論（案2は却下、案1は要改善）は verification/SUMMARY.md を参照。
 //-------------------------------------------------------------------------------------------------------------
@@ -17,12 +23,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <math.h>
+
 #include "./experiment.h"
 #include "./create_TPG_model.h"
 #include "./fault_detection_prob.h"   /* numtranpo */
 #include "./read.h"
 #include "./cnf/cnf.h"
+#include "./cudd_wrapper.h"           /* parseCube (案3 DUAL / 案4 SPLIT) */
+#include "./xid/XID.h"                /* InlineXID (案4 SPLIT) */
 #include "../netlist/netlist.h"
+#include "../opt/opt.h"
 
 /* ================================ 案1: MAXDC ================================ */
 static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fail=0, mdc_revert=0;
@@ -51,9 +62,10 @@ static void mdc_dump(void){
         mdc_avg(mdc_hardorig - mdc_hardprime, mdc_hardcubes));
 }
 
-/* 非検出オラクルを構築する（WriteTPGModel 直後に呼ぶこと：
-   TFOフラグ/varsfc/numtranpo が当該故障用に設定済みである必要がある） */
-static void mdc_build_oracle(CCaDiCaL* u, TARGET* target){
+/* 検出/非検出オラクルを構築する（WriteTPGModel 直後に呼ぶこと：
+   TFOフラグ/varsfc/numtranpo が当該故障用に設定済みである必要がある）。
+   detect=0: z=0 を assert（非検出空間 ¬D_f）、detect=1: z=1（検出空間 D_f）。 */
+static void mdc_build_oracle(CCaDiCaL* u, TARGET* target, int detect){
     FNODE* f = target->list[0];
     LoadModelToSolver(u, target);                 /* good circuit (varsgc) */
     for (int j=0;j<n_net;j++){                    /* faulty cone gates (varsfc) */
@@ -78,7 +90,7 @@ static void mdc_build_oracle(CCaDiCaL* u, TARGET* target){
     CreateConsDC_XOR(u);                           /* per-PO diff = gc XOR fc */
     CreateConsDC_OR(u);                            /* z = OR diffs */
     int z = cnf.total.vars;
-    ccadical_add(u,-z); ccadical_add(u,0);         /* z=0 : undetection (no PO differs) */
+    ccadical_add(u, detect ? z : -z); ccadical_add(u,0);   /* z=0: 非検出 / z=1: 検出 */
 }
 
 /* DIVPO 用: WriteTPGModel 直後の最終変数番号(=検出フラグ z)と伝播PO数を捕捉。
@@ -103,7 +115,7 @@ CCaDiCaL* EXP_MaybeBuildOracle(TARGET* target){
     if (mdc_cubes==0 && mdc_fcubes==0) atexit(mdc_dump);
     CCaDiCaL* u = ccadical_init();
     ccadical_set_option(u, "factor", 0);
-    mdc_build_oracle(u, target);
+    mdc_build_oracle(u, target, 0);
     mdc_fcubes=0; mdc_forig=0; mdc_fprime=0;
     return u;
 }
@@ -396,4 +408,369 @@ int EXP_Solve(CCaDiCaL* s, const char* prev)
         /* UNSAT: act は二度と assume しない -> 当該節は無効化 */
     }
     return ccadical_solve(s);                   /* 多様性なしの素 solve(終了判定の根拠) */
+}
+
+/* ================================ 案3: DUAL ================================
+ * 双対列挙 (env DUAL=1): 検出空間 D_f のキューブ列挙と 1:1 で、非検出空間
+ * ¬D_f のキューブも並行して列挙する（cf. Möhle & Biere の dual reasoning）。
+ *   U = 検出側キューブの和集合（従来の cubes、種キューブ含む）
+ *   V = 非検出側キューブの和集合（非検出CNF z=0 の解を、検出CNF z=1 を
+ *       オラクルに UNSATコア→QuickXplain 救済で ¬D_f の素項へ拡大したもの）
+ * U ⊆ D_f と V ⊆ ¬D_f は互いに素なので、
+ *   (a) 閉包: U∪V が恒真になった時点で U = D_f が確定
+ *   (b) V完了: 非検出側が UNSAT（V = ¬D_f 確定）なら、残り D_f\U = ¬(U∪V) を
+ *       BDD の disjoint パスとして取り出し U へ補充（SAT solve 不要）
+ * どちらも det 側の UNSAT を待たずに complete=1 で終われ、終了時に
+ * U = D_f が保証されるため fdp / GT_BDD / 支配流用の不変条件は保たれる。
+ * fdp が 1 に近い故障ほど ¬D_f 側が小さく (b) が早く効く。
+ *
+ * コスト制御（b12 での初期実験で判明した2つの落とし穴への対策）:
+ *   - 遅延起動: det 側が DUAL_START 本（既定16）以内で終わる易しい故障では
+ *     V 側を一切動かさない（ソルバ構築も遅延）。V 側 solve の浪費を防ぐ。
+ *   - remainder 上限: (b) のパス数が生成済みキューブ数に対して大きすぎる場合は
+ *     取り出しを見送り det 列挙を続行する（U が育てば残りは縮むので毎回再判定）。
+ *     無制限に取り出すと disjoint パスが数百万本になり、cube_cnt と
+ *     支配流用の種を爆発させる（実測 b12 で 1,637万本）。
+ */
+static TARGET*    dual_target = NULL;   /* 対象故障（NULL なら DUAL 無効） */
+static CCaDiCaL*  dual_nd  = NULL;   /* 非検出空間の列挙ソルバ（Vの禁止節が溜まる） */
+static CCaDiCaL*  dual_det = NULL;   /* 検出オラクル（Vキューブの素項展開用・不変） */
+static DdManager* dual_gbm = NULL;
+static DdNode*    dual_u   = NULL;
+static DdNode*    dual_v   = NULL;
+static int dual_steps = 0, dual_vcomplete = 0, dual_vcap = 0, dual_nv = 0, dual_ended = 0;
+static long dl_closed=0, dl_vdone=0, dl_det=0, dl_capped=0;
+static long dl_vcubes=0, dl_remcubes=0, dl_remskip=0, dl_sanity=0;
+
+static void dual_dump(void){
+    fprintf(stderr,
+        "\n[DUAL] faults: closed(U∪V=1)=%ld  vcomplete(¬D_f確定)=%ld  det_unsat=%ld  capped=%ld\n"
+        "[DUAL] v_cubes=%ld  remainder_cubes=%ld  remainder_skips=%ld  sanity_fail=%ld\n",
+        dl_closed, dl_vdone, dl_det, dl_capped, dl_vcubes, dl_remcubes, dl_remskip, dl_sanity);
+}
+
+/* acc |= cube（参照カウントを維持したまま OR で置き換える） */
+static void exp_or_into(DdManager* m, DdNode** acc, const char* cube){
+    DdNode* c = parseCube(m, cube, n_pi);
+    DdNode* t = Cudd_bddOr(m, *acc, c);
+    Cudd_Ref(t);
+    Cudd_RecursiveDeref(m, *acc);
+    Cudd_RecursiveDeref(m, c);
+    *acc = t;
+}
+
+/* ソルバ s にキューブの禁止節（否定）を追加する */
+static void exp_block(CCaDiCaL* s, const char* cube){
+    for (int i = 0; i < n_pi; i++) {
+        if      (cube[i] == '0') ccadical_add(s,  (int)pi[i]->varsgc);
+        else if (cube[i] == '1') ccadical_add(s, -(int)pi[i]->varsgc);
+    }
+    ccadical_add(s, 0);
+}
+
+/* 非検出キューブ（初期は全ビットケアの最小項）を ¬D_f の素項へ拡大する。
+   「検出CNF(det_oracle) ∧ cube が UNSAT」= cube ⊆ ¬D_f を保つ範囲でケアビットを落とす。
+   UNSATコア一括→検証、破れたら QuickXplain で救済（revert なし・常に健全）。 */
+static void dual_expand_v(CCaDiCaL* det_oracle, char* cube){
+    static int *care=NULL, *keep=NULL; static char* save=NULL; static int cap=0;
+    if (cap<n_pi){ care=realloc(care,n_pi*sizeof(int)); keep=realloc(keep,n_pi*sizeof(int));
+                   save=realloc(save,n_pi+1); cap=n_pi; }
+    int nc = 0;
+    for (int i = 0; i < n_pi; i++)
+        if (cube[i] != 'X') care[nc++] = i;
+    if (nc == 0) return;
+    memcpy(save, cube, n_pi+1);
+
+    if (!mdc_unsat(det_oracle, cube, care, nc)) { dl_sanity++; return; }
+
+    /* コア外（failed でない）ビットを一括で落とす */
+    for (int k = 0; k < nc; k++)
+        if (!ccadical_failed(det_oracle, mdc_lit(cube, care[k]))) cube[care[k]] = 'X';
+
+    /* 残ったケアだけで本当に UNSAT か検証。破れたら QX で救済 */
+    int live = 0;
+    for (int k = 0; k < nc; k++)
+        if (cube[care[k]] != 'X') { ccadical_assume(det_oracle, mdc_lit(cube, care[k])); live++; }
+    if (live < nc && ccadical_solve(det_oracle) != 20) {
+        memcpy(cube, save, n_pi+1);
+        int nk = mdc_qx(det_oracle, cube, NULL, 0, care, nc, keep);
+        for (int k = 0; k < nc; k++) cube[care[k]] = 'X';
+        for (int k = 0; k < nk; k++) cube[keep[k]] = save[keep[k]];
+    }
+}
+
+void EXP_DualInit(DdManager* gbm, TARGET* target){
+    if (!getenv("DUAL")) return;
+    static int registered = 0;
+    if (!registered) { atexit(dual_dump); registered = 1; }
+    dual_gbm = gbm;
+    dual_target = target;   /* ソルバ/BDD の構築は V 側の初回起動まで遅延する */
+    dual_steps = dual_vcomplete = dual_vcap = dual_nv = dual_ended = 0;
+}
+
+static void dual_vstep(void);
+static bool dual_tryfinish(CubeSet* cubes);
+
+bool EXP_DualStep(CubeSet* cubes, const char* latest){
+    if (!dual_target) return false;
+
+    /* 遅延起動: det 側が DUAL_START 本以内で終わる故障では V 側を動かさない */
+    if (!dual_nd) {
+        const char* s = getenv("DUAL_START");
+        if (++dual_steps < (s ? atoi(s) : 16)) return false;
+        dual_nd  = ccadical_init(); ccadical_set_option(dual_nd,  "factor", 0);
+        dual_det = ccadical_init(); ccadical_set_option(dual_det, "factor", 0);
+        mdc_build_oracle(dual_nd,  dual_target, 0);
+        mdc_build_oracle(dual_det, dual_target, 1);
+        dual_u = Cudd_ReadLogicZero(dual_gbm); Cudd_Ref(dual_u);
+        dual_v = Cudd_ReadLogicZero(dual_gbm); Cudd_Ref(dual_v);
+        for (int m = 0; m < cubes->n; m++)   /* 種＋ここまでの det キューブ（latest 含む） */
+            exp_or_into(dual_gbm, &dual_u, cubes->data[m]);
+    } else {
+        exp_or_into(dual_gbm, &dual_u, latest);
+    }
+
+    /* 非検出側を1本進める（V が確定/上限到達済みならスキップ） */
+    if (!dual_vcomplete && !dual_vcap) dual_vstep();
+
+    return dual_tryfinish(cubes);
+}
+
+/* 非検出側を1本進める（呼び出し側で !vcomplete && !vcap を確認すること） */
+static void dual_vstep(void){
+    if (ccadical_solve(dual_nd) == 20) {
+        dual_vcomplete = 1;
+        return;
+    }
+    char* vc = (char*)malloc((size_t)n_pi + 1);
+    for (int i = 0; i < n_pi; i++)
+        vc[i] = (ccadical_val(dual_nd, (int)pi[i]->varsgc) > 0) ? '1' : '0';
+    vc[n_pi] = '\0';
+    dual_expand_v(dual_det, vc);
+    exp_block(dual_nd, vc);                    /* nd 列挙ソルバに禁止節を追加 */
+    exp_or_into(dual_gbm, &dual_v, vc);
+    free(vc);
+    dual_nv++; dl_vcubes++;
+    /* V 側の上限。V キューブは成果物でなく閉包判定用の内部データなので、
+       env DUAL_VLIMIT で det 側の -limit と独立に大きくできる（既定は -limit と同じ）。 */
+    const char* vs = getenv("DUAL_VLIMIT");
+    int vlimit = vs ? atoi(vs) : opt.file.input.limit;
+    if (vlimit > 0 && dual_nv >= vlimit) dual_vcap = 1;
+}
+
+/* 完了判定: V 確定なら残り D_f\U をパス補充して完了、さもなくば U∪V の閉包を見る */
+static bool dual_tryfinish(CubeSet* cubes){
+    DdNode* uv = Cudd_bddOr(dual_gbm, dual_u, dual_v);
+    Cudd_Ref(uv);
+
+    if (dual_vcomplete) {
+        /* V = ¬D_f 確定。残り D_f\U = ¬(U∪V) を disjoint パスで取り出し U へ補充する。
+           ただしパス数が生成済みキューブ数に対して大きすぎる場合は見送る
+           （U が育てば残りは縮むので、次の機会に再判定）。 */
+        DdNode* rem = Cudd_Not(uv);
+        const char* rs = getenv("DUAL_REMCAP");
+        double  cap = rs ? atof(rs) : 4.0 * cubes->n + 64.0;
+        if (Cudd_CountPathsToNonZero(rem) > cap) {
+            Cudd_RecursiveDeref(dual_gbm, uv);
+            dl_remskip++;
+            return false;
+        }
+        DdGen* gen; int* cu; CUDD_VALUE_TYPE val;
+        Cudd_ForeachCube(dual_gbm, rem, gen, cu, val) {
+            char* s = (char*)malloc((size_t)n_pi + 1);
+            for (int i = 0; i < n_pi; i++)
+                s[i] = (cu[i] == 1) ? '1' : (cu[i] == 0) ? '0' : 'X';
+            s[n_pi] = '\0';
+            cubeset_push(cubes, s);
+            dl_remcubes++;
+        }
+        Cudd_RecursiveDeref(dual_gbm, uv);
+        dl_vdone++; dual_ended = 1;
+        return true;
+    }
+
+    bool closed = (uv == Cudd_ReadOne(dual_gbm));   /* 閉包: U∪V 恒真 → U = D_f */
+    Cudd_RecursiveDeref(dual_gbm, uv);
+    if (closed) { dl_closed++; dual_ended = 1; }
+    return closed;
+}
+
+/* det 側が limit で打ち切られた後、V 側だけを DUAL_VLIMIT まで回して完了を狙う
+   （「ドレイン」）。det 側 1:1 の交互制約を外すことで、¬D_f の被覆が中規模の
+   故障は det 30 本のままでも complete にできる。閉包判定は 32 本ごとに間引く。 */
+bool EXP_DualDrain(CubeSet* cubes){
+    if (!dual_target || !dual_nd) return false;   /* DUAL 無効 or V 側未起動 */
+    while (1) {
+        if (dual_tryfinish(cubes)) return true;
+        if (dual_vcomplete || dual_vcap) return false;  /* これ以上 V は増やせない */
+        for (int k = 0; k < 32 && !dual_vcomplete && !dual_vcap; k++)
+            dual_vstep();
+    }
+}
+
+void EXP_DualDone(FNODE* f, bool limit_hit){
+    if (!dual_target) return;
+    dual_target = NULL;
+    if (limit_hit) dl_capped++;
+    if (!dual_nd) return;               /* V 側未起動（DUAL_START 未満で完了） */
+    if (limit_hit) {
+        /* 打ち切り: 双対列挙の副産物として fdp の anytime 上下界を報告できる */
+        double lo = ldexp(Cudd_CountMinterm(dual_gbm, dual_u, n_pi), -n_pi);
+        double hi = 1.0 - ldexp(Cudd_CountMinterm(dual_gbm, dual_v, n_pi), -n_pi);
+        fprintf(stderr, "[DUAL] capped %s,%s v_cubes=%d%s bounds=[%.6f, %.6f]\n",
+                f->name, (f->type == SF0) ? "sa0" : "sa1",
+                dual_nv, dual_vcomplete ? "(complete)" : "", lo, hi);
+    } else if (!dual_ended) {
+        dl_det++;                       /* 従来どおり det 側 UNSAT で完了 */
+    }
+    ccadical_release(dual_nd);  dual_nd  = NULL;
+    ccadical_release(dual_det); dual_det = NULL;
+    Cudd_RecursiveDeref(dual_gbm, dual_u); dual_u = NULL;
+    Cudd_RecursiveDeref(dual_gbm, dual_v); dual_v = NULL;
+}
+
+/* ================================ 案4: SPLIT ================================
+ * Shannon 分割による完全化 (env SPLIT=1): 打ち切りになった故障の「未被覆空間」を
+ * PI で二分しながら、各部分空間で検出側(U)と非検出側(V)のキューブを少量ずつ
+ * SAT 列挙する（cf. #SAT の CDP [Birnbaum&Lozinskii 1999] / DPLL-trace 圧縮
+ * [Huang&Darwiche 2004] の分割統治を、無改造 CaDiCaL の assumption で実現）。
+ *   - 部分空間で det/非det の両ソルバが UNSAT → その空間は U∪V で被覆済み（閉包）
+ *   - 閉じなければ rem = path ∧ ¬(U∪V) のサポート変数で二分して再帰
+ *   - path は深さ ≤ n_pi で必ず単一ミンタームに達して閉じる ＝ 必ず停止する
+ * 終了時 U∪V=1 かつ U⊆D_f, V⊆¬D_f より U = D_f。追加された U キューブは
+ * 本物のテストキューブ（XID + MAXDC 併用可）で、fdp は従来の RunBDD 経路のまま
+ * 厳密・complete=1 になる。D_f を回路から直接構成する従来手法（BDD直接法）とは
+ * 異なり、すべての情報は SAT 列挙から得る（BDD はキューブ和集合の管理のみ）。
+ *   env: SPLIT_BUDGET   ノードあたり両側それぞれの列挙本数（既定8）
+ *        SPLIT_MAXNODES 分割ノード数の安全弁（超えたら諦めて従来の capped、既定1000000）
+ */
+static long sp_faults=0, sp_done=0, sp_bail=0, sp_nodes=0, sp_maxdepth=0, sp_ucubes=0, sp_vcubes=0;
+
+static void split_dump(void){
+    fprintf(stderr,
+        "\n[SPLIT] faults=%ld  completed=%ld  bailed=%ld  nodes=%ld  max_depth=%ld\n"
+        "[SPLIT] added u_cubes=%ld  v_cubes=%ld\n",
+        sp_faults, sp_done, sp_bail, sp_nodes, sp_maxdepth, sp_ucubes, sp_vcubes);
+}
+
+/* path（'0'/'1'/'X'）の割り当て済みビットを assumption として積む */
+static void sp_assume_path(CCaDiCaL* s, const char* path){
+    for (int i = 0; i < n_pi; i++) {
+        if      (path[i] == '1') ccadical_assume(s,  (int)pi[i]->varsgc);
+        else if (path[i] == '0') ccadical_assume(s, -(int)pi[i]->varsgc);
+    }
+}
+
+bool EXP_SplitFinish(DdManager* gbm, CCaDiCaL* det, CCaDiCaL* u_oracle,
+                     CubeSet* cubes, TARGET* target){
+    if (!getenv("SPLIT")) return false;
+    FNODE* f = target->list[0];
+    static int registered = 0;
+    if (!registered) { atexit(split_dump); registered = 1; }
+    sp_faults++;
+
+    int  budget   = getenv("SPLIT_BUDGET")   ? atoi(getenv("SPLIT_BUDGET"))   : 8;
+    long maxnodes = getenv("SPLIT_MAXNODES") ? atol(getenv("SPLIT_MAXNODES")) : 1000000;
+    if (budget < 1) budget = 1;
+
+    /* 非検出列挙ソルバ nd と、非検出キューブ素項展開用の検出オラクル dor */
+    CCaDiCaL* nd  = ccadical_init(); ccadical_set_option(nd,  "factor", 0);
+    CCaDiCaL* dor = ccadical_init(); ccadical_set_option(dor, "factor", 0);
+    mdc_build_oracle(nd,  target, 0);
+    mdc_build_oracle(dor, target, 1);
+
+    /* U（既存キューブの和集合）と V の BDD */
+    DdNode* u = Cudd_ReadLogicZero(gbm); Cudd_Ref(u);
+    DdNode* v = Cudd_ReadLogicZero(gbm); Cudd_Ref(v);
+    for (int m = 0; m < cubes->n; m++) exp_or_into(gbm, &u, cubes->data[m]);
+
+    /* DFS スタック（深さ ≤ n_pi なので同時保持は高々 n_pi+1 ノード） */
+    int cap = n_pi + 2, sp = 0;
+    char** stk = malloc((size_t)cap * sizeof(char*));
+    char* root = malloc((size_t)n_pi + 1);
+    memset(root, 'X', (size_t)n_pi); root[n_pi] = '\0';
+    stk[sp++] = root;
+
+    long nodes = 0;
+    bool ok = true;
+    while (sp > 0) {
+        if (++nodes > maxnodes) { ok = false; break; }
+        char* path = stk[--sp];
+
+        /* この部分空間で両側を budget 本ずつ列挙する */
+        int det_dead = 0, nd_dead = 0;
+        for (int k = 0; k < budget && !(det_dead && nd_dead); k++) {
+            if (!det_dead) {
+                sp_assume_path(det, path);
+                if (ccadical_solve(det) == 10) {
+                    char* xc = InlineXID(det, f->netptr, -1);
+                    EXP_Expand(u_oracle, xc);          /* MAXDC 有効時のみ素項化 */
+                    exp_block(det, xc);
+                    exp_or_into(gbm, &u, xc);
+                    cubeset_push(cubes, xc);
+                    sp_ucubes++;
+                } else det_dead = 1;                    /* path∧D_f ⊆ U */
+            }
+            if (!nd_dead) {
+                sp_assume_path(nd, path);
+                if (ccadical_solve(nd) == 10) {
+                    char* vc = (char*)malloc((size_t)n_pi + 1);
+                    for (int i = 0; i < n_pi; i++)
+                        vc[i] = (ccadical_val(nd, (int)pi[i]->varsgc) > 0) ? '1' : '0';
+                    vc[n_pi] = '\0';
+                    dual_expand_v(dor, vc);
+                    exp_block(nd, vc);
+                    exp_or_into(gbm, &v, vc);
+                    free(vc);
+                    sp_vcubes++;
+                } else nd_dead = 1;                     /* path∧¬D_f ⊆ V */
+            }
+        }
+        if (det_dead && nd_dead) { free(path); continue; }   /* 閉包 */
+
+        /* 未被覆 rem = path ∧ ¬(U∪V)。空なら閉包、非空ならそのサポート変数で二分 */
+        DdNode* uv = Cudd_bddOr(gbm, u, v); Cudd_Ref(uv);
+        DdNode* pb = parseCube(gbm, path, n_pi);
+        DdNode* rem = Cudd_bddAnd(gbm, pb, Cudd_Not(uv)); Cudd_Ref(rem);
+        Cudd_RecursiveDeref(gbm, uv);
+        Cudd_RecursiveDeref(gbm, pb);
+        if (rem == Cudd_ReadLogicZero(gbm)) {
+            Cudd_RecursiveDeref(gbm, rem);
+            free(path);
+            continue;
+        }
+        int var = -1;
+        int* sup = Cudd_SupportIndex(gbm, rem);
+        if (sup) {
+            for (int i = 0; i < Cudd_ReadSize(gbm) && var < 0; i++)
+                if (sup[i] && i < n_pi && path[i] == 'X') var = i;
+            free(sup);
+        }
+        Cudd_RecursiveDeref(gbm, rem);
+        if (var < 0)   /* 保険: rem のサポートが全て割り当て済みなら任意の未割り当てPI */
+            for (int i = 0; i < n_pi && var < 0; i++)
+                if (path[i] == 'X') var = i;
+        if (var < 0) { ok = false; free(path); break; }   /* 全割り当てで未被覆は起こらないはず */
+
+        long depth = 1;
+        for (int i = 0; i < n_pi; i++) if (path[i] != 'X') depth++;
+        if (depth > sp_maxdepth) sp_maxdepth = depth;
+
+        char* c0 = malloc((size_t)n_pi + 1);
+        memcpy(c0, path, (size_t)n_pi + 1);
+        c0[var] = '0';
+        path[var] = '1';                 /* path を '1' 側の子として再利用 */
+        if (sp + 2 > cap) { cap *= 2; stk = realloc(stk, (size_t)cap * sizeof(char*)); }
+        stk[sp++] = c0;
+        stk[sp++] = path;
+    }
+    while (sp > 0) free(stk[--sp]);
+    free(stk);
+    ccadical_release(nd);
+    ccadical_release(dor);
+    Cudd_RecursiveDeref(gbm, u);
+    Cudd_RecursiveDeref(gbm, v);
+    sp_nodes += nodes;
+    if (ok) sp_done++; else sp_bail++;
+    return ok;
 }

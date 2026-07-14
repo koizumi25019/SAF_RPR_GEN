@@ -33,9 +33,12 @@ cd build && ./main_debug -set ../input/script/c17a.set
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）。
 
-出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log,cube_analysis}/<回路>.{csv,txt}`。
+出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log,cube_analysis}/<回路>_<種別>.{csv,txt}`。
 `<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。
-ファイル名は回路名のみ（`-net` のベース名。`_red`/`_test` など変種は `.set` 名を採用）。
+ファイル名は `<回路>_<種別>`（`-net` のベース名 + 種別サフィックス `_fdp`/`_log`/`_cube_analysis`。
+`_red`/`_test` など変種は `.set` 名を採用）。種別サフィックスは fdp/log/cube_analysis を
+ファイル名だけで区別するため（エディタでタブが同名にならない）。出力名は `.set` の各ディレクティブの
+パスに直書きされており、コードでの自動生成はしない。
 条件をファイル名に埋め込まないので、`-limit` を変えたら出力先ディレクトリが自動で変わる。
 
 ## 回帰テスト
@@ -47,7 +50,7 @@ cd build && ./main_debug -set ../input/script/c17a.set
 ```bash
 cd build && ./main_debug -set ../input/script/c17a.set
 diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
-     <(cut -d, -f1,2,5 output/full/fdp/c17a.csv | sort)
+     <(cut -d, -f1,2,5 output/full/fdp/c17a_fdp.csv | sort)
 ```
 
 比較するのは `net_name,f_type,fdp`（1,2,5列）**のみ**。`cube_cnt` 列はソルバの解順序やドントケア判定で
@@ -122,6 +125,28 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     - `MAXDC_NOMUT`=計測のみ。評価は `verification/maxdc_qx/SUMMARY.md`。
   - `MAXHAM`（案2・却下済み）— 最大ハミング距離制約による解の多様化（`MAXHAM_K`=目標距離）。
     評価と却下理由は `verification/SUMMARY.md`。
+  - `DUAL`（案3）— 双対列挙: 非検出空間 ¬D_f のキューブも並行列挙し、U∪V の閉包または
+    ¬D_f の列挙完了（残り D_f\U を BDD パスで補充）で det 側の UNSAT を待たずに complete=1 で
+    終了する。固有価値は (1) limit 付き実行での complete 救済（s5378_l30 で +146 故障）、
+    (2) 打ち切り故障への fdp の anytime 上下界（stderr `[DUAL] capped ... bounds=[lo,hi]`）。
+    `DUAL_START`=V側の起動閾値（det キューブ本数、既定16）。det 打ち切り後に V 側だけ回す
+    ドレインは `DUAL_VLIMIT`（V本数上限、既定=-limit）と `DUAL_REMCAP`（remainder パス上限）で制御
+    （s5378_l30: VLIMIT=300 で incomplete 2980→1713、ただし ~20分）。評価は `verification/dual/SUMMARY.md`。
+  - `PCOUNT`（案5・**incomplete 根絶の本命**）— `src/fdp/pcount.c`。打ち切り故障の fdp を
+    PODEM型入力空間探索で厳密数え上げして complete=1 で報告（SATソルバ・BDD合成・
+    外部カウンタ不使用）。文献準拠: 双対 early termination（Möhle&Biere ICTAI'18 DUALIZA）＋
+    separator レベル別キャッシュ（Huang&Darwiche SAT'04）＋Zobrist差分ハッシュ＋
+    イベント駆動差分シミュレーション。s5378_l30 を 302s で完走し incomplete 2980→303
+    （最難故障 det_paths=620億 は 0.18s）。`PCOUNT_MAXNODES`（既定200万）/`PCOUNT_CACHE`。
+    残課題はカット幅最小化の変数順（MINCE系）。評価は `verification/pcount/SUMMARY.md`。
+  - `SPLIT`（案4・却下済み）— 打ち切り故障の Shannon 分割による完全化（`SPLIT_BUDGET`/
+    `SPLIT_MAXNODES`）。機構は正しい（c17a limit2 で GT exact）が、本質的複雑 D_f では
+    caching なし分割が指数発散しコスト対効果が成立しない。**incomplete 根絶の到達限界の
+    分析込みで** `verification/split/SUMMARY.md` を参照。
+- **`BDD_EXACT=1`**（本体 `fault_detection_prob.c` + `gt_verify.c` の `GT_ExactCountStr`）—
+  打ち切り（limit到達）故障だけ検出関数 D_f を回路から直接 BDD 構築して厳密 fdp を計算し
+  complete=1 で報告する（incomplete の根絶）。出力の意味論は「complete=1 ⇔ fdp が厳密」になる。
+  中規模（s5378/b12/s13207）まで実証済み・s5378 で +24% コスト。評価は `verification/bdd_exact/SUMMARY.md`。
 - 本体・他モジュール内の切り分けスイッチ：
   - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
   - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。

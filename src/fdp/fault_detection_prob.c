@@ -18,6 +18,9 @@
 #include "./cnf/cnf.h"
 #include "../opt/opt.h"
 #include "./cudd_wrapper.h"
+#include "./gmp_wrapper.h"   /* 厳密化フォールバック(env PCOUNT/BDD_EXACT)の行出力 */
+#include "./pcount.h"        /* 案5: PODEM型入力空間探索の厳密数え上げ(env PCOUNT=1) */
+#include "./aig_dump.h"      /* 検証: env AIG_DUMP で検出回路をAIGER出力(既定無効) */
 #include "./xid/XID.h"
 #include "./gt_verify.h"     /* 検証: env GT_BDD=1 で厳密照合（既定無効） */
 #include "./cnf_dump.h"      /* 検証: env DUMP_CNF で検出CNFをDIMACS出力（既定無効） */
@@ -162,6 +165,15 @@ bool AnalyzeFaultDensity(
 		SetTarget(&target);
 		FNODE* f = target.list[0];
 
+		// 検証(env AIG_DUMP=path): この故障の検出回路を AIGER 出力して即終了。
+		// AllSAT-CT ツール（HALL 等）との同一インスタンス比較用。
+		const char* aig_path = getenv("AIG_DUMP");
+		if (aig_path) {
+			AIG_Dump(aig_path, f);
+			ccadical_release(solver);
+			exit(0);   // DUMP_CNF と同様、単一故障 flist で回す前提
+		}
+
 		// 検証(env DUMP_CNF=dir): この故障の検出CNFを DIMACS 出力して即終了。
 		// 厳密モデルカウンタで Vi=#SAT を直接数え、キューブ列挙と比較するため。
 		const char* dump_dir = getenv("DUMP_CNF");
@@ -223,18 +235,37 @@ bool AnalyzeFaultDensity(
 		char* prev_cube = NULL;
 		EXP_ResetPerFault();
 
+		// 案3(env DUAL): 双対列挙を初期化（実体の構築は V 側の初回起動まで遅延）
+		bool dual_fin = false;
+		EXP_DualInit(gbm, &target);
+
 		// limit <= 0 は「上限なし（無制限）」を意味し、UNSAT まで完全列挙する
 		bool unlimited = (opt.file.input.limit <= 0);
 
-		// UNSAT もしくは limit 到達でテスト生成を終了する
+		// UNSAT・limit 到達・双対列挙の完了 のいずれかでテスト生成を終了する
 		while (1) {
-            t_start = clock();
-            int res = EXP_Solve(solver, prev_cube);   // MAXHAM 未設定なら素の solve
-            t_end   = clock();
-            time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
+            int res;
+            if (dual_fin) {
+                // 案3: 双対列挙で U=D_f が確定済み。det 側の追加 solve は不要（UNSAT と同じ完了処理へ）
+                res = 20;
+            } else {
+                t_start = clock();
+                res = EXP_Solve(solver, prev_cube);   // MAXHAM 未設定なら素の solve
+                t_end   = clock();
+                time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
+            }
 
             if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
                 bool limit_hit = (!unlimited && cubes.n >= opt.file.input.limit && res != 20);
+
+                // 案3(env DUAL): det 打ち切り後に V 側だけ回すドレインで完了を狙う
+                if (limit_hit && EXP_DualDrain(&cubes))
+                    limit_hit = false;
+
+                // 案4(env SPLIT=1): 打ち切りを Shannon 分割で完全列挙まで持っていけたら
+                // complete に昇格する（cubes の和集合 = D_f になる。未設定なら何もしない）
+                if (limit_hit && EXP_SplitFinish(gbm, solver, u_oracle, &cubes, &target))
+                    limit_hit = false;
 
 				if (opt.file.input.cube_analysis != FILE_NOSET) {
 					fprintf(cube_analysis_fp, "\n");
@@ -244,7 +275,20 @@ bool AnalyzeFaultDensity(
                 dom_seeded_cubes += seeded_cnt;
 
                 t_start = clock();
-                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, seeded_cnt, limit_hit);
+                // 打ち切り故障の厳密化フォールバック（どちらも complete=1 で報告、
+                // キューブは部分被覆のまま残り、支配流用・DropDeteFault にそのまま使える）:
+                //   PCOUNT=1    PODEM型入力空間探索＋メモ化による厳密数え上げ（案5）
+                //   BDD_EXACT=1 検出関数 D_f の直接BDD構築（従来手法・検証/参照値用）
+                char* exact_cnt = NULL;
+                if (limit_hit && getenv("PCOUNT"))                 exact_cnt = PC_ExactCountStr(f);
+                if (limit_hit && !exact_cnt && getenv("BDD_EXACT")) exact_cnt = GT_ExactCountStr(f);
+                if (exact_cnt) {
+                    calculate_prob_with_gmp(exact_cnt, n_pi, bdd_result, NULL, &target,
+                                            cubes.n, seeded_cnt, false);
+                    free(exact_cnt);
+                } else {
+                    RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, seeded_cnt, limit_hit);
+                }
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -256,6 +300,9 @@ bool AnalyzeFaultDensity(
 
 				// 案1: capped 故障の集計とオラクル解放（NULL なら何もしない）
 				EXP_OracleDone(&u_oracle, limit_hit);
+
+				// 案3: 双対列挙の集計と資源解放（打ち切り時は fdp の上下界も報告）
+				EXP_DualDone(f, limit_hit);
 
 				// キューブの所有権を故障へ移す（深いコピーはしない）。
 				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
@@ -283,6 +330,9 @@ bool AnalyzeFaultDensity(
 				AddBlockingClauseFromCube(solver, x_pattern);
 				cubeset_push(&cubes, x_pattern);
 				prev_cube = x_pattern;   // 案2: 次回 solve の多様化参照
+
+				// 案3: 非検出側を1本進め、U∪V の閉包で完了を判定（DUAL 未設定なら常に false）
+				dual_fin = EXP_DualStep(&cubes, x_pattern);
 
 				// X率計測: このキューブのXビット数を集計
 				for (int xi = 0; xi < n_pi; xi++) if (x_pattern[xi] == 'X') xstat_x++;

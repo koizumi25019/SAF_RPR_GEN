@@ -19,6 +19,7 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <cudd.h>
 
@@ -195,6 +196,13 @@ static void gt_init(void){
         }
         else gt_good[i] = gt_gate_bdd(gt_mgr, &nl[i], gt_good, NULL, NULL);
     }
+    /* env GT_NODYN=1: 正常回路の構築後は動的リオーダリングを凍結する。
+       故障ごとのコーン再構築が数千回続くと sift が繰り返し走って支配的になるため
+       （BDD_EXACT で大量の capped 故障を処理する場合の切り分け/高速化用）。 */
+    if (getenv("GT_NODYN")) {
+        Cudd_ReduceHeap(gt_mgr, CUDD_REORDER_SIFT, 0);   /* 最後に一度だけ整えて凍結 */
+        Cudd_AutodynDisable(gt_mgr);
+    }
     atexit(gt_dump);
 }
 
@@ -313,9 +321,9 @@ static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes, bool limit_h
     free(g);
 }
 
-void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
-    if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes, limit_hit); }
-    if (!getenv("GT_BDD")) return;
+/* 検出関数 D_f を回路から直接構築して返す（参照済み。呼び出し側で deref）。
+   GT_Check と BDD 直接法フォールバック（GT_ExactCountStr）が共用する。 */
+static DdNode* gt_build_det(FNODE* f){
     gt_init();
     DdManager* m = gt_mgr;
     int fsig = (int)(f->netptr - nl);
@@ -355,6 +363,42 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
         DdNode* o = Cudd_bddOr(m, det, d); Cudd_Ref(o);
         Cudd_RecursiveDeref(m,det); Cudd_RecursiveDeref(m,d); det=o;
     }
+
+    /* このコーンの故障BDDを解放し、mark をリセット（det は自前の参照を持つ） */
+    for (int t = 0; t < ncone; t++) {
+        int i = cone[t];
+        Cudd_RecursiveDeref(m, gt_fault[i]);
+        gt_fault[i] = NULL;
+        gt_mark[i]  = 0;
+    }
+    return det;
+}
+
+/* 恒久機能(env BDD_EXACT=1 から使用): D_f のミンターム数を10進文字列で返す
+   （malloc 済み、呼び出し側で free）。fdp = 返値/2^n_pi が厳密値。 */
+char* GT_ExactCountStr(FNODE* f){
+    DdNode* det = gt_build_det(f);
+    int digits;
+    DdApaNumber count = Cudd_ApaCountMinterm(gt_mgr, det, n_pi, &digits);
+    Cudd_RecursiveDeref(gt_mgr, det);
+    if (!count) return NULL;
+
+    FILE* tmp = tmpfile();
+    if (!tmp) { free(count); return NULL; }
+    Cudd_ApaPrintDecimal(tmp, digits, count);
+    rewind(tmp);
+    char buf[8192];
+    if (!fgets(buf, sizeof(buf), tmp)) strcpy(buf, "0");
+    fclose(tmp);
+    free(count);
+    return strdup(buf);
+}
+
+void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
+    if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes, limit_hit); }
+    if (!getenv("GT_BDD")) return;
+    DdNode* det = gt_build_det(f);   /* gt_init もここで済む */
+    DdManager* m = gt_mgr;
 
     /* キューブ和集合 */
     DdNode* uni = Cudd_ReadLogicZero(m); Cudd_Ref(uni);
@@ -417,13 +461,7 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
         fputc('\n', stderr);
     }
 
-    /* 後始末: 検出関数・和集合・このコーンの故障BDDを解放し、mark をリセット */
+    /* 後始末（コーンの故障BDDは gt_build_det が解放済み） */
     Cudd_RecursiveDeref(m, det);
     Cudd_RecursiveDeref(m, uni);
-    for (int t = 0; t < ncone; t++) {
-        int i = cone[t];
-        Cudd_RecursiveDeref(m, gt_fault[i]);
-        gt_fault[i] = NULL;
-        gt_mark[i]  = 0;
-    }
 }

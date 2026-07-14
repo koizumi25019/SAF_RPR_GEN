@@ -12,3 +12,8 @@
 /* 1故障ぶんの厳密検証。RunBDD 直後（キューブ集合が生きている間）に呼ぶ。
    env GT_BDD 未設定なら何もしない。 */
 void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit);
+
+/* BDD 直接法（env BDD_EXACT=1 のフォールバックから使用）:
+   検出関数 D_f を回路から直接構築し、そのミンターム数を10進文字列で返す
+   （malloc 済み、呼び出し側で free。失敗時 NULL）。fdp = 返値/2^n_pi が厳密値。 */
+char* GT_ExactCountStr(FNODE* f);
