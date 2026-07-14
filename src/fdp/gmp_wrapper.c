@@ -85,7 +85,6 @@ void calculate_prob_with_gmp(
     const char* numStr,
      int nvars,
      FILE* result_fp,
-     FILE* cube_analysis_fp,
      TARGET* target,
      int cube_cnt,
      int seeded_cnt,
@@ -106,10 +105,6 @@ void calculate_prob_with_gmp(
     mpf_set_ui(den, 1);
     mpf_mul_2exp(den, den, (unsigned long)nvars); // den = 1 * 2^nvars
     mpf_div(density, num, den);
-
-    if (cube_analysis_fp != NULL) {
-        gmp_fprintf(cube_analysis_fp, ",%.10Fe", density);
-    }
 
     // 代表故障を出力
     if (result_fp != NULL) {

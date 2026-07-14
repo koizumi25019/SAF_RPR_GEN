@@ -56,7 +56,6 @@ void OPTinitFile(
 {
 	opt.file.input.fault		 = FILE_NOSET;
 	opt.file.input.net			 = FILE_NOSET;
-	opt.file.input.cube_analysis = FILE_NOSET;
 	opt.file.output.log			 = FILE_NOSET;
 
 	return;
@@ -81,10 +80,6 @@ bool OPTset(
 		/** fault-list */
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = strdup(argv[++i]);
-
-	    /** cube analysis mode */
-		else if (strcmp(argv[i], "-cube_analysis") == 0)
-			opt.file.input.cube_analysis = strdup(argv[++i]);
 
 		/** log */
 		else if (strcmp(argv[i], "-log") == 0)
@@ -119,7 +114,7 @@ bool OPTset(
 //	@name		OPTreadValue
 //	@function	ディレクティブ行から値（先頭の空白を飛ばした最初のトークン）を取り出して複製する
 //	@return		(char*) strdup した値。値が無ければ NULL
-//	@note		first_delim は最初の取り出しの区切り。"-net"/"-cube_analysis" は空白区切り
+//	@note		first_delim は最初の取り出しの区切り。"-net" は空白区切り
 //	            (" \n\0")、それ以外は行末まで ("\n\0") という従来挙動をそのまま渡す。
 //*************************************************************************************************************
 static char* OPTreadValue(
@@ -168,10 +163,6 @@ bool OPTread(
 			/** netlist */
 			if (strcmp(token1, "-net") == 0)
 				opt.file.input.net = OPTreadValue(&context, " \n\0");
-
-			/** cube analysis file */
-			else if (strcmp(token1, "-cube_analysis") == 0)
-				opt.file.input.cube_analysis = OPTreadValue(&context, " \n\0");
 
 			/** fault list */
 			else if (strcmp(token1, "-fault") == 0)

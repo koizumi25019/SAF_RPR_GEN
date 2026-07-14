@@ -30,10 +30,10 @@ cd build && ./main_debug -set ../input/script/c17a.set
 ```
 
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
-省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
+省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）。
 
-出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log,cube_analysis}/<回路>.{csv,txt}`。
+出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log}/<回路>.{csv,txt}`。
 `<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。
 ファイル名は回路名のみ（`-net` のベース名。`_red`/`_test` など変種は `.set` 名を採用）。
 条件をファイル名に埋め込まないので、`-limit` を変えたら出力先ディレクトリが自動で変わる。

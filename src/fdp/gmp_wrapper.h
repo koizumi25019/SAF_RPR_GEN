@@ -8,7 +8,6 @@ void calculate_prob_with_gmp(
      const char* numStr,
      int nvars,
      FILE* result_fp,
-     FILE* cube_analysis_fp,
      TARGET* target,
      int cube_cnt,
      int seeded_cnt,

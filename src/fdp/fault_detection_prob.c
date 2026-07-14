@@ -50,7 +50,6 @@ bool AnalyzeFaultDensity(
 {
 	TARGET	target;
 	FILE* bdd_result = (FILE*)NULL;
-	FILE* cube_analysis_fp = (FILE*)NULL;
 
 	int count = 0;
 
@@ -64,11 +63,6 @@ bool AnalyzeFaultDensity(
     // 支配流用サマリー用アキュムレータ
     long dom_total_cubes  = 0;
     long dom_seeded_cubes = 0;
-
-	//キューブ分析用ファイルオープン
-	if (opt.file.input.cube_analysis != FILE_NOSET) {
-		fileOpen(&cube_analysis_fp, opt.file.input.cube_analysis, "w");
-	}
 
 	//CUDD初期化
 	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
@@ -130,11 +124,6 @@ bool AnalyzeFaultDensity(
 				cubeset_free(&src->cubes);
 		}
 
-		if (opt.file.input.cube_analysis != FILE_NOSET) {
-			fprintf(cube_analysis_fp, "%s", f->name);
-			fprintf(cube_analysis_fp, (f->type == SF0) ? ",sa0" : ",sa1");
-		}
-
 		// limit <= 0 は「上限なし（無制限）」を意味し、UNSAT まで完全列挙する
 		bool unlimited = (opt.file.input.limit <= 0);
 
@@ -148,15 +137,11 @@ bool AnalyzeFaultDensity(
             if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
                 bool limit_hit = (!unlimited && cubes.n >= opt.file.input.limit && res != 20);
 
-				if (opt.file.input.cube_analysis != FILE_NOSET) {
-					fprintf(cube_analysis_fp, "\n");
-				}
-
                 dom_total_cubes  += cubes.n;
                 dom_seeded_cubes += seeded_cnt;
 
                 t_start = clock();
-                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, seeded_cnt, limit_hit);
+                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, &target, cubes.n, seeded_cnt, limit_hit);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -181,13 +166,6 @@ bool AnalyzeFaultDensity(
 
 				AddBlockingClauseFromCube(solver, x_pattern);
 				cubeset_push(&cubes, x_pattern);
-
-                if (opt.file.input.cube_analysis != FILE_NOSET) {
-                    t_start = clock();
-                    RunBDD(gbm, n_pi, cubes.data, cubes.n, NULL, cube_analysis_fp, &target, cubes.n, 0, false);
-                    t_end   = clock();
-                    time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
-                }
 			}
 		}
 		ccadical_release(solver);
