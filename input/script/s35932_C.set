@@ -6,10 +6,10 @@
 #-fault ./input/fault/s35932_C_unred.txt
 
 # set log(.txt)
--log ../output/limit30/log/s35932_C.txt
+-log ../output/limit30/log/s35932_C_log.txt
 
 
 # set fdp result(.csv)
--fdp ../output/limit30/fdp/s35932_C.csv
+-fdp ../output/limit30/fdp/s35932_C_fdp.csv
 
 -limit 30

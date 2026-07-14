@@ -6,14 +6,14 @@
 -fault ../input/fault/c17a_rep.txt
 
 # set log(.txt)
--log ../output/limit100/log/c17a_test.txt
+-log ../output/limit100/log/c17a_test_log.txt
 
 
 # set fdp result(.csv)
--fdp ../output/limit100/fdp/c17a_test.csv
+-fdp ../output/limit100/fdp/c17a_test_fdp.csv
 
 -limit 100
 
--cube_analysis ../output/limit100/cube_analysis/c17a_test.csv
+-cube_analysis ../output/limit100/cube_analysis/c17a_test_cube_analysis.csv
 
 

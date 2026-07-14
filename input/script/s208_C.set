@@ -7,13 +7,16 @@
 
 
 # set sat test count limit(.txt)
--limit 10000
+-limit 0
 
 # set log(.txt)
--log ../output/limit10000/log/s208_C.txt
+-log ../output/full/log/s208_C_log.txt
 
 
 # set fdp result(.csv)
--fdp ../output/limit10000/fdp/s208_C.csv
+-fdp ../output/full/fdp/s208_C_fdp.csv
+
+# set cube analysis(.txt)
+-cube_analysis ../output/full/cube_analysis/s208_C_cube_analysis.csv
 
 

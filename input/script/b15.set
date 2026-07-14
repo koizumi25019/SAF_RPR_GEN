@@ -15,6 +15,6 @@
 #limit 100
 
 # ----- limit 30 -----
--log ../output/limit30/log/b15_C.txt
--fdp ../output/limit30/fdp/b15_C.csv
+-log ../output/limit30/log/b15_C_log.txt
+-fdp ../output/limit30/fdp/b15_C_fdp.csv
 -limit 30

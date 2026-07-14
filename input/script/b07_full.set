@@ -6,7 +6,7 @@
 #-fault ../input/fault/b07.txt
 
 # set log(.txt)
--log ../output/full/log/b07_C.txt
+-log ../output/full/log/b07_C_log.txt
 
 # set fdp result(.csv)
--fdp ../output/full/fdp/b07_C.csv
+-fdp ../output/full/fdp/b07_C_fdp.csv
