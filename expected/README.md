@@ -38,6 +38,33 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 | 出力 | 期待値 |
 |------|--------|
 | `output/full/fdp/c17a.csv` | `expected/c17a_result.csv` |
+| `output/full/fdp/s27_tdf_auto_fdp.csv`（`-tdf`・`-fault` なし） | `expected/s27_expected.csv` |
+
+### 遷移故障（TDF）の期待値
+
+回路名に `_C` が**付かない**ものは順序回路（DFF入り）＝遷移故障用
+（`_C` 付きは組合せ回路＝縮退故障用）。`expected/s27_expected.csv` は
+**fdp≠0 の16件のみ**を載せる（残り36件はテスト不能故障 fdp=0）。
+観測点は「2時刻目の PPO のみ（PO はストローブしない）」の意味論で、
+出力側の非ゼロ行と期待値は**過不足なく一致**するのが正
+（XID11 の未検出故障リスト s27_undet.txt の36件とも突き合わせ済み）：
+
+```bash
+# 期待値と出力の非ゼロ行が過不足なく一致するか（すべて空なら回帰なし）
+python3 - <<'EOF'
+import csv
+def load(p):
+    with open(p, encoding='utf-8-sig') as f:
+        rd=csv.reader(f); next(rd)
+        return {(r[0],r[1]): float(r[-1] if len(r)==3 else r[4]) for r in rd if r}
+exp=load('expected/s27_expected.csv')
+out=load('output/full/fdp/s27_tdf_auto_fdp.csv')
+nz={k for k,v in out.items() if v>0}
+print('missing :', [k for k in exp if k not in out])
+print('mismatch:', [k for k in exp if k in out and abs(exp[k]-out[k])>1e-12])
+print('extra nonzero:', sorted(nz - set(exp)))
+EOF
+```
 
 ## 生成条件
 

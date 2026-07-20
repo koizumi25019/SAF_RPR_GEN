@@ -1,0 +1,6 @@
+# 遷移故障（TDF, LOC方式）モード
+-tdf
+-net ../input/circuit/s208.v
+-fault ../input/fault/s208_tdf.txt
+-log ../output/full/log/s208_tdf_log.txt
+-fdp ../output/full/fdp/s208_tdf_fdp.csv

@@ -1,0 +1,5 @@
+-tdf
+-net ../input/circuit/s27.v
+-fault ../input/fault/s27_equiv_check.txt
+-log ../output/full/log/s27_equiv_check_log.txt
+-fdp ../output/full/fdp/s27_equiv_check_fdp.csv

@@ -27,7 +27,7 @@ static void xid_ensure_scratch(void) {
     init_xid_fimp_table();
     init_xid_bimp_limited_table();
     s_var_info = (XID_VAR_INFO*)ALLOC_MEM((size_t)n_net * sizeof(XID_VAR_INFO));
-    s_po_id    = (size_t*)ALLOC_CON((size_t)n_po, sizeof(size_t));
+    s_po_id    = (size_t*)ALLOC_CON((size_t)(n_po + n_ppo), sizeof(size_t));   /* 検出端点はPO+PPO（TDFの観測点はPPO） */
     s_fwd_q    = createQueue((size_t)n_net);
     s_bwd_q    = createQueue((size_t)n_net);
     s_jus_q    = createQueue((size_t)n_net);
@@ -210,7 +210,7 @@ static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_i
 /* -----------------------------------------------------------------------
  * Xfilling: 3-value X-filling from detecting PO back to fault site
  * ----------------------------------------------------------------------- */
-static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_t xid_tag_base) {
+static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_t xid_tag_base, size_t excID) {
     NLIST_t* tmp_net = &nl[po_id];
     ED_push_Xpath(tmp_net, xid_tag_base, var_info);
 
@@ -226,6 +226,22 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     resetQueue(fwd_q);
     resetQueue(bwd_q);
     resetQueue(jus_q);
+
+    /* TDF: 励起条件（故障サイト1時刻目コピー = 初期値）も正当化対象に加える。
+       正常値を要求値としてマークして後方含意に積めば、既存の正当化機構が
+       支持コーンの PI を 0/1 に固定する（検出パスと同一 SAT 解に対する
+       要求の和集合なので矛盾しない）。励起ネットは1時刻目=故障コーン外
+       なので故障側フラグは不要。 */
+    if (excID != VSIZE_INVALID) {
+        XID_VAR_INFO* exc_info = &var_info[excID];
+        size_t current_tag = exc_info->xid_tag;
+        if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
+        if (!(current_tag & XID_FLAG_NORMAL)) {
+            exc_info->normal_3value = exc_info->normal_2value;
+            exc_info->xid_tag = current_tag | XID_FLAG_NORMAL;
+            enqueue(bwd_q, &nl[excID]);
+        }
+    }
 
     vsize_t event_lev = (vsize_t)tmp_net->level;
     _Bool stop_xpath = 0;
@@ -292,10 +308,11 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
  * The blocking clause is added by the caller (AddBlockingClauseFromCube).
  * Caller must free() the returned string.
  * ----------------------------------------------------------------------- */
-char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
+char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po, NLIST* exc_net) {
     xid_ensure_scratch();
 
     size_t fsigID = (size_t)(fault_net - nl);
+    size_t excID  = exc_net ? (size_t)exc_net->n : VSIZE_INVALID;
 
     XID_VAR_INFO* var_info = s_var_info;
     DETECT_PO detect_po = { 0, s_po_id };
@@ -331,7 +348,7 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
             for (size_t k = 0; k < detect_po.n_det_po; ++k)
                 if (detect_po.po_id[k] == (size_t)preferred_po) { po = detect_po.po_id[k]; break; }
         }
-        Xfilling(fsigID, var_info, po, 0);
+        Xfilling(fsigID, var_info, po, 0, excID);
     }
 
     /* build result string: '0'/'1'/'X' per PI ('\0'-terminated, no trailing newline) */

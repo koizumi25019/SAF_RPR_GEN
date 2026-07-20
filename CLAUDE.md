@@ -31,7 +31,40 @@ cd build && ./main_debug -set ../input/script/c17a.set
 
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
-`-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）。
+`-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
+`-saf`/`-tdf`（故障モデル。省略時は縮退故障）。
+
+### 遷移故障モード（`-tdf`）
+
+LOC 方式（v1=自由、v2 は PI 共有＋DFF 引き継ぎ）の遷移遅延故障 FDP を計算する。実装は
+`src/netlist/expand_tdf.c` が読込直後に **2時刻展開ネットリスト**（1時刻目＋2時刻目の組み合わせ回路）
+を構築し、TDF (L, STR) を「2時刻目コピー L の sa0 ＋ 励起ユニット節 L_1t=0」（STF は sa1＋L_1t=1、
+`detection_circuit.c` の `CreateConsDC_FE`）に帰着させる。以降のパイプラインは無修正で動く。
+確率の分母は 2^(PI数+DFF数)。**観測点は2時刻目の PPO（FFへのキャプチャ）のみで、PO は
+at-speed でストローブしない**（旧ツール NEW_RPR_FAULT/XID11 の意味論・設計に一致：
+`expand_tdf.c` の `make_ppo_ppi()` が `ppi[]`/`ppo[]` を構築し `NLIST.ppo_flag` を PPO に立てる。
+SAF では全端点=観測可として ppo_flag=1）。コーンが非観測の PO にしか届かない故障（例 s27 の
+G17 系）は構造的にテスト不能＝fdp 0 になる。
+制約：DFF 入りの順序回路 `.v` が必要（例 `input/circuit/s27.v`。組み合わせ回路はエラー）、
+素の DFF のみ対応。`-fault` の形式は `<信号線名>\tSTR|STF`（例 `input/fault/s27_tdf.txt`）。
+`-fault` 省略時は SAF 同様に全代表故障を自動生成する。TDF の等価故障は **BUF/INV のみ**
+（入力線の遷移故障 ≡ 出力線の遷移故障。BUF は同極性、INV は STR↔STF 反転。AND/OR の
+入力等価は TDF では成立しない。XID11 rep_flist.c 準拠）。DFF 置換 BUF は時刻境界なので
+跨がない（`read.c` の `AnalyzeEquivalenceFaultsTDF`）。等価故障の CSV エコーも TDF 対応済み
+（`gmp_wrapper.c`。s27 で独立列挙と一致確認済み）。
+**外部由来の `.v`/故障リストは CRLF だとパーサが無限ループするので LF に変換してから置くこと。**
+XID（ドントケア埋め）は TDF 対応済み：`InlineXID` の第4引数に励起ネット（`FNODE.exc_netptr`）を
+渡すと、検出パスに加えて励起条件 L_1t=初期値 も正当化する（`XID.c` の `Xfilling`）。
+`TDF_NOXID=1` で X 埋めを止めミンターム列挙に戻せる（検証用）。X率実測: s27=24%・s208=75%・
+s5378=92%。支配流用・等価故障展開・MAXHAM/DUAL/PCOUNT は TDF では自動無効。
+**MAXDC は TDF 対応済み**（オラクルの検出条件を z∧励起 にして構築。効果は控えめ＝TDF XID の
+キューブは既にほぼ素項）。GT_BDD/BDD_EXACT も励起条件込みで TDF 対応済み
+（s27/s208 全故障・s5378 150故障サンプルで ALL VERIFIED）。
+PI 上の TDF は v1=v2 のため常に fdp=0（モデル通り）。CSV の `f_type` は `STR`/`STF`。
+注意：TDF の完全列挙は中規模で**本質的爆発**に当たる（例 s5378 の n1312gat STF は
+D_f が BDDノード722・disjointパス20億でキューブ列挙不能）。中規模は `-limit` 運用とし、
+厳密値が要る場合は `BDD_EXACT=1`（TDF で動作確認済み、爆発故障も complete=1）。
+SAF の PCOUNT に相当する TDF 版は未実装。
 
 出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log,cube_analysis}/<回路>_<種別>.{csv,txt}`。
 `<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。

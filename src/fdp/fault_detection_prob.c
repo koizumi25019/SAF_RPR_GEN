@@ -43,6 +43,22 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
     ccadical_add(solver, 0);
 }
 
+//*************************************************************************************************************
+//	@name		CubeFromSolver
+//	@function	ソルバの解をそのままキューブ化する（全ビット指定、X なし）。
+//	            TDF モードは XID が未対応（2時刻の励起条件を保存できない）ため、
+//	            ドントケア埋めを行わずミンターム単位で列挙する。
+//*************************************************************************************************************
+static char* CubeFromSolver(CCaDiCaL* solver)
+{
+    char* s = (char*)malloc((size_t)n_pi + 1);
+    if (!s) { fprintf(stderr, "CubeFromSolver: malloc failed\n"); exit(1); }
+    for (int i = 0; i < n_pi; i++)
+        s[i] = (ccadical_val(solver, (int)pi[i]->varsgc) > 0) ? '1' : '0';
+    s[n_pi] = '\0';
+    return s;
+}
+
 /* =====================================================================
  *  EXPERIMENT (env XID_EXTERNAL=<bin>): 旧・外部実行体XID(Miyase2004)で
  *  ドントケアを埋める。現行 InlineXID(故障値考慮) との「X判定単体効果」を
@@ -146,6 +162,20 @@ bool AnalyzeFaultDensity(
 
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
+	// TDF モード: 縮退故障専用の実験フックは正しく動かないため、環境変数ごと
+	// 無効化して警告する。GT_BDD / BDD_EXACT / MAXDC は TDF 対応済み
+	// （MAXDC のオラクルは励起条件込みで構築される。experiment.c 参照）。
+	bool tdf = (opt.fault_model == FM_TDF);
+	if (tdf) {
+		static const char* unsupported[] = { "MAXHAM", "DUAL", "SPLIT", "PCOUNT" };
+		for (size_t u = 0; u < sizeof(unsupported) / sizeof(unsupported[0]); u++) {
+			if (getenv(unsupported[u])) {
+				fprintf(stderr, "[TDF] %s は TDF 未対応のため無効化します\n", unsupported[u]);
+				unsetenv(unsupported[u]);
+			}
+		}
+	}
+
     t_start = clock();
 	printf("Reading fault data...\n");
 	if (ReadFault() != READ_OKAY) return READ_ERROR;
@@ -154,6 +184,24 @@ bool AnalyzeFaultDensity(
 	printf("ReadFault: %.3f sec\n", time_read);
 
 	if (CreateConsGC() != true) return AFD_ERROR;
+
+	// 検証(env AIG_DUMP_DIR=dir): 全代表故障の検出回路を AIGER 一括出力して即終了。
+	// AIG_DUMP（単一故障版）の全故障版。HALL 等との回路全体比較用。
+	const char* aig_dir = getenv("AIG_DUMP_DIR");
+	if (aig_dir) {
+		int n_dump = 0;
+		for (int h = 0; h < MAXSIZE_HASH; h++)
+			for (FNODE* fd = readdata.fault.list[h]; fd != NULL; fd = fd->nextptr) {
+				if (fd->detect != UNDETECTED) continue;
+				char path[2048];
+				snprintf(path, sizeof(path), "%s/%s_%s.aag", aig_dir, fd->name,
+				         (fd->type == SF0) ? "sa0" : "sa1");
+				AIG_Dump(path, fd);
+				n_dump++;
+			}
+		fprintf(stderr, "[AIG_DUMP_DIR] %d faults -> %s\n", n_dump, aig_dir);
+		exit(0);
+	}
 
 	while (readdata.fault.numrema != 0)
 	{
@@ -227,8 +275,7 @@ bool AnalyzeFaultDensity(
 		}
 
 		if (opt.file.input.cube_analysis != FILE_NOSET) {
-			fprintf(cube_analysis_fp, "%s", f->name);
-			fprintf(cube_analysis_fp, (f->type == SF0) ? ",sa0" : ",sa1");
+			fprintf(cube_analysis_fp, "%s,%s", f->name, FaultTypeName(f->type));
 		}
 
 		// 案2(env MAXHAM): 多様化の参照(前回キューブ)と aux 採番器を故障ごとに初期化
@@ -241,6 +288,16 @@ bool AnalyzeFaultDensity(
 
 		// limit <= 0 は「上限なし（無制限）」を意味し、UNSAT まで完全列挙する
 		bool unlimited = (opt.file.input.limit <= 0);
+
+		// 検証(env MDC_FAULT_TIMEOUT=秒): 故障単位の CPU 時間バジェット。
+		// 超過したら limit 到達と同じ打ち切り経路（complete=0）に入れる。
+		// HALL 等の時間制限つきツールと打ち切り条件を揃えた比較実験用。
+		static double fault_timeout = -1.0;
+		if (fault_timeout < 0.0) {
+			const char* s = getenv("MDC_FAULT_TIMEOUT");
+			fault_timeout = s ? atof(s) : 0.0;
+		}
+		clock_t fault_t0 = clock();
 
 		// UNSAT・limit 到達・双対列挙の完了 のいずれかでテスト生成を終了する
 		while (1) {
@@ -255,8 +312,11 @@ bool AnalyzeFaultDensity(
                 time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
             }
 
-            if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
-                bool limit_hit = (!unlimited && cubes.n >= opt.file.input.limit && res != 20);
+            bool time_up = (fault_timeout > 0.0) &&
+                           ((double)(clock() - fault_t0) / CLOCKS_PER_SEC > fault_timeout);
+
+            if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit) || time_up) {
+                bool limit_hit = ((!unlimited && cubes.n >= opt.file.input.limit) || time_up) && res != 20;
 
                 // 案3(env DUAL): det 打ち切り後に V 側だけ回すドレインで完了を狙う
                 if (limit_hit && EXP_DualDrain(&cubes))
@@ -319,9 +379,17 @@ bool AnalyzeFaultDensity(
 				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
 
                 t_start = clock();
-                char* x_pattern = getenv("XID_EXTERNAL")
+                // TDF は励起条件（f->exc_netptr）込みで XID する。
+                // env TDF_NOXID=1 で X 埋めを止めミンターム列挙に戻す（XID の検証用）。
+                char* x_pattern;
+                if (tdf)
+                    x_pattern = getenv("TDF_NOXID")
+                                    ? CubeFromSolver(solver)
+                                    : InlineXID(solver, f->netptr, EXP_PreferredPONet(), f->exc_netptr);
+                else
+                    x_pattern = getenv("XID_EXTERNAL")
                                     ? ExternalXID(solver, f)
-                                    : InlineXID(solver, f->netptr, EXP_PreferredPONet());
+                                    : InlineXID(solver, f->netptr, EXP_PreferredPONet(), NULL);
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 

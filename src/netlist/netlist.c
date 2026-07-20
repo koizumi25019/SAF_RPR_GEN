@@ -182,6 +182,10 @@ static void init_global(void)
 	n_dffs = 0;   //DFFS数
 	n_rdffs = 0;  //RDFFS数
 	n_assign = 0; //assign数
+	n_ppi = 0;    //疑似外部入力数（TDF展開時に make_ppo_ppi が設定）
+	n_ppo = 0;    //疑似外部出力数（同上）
+	ppi = (NLIST**)NULL;
+	ppo = (NLIST**)NULL;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -530,6 +534,8 @@ static void alloc_nl(void)
 		nl[i].in = (NLIST**)NULL;
 		nl[i].n_out = 0;
 		nl[i].out = (NLIST**)NULL;
+		nl[i].peer_1t = (NLIST*)NULL;
+		nl[i].ppo_flag = 1;   //SAF: 全端点(PO)が観測点。TDF は make_ppo_ppi (expand_tdf.c) が設定し直す
 		parser_array[0][i] = 0;
 		parser_array[1][i] = 0;
 	}
@@ -1265,6 +1271,8 @@ void free_netlist(void)
 	free(nl);
 	free(pi);
 	free(po);
+	free(ppi);
+	free(ppo);
 	free(dff);
 	free(rdff);
 	free(dffs);

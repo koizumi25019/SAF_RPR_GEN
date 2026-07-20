@@ -1,0 +1,4 @@
+-tdf
+-net ../input/circuit/s27.v
+-log ../output/full/log/s27_tdf_auto_log.txt
+-fdp ../output/full/fdp/s27_tdf_auto_fdp.csv

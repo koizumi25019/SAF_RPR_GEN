@@ -59,6 +59,7 @@ typedef struct FaultNode
 	int					  type;		/**< fault type */
 	int					  detect;			  /**< detected??? */
 	NLIST* netptr;					 /**< pointer to netlist */
+	NLIST* exc_netptr;				 /**< TDF専用: 励起条件を課す1時刻目コピー（STR: =0, STF: =1）。SAF時はNULL */
 	struct FaultNode* nextptr;				  /**< pointer to next node */
 
 	struct FaultNode** subset_faults;   /**< テスト集合がこの故障の部分集合になる故障（ゲート入力故障）。これらのキューブはこの故障の正当なテストなので種＋禁止節として流用できる */
@@ -127,6 +128,16 @@ FNODE* CreateFaultNode(
 //等価故障解析
 void AnalyzeEquivalenceFaults(
 	void
+);
+
+//等価故障解析（遷移故障: BUF/INV のみ、DFF境界は跨がない）
+void AnalyzeEquivalenceFaultsTDF(
+	void
+);
+
+/** 故障タイプの表示名: SAF="sa0"/"sa1", TDF="STR"/"STF"（CSV・ログ共通） */
+const char* FaultTypeName(
+	int type
 );
 
 //支配故障解析

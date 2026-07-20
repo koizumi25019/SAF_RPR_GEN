@@ -1,0 +1,4 @@
+-tdf
+-net ../input/circuit/s208.v
+-log ../output/full/log/s208_tdf_auto_log.txt
+-fdp ../output/full/fdp/s208_tdf_auto_fdp.csv

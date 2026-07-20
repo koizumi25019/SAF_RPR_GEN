@@ -90,6 +90,10 @@ static double FdpBySim(FNODE* f, long N)
     int    stuck = (f->type == SF0) ? 0 : 1;
     long   det   = 0;
 
+    /* TDF: 励起条件（1時刻目コピー = 初期値）を満たすサンプルだけが検出可能 */
+    int excid  = f->exc_netptr ? f->exc_netptr->n : -1;
+    int excval = (f->type == SF0) ? 0 : 1;
+
     for (long s = 0; s < N; s++) {
         /* PI にランダム値を与える（正常・故障とも同じ入力） */
         for (int i = 0; i < n_pi; i++) {
@@ -104,6 +108,8 @@ static double FdpBySim(FNODE* f, long N)
             vg[i] = sim_gate(ty, vg[i], &nl[i], vg);
             vf[i] = sim_gate(ty, vf[i], &nl[i], vf);
         }
+        /* TDF: 遷移が起動しないサンプルは非検出 */
+        if (excid >= 0 && vg[excid] != excval) continue;
         /* 故障サイトに縮退値を注入し、コーンを再評価 */
         vf[fsig] = stuck;
         for (int t = 0; t < sim_ntopo; t++) {
@@ -111,10 +117,10 @@ static double FdpBySim(FNODE* f, long N)
             if (ty == IN || ty == DFF || (size_t)i == fsig) continue;
             vf[i] = sim_gate(ty, vf[i], &nl[i], vf);
         }
-        /* 観測点(n_out==0)のどれかで正常≠故障なら検出 */
+        /* 観測点(n_out==0 かつ ppo_flag)のどれかで正常≠故障なら検出 */
         int diff = 0;
         for (int i = 0; i < n_net; i++)
-            if (nl[i].n_out == 0 && vg[i] != vf[i]) { diff = 1; break; }
+            if (nl[i].n_out == 0 && nl[i].ppo_flag && vg[i] != vf[i]) { diff = 1; break; }
         if (diff) det++;
     }
     return (double)det / N;
@@ -259,7 +265,7 @@ static void gt_cubedump(FNODE* f, CubeSet* cubes, bool limit_hit){
     } else if (strcmp(f->name, want) != 0) return;
     int H = getenv("GT_CUBEDUMP_H") ? atoi(getenv("GT_CUBEDUMP_H")) : 15;
     fprintf(stderr, "[CUBEDUMP] %s,%s  cubes=%d  (PI順, 各行末は X数/全%d)\n",
-        f->name, (f->type==SF0)?"sa0":"sa1", n, n_pi);
+        f->name, FaultTypeName(f->type), n, n_pi);
     for (int c=0;c<n;c++){
         if (n > 2*H && c==H){ fprintf(stderr, "   ... (中略 %d本) ...\n", n-2*H); }
         if (n > 2*H && c>=H && c<n-H) continue;
@@ -313,7 +319,7 @@ static void gt_gain_measure(DdManager* m, FNODE* f, CubeSet* cubes, bool limit_h
     double jacc = jcnt ? jsum/jcnt : 0;
 
     fprintf(stderr, "[GAIN] %s,%s,cubes=%d,k50=%d,k90=%d,tail1%%=%ld(%.0f%%),jacc=%.3f\n",
-        f->name, (f->type==SF0)?"sa0":"sa1", n, k50, k90, tail1, 100.0*tail1/n, jacc);
+        f->name, FaultTypeName(f->type), n, k50, k90, tail1, 100.0*tail1/n, jacc);
 
     if (!gain_faults) atexit(gain_dump);
     gain_faults++; gain_cubes+=n; gain_tail1+=tail1; gain_k50_sum+=k50; gain_k90_sum+=k90;
@@ -354,14 +360,24 @@ static DdNode* gt_build_det(FNODE* f){
         else gt_fault[i] = gt_gate_bdd(m, &nl[i], gt_good, gt_fault, gt_mark);
     }
 
-    /* D_f = OR_{PO∈コーン} (good XOR faulty)。コーン外POは差分0 */
+    /* D_f = OR_{観測点∈コーン} (good XOR faulty)。コーン外は差分0。
+       観測点 = n_out==0 かつ ppo_flag（SAF=全PO、TDF=2時刻目PPOのみ） */
     DdNode* det = Cudd_ReadLogicZero(m); Cudd_Ref(det);
     for (int t=0;t<ncone;t++){
         int i = cone[t];
-        if (nl[i].n_out != 0) continue;
+        if (nl[i].n_out != 0 || !nl[i].ppo_flag) continue;
         DdNode* d = Cudd_bddXor(m, gt_good[i], gt_fault[i]); Cudd_Ref(d);
         DdNode* o = Cudd_bddOr(m, det, d); Cudd_Ref(o);
         Cudd_RecursiveDeref(m,det); Cudd_RecursiveDeref(m,d); det=o;
+    }
+
+    /* TDF: 励起条件（1時刻目コピーの正常値 = 初期値）を AND する。
+       STR(SF0扱い)は1時刻目=0、STF(SF1扱い)は1時刻目=1 */
+    if (f->exc_netptr){
+        DdNode* e = gt_good[f->exc_netptr->n];
+        if (f->type == SF0) e = Cudd_Not(e);
+        DdNode* t2 = Cudd_bddAnd(m, det, e); Cudd_Ref(t2);
+        Cudd_RecursiveDeref(m, det); det = t2;
     }
 
     /* このコーンの故障BDDを解放し、mark をリセット（det は自前の参照を持つ） */
@@ -419,7 +435,7 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
         int    nodes = Cudd_DagSize(det);
         double pd = ldexp(Cudd_CountMinterm(m,det,n_pi), -n_pi);
         fprintf(stderr, "[GT_COVER] %s,%s cubes=%d det_paths=%.0f det_nodes=%d fdp=%.6f\n",
-            f->name, (f->type==SF0)?"sa0":"sa1", cubes->n, paths, nodes, pd);
+            f->name, FaultTypeName(f->type), cubes->n, paths, nodes, pd);
     }
 
     /* 診断(env GT_CUBES=1): 非健全キューブを特定し、X のうち「どれか1ビットを
@@ -430,7 +446,7 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
             DdNode* cb = gt_cube_bdd(m, s);
             if (!Cudd_bddLeq(m, cb, det)){
                 fprintf(stderr, "[GT_CUBE] %s,%s cube#%d UNSOUND: %s\n",
-                    f->name, (f->type==SF0)?"sa0":"sa1", c, s);
+                    f->name, FaultTypeName(f->type), c, s);
                 for (int i=0;i<n_pi;i++){
                     if (s[i]!='X') continue;
                     DdNode* v = Cudd_bddIthVar(m,i);
@@ -456,7 +472,7 @@ void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
         double pu = ldexp(Cudd_CountMinterm(m,uni,n_pi), -n_pi);
         double pd = ldexp(Cudd_CountMinterm(m,det,n_pi), -n_pi);
         fprintf(stderr, "[GT] %s,%s,cubes=%d,complete=%d,sound=%d,exact=%d,fdp_cube=%.10e,fdp_true=%.10e",
-            f->name, (f->type==SF0)?"sa0":"sa1", cubes->n, complete, sound, exact, pu, pd);
+            f->name, FaultTypeName(f->type), cubes->n, complete, sound, exact, pu, pd);
         if (mismatch) fprintf(stderr, ",fdp_sim=%.6f", FdpBySim(f, 200000));
         fputc('\n', stderr);
     }

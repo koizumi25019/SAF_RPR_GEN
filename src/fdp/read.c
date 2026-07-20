@@ -46,6 +46,40 @@ bool ReadFault(
 		/** close the "fault file" in read-mode */
 		fclose(fileptr);
 	}
+	else if (opt.fault_model == FM_TDF)
+	{
+		//-------------------------------------------------------------------
+		// TDF 故障ファイルなし：全代表故障の自動生成
+		// 故障サイトは2時刻展開前の全信号線（= peer_1t を持つ 2時刻目コピーと PI）
+		//-------------------------------------------------------------------
+		int i;
+		char buffer[MAXSIZE_BUFFER];
+
+		readdata.fault.numinit = 0;
+		readdata.fault.numrema = 0;
+
+		// 等価故障のフラグ整理を実行
+		AnalyzeEquivalenceFaultsTDF();
+
+		for (i = 0; i < n_net; i++)
+		{
+			if (nl[i].peer_1t == (NLIST*)NULL) continue;   // 1時刻目コピーは故障サイトでない
+
+			if (nl[i].test_sa0 == YES)   // STR
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tSTR\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+
+			if (nl[i].test_sa1 == YES)   // STF
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tSTF\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+		}
+
+		printf("\r	Representative fault generation completed (TDF). Total faults: %d\n", readdata.fault.numinit);
+	}
 	else
 	{
 		//-------------------------------------------------------------------
@@ -79,12 +113,17 @@ bool ReadFault(
 		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
 
-	struct timespec _adfs, _adfe;
-	clock_gettime(CLOCK_MONOTONIC, &_adfs);
-	AnalyzeDominanceFaults();
-	clock_gettime(CLOCK_MONOTONIC, &_adfe);
-	printf("AnalyzeDominanceFaults: %.3f sec\n",
-		(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
+	/* 支配関係（テスト集合の包含）は縮退故障の性質に基づくため、TDF では
+	   流用しない（励起条件が1時刻目の別ネットに付くので包含が成立しない） */
+	if (opt.fault_model != FM_TDF)
+	{
+		struct timespec _adfs, _adfe;
+		clock_gettime(CLOCK_MONOTONIC, &_adfs);
+		AnalyzeDominanceFaults();
+		clock_gettime(CLOCK_MONOTONIC, &_adfe);
+		printf("AnalyzeDominanceFaults: %.3f sec\n",
+			(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
+	}
 
 	return READ_OKAY;
 }
@@ -181,7 +220,8 @@ FNODE* searchFnodePtr(
 
 //*************************************************************************************************************
 //	@name		ParseFaultType
-//	@function	parse fault type token ("sa0"/"sa1") from strtok_r context and set type
+//	@function	parse fault type token (SAF: "sa0"/"sa1", TDF: "STR"/"STF") and set type
+//	@note		TDF は2時刻展開回路上で STR→2時刻目の sa0、STF→sa1 に帰着する
 //	@return		(bool) okay, error
 //*************************************************************************************************************
 static bool ParseFaultType(
@@ -195,6 +235,18 @@ static bool ParseFaultType(
 		printf("\n\tFILE ERROR: fault file reading failed. ");
 		printf("type of fault error.\n\n");
 		return false;
+	}
+	if (opt.fault_model == FM_TDF)
+	{
+		if      (!strcmp(token, "STR")) *type_out = SF0;   /* slow-to-rise: t1=0, t2でsa0挙動 */
+		else if (!strcmp(token, "STF")) *type_out = SF1;   /* slow-to-fall: t1=1, t2でsa1挙動 */
+		else
+		{
+			printf("\n\tFILE ERROR: fault file reading failed. ");
+			printf("%c%s%c unexpected type of fault (-tdf では STR/STF を指定).\n\n", '"', token, '"');
+			return false;
+		}
+		return true;
 	}
 	if (!strcmp(token, "sa0"))
 	{
@@ -211,6 +263,18 @@ static bool ParseFaultType(
 		return false;
 	}
 	return true;
+}
+
+//*************************************************************************************************************
+//	@name		FaultTypeName
+//	@function	故障タイプの表示名（CSV・ログ共通）: SAF="sa0"/"sa1", TDF="STR"/"STF"
+//*************************************************************************************************************
+const char* FaultTypeName(
+	int type
+)
+{
+	if (opt.fault_model == FM_TDF) return (type == SF0) ? "STR" : "STF";
+	return (type == SF0) ? "sa0" : "sa1";
 }
 
 //*************************************************************************************************************
@@ -305,6 +369,22 @@ FNODE* CreateFaultNode(
 		return (FNODE*)NULL;
 	}
 
+	/** TDF: 励起条件を課す1時刻目コピー（2時刻展開時に peer_1t が張られている） */
+	fnodeptr->exc_netptr = (NLIST*)NULL;
+	if (opt.fault_model == FM_TDF)
+	{
+		fnodeptr->exc_netptr = fnodeptr->netptr->peer_1t;
+		if (fnodeptr->exc_netptr == (NLIST*)NULL)
+		{
+			printf("\n\tFILE ERROR: fault file reading failed. ");
+			printf("%c%s%c is not a 2nd-frame net (TDF).\n\n", '"', fnodeptr->name, '"');
+			free(fnodeptr->string);
+			free(fnodeptr->name);
+			free(fnodeptr);
+			return (FNODE*)NULL;
+		}
+	}
+
 	/** set the pointer to next node */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
@@ -377,6 +457,40 @@ void AnalyzeEquivalenceFaults()
 			default:
 				break;
 		}
+	}
+}
+
+///*************************************************************************************************************
+//	@name		AnalyzeEquivalenceFaultsTDF
+//	@function	遷移故障の等価故障解析（XID11 rep_flist.c の tdf_rep_flist 準拠）。
+//	@note		TDF の等価は BUF/INV のみ：入力線の遷移故障はゲート出力の遷移故障と等価
+//	            （BUF は同極性、INV は STR↔STF 反転。AND/OR の入力等価は TDF では成立しない）。
+//	            2時刻展開回路上では、2時刻目コピーのゲートだけを見る。DFF 置換の BUF
+//	            （入力が1時刻目コピー = peer_1t なし）は時刻境界なので跨がない。
+//	            test_sa0 を STR、test_sa1 を STF のテスト対象フラグとして流用する。
+//*************************************************************************************************************
+void AnalyzeEquivalenceFaultsTDF(void)
+{
+	int i;
+
+	// すべてのネットの故障をテスト対象(YES)として初期化
+	for (i = 0; i < n_net; i++)
+	{
+		nl[i].test_sa0 = YES;   // STR
+		nl[i].test_sa1 = YES;   // STF
+	}
+
+	for (i = 0; i < n_net; i++)
+	{
+		if (nl[i].type != BUF && nl[i].type != INV) continue;
+		if (nl[i].peer_1t == (NLIST*)NULL) continue;          // 1時刻目コピーのゲートは対象外
+
+		NLIST* in0 = nl[i].in[0];
+		if (in0->peer_1t == (NLIST*)NULL) continue;           // DFF置換BUF：時刻境界は跨がない
+
+		// 入力線の遷移故障（STR/STF とも）は出力線の故障で代表される
+		in0->test_sa0 = NO;
+		in0->test_sa1 = NO;
 	}
 }
 

@@ -1,0 +1,4 @@
+-net ../input/circuit/s15850_C.v
+-log ../output/limit30/log/s15850_C_exp_log.txt
+-fdp ../output/limit30/fdp/s15850_C_exp_fdp.csv
+-limit 30

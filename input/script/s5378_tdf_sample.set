@@ -1,0 +1,6 @@
+# 遷移故障（TDF, LOC方式）モード
+-tdf
+-net ../input/circuit/s5378.v
+-fault ../input/fault/s5378_tdf_sample.txt
+-log ../output/full/log/s5378_tdf_sample_log.txt
+-fdp ../output/full/fdp/s5378_tdf_sample_fdp.csv

@@ -53,7 +53,10 @@ typedef struct _Netlist_Format_ {
 	unsigned int suf_fc;				//
 	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
-	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) 
+	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
+	struct _Netlist_Format_* peer_1t;	//TDF(2時刻展開)専用: 2時刻目コピー→対応する1時刻目コピー（PIは自分自身、SAF時はNULL）
+	int	ppo_flag;						//観測点フラグ（NEW_RPR_FAULT と同じ設計）。n_out==0 の端点のうち観測できるもの。
+										//SAF=全端点(PO)に1、TDF=make_ppo_ppi()が2時刻目のPPOにだけ1（POはat-speedでストローブしない）
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -76,9 +79,13 @@ int n_pi;
 NLIST** po;
 int n_po;
 
-//疑似外部出力線, 外部出力数
+//疑似外部出力線, 疑似外部出力数（TDF: 2時刻目のPPO端点。make_ppo_ppi が構築）
 NLIST** ppo;
 int n_ppo;
+
+//疑似外部入力線, 疑似外部入力数（TDF: DFF状態の1時刻目コピー=擬似PI。make_ppo_ppi が構築）
+NLIST** ppi;
+int n_ppi;
 
 //DFF, DFF数
 NLIST** dff;
@@ -105,3 +112,4 @@ int n_assign;
 //--------------------------------------------------------------------------------------------------------------------
 int		read_nl(char*);
 void	free_netlist(void);
+void	expand_tdf_netlist(void);	//expand_tdf.c: TDF用2時刻展開（LOC）。nl/pi/po を展開後の組み合わせ回路に差し替える

@@ -18,6 +18,10 @@
 #define FILE_NOSET			      (char*)NULL /**< initial filename */
 #define MODE_NOSET			      -1          /**< initial mode */
 
+/** fault model (-saf / -tdf) */
+#define FM_SAF                    0           /**< stuck-at fault (default) */
+#define FM_TDF                    1           /**< transition delay fault (LOC: v1=自由, v2はPI共有+DFF引き継ぎ) */
+
 #define		YES				1
 #define		NO				0
 
@@ -54,6 +58,7 @@ FILES;
 typedef struct Option
 {
 	FILES			      file;			      /**< files */
+	int				      fault_model;		  /**< FM_SAF / FM_TDF */
 }
 OPTION;
 

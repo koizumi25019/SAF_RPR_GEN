@@ -1,0 +1,17 @@
+# set File — 遷移故障（TDF, LOC方式）実験。SAF側の s35932_C.set と同じ流儀:
+# 全代表故障を自動生成（等価故障解析込み）、テストキューブ上限30で打ち切り運用。
+-tdf
+
+# set netlist(.v) — DFF入り順序回路
+-net ../input/circuit/s35932.v
+
+# set fault list(.txt)
+# -fault は書かない → 全代表故障を自動生成（等価故障解析込み）
+
+# set log(.txt)
+-log ../output/limit30/log/s35932_tdf_exp_log.txt
+
+# set fdp result(.csv)
+-fdp ../output/limit30/fdp/s35932_tdf_exp_fdp.csv
+
+-limit 30

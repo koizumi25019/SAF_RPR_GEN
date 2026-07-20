@@ -90,7 +90,20 @@ static void mdc_build_oracle(CCaDiCaL* u, TARGET* target, int detect){
     CreateConsDC_XOR(u);                           /* per-PO diff = gc XOR fc */
     CreateConsDC_OR(u);                            /* z = OR diffs */
     int z = cnf.total.vars;
-    ccadical_add(u, detect ? z : -z); ccadical_add(u,0);   /* z=0: 非検出 / z=1: 検出 */
+    if (f->exc_netptr){
+        /* TDF: 検出条件は z ∧ 励起（1時刻目コピー=初期値）。
+           非検出オラクルは ¬(z∧exc) = (¬z ∨ ¬exc)、検出オラクルは両ユニット節 */
+        int exc_lit = (f->type==SF0) ? -(int)f->exc_netptr->varsgc
+                                     :  (int)f->exc_netptr->varsgc;
+        if (detect){
+            ccadical_add(u, z);       ccadical_add(u,0);
+            ccadical_add(u, exc_lit); ccadical_add(u,0);
+        } else {
+            ccadical_add(u,-z); ccadical_add(u,-exc_lit); ccadical_add(u,0);
+        }
+    } else {
+        ccadical_add(u, detect ? z : -z); ccadical_add(u,0);   /* z=0: 非検出 / z=1: 検出 */
+    }
 }
 
 /* DIVPO 用: WriteTPGModel 直後の最終変数番号(=検出フラグ z)と伝播PO数を捕捉。
@@ -703,7 +716,7 @@ bool EXP_SplitFinish(DdManager* gbm, CCaDiCaL* det, CCaDiCaL* u_oracle,
             if (!det_dead) {
                 sp_assume_path(det, path);
                 if (ccadical_solve(det) == 10) {
-                    char* xc = InlineXID(det, f->netptr, -1);
+                    char* xc = InlineXID(det, f->netptr, -1, NULL);
                     EXP_Expand(u_oracle, xc);          /* MAXDC 有効時のみ素項化 */
                     exp_block(det, xc);
                     exp_or_into(gbm, &u, xc);

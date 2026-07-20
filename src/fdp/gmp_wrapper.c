@@ -5,6 +5,7 @@
 #include <gmp.h>
 #include"../netlist/netlist.h"
 #include "./target_fault.h"
+#include "./read.h"
 #include "../opt/opt.h"
 
 
@@ -17,6 +18,27 @@ void OutputEquivFaults(
 )
 {
     int j;
+
+    // TDF の等価は BUF/INV のみ（BUF=同極性、INV=STR↔STF 反転）。
+    // DFF 置換 BUF（入力が1時刻目コピー）は時刻境界なので跨がない。
+    if (opt.fault_model == FM_TDF)
+    {
+        if (net->type != BUF && net->type != INV) return;
+
+        NLIST* in0 = net->in[0];
+        if (in0->peer_1t == (NLIST*)NULL) return;
+
+        int in_type = (net->type == BUF) ? fault_type
+                                         : ((fault_type == SF0) ? SF1 : SF0);
+        int flag = (in_type == SF0) ? in0->test_sa0 : in0->test_sa1;
+        if (flag == NO)
+        {
+            gmp_fprintf(result_fp, "%s,%s,,,%.10Fe,\n",
+                in0->name, FaultTypeName(in_type), density);
+            OutputEquivFaults(result_fp, in0, in_type, density);
+        }
+        return;
+    }
 
     switch (net->type)
     {
@@ -115,13 +137,13 @@ void calculate_prob_with_gmp(
     if (result_fp != NULL) {
         gmp_fprintf(result_fp, "%s,%s,%d,%d,%.10Fe,%d\n",
             target->list[0]->name,
-            (target->list[0]->type == SF0) ? "sa0" : "sa1",
+            FaultTypeName(target->list[0]->type),
             cube_cnt,
             limit_hit ? 0 : 1,
             density,
             seeded_cnt);
     }
-    
+
 
     //等価故障の検出確率は代表故障と同じ
     if (result_fp != NULL) {

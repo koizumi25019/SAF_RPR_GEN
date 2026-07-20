@@ -42,6 +42,24 @@ struct timespec start, end;
 	/** read the netlist */
 	read_nl(opt.file.input.net);
 
+	/** TDF モード：順序回路（DFF入り）を LOC 方式の2時刻展開に組み替える */
+	if (opt.fault_model == FM_TDF)
+	{
+		if (n_rdff + n_dffs + n_rdffs > 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf は素の DFF のみ対応です。");
+			printf("RDFF/DFFS/RDFFS を含む回路は指定できません。\n\n");
+			return RETCODE_ERROR;
+		}
+		if (n_dff == 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf には順序回路が必要です。");
+			printf("DFF を含まない回路が指定されました。順序回路にしてください。\n\n");
+			return RETCODE_ERROR;
+		}
+		expand_tdf_netlist();
+	}
+
 	//analyze the fault detection probability
 	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
 

@@ -42,6 +42,9 @@ void OPTinit(
 	/** initialize the filename */
 	OPTinitFile();
 
+	/** fault model: default is stuck-at */
+	opt.fault_model = FM_SAF;
+
 	return;
 }
 
@@ -97,6 +100,13 @@ bool OPTset(
 		/** limit  */
 		else if (strcmp(argv[i], "-limit") == 0)
 			opt.file.input.limit = atoi(argv[++i]);
+
+		/** fault model */
+		else if (strcmp(argv[i], "-saf") == 0)
+			opt.fault_model = FM_SAF;
+
+		else if (strcmp(argv[i], "-tdf") == 0)
+			opt.fault_model = FM_TDF;
 
 		/** read the setfile */
 		else if (strcmp(argv[i], "-set") == 0)
@@ -184,6 +194,13 @@ bool OPTread(
 			/** fdp result */
 			else if (strcmp(token1, "-fdp") == 0)
 				opt.file.output.fdp = OPTreadValue(&context, "\n\0");
+
+			/** fault model */
+			else if (strcmp(token1, "-saf") == 0)
+				opt.fault_model = FM_SAF;
+
+			else if (strcmp(token1, "-tdf") == 0)
+				opt.fault_model = FM_TDF;
 
 			/** limit setting */
 			else if (strcmp(token1, "-limit") == 0)

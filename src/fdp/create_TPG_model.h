@@ -23,11 +23,3 @@ bool CreateTPGmodel(
 	CCaDiCaL* solver,
 	TARGET* target			  /**< target fault */
 );
-
-
-
-
-
-
-
-

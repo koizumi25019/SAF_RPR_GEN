@@ -26,6 +26,7 @@ set(SOURCES
     src/fdp/cnf/good_circuit.c
     src/lib/lib.c
     src/netlist/netlist.c
+    src/netlist/expand_tdf.c
     src/opt/opt.c
     src/fdp/xid/xid_adapter.c
     src/fdp/xid/XID.c

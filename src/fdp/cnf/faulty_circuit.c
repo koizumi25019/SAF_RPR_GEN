@@ -111,8 +111,10 @@ void SearchTFO(
 					stackPUSH(netptr->out[i]);
 				}
 			}
-			else
+			else if (netptr->ppo_flag)
 			{
+				// 観測できる端点だけを検出XORの対象(TPO)にする
+				// （SAF=全PO、TDF=2時刻目のPPOのみ。TDFの2時刻目POは非観測）
 				numtranpo++;
 				netptr->flag |= TPO;
 			}

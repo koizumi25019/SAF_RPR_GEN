@@ -1,0 +1,17 @@
+# set File
+# 遷移故障（TDF, LOC方式）モード。順序回路版 s27.v（DFF入り）を使う
+-tdf
+
+# set netlist(.v)
+-net ../input/circuit/s27.v
+
+# set fault list(.txt)  形式: <信号線名> STR|STF（TDFでは必須）
+-fault ../input/fault/s27_tdf.txt
+
+# set log(.txt)
+-log ../output/full/log/s27_tdf_log.txt
+
+# set fdp result(.csv)
+-fdp ../output/full/fdp/s27_tdf_fdp.csv
+
+# -limit は書かない → 上限なし（無制限・UNSATまで完全列挙）

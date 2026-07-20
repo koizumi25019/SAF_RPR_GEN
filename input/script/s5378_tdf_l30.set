@@ -1,0 +1,6 @@
+-tdf
+-net ../input/circuit/s5378.v
+-fault ../input/fault/s5378_tdf_sample.txt
+-log ../output/limit30/log/s5378_tdf_sample_log.txt
+-fdp ../output/limit30/fdp/s5378_tdf_sample_fdp.csv
+-limit 30

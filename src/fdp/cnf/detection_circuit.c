@@ -121,8 +121,27 @@ void CreateConsDC_FE(
 		CNF_ADD(solver,  fc); CNF_ADD(solver, 0); // fc = 1 (固定値)
 	}
 
+	// 1'. TDF の遷移起動条件: 故障サイトの1時刻目の値を初期値に固定する
+	//     STR(SF0扱い): 1時刻目=0 → 2時刻目=1（上のgc=1）で 0→1 遷移を起動
+	//     STF(SF1扱い): 1時刻目=1 → 2時刻目=0（上のgc=0）で 1→0 遷移を起動
+	if (fnodeptr->exc_netptr != (NLIST*)NULL)
+	{
+		int exc = fnodeptr->exc_netptr->varsgc;
+		CNF_ADD(solver, (fnodeptr->type == SF0) ? -exc : exc);
+		CNF_ADD(solver, 0);
+	}
+
 	// 2. 最終出力（検出フラグ）を 1 に固定
 	// cnf.total.vars は直前の OR または XOR で作成された「最終出力」を指している
-	CNF_ADD(solver, cnf.total.vars);
-	CNF_ADD(solver, 0);
+	if (numtranpo == 0)
+	{
+		// 観測可能な端点がひとつも無い（TDF: コーンが非観測のPOにしか届かない）
+		// → 構造的にテスト不能。空節を追加して UNSAT にする
+		CNF_ADD(solver, 0);
+	}
+	else
+	{
+		CNF_ADD(solver, cnf.total.vars);
+		CNF_ADD(solver, 0);
+	}
 }
