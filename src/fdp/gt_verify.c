@@ -14,6 +14,8 @@
 //	  GT_VERBOSE=1 一致した故障も全て出力。
 //	  GT_CUBES=1   非健全キューブを特定し「どのXを1ビット固定すれば健全になるか」
 //	               の候補を列挙（バグ箇所の特定用）。
+//	  GT_ISOP=1    D_f から Minato-Morreale ISOP を生成し、現行キューブ数と比較。
+//	               DNF自体の複雑さと列挙戦略の冗長性を切り分ける診断用。
 //	不一致時は独立モンテカルロシミュレーション(FdpBySim)の値も併記する（三重照合）。
 //	検証記録: verification/gt_bdd/SUMMARY.md
 //-------------------------------------------------------------------------------------------------------------
@@ -21,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <cudd.h>
 
 #include "./gt_verify.h"
@@ -133,6 +136,72 @@ static DdNode**   gt_fault = NULL;   /* 故障回路: TFOコーンのみ故障�
 static int*       gt_piidx = NULL;   /* net id -> pi[] index（PIでなければ -1） */
 static int*       gt_mark  = NULL;   /* TFOコーン所属フラグ */
 static long gt_n=0, gt_unsound=0, gt_inexact=0;
+
+/* Minato-Morreale ISOP 診断（env GT_ISOP=1）。
+   Cudd_zddIsop は D_f の BDD から prime かつ irredundant な SOP をZDDで返す。
+   minimum SOP ではないが、局所素項化(MAXDC)の列挙結果と「大域的に構成した被覆」の差を
+   測るオラクルになる。L=U=D_f なので、返るBDDは必ず D_f と等価でなければならない。 */
+static int    gt_isop_ready = 0;
+static long   gt_isop_faults = 0, gt_isop_complete = 0, gt_isop_fail = 0;
+static double gt_isop_enum_sum = 0.0, gt_isop_cover_sum = 0.0;
+
+static void gt_isop_dump(void){
+    if (!gt_isop_faults && !gt_isop_fail) return;
+    fprintf(stderr,
+        "[GT_ISOP] summary: faults=%ld complete=%ld failures=%ld complete_enum=%.0f isop=%.0f reduction=%.1f%%\n",
+        gt_isop_faults, gt_isop_complete, gt_isop_fail,
+        gt_isop_enum_sum, gt_isop_cover_sum,
+        gt_isop_enum_sum > 0.0 ? 100.0 * (1.0 - gt_isop_cover_sum / gt_isop_enum_sum) : 0.0);
+}
+
+static void gt_isop_measure(DdManager* m, FNODE* f, CubeSet* cubes,
+                            bool limit_hit, DdNode* det){
+    if (!gt_isop_ready){
+        /* ISOPはBDD変数iに対しZDD変数2i/2i+1（正/負リテラル）を使う。 */
+        Cudd_zddRealignEnable(m);
+        Cudd_AutodynDisableZdd(m);
+        if (!Cudd_zddVarsFromBddVars(m, 2)){
+            fprintf(stderr, "[GT_ISOP] ZDD variable initialization failed\n");
+            gt_isop_fail++;
+            return;
+        }
+        gt_isop_ready = 1;
+        atexit(gt_isop_dump);
+    }
+
+    clock_t t0 = clock();
+    DdNode* cover = NULL;
+    DdNode* isop_bdd = Cudd_zddIsop(m, det, det, &cover);
+    if (!isop_bdd || !cover){
+        fprintf(stderr, "[GT_ISOP] %s,%s FAILED\n", f->name, FaultTypeName(f->type));
+        gt_isop_fail++;
+        return;
+    }
+    Cudd_Ref(isop_bdd);
+    Cudd_Ref(cover);
+
+    double n_isop = Cudd_zddCountDouble(m, cover);
+    int exact = (isop_bdd == det);
+    int zdd_nodes = Cudd_zddDagSize(cover);
+    double sec = (double)(clock() - t0) / CLOCKS_PER_SEC;
+    double ratio = n_isop > 0.0 ? (double)cubes->n / n_isop : 0.0;
+
+    fprintf(stderr,
+        "[GT_ISOP] %s,%s enum=%d complete=%d isop=%.0f enum/isop=%.2f zdd_nodes=%d det_nodes=%d exact=%d time=%.3f\n",
+        f->name, FaultTypeName(f->type), cubes->n, !limit_hit, n_isop, ratio,
+        zdd_nodes, Cudd_DagSize(det), exact, sec);
+
+    gt_isop_faults++;
+    if (!limit_hit){
+        gt_isop_complete++;
+        gt_isop_enum_sum += cubes->n;
+        gt_isop_cover_sum += n_isop;
+    }
+    if (!exact) gt_isop_fail++;
+
+    Cudd_RecursiveDerefZdd(m, cover);
+    Cudd_RecursiveDeref(m, isop_bdd);
+}
 
 static void gt_dump(void){
     fprintf(stderr, "[GT] summary: checked=%ld  UNSOUND=%ld  complete-but-NOT-exact=%ld  %s\n",
@@ -412,9 +481,17 @@ char* GT_ExactCountStr(FNODE* f){
 
 void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit){
     if (getenv("GT_GAIN")){ gt_init(); gt_gain_measure(gt_mgr, f, cubes, limit_hit); }
-    if (!getenv("GT_BDD")) return;
+    int want_bdd = getenv("GT_BDD") != NULL;
+    int want_isop = getenv("GT_ISOP") != NULL;
+    if (!want_bdd && !want_isop) return;
     DdNode* det = gt_build_det(f);   /* gt_init もここで済む */
     DdManager* m = gt_mgr;
+
+    if (want_isop) gt_isop_measure(m, f, cubes, limit_hit, det);
+    if (!want_bdd){
+        Cudd_RecursiveDeref(m, det);
+        return;
+    }
 
     /* キューブ和集合 */
     DdNode* uni = Cudd_ReadLogicZero(m); Cudd_Ref(uni);

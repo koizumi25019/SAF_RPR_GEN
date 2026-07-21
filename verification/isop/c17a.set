@@ -1,0 +1,3 @@
+-net ../input/circuit/c17a.v
+-log /tmp/fdp_isop_c17a.log
+-fdp /tmp/fdp_isop_c17a.csv

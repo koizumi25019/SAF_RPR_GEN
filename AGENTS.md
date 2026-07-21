@@ -1,6 +1,9 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex and other coding agents when working with code in this repository.
+
+このファイルは `CLAUDE.md` と同じプロジェクト知識を Codex 向けに保持する。仕様・実験結果・検証手順を
+変更した場合は、`AGENTS.md` と `CLAUDE.md` の内容が食い違わないよう両方を更新すること。
 
 ## 概要
 

@@ -25,6 +25,13 @@ git switch -c exp/<名前> verification
 
 ## 現在の実験ブランチ
 
+### verification/isop（現行コードで実装済み・env GT_ISOP / MAXDC_QX_MULTI）
+
+キューブ爆発が列挙戦略由来か、平坦DNF表現そのものの大きさかを切り分ける。
+`GT_ISOP=1` は独立な Minato-Morreale ISOP の項数を測る恒久診断。`MAXDC_QX_MULTI=N` は
+複数の集合極小素項から短いものを選ぶ実験だが、s5378最難故障では改善0・6.2倍遅く棄却。
+結果と文献は `verification/isop/SUMMARY.md`。
+
 ### exp/full-miter （現行コードで実装済み・env FULL_MITER）
 故障ごとに TPG モデル（正常回路＋故障コーン＋検出節）を作り直す代わりに、**全回路ミターを一度だけ
 構築し、assumption で対象 net の故障注入を ON/OFF** して使い回す方式。CNF が固定なので CaDiCaL が

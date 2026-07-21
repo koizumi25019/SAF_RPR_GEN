@@ -1,0 +1,4 @@
+-net ../input/circuit/b12_C.v
+-fault ../verification/isop/b12_count.flist
+-log /tmp/fdp_isop_b12_count.log
+-fdp /tmp/fdp_isop_b12_count.csv

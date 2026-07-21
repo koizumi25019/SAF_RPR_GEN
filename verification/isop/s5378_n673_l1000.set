@@ -1,0 +1,5 @@
+-net ../input/circuit/s5378_C.v
+-fault ../verification/isop/s5378_n673.flist
+-log /tmp/fdp_isop_s5378_n673.log
+-fdp /tmp/fdp_isop_s5378_n673.csv
+-limit 1000

@@ -4,7 +4,8 @@
 //	案1 (env MAXDC): 「非検出オラクル」CNF（正常回路 ∧ 故障コーン ∧ サイト縮退
 //	  ∧ 全PO一致=z0）を構築し、各 XID キューブのケアビットを
 //	  「(cube\b) ∧ 非検出 が UNSAT のまま」である限り貪欲に落として素項へ拡大する。
-//	  追加 env: MAXDC_CORE(UNSATコア一括法), MAXDC_NOMUT(計測のみでキューブ不変)。
+//	  追加 env: MAXDC_CORE(UNSATコア一括法), MAXDC_NOMUT(計測のみでキューブ不変),
+//	  MAXDC_QX_MULTI=N(QuickXplainを異なる順序でN回実行し最短の素項を採用)。
 //	  終了時に [MAXDC] 集計を stderr に出す。
 //	案2 (env MAXHAM): 連続キューブのケア領域の値反転が少ない問題に対し、
 //	  「前回キューブと >=k ビット違う」制約(Sinz at-most)を活性化リテラルで
@@ -21,6 +22,7 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 #include <math.h>
@@ -39,6 +41,7 @@
 static long mdc_cubes=0, mdc_orig=0, mdc_prime=0, mdc_hr_cubes=0, mdc_sanity_fail=0, mdc_revert=0;
 static long mdc_hardcubes=0, mdc_hardorig=0, mdc_hardprime=0;   /* capped faults only */
 static long mdc_fcubes=0, mdc_forig=0, mdc_fprime=0;            /* per-fault accumulator */
+static long mdc_multi_cubes=0, mdc_multi_improved=0, mdc_multi_saved=0, mdc_multi_trials=0;
 
 /* 0除算を避ける平均（分母0なら0） */
 static double mdc_avg(double num, long den){ return den ? num / den : 0.0; }
@@ -54,6 +57,13 @@ static void mdc_dump(void){
         100.0 * mdc_avg(mdc_hr_cubes, mdc_cubes),
         mdc_sanity_fail);
     fprintf(stderr, "[MAXDC] reverts (unsafe expansions caught) = %ld\n", mdc_revert);
+    if (mdc_multi_cubes){
+        fprintf(stderr,
+            "[MAXDC_QX_MULTI] cubes=%ld avg_trials=%.1f improved=%ld(%.0f%%) saved_literals=%ld\n",
+            mdc_multi_cubes, mdc_avg(mdc_multi_trials, mdc_multi_cubes),
+            mdc_multi_improved, 100.0 * mdc_avg(mdc_multi_improved, mdc_multi_cubes),
+            mdc_multi_saved);
+    }
     fprintf(stderr,
         "[MAXDC] capped-fault cubes=%ld  orig=%.2f prime=%.2f headroom=%.2f bits/cube\n",
         mdc_hardcubes,
@@ -170,6 +180,54 @@ static int mdc_qx(CCaDiCaL* u, const char* cube,
     return nd2 + nd1;
 }
 
+/* HALL/MARS の「短い implicant を優先する」着想を、外部MaxSATなしで近似する実験。
+   QuickXplain は集合極小(MUS)を返すが、分割順により異なる極小集合になり得る。
+   care の順序を決定的にシャッフルして複数回抽出し、リテラル数最小の素項を選ぶ。
+   各候補は mdc_qx が返す正当な素項なので、選択しても健全性・完全性は変わらない。
+   これは cardinality-minimum MUS の厳密解ではなく、低コストなmulti-start近似。 */
+static int mdc_qx_multistart(CCaDiCaL* u, const char* cube,
+                             const int* care, int nc, int* out){
+    int best_n = mdc_qx(u, cube, NULL, 0, care, nc, out);
+    int first_n = best_n;
+    const char* s = getenv("MAXDC_QX_MULTI");
+    int trials = s ? atoi(s) : 1;
+    if (trials < 2) return best_n;
+    if (trials > 32) trials = 32;   /* SATコストの暴走防止 */
+
+    int* perm = malloc((size_t)nc * sizeof(int));
+    int* cand = malloc((size_t)nc * sizeof(int));
+    uint32_t state = 2166136261u;
+    for (int i = 0; i < n_pi; i++){
+        state ^= (unsigned char)cube[i];
+        state *= 16777619u;
+    }
+    if (state == 0) state = 0x9e3779b9u;
+
+    for (int t = 1; t < trials; t++){
+        memcpy(perm, care, (size_t)nc * sizeof(int));
+        for (int i = nc - 1; i > 0; i--){
+            state ^= state << 13; state ^= state >> 17; state ^= state << 5;
+            int j = (int)(state % (uint32_t)(i + 1));
+            int tmp = perm[i]; perm[i] = perm[j]; perm[j] = tmp;
+        }
+        int nk = mdc_qx(u, cube, NULL, 0, perm, nc, cand);
+        if (nk < best_n){
+            memcpy(out, cand, (size_t)nk * sizeof(int));
+            best_n = nk;
+        }
+    }
+    free(perm);
+    free(cand);
+
+    mdc_multi_cubes++;
+    mdc_multi_trials += trials;
+    if (best_n < first_n){
+        mdc_multi_improved++;
+        mdc_multi_saved += first_n - best_n;
+    }
+    return best_n;
+}
+
 /* キューブを素項へ拡大（in place、ケアビット -> 'X'）。
    既定: sound な per-bit 貪欲法（b を抜いても非検出が UNSAT のままなら落とす）。
    MAXDC_CORE: UNSATコア一括法（コア外を一括で落とし、検証+revert）。 */
@@ -192,7 +250,7 @@ void EXP_Expand(CCaDiCaL* u, char* cube){
         } else {
             static int* keep = NULL; static int kcap = 0;
             if (kcap < n_pi) { keep = realloc(keep, n_pi * sizeof(int)); kcap = n_pi; }
-            int nk = mdc_qx(u, cube, NULL, 0, care, nc, keep);
+            int nk = mdc_qx_multistart(u, cube, care, nc, keep);
             /* 一旦すべての care を X にし、keep に残った素項ビットだけ元値を復元 */
             for (int k = 0; k < nc; k++) cube[care[k]] = 'X';
             for (int k = 0; k < nk; k++) cube[keep[k]] = save[keep[k]];
