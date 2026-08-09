@@ -77,6 +77,15 @@ SAF の PCOUNT に相当する TDF 版は未実装。
 パスに直書きされており、コードでの自動生成はしない。
 条件をファイル名に埋め込まないので、`-limit` を変えたら出力先ディレクトリが自動で変わる。
 
+### HALL 本家との比較実行
+
+公式 HALL を `external/hall` に clone・build 済みなら、専用の `run_hall_experiments.sh` から
+故障ごとの検出関数を AIGER に書き出して HALL を一括実行できる。通常の FDP 実験用
+`run_experiments.sh` とは分離してある。例: `HALL_MODE=roc HALL_TIMEOUT=60 ./run_hall_experiments.sh c17a`。
+モードは `tale/mars-dis/mars-nondis/duty/core/roc/carma`、`HALL_PRINT=1` でキューブも保存する。
+結果は `output/hall/<mode>/<circuit>/<run-id>/{aig,log}/`。元の `.set` の出力先は上書きしない。
+`AIG_DUMP` が励起条件を含めないため TDF は対象外で、スクリプトが明示的にスキップする。
+
 ## 回帰テスト
 
 ユニットテストの仕組みは無い。正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する

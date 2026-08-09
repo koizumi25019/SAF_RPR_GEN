@@ -1,0 +1,9 @@
+# ITC'99 b22 — 遷移故障（TDF, LOC方式）実験
+-tdf
+-net ../input/circuit/b22.v
+
+# -fault 省略: 全代表故障を自動生成（等価故障解析込み）
+-log ../output/limit30/log/b22_tdf_exp_log.txt
+-fdp ../output/limit30/fdp/b22_tdf_exp_fdp.csv
+
+-limit 30

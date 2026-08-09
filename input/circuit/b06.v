@@ -1,0 +1,55 @@
+module b06 (CLK, EQL, CONT_EQL, CC_MUX_REG_2_, CC_MUX_REG_1_, USCITE_REG_2_, USCITE_REG_1_, ENABLE_COUNT_REG, ACKOUT_REG ) ;
+
+input   CLK, EQL, CONT_EQL ;
+
+output   CC_MUX_REG_2_, CC_MUX_REG_1_, USCITE_REG_2_, USCITE_REG_1_, ENABLE_COUNT_REG, ACKOUT_REG ;
+
+DFF gate0 (.Q(ACKOUT_REG), .D(U62), .CP(CLK) );
+DFF gate1 (.Q(STATE_REG_2_), .D(U57), .CP(CLK) );
+DFF gate2 (.Q(STATE_REG_1_), .D(U56), .CP(CLK) );
+DFF gate3 (.Q(STATE_REG_0_), .D(U55), .CP(CLK) );
+DFF gate4 (.Q(CC_MUX_REG_2_), .D(U59), .CP(CLK) );
+DFF gate5 (.Q(CC_MUX_REG_1_), .D(U58), .CP(CLK) );
+DFF gate6 (.Q(USCITE_REG_2_), .D(U61), .CP(CLK) );
+DFF gate7 (.Q(USCITE_REG_1_), .D(U60), .CP(CLK) );
+DFF gate8 (.Q(ENABLE_COUNT_REG), .D(U62), .CP(CLK) );
+AND2 gate9 (.A(U90), .B(U89), .Z(U54));
+NAND2 gate10 (.A(U54), .B(U78), .Z(U55));
+NAND4 gate11 (.A(U82), .B(U81), .C(U72), .D(U66), .Z(U56));
+NAND2 gate12 (.A(U80), .B(U79), .Z(U57));
+NAND4 gate13 (.A(U88), .B(U69), .C(U92), .D(U91), .Z(U58));
+NAND3 gate14 (.A(U86), .B(U70), .C(U85), .Z(U59));
+NAND3 gate15 (.A(EQL), .B(U76), .C(U54), .Z(U60));
+NAND2 gate16 (.A(U72), .B(U75), .Z(U61));
+NAND2 gate17 (.A(U84), .B(U83), .Z(U62));
+AND3 gate18 (.A(STATE_REG_2_), .B(STATE_REG_1_), .C(STATE_REG_0_), .Z(U63));
+INV gate19 (.A(STATE_REG_1_), .Z(U64));
+INV gate20 (.A(EQL), .Z(U65));
+NAND2 gate21 (.A(EQL), .B(STATE_REG_1_), .Z(U66));
+INV gate22 (.A(STATE_REG_2_), .Z(U67));
+INV gate23 (.A(STATE_REG_0_), .Z(U68));
+OR2 gate24 (.A(STATE_REG_2_), .B(STATE_REG_0_), .Z(U69));
+NAND3 gate25 (.A(U64), .B(U67), .C(STATE_REG_0_), .Z(U70));
+INV gate26 (.A(U66), .Z(U71));
+NAND4 gate27 (.A(STATE_REG_2_), .B(U68), .C(U64), .D(U65), .Z(U72));
+INV gate28 (.A(U69), .Z(U73));
+INV gate29 (.A(U70), .Z(U74));
+NAND2 gate30 (.A(STATE_REG_2_), .B(U71), .Z(U75));
+NAND2 gate31 (.A(STATE_REG_2_), .B(STATE_REG_1_), .Z(U76));
+OR2 gate32 (.A(STATE_REG_1_), .B(STATE_REG_0_), .Z(U77));
+NAND2 gate33 (.A(U65), .B(U77), .Z(U78));
+NAND2 gate34 (.A(U74), .B(U65), .Z(U79));
+NAND2 gate35 (.A(STATE_REG_2_), .B(U78), .Z(U80));
+NAND3 gate36 (.A(EQL), .B(U67), .C(STATE_REG_0_), .Z(U81));
+NAND2 gate37 (.A(U73), .B(STATE_REG_1_), .Z(U82));
+NAND3 gate38 (.A(STATE_REG_1_), .B(U65), .C(U73), .Z(U83));
+OR2 gate39 (.A(CONT_EQL), .B(U63), .Z(U84));
+NAND2 gate40 (.A(U71), .B(U68), .Z(U85));
+NAND2 gate41 (.A(STATE_REG_2_), .B(U78), .Z(U86));
+NAND2 gate42 (.A(EQL), .B(U68), .Z(U87));
+NAND2 gate43 (.A(STATE_REG_0_), .B(STATE_REG_2_), .Z(U88));
+NAND2 gate44 (.A(U73), .B(U64), .Z(U89));
+NAND2 gate45 (.A(STATE_REG_0_), .B(STATE_REG_1_), .Z(U90));
+NAND2 gate46 (.A(EQL), .B(U64), .Z(U91));
+NAND2 gate47 (.A(STATE_REG_1_), .B(U87), .Z(U92));
+endmodule

@@ -1,0 +1,52 @@
+module b01 (CLK, LINE1, LINE2, OUTP_REG, OVERFLW_REG ) ;
+
+input   CLK, LINE1, LINE2 ;
+
+output   OUTP_REG, OVERFLW_REG ;
+
+DFF gate0 (.Q(OVERFLW_REG), .D(U34), .CP(CLK) );
+DFF gate1 (.Q(STATO_REG_2_), .D(U45), .CP(CLK) );
+DFF gate2 (.Q(STATO_REG_1_), .D(U36), .CP(CLK) );
+DFF gate3 (.Q(STATO_REG_0_), .D(U35), .CP(CLK) );
+DFF gate4 (.Q(OUTP_REG), .D(U44), .CP(CLK) );
+AND3 gate5 (.A(STATO_REG_1_), .B(U38), .C(STATO_REG_0_), .Z(U34));
+NAND4 gate6 (.A(U68), .B(U67), .C(U66), .D(U65), .Z(U35));
+NAND3 gate7 (.A(U57), .B(U55), .C(U56), .Z(U36));
+OR2 gate8 (.A(LINE2), .B(LINE1), .Z(U37));
+INV gate9 (.A(STATO_REG_2_), .Z(U38));
+INV gate10 (.A(STATO_REG_1_), .Z(U39));
+INV gate11 (.A(LINE2), .Z(U40));
+INV gate12 (.A(LINE1), .Z(U41));
+INV gate13 (.A(STATO_REG_0_), .Z(U42));
+NAND2 gate14 (.A(STATO_REG_1_), .B(U42), .Z(U43));
+NAND2 gate15 (.A(U73), .B(U72), .Z(U44));
+NAND2 gate16 (.A(U60), .B(U59), .Z(U45));
+NAND2 gate17 (.A(U70), .B(U69), .Z(U46));
+NAND2 gate18 (.A(LINE1), .B(LINE2), .Z(U47));
+NAND2 gate19 (.A(STATO_REG_2_), .B(U43), .Z(U48));
+INV gate20 (.A(U37), .Z(U49));
+NAND2 gate21 (.A(U49), .B(U42), .Z(U50));
+INV gate22 (.A(U47), .Z(U51));
+INV gate23 (.A(U43), .Z(U52));
+NAND2 gate24 (.A(U47), .B(U43), .Z(U53));
+NAND2 gate25 (.A(STATO_REG_2_), .B(U47), .Z(U54));
+NAND3 gate26 (.A(STATO_REG_0_), .B(U39), .C(U47), .Z(U55));
+NAND2 gate27 (.A(U52), .B(U54), .Z(U56));
+NAND3 gate28 (.A(U62), .B(U61), .C(STATO_REG_2_), .Z(U57));
+INV gate29 (.A(U48), .Z(U58));
+NAND2 gate30 (.A(U53), .B(U38), .Z(U59));
+NAND3 gate31 (.A(U50), .B(U39), .C(STATO_REG_2_), .Z(U60));
+NAND2 gate32 (.A(STATO_REG_1_), .B(U49), .Z(U61));
+NAND2 gate33 (.A(U37), .B(U42), .Z(U62));
+NAND2 gate34 (.A(STATO_REG_0_), .B(U47), .Z(U63));
+NAND2 gate35 (.A(U51), .B(U42), .Z(U64));
+NAND4 gate36 (.A(U64), .B(U63), .C(U39), .D(U38), .Z(U65));
+NAND3 gate37 (.A(U43), .B(U37), .C(STATO_REG_2_), .Z(U66));
+NAND2 gate38 (.A(U34), .B(U47), .Z(U67));
+NAND2 gate39 (.A(U51), .B(U52), .Z(U68));
+NAND2 gate40 (.A(LINE1), .B(U40), .Z(U69));
+NAND2 gate41 (.A(LINE2), .B(U41), .Z(U70));
+INV gate42 (.A(U46), .Z(U71));
+NAND2 gate43 (.A(U58), .B(U71), .Z(U72));
+NAND2 gate44 (.A(U46), .B(U48), .Z(U73));
+endmodule
