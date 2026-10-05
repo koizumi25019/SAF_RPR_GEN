@@ -1,0 +1,1 @@
+{"method":"greedy","cubes":9,"care_literal":1188,"complete":true,"timed_out":false,"seconds":0.000494147,"init_seconds":0.000298376,"sat_calls":37,"detector_calls":10,"oracle_calls":27,"oracle_sat":18,"oracle_unsat":9,"refined_cubes":9,"refinement_removed_literals":0,"simulation_necessary_literals":0,"simulation_seconds":0,"care_hist":{"1":7,"3":1,"8":1}}

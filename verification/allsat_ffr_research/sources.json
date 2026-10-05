@@ -1,0 +1,106 @@
+{
+  "date": "2026-09-17",
+  "new_performance_experiments": false,
+  "sources": [
+    {
+      "id": "hall23",
+      "title": "AllSAT for Combinational Circuits",
+      "year": 2023,
+      "url": "https://doi.org/10.4230/LIPIcs.SAT.2023.9",
+      "review": "Attached PDF read in full; Sections 3–4 and 6 emphasized.",
+      "local": "paper/ALL-SAT-Combinational-Circuitpdf.pdf",
+      "sha256": "3caa035baf96be3e76bec053d12f8d5ea4fa2489625290f56bb4191a7c92b3eb"
+    },
+    {
+      "id": "hall24",
+      "title": "Entailing Generalization Boosts Enumeration",
+      "year": 2024,
+      "url": "https://doi.org/10.4230/LIPIcs.SAT.2024.13",
+      "review": "Primary PDF; generalization definitions and relationship to prior HALL."
+    },
+    {
+      "id": "entailment25",
+      "title": "Entailment vs. Verification for Partial-Assignment Satisfiability and Enumeration",
+      "year": 2025,
+      "url": "https://doi.org/10.1007/978-3-031-99984-0_37",
+      "review": "Publisher information and existing project review; author PDF fetch failed this turn."
+    },
+    {
+      "id": "cnf25",
+      "title": "On CNF Conversion for SAT and SMT Enumeration",
+      "year": 2025,
+      "url": "https://disi.unitn.it/rseba/papers/JAIR25-cnfenum.pdf",
+      "review": "Primary search result and existing project implementation/evaluation reviewed."
+    },
+    {
+      "id": "tabular25",
+      "title": "Disjoint projected enumeration for SAT and SMT without blocking clauses",
+      "year": 2025,
+      "url": "https://disi.unitn.it/rseba/papers/AIJ25.pdf",
+      "review": "Primary paper result and existing project implementation/evaluation reviewed."
+    },
+    {
+      "id": "pdr23",
+      "title": "Everything You Always Wanted to Know About Generalization of Proof Obligations in PDR",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2105.09169",
+      "review": "Author PDF, complexity and applicability sections; arXiv first posted 2021."
+    },
+    {
+      "id": "acd_dc25",
+      "title": "Ashenhurst-Curtis Decomposition Using Don't Cares",
+      "year": 2025,
+      "url": "https://people.eecs.berkeley.edu/~alanmi/publications/2025/iwls25_dc.pdf",
+      "review": "Primary PDF, Sections II-C, IV, V; IWLS program cross-checked."
+    },
+    {
+      "id": "mfs11",
+      "title": "Scalable Don't-Care-Based Logic Optimization and Resynthesis",
+      "year": 2011,
+      "url": "https://people.eecs.berkeley.edu/~alanmi/publications/2011/trets11_mfs.pdf",
+      "review": "Author PDF, Sections 2.2–2.3 and SAT/window methodology."
+    },
+    {
+      "id": "eslim24",
+      "title": "eSLIM: Circuit Minimization with SAT Based Local Improvement",
+      "year": 2024,
+      "url": "https://doi.org/10.4230/LIPIcs.SAT.2024.23",
+      "review": "Primary PDF, local input-output relations, windowing, Section 3."
+    },
+    {
+      "id": "bidecomp08",
+      "title": "Bi-Decomposing Large Boolean Functions via Interpolation and Satisfiability Solving",
+      "year": 2008,
+      "url": "https://alcom.ee.ntu.edu.tw/assets/publications/dac08-bd.pdf",
+      "review": "Author PDF; partitioning and SAT/interpolation formulation; previously proposed in project."
+    },
+    {
+      "id": "mus_bidecomp",
+      "title": "Improvements to Satisfiability-Based Boolean Function Bi-Decomposition",
+      "url": "https://dl.ifip.org/index.html/db/conf/vlsi/vlsisoc2011s/0001M11.pdf",
+      "review": "Primary extended chapter, Sections 3–4. VLSI-SoC 2011 series; exact chapter publication year not asserted."
+    },
+    {
+      "id": "ash08",
+      "title": "To SAT or Not to SAT: Ashenhurst Decomposition in a Large Scale",
+      "year": 2008,
+      "url": "https://cecs.uci.edu/~papers/iccad08/PDFs/Papers/01B.2.pdf",
+      "review": "Primary PDF; scope and single-output/multiple-output functional decomposition; previously proposed in project."
+    },
+    {
+      "id": "hier26",
+      "title": "Hierarchical Boundary Recovery: Overcoming Synthesis Obscurity via SAT Sweeping",
+      "year": 2026,
+      "url": "https://people.eecs.berkeley.edu/~alanmi/publications/2026/dac26_hie.pdf",
+      "review": "Author PDF, introduction and required specification/implementation inputs. Not a reference-free decomposition method."
+    },
+    {
+      "id": "prob90",
+      "title": "On Computing Signal Probability and Detection Probability of Stuck-at Faults",
+      "year": 1990,
+      "local": "paper/1990-TranComt-On_computing_signal_probability_and_detection_probability_of_stuck-at_faults-koizumi.pdf",
+      "sha256": "90c765201b0748bfd82517b6112a8be0f34985a1ae87082adb4277303a0c13eb",
+      "review": "User-supplied PDF read in previous turn; Sections III–IV connected to current research."
+    }
+  ]
+}

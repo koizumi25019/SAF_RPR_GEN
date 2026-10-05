@@ -1,0 +1,26 @@
+{
+  "fault": "z",
+  "stuck": 0,
+  "width": 1,
+  "predicates": 14,
+  "candidate_clauses": 392,
+  "entailed_clauses": 13,
+  "exact": true,
+  "learned_clauses": 13,
+  "implication_sat_calls": 392,
+  "equivalence_sat_calls": 15,
+  "minimize_calls": 13,
+  "implication_seconds": 0.014617722990806215,
+  "equivalence_seconds": 0.001691211000434123,
+  "union": {
+    "regions": 1,
+    "predicates": 14,
+    "nvars": 14,
+    "bdd_nodes": 27,
+    "probability": "987/16384",
+    "model_count": "987",
+    "fdp": 0.06024169921875,
+    "seconds": 0.002666863
+  },
+  "total_seconds": 0.022822664002887905
+}

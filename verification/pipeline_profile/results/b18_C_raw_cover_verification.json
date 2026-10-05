@@ -1,0 +1,290 @@
+[
+  {
+    "fault": "P1_P3_INSTADDRPOINTER_REG_4__SCAN_IN_P1_P3_ADD_904_U10_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.2950007179970271
+  },
+  {
+    "fault": "P2_P1_INSTADDRPOINTER_REG_27__SCAN_IN_P2_P1_ADD_1051_U56_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.15210722699703183
+  },
+  {
+    "fault": "P2_P3_INSTADDRPOINTER_REG_15__SCAN_IN_P2_P3_ADD_895_U154_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.04878454400022747
+  },
+  {
+    "fault": "P2_P2_INSTADDRPOINTER_REG_8__SCAN_IN_P2_P2_ADD_986_U159_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.058466039001359604
+  },
+  {
+    "fault": "P1_P1_EAX_REG_10__SCAN_IN_P1_P1_U6604_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.04296614100167062
+  },
+  {
+    "fault": "P2_P3_SUB_867_1258_U4_P2_P3_SUB_867_1258_U303_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.14532432299893117
+  },
+  {
+    "fault": "P1_P3_SUB_1014_U45",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.22799302999919746
+  },
+  {
+    "fault": "P1_P1_U4314",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.8926909100046032
+  },
+  {
+    "fault": "P1_P3_U2595",
+    "stuck": 0,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.03674187700380571
+  },
+  {
+    "fault": "P3_SUB_84_U12_P3_U4126_A",
+    "stuck": 1,
+    "cubes": 21,
+    "claimed_complete": true,
+    "sound": true,
+    "exact": true,
+    "seconds": 0.010174358998483513
+  },
+  {
+    "fault": "P1_P1_ADD_1046_U13",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.2676689680010895
+  },
+  {
+    "fault": "P2_P2_U2530",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.1921434739997494
+  },
+  {
+    "fault": "P1_P3_U2557_P1_P3_U7585_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.027206311002373695
+  },
+  {
+    "fault": "P2_P1_U2526_P2_P1_U7198_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.20329878199845552
+  },
+  {
+    "fault": "P2_P3_U5670",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.035224462997575756
+  },
+  {
+    "fault": "P2_P3_ADD_870_1242_U108_P2_P3_ADD_870_1242_U211_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.04944093200174393
+  },
+  {
+    "fault": "MUL_1419_U1819_MUL_1419_U1849_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.5145266600011382
+  },
+  {
+    "fault": "MUL_1411_U547",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.06740010200155666
+  },
+  {
+    "fault": "P1_P1_U6536",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.021525301999645308
+  },
+  {
+    "fault": "P1_P1_U4445_P1_P1_U4486_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.1125150730003952
+  },
+  {
+    "fault": "P2_P3_ADD_951_U88",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.050334334999206476
+  },
+  {
+    "fault": "MUL_1420_U2589",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.2843130429973826
+  },
+  {
+    "fault": "P4_ADD_95_U54",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.15359488199464977
+  },
+  {
+    "fault": "P2_P2_ADD_1051_U107",
+    "stuck": 0,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.10351688299851958
+  },
+  {
+    "fault": "P2_P1_ADD_1041_U76",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.06058015600137878
+  },
+  {
+    "fault": "MUL_1411_U1196",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.08611669099627761
+  },
+  {
+    "fault": "MUL_1420_U2316_MUL_1420_U1683_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.8800042259972543
+  },
+  {
+    "fault": "P2_P2_ADD_1004_U162",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.0536941009995644
+  },
+  {
+    "fault": "P1_P3_ADD_1068_U158",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.05649301900120918
+  },
+  {
+    "fault": "P1_P2_ADD_881_1212_U92_P1_P2_U6399_A",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.06026636099704774
+  },
+  {
+    "fault": "P1_P2_U7173",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.026896585994109046
+  },
+  {
+    "fault": "P2_P1_U2424_P2_P1_U4914_B",
+    "stuck": 1,
+    "cubes": 30,
+    "claimed_complete": false,
+    "sound": true,
+    "exact": false,
+    "seconds": 0.12056889700033935
+  }
+]

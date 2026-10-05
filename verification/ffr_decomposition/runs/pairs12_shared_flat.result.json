@@ -1,0 +1,49 @@
+{
+  "net": "/home/koizumi/fdp/verification/ffr_decomposition/cases/pairs12_shared.v",
+  "fault": "x",
+  "stuck": 0,
+  "root": "t11",
+  "path_gates": 12,
+  "flat": true,
+  "care_observation": false,
+  "factors": 1,
+  "complete": true,
+  "generated_cubes": 2,
+  "factor_results": [
+    {
+      "name": "flat_detection",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.7302e-05,
+      "init_seconds": 0.000133112,
+      "sat_calls": 20,
+      "detector_calls": 3,
+      "oracle_calls": 17,
+      "oracle_sat": 15,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "2": 1,
+        "13": 1
+      }
+    }
+  ],
+  "union": {
+    "probability": "4097/16384",
+    "cubes": 2,
+    "factors": 1,
+    "bdd_nodes": 15,
+    "seconds": 0.002257115
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.005647478999890154
+}

@@ -1,0 +1,123 @@
+[
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 3.557280004999484,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/refine/g16349_learn0_mass0.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 2.1750166839919984,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/refine/g16349_learn0_mass1.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 2.9313198099989677,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/refine/g16349_learn128_mass0.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 1.1403323880076641,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/refine/g16349_learn512_mass0.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.943850438008667,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/refine/g16349_learn512_mass1.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.9442714449978666,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_0.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.9543415060034022,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_1.cover.json"
+  },
+  {
+    "fault": "g16349",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.9333979780058144,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_2.cover.json"
+  },
+  {
+    "fault": "II17661",
+    "stuck": 0,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.9497159379970981,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II17661_0_weighted_0.cover.json"
+  },
+  {
+    "fault": "g13329",
+    "stuck": 1,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.947632795010577,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g13329_1_weighted_0.cover.json"
+  },
+  {
+    "fault": "II15893",
+    "stuck": 0,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 232,
+    "local_probabilities_exhaustive": 4,
+    "seconds": 0.9482740300009027,
+    "manifest": "/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II15893_0_weighted_0.cover.json"
+  }
+]

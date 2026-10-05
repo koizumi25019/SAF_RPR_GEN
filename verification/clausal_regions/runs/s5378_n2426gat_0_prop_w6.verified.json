@@ -1,0 +1,11 @@
+{
+  "fault": "n2426gat",
+  "stuck": 0,
+  "regions": 33,
+  "sound": true,
+  "exact": true,
+  "coordinate_rank": 46,
+  "original_outputs": 213,
+  "affected_outputs_verified": 213,
+  "seconds": 0.12854821200005517
+}

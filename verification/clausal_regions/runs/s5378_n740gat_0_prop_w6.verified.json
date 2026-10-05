@@ -1,0 +1,11 @@
+{
+  "fault": "n740gat",
+  "stuck": 0,
+  "regions": 1291,
+  "sound": true,
+  "exact": true,
+  "coordinate_rank": 123,
+  "original_outputs": 213,
+  "affected_outputs_verified": 213,
+  "seconds": 1.7763651480000817
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "cubes": 4571,
+    "nvars": 186,
+    "bdd_nodes": 32652,
+    "probability": "137438953471/274877906944",
+    "model_count": "3450873173370173486775831208083169568532723820420783855803405973848064",
+    "fdp": 0.499999999996362,
+    "seconds": 4.377295933,
+    "insertion_order": "weighted",
+    "complete": true,
+    "order": "weighted",
+    "wall_seconds": 4.465074542997172
+  },
+  {
+    "cubes": 4571,
+    "nvars": 186,
+    "bdd_nodes": 43646,
+    "probability": "137438953471/274877906944",
+    "model_count": "3450873173370173486775831208083169568532723820420783855803405973848064",
+    "fdp": 0.499999999996362,
+    "seconds": 4.668423603,
+    "insertion_order": "uniform",
+    "complete": true,
+    "order": "uniform",
+    "wall_seconds": 4.760118684003828
+  },
+  {
+    "complete": false,
+    "timeout": 10,
+    "order": "natural",
+    "wall_seconds": 10.057662758001243
+  }
+]

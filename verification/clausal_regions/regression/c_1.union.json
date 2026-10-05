@@ -1,0 +1,10 @@
+{
+  "regions": 1,
+  "predicates": 1,
+  "nvars": 5,
+  "bdd_nodes": 10,
+  "probability": "9/32",
+  "model_count": "9",
+  "fdp": 0.28125,
+  "seconds": 0.002503042
+}

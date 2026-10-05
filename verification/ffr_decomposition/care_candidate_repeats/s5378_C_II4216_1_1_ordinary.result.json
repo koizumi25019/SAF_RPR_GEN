@@ -1,0 +1,123 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/s5378_C.v",
+  "fault": "II4216",
+  "stuck": 1,
+  "root": "n1681gat",
+  "path_gates": 2,
+  "flat": false,
+  "care_observation": false,
+  "factors": 4,
+  "complete": true,
+  "generated_cubes": 466,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 4,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000293084,
+      "init_seconds": 0.000323902,
+      "sat_calls": 24,
+      "detector_calls": 5,
+      "oracle_calls": 19,
+      "oracle_sat": 12,
+      "oracle_unsat": 7,
+      "refined_cubes": 4,
+      "refinement_removed_literals": 3,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "3": 4
+      }
+    },
+    {
+      "name": "II4217:n1392gat=0",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.7377e-05,
+      "init_seconds": 0.000200932,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "II4217:n2989gat=0",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000123953,
+      "init_seconds": 0.000223073,
+      "sat_calls": 9,
+      "detector_calls": 3,
+      "oracle_calls": 6,
+      "oracle_sat": 4,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "2": 2
+      }
+    },
+    {
+      "name": "root_observability",
+      "method": "greedy",
+      "cubes": 459,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.094112045,
+      "init_seconds": 0.000263474,
+      "sat_calls": 4768,
+      "detector_calls": 460,
+      "oracle_calls": 4308,
+      "oracle_sat": 3313,
+      "oracle_unsat": 995,
+      "refined_cubes": 459,
+      "refinement_removed_literals": 742,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "4": 6,
+        "5": 38,
+        "6": 146,
+        "7": 111,
+        "8": 61,
+        "9": 43,
+        "10": 33,
+        "11": 13,
+        "12": 6,
+        "13": 2
+      }
+    }
+  ],
+  "union": {
+    "probability": "5355/131072",
+    "cubes": 466,
+    "factors": 4,
+    "bdd_nodes": 32,
+    "seconds": 0.005635364
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.1367045169990888
+}

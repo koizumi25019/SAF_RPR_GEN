@@ -1,0 +1,20 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/c17a.v",
+  "fault": "i",
+  "stuck": 1,
+  "ncoords": 5,
+  "basis_rows": [
+    "0x1",
+    "0x2",
+    "0x4",
+    "0x8",
+    "0x10"
+  ],
+  "pi_order": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+  ]
+}

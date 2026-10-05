@@ -1,0 +1,9 @@
+{
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "timing": "exploratory single runs, some checks overlapped; seconds excludes cover BDD",
+  "cases": 60,
+  "completed": 25,
+  "raw_verified_completed": 25
+}

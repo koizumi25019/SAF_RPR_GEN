@@ -1,0 +1,10 @@
+{
+  "net": "verification/clausal_regions/cases/constants.v",
+  "fault": "one",
+  "stuck": 0,
+  "ncoords": 0,
+  "basis_rows": [],
+  "pi_order": [
+    "x"
+  ]
+}

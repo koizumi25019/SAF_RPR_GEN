@@ -1,0 +1,1358 @@
+[
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": false,
+    "factors": 6,
+    "complete": true,
+    "generated_cubes": 64,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 8,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00053181,
+        "init_seconds": 0.00023491,
+        "sat_calls": 32,
+        "detector_calls": 9,
+        "oracle_calls": 23,
+        "oracle_sat": 14,
+        "oracle_unsat": 9,
+        "refined_cubes": 8,
+        "refinement_removed_literals": 1,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 2,
+          "2": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000196726,
+        "init_seconds": 0.000220501,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000195561,
+        "init_seconds": 0.000219933,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000378363,
+        "init_seconds": 0.000225143,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.4607e-05,
+        "init_seconds": 0.000202392,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.002281072,
+        "init_seconds": 0.000261782,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 64,
+      "factors": 6,
+      "bdd_nodes": 137,
+      "seconds": 0.003257962
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.03919693800003188
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 2974,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 2974,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 1.010966778,
+        "init_seconds": 0.000390376,
+        "sat_calls": 37850,
+        "detector_calls": 2975,
+        "oracle_calls": 34875,
+        "oracle_sat": 30384,
+        "oracle_unsat": 4491,
+        "refined_cubes": 2974,
+        "refinement_removed_literals": 1525,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "8": 104,
+          "9": 600,
+          "10": 1123,
+          "11": 860,
+          "12": 269,
+          "13": 18
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 2974,
+      "factors": 1,
+      "bdd_nodes": 137,
+      "seconds": 0.054166923
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 1.094943222999973
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": false,
+    "factors": 8,
+    "complete": true,
+    "generated_cubes": 68,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000202912,
+        "init_seconds": 0.00022918,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "n2433gat:n2154gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 7.0228e-05,
+        "init_seconds": 0.000214702,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "n2428gat:n2427gat=0",
+        "method": "greedy",
+        "cubes": 6,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000233458,
+        "init_seconds": 0.000246765,
+        "sat_calls": 19,
+        "detector_calls": 7,
+        "oracle_calls": 12,
+        "oracle_sat": 6,
+        "oracle_unsat": 6,
+        "refined_cubes": 6,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00019675,
+        "init_seconds": 0.000209106,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000199931,
+        "init_seconds": 0.000210382,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000381981,
+        "init_seconds": 0.000224793,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.6258e-05,
+        "init_seconds": 0.000205974,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.002503249,
+        "init_seconds": 0.00026226,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 68,
+      "factors": 8,
+      "bdd_nodes": 88,
+      "seconds": 0.002449625
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.03928143600001022
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 1970,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 1970,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.635680958,
+        "init_seconds": 0.00042167,
+        "sat_calls": 25876,
+        "detector_calls": 1971,
+        "oracle_calls": 23905,
+        "oracle_sat": 20675,
+        "oracle_unsat": 3230,
+        "refined_cubes": 1970,
+        "refinement_removed_literals": 1265,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "9": 260,
+          "10": 745,
+          "11": 710,
+          "12": 240,
+          "13": 15
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 1970,
+      "factors": 1,
+      "bdd_nodes": 88,
+      "seconds": 0.027399728
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.701450594999983
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 2974,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 2974,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 1.005848146,
+        "init_seconds": 0.000400389,
+        "sat_calls": 37850,
+        "detector_calls": 2975,
+        "oracle_calls": 34875,
+        "oracle_sat": 30384,
+        "oracle_unsat": 4491,
+        "refined_cubes": 2974,
+        "refinement_removed_literals": 1525,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "8": 104,
+          "9": 600,
+          "10": 1123,
+          "11": 860,
+          "12": 269,
+          "13": 18
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 2974,
+      "factors": 1,
+      "bdd_nodes": 137,
+      "seconds": 0.048778113
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 1.085648526
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": false,
+    "factors": 6,
+    "complete": true,
+    "generated_cubes": 64,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 8,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00048953,
+        "init_seconds": 0.000233567,
+        "sat_calls": 32,
+        "detector_calls": 9,
+        "oracle_calls": 23,
+        "oracle_sat": 14,
+        "oracle_unsat": 9,
+        "refined_cubes": 8,
+        "refinement_removed_literals": 1,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 2,
+          "2": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000195937,
+        "init_seconds": 0.000252547,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000198494,
+        "init_seconds": 0.000211918,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000382424,
+        "init_seconds": 0.000226174,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.5804e-05,
+        "init_seconds": 0.000211174,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.002244232,
+        "init_seconds": 0.000266708,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 64,
+      "factors": 6,
+      "bdd_nodes": 137,
+      "seconds": 0.002464783
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.03771857300000647
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 1970,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 1970,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.633394231,
+        "init_seconds": 0.000629681,
+        "sat_calls": 25876,
+        "detector_calls": 1971,
+        "oracle_calls": 23905,
+        "oracle_sat": 20675,
+        "oracle_unsat": 3230,
+        "refined_cubes": 1970,
+        "refinement_removed_literals": 1265,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "9": 260,
+          "10": 745,
+          "11": 710,
+          "12": 240,
+          "13": 15
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 1970,
+      "factors": 1,
+      "bdd_nodes": 88,
+      "seconds": 0.027818201
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.6890403879999667
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": false,
+    "factors": 8,
+    "complete": true,
+    "generated_cubes": 68,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00020401,
+        "init_seconds": 0.000266358,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "n2433gat:n2154gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.9526e-05,
+        "init_seconds": 0.000217539,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "n2428gat:n2427gat=0",
+        "method": "greedy",
+        "cubes": 6,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000242315,
+        "init_seconds": 0.000216005,
+        "sat_calls": 19,
+        "detector_calls": 7,
+        "oracle_calls": 12,
+        "oracle_sat": 6,
+        "oracle_unsat": 6,
+        "refined_cubes": 6,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000205045,
+        "init_seconds": 0.000232686,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000198588,
+        "init_seconds": 0.000211324,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000387838,
+        "init_seconds": 0.000221921,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.9643e-05,
+        "init_seconds": 0.000237895,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.002279878,
+        "init_seconds": 0.000259685,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 68,
+      "factors": 8,
+      "bdd_nodes": 88,
+      "seconds": 0.002379548
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.04012310999996771
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": false,
+    "factors": 6,
+    "complete": true,
+    "generated_cubes": 64,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 8,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000493767,
+        "init_seconds": 0.000238862,
+        "sat_calls": 32,
+        "detector_calls": 9,
+        "oracle_calls": 23,
+        "oracle_sat": 14,
+        "oracle_unsat": 9,
+        "refined_cubes": 8,
+        "refinement_removed_literals": 1,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 2,
+          "2": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000194869,
+        "init_seconds": 0.000208682,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000200069,
+        "init_seconds": 0.000214043,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00038299,
+        "init_seconds": 0.000241066,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.3535e-05,
+        "init_seconds": 0.000199349,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.002310011,
+        "init_seconds": 0.000262088,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 64,
+      "factors": 6,
+      "bdd_nodes": 137,
+      "seconds": 0.002479758
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.03964752700005647
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2428gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 3,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 2974,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 2974,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.999281535,
+        "init_seconds": 0.000407496,
+        "sat_calls": 37850,
+        "detector_calls": 2975,
+        "oracle_calls": 34875,
+        "oracle_sat": 30384,
+        "oracle_unsat": 4491,
+        "refined_cubes": 2974,
+        "refinement_removed_literals": 1525,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "8": 104,
+          "9": 600,
+          "10": 1123,
+          "11": 860,
+          "12": 269,
+          "13": 18
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/1099511627776",
+      "cubes": 2974,
+      "factors": 1,
+      "bdd_nodes": 137,
+      "seconds": 0.047859037
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 1.0760607580000396
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": false,
+    "factors": 8,
+    "complete": true,
+    "generated_cubes": 68,
+    "factor_results": [
+      {
+        "name": "excitation",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000203851,
+        "init_seconds": 0.000225517,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "n2433gat:n2154gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 6.6537e-05,
+        "init_seconds": 0.000211152,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "n2428gat:n2427gat=0",
+        "method": "greedy",
+        "cubes": 6,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000245137,
+        "init_seconds": 0.000237838,
+        "sat_calls": 19,
+        "detector_calls": 7,
+        "oracle_calls": 12,
+        "oracle_sat": 6,
+        "oracle_unsat": 6,
+        "refined_cubes": 6,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 6
+        }
+      },
+      {
+        "name": "II1733:n2286gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000201981,
+        "init_seconds": 0.000206316,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1733:n2289gat=0",
+        "method": "greedy",
+        "cubes": 5,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000250199,
+        "init_seconds": 0.000211197,
+        "sat_calls": 16,
+        "detector_calls": 6,
+        "oracle_calls": 10,
+        "oracle_sat": 5,
+        "oracle_unsat": 5,
+        "refined_cubes": 5,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 5
+        }
+      },
+      {
+        "name": "II1734:n1604gat=0",
+        "method": "greedy",
+        "cubes": 3,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.000379567,
+        "init_seconds": 0.000240249,
+        "sat_calls": 22,
+        "detector_calls": 4,
+        "oracle_calls": 18,
+        "oracle_sat": 13,
+        "oracle_unsat": 5,
+        "refined_cubes": 3,
+        "refinement_removed_literals": 2,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "name": "II1734:n2214gat=0",
+        "method": "greedy",
+        "cubes": 1,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 7.3301e-05,
+        "init_seconds": 0.000221785,
+        "sat_calls": 4,
+        "detector_calls": 2,
+        "oracle_calls": 2,
+        "oracle_sat": 1,
+        "oracle_unsat": 1,
+        "refined_cubes": 1,
+        "refinement_removed_literals": 0,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 1
+        }
+      },
+      {
+        "name": "root_observability",
+        "method": "greedy",
+        "cubes": 42,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.00221753,
+        "init_seconds": 0.000272952,
+        "sat_calls": 168,
+        "detector_calls": 43,
+        "oracle_calls": 125,
+        "oracle_sat": 76,
+        "oracle_unsat": 49,
+        "refined_cubes": 42,
+        "refinement_removed_literals": 7,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "1": 13,
+          "2": 24,
+          "3": 5
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 68,
+      "factors": 8,
+      "bdd_nodes": 88,
+      "seconds": 0.002495713
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.039573343000029126
+  },
+  {
+    "net": "input/circuit/s5378_C.v",
+    "fault": "n2432gat",
+    "stuck": 0,
+    "root": "n2148gat",
+    "path_gates": 5,
+    "flat": true,
+    "factors": 1,
+    "complete": true,
+    "generated_cubes": 1970,
+    "factor_results": [
+      {
+        "name": "flat_detection",
+        "method": "greedy",
+        "cubes": 1970,
+        "complete": true,
+        "timed_out": false,
+        "seconds": 0.625651379,
+        "init_seconds": 0.000427396,
+        "sat_calls": 25876,
+        "detector_calls": 1971,
+        "oracle_calls": 23905,
+        "oracle_sat": 20675,
+        "oracle_unsat": 3230,
+        "refined_cubes": 1970,
+        "refinement_removed_literals": 1265,
+        "simulation_necessary_literals": 0,
+        "simulation_seconds": 0,
+        "care_hist": {
+          "9": 260,
+          "10": 745,
+          "11": 710,
+          "12": 240,
+          "13": 15
+        }
+      }
+    ],
+    "union": {
+      "probability": "58250049319/2199023255552",
+      "cubes": 1970,
+      "factors": 1,
+      "bdd_nodes": 88,
+      "seconds": 0.027922146
+    },
+    "proof": {
+      "sound": true,
+      "exact": true
+    },
+    "total_seconds_excluding_raw_proof": 0.6927018170000565
+  }
+]

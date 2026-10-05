@@ -1,0 +1,52 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                                                                                                           */
+/*  Program     :   ASG                                                                               	     */
+/*  Deginer     :   T.Sone                                                                                   */
+/*  Date        :   2023.10.13                                                                               */
+/*                                                                                                           */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+# set File
+# set netlist(.v)
+-n ./input/circuit/s9234_C.v 
+
+# set fault list(.txt)
+-f ./input/fault/s9234_C_rpr_10.txt
+
+# set xor-tap list(.txt)
+-x ./input/xor_tap/tap_32.txt
+
+# set scan-chain(.txt)
+-c ./input/scan_chain/s9234_C_sc_32.txt
+
+# set necessary(.txt)
+-e ./input/necessary/s9234_C_nece.txt
+
+# set graphlog(.txt)
+-g ./output/graphlog/s9234_C_Graphlog.txt
+
+# set log(.txt)
+-l ./output/log/s9234_C_log.txt
+
+# set pin(.txt)
+-p ./output/pin/s9234_C_pin.txt
+
+# set seed set(.txt)
+-s ./output/seed/s9234_C_seed.txt
+
+# set test pattern(.txt)
+-t ./output/test_pattern/s9234_C_tp.txt
+
+# set untestable fault(.txt)
+#-u ./output/untestable/s9234_C_unsat.txt
+
+
+# set target fault mode
+#-o SINGLE
+-o MULTIPLE
+
+# set generation mode
+-m SEED
+#-m TEST
+
+

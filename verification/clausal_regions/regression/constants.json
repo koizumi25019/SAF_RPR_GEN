@@ -1,0 +1,24 @@
+[
+  {
+    "fault": "zero",
+    "stuck": 0,
+    "regions": 0,
+    "sound": true,
+    "exact": true,
+    "coordinate_rank": 0,
+    "original_outputs": 2,
+    "affected_outputs_verified": 2,
+    "seconds": 0.0015414550000514282
+  },
+  {
+    "fault": "one",
+    "stuck": 0,
+    "regions": 1,
+    "sound": true,
+    "exact": true,
+    "coordinate_rank": 0,
+    "original_outputs": 2,
+    "affected_outputs_verified": 2,
+    "seconds": 0.0013643969999748151
+  }
+]

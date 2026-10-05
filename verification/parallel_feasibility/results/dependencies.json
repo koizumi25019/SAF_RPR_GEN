@@ -1,0 +1,98 @@
+{
+  "faults": 4551,
+  "edges": 353,
+  "dependent_faults": 124,
+  "weak_components": 4198,
+  "largest_component": 5,
+  "component_size_histogram": {
+    "1": 4074,
+    "3": 56,
+    "5": 37,
+    "4": 31
+  },
+  "fault_work_seconds": 52.817371105,
+  "critical_path_seconds": 0.054255218,
+  "heaviest_faults": [
+    [
+      "n356gat/sa0",
+      0.054255218
+    ],
+    [
+      "n2859gat_n522gat_B/sa0",
+      0.051529169
+    ],
+    [
+      "n418gat/sa0",
+      0.050262362
+    ],
+    [
+      "n411gat_n414gat_A/sa0",
+      0.048278012
+    ],
+    [
+      "n418gat_n634gat_A/sa0",
+      0.047004953
+    ],
+    [
+      "n418gat/sa1",
+      0.04356651
+    ],
+    [
+      "n415gat_n414gat_B/sa0",
+      0.043540876
+    ],
+    [
+      "n523gat/sa0",
+      0.043063374
+    ],
+    [
+      "n291gat/sa0",
+      0.042573758
+    ],
+    [
+      "n740gat_n415gat_B/sa0",
+      0.04199806
+    ]
+  ],
+  "model": "Fixed serial fault costs, ideal workers, no cache/bandwidth/IPC/initialization costs",
+  "scheduling": {
+    "1": {
+      "lower_bound_seconds": 52.817371105,
+      "ready_queue_seconds": 52.81737110499982,
+      "work_speedup": 1.0000000000000033
+    },
+    "2": {
+      "lower_bound_seconds": 26.4086855525,
+      "ready_queue_seconds": 26.412310865000062,
+      "work_speedup": 1.9997254831265168
+    },
+    "4": {
+      "lower_bound_seconds": 13.20434277625,
+      "ready_queue_seconds": 13.21000258800002,
+      "work_speedup": 3.998286204196459
+    },
+    "8": {
+      "lower_bound_seconds": 6.602171388125,
+      "ready_queue_seconds": 6.609571259999994,
+      "work_speedup": 7.991043447045013
+    },
+    "16": {
+      "lower_bound_seconds": 3.3010856940625,
+      "ready_queue_seconds": 3.3152971879999997,
+      "work_speedup": 15.93141371946291
+    }
+  },
+  "removing_reuse": {
+    "complete_transitions": {
+      "0->0": 2979,
+      "1->1": 1566,
+      "1->0": 5,
+      "0->1": 1
+    },
+    "common_complete_equal_fdp": 1566,
+    "changed_fdp_rows": 83,
+    "changed_representative_rows": 124
+  },
+  "production_sources_unchanged": true,
+  "available_logical_cpus": 16
+}

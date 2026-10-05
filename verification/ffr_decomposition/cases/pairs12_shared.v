@@ -1,0 +1,28 @@
+module toy;
+input x, a, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11;
+output t11;
+OR2 o0 (.A(a), .B(b0), .Z(s0));
+AND2 g0 (.A(x), .B(s0), .Z(t0));
+OR2 o1 (.A(a), .B(b1), .Z(s1));
+AND2 g1 (.A(t0), .B(s1), .Z(t1));
+OR2 o2 (.A(a), .B(b2), .Z(s2));
+AND2 g2 (.A(t1), .B(s2), .Z(t2));
+OR2 o3 (.A(a), .B(b3), .Z(s3));
+AND2 g3 (.A(t2), .B(s3), .Z(t3));
+OR2 o4 (.A(a), .B(b4), .Z(s4));
+AND2 g4 (.A(t3), .B(s4), .Z(t4));
+OR2 o5 (.A(a), .B(b5), .Z(s5));
+AND2 g5 (.A(t4), .B(s5), .Z(t5));
+OR2 o6 (.A(a), .B(b6), .Z(s6));
+AND2 g6 (.A(t5), .B(s6), .Z(t6));
+OR2 o7 (.A(a), .B(b7), .Z(s7));
+AND2 g7 (.A(t6), .B(s7), .Z(t7));
+OR2 o8 (.A(a), .B(b8), .Z(s8));
+AND2 g8 (.A(t7), .B(s8), .Z(t8));
+OR2 o9 (.A(a), .B(b9), .Z(s9));
+AND2 g9 (.A(t8), .B(s9), .Z(t9));
+OR2 o10 (.A(a), .B(b10), .Z(s10));
+AND2 g10 (.A(t9), .B(s10), .Z(t10));
+OR2 o11 (.A(a), .B(b11), .Z(s11));
+AND2 g11 (.A(t10), .B(s11), .Z(t11));
+endmodule

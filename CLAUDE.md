@@ -83,6 +83,29 @@ SAF の PCOUNT に相当する TDF 版は未実装。
 結果は `output/hall/<mode>/<circuit>/<run-id>/{aig,log}/`。元の `.set` の出力先は上書きしない。
 `AIG_DUMP` が励起条件を含めないため TDF は対象外で、スクリプトが明示的にスキップする。
 
+## ASG の実現可能性調査（本体未統合）
+
+`ASG/` の one-pass seed generation 論文・コードの読解と接続検証は
+`verification/asg_feasibility/SUMMARY.md` を参照。固定 LFSR＋PS＋入力配置に対し
+`H_f(s)=D_f(G(s))` のシード集合を数える。元の自由 PI の FDP とは分布が異なる。
+4 ビットへ縮小した s27_C・2 種の PS で各34 stem SAF を独立全シード列挙と照合し、
+SAT/XID/BDD と GT_BDD の全一致を確認。`probe.py` で再現できる。
+ASG 本体の幅は100固定。非ゼロシード一様なら分母は `2^r−1`、分子もゼロを除外する。
+複数連続パターンは検出集合の和集合を数え、独立試行の式を使わない。
+大規模構成・TDF・MISR は未検証。現行 FDP/ASG 本体の動作は変更していない。
+
+## 故障単位の並列化調査（本体未統合）
+
+`verification/parallel_feasibility/SUMMARY.md` を参照。現行ソースの隔離Releaseビルドで、
+s5378_C・SAF・limit30・全4,551代表故障を2回測定。キューブ流用なしの外部バッチ実行は
+1/2/4/8並列で中央値53.061/26.291/13.486/8.264秒（8並列6.42倍）。流用あり直列53.311秒、
+流用なし直列54.186秒で差は約1.6%。ユーザー方針も踏まえ、流用なしの独立故障配分を第一候補とする。
+全並列数で代表行は流用なし直列と一致。c17ゴールデン＋並列GT、s5378並列全件GT ALL VERIFIED。
+limit付きでは流用停止により部分被覆・completeが変わる（完了1,571→1,567）。TDF/fullの並列測定は未実施。
+本体は未変更。スレッド化にはCNF・NLISTの可変フィールド・XIDのstatic作業領域等のworker別管理が必要。
+競合例と方式比較は同ディレクトリの `DESIGN.md`。一故障の全処理をworker内で完結する常駐プロセスを
+本体向け第一候補とする（未実装）。実験フックには無効時も共有配列を更新する箇所があり、スレッド化では監査が必要。
+
 ## 回帰テスト
 
 ユニットテストの仕組みは無い。正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する
@@ -121,8 +144,8 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
    `CubeSet` に push する。ループは UNSAT（完全）または `-limit` 到達（打ち切り）で終了。
 4. **FDP 算出**：`RunBDD`（`src/fdp/cudd_wrapper.c`, CUDD）がキューブの和集合を BDD として構築し、
    GMP の有理数（`src/fdp/gmp_wrapper.c`）で厳密な確率を計算。CSV の1行を出力する。
-5. **後処理**：`DropDeteFault`（`src/fdp/drop_dete_fault.c`）が今回のキューブで新たに検出された故障を落とし、
-   メモリを解放する。
+5. **後処理**：`DropDeteFault`（`src/fdp/drop_dete_fault.c`）が今回の対象故障を処理済みにする。
+   続く `FreeMemory` がターゲット情報を解放する。現行コードは別故障をキューブでシミュレーションして落とさない。
 
 補助モジュール：`src/netlist/netlist.c`（回路グラフ：`nl[]`, `pi[]`, `n_net`, `n_pi`、ゲート種別 `AND/OR/INV/...`）、
 `src/fdp/read.c`（故障リスト読込＋故障自動生成）、`src/lib/lib.c`（ファイル I/O 補助）、

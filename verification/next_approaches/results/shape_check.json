@@ -1,0 +1,64 @@
+{
+  "scope": "saved-result structural check; no SAT/DC enumeration or timing",
+  "circuit": "input/circuit/s38584_C.v",
+  "exact_shape_keys_equal": true,
+  "canonical_weight_rows_equal": true,
+  "canonical_weight_count": 186,
+  "distinct_canonical_weights": [
+    "1/2",
+    "15/16",
+    "255/256",
+    "3/4",
+    "5/8"
+  ],
+  "cases": [
+    {
+      "fault": "g16349",
+      "stuck": 1,
+      "original_inputs": 232,
+      "top_inputs": 186,
+      "selected_nonlinear_cuts": 16,
+      "top_regions": 1643,
+      "probability": "137438953471/274877906944",
+      "shape_sha256": "5efcb3b285186627ed091bb13a60c298d2ddc52f9f73e765609c963fe0f9e2df",
+      "shape_serialized_characters": 40926,
+      "canonical_weight_sha256": "8c7b6f9b6ca90c003613f699470c9be920203a01228fc1938dd6e7190cadb047"
+    },
+    {
+      "fault": "II17661",
+      "stuck": 0,
+      "original_inputs": 232,
+      "top_inputs": 186,
+      "selected_nonlinear_cuts": 16,
+      "top_regions": 1643,
+      "probability": "137438953471/274877906944",
+      "shape_sha256": "5efcb3b285186627ed091bb13a60c298d2ddc52f9f73e765609c963fe0f9e2df",
+      "shape_serialized_characters": 40926,
+      "canonical_weight_sha256": "8c7b6f9b6ca90c003613f699470c9be920203a01228fc1938dd6e7190cadb047"
+    },
+    {
+      "fault": "g13329",
+      "stuck": 1,
+      "original_inputs": 232,
+      "top_inputs": 186,
+      "selected_nonlinear_cuts": 16,
+      "top_regions": 1643,
+      "probability": "137438953471/274877906944",
+      "shape_sha256": "5efcb3b285186627ed091bb13a60c298d2ddc52f9f73e765609c963fe0f9e2df",
+      "shape_serialized_characters": 40926,
+      "canonical_weight_sha256": "8c7b6f9b6ca90c003613f699470c9be920203a01228fc1938dd6e7190cadb047"
+    },
+    {
+      "fault": "II15893",
+      "stuck": 0,
+      "original_inputs": 232,
+      "top_inputs": 186,
+      "selected_nonlinear_cuts": 16,
+      "top_regions": 1643,
+      "probability": "137438953471/274877906944",
+      "shape_sha256": "5efcb3b285186627ed091bb13a60c298d2ddc52f9f73e765609c963fe0f9e2df",
+      "shape_serialized_characters": 40926,
+      "canonical_weight_sha256": "8c7b6f9b6ca90c003613f699470c9be920203a01228fc1938dd6e7190cadb047"
+    }
+  ]
+}

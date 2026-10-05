@@ -1,0 +1,1602 @@
+[
+  {
+    "fault": "n1732gat",
+    "root": "n1790gat",
+    "path_gates": 5,
+    "care_support": 19,
+    "observation_support": 24,
+    "support_overlap": 13
+  },
+  {
+    "fault": "n2012gat",
+    "root": "n2985gat",
+    "path_gates": 8,
+    "care_support": 30,
+    "observation_support": 12,
+    "support_overlap": 11
+  },
+  {
+    "fault": "n2984gat",
+    "root": "n2985gat",
+    "path_gates": 3,
+    "care_support": 30,
+    "observation_support": 12,
+    "support_overlap": 11
+  },
+  {
+    "fault": "n1510gat",
+    "root": "n2985gat",
+    "path_gates": 3,
+    "care_support": 30,
+    "observation_support": 12,
+    "support_overlap": 11
+  },
+  {
+    "fault": "II4216",
+    "root": "n1681gat",
+    "path_gates": 2,
+    "care_support": 11,
+    "observation_support": 31,
+    "support_overlap": 11
+  },
+  {
+    "fault": "n79gat",
+    "root": "n78gat",
+    "path_gates": 1,
+    "care_support": 10,
+    "observation_support": 37,
+    "support_overlap": 7
+  },
+  {
+    "fault": "n995gat",
+    "root": "n1002gat",
+    "path_gates": 2,
+    "care_support": 10,
+    "observation_support": 20,
+    "support_overlap": 7
+  },
+  {
+    "fault": "n518gat",
+    "root": "n407gat",
+    "path_gates": 3,
+    "care_support": 7,
+    "observation_support": 70,
+    "support_overlap": 7
+  },
+  {
+    "fault": "n412gat",
+    "root": "n407gat",
+    "path_gates": 3,
+    "care_support": 7,
+    "observation_support": 70,
+    "support_overlap": 7
+  },
+  {
+    "fault": "n355gat",
+    "root": "n407gat",
+    "path_gates": 1,
+    "care_support": 7,
+    "observation_support": 70,
+    "support_overlap": 7
+  },
+  {
+    "fault": "n979gat",
+    "root": "n978gat",
+    "path_gates": 2,
+    "care_support": 18,
+    "observation_support": 22,
+    "support_overlap": 6
+  },
+  {
+    "fault": "n1093gat",
+    "root": "n1179gat",
+    "path_gates": 2,
+    "care_support": 10,
+    "observation_support": 19,
+    "support_overlap": 6
+  },
+  {
+    "fault": "n1006gat",
+    "root": "n1006gat",
+    "path_gates": 0,
+    "care_support": 6,
+    "observation_support": 70,
+    "support_overlap": 6
+  },
+  {
+    "fault": "n2219gat",
+    "root": "n1412gat",
+    "path_gates": 7,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1325gat",
+    "root": "n1412gat",
+    "path_gates": 7,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1103gat",
+    "root": "n1412gat",
+    "path_gates": 7,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n2974gat",
+    "root": "n1412gat",
+    "path_gates": 6,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1485gat",
+    "root": "n1412gat",
+    "path_gates": 6,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1483gat",
+    "root": "n1412gat",
+    "path_gates": 6,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1421gat",
+    "root": "n1412gat",
+    "path_gates": 6,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1374gat",
+    "root": "n1412gat",
+    "path_gates": 5,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1356gat",
+    "root": "n1412gat",
+    "path_gates": 5,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n2422gat",
+    "root": "n1412gat",
+    "path_gates": 4,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n2978gat",
+    "root": "n1412gat",
+    "path_gates": 3,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1598gat",
+    "root": "n1412gat",
+    "path_gates": 3,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1407gat",
+    "root": "n1412gat",
+    "path_gates": 2,
+    "care_support": 55,
+    "observation_support": 12,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n3027gat",
+    "root": "n1704gat",
+    "path_gates": 1,
+    "care_support": 5,
+    "observation_support": 81,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1401gat",
+    "root": "n1401gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 79,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1623gat",
+    "root": "n1778gat",
+    "path_gates": 2,
+    "care_support": 5,
+    "observation_support": 73,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1779gat",
+    "root": "n1778gat",
+    "path_gates": 1,
+    "care_support": 5,
+    "observation_support": 73,
+    "support_overlap": 5
+  },
+  {
+    "fault": "II2735",
+    "root": "n1635gat",
+    "path_gates": 3,
+    "care_support": 5,
+    "observation_support": 42,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1719gat",
+    "root": "n1719gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 42,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n253gat",
+    "root": "n253gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 27,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n1490gat",
+    "root": "n1490gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 23,
+    "support_overlap": 5
+  },
+  {
+    "fault": "n2995gat",
+    "root": "n1896gat",
+    "path_gates": 1,
+    "care_support": 4,
+    "observation_support": 22,
+    "support_overlap": 4
+  },
+  {
+    "fault": "n2215gat",
+    "root": "n2215gat",
+    "path_gates": 0,
+    "care_support": 4,
+    "observation_support": 21,
+    "support_overlap": 4
+  },
+  {
+    "fault": "n2146gat",
+    "root": "n2146gat",
+    "path_gates": 0,
+    "care_support": 4,
+    "observation_support": 20,
+    "support_overlap": 4
+  },
+  {
+    "fault": "n1990gat",
+    "root": "n1990gat",
+    "path_gates": 0,
+    "care_support": 8,
+    "observation_support": 16,
+    "support_overlap": 3
+  },
+  {
+    "fault": "II2885",
+    "root": "n1864gat",
+    "path_gates": 2,
+    "care_support": 5,
+    "observation_support": 31,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n1864gat",
+    "root": "n1864gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 31,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n17gat",
+    "root": "n17gat",
+    "path_gates": 0,
+    "care_support": 4,
+    "observation_support": 59,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n780gat",
+    "root": "n779gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 88,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n1530gat",
+    "root": "n1530gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 62,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n66gat",
+    "root": "n63gat",
+    "path_gates": 2,
+    "care_support": 3,
+    "observation_support": 21,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n404gat",
+    "root": "n511gat",
+    "path_gates": 2,
+    "care_support": 3,
+    "observation_support": 21,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n510gat",
+    "root": "n510gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 21,
+    "support_overlap": 3
+  },
+  {
+    "fault": "II1500",
+    "root": "n577gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 20,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n577gat",
+    "root": "n577gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 20,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n48gat",
+    "root": "n48gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 20,
+    "support_overlap": 3
+  },
+  {
+    "fault": "n1448gat",
+    "root": "n1448gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 116,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n1114gat",
+    "root": "n1380gat",
+    "path_gates": 1,
+    "care_support": 2,
+    "observation_support": 85,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n406gat",
+    "root": "n406gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 70,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n360gat",
+    "root": "n294gat",
+    "path_gates": 1,
+    "care_support": 2,
+    "observation_support": 49,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n1275gat",
+    "root": "n1275gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 34,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n1568gat",
+    "root": "n1568gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 30,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n2151gat",
+    "root": "n2151gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 23,
+    "support_overlap": 2
+  },
+  {
+    "fault": "n745gat",
+    "root": "n2906gat",
+    "path_gates": 1,
+    "care_support": 2,
+    "observation_support": 12,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2723gat",
+    "root": "n2723gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 126,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n701gat",
+    "root": "n701gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 116,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2443gat",
+    "root": "n2443gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 104,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II1630",
+    "root": "n2629gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 91,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2629gat",
+    "root": "n2629gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 91,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2032",
+    "root": "n786gat",
+    "path_gates": 3,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n313gat",
+    "root": "n228gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2157",
+    "root": "n230gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2130",
+    "root": "n227gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2049",
+    "root": "n789gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n784gat",
+    "root": "n784gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n231gat",
+    "root": "n231gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 88,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n983gat",
+    "root": "n983gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 77,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2862gat",
+    "root": "n2862gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 77,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II999",
+    "root": "n1147gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 76,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n985gat",
+    "root": "n985gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 76,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1147gat",
+    "root": "n1147gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 76,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2260",
+    "root": "n2202gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 62,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2394",
+    "root": "n2611gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 61,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II2242",
+    "root": "n2578gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 56,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2578gat",
+    "root": "n2578gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 56,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2573gat",
+    "root": "n2573gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 56,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2417gat",
+    "root": "n2417gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 56,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II111",
+    "root": "n845gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 53,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II240",
+    "root": "n2716gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 45,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1240gat",
+    "root": "n1240gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 44,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2212gat",
+    "root": "n2212gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 42,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n930gat",
+    "root": "n930gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 39,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1034gat",
+    "root": "n1034gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 39,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n270gat",
+    "root": "n270gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 35,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II1786",
+    "root": "n1191gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 34,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1189gat",
+    "root": "n1189gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 34,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1787gat",
+    "root": "n1787gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 33,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1989gat",
+    "root": "n1989gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 30,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II3808",
+    "root": "n326gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 25,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n503gat",
+    "root": "n503gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 21,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II3513",
+    "root": "n2328gat",
+    "path_gates": 4,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n859gat",
+    "root": "n953gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1296gat",
+    "root": "n1237gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II363",
+    "root": "n267gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II1476",
+    "root": "n695gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II1411",
+    "root": "n595gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n595gat",
+    "root": "n595gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n594gat",
+    "root": "n594gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n481gat",
+    "root": "n481gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n265gat",
+    "root": "n265gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n1056gat",
+    "root": "n1056gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 20,
+    "support_overlap": 1
+  },
+  {
+    "fault": "II217",
+    "root": "n1221gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 13,
+    "support_overlap": 1
+  },
+  {
+    "fault": "n2158gat",
+    "root": "n3143gat",
+    "path_gates": 5,
+    "care_support": 61,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1029gat",
+    "root": "n3125gat",
+    "path_gates": 5,
+    "care_support": 24,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4506",
+    "root": "n3125gat",
+    "path_gates": 3,
+    "care_support": 24,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1974gat",
+    "root": "n3053gat",
+    "path_gates": 6,
+    "care_support": 23,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1972gat",
+    "root": "n3053gat",
+    "path_gates": 5,
+    "care_support": 23,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n381gat",
+    "root": "n3062gat",
+    "path_gates": 4,
+    "care_support": 22,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n971gat",
+    "root": "n3060gat",
+    "path_gates": 3,
+    "care_support": 22,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1082gat",
+    "root": "n3064gat",
+    "path_gates": 3,
+    "care_support": 22,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1077gat",
+    "root": "n3062gat",
+    "path_gates": 3,
+    "care_support": 22,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n242gat",
+    "root": "n3063gat",
+    "path_gates": 6,
+    "care_support": 21,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2924gat",
+    "root": "n3063gat",
+    "path_gates": 2,
+    "care_support": 21,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n244gat",
+    "root": "n3058gat",
+    "path_gates": 6,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2565gat",
+    "root": "n3054gat",
+    "path_gates": 5,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n974gat",
+    "root": "n3058gat",
+    "path_gates": 3,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n662gat",
+    "root": "n2903gat",
+    "path_gates": 1,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n450gat",
+    "root": "n2901gat",
+    "path_gates": 1,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4696",
+    "root": "n3118gat",
+    "path_gates": 1,
+    "care_support": 20,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n13gat",
+    "root": "n3104gat",
+    "path_gates": 5,
+    "care_support": 17,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1675gat",
+    "root": "n2980gat",
+    "path_gates": 4,
+    "care_support": 17,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1334gat",
+    "root": "n2980gat",
+    "path_gates": 4,
+    "care_support": 17,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1397gat",
+    "root": "n2980gat",
+    "path_gates": 2,
+    "care_support": 17,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2153gat",
+    "root": "n2148gat",
+    "path_gates": 5,
+    "care_support": 16,
+    "observation_support": 30,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4642",
+    "root": "n3105gat",
+    "path_gates": 3,
+    "care_support": 16,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2968gat",
+    "root": "n3130gat",
+    "path_gates": 9,
+    "care_support": 15,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1978gat",
+    "root": "n3138gat",
+    "path_gates": 7,
+    "care_support": 15,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2821gat",
+    "root": "n3133gat",
+    "path_gates": 2,
+    "care_support": 15,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2057gat",
+    "root": "n3035gat",
+    "path_gates": 2,
+    "care_support": 15,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4750",
+    "root": "n3136gat",
+    "path_gates": 1,
+    "care_support": 15,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1794gat",
+    "root": "n1793gat",
+    "path_gates": 2,
+    "care_support": 13,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n421gat",
+    "root": "n110gat",
+    "path_gates": 5,
+    "care_support": 12,
+    "observation_support": 15,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n200gat",
+    "root": "n827gat",
+    "path_gates": 2,
+    "care_support": 12,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1613gat",
+    "root": "n1613gat",
+    "path_gates": 0,
+    "care_support": 12,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2704gat",
+    "root": "n3151gat",
+    "path_gates": 4,
+    "care_support": 11,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II3999",
+    "root": "n3146gat",
+    "path_gates": 7,
+    "care_support": 10,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n665gat",
+    "root": "n3010gat",
+    "path_gates": 2,
+    "care_support": 9,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n505gat",
+    "root": "n504gat",
+    "path_gates": 1,
+    "care_support": 9,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2423gat",
+    "root": "n3010gat",
+    "path_gates": 1,
+    "care_support": 9,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1610gat",
+    "root": "n1610gat",
+    "path_gates": 0,
+    "care_support": 9,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2884gat",
+    "root": "n2884gat",
+    "path_gates": 0,
+    "care_support": 8,
+    "observation_support": 14,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1518gat",
+    "root": "n3145gat",
+    "path_gates": 4,
+    "care_support": 8,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2703gat",
+    "root": "n3145gat",
+    "path_gates": 3,
+    "care_support": 8,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2520gat",
+    "root": "n3016gat",
+    "path_gates": 3,
+    "care_support": 8,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2685gat",
+    "root": "n3116gat",
+    "path_gates": 2,
+    "care_support": 8,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n748gat",
+    "root": "n748gat",
+    "path_gates": 0,
+    "care_support": 7,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2051gat",
+    "root": "n3150gat",
+    "path_gates": 5,
+    "care_support": 5,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2115gat",
+    "root": "n3052gat",
+    "path_gates": 3,
+    "care_support": 5,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II2934",
+    "root": "n1713gat",
+    "path_gates": 2,
+    "care_support": 5,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3052gat",
+    "root": "n3052gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1777gat",
+    "root": "n1777gat",
+    "path_gates": 0,
+    "care_support": 5,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2506gat",
+    "root": "n2660gat",
+    "path_gates": 3,
+    "care_support": 4,
+    "observation_support": 38,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4681",
+    "root": "n3113gat",
+    "path_gates": 1,
+    "care_support": 4,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II2439",
+    "root": "n2619gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 58,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1204gat",
+    "root": "n1201gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 31,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n345gat",
+    "root": "n343gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 18,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n343gat",
+    "root": "n343gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 18,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n478gat",
+    "root": "n475gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 17,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1054gat",
+    "root": "n1050gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 17,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2132gat",
+    "root": "n2049gat",
+    "path_gates": 2,
+    "care_support": 3,
+    "observation_support": 13,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II1655",
+    "root": "n2989gat",
+    "path_gates": 3,
+    "care_support": 3,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4684",
+    "root": "n3114gat",
+    "path_gates": 1,
+    "care_support": 3,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2989gat",
+    "root": "n2989gat",
+    "path_gates": 0,
+    "care_support": 3,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II2319",
+    "root": "n2649gat",
+    "path_gates": 5,
+    "care_support": 2,
+    "observation_support": 22,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3014gat",
+    "root": "n2649gat",
+    "path_gates": 2,
+    "care_support": 2,
+    "observation_support": 22,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II2354",
+    "root": "n2652gat",
+    "path_gates": 1,
+    "care_support": 2,
+    "observation_support": 22,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2449gat",
+    "root": "n3147gat",
+    "path_gates": 6,
+    "care_support": 2,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1754gat",
+    "root": "n3147gat",
+    "path_gates": 5,
+    "care_support": 2,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3147gat",
+    "root": "n3147gat",
+    "path_gates": 0,
+    "care_support": 2,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2856gat",
+    "root": "n2856gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 125,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2767gat",
+    "root": "n2767gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 125,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2728gat",
+    "root": "n2728gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 125,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1508gat",
+    "root": "n1507gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 73,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II3163",
+    "root": "n1507gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 73,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1899gat",
+    "root": "n1899gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 55,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3082gat",
+    "root": "n2852gat",
+    "path_gates": 3,
+    "care_support": 1,
+    "observation_support": 33,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3080gat",
+    "root": "n2846gat",
+    "path_gates": 3,
+    "care_support": 1,
+    "observation_support": 31,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II776",
+    "root": "n2718gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 29,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2838gat",
+    "root": "n2838gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 29,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n1975gat",
+    "root": "n1975gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 22,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n463gat",
+    "root": "n463gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 14,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II243",
+    "root": "n2869gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 12,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4626",
+    "root": "n3106gat",
+    "path_gates": 8,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2801gat",
+    "root": "n3106gat",
+    "path_gates": 2,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "II4720",
+    "root": "n3126gat",
+    "path_gates": 1,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n824gat",
+    "root": "n824gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n705gat",
+    "root": "n705gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n614gat",
+    "root": "n614gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3127gat",
+    "root": "n3127gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2735gat",
+    "root": "n2735gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2626gat",
+    "root": "n2626gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2543gat",
+    "root": "n2543gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2532gat",
+    "root": "n2532gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2493gat",
+    "root": "n2493gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2269gat",
+    "root": "n2269gat",
+    "path_gates": 0,
+    "care_support": 1,
+    "observation_support": 0,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n2053gat",
+    "root": "n2058gat",
+    "path_gates": 2,
+    "care_support": 0,
+    "observation_support": 20,
+    "support_overlap": 0
+  },
+  {
+    "fault": "n3115gat",
+    "root": "n3115gat",
+    "path_gates": 0,
+    "care_support": 0,
+    "observation_support": 0,
+    "support_overlap": 0
+  }
+]

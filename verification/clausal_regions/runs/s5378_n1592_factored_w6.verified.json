@@ -1,0 +1,11 @@
+{
+  "fault": "n1592gat",
+  "stuck": 0,
+  "regions": 373,
+  "sound": true,
+  "exact": true,
+  "coordinate_rank": 57,
+  "original_outputs": 213,
+  "affected_outputs_verified": 213,
+  "seconds": 0.22964094999770168
+}

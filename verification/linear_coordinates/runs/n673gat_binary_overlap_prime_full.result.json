@@ -1,0 +1,37 @@
+{
+  "info": {
+    "mode": "binary",
+    "npi": 214,
+    "parity_basis_rows": 0,
+    "detection_support": 90,
+    "reachable_gates": 172,
+    "parities": [],
+    "random_simulation_checks": 300
+  },
+  "result": {
+    "cubes": 61902,
+    "complete": true,
+    "seconds": 138.70627468399994,
+    "sat_calls": 1870458,
+    "disjoint": false,
+    "care_hist": {
+      "9": 1,
+      "10": 9,
+      "11": 69,
+      "12": 312,
+      "13": 615,
+      "14": 881,
+      "15": 1277,
+      "16": 1531,
+      "17": 3215,
+      "18": 2542,
+      "19": 1003,
+      "20": 299,
+      "21": 6276,
+      "22": 7776,
+      "23": 23808,
+      "24": 10240,
+      "25": 2048
+    }
+  }
+}

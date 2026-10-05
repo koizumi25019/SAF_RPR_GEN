@@ -1,0 +1,11 @@
+{
+  "fault": "z",
+  "stuck": 0,
+  "regions": 1,
+  "sound": true,
+  "exact": true,
+  "coordinate_rank": 14,
+  "original_outputs": 1,
+  "affected_outputs_verified": 1,
+  "seconds": 0.1714867190021323
+}

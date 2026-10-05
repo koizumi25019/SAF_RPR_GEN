@@ -1,0 +1,71 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/c17a.v",
+  "fault": "h",
+  "stuck": 0,
+  "root": "h",
+  "path_gates": 0,
+  "flat": false,
+  "care_observation": true,
+  "factors": 2,
+  "complete": true,
+  "generated_cubes": 4,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 2.2668e-05,
+      "init_seconds": 9.7985e-05,
+      "sat_calls": 7,
+      "detector_calls": 3,
+      "oracle_calls": 4,
+      "oracle_sat": 2,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 2
+      }
+    },
+    {
+      "name": "root_observability_under_care",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": -6,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 3.0906e-05,
+      "init_seconds": 0.000112521,
+      "sat_calls": 7,
+      "detector_calls": 3,
+      "oracle_calls": 4,
+      "oracle_sat": 2,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 2
+      },
+      "conditioned": true
+    }
+  ],
+  "union": {
+    "probability": "9/16",
+    "cubes": 4,
+    "factors": 2,
+    "bdd_nodes": 7,
+    "seconds": 0.002286586
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.006598887999643921
+}

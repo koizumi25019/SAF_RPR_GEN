@@ -1,0 +1,770 @@
+[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+[37m					Automatic Seed Generator for RPR fault (MTTG)     
+[37m/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+[32m
+	> debug option ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+[32m	  number of command-arguments   = 3
+[32m	     -n   = ./input/circuit/s38584_C.v 
+[32m	     -f   = ./input/fault/s38584_C_unred_50000.txt 
+[32m	     -x   = ./input/xor_tap/tap_64.txt 
+[32m	     -c   = ./input/scan_chain/s38584_C_sc_64.txt 
+[32m	     -e   = ./input/necessary/s38584_C_nece.txt 
+[32m	     -g   = ./output/graphlog/s38584_C_Graphlog.txt 
+[32m	     -l   = ./output/log/s38584_C_log.txt 
+[32m	     -p   = ./output/pin/s38584_C_pin.txt 
+[32m	     -s   = ./output/seed/s38584_C_seed.txt 
+[32m	     -t   = ./output/test_pattern/s38584_C_tp.txt 
+[32m	     -b   = 100 
+[32m	     -u   = (null) 
+[32m	     -d   = [32mYES
+[32m
+[33m	completion of setup options... 
+[33m	completion of read the netlists... 
+[33m	completion of initialize the global variables... 
+[33m	completion of read the files... 
+[33m	completion of create the lfsr model... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1285
+
+[37m
+	reading necessary infomation ... 
+[37m|----+----|----+----|----+----|----+----|----+----|
+[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[33m
+	completion of create necessary-net generation... 
+
+[37m
+	generating graph ... 
+[37m|----+----|----+----|----+----|----+----|----+----|
+[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[37m*[33m
+	Making Graph CPU timeF	781.014[s]
+[33m
+	completion of compatible graph generation... 
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 273
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1189
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 251
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1116
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 207
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1027
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 136
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 964
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 147
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 904
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 109
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 849
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 113
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 800
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 89
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 759
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 103
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 707
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 85
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 670
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 76
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 639
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 89
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 600
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 64
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 569
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 57
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 553
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 43
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 530
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 65
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 510
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 43
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 482
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 40
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 465
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 36
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 454
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 28
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 443
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 26
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 433
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 31
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 416
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 31
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 399
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 41
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 371
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 29
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 355
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 38
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 330
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 23
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 319
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 24
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 306
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 39
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 283
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 283
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 268
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 268
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 255
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 255
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 239
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 239
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 223
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 223
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 208
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 208
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 202
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 202
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 173
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 173
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 164
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 164
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 156
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 156
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 144
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 144
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 135
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 135
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 126
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 126
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 119
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 119
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 115
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 115
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 112
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 112
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 109
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 109
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 106
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 106
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 103
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 103
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 100
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 100
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 95
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 95
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 90
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 90
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 87
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 87
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 84
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 84
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 79
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 79
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 74
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 74
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 70
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 70
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 66
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 66
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 63
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 63
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 60
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 60
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 57
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 57
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 55
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 55
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 52
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 52
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 49
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 49
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 46
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 46
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 43
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 43
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 41
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 41
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 32
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 32
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 30
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 30
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 28
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 28
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 26
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 26
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 24
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 24
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 22
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 22
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 20
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 20
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 12
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 12
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 10
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 10
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 8
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 8
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 6
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 6
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 4
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 4
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 2
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 2
+
+[33m	completion of fault simulation... 
+[33m
+	> debug set remain ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[33m		>> number of remain faults	= 1
+
+[32m
+	> debug set target ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[32m		>> number of target faults	= 1
+
+[33m	completion of fault simulation... 
+[31m
+	num of REDEUNDANT fault -> 0[33m
+	num of DETECTED fault -> 1285
+
+[33m	completion of seed generation... 
+[33m	num of Selection Compatible Fault Group -> 30
+[33m	num of Seed Generation -> 80
+[33mRuntimeF	1251.274[s]
+[37m

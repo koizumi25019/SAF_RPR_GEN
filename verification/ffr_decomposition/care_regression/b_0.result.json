@@ -1,0 +1,93 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/c17a.v",
+  "fault": "b",
+  "stuck": 0,
+  "root": "i",
+  "path_gates": 1,
+  "flat": false,
+  "care_observation": true,
+  "factors": 3,
+  "complete": true,
+  "generated_cubes": 6,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 1.7425e-05,
+      "init_seconds": 0.000100453,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "i:h=1",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 2.0798e-05,
+      "init_seconds": 9.4577e-05,
+      "sat_calls": 7,
+      "detector_calls": 3,
+      "oracle_calls": 4,
+      "oracle_sat": 2,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 2
+      }
+    },
+    {
+      "name": "root_observability_under_care",
+      "method": "greedy",
+      "cubes": 3,
+      "care_literal": 10,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 2.7479e-05,
+      "init_seconds": 0.00011028,
+      "sat_calls": 10,
+      "detector_calls": 4,
+      "oracle_calls": 6,
+      "oracle_sat": 3,
+      "oracle_unsat": 3,
+      "refined_cubes": 3,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 3
+      },
+      "conditioned": true
+    }
+  ],
+  "union": {
+    "probability": "11/32",
+    "cubes": 6,
+    "factors": 3,
+    "bdd_nodes": 9,
+    "seconds": 0.002257547
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.007985557000210974
+}

@@ -1,0 +1,955 @@
+{
+  "all_verified": true,
+  "csv_identical": true,
+  "runs": [
+    {
+      "name": "c17a_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "c17a",
+      "profile": {
+        "read_net": {
+          "seconds": 5e-05,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000253,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 7e-06,
+          "calls": 22
+        },
+        "model": {
+          "seconds": 0.000353,
+          "calls": 22
+        },
+        "good_load": {
+          "seconds": 6.8e-05,
+          "calls": 22
+        },
+        "search_tfo": {
+          "seconds": 2e-06,
+          "calls": 22
+        },
+        "propagation": {
+          "seconds": 6e-05,
+          "calls": 22
+        },
+        "detection": {
+          "seconds": 4.7e-05,
+          "calls": 22
+        },
+        "essential": {
+          "seconds": 3e-05,
+          "calls": 22
+        },
+        "solver_init": {
+          "seconds": 0.000496,
+          "calls": 22
+        },
+        "solver_release": {
+          "seconds": 3.5e-05,
+          "calls": 22
+        },
+        "xid_model_values": {
+          "seconds": 3.4e-05,
+          "calls": 55
+        },
+        "xid_fsim": {
+          "seconds": 1e-05,
+          "calls": 55
+        },
+        "xid_filling": {
+          "seconds": 4.1e-05,
+          "calls": 55
+        }
+      },
+      "timing": {
+        "Time": 0.007,
+        "CPU Time": 0.007,
+        "CPU Time (CaDiCaL)": 0.0,
+        "CPU Time (BDD)": 0.0,
+        "CPU Time (Don't care)": 0.0,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s27_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s27_C",
+      "profile": {
+        "read_net": {
+          "seconds": 5.6e-05,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000232,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 9e-06,
+          "calls": 32
+        },
+        "model": {
+          "seconds": 0.000611,
+          "calls": 32
+        },
+        "good_load": {
+          "seconds": 0.000137,
+          "calls": 32
+        },
+        "search_tfo": {
+          "seconds": 3e-06,
+          "calls": 32
+        },
+        "propagation": {
+          "seconds": 0.000112,
+          "calls": 32
+        },
+        "detection": {
+          "seconds": 0.000101,
+          "calls": 32
+        },
+        "essential": {
+          "seconds": 4.9e-05,
+          "calls": 32
+        },
+        "solver_init": {
+          "seconds": 0.000694,
+          "calls": 32
+        },
+        "solver_release": {
+          "seconds": 7.1e-05,
+          "calls": 32
+        },
+        "xid_model_values": {
+          "seconds": 6.7e-05,
+          "calls": 101
+        },
+        "xid_fsim": {
+          "seconds": 3.1e-05,
+          "calls": 101
+        },
+        "xid_filling": {
+          "seconds": 7e-05,
+          "calls": 101
+        }
+      },
+      "timing": {
+        "Time": 0.008,
+        "CPU Time": 0.008,
+        "CPU Time (CaDiCaL)": 0.0,
+        "CPU Time (BDD)": 0.001,
+        "CPU Time (Don't care)": 0.0,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s208_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s208_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000135,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000365,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 9.9e-05,
+          "calls": 215
+        },
+        "model": {
+          "seconds": 0.013679,
+          "calls": 215
+        },
+        "good_load": {
+          "seconds": 0.005735,
+          "calls": 215
+        },
+        "search_tfo": {
+          "seconds": 0.000117,
+          "calls": 215
+        },
+        "propagation": {
+          "seconds": 0.00172,
+          "calls": 215
+        },
+        "detection": {
+          "seconds": 0.000675,
+          "calls": 215
+        },
+        "essential": {
+          "seconds": 0.001544,
+          "calls": 215
+        },
+        "solver_init": {
+          "seconds": 0.00616,
+          "calls": 215
+        },
+        "solver_release": {
+          "seconds": 0.001371,
+          "calls": 215
+        },
+        "xid_model_values": {
+          "seconds": 0.013286,
+          "calls": 9780
+        },
+        "xid_fsim": {
+          "seconds": 0.00348,
+          "calls": 9780
+        },
+        "xid_filling": {
+          "seconds": 0.035046,
+          "calls": 9780
+        }
+      },
+      "timing": {
+        "Time": 0.227,
+        "CPU Time": 0.233,
+        "CPU Time (CaDiCaL)": 0.058,
+        "CPU Time (BDD)": 0.044,
+        "CPU Time (Don't care)": 0.059,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s298_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s298_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000278,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000408,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000115,
+          "calls": 308
+        },
+        "model": {
+          "seconds": 0.018707,
+          "calls": 308
+        },
+        "good_load": {
+          "seconds": 0.009235,
+          "calls": 308
+        },
+        "search_tfo": {
+          "seconds": 8.6e-05,
+          "calls": 308
+        },
+        "propagation": {
+          "seconds": 0.00159,
+          "calls": 308
+        },
+        "detection": {
+          "seconds": 0.000949,
+          "calls": 308
+        },
+        "essential": {
+          "seconds": 0.001913,
+          "calls": 308
+        },
+        "solver_init": {
+          "seconds": 0.007904,
+          "calls": 308
+        },
+        "solver_release": {
+          "seconds": 0.001452,
+          "calls": 308
+        },
+        "xid_model_values": {
+          "seconds": 0.003996,
+          "calls": 1568
+        },
+        "xid_fsim": {
+          "seconds": 0.000764,
+          "calls": 1568
+        },
+        "xid_filling": {
+          "seconds": 0.010441,
+          "calls": 1568
+        }
+      },
+      "timing": {
+        "Time": 0.11,
+        "CPU Time": 0.112,
+        "CPU Time (CaDiCaL)": 0.048,
+        "CPU Time (BDD)": 0.007,
+        "CPU Time (Don't care)": 0.016,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s344_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s344_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000227,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000378,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000158,
+          "calls": 342
+        },
+        "model": {
+          "seconds": 0.025992,
+          "calls": 342
+        },
+        "good_load": {
+          "seconds": 0.011905,
+          "calls": 342
+        },
+        "search_tfo": {
+          "seconds": 0.000161,
+          "calls": 342
+        },
+        "propagation": {
+          "seconds": 0.003202,
+          "calls": 342
+        },
+        "detection": {
+          "seconds": 0.001205,
+          "calls": 342
+        },
+        "essential": {
+          "seconds": 0.002098,
+          "calls": 342
+        },
+        "solver_init": {
+          "seconds": 0.009622,
+          "calls": 342
+        },
+        "solver_release": {
+          "seconds": 0.002776,
+          "calls": 342
+        },
+        "xid_model_values": {
+          "seconds": 0.01449,
+          "calls": 5834
+        },
+        "xid_fsim": {
+          "seconds": 0.002738,
+          "calls": 5834
+        },
+        "xid_filling": {
+          "seconds": 0.033933,
+          "calls": 5834
+        }
+      },
+      "timing": {
+        "Time": 0.335,
+        "CPU Time": 0.344,
+        "CPU Time (CaDiCaL)": 0.196,
+        "CPU Time (BDD)": 0.022,
+        "CPU Time (Don't care)": 0.056,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s510_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s510_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000382,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.00052,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000253,
+          "calls": 564
+        },
+        "model": {
+          "seconds": 0.074661,
+          "calls": 564
+        },
+        "good_load": {
+          "seconds": 0.043735,
+          "calls": 564
+        },
+        "search_tfo": {
+          "seconds": 0.000244,
+          "calls": 564
+        },
+        "propagation": {
+          "seconds": 0.004685,
+          "calls": 564
+        },
+        "detection": {
+          "seconds": 0.002155,
+          "calls": 564
+        },
+        "essential": {
+          "seconds": 0.009097,
+          "calls": 564
+        },
+        "solver_init": {
+          "seconds": 0.017789,
+          "calls": 564
+        },
+        "solver_release": {
+          "seconds": 0.006298,
+          "calls": 564
+        },
+        "xid_model_values": {
+          "seconds": 0.025128,
+          "calls": 6728
+        },
+        "xid_fsim": {
+          "seconds": 0.002918,
+          "calls": 6728
+        },
+        "xid_filling": {
+          "seconds": 0.117004,
+          "calls": 6728
+        }
+      },
+      "timing": {
+        "Time": 0.481,
+        "CPU Time": 0.493,
+        "CPU Time (CaDiCaL)": 0.183,
+        "CPU Time (BDD)": 0.026,
+        "CPU Time (Don't care)": 0.151,
+        "CPU Time (Read Fault)": 0.001
+      },
+      "order": []
+    },
+    {
+      "name": "s641_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s641_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000639,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000451,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000248,
+          "calls": 463
+        },
+        "model": {
+          "seconds": 0.0775,
+          "calls": 463
+        },
+        "good_load": {
+          "seconds": 0.034955,
+          "calls": 463
+        },
+        "search_tfo": {
+          "seconds": 0.000591,
+          "calls": 463
+        },
+        "propagation": {
+          "seconds": 0.011549,
+          "calls": 463
+        },
+        "detection": {
+          "seconds": 0.003565,
+          "calls": 463
+        },
+        "essential": {
+          "seconds": 0.006043,
+          "calls": 463
+        },
+        "solver_init": {
+          "seconds": 0.0151,
+          "calls": 463
+        },
+        "solver_release": {
+          "seconds": 0.013382,
+          "calls": 463
+        },
+        "xid_model_values": {
+          "seconds": 0.112872,
+          "calls": 24092
+        },
+        "xid_fsim": {
+          "seconds": 0.014396,
+          "calls": 24092
+        },
+        "xid_filling": {
+          "seconds": 0.214721,
+          "calls": 24092
+        }
+      },
+      "timing": {
+        "Time": 3.284,
+        "CPU Time": 3.374,
+        "CPU Time (CaDiCaL)": 2.469,
+        "CPU Time (BDD)": 0.182,
+        "CPU Time (Don't care)": 0.364,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s713_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s713_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000772,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000477,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000321,
+          "calls": 581
+        },
+        "model": {
+          "seconds": 0.106582,
+          "calls": 581
+        },
+        "good_load": {
+          "seconds": 0.046929,
+          "calls": 581
+        },
+        "search_tfo": {
+          "seconds": 0.000823,
+          "calls": 581
+        },
+        "propagation": {
+          "seconds": 0.016339,
+          "calls": 581
+        },
+        "detection": {
+          "seconds": 0.004173,
+          "calls": 581
+        },
+        "essential": {
+          "seconds": 0.008608,
+          "calls": 581
+        },
+        "solver_init": {
+          "seconds": 0.020164,
+          "calls": 581
+        },
+        "solver_release": {
+          "seconds": 0.017204,
+          "calls": 581
+        },
+        "xid_model_values": {
+          "seconds": 0.146651,
+          "calls": 27532
+        },
+        "xid_fsim": {
+          "seconds": 0.018852,
+          "calls": 27532
+        },
+        "xid_filling": {
+          "seconds": 0.290795,
+          "calls": 27532
+        }
+      },
+      "timing": {
+        "Time": 4.424,
+        "CPU Time": 4.544,
+        "CPU Time (CaDiCaL)": 3.428,
+        "CPU Time (BDD)": 0.207,
+        "CPU Time (Don't care)": 0.482,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s1494_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s1494_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.001439,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000916,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000807,
+          "calls": 1506
+        },
+        "model": {
+          "seconds": 0.485096,
+          "calls": 1506
+        },
+        "good_load": {
+          "seconds": 0.318868,
+          "calls": 1506
+        },
+        "search_tfo": {
+          "seconds": 0.000948,
+          "calls": 1506
+        },
+        "propagation": {
+          "seconds": 0.0161,
+          "calls": 1506
+        },
+        "detection": {
+          "seconds": 0.00469,
+          "calls": 1506
+        },
+        "essential": {
+          "seconds": 0.071269,
+          "calls": 1506
+        },
+        "solver_init": {
+          "seconds": 0.044416,
+          "calls": 1506
+        },
+        "solver_release": {
+          "seconds": 0.052366,
+          "calls": 1506
+        },
+        "xid_model_values": {
+          "seconds": 0.10256,
+          "calls": 8911
+        },
+        "xid_fsim": {
+          "seconds": 0.008199,
+          "calls": 8911
+        },
+        "xid_filling": {
+          "seconds": 0.437213,
+          "calls": 8911
+        }
+      },
+      "timing": {
+        "Time": 2.42,
+        "CPU Time": 2.485,
+        "CPU Time (CaDiCaL)": 1.204,
+        "CPU Time (BDD)": 0.062,
+        "CPU Time (Don't care)": 0.556,
+        "CPU Time (Read Fault)": 0.001
+      },
+      "order": []
+    },
+    {
+      "name": "s5378_C_sparse_gt",
+      "queue": true,
+      "target_only": false,
+      "net": "s5378_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.003994,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.003385,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.002941,
+          "calls": 4551
+        },
+        "model": {
+          "seconds": 1.805453,
+          "calls": 4551
+        },
+        "good_load": {
+          "seconds": 0.882992,
+          "calls": 4551
+        },
+        "search_tfo": {
+          "seconds": 0.011183,
+          "calls": 4551
+        },
+        "propagation": {
+          "seconds": 0.127436,
+          "calls": 4551
+        },
+        "detection": {
+          "seconds": 0.04993,
+          "calls": 4551
+        },
+        "essential": {
+          "seconds": 0.090978,
+          "calls": 4551
+        },
+        "solver_init": {
+          "seconds": 0.150974,
+          "calls": 4551
+        },
+        "solver_release": {
+          "seconds": 0.273959,
+          "calls": 4551
+        },
+        "xid_model_values": {
+          "seconds": 2.331075,
+          "calls": 98221
+        },
+        "xid_fsim": {
+          "seconds": 0.09,
+          "calls": 98221
+        },
+        "xid_filling": {
+          "seconds": 2.116057,
+          "calls": 98221
+        }
+      },
+      "timing": {
+        "Time": 36.042,
+        "CPU Time": 37.038,
+        "CPU Time (CaDiCaL)": 15.234,
+        "CPU Time (BDD)": 1.263,
+        "CPU Time (Don't care)": 4.645,
+        "CPU Time (Read Fault)": 0.003
+      },
+      "order": []
+    },
+    {
+      "name": "s5378_sparse",
+      "queue": true,
+      "target_only": false,
+      "net": "s5378_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.002842,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.003629,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.002758,
+          "calls": 4551
+        },
+        "model": {
+          "seconds": 1.776286,
+          "calls": 4551
+        },
+        "good_load": {
+          "seconds": 0.859921,
+          "calls": 4551
+        },
+        "search_tfo": {
+          "seconds": 0.009017,
+          "calls": 4551
+        },
+        "propagation": {
+          "seconds": 0.12575,
+          "calls": 4551
+        },
+        "detection": {
+          "seconds": 0.049402,
+          "calls": 4551
+        },
+        "essential": {
+          "seconds": 0.085216,
+          "calls": 4551
+        },
+        "solver_init": {
+          "seconds": 0.146082,
+          "calls": 4551
+        },
+        "solver_release": {
+          "seconds": 0.255186,
+          "calls": 4551
+        },
+        "xid_model_values": {
+          "seconds": 2.352376,
+          "calls": 98221
+        },
+        "xid_fsim": {
+          "seconds": 0.087382,
+          "calls": 98221
+        },
+        "xid_filling": {
+          "seconds": 2.112854,
+          "calls": 98221
+        }
+      },
+      "timing": {
+        "Time": 23.601,
+        "CPU Time": 24.24,
+        "CPU Time (CaDiCaL)": 15.235,
+        "CPU Time (BDD)": 1.252,
+        "CPU Time (Don't care)": 4.66,
+        "CPU Time (Read Fault)": 0.004
+      },
+      "order": []
+    },
+    {
+      "name": "s38584_sample_sparse",
+      "queue": true,
+      "target_only": false,
+      "net": "s38584_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.030099,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.004815,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000107,
+          "calls": 128
+        },
+        "model": {
+          "seconds": 0.38773,
+          "calls": 128
+        },
+        "good_load": {
+          "seconds": 0.199593,
+          "calls": 128
+        },
+        "search_tfo": {
+          "seconds": 0.000629,
+          "calls": 128
+        },
+        "propagation": {
+          "seconds": 0.013465,
+          "calls": 128
+        },
+        "detection": {
+          "seconds": 0.010381,
+          "calls": 128
+        },
+        "essential": {
+          "seconds": 0.038309,
+          "calls": 128
+        },
+        "solver_init": {
+          "seconds": 0.004902,
+          "calls": 128
+        },
+        "solver_release": {
+          "seconds": 0.046579,
+          "calls": 128
+        },
+        "xid_model_values": {
+          "seconds": 0.330548,
+          "calls": 1924
+        },
+        "xid_fsim": {
+          "seconds": 0.003877,
+          "calls": 1924
+        },
+        "xid_filling": {
+          "seconds": 0.382853,
+          "calls": 1924
+        }
+      },
+      "timing": {
+        "Time": 2.344,
+        "CPU Time": 2.409,
+        "CPU Time (CaDiCaL)": 1.052,
+        "CPU Time (BDD)": 0.032,
+        "CPU Time (Don't care)": 0.729,
+        "CPU Time (Read Fault)": 0.005
+      },
+      "order": []
+    },
+    {
+      "name": "b18_sample_sparse",
+      "queue": true,
+      "target_only": false,
+      "net": "b18_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.341474,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.085488,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 3.3e-05,
+          "calls": 32
+        },
+        "model": {
+          "seconds": 0.605291,
+          "calls": 32
+        },
+        "good_load": {
+          "seconds": 0.201701,
+          "calls": 32
+        },
+        "search_tfo": {
+          "seconds": 0.003095,
+          "calls": 32
+        },
+        "propagation": {
+          "seconds": 0.013993,
+          "calls": 32
+        },
+        "detection": {
+          "seconds": 0.000686,
+          "calls": 32
+        },
+        "essential": {
+          "seconds": 0.058011,
+          "calls": 32
+        },
+        "solver_init": {
+          "seconds": 0.001429,
+          "calls": 32
+        },
+        "solver_release": {
+          "seconds": 0.067095,
+          "calls": 32
+        },
+        "xid_model_values": {
+          "seconds": 1.483067,
+          "calls": 951
+        },
+        "xid_fsim": {
+          "seconds": 0.027625,
+          "calls": 951
+        },
+        "xid_filling": {
+          "seconds": 1.711872,
+          "calls": 951
+        }
+      },
+      "timing": {
+        "Time": 12.19,
+        "CPU Time": 12.521,
+        "CPU Time (CaDiCaL)": 7.39,
+        "CPU Time (BDD)": 0.26,
+        "CPU Time (Don't care)": 3.255,
+        "CPU Time (Read Fault)": 0.085
+      },
+      "order": []
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "regions": 100,
+  "complete": false,
+  "timed_out": false,
+  "seconds": 0.2110928780020913,
+  "predicates": 24,
+  "candidate_binary_clauses": 1152,
+  "detector_calls": 101,
+  "oracle_calls": 200,
+  "minimize_calls": 0,
+  "clause_count": 1200,
+  "clause_hist": {
+    "12": 100
+  },
+  "union": null,
+  "total_seconds": 0.21411078600795008
+}

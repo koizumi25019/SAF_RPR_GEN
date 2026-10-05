@@ -1,0 +1,92 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/c17a.v",
+  "fault": "b",
+  "stuck": 0,
+  "root": "i",
+  "path_gates": 1,
+  "flat": false,
+  "care_observation": false,
+  "factors": 3,
+  "complete": true,
+  "generated_cubes": 7,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 2.3097e-05,
+      "init_seconds": 0.000115336,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "i:h=1",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 2.615e-05,
+      "init_seconds": 0.000104958,
+      "sat_calls": 7,
+      "detector_calls": 3,
+      "oracle_calls": 4,
+      "oracle_sat": 2,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 2
+      }
+    },
+    {
+      "name": "root_observability",
+      "method": "greedy",
+      "cubes": 4,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 3.7221e-05,
+      "init_seconds": 0.000109478,
+      "sat_calls": 13,
+      "detector_calls": 5,
+      "oracle_calls": 8,
+      "oracle_sat": 4,
+      "oracle_unsat": 4,
+      "refined_cubes": 4,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 4
+      }
+    }
+  ],
+  "union": {
+    "probability": "11/32",
+    "cubes": 7,
+    "factors": 3,
+    "bdd_nodes": 9,
+    "seconds": 0.002220589
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.008727566999368719
+}

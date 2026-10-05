@@ -1,0 +1,10 @@
+{
+  "s5378_queue": true,
+  "s5378_sim": true,
+  "s5378_compact": true,
+  "s38584_sample_queue": true,
+  "s38584_sample_sim": true,
+  "s38584_sample_compact": true,
+  "b18_sample_sim": true,
+  "s38584_target_order": true
+}

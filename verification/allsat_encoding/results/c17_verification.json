@@ -1,0 +1,5762 @@
+[
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011903409904334694
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013216530060162768
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011705740034813061
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014037999935681
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011529010080266744
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011858820071211085
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001172886011772789
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "a",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011160910071339458
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012544939963845536
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012720910017378628
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0016715609963284805
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001533628994366154
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013035919982939959
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001217851007822901
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011645949998637661
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "b",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0015267200069501996
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001580668002134189
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0016468340036226436
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0019065189990215003
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0017618200072320178
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014071530022192746
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013366439961828291
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014126789901638404
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001602543008630164
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012813140056096017
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001332138999714516
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001405276998411864
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013786089984932914
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014040300011401996
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00124729800154455
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001377801992930472
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "d",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013434459979180247
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001424389993189834
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013164470001356676
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001438468010746874
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014985540037741885
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001222671999130398
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012546840007416904
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013549449940910563
+    }
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "9/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014425900008063763
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011918770032934844
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011956259986618534
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011461940011940897
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012666149996221066
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012193540023872629
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014759719924768433
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011940120020881295
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "e",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013550090079661459
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013196890067774802
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012226760009070858
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014793680020375177
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014518829993903637
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001358316992991604
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012596099986694753
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014661809982499108
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013614700001198798
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010725909960456192
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010917990002781153
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001147823000792414
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011467509903013706
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011676069989334792
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010752429952844977
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012185530067654327
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "f",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012968319933861494
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011978760012425482
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010721639991970733
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011350639979355037
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0015920769947115332
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0018090499943355098
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012269539874978364
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010783180041471496
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011584710009628907
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011684950004564598
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011767769901780412
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012552479893201962
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013922599900979549
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001133683996158652
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011857709905598313
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001047942991135642
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014617039996664971
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011825109977507964
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012724789994535968
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013870010006939992
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013711490028072149
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011548229958862066
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013816040009260178
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001159114995971322
+    }
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013276749959914014
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012438339908840135
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011970640043728054
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013886829983675852
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013776629930362105
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001203072999487631
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012098330043954775
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013002869964111596
+    }
+  },
+  {
+    "fault": "c_h_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_h_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013289600028656423
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012046719930367544
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012260829971637577
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014593009982490912
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012537740112747997
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012139960017520934
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00124312199477572
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013624379935208708
+    }
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "d",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012245050020283088
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013471749989548698
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011999019916402176
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013482739886967465
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011901590041816235
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012002540024695918
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011680070019792765
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013336139963939786
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001270296997972764
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010957939957734197
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001122454006690532
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00109710700053256
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011366290127625689
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011775869934353977
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001229387999046594
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011995110107818618
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "1/8",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001277292991289869
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011415519984439015
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012272530002519488
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011761950008803979
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013093959860270843
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001170560994069092
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011325079976813868
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011560029961401597
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "g",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011715949949575588
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012399230035953224
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012692070013144985
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012909579963888973
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012021029979223385
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012361929984763265
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011820479994639754
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012596309970831499
+    }
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "f",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012544789933599532
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012008189951302484
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012078859872417524
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012316940119490027
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001282964993151836
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011768859985750169
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012024489988107234
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011991630017291754
+    }
+  },
+  {
+    "fault": "c_f_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "c_f_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012445579923223704
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012014480016659945
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011562540021259338
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001244063998456113
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012017279950669035
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011889790039276704
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011427980061853305
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012806290033040568
+    }
+  },
+  {
+    "fault": "a",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "a",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012474160030251369
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00127887399867177
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012089819938410074
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.002049543007160537
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014333250001072884
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012374590005492792
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011788199917646125
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013384759949985892
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013243720022728667
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012566399964271113
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012088130024494603
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0018773790070554242
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001457271006074734
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011714979918906465
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001294795991270803
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001209866997669451
+    }
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "b",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001528347987914458
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011749160039471462
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012853869993705302
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0015586310037178919
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001500155995017849
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00119800100219436
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001370979007333517
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012878870038548484
+    }
+  },
+  {
+    "fault": "h_i_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_i_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "11/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001560795004479587
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012264660035725683
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013327310007298365
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011471999896457419
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012740730016957968
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011993969965260476
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001423491004970856
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011410489969421178
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "j",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011492080084281042
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001207763998536393
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012781269906554371
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001183753993245773
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011937919916817918
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012153530115028843
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011951950000366196
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001200298996991478
+    }
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "e",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012177679891465232
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011897009972017258
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011702460033120587
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012310270103625953
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001310014005866833
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012531590036815032
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012455749965738505
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012487840140238404
+    }
+  },
+  {
+    "fault": "h_j_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "h_j_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012215879978612065
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013044450024608523
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011942369892494753
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014561799907824025
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001306019999901764
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012996739969821647
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012242390075698495
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012382900022203103
+    }
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "19/32",
+      "coordinate_rank": 5,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013390350068220869
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011352409928804263
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011821289954241365
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011466980067780241
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012644530070247129
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011255019926466048
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001236712996615097
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011414390028221533
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "3/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001238402008311823
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011170359939569607
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013246469898149371
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012055280094500631
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013008010137127712
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011125780001748353
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011075299989897758
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014622460003010929
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "5/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012619080080185086
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011229720112169161
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011276600125711411
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012632109865080565
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013317120028659701
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011559230042621493
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010900160123128444
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012341480032773688
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "k",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013318349956534803
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012749039888149127
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011570459901122376
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0020178919949103147
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013245699956314638
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011357670009601861
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011970770137850195
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012983990018256009
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "l",
+      "stuck": 0,
+      "sound": true,
+      "exact": true,
+      "probability": "9/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001432270000805147
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014027449942659587
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012478220014600083
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001634039988857694
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001262671998119913
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001216909004142508
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0015593959979014471
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011223640030948445
+    }
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "k",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013002890045754611
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014569399936590344
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013660879922099411
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0018347150034969673
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014842819946352392
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001278928990359418
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012154549913248047
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011953520006500185
+    }
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "g",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013199869863456115
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012096249993192032
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011394989996915683
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012640810018638149
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0014737790043000132
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011698439921019599
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011724030046025291
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001195649994770065
+    }
+  },
+  {
+    "fault": "i_k_B",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_k_B",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013456739980028942
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010908650001510978
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001144918001955375
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011731499980669469
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0015129829989746213
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011218459985684603
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.00122335999913048
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010930570133496076
+    }
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "l",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013499870110535994
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011612090020207688
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011924470018129796
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011270819959463552
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013690069899894297
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011309109977446496
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.001090053003281355
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011036820069421083
+    }
+  },
+  {
+    "fault": "i_l_A",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "i_l_A",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0013549290015362203
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011449200101196766
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010934930032817647
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011613630049396306
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "tseitin",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012987820082344115
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011685380013659596
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0010853939893422648
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "witness",
+    "seed": true,
+    "width": 1,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0011686159996315837
+    }
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "encoding": "nnf_pg",
+    "method": "greedy",
+    "seed": false,
+    "width": 3,
+    "proof": {
+      "fault": "j",
+      "stuck": 1,
+      "sound": true,
+      "exact": true,
+      "probability": "7/16",
+      "coordinate_rank": 4,
+      "original_outputs": 2,
+      "affected_outputs_verified": 2,
+      "disjoint_supports_verified": true,
+      "seconds": 0.0012720310041913763
+    }
+  }
+]

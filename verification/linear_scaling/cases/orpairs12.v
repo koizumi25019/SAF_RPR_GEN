@@ -1,0 +1,28 @@
+module orpairs12(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,z);
+input x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23;
+output z;
+wire p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10;
+OR2 g0 (.A(x0), .B(x1), .Z(p0));
+OR2 g1 (.A(x2), .B(x3), .Z(p1));
+OR2 g2 (.A(x4), .B(x5), .Z(p2));
+OR2 g3 (.A(x6), .B(x7), .Z(p3));
+OR2 g4 (.A(x8), .B(x9), .Z(p4));
+OR2 g5 (.A(x10), .B(x11), .Z(p5));
+OR2 g6 (.A(x12), .B(x13), .Z(p6));
+OR2 g7 (.A(x14), .B(x15), .Z(p7));
+OR2 g8 (.A(x16), .B(x17), .Z(p8));
+OR2 g9 (.A(x18), .B(x19), .Z(p9));
+OR2 g10 (.A(x20), .B(x21), .Z(p10));
+OR2 g11 (.A(x22), .B(x23), .Z(p11));
+AND2 c1 (.A(p0), .B(p1), .Z(a1));
+AND2 c2 (.A(a1), .B(p2), .Z(a2));
+AND2 c3 (.A(a2), .B(p3), .Z(a3));
+AND2 c4 (.A(a3), .B(p4), .Z(a4));
+AND2 c5 (.A(a4), .B(p5), .Z(a5));
+AND2 c6 (.A(a5), .B(p6), .Z(a6));
+AND2 c7 (.A(a6), .B(p7), .Z(a7));
+AND2 c8 (.A(a7), .B(p8), .Z(a8));
+AND2 c9 (.A(a8), .B(p9), .Z(a9));
+AND2 c10 (.A(a9), .B(p10), .Z(a10));
+AND2 c11 (.A(a10), .B(p11), .Z(z));
+endmodule

@@ -1,0 +1,168 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/s5378_C.v",
+  "fault": "n2984gat",
+  "stuck": 0,
+  "root": "n2985gat",
+  "path_gates": 3,
+  "flat": false,
+  "care_observation": true,
+  "factors": 6,
+  "complete": true,
+  "generated_cubes": 77,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 44,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.006097271,
+      "init_seconds": 0.000290809,
+      "sat_calls": 418,
+      "detector_calls": 45,
+      "oracle_calls": 373,
+      "oracle_sat": 326,
+      "oracle_unsat": 47,
+      "refined_cubes": 44,
+      "refinement_removed_literals": 3,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "4": 4,
+        "7": 15,
+        "8": 20,
+        "9": 5
+      }
+    },
+    {
+      "name": "n1531gat:n1507gat=0",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.9115e-05,
+      "init_seconds": 0.000220341,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "n2985gat:n1686gat=0",
+      "method": "greedy",
+      "cubes": 7,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000409698,
+      "init_seconds": 0.000211466,
+      "sat_calls": 27,
+      "detector_calls": 8,
+      "oracle_calls": 19,
+      "oracle_sat": 12,
+      "oracle_unsat": 7,
+      "refined_cubes": 7,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 3,
+        "2": 3,
+        "3": 1
+      }
+    },
+    {
+      "name": "n2985gat:n1533gat=0",
+      "method": "greedy",
+      "cubes": 9,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000521409,
+      "init_seconds": 0.000223165,
+      "sat_calls": 37,
+      "detector_calls": 10,
+      "oracle_calls": 27,
+      "oracle_sat": 14,
+      "oracle_unsat": 13,
+      "refined_cubes": 9,
+      "refinement_removed_literals": 4,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 5,
+        "2": 3,
+        "3": 1
+      }
+    },
+    {
+      "name": "n2985gat:n1532gat=0",
+      "method": "greedy",
+      "cubes": 15,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.001126382,
+      "init_seconds": 0.000216763,
+      "sat_calls": 79,
+      "detector_calls": 16,
+      "oracle_calls": 63,
+      "oracle_sat": 40,
+      "oracle_unsat": 23,
+      "refined_cubes": 15,
+      "refinement_removed_literals": 8,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1,
+        "2": 3,
+        "3": 11
+      }
+    },
+    {
+      "name": "root_observability_under_care",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 1191,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.0493e-05,
+      "init_seconds": 0.000310696,
+      "sat_calls": 3,
+      "detector_calls": 2,
+      "oracle_calls": 1,
+      "oracle_sat": 0,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "0": 1
+      },
+      "conditioned": true
+    }
+  ],
+  "union": {
+    "probability": "2668833/33554432",
+    "cubes": 77,
+    "factors": 6,
+    "bdd_nodes": 106,
+    "seconds": 0.00277438
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.03835626199906983
+}

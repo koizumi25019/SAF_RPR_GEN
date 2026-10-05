@@ -1,0 +1,218 @@
+[
+  {
+    "fault": "a",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001091430000087712
+  },
+  {
+    "fault": "a",
+    "stuck": 1,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0011262269999861019
+  },
+  {
+    "fault": "b",
+    "stuck": 0,
+    "fdp": "11/32",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0012323200000992074
+  },
+  {
+    "fault": "b",
+    "stuck": 1,
+    "fdp": "11/32",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001327883000158181
+  },
+  {
+    "fault": "c",
+    "stuck": 0,
+    "fdp": "9/32",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0015768859998388507
+  },
+  {
+    "fault": "c",
+    "stuck": 1,
+    "fdp": "9/32",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0011448170000676328
+  },
+  {
+    "fault": "d",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001156597000090187
+  },
+  {
+    "fault": "d",
+    "stuck": 1,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001077073999795175
+  },
+  {
+    "fault": "e",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010614379998514778
+  },
+  {
+    "fault": "e",
+    "stuck": 1,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001115194000021802
+  },
+  {
+    "fault": "f",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001146610999967379
+  },
+  {
+    "fault": "f",
+    "stuck": 1,
+    "fdp": "1/8",
+    "sound_cubes": 1,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010854160000235424
+  },
+  {
+    "fault": "g",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001044884000066304
+  },
+  {
+    "fault": "g",
+    "stuck": 1,
+    "fdp": "7/16",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010832729999492585
+  },
+  {
+    "fault": "h",
+    "stuck": 0,
+    "fdp": "9/16",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010688709999158164
+  },
+  {
+    "fault": "h",
+    "stuck": 1,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.00108693799984394
+  },
+  {
+    "fault": "i",
+    "stuck": 0,
+    "fdp": "11/32",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0012074549999852024
+  },
+  {
+    "fault": "i",
+    "stuck": 1,
+    "fdp": "19/32",
+    "sound_cubes": 5,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0011637180000434455
+  },
+  {
+    "fault": "j",
+    "stuck": 0,
+    "fdp": "3/16",
+    "sound_cubes": 2,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010903449999659642
+  },
+  {
+    "fault": "j",
+    "stuck": 1,
+    "fdp": "7/16",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010154710000733758
+  },
+  {
+    "fault": "k",
+    "stuck": 0,
+    "fdp": "9/16",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001104329999861875
+  },
+  {
+    "fault": "k",
+    "stuck": 1,
+    "fdp": "7/16",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010829580000972783
+  },
+  {
+    "fault": "l",
+    "stuck": 0,
+    "fdp": "9/16",
+    "sound_cubes": 4,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.001065504999814948
+  },
+  {
+    "fault": "l",
+    "stuck": 1,
+    "fdp": "7/16",
+    "sound_cubes": 3,
+    "coverage_unsat": true,
+    "pairwise_disjoint": true,
+    "seconds": 0.0010992159998295392
+  }
+]

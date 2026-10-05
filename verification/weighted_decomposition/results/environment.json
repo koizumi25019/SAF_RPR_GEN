@@ -1,0 +1,14 @@
+{
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13700K",
+  "cadical_version": "3.0.0",
+  "sha256": {
+    "verification/linear_scaling/native/build/enumerator": "87be969cbcb3560e34b59e80b8022e9d9c3c6242fea422616ceb4a11b42b592e",
+    "verification/linear_scaling/blocks/build/region_union": "db9053b142c9d805b8fc941796eb9d59c6499f4fb9490fabc1fe9419865b9604",
+    "verification/weighted_decomposition/build/weighted_union": "adee2aec708d705c1fd787a36b41c7721d9dddfdb60598c3c4af3e37c53eaa89",
+    "external/cadical/build/libcadical.a": "a11e8e12600b2005f3ad0921500d120c59873d38c633d4eb0ebd39ad050748b9",
+    "external/cudd/cudd/.libs/libcudd.a": "583b88d101f2cdc8c0bef8b983cce86c7e37f23a9bcc65a17ef0ec3a210f97bc"
+  }
+}

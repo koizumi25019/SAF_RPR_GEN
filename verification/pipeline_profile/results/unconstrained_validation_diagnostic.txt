@@ -1,0 +1,16 @@
+SAT/simulation mismatch g11326
+[CONE] instances=1 kept_gates=151 full_gates=36816
+[PROFILE] read_net 0.029293000 1
+[PROFILE] read_fault 0.004994000 1
+[PROFILE] target 0.000011000 1
+[PROFILE] model 0.004437000 1
+[PROFILE] good_load 0.000121000 1
+[PROFILE] search_tfo 0.000184000 1
+[PROFILE] propagation 0.000076000 1
+[PROFILE] detection 0.000056000 1
+[PROFILE] essential 0.000103000 1
+[PROFILE] solver_init 0.000054000 1
+[PROFILE] solver_release 0.000000000 0
+[PROFILE] xid_model_values 0.000000000 0
+[PROFILE] xid_fsim 0.000000000 0
+[PROFILE] xid_filling 0.000000000 0

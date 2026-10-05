@@ -1,0 +1,98 @@
+[
+  {
+    "method": "previous",
+    "complete": true,
+    "seconds": 0.24091050699644256,
+    "top_cubes": 456,
+    "probability": "292092239/4294967296",
+    "selected": null,
+    "circuit": "s5378_C",
+    "fault": "n673gat",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n673gat_0_previous"
+  },
+  {
+    "method": "weighted",
+    "complete": true,
+    "seconds": 0.2518693369929679,
+    "top_cubes": 513,
+    "probability": "292092239/4294967296",
+    "selected": 0,
+    "circuit": "s5378_C",
+    "fault": "n673gat",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n673gat_0_weighted"
+  },
+  {
+    "method": "previous",
+    "complete": true,
+    "seconds": 0.5086854760011192,
+    "top_cubes": 1521,
+    "probability": "48825/4194304",
+    "selected": null,
+    "circuit": "s5378_C",
+    "fault": "n1592gat",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n1592gat_0_previous"
+  },
+  {
+    "method": "weighted",
+    "complete": true,
+    "seconds": 0.3507939359988086,
+    "top_cubes": 858,
+    "probability": "48825/4194304",
+    "selected": 1,
+    "circuit": "s5378_C",
+    "fault": "n1592gat",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n1592gat_0_weighted"
+  },
+  {
+    "method": "previous",
+    "complete": true,
+    "seconds": 2.2396424080070574,
+    "top_cubes": 2361,
+    "probability": "4005879917/8589934592",
+    "selected": null,
+    "circuit": "s5378_C",
+    "fault": "n291gat",
+    "stuck": 1,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n291gat_1_previous"
+  },
+  {
+    "method": "weighted",
+    "complete": false,
+    "seconds": 3.21266041698982,
+    "top_cubes": 3069,
+    "probability": null,
+    "selected": 0,
+    "circuit": "s5378_C",
+    "fault": "n291gat",
+    "stuck": 1,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/s5378_C_n291gat_1_weighted"
+  },
+  {
+    "method": "previous",
+    "complete": false,
+    "seconds": 3.598670638995827,
+    "top_cubes": 719,
+    "probability": null,
+    "selected": null,
+    "circuit": "b19_C",
+    "fault": "P2_P1_P1_U3002",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/b19_C_P2_P1_P1_U3002_0_previous"
+  },
+  {
+    "method": "weighted",
+    "complete": false,
+    "seconds": 3.605847516009817,
+    "top_cubes": 198,
+    "probability": null,
+    "selected": 0,
+    "circuit": "b19_C",
+    "fault": "P2_P1_P1_U3002",
+    "stuck": 0,
+    "prefix": "/home/koizumi/fdp/verification/weighted_decomposition/runs/scope/b19_C_P2_P1_P1_U3002_0_weighted"
+  }
+]

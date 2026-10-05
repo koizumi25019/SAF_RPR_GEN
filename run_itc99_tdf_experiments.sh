@@ -11,10 +11,8 @@
 set -u
 
 CIRCUITS=(
-    
-    b20
-    b21
-    b22
+    b14
+    b17
 )
 
 if [ "$#" -gt 0 ]; then

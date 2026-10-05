@@ -1,0 +1,46 @@
+[
+  {
+    "name": "false_predicate_negated",
+    "regions": 1,
+    "predicates": 1,
+    "nvars": 1,
+    "bdd_nodes": 1,
+    "probability": "1",
+    "model_count": "2",
+    "fdp": 1,
+    "seconds": 0.002277621
+  },
+  {
+    "name": "false_predicate_positive",
+    "regions": 1,
+    "predicates": 1,
+    "nvars": 1,
+    "bdd_nodes": 1,
+    "probability": "0",
+    "model_count": "0",
+    "fdp": 0,
+    "seconds": 0.002212997
+  },
+  {
+    "name": "empty_union",
+    "regions": 0,
+    "predicates": 0,
+    "nvars": 0,
+    "bdd_nodes": 1,
+    "probability": "0",
+    "model_count": "0",
+    "fdp": 0,
+    "seconds": 0.002281811
+  },
+  {
+    "name": "empty_region",
+    "regions": 1,
+    "predicates": 0,
+    "nvars": 0,
+    "bdd_nodes": 1,
+    "probability": "1",
+    "model_count": "1",
+    "fdp": 1,
+    "seconds": 0.002225959
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "fault": "g16349",
+  "stuck": 1,
+  "regions": 7997,
+  "sound": true,
+  "exact": true,
+  "coordinate_rank": 232,
+  "original_outputs": 1576,
+  "affected_outputs_verified": 37,
+  "seconds": 10.272137345993542
+}

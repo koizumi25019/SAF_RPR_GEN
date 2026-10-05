@@ -1,0 +1,17 @@
+{
+  "fault": "n1592gat",
+  "stuck": 0,
+  "width": 6,
+  "predicates": 51,
+  "candidate_clauses": 5202,
+  "entailed_clauses": 808,
+  "exact": false,
+  "learned_clauses": 0,
+  "implication_sat_calls": 5202,
+  "equivalence_sat_calls": 1,
+  "minimize_calls": 0,
+  "implication_seconds": 0.31022992300859187,
+  "equivalence_seconds": 0.0010073739977087826,
+  "union": null,
+  "total_seconds": 0.33600509200186934
+}

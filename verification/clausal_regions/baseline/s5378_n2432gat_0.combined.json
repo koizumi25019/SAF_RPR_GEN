@@ -1,0 +1,37 @@
+{
+  "method": "greedy",
+  "cubes": 1910,
+  "complete": true,
+  "timed_out": false,
+  "seconds": 0.156683273,
+  "init_seconds": 0.000460732,
+  "sat_calls": 5940,
+  "detector_calls": 1911,
+  "oracle_calls": 4029,
+  "oracle_sat": 898,
+  "oracle_unsat": 3131,
+  "refined_cubes": 1910,
+  "refinement_removed_literals": 1233,
+  "simulation_necessary_literals": 19218,
+  "simulation_seconds": 0.003050287,
+  "care_hist": {
+    "9": 260,
+    "10": 730,
+    "11": 650,
+    "12": 201,
+    "13": 52,
+    "14": 17
+  },
+  "union": {
+    "cubes": 1910,
+    "nvars": 214,
+    "bdd_nodes": 88,
+    "probability": "58250049319/2199023255552",
+    "model_count": "697405787785825046594893122709551109155392037185856200977154048",
+    "fdp": 0.026489055616821133,
+    "seconds": 0.023514188,
+    "insertion_order": "natural"
+  },
+  "build_seconds": 0.004233430998283438,
+  "end_to_end_seconds": 0.22350408499187324
+}

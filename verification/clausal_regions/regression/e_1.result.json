@@ -1,0 +1,32 @@
+{
+  "fault": "e",
+  "stuck": 1,
+  "width": 6,
+  "implicate_mode": "propagation",
+  "predicates": 1,
+  "candidate_clauses": 2,
+  "tested_clauses": 1,
+  "common_implicates": 1,
+  "regions": 1,
+  "complete": true,
+  "timed_out": false,
+  "residual_care_hist": {
+    "0": 1
+  },
+  "implication_sat_calls": 1,
+  "enumeration_sat_calls": 4,
+  "minimize_calls": 0,
+  "implication_seconds": 0.0012968810000302256,
+  "enumeration_seconds": 0.0008869020000474848,
+  "union": {
+    "regions": 1,
+    "predicates": 1,
+    "nvars": 4,
+    "bdd_nodes": 5,
+    "probability": "3/16",
+    "model_count": "3",
+    "fdp": 0.1875,
+    "seconds": 0.00250723
+  },
+  "total_seconds": 0.00663528299992322
+}

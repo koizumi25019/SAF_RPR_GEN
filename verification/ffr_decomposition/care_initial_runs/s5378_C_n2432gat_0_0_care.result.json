@@ -1,0 +1,206 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/s5378_C.v",
+  "fault": "n2432gat",
+  "stuck": 0,
+  "root": "n2148gat",
+  "path_gates": 5,
+  "flat": false,
+  "care_observation": true,
+  "factors": 8,
+  "complete": true,
+  "generated_cubes": 68,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 5,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000209648,
+      "init_seconds": 0.000244941,
+      "sat_calls": 16,
+      "detector_calls": 6,
+      "oracle_calls": 10,
+      "oracle_sat": 5,
+      "oracle_unsat": 5,
+      "refined_cubes": 5,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 5
+      }
+    },
+    {
+      "name": "n2433gat:n2154gat=0",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.8596e-05,
+      "init_seconds": 0.000218913,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "n2428gat:n2427gat=0",
+      "method": "greedy",
+      "cubes": 6,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000233306,
+      "init_seconds": 0.000223781,
+      "sat_calls": 19,
+      "detector_calls": 7,
+      "oracle_calls": 12,
+      "oracle_sat": 6,
+      "oracle_unsat": 6,
+      "refined_cubes": 6,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 6
+      }
+    },
+    {
+      "name": "II1733:n2286gat=0",
+      "method": "greedy",
+      "cubes": 5,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000198486,
+      "init_seconds": 0.000254446,
+      "sat_calls": 16,
+      "detector_calls": 6,
+      "oracle_calls": 10,
+      "oracle_sat": 5,
+      "oracle_unsat": 5,
+      "refined_cubes": 5,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 5
+      }
+    },
+    {
+      "name": "II1733:n2289gat=0",
+      "method": "greedy",
+      "cubes": 5,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000197974,
+      "init_seconds": 0.000254504,
+      "sat_calls": 16,
+      "detector_calls": 6,
+      "oracle_calls": 10,
+      "oracle_sat": 5,
+      "oracle_unsat": 5,
+      "refined_cubes": 5,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 5
+      }
+    },
+    {
+      "name": "II1734:n1604gat=0",
+      "method": "greedy",
+      "cubes": 3,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000391877,
+      "init_seconds": 0.000221702,
+      "sat_calls": 22,
+      "detector_calls": 4,
+      "oracle_calls": 18,
+      "oracle_sat": 13,
+      "oracle_unsat": 5,
+      "refined_cubes": 3,
+      "refinement_removed_literals": 2,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "4": 2,
+        "5": 1
+      }
+    },
+    {
+      "name": "II1734:n2214gat=0",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 6.8655e-05,
+      "init_seconds": 0.000206703,
+      "sat_calls": 4,
+      "detector_calls": 2,
+      "oracle_calls": 2,
+      "oracle_sat": 1,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1
+      }
+    },
+    {
+      "name": "root_observability_under_care",
+      "method": "greedy",
+      "cubes": 42,
+      "care_literal": 1152,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.00229976,
+      "init_seconds": 0.000320292,
+      "sat_calls": 168,
+      "detector_calls": 43,
+      "oracle_calls": 125,
+      "oracle_sat": 76,
+      "oracle_unsat": 49,
+      "refined_cubes": 42,
+      "refinement_removed_literals": 7,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 13,
+        "2": 24,
+        "3": 5
+      },
+      "conditioned": true
+    }
+  ],
+  "union": {
+    "probability": "58250049319/2199023255552",
+    "cubes": 68,
+    "factors": 8,
+    "bdd_nodes": 88,
+    "seconds": 0.002668976
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.03897407900149119
+}

@@ -1,0 +1,50 @@
+{
+  "net": "input/circuit/s5378_C.v",
+  "fault": "n2432gat",
+  "stuck": 0,
+  "root": "n2148gat",
+  "path_gates": 5,
+  "flat": true,
+  "factors": 1,
+  "complete": true,
+  "generated_cubes": 1970,
+  "factor_results": [
+    {
+      "name": "flat_detection",
+      "method": "greedy",
+      "cubes": 1970,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.635680958,
+      "init_seconds": 0.00042167,
+      "sat_calls": 25876,
+      "detector_calls": 1971,
+      "oracle_calls": 23905,
+      "oracle_sat": 20675,
+      "oracle_unsat": 3230,
+      "refined_cubes": 1970,
+      "refinement_removed_literals": 1265,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "9": 260,
+        "10": 745,
+        "11": 710,
+        "12": 240,
+        "13": 15
+      }
+    }
+  ],
+  "union": {
+    "probability": "58250049319/2199023255552",
+    "cubes": 1970,
+    "factors": 1,
+    "bdd_nodes": 88,
+    "seconds": 0.027399728
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.701450594999983
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "trial": 0,
+    "probability": "1003/1024",
+    "verified": true
+  },
+  {
+    "trial": 1,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 2,
+    "probability": "79/128",
+    "verified": true
+  },
+  {
+    "trial": 3,
+    "probability": "3871/4096",
+    "verified": true
+  },
+  {
+    "trial": 4,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 5,
+    "probability": "95/128",
+    "verified": true
+  },
+  {
+    "trial": 6,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 7,
+    "probability": "7597/8192",
+    "verified": true
+  },
+  {
+    "trial": 8,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 9,
+    "probability": "817/1024",
+    "verified": true
+  },
+  {
+    "trial": 10,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 11,
+    "probability": "249/256",
+    "verified": true
+  },
+  {
+    "trial": 12,
+    "probability": "1",
+    "verified": true
+  },
+  {
+    "trial": 13,
+    "probability": "6977/8192",
+    "verified": true
+  },
+  {
+    "trial": 14,
+    "probability": "53/64",
+    "verified": true
+  },
+  {
+    "trial": 15,
+    "probability": "6453/8192",
+    "verified": true
+  },
+  {
+    "trial": 16,
+    "probability": "251/256",
+    "verified": true
+  },
+  {
+    "trial": 17,
+    "probability": "59/64",
+    "verified": true
+  },
+  {
+    "trial": 18,
+    "probability": "477/512",
+    "verified": true
+  },
+  {
+    "trial": 19,
+    "probability": "449/512",
+    "verified": true
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "fault": "n673gat",
+  "stuck": 0,
+  "width": 6,
+  "predicates": 91,
+  "candidate_clauses": 16562,
+  "entailed_clauses": 318,
+  "exact": false,
+  "learned_clauses": 0,
+  "implication_sat_calls": 16562,
+  "equivalence_sat_calls": 1,
+  "minimize_calls": 0,
+  "implication_seconds": 1.0199239860085072,
+  "equivalence_seconds": 0.0010639929969329387,
+  "union": null,
+  "total_seconds": 1.0461447989946464
+}

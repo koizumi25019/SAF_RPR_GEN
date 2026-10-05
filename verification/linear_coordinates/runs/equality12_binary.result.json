@@ -1,0 +1,23 @@
+{
+  "info": {
+    "mode": "binary",
+    "npi": 24,
+    "parity_basis_rows": 0,
+    "detection_support": 24,
+    "reachable_gates": 13,
+    "parities": [],
+    "random_simulation_checks": 300
+  },
+  "result": {
+    "cubes": 4096,
+    "complete": true,
+    "seconds": 24.335605574999818,
+    "sat_calls": 110593,
+    "disjoint": true,
+    "care_hist": {
+      "24": 4096
+    },
+    "probability": "1/4096",
+    "fdp": 0.000244140625
+  }
+}

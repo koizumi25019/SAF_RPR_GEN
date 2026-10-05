@@ -1,0 +1,101 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/s5378_C.v",
+  "fault": "n79gat",
+  "stuck": 1,
+  "root": "n78gat",
+  "path_gates": 1,
+  "flat": false,
+  "care_observation": false,
+  "factors": 3,
+  "complete": true,
+  "generated_cubes": 763,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 1,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000204926,
+      "init_seconds": 0.00024059,
+      "sat_calls": 11,
+      "detector_calls": 2,
+      "oracle_calls": 9,
+      "oracle_sat": 8,
+      "oracle_unsat": 1,
+      "refined_cubes": 1,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "8": 1
+      }
+    },
+    {
+      "name": "n78gat:n2784gat=0",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 9.9889e-05,
+      "init_seconds": 0.000301804,
+      "sat_calls": 7,
+      "detector_calls": 3,
+      "oracle_calls": 4,
+      "oracle_sat": 2,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 2
+      }
+    },
+    {
+      "name": "root_observability",
+      "method": "greedy",
+      "cubes": 760,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.129178796,
+      "init_seconds": 0.000336233,
+      "sat_calls": 5419,
+      "detector_calls": 761,
+      "oracle_calls": 4658,
+      "oracle_sat": 3442,
+      "oracle_unsat": 1216,
+      "refined_cubes": 760,
+      "refinement_removed_literals": 482,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "2": 40,
+        "3": 2,
+        "4": 482,
+        "5": 148,
+        "6": 17,
+        "7": 30,
+        "8": 11,
+        "9": 19,
+        "10": 4,
+        "11": 7
+      }
+    }
+  ],
+  "union": {
+    "probability": "1533/524288",
+    "cubes": 763,
+    "factors": 3,
+    "bdd_nodes": 59,
+    "seconds": 0.022446836
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.18752647699875524
+}

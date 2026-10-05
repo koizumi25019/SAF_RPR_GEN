@@ -1,0 +1,9 @@
+{
+  "cubes": 5,
+  "nvars": 5,
+  "bdd_nodes": 9,
+  "probability": "19/32",
+  "model_count": "19",
+  "fdp": 0.59375,
+  "seconds": 0.002206945
+}

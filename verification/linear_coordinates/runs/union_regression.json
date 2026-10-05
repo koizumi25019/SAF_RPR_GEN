@@ -1,0 +1,262 @@
+[
+  {
+    "prefix": "equality12_linear",
+    "cubes": 1,
+    "nvars": 24,
+    "bdd_nodes": 13,
+    "probability": "1/4096",
+    "model_count": "4096",
+    "fdp": 0.000244140625,
+    "seconds": 0.003936231
+  },
+  {
+    "prefix": "equality12_binary",
+    "cubes": 4096,
+    "nvars": 24,
+    "bdd_nodes": 36,
+    "probability": "1/4096",
+    "model_count": "4096",
+    "fdp": 0.000244140625,
+    "seconds": 0.052869044
+  },
+  {
+    "prefix": "c17a_a_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 6,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.003051375
+  },
+  {
+    "prefix": "c17a_a_sa1",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 6,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.003182453
+  },
+  {
+    "prefix": "c17a_b_sa0",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 9,
+    "probability": "11/32",
+    "model_count": "11",
+    "fdp": 0.34375,
+    "seconds": 0.002604034
+  },
+  {
+    "prefix": "c17a_b_sa1",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 9,
+    "probability": "11/32",
+    "model_count": "11",
+    "fdp": 0.34375,
+    "seconds": 0.002388145
+  },
+  {
+    "prefix": "c17a_c_sa0",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 10,
+    "probability": "9/32",
+    "model_count": "9",
+    "fdp": 0.28125,
+    "seconds": 0.003581675
+  },
+  {
+    "prefix": "c17a_c_sa1",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 10,
+    "probability": "9/32",
+    "model_count": "9",
+    "fdp": 0.28125,
+    "seconds": 0.003548266
+  },
+  {
+    "prefix": "c17a_d_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.002320854
+  },
+  {
+    "prefix": "c17a_d_sa1",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.00229615
+  },
+  {
+    "prefix": "c17a_e_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 5,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.002239775
+  },
+  {
+    "prefix": "c17a_e_sa1",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 5,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.00230991
+  },
+  {
+    "prefix": "c17a_f_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 6,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.002188417
+  },
+  {
+    "prefix": "c17a_f_sa1",
+    "cubes": 1,
+    "nvars": 5,
+    "bdd_nodes": 4,
+    "probability": "1/8",
+    "model_count": "4",
+    "fdp": 0.125,
+    "seconds": 0.002187988
+  },
+  {
+    "prefix": "c17a_g_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 6,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.002264558
+  },
+  {
+    "prefix": "c17a_g_sa1",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "7/16",
+    "model_count": "14",
+    "fdp": 0.4375,
+    "seconds": 0.002334648
+  },
+  {
+    "prefix": "c17a_h_sa0",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "9/16",
+    "model_count": "18",
+    "fdp": 0.5625,
+    "seconds": 0.003152432
+  },
+  {
+    "prefix": "c17a_h_sa1",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.003176578
+  },
+  {
+    "prefix": "c17a_i_sa0",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 9,
+    "probability": "11/32",
+    "model_count": "11",
+    "fdp": 0.34375,
+    "seconds": 0.0023891
+  },
+  {
+    "prefix": "c17a_i_sa1",
+    "cubes": 5,
+    "nvars": 5,
+    "bdd_nodes": 9,
+    "probability": "19/32",
+    "model_count": "19",
+    "fdp": 0.59375,
+    "seconds": 0.002691546
+  },
+  {
+    "prefix": "c17a_j_sa0",
+    "cubes": 2,
+    "nvars": 5,
+    "bdd_nodes": 5,
+    "probability": "3/16",
+    "model_count": "6",
+    "fdp": 0.1875,
+    "seconds": 0.002561873
+  },
+  {
+    "prefix": "c17a_j_sa1",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "7/16",
+    "model_count": "14",
+    "fdp": 0.4375,
+    "seconds": 0.002586607
+  },
+  {
+    "prefix": "c17a_k_sa0",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "9/16",
+    "model_count": "18",
+    "fdp": 0.5625,
+    "seconds": 0.002503861
+  },
+  {
+    "prefix": "c17a_k_sa1",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "7/16",
+    "model_count": "14",
+    "fdp": 0.4375,
+    "seconds": 0.003832863
+  },
+  {
+    "prefix": "c17a_l_sa0",
+    "cubes": 4,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "9/16",
+    "model_count": "18",
+    "fdp": 0.5625,
+    "seconds": 0.002262285
+  },
+  {
+    "prefix": "c17a_l_sa1",
+    "cubes": 3,
+    "nvars": 5,
+    "bdd_nodes": 7,
+    "probability": "7/16",
+    "model_count": "14",
+    "fdp": 0.4375,
+    "seconds": 0.002290703
+  }
+]

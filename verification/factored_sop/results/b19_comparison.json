@@ -1,0 +1,50 @@
+{
+  "b19_all_modes_complete_intersection": 79,
+  "b19_exact_mismatches": 0,
+  "matched16": {
+    "old": {
+      "faults": 16,
+      "independent_enumerations": 16,
+      "reused": 0,
+      "complete": 10,
+      "incomplete": 6,
+      "enum_seconds": 16.75160597,
+      "union_seconds": 1.4060173349999998,
+      "build_seconds": 36.6838515489726,
+      "preprocess_seconds": 4.561881252004241,
+      "wall_seconds": 60.68669507499726,
+      "variant": "long",
+      "sharing": true,
+      "width": 3,
+      "per_fault_limit_seconds": 2,
+      "representative_csv": null,
+      "expanded_branches": false,
+      "simulate": true,
+      "fault_file": "verification/factored_sop/cases/b19_C_16.faults"
+    },
+    "new": {
+      "faults": 16,
+      "complete": 10,
+      "incomplete": 6,
+      "wall_seconds": 19.21694613899308,
+      "preprocessing_seconds": 2.4367643229998066,
+      "build_seconds": 0.37080111601244425,
+      "new_leaves": 16,
+      "reused_leaves": 0,
+      "complement_reused": 0,
+      "sat_calls": 20418,
+      "generated_regions": 2060,
+      "enum_seconds": 14.767454052000001,
+      "union_seconds": 0.192156782,
+      "maxrss_kb": 856484,
+      "mode": "flat",
+      "width": 3,
+      "fault_seconds_budget": 2,
+      "net": "input/circuit/b19_C.v",
+      "fault_list": "verification/factored_sop/cases/b19_C_16.faults",
+      "branches": false
+    },
+    "both_complete": 10,
+    "exact_mismatches": 0
+  }
+}

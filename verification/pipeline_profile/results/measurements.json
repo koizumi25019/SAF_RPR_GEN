@@ -1,0 +1,3358 @@
+{
+  "b18_cone_dump": {
+    "name": "b18_cone_dump",
+    "queue": true,
+    "target_only": false,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.327998,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.057212,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 3.3e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 0.846807,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 0.189938,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 0.093433,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.053464,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.02452,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 0.09252,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.00153,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 0.075485,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 8.486462,
+        "calls": 951
+      },
+      "xid_fsim": {
+        "seconds": 0.021929,
+        "calls": 951
+      },
+      "xid_filling": {
+        "seconds": 1.68425,
+        "calls": 951
+      }
+    },
+    "timing": {
+      "Time": 19.635,
+      "CPU Time": 19.852,
+      "CPU Time (CaDiCaL)": 7.487,
+      "CPU Time (BDD)": 0.265,
+      "CPU Time (Don't care)": 10.228,
+      "CPU Time (Read Fault)": 0.057
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 32,
+        "kept_gates": 587213,
+        "full_gates": 7894336
+      }
+    ]
+  },
+  "b18_sample_base": {
+    "name": "b18_sample_base",
+    "queue": true,
+    "target_only": false,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.338787,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.068773,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 4.3e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 2.665217,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 2.015573,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 0.093362,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.053009,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.025287,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 0.093116,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.004211,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 1.02001,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 4.516229,
+        "calls": 951
+      },
+      "xid_fsim": {
+        "seconds": 0.028329,
+        "calls": 951
+      },
+      "xid_filling": {
+        "seconds": 1.879129,
+        "calls": 951
+      }
+    },
+    "timing": {
+      "Time": 41.846,
+      "CPU Time": 42.647,
+      "CPU Time (CaDiCaL)": 30.921,
+      "CPU Time (BDD)": 0.287,
+      "CPU Time (Don't care)": 6.466,
+      "CPU Time (Read Fault)": 0.069
+    },
+    "order": [],
+    "cone": []
+  },
+  "b18_sample_cone": {
+    "name": "b18_sample_cone",
+    "queue": true,
+    "target_only": false,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.333387,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.045434,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 4.2e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 0.864867,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 0.193253,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 0.09671,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.056202,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.026509,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 0.097012,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.001427,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 0.075115,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 1.634849,
+        "calls": 951
+      },
+      "xid_fsim": {
+        "seconds": 0.027893,
+        "calls": 951
+      },
+      "xid_filling": {
+        "seconds": 1.828406,
+        "calls": 951
+      }
+    },
+    "timing": {
+      "Time": 13.095,
+      "CPU Time": 13.359,
+      "CPU Time (CaDiCaL)": 7.661,
+      "CPU Time (BDD)": 0.261,
+      "CPU Time (Don't care)": 3.525,
+      "CPU Time (Read Fault)": 0.045
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 32,
+        "kept_gates": 587213,
+        "full_gates": 7894336
+      }
+    ]
+  },
+  "b18_sample_sim": {
+    "name": "b18_sample_sim",
+    "queue": true,
+    "target_only": false,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.325911,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.064664,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 4e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 2.624444,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 1.988662,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 0.098372,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.051856,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.025188,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 0.093525,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.00397,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 0.957647,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 2.548816,
+        "calls": 951
+      },
+      "xid_fsim": {
+        "seconds": 0.028358,
+        "calls": 951
+      },
+      "xid_filling": {
+        "seconds": 1.875109,
+        "calls": 951
+      }
+    },
+    "timing": {
+      "Time": 39.178,
+      "CPU Time": 39.98,
+      "CPU Time (CaDiCaL)": 30.334,
+      "CPU Time (BDD)": 0.289,
+      "CPU Time (Don't care)": 4.493,
+      "CPU Time (Read Fault)": 0.065
+    },
+    "order": [],
+    "cone": []
+  },
+  "b18_sample_sparse": {
+    "name": "b18_sample_sparse",
+    "queue": true,
+    "target_only": false,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.341474,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.085488,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 3.3e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 0.605291,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 0.201701,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 0.003095,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.013993,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.000686,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 0.058011,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.001429,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 0.067095,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 1.483067,
+        "calls": 951
+      },
+      "xid_fsim": {
+        "seconds": 0.027625,
+        "calls": 951
+      },
+      "xid_filling": {
+        "seconds": 1.711872,
+        "calls": 951
+      }
+    },
+    "timing": {
+      "Time": 12.19,
+      "CPU Time": 12.521,
+      "CPU Time (CaDiCaL)": 7.39,
+      "CPU Time (BDD)": 0.26,
+      "CPU Time (Don't care)": 3.255,
+      "CPU Time (Read Fault)": 0.085
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 32,
+        "kept_gates": 587213,
+        "full_gates": 7894336
+      }
+    ]
+  },
+  "b18_target_queue": {
+    "name": "b18_target_queue",
+    "queue": true,
+    "target_only": true,
+    "net": "b18_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.325529,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 24.675043,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.132042,
+        "calls": 264047
+      },
+      "model": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "good_load": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "search_tfo": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "propagation": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "detection": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "essential": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_init": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_release": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_model_values": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_fsim": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_filling": {
+        "seconds": 0.0,
+        "calls": 0
+      }
+    },
+    "timing": {
+      "Time": 24.705,
+      "CPU Time": 25.196,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 24.675
+    },
+    "order": [
+      "8985339042503758854"
+    ],
+    "cone": []
+  },
+  "c17_sim_verify": {
+    "name": "c17_sim_verify",
+    "queue": true,
+    "target_only": false,
+    "net": "c17a",
+    "profile": {
+      "read_net": {
+        "seconds": 7.2e-05,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.00026,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 9e-06,
+        "calls": 22
+      },
+      "model": {
+        "seconds": 0.000339,
+        "calls": 22
+      },
+      "good_load": {
+        "seconds": 7.3e-05,
+        "calls": 22
+      },
+      "search_tfo": {
+        "seconds": 4e-06,
+        "calls": 22
+      },
+      "propagation": {
+        "seconds": 5.6e-05,
+        "calls": 22
+      },
+      "detection": {
+        "seconds": 4.5e-05,
+        "calls": 22
+      },
+      "essential": {
+        "seconds": 2.8e-05,
+        "calls": 22
+      },
+      "solver_init": {
+        "seconds": 0.000497,
+        "calls": 22
+      },
+      "solver_release": {
+        "seconds": 4e-05,
+        "calls": 22
+      },
+      "xid_model_values": {
+        "seconds": 4.2e-05,
+        "calls": 55
+      },
+      "xid_fsim": {
+        "seconds": 1.4e-05,
+        "calls": 55
+      },
+      "xid_filling": {
+        "seconds": 4.6e-05,
+        "calls": 55
+      }
+    },
+    "timing": {
+      "Time": 0.007,
+      "CPU Time": 0.007,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": []
+  },
+  "c17a_cone_regression": {
+    "name": "c17a_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "c17a",
+    "profile": {
+      "read_net": {
+        "seconds": 3.7e-05,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000279,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 8e-06,
+        "calls": 22
+      },
+      "model": {
+        "seconds": 0.000344,
+        "calls": 22
+      },
+      "good_load": {
+        "seconds": 7.1e-05,
+        "calls": 22
+      },
+      "search_tfo": {
+        "seconds": 5e-06,
+        "calls": 22
+      },
+      "propagation": {
+        "seconds": 6.1e-05,
+        "calls": 22
+      },
+      "detection": {
+        "seconds": 4.2e-05,
+        "calls": 22
+      },
+      "essential": {
+        "seconds": 2.8e-05,
+        "calls": 22
+      },
+      "solver_init": {
+        "seconds": 0.000499,
+        "calls": 22
+      },
+      "solver_release": {
+        "seconds": 4e-05,
+        "calls": 22
+      },
+      "xid_model_values": {
+        "seconds": 3.4e-05,
+        "calls": 55
+      },
+      "xid_fsim": {
+        "seconds": 1.4e-05,
+        "calls": 55
+      },
+      "xid_filling": {
+        "seconds": 4.3e-05,
+        "calls": 55
+      }
+    },
+    "timing": {
+      "Time": 0.007,
+      "CPU Time": 0.007,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 22,
+        "kept_gates": 247,
+        "full_gates": 286
+      }
+    ]
+  },
+  "c17a_sparse_gt": {
+    "name": "c17a_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "c17a",
+    "profile": {
+      "read_net": {
+        "seconds": 5e-05,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000253,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 7e-06,
+        "calls": 22
+      },
+      "model": {
+        "seconds": 0.000353,
+        "calls": 22
+      },
+      "good_load": {
+        "seconds": 6.8e-05,
+        "calls": 22
+      },
+      "search_tfo": {
+        "seconds": 2e-06,
+        "calls": 22
+      },
+      "propagation": {
+        "seconds": 6e-05,
+        "calls": 22
+      },
+      "detection": {
+        "seconds": 4.7e-05,
+        "calls": 22
+      },
+      "essential": {
+        "seconds": 3e-05,
+        "calls": 22
+      },
+      "solver_init": {
+        "seconds": 0.000496,
+        "calls": 22
+      },
+      "solver_release": {
+        "seconds": 3.5e-05,
+        "calls": 22
+      },
+      "xid_model_values": {
+        "seconds": 3.4e-05,
+        "calls": 55
+      },
+      "xid_fsim": {
+        "seconds": 1e-05,
+        "calls": 55
+      },
+      "xid_filling": {
+        "seconds": 4.1e-05,
+        "calls": 55
+      }
+    },
+    "timing": {
+      "Time": 0.007,
+      "CPU Time": 0.007,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 22,
+        "kept_gates": 247,
+        "full_gates": 286
+      }
+    ]
+  },
+  "s1494_C_cone_regression": {
+    "name": "s1494_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s1494_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000818,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000933,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000808,
+        "calls": 1506
+      },
+      "model": {
+        "seconds": 0.472036,
+        "calls": 1506
+      },
+      "good_load": {
+        "seconds": 0.303582,
+        "calls": 1506
+      },
+      "search_tfo": {
+        "seconds": 0.005137,
+        "calls": 1506
+      },
+      "propagation": {
+        "seconds": 0.016715,
+        "calls": 1506
+      },
+      "detection": {
+        "seconds": 0.005617,
+        "calls": 1506
+      },
+      "essential": {
+        "seconds": 0.069565,
+        "calls": 1506
+      },
+      "solver_init": {
+        "seconds": 0.046833,
+        "calls": 1506
+      },
+      "solver_release": {
+        "seconds": 0.0533,
+        "calls": 1506
+      },
+      "xid_model_values": {
+        "seconds": 0.105158,
+        "calls": 8911
+      },
+      "xid_fsim": {
+        "seconds": 0.008806,
+        "calls": 8911
+      },
+      "xid_filling": {
+        "seconds": 0.443837,
+        "calls": 8911
+      }
+    },
+    "timing": {
+      "Time": 2.489,
+      "CPU Time": 2.536,
+      "CPU Time (CaDiCaL)": 1.223,
+      "CPU Time (BDD)": 0.078,
+      "CPU Time (Don't care)": 0.566,
+      "CPU Time (Read Fault)": 0.001
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 1506,
+        "kept_gates": 1612548,
+        "full_gates": 2228880
+      }
+    ]
+  },
+  "s1494_C_sparse_gt": {
+    "name": "s1494_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s1494_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.001439,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000916,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000807,
+        "calls": 1506
+      },
+      "model": {
+        "seconds": 0.485096,
+        "calls": 1506
+      },
+      "good_load": {
+        "seconds": 0.318868,
+        "calls": 1506
+      },
+      "search_tfo": {
+        "seconds": 0.000948,
+        "calls": 1506
+      },
+      "propagation": {
+        "seconds": 0.0161,
+        "calls": 1506
+      },
+      "detection": {
+        "seconds": 0.00469,
+        "calls": 1506
+      },
+      "essential": {
+        "seconds": 0.071269,
+        "calls": 1506
+      },
+      "solver_init": {
+        "seconds": 0.044416,
+        "calls": 1506
+      },
+      "solver_release": {
+        "seconds": 0.052366,
+        "calls": 1506
+      },
+      "xid_model_values": {
+        "seconds": 0.10256,
+        "calls": 8911
+      },
+      "xid_fsim": {
+        "seconds": 0.008199,
+        "calls": 8911
+      },
+      "xid_filling": {
+        "seconds": 0.437213,
+        "calls": 8911
+      }
+    },
+    "timing": {
+      "Time": 2.42,
+      "CPU Time": 2.485,
+      "CPU Time (CaDiCaL)": 1.204,
+      "CPU Time (BDD)": 0.062,
+      "CPU Time (Don't care)": 0.556,
+      "CPU Time (Read Fault)": 0.001
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 1506,
+        "kept_gates": 1612548,
+        "full_gates": 2228880
+      }
+    ]
+  },
+  "s208_C_cone_regression": {
+    "name": "s208_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s208_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000222,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000344,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.00011,
+        "calls": 215
+      },
+      "model": {
+        "seconds": 0.013883,
+        "calls": 215
+      },
+      "good_load": {
+        "seconds": 0.00567,
+        "calls": 215
+      },
+      "search_tfo": {
+        "seconds": 0.000164,
+        "calls": 215
+      },
+      "propagation": {
+        "seconds": 0.001715,
+        "calls": 215
+      },
+      "detection": {
+        "seconds": 0.000737,
+        "calls": 215
+      },
+      "essential": {
+        "seconds": 0.00161,
+        "calls": 215
+      },
+      "solver_init": {
+        "seconds": 0.006431,
+        "calls": 215
+      },
+      "solver_release": {
+        "seconds": 0.001362,
+        "calls": 215
+      },
+      "xid_model_values": {
+        "seconds": 0.015682,
+        "calls": 9780
+      },
+      "xid_fsim": {
+        "seconds": 0.003359,
+        "calls": 9780
+      },
+      "xid_filling": {
+        "seconds": 0.0349,
+        "calls": 9780
+      }
+    },
+    "timing": {
+      "Time": 0.249,
+      "CPU Time": 0.253,
+      "CPU Time (CaDiCaL)": 0.058,
+      "CPU Time (BDD)": 0.053,
+      "CPU Time (Don't care)": 0.061,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 215,
+        "kept_gates": 26253,
+        "full_gates": 40635
+      }
+    ]
+  },
+  "s208_C_sparse_gt": {
+    "name": "s208_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s208_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000135,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000365,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 9.9e-05,
+        "calls": 215
+      },
+      "model": {
+        "seconds": 0.013679,
+        "calls": 215
+      },
+      "good_load": {
+        "seconds": 0.005735,
+        "calls": 215
+      },
+      "search_tfo": {
+        "seconds": 0.000117,
+        "calls": 215
+      },
+      "propagation": {
+        "seconds": 0.00172,
+        "calls": 215
+      },
+      "detection": {
+        "seconds": 0.000675,
+        "calls": 215
+      },
+      "essential": {
+        "seconds": 0.001544,
+        "calls": 215
+      },
+      "solver_init": {
+        "seconds": 0.00616,
+        "calls": 215
+      },
+      "solver_release": {
+        "seconds": 0.001371,
+        "calls": 215
+      },
+      "xid_model_values": {
+        "seconds": 0.013286,
+        "calls": 9780
+      },
+      "xid_fsim": {
+        "seconds": 0.00348,
+        "calls": 9780
+      },
+      "xid_filling": {
+        "seconds": 0.035046,
+        "calls": 9780
+      }
+    },
+    "timing": {
+      "Time": 0.227,
+      "CPU Time": 0.233,
+      "CPU Time (CaDiCaL)": 0.058,
+      "CPU Time (BDD)": 0.044,
+      "CPU Time (Don't care)": 0.059,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 215,
+        "kept_gates": 26253,
+        "full_gates": 40635
+      }
+    ]
+  },
+  "s27_C_cone_regression": {
+    "name": "s27_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s27_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000121,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000276,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 1e-05,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 0.000624,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 0.000138,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 8e-06,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.000112,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 8.8e-05,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 4.9e-05,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.000753,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 7.1e-05,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 7e-05,
+        "calls": 101
+      },
+      "xid_fsim": {
+        "seconds": 2e-05,
+        "calls": 101
+      },
+      "xid_filling": {
+        "seconds": 7.3e-05,
+        "calls": 101
+      }
+    },
+    "timing": {
+      "Time": 0.009,
+      "CPU Time": 0.008,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.001,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 32,
+        "kept_gates": 497,
+        "full_gates": 608
+      }
+    ]
+  },
+  "s27_C_sparse_gt": {
+    "name": "s27_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s27_C",
+    "profile": {
+      "read_net": {
+        "seconds": 5.6e-05,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000232,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 9e-06,
+        "calls": 32
+      },
+      "model": {
+        "seconds": 0.000611,
+        "calls": 32
+      },
+      "good_load": {
+        "seconds": 0.000137,
+        "calls": 32
+      },
+      "search_tfo": {
+        "seconds": 3e-06,
+        "calls": 32
+      },
+      "propagation": {
+        "seconds": 0.000112,
+        "calls": 32
+      },
+      "detection": {
+        "seconds": 0.000101,
+        "calls": 32
+      },
+      "essential": {
+        "seconds": 4.9e-05,
+        "calls": 32
+      },
+      "solver_init": {
+        "seconds": 0.000694,
+        "calls": 32
+      },
+      "solver_release": {
+        "seconds": 7.1e-05,
+        "calls": 32
+      },
+      "xid_model_values": {
+        "seconds": 6.7e-05,
+        "calls": 101
+      },
+      "xid_fsim": {
+        "seconds": 3.1e-05,
+        "calls": 101
+      },
+      "xid_filling": {
+        "seconds": 7e-05,
+        "calls": 101
+      }
+    },
+    "timing": {
+      "Time": 0.008,
+      "CPU Time": 0.008,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.001,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 32,
+        "kept_gates": 497,
+        "full_gates": 608
+      }
+    ]
+  },
+  "s298_C_cone_regression": {
+    "name": "s298_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s298_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.00018,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000373,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000184,
+        "calls": 308
+      },
+      "model": {
+        "seconds": 0.018778,
+        "calls": 308
+      },
+      "good_load": {
+        "seconds": 0.009069,
+        "calls": 308
+      },
+      "search_tfo": {
+        "seconds": 0.000175,
+        "calls": 308
+      },
+      "propagation": {
+        "seconds": 0.001618,
+        "calls": 308
+      },
+      "detection": {
+        "seconds": 0.000939,
+        "calls": 308
+      },
+      "essential": {
+        "seconds": 0.002004,
+        "calls": 308
+      },
+      "solver_init": {
+        "seconds": 0.00833,
+        "calls": 308
+      },
+      "solver_release": {
+        "seconds": 0.001481,
+        "calls": 308
+      },
+      "xid_model_values": {
+        "seconds": 0.004408,
+        "calls": 1568
+      },
+      "xid_fsim": {
+        "seconds": 0.000792,
+        "calls": 1568
+      },
+      "xid_filling": {
+        "seconds": 0.010416,
+        "calls": 1568
+      }
+    },
+    "timing": {
+      "Time": 0.115,
+      "CPU Time": 0.117,
+      "CPU Time (CaDiCaL)": 0.049,
+      "CPU Time (BDD)": 0.009,
+      "CPU Time (Don't care)": 0.017,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 308,
+        "kept_gates": 39304,
+        "full_gates": 86548
+      }
+    ]
+  },
+  "s298_C_sparse_gt": {
+    "name": "s298_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s298_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000278,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000408,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000115,
+        "calls": 308
+      },
+      "model": {
+        "seconds": 0.018707,
+        "calls": 308
+      },
+      "good_load": {
+        "seconds": 0.009235,
+        "calls": 308
+      },
+      "search_tfo": {
+        "seconds": 8.6e-05,
+        "calls": 308
+      },
+      "propagation": {
+        "seconds": 0.00159,
+        "calls": 308
+      },
+      "detection": {
+        "seconds": 0.000949,
+        "calls": 308
+      },
+      "essential": {
+        "seconds": 0.001913,
+        "calls": 308
+      },
+      "solver_init": {
+        "seconds": 0.007904,
+        "calls": 308
+      },
+      "solver_release": {
+        "seconds": 0.001452,
+        "calls": 308
+      },
+      "xid_model_values": {
+        "seconds": 0.003996,
+        "calls": 1568
+      },
+      "xid_fsim": {
+        "seconds": 0.000764,
+        "calls": 1568
+      },
+      "xid_filling": {
+        "seconds": 0.010441,
+        "calls": 1568
+      }
+    },
+    "timing": {
+      "Time": 0.11,
+      "CPU Time": 0.112,
+      "CPU Time (CaDiCaL)": 0.048,
+      "CPU Time (BDD)": 0.007,
+      "CPU Time (Don't care)": 0.016,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 308,
+        "kept_gates": 39304,
+        "full_gates": 86548
+      }
+    ]
+  },
+  "s344_C_cone_regression": {
+    "name": "s344_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s344_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000242,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000404,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.00016,
+        "calls": 342
+      },
+      "model": {
+        "seconds": 0.025308,
+        "calls": 342
+      },
+      "good_load": {
+        "seconds": 0.011478,
+        "calls": 342
+      },
+      "search_tfo": {
+        "seconds": 0.000268,
+        "calls": 342
+      },
+      "propagation": {
+        "seconds": 0.003156,
+        "calls": 342
+      },
+      "detection": {
+        "seconds": 0.001328,
+        "calls": 342
+      },
+      "essential": {
+        "seconds": 0.002178,
+        "calls": 342
+      },
+      "solver_init": {
+        "seconds": 0.010339,
+        "calls": 342
+      },
+      "solver_release": {
+        "seconds": 0.002436,
+        "calls": 342
+      },
+      "xid_model_values": {
+        "seconds": 0.016373,
+        "calls": 5834
+      },
+      "xid_fsim": {
+        "seconds": 0.002813,
+        "calls": 5834
+      },
+      "xid_filling": {
+        "seconds": 0.034531,
+        "calls": 5834
+      }
+    },
+    "timing": {
+      "Time": 0.36,
+      "CPU Time": 0.366,
+      "CPU Time (CaDiCaL)": 0.205,
+      "CPU Time (BDD)": 0.028,
+      "CPU Time (Don't care)": 0.058,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 342,
+        "kept_gates": 49058,
+        "full_gates": 106362
+      }
+    ]
+  },
+  "s344_C_sparse_gt": {
+    "name": "s344_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s344_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000227,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000378,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000158,
+        "calls": 342
+      },
+      "model": {
+        "seconds": 0.025992,
+        "calls": 342
+      },
+      "good_load": {
+        "seconds": 0.011905,
+        "calls": 342
+      },
+      "search_tfo": {
+        "seconds": 0.000161,
+        "calls": 342
+      },
+      "propagation": {
+        "seconds": 0.003202,
+        "calls": 342
+      },
+      "detection": {
+        "seconds": 0.001205,
+        "calls": 342
+      },
+      "essential": {
+        "seconds": 0.002098,
+        "calls": 342
+      },
+      "solver_init": {
+        "seconds": 0.009622,
+        "calls": 342
+      },
+      "solver_release": {
+        "seconds": 0.002776,
+        "calls": 342
+      },
+      "xid_model_values": {
+        "seconds": 0.01449,
+        "calls": 5834
+      },
+      "xid_fsim": {
+        "seconds": 0.002738,
+        "calls": 5834
+      },
+      "xid_filling": {
+        "seconds": 0.033933,
+        "calls": 5834
+      }
+    },
+    "timing": {
+      "Time": 0.335,
+      "CPU Time": 0.344,
+      "CPU Time (CaDiCaL)": 0.196,
+      "CPU Time (BDD)": 0.022,
+      "CPU Time (Don't care)": 0.056,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 342,
+        "kept_gates": 49058,
+        "full_gates": 106362
+      }
+    ]
+  },
+  "s38584_cone_gt": {
+    "name": "s38584_cone_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.029764,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004647,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000103,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 0.432203,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.180839,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.022574,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.022479,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.018434,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.045419,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.004991,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.048742,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 2.539042,
+        "calls": 1924
+      },
+      "xid_fsim": {
+        "seconds": 0.003138,
+        "calls": 1924
+      },
+      "xid_filling": {
+        "seconds": 0.380162,
+        "calls": 1924
+      }
+    },
+    "timing": {
+      "Time": 5.45,
+      "CPU Time": 5.557,
+      "CPU Time (CaDiCaL)": 1.025,
+      "CPU Time (BDD)": 0.032,
+      "CPU Time (Don't care)": 2.934,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 128,
+        "kept_gates": 927260,
+        "full_gates": 4712448
+      }
+    ]
+  },
+  "s38584_sample_base": {
+    "name": "s38584_sample_base",
+    "queue": false,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.030667,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004665,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000404,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 1.241426,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.97227,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.026141,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.02343,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.020028,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.052768,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.005288,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.275119,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 0.858071,
+        "calls": 1921
+      },
+      "xid_fsim": {
+        "seconds": 0.004909,
+        "calls": 1921
+      },
+      "xid_filling": {
+        "seconds": 0.493796,
+        "calls": 1921
+      }
+    },
+    "timing": {
+      "Time": 6.076,
+      "CPU Time": 6.185,
+      "CPU Time (CaDiCaL)": 3.03,
+      "CPU Time (BDD)": 0.036,
+      "CPU Time (Don't care)": 1.375,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": []
+  },
+  "s38584_sample_compact": {
+    "name": "s38584_sample_compact",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.030018,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004856,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000115,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 1.229298,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.956434,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.029227,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.022954,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.019805,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.050408,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.005105,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.27011,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 0.460829,
+        "calls": 1921
+      },
+      "xid_fsim": {
+        "seconds": 0.005199,
+        "calls": 1921
+      },
+      "xid_filling": {
+        "seconds": 0.476183,
+        "calls": 1921
+      }
+    },
+    "timing": {
+      "Time": 5.519,
+      "CPU Time": 5.624,
+      "CPU Time (CaDiCaL)": 2.917,
+      "CPU Time (BDD)": 0.035,
+      "CPU Time (Don't care)": 0.959,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": []
+  },
+  "s38584_sample_cone": {
+    "name": "s38584_sample_cone",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.03042,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004681,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 9.4e-05,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 0.425029,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.176006,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.022071,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.022291,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.017651,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.0462,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.004933,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.046574,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 0.347142,
+        "calls": 1924
+      },
+      "xid_fsim": {
+        "seconds": 0.003924,
+        "calls": 1924
+      },
+      "xid_filling": {
+        "seconds": 0.388127,
+        "calls": 1924
+      }
+    },
+    "timing": {
+      "Time": 2.416,
+      "CPU Time": 2.466,
+      "CPU Time (CaDiCaL)": 1.048,
+      "CPU Time (BDD)": 0.032,
+      "CPU Time (Don't care)": 0.75,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 128,
+        "kept_gates": 927260,
+        "full_gates": 4712448
+      }
+    ]
+  },
+  "s38584_sample_queue": {
+    "name": "s38584_sample_queue",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.029385,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.005214,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000117,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 1.228402,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.95925,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.02606,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.023624,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.020271,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.052584,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.005299,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.273882,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 0.830631,
+        "calls": 1921
+      },
+      "xid_fsim": {
+        "seconds": 0.005143,
+        "calls": 1921
+      },
+      "xid_filling": {
+        "seconds": 0.480753,
+        "calls": 1921
+      }
+    },
+    "timing": {
+      "Time": 5.944,
+      "CPU Time": 6.054,
+      "CPU Time (CaDiCaL)": 2.96,
+      "CPU Time (BDD)": 0.036,
+      "CPU Time (Don't care)": 1.335,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": []
+  },
+  "s38584_sample_sim": {
+    "name": "s38584_sample_sim",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.03062,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004778,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000123,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 1.202046,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.932627,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.025967,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.022969,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.020355,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.051293,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.005369,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.285986,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 1.16459,
+        "calls": 1921
+      },
+      "xid_fsim": {
+        "seconds": 0.003966,
+        "calls": 1921
+      },
+      "xid_filling": {
+        "seconds": 0.409983,
+        "calls": 1921
+      }
+    },
+    "timing": {
+      "Time": 6.452,
+      "CPU Time": 6.57,
+      "CPU Time (CaDiCaL)": 3.209,
+      "CPU Time (BDD)": 0.036,
+      "CPU Time (Don't care)": 1.598,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": []
+  },
+  "s38584_sample_sparse": {
+    "name": "s38584_sample_sparse",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.030099,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004815,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000107,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 0.38773,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.199593,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.000629,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.013465,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.010381,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.038309,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.004902,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.046579,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 0.330548,
+        "calls": 1924
+      },
+      "xid_fsim": {
+        "seconds": 0.003877,
+        "calls": 1924
+      },
+      "xid_filling": {
+        "seconds": 0.382853,
+        "calls": 1924
+      }
+    },
+    "timing": {
+      "Time": 2.344,
+      "CPU Time": 2.409,
+      "CPU Time (CaDiCaL)": 1.052,
+      "CPU Time (BDD)": 0.032,
+      "CPU Time (Don't care)": 0.729,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 128,
+        "kept_gates": 927260,
+        "full_gates": 4712448
+      }
+    ]
+  },
+  "s38584_sim_verify": {
+    "name": "s38584_sim_verify",
+    "queue": true,
+    "target_only": false,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.029493,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.004696,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000277,
+        "calls": 128
+      },
+      "model": {
+        "seconds": 1.208029,
+        "calls": 128
+      },
+      "good_load": {
+        "seconds": 0.937735,
+        "calls": 128
+      },
+      "search_tfo": {
+        "seconds": 0.026482,
+        "calls": 128
+      },
+      "propagation": {
+        "seconds": 0.023152,
+        "calls": 128
+      },
+      "detection": {
+        "seconds": 0.019724,
+        "calls": 128
+      },
+      "essential": {
+        "seconds": 0.050912,
+        "calls": 128
+      },
+      "solver_init": {
+        "seconds": 0.00525,
+        "calls": 128
+      },
+      "solver_release": {
+        "seconds": 0.29836,
+        "calls": 128
+      },
+      "xid_model_values": {
+        "seconds": 1.716424,
+        "calls": 1921
+      },
+      "xid_fsim": {
+        "seconds": 0.004641,
+        "calls": 1921
+      },
+      "xid_filling": {
+        "seconds": 0.401098,
+        "calls": 1921
+      }
+    },
+    "timing": {
+      "Time": 8.075,
+      "CPU Time": 8.22,
+      "CPU Time (CaDiCaL)": 3.348,
+      "CPU Time (BDD)": 0.037,
+      "CPU Time (Don't care)": 2.141,
+      "CPU Time (Read Fault)": 0.005
+    },
+    "order": [],
+    "cone": []
+  },
+  "s38584_target_base": {
+    "name": "s38584_target_base",
+    "queue": false,
+    "target_only": true,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.028899,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.23405,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 16.240942,
+        "calls": 35995
+      },
+      "model": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "good_load": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "search_tfo": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "propagation": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "detection": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "essential": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_init": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_release": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_model_values": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_fsim": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_filling": {
+        "seconds": 0.0,
+        "calls": 0
+      }
+    },
+    "timing": {
+      "Time": 16.225,
+      "CPU Time": 16.525,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.234
+    },
+    "order": [
+      "17732103970523799774"
+    ],
+    "cone": []
+  },
+  "s38584_target_queue": {
+    "name": "s38584_target_queue",
+    "queue": true,
+    "target_only": true,
+    "net": "s38584_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.030301,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.216792,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.01088,
+        "calls": 35995
+      },
+      "model": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "good_load": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "search_tfo": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "propagation": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "detection": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "essential": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_init": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "solver_release": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_model_values": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_fsim": {
+        "seconds": 0.0,
+        "calls": 0
+      },
+      "xid_filling": {
+        "seconds": 0.0,
+        "calls": 0
+      }
+    },
+    "timing": {
+      "Time": 0.263,
+      "CPU Time": 0.268,
+      "CPU Time (CaDiCaL)": 0.0,
+      "CPU Time (BDD)": 0.0,
+      "CPU Time (Don't care)": 0.0,
+      "CPU Time (Read Fault)": 0.217
+    },
+    "order": [
+      "17732103970523799774"
+    ],
+    "cone": []
+  },
+  "s510_C_cone_regression": {
+    "name": "s510_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s510_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000357,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000553,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000275,
+        "calls": 564
+      },
+      "model": {
+        "seconds": 0.070478,
+        "calls": 564
+      },
+      "good_load": {
+        "seconds": 0.040175,
+        "calls": 564
+      },
+      "search_tfo": {
+        "seconds": 0.000556,
+        "calls": 564
+      },
+      "propagation": {
+        "seconds": 0.004614,
+        "calls": 564
+      },
+      "detection": {
+        "seconds": 0.001939,
+        "calls": 564
+      },
+      "essential": {
+        "seconds": 0.008999,
+        "calls": 564
+      },
+      "solver_init": {
+        "seconds": 0.018874,
+        "calls": 564
+      },
+      "solver_release": {
+        "seconds": 0.005618,
+        "calls": 564
+      },
+      "xid_model_values": {
+        "seconds": 0.027291,
+        "calls": 6728
+      },
+      "xid_fsim": {
+        "seconds": 0.002964,
+        "calls": 6728
+      },
+      "xid_filling": {
+        "seconds": 0.116708,
+        "calls": 6728
+      }
+    },
+    "timing": {
+      "Time": 0.492,
+      "CPU Time": 0.5,
+      "CPU Time (CaDiCaL)": 0.184,
+      "CPU Time (BDD)": 0.03,
+      "CPU Time (Don't care)": 0.152,
+      "CPU Time (Read Fault)": 0.001
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 564,
+        "kept_gates": 190988,
+        "full_gates": 273540
+      }
+    ]
+  },
+  "s510_C_sparse_gt": {
+    "name": "s510_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s510_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000382,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.00052,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000253,
+        "calls": 564
+      },
+      "model": {
+        "seconds": 0.074661,
+        "calls": 564
+      },
+      "good_load": {
+        "seconds": 0.043735,
+        "calls": 564
+      },
+      "search_tfo": {
+        "seconds": 0.000244,
+        "calls": 564
+      },
+      "propagation": {
+        "seconds": 0.004685,
+        "calls": 564
+      },
+      "detection": {
+        "seconds": 0.002155,
+        "calls": 564
+      },
+      "essential": {
+        "seconds": 0.009097,
+        "calls": 564
+      },
+      "solver_init": {
+        "seconds": 0.017789,
+        "calls": 564
+      },
+      "solver_release": {
+        "seconds": 0.006298,
+        "calls": 564
+      },
+      "xid_model_values": {
+        "seconds": 0.025128,
+        "calls": 6728
+      },
+      "xid_fsim": {
+        "seconds": 0.002918,
+        "calls": 6728
+      },
+      "xid_filling": {
+        "seconds": 0.117004,
+        "calls": 6728
+      }
+    },
+    "timing": {
+      "Time": 0.481,
+      "CPU Time": 0.493,
+      "CPU Time (CaDiCaL)": 0.183,
+      "CPU Time (BDD)": 0.026,
+      "CPU Time (Don't care)": 0.151,
+      "CPU Time (Read Fault)": 0.001
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 564,
+        "kept_gates": 190988,
+        "full_gates": 273540
+      }
+    ]
+  },
+  "s5378_C_cone_regression": {
+    "name": "s5378_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002703,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003826,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.003038,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 1.922321,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 0.824617,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.075406,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.140113,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.062282,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.113914,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.152823,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 0.282695,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 2.449999,
+        "calls": 98221
+      },
+      "xid_fsim": {
+        "seconds": 0.088316,
+        "calls": 98221
+      },
+      "xid_filling": {
+        "seconds": 2.102825,
+        "calls": 98221
+      }
+    },
+    "timing": {
+      "Time": 36.76,
+      "CPU Time": 37.489,
+      "CPU Time (CaDiCaL)": 15.157,
+      "CPU Time (BDD)": 1.28,
+      "CPU Time (Don't care)": 4.748,
+      "CPU Time (Read Fault)": 0.004
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 4551,
+        "kept_gates": 3242817,
+        "full_gates": 23005305
+      }
+    ]
+  },
+  "s5378_C_sparse_gt": {
+    "name": "s5378_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.003994,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003385,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.002941,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 1.805453,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 0.882992,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.011183,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.127436,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.04993,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.090978,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.150974,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 0.273959,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 2.331075,
+        "calls": 98221
+      },
+      "xid_fsim": {
+        "seconds": 0.09,
+        "calls": 98221
+      },
+      "xid_filling": {
+        "seconds": 2.116057,
+        "calls": 98221
+      }
+    },
+    "timing": {
+      "Time": 36.042,
+      "CPU Time": 37.038,
+      "CPU Time (CaDiCaL)": 15.234,
+      "CPU Time (BDD)": 1.263,
+      "CPU Time (Don't care)": 4.645,
+      "CPU Time (Read Fault)": 0.003
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 4551,
+        "kept_gates": 3242817,
+        "full_gates": 23005305
+      }
+    ]
+  },
+  "s5378_base": {
+    "name": "s5378_base",
+    "queue": false,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.003158,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003248,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.327351,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 6.006032,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 4.945576,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.063034,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.139509,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.060532,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.11264,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.175139,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 1.318153,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 5.62739,
+        "calls": 98291
+      },
+      "xid_fsim": {
+        "seconds": 0.112058,
+        "calls": 98291
+      },
+      "xid_filling": {
+        "seconds": 2.421415,
+        "calls": 98291
+      }
+    },
+    "timing": {
+      "Time": 53.612,
+      "CPU Time": 54.603,
+      "CPU Time (CaDiCaL)": 36.204,
+      "CPU Time (BDD)": 1.252,
+      "CPU Time (Don't care)": 8.291,
+      "CPU Time (Read Fault)": 0.003
+    },
+    "order": [],
+    "cone": []
+  },
+  "s5378_compact": {
+    "name": "s5378_compact",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002632,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003562,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.002927,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 6.022037,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 4.927621,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.075675,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.141295,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.061634,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.110179,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.179412,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 1.335241,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 3.629303,
+        "calls": 98291
+      },
+      "xid_fsim": {
+        "seconds": 0.123386,
+        "calls": 98291
+      },
+      "xid_filling": {
+        "seconds": 2.512821,
+        "calls": 98291
+      }
+    },
+    "timing": {
+      "Time": 51.516,
+      "CPU Time": 52.494,
+      "CPU Time (CaDiCaL)": 36.273,
+      "CPU Time (BDD)": 1.279,
+      "CPU Time (Don't care)": 6.387,
+      "CPU Time (Read Fault)": 0.004
+    },
+    "order": [],
+    "cone": []
+  },
+  "s5378_cone": {
+    "name": "s5378_cone",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002765,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003346,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.002716,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 1.835636,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 0.792976,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.069574,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.138453,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.059602,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.109471,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.143968,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 0.254456,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 2.44267,
+        "calls": 98221
+      },
+      "xid_fsim": {
+        "seconds": 0.087098,
+        "calls": 98221
+      },
+      "xid_filling": {
+        "seconds": 2.075263,
+        "calls": 98221
+      }
+    },
+    "timing": {
+      "Time": 23.621,
+      "CPU Time": 24.092,
+      "CPU Time (CaDiCaL)": 15.025,
+      "CPU Time (BDD)": 1.219,
+      "CPU Time (Don't care)": 4.711,
+      "CPU Time (Read Fault)": 0.003
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 4551,
+        "kept_gates": 3242817,
+        "full_gates": 23005305
+      }
+    ]
+  },
+  "s5378_queue": {
+    "name": "s5378_queue",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002548,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003319,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.002951,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 6.023475,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 4.937576,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.076667,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.139615,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.06177,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.114081,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.174098,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 1.33621,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 5.648323,
+        "calls": 98291
+      },
+      "xid_fsim": {
+        "seconds": 0.115343,
+        "calls": 98291
+      },
+      "xid_filling": {
+        "seconds": 2.425062,
+        "calls": 98291
+      }
+    },
+    "timing": {
+      "Time": 53.342,
+      "CPU Time": 54.327,
+      "CPU Time (CaDiCaL)": 36.162,
+      "CPU Time (BDD)": 1.29,
+      "CPU Time (Don't care)": 8.317,
+      "CPU Time (Read Fault)": 0.003
+    },
+    "order": [],
+    "cone": []
+  },
+  "s5378_sim": {
+    "name": "s5378_sim",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002662,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003557,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.003228,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 5.86072,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 4.800947,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.074575,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.137126,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.060915,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.108867,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.178208,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 1.346039,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 5.770639,
+        "calls": 98291
+      },
+      "xid_fsim": {
+        "seconds": 0.093096,
+        "calls": 98291
+      },
+      "xid_filling": {
+        "seconds": 2.275912,
+        "calls": 98291
+      }
+    },
+    "timing": {
+      "Time": 54.34,
+      "CPU Time": 55.341,
+      "CPU Time (CaDiCaL)": 37.333,
+      "CPU Time (BDD)": 1.279,
+      "CPU Time (Don't care)": 8.27,
+      "CPU Time (Read Fault)": 0.004
+    },
+    "order": [],
+    "cone": []
+  },
+  "s5378_sparse": {
+    "name": "s5378_sparse",
+    "queue": true,
+    "target_only": false,
+    "net": "s5378_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.002842,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.003629,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.002758,
+        "calls": 4551
+      },
+      "model": {
+        "seconds": 1.776286,
+        "calls": 4551
+      },
+      "good_load": {
+        "seconds": 0.859921,
+        "calls": 4551
+      },
+      "search_tfo": {
+        "seconds": 0.009017,
+        "calls": 4551
+      },
+      "propagation": {
+        "seconds": 0.12575,
+        "calls": 4551
+      },
+      "detection": {
+        "seconds": 0.049402,
+        "calls": 4551
+      },
+      "essential": {
+        "seconds": 0.085216,
+        "calls": 4551
+      },
+      "solver_init": {
+        "seconds": 0.146082,
+        "calls": 4551
+      },
+      "solver_release": {
+        "seconds": 0.255186,
+        "calls": 4551
+      },
+      "xid_model_values": {
+        "seconds": 2.352376,
+        "calls": 98221
+      },
+      "xid_fsim": {
+        "seconds": 0.087382,
+        "calls": 98221
+      },
+      "xid_filling": {
+        "seconds": 2.112854,
+        "calls": 98221
+      }
+    },
+    "timing": {
+      "Time": 23.601,
+      "CPU Time": 24.24,
+      "CPU Time (CaDiCaL)": 15.235,
+      "CPU Time (BDD)": 1.252,
+      "CPU Time (Don't care)": 4.66,
+      "CPU Time (Read Fault)": 0.004
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 4551,
+        "kept_gates": 3242817,
+        "full_gates": 23005305
+      }
+    ]
+  },
+  "s641_C_cone_regression": {
+    "name": "s641_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s641_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.00051,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000445,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000278,
+        "calls": 463
+      },
+      "model": {
+        "seconds": 0.077124,
+        "calls": 463
+      },
+      "good_load": {
+        "seconds": 0.033595,
+        "calls": 463
+      },
+      "search_tfo": {
+        "seconds": 0.001254,
+        "calls": 463
+      },
+      "propagation": {
+        "seconds": 0.011599,
+        "calls": 463
+      },
+      "detection": {
+        "seconds": 0.003767,
+        "calls": 463
+      },
+      "essential": {
+        "seconds": 0.006251,
+        "calls": 463
+      },
+      "solver_init": {
+        "seconds": 0.015849,
+        "calls": 463
+      },
+      "solver_release": {
+        "seconds": 0.0136,
+        "calls": 463
+      },
+      "xid_model_values": {
+        "seconds": 0.126229,
+        "calls": 24092
+      },
+      "xid_fsim": {
+        "seconds": 0.015075,
+        "calls": 24092
+      },
+      "xid_filling": {
+        "seconds": 0.210804,
+        "calls": 24092
+      }
+    },
+    "timing": {
+      "Time": 3.443,
+      "CPU Time": 3.508,
+      "CPU Time (CaDiCaL)": 2.514,
+      "CPU Time (BDD)": 0.228,
+      "CPU Time (Don't care)": 0.374,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 463,
+        "kept_gates": 143287,
+        "full_gates": 269929
+      }
+    ]
+  },
+  "s641_C_sparse_gt": {
+    "name": "s641_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s641_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000639,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000451,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000248,
+        "calls": 463
+      },
+      "model": {
+        "seconds": 0.0775,
+        "calls": 463
+      },
+      "good_load": {
+        "seconds": 0.034955,
+        "calls": 463
+      },
+      "search_tfo": {
+        "seconds": 0.000591,
+        "calls": 463
+      },
+      "propagation": {
+        "seconds": 0.011549,
+        "calls": 463
+      },
+      "detection": {
+        "seconds": 0.003565,
+        "calls": 463
+      },
+      "essential": {
+        "seconds": 0.006043,
+        "calls": 463
+      },
+      "solver_init": {
+        "seconds": 0.0151,
+        "calls": 463
+      },
+      "solver_release": {
+        "seconds": 0.013382,
+        "calls": 463
+      },
+      "xid_model_values": {
+        "seconds": 0.112872,
+        "calls": 24092
+      },
+      "xid_fsim": {
+        "seconds": 0.014396,
+        "calls": 24092
+      },
+      "xid_filling": {
+        "seconds": 0.214721,
+        "calls": 24092
+      }
+    },
+    "timing": {
+      "Time": 3.284,
+      "CPU Time": 3.374,
+      "CPU Time (CaDiCaL)": 2.469,
+      "CPU Time (BDD)": 0.182,
+      "CPU Time (Don't care)": 0.364,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 463,
+        "kept_gates": 143287,
+        "full_gates": 269929
+      }
+    ]
+  },
+  "s713_C_cone_regression": {
+    "name": "s713_C_cone_regression",
+    "queue": true,
+    "target_only": false,
+    "net": "s713_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.00044,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000498,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000342,
+        "calls": 581
+      },
+      "model": {
+        "seconds": 0.107258,
+        "calls": 581
+      },
+      "good_load": {
+        "seconds": 0.046216,
+        "calls": 581
+      },
+      "search_tfo": {
+        "seconds": 0.001993,
+        "calls": 581
+      },
+      "propagation": {
+        "seconds": 0.016537,
+        "calls": 581
+      },
+      "detection": {
+        "seconds": 0.004381,
+        "calls": 581
+      },
+      "essential": {
+        "seconds": 0.0091,
+        "calls": 581
+      },
+      "solver_init": {
+        "seconds": 0.024075,
+        "calls": 581
+      },
+      "solver_release": {
+        "seconds": 0.016122,
+        "calls": 581
+      },
+      "xid_model_values": {
+        "seconds": 0.163505,
+        "calls": 27532
+      },
+      "xid_fsim": {
+        "seconds": 0.020342,
+        "calls": 27532
+      },
+      "xid_filling": {
+        "seconds": 0.294981,
+        "calls": 27532
+      }
+    },
+    "timing": {
+      "Time": 4.681,
+      "CPU Time": 4.769,
+      "CPU Time (CaDiCaL)": 3.526,
+      "CPU Time (BDD)": 0.263,
+      "CPU Time (Don't care)": 0.505,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 581,
+        "kept_gates": 190091,
+        "full_gates": 382879
+      }
+    ]
+  },
+  "s713_C_sparse_gt": {
+    "name": "s713_C_sparse_gt",
+    "queue": true,
+    "target_only": false,
+    "net": "s713_C",
+    "profile": {
+      "read_net": {
+        "seconds": 0.000772,
+        "calls": 1
+      },
+      "read_fault": {
+        "seconds": 0.000477,
+        "calls": 1
+      },
+      "target": {
+        "seconds": 0.000321,
+        "calls": 581
+      },
+      "model": {
+        "seconds": 0.106582,
+        "calls": 581
+      },
+      "good_load": {
+        "seconds": 0.046929,
+        "calls": 581
+      },
+      "search_tfo": {
+        "seconds": 0.000823,
+        "calls": 581
+      },
+      "propagation": {
+        "seconds": 0.016339,
+        "calls": 581
+      },
+      "detection": {
+        "seconds": 0.004173,
+        "calls": 581
+      },
+      "essential": {
+        "seconds": 0.008608,
+        "calls": 581
+      },
+      "solver_init": {
+        "seconds": 0.020164,
+        "calls": 581
+      },
+      "solver_release": {
+        "seconds": 0.017204,
+        "calls": 581
+      },
+      "xid_model_values": {
+        "seconds": 0.146651,
+        "calls": 27532
+      },
+      "xid_fsim": {
+        "seconds": 0.018852,
+        "calls": 27532
+      },
+      "xid_filling": {
+        "seconds": 0.290795,
+        "calls": 27532
+      }
+    },
+    "timing": {
+      "Time": 4.424,
+      "CPU Time": 4.544,
+      "CPU Time (CaDiCaL)": 3.428,
+      "CPU Time (BDD)": 0.207,
+      "CPU Time (Don't care)": 0.482,
+      "CPU Time (Read Fault)": 0.0
+    },
+    "order": [],
+    "cone": [
+      {
+        "instances": 581,
+        "kept_gates": 190091,
+        "full_gates": 382879
+      }
+    ]
+  }
+}

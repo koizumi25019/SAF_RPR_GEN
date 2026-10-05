@@ -1,0 +1,13 @@
+fault,stuck,method,repeat,complete,probability,seconds,top_cubes,pilot_cubes,local_cubes,enum_seconds,bdd_seconds,prepare_seconds_excluded,prefix
+g16349,1,previous,0,True,137438953471/274877906944,5.553254141006619,1940,512,0,1.676381365,3.551397385,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_previous_0
+g16349,1,weighted,0,True,137438953471/274877906944,2.5396799849986564,1643,512,4,1.212573741,1.027519938,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_0
+g16349,1,weighted,1,True,137438953471/274877906944,2.514290308012278,1643,512,4,1.210341293,0.993971238,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_1
+g16349,1,previous,1,True,137438953471/274877906944,5.755247636989225,1940,512,0,1.761104943,3.670192236,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_previous_1
+g16349,1,previous,2,True,137438953471/274877906944,5.50659206500859,1940,512,0,1.666481992,3.5186214,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_previous_2
+g16349,1,weighted,2,True,137438953471/274877906944,2.524021557997912,1643,512,4,1.211006878,1.004336546,0.004899754989310168,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g16349_1_weighted_2
+II17661,0,previous,0,True,137438953471/274877906944,5.487930795003194,1940,512,0,1.650623142,3.518954725,0.004217050998704508,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II17661_0_previous_0
+II17661,0,weighted,0,True,137438953471/274877906944,2.513676869988558,1643,512,4,1.209481482,1.007019007,0.004217050998704508,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II17661_0_weighted_0
+g13329,1,previous,0,True,137438953471/274877906944,5.579016397998203,1940,512,0,1.6545977,3.607570582,0.004230206002830528,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g13329_1_previous_0
+g13329,1,weighted,0,True,137438953471/274877906944,2.51929232099792,1643,512,4,1.203352396,1.007657221,0.004230206002830528,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/g13329_1_weighted_0
+II15893,0,previous,0,True,137438953471/274877906944,5.535999306011945,1940,512,0,1.665194426,3.552777067,0.004277636995539069,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II15893_0_previous_0
+II15893,0,weighted,0,True,137438953471/274877906944,2.5166440839966526,1643,512,4,1.203095129,1.01360684,0.004277636995539069,/home/koizumi/fdp/verification/weighted_decomposition/runs/comparison/II15893_0_weighted_0

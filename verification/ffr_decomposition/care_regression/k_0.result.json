@@ -1,0 +1,57 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/c17a.v",
+  "fault": "k",
+  "stuck": 0,
+  "root": "k",
+  "path_gates": 0,
+  "flat": false,
+  "care_observation": true,
+  "factors": 2,
+  "complete": true,
+  "generated_cubes": 4,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 3,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 3.8233e-05,
+      "init_seconds": 0.000104966,
+      "sat_calls": 13,
+      "detector_calls": 4,
+      "oracle_calls": 9,
+      "oracle_sat": 6,
+      "oracle_unsat": 3,
+      "refined_cubes": 3,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "2": 3
+      }
+    },
+    {
+      "name": "root_observability_under_care",
+      "complete": true,
+      "cubes": 1,
+      "sat_calls": 0,
+      "seconds": 0,
+      "care_literal": 19,
+      "conditioned": true
+    }
+  ],
+  "union": {
+    "probability": "9/16",
+    "cubes": 4,
+    "factors": 2,
+    "bdd_nodes": 7,
+    "seconds": 0.002360511
+  },
+  "proof": {
+    "sound": true,
+    "exact": true
+  },
+  "total_seconds_excluding_raw_proof": 0.005437559999336372
+}

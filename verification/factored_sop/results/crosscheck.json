@@ -1,0 +1,15 @@
+{
+  "s5378_all_4551_exact_match": true,
+  "new_complete": 4551,
+  "c17": {
+    "faults": 22,
+    "forms": [
+      "miter",
+      "difference"
+    ],
+    "verified_runs": 44,
+    "assignments_per_fault": 32,
+    "golden_match": true,
+    "all_sound_exact": true
+  }
+}

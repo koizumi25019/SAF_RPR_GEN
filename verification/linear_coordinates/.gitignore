@@ -1,0 +1,4 @@
+/build/
+/runs/*.cnf
+/runs/*.cubes.json
+/__pycache__/

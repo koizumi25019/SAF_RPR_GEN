@@ -362,6 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 ASG/output/
+# ASG optional essential-assignment data and large local SCIP binaries
+/ASG/ASG/input/necessary/
+/ASG/ASG/tools/scip/libscip.dll
+/ASG/ASG/tools/scip/scip.exe
 ASG/src/main/*.txt
 ASG/build/*.txt
 # 暴走ループで巨大化した出力（履歴から除去済み・regen時は -f で追加）

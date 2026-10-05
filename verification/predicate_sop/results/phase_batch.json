@@ -1,0 +1,11 @@
+{
+  "faults": 4551,
+  "complete": 4551,
+  "wall_seconds": 123.10625599000196,
+  "negative_selected": 278,
+  "trials": 4087,
+  "sat_calls": 1732468,
+  "regions_including_probes": 263296,
+  "new_leaves": 3343,
+  "reused_leaves": 5309
+}

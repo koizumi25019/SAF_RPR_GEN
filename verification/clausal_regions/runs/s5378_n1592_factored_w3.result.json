@@ -1,0 +1,42 @@
+{
+  "fault": "n1592gat",
+  "stuck": 0,
+  "width": 3,
+  "predicates": 62,
+  "candidate_clauses": 7688,
+  "common_implicates": 29,
+  "regions": 664,
+  "complete": true,
+  "timed_out": false,
+  "residual_care_hist": {
+    "3": 1,
+    "4": 2,
+    "5": 7,
+    "6": 28,
+    "7": 68,
+    "8": 135,
+    "9": 135,
+    "10": 109,
+    "11": 46,
+    "12": 13,
+    "13": 48,
+    "14": 56,
+    "15": 16
+  },
+  "implication_sat_calls": 7688,
+  "enumeration_sat_calls": 10653,
+  "minimize_calls": 8660,
+  "implication_seconds": 0.40123445399513,
+  "enumeration_seconds": 0.603038760003983,
+  "union": {
+    "regions": 664,
+    "predicates": 62,
+    "nvars": 57,
+    "bdd_nodes": 570,
+    "probability": "48825/4194304",
+    "model_count": "1677614225817600",
+    "fdp": 0.011640787124633789,
+    "seconds": 0.024703872
+  },
+  "total_seconds": 1.063699500009534
+}

@@ -1,0 +1,246 @@
+{
+  "sample_seed": 23,
+  "sample_size": 30,
+  "rows": [
+    {
+      "fault": "II16102",
+      "root": "g13745",
+      "path_gates": 1,
+      "care_support": 1,
+      "observation_support": 218,
+      "support_overlap": 1
+    },
+    {
+      "fault": "g23223",
+      "root": "g23223",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 13,
+      "support_overlap": 1
+    },
+    {
+      "fault": "II14650",
+      "root": "g11826",
+      "path_gates": 1,
+      "care_support": 1,
+      "observation_support": 6,
+      "support_overlap": 1
+    },
+    {
+      "fault": "g21397",
+      "root": "g33560",
+      "path_gates": 2,
+      "care_support": 35,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g18402",
+      "root": "g33569",
+      "path_gates": 1,
+      "care_support": 35,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g26088",
+      "root": "g34647",
+      "path_gates": 3,
+      "care_support": 34,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g22853",
+      "root": "g33204",
+      "path_gates": 5,
+      "care_support": 33,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g32257",
+      "root": "g33563",
+      "path_gates": 2,
+      "care_support": 25,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g29707",
+      "root": "g33539",
+      "path_gates": 4,
+      "care_support": 23,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g32991",
+      "root": "g32991",
+      "path_gates": 0,
+      "care_support": 23,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g34451",
+      "root": "g34451",
+      "path_gates": 0,
+      "care_support": 18,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "II13520",
+      "root": "g30379",
+      "path_gates": 5,
+      "care_support": 15,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g32639",
+      "root": "g34235",
+      "path_gates": 5,
+      "care_support": 13,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g32609",
+      "root": "g34235",
+      "path_gates": 5,
+      "care_support": 13,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g28299",
+      "root": "g33046",
+      "path_gates": 3,
+      "care_support": 12,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g20549",
+      "root": "g34022",
+      "path_gates": 2,
+      "care_support": 12,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g34497",
+      "root": "g34787",
+      "path_gates": 5,
+      "care_support": 11,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "II14259",
+      "root": "g25655",
+      "path_gates": 5,
+      "care_support": 7,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g23521",
+      "root": "g28092",
+      "path_gates": 2,
+      "care_support": 7,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g27310",
+      "root": "g28068",
+      "path_gates": 1,
+      "care_support": 7,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g16310",
+      "root": "g25615",
+      "path_gates": 4,
+      "care_support": 6,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g16243",
+      "root": "g25755",
+      "path_gates": 3,
+      "care_support": 5,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g21747",
+      "root": "g25652",
+      "path_gates": 1,
+      "care_support": 3,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g3817",
+      "root": "g3817",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 121,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g5236",
+      "root": "g5236",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 52,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g2351",
+      "root": "g2351",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 51,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g4486",
+      "root": "g4486",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 20,
+      "support_overlap": 0
+    },
+    {
+      "fault": "II22889",
+      "root": "g30331",
+      "path_gates": 11,
+      "care_support": 1,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g4812",
+      "root": "g4812",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 0,
+      "support_overlap": 0
+    },
+    {
+      "fault": "g17813",
+      "root": "g17813",
+      "path_gates": 0,
+      "care_support": 1,
+      "observation_support": 0,
+      "support_overlap": 0
+    }
+  ]
+}

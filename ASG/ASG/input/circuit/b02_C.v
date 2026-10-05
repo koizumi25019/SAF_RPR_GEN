@@ -1,0 +1,30 @@
+module b02_C (U_REG_SCAN_IN, LINEA, STATO_REG_2__SCAN_IN, STATO_REG_1__SCAN_IN, STATO_REG_0__SCAN_IN, out_U_REG_SCAN_IN, U33, U38, U32, U31 ) ;
+
+input   U_REG_SCAN_IN, LINEA, STATO_REG_2__SCAN_IN, STATO_REG_1__SCAN_IN, STATO_REG_0__SCAN_IN ;
+
+output   out_U_REG_SCAN_IN, U33, U38, U32, U31 ;
+
+BUF buf0 (.A(U_REG_SCAN_IN), .Z(out_U_REG_SCAN_IN) );
+AND3 gate0 (.A(U35), .B(U37), .C(STATO_REG_2__SCAN_IN), .Z(U31));
+NAND2 gate1 (.A(U48), .B(U47), .Z(U32));
+NAND2 gate2 (.A(U42), .B(U41), .Z(U33));
+INV gate3 (.A(STATO_REG_2__SCAN_IN), .Z(U34));
+INV gate4 (.A(STATO_REG_0__SCAN_IN), .Z(U35));
+INV gate5 (.A(LINEA), .Z(U36));
+INV gate6 (.A(STATO_REG_1__SCAN_IN), .Z(U37));
+NAND2 gate7 (.A(U52), .B(U51), .Z(U38));
+NAND3 gate8 (.A(U50), .B(U49), .C(U35), .Z(U39));
+OR2 gate9 (.A(LINEA), .B(STATO_REG_2__SCAN_IN), .Z(U40));
+NAND2 gate10 (.A(U40), .B(STATO_REG_0__SCAN_IN), .Z(U41));
+NAND2 gate11 (.A(U39), .B(STATO_REG_1__SCAN_IN), .Z(U42));
+OR2 gate12 (.A(LINEA), .B(STATO_REG_1__SCAN_IN), .Z(U43));
+NAND2 gate13 (.A(U34), .B(U43), .Z(U44));
+NAND2 gate14 (.A(LINEA), .B(U34), .Z(U45));
+NAND2 gate15 (.A(U45), .B(STATO_REG_0__SCAN_IN), .Z(U46));
+OR3 gate16 (.A(LINEA), .B(STATO_REG_2__SCAN_IN), .C(STATO_REG_0__SCAN_IN), .Z(U47));
+NAND2 gate17 (.A(U46), .B(U37), .Z(U48));
+NAND2 gate18 (.A(LINEA), .B(U34), .Z(U49));
+NAND2 gate19 (.A(U36), .B(STATO_REG_2__SCAN_IN), .Z(U50));
+NAND2 gate20 (.A(U44), .B(STATO_REG_0__SCAN_IN), .Z(U51));
+NAND3 gate21 (.A(U34), .B(U35), .C(STATO_REG_1__SCAN_IN), .Z(U52));
+endmodule

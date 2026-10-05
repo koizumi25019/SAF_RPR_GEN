@@ -1,0 +1,736 @@
+{
+  "all_verified": true,
+  "c17_golden": true,
+  "runs": [
+    {
+      "name": "c17a_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "c17a",
+      "profile": {
+        "read_net": {
+          "seconds": 3.7e-05,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000279,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 8e-06,
+          "calls": 22
+        },
+        "model": {
+          "seconds": 0.000344,
+          "calls": 22
+        },
+        "good_load": {
+          "seconds": 7.1e-05,
+          "calls": 22
+        },
+        "search_tfo": {
+          "seconds": 5e-06,
+          "calls": 22
+        },
+        "propagation": {
+          "seconds": 6.1e-05,
+          "calls": 22
+        },
+        "detection": {
+          "seconds": 4.2e-05,
+          "calls": 22
+        },
+        "essential": {
+          "seconds": 2.8e-05,
+          "calls": 22
+        },
+        "solver_init": {
+          "seconds": 0.000499,
+          "calls": 22
+        },
+        "solver_release": {
+          "seconds": 4e-05,
+          "calls": 22
+        },
+        "xid_model_values": {
+          "seconds": 3.4e-05,
+          "calls": 55
+        },
+        "xid_fsim": {
+          "seconds": 1.4e-05,
+          "calls": 55
+        },
+        "xid_filling": {
+          "seconds": 4.3e-05,
+          "calls": 55
+        }
+      },
+      "timing": {
+        "Time": 0.007,
+        "CPU Time": 0.007,
+        "CPU Time (CaDiCaL)": 0.0,
+        "CPU Time (BDD)": 0.0,
+        "CPU Time (Don't care)": 0.0,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s27_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s27_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000121,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000276,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 1e-05,
+          "calls": 32
+        },
+        "model": {
+          "seconds": 0.000624,
+          "calls": 32
+        },
+        "good_load": {
+          "seconds": 0.000138,
+          "calls": 32
+        },
+        "search_tfo": {
+          "seconds": 8e-06,
+          "calls": 32
+        },
+        "propagation": {
+          "seconds": 0.000112,
+          "calls": 32
+        },
+        "detection": {
+          "seconds": 8.8e-05,
+          "calls": 32
+        },
+        "essential": {
+          "seconds": 4.9e-05,
+          "calls": 32
+        },
+        "solver_init": {
+          "seconds": 0.000753,
+          "calls": 32
+        },
+        "solver_release": {
+          "seconds": 7.1e-05,
+          "calls": 32
+        },
+        "xid_model_values": {
+          "seconds": 7e-05,
+          "calls": 101
+        },
+        "xid_fsim": {
+          "seconds": 2e-05,
+          "calls": 101
+        },
+        "xid_filling": {
+          "seconds": 7.3e-05,
+          "calls": 101
+        }
+      },
+      "timing": {
+        "Time": 0.009,
+        "CPU Time": 0.008,
+        "CPU Time (CaDiCaL)": 0.0,
+        "CPU Time (BDD)": 0.001,
+        "CPU Time (Don't care)": 0.0,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s208_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s208_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000222,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000344,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.00011,
+          "calls": 215
+        },
+        "model": {
+          "seconds": 0.013883,
+          "calls": 215
+        },
+        "good_load": {
+          "seconds": 0.00567,
+          "calls": 215
+        },
+        "search_tfo": {
+          "seconds": 0.000164,
+          "calls": 215
+        },
+        "propagation": {
+          "seconds": 0.001715,
+          "calls": 215
+        },
+        "detection": {
+          "seconds": 0.000737,
+          "calls": 215
+        },
+        "essential": {
+          "seconds": 0.00161,
+          "calls": 215
+        },
+        "solver_init": {
+          "seconds": 0.006431,
+          "calls": 215
+        },
+        "solver_release": {
+          "seconds": 0.001362,
+          "calls": 215
+        },
+        "xid_model_values": {
+          "seconds": 0.015682,
+          "calls": 9780
+        },
+        "xid_fsim": {
+          "seconds": 0.003359,
+          "calls": 9780
+        },
+        "xid_filling": {
+          "seconds": 0.0349,
+          "calls": 9780
+        }
+      },
+      "timing": {
+        "Time": 0.249,
+        "CPU Time": 0.253,
+        "CPU Time (CaDiCaL)": 0.058,
+        "CPU Time (BDD)": 0.053,
+        "CPU Time (Don't care)": 0.061,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s298_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s298_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.00018,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000373,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000184,
+          "calls": 308
+        },
+        "model": {
+          "seconds": 0.018778,
+          "calls": 308
+        },
+        "good_load": {
+          "seconds": 0.009069,
+          "calls": 308
+        },
+        "search_tfo": {
+          "seconds": 0.000175,
+          "calls": 308
+        },
+        "propagation": {
+          "seconds": 0.001618,
+          "calls": 308
+        },
+        "detection": {
+          "seconds": 0.000939,
+          "calls": 308
+        },
+        "essential": {
+          "seconds": 0.002004,
+          "calls": 308
+        },
+        "solver_init": {
+          "seconds": 0.00833,
+          "calls": 308
+        },
+        "solver_release": {
+          "seconds": 0.001481,
+          "calls": 308
+        },
+        "xid_model_values": {
+          "seconds": 0.004408,
+          "calls": 1568
+        },
+        "xid_fsim": {
+          "seconds": 0.000792,
+          "calls": 1568
+        },
+        "xid_filling": {
+          "seconds": 0.010416,
+          "calls": 1568
+        }
+      },
+      "timing": {
+        "Time": 0.115,
+        "CPU Time": 0.117,
+        "CPU Time (CaDiCaL)": 0.049,
+        "CPU Time (BDD)": 0.009,
+        "CPU Time (Don't care)": 0.017,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s344_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s344_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000242,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000404,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.00016,
+          "calls": 342
+        },
+        "model": {
+          "seconds": 0.025308,
+          "calls": 342
+        },
+        "good_load": {
+          "seconds": 0.011478,
+          "calls": 342
+        },
+        "search_tfo": {
+          "seconds": 0.000268,
+          "calls": 342
+        },
+        "propagation": {
+          "seconds": 0.003156,
+          "calls": 342
+        },
+        "detection": {
+          "seconds": 0.001328,
+          "calls": 342
+        },
+        "essential": {
+          "seconds": 0.002178,
+          "calls": 342
+        },
+        "solver_init": {
+          "seconds": 0.010339,
+          "calls": 342
+        },
+        "solver_release": {
+          "seconds": 0.002436,
+          "calls": 342
+        },
+        "xid_model_values": {
+          "seconds": 0.016373,
+          "calls": 5834
+        },
+        "xid_fsim": {
+          "seconds": 0.002813,
+          "calls": 5834
+        },
+        "xid_filling": {
+          "seconds": 0.034531,
+          "calls": 5834
+        }
+      },
+      "timing": {
+        "Time": 0.36,
+        "CPU Time": 0.366,
+        "CPU Time (CaDiCaL)": 0.205,
+        "CPU Time (BDD)": 0.028,
+        "CPU Time (Don't care)": 0.058,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s510_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s510_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000357,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000553,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000275,
+          "calls": 564
+        },
+        "model": {
+          "seconds": 0.070478,
+          "calls": 564
+        },
+        "good_load": {
+          "seconds": 0.040175,
+          "calls": 564
+        },
+        "search_tfo": {
+          "seconds": 0.000556,
+          "calls": 564
+        },
+        "propagation": {
+          "seconds": 0.004614,
+          "calls": 564
+        },
+        "detection": {
+          "seconds": 0.001939,
+          "calls": 564
+        },
+        "essential": {
+          "seconds": 0.008999,
+          "calls": 564
+        },
+        "solver_init": {
+          "seconds": 0.018874,
+          "calls": 564
+        },
+        "solver_release": {
+          "seconds": 0.005618,
+          "calls": 564
+        },
+        "xid_model_values": {
+          "seconds": 0.027291,
+          "calls": 6728
+        },
+        "xid_fsim": {
+          "seconds": 0.002964,
+          "calls": 6728
+        },
+        "xid_filling": {
+          "seconds": 0.116708,
+          "calls": 6728
+        }
+      },
+      "timing": {
+        "Time": 0.492,
+        "CPU Time": 0.5,
+        "CPU Time (CaDiCaL)": 0.184,
+        "CPU Time (BDD)": 0.03,
+        "CPU Time (Don't care)": 0.152,
+        "CPU Time (Read Fault)": 0.001
+      },
+      "order": []
+    },
+    {
+      "name": "s641_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s641_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.00051,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000445,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000278,
+          "calls": 463
+        },
+        "model": {
+          "seconds": 0.077124,
+          "calls": 463
+        },
+        "good_load": {
+          "seconds": 0.033595,
+          "calls": 463
+        },
+        "search_tfo": {
+          "seconds": 0.001254,
+          "calls": 463
+        },
+        "propagation": {
+          "seconds": 0.011599,
+          "calls": 463
+        },
+        "detection": {
+          "seconds": 0.003767,
+          "calls": 463
+        },
+        "essential": {
+          "seconds": 0.006251,
+          "calls": 463
+        },
+        "solver_init": {
+          "seconds": 0.015849,
+          "calls": 463
+        },
+        "solver_release": {
+          "seconds": 0.0136,
+          "calls": 463
+        },
+        "xid_model_values": {
+          "seconds": 0.126229,
+          "calls": 24092
+        },
+        "xid_fsim": {
+          "seconds": 0.015075,
+          "calls": 24092
+        },
+        "xid_filling": {
+          "seconds": 0.210804,
+          "calls": 24092
+        }
+      },
+      "timing": {
+        "Time": 3.443,
+        "CPU Time": 3.508,
+        "CPU Time (CaDiCaL)": 2.514,
+        "CPU Time (BDD)": 0.228,
+        "CPU Time (Don't care)": 0.374,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s713_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s713_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.00044,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000498,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000342,
+          "calls": 581
+        },
+        "model": {
+          "seconds": 0.107258,
+          "calls": 581
+        },
+        "good_load": {
+          "seconds": 0.046216,
+          "calls": 581
+        },
+        "search_tfo": {
+          "seconds": 0.001993,
+          "calls": 581
+        },
+        "propagation": {
+          "seconds": 0.016537,
+          "calls": 581
+        },
+        "detection": {
+          "seconds": 0.004381,
+          "calls": 581
+        },
+        "essential": {
+          "seconds": 0.0091,
+          "calls": 581
+        },
+        "solver_init": {
+          "seconds": 0.024075,
+          "calls": 581
+        },
+        "solver_release": {
+          "seconds": 0.016122,
+          "calls": 581
+        },
+        "xid_model_values": {
+          "seconds": 0.163505,
+          "calls": 27532
+        },
+        "xid_fsim": {
+          "seconds": 0.020342,
+          "calls": 27532
+        },
+        "xid_filling": {
+          "seconds": 0.294981,
+          "calls": 27532
+        }
+      },
+      "timing": {
+        "Time": 4.681,
+        "CPU Time": 4.769,
+        "CPU Time (CaDiCaL)": 3.526,
+        "CPU Time (BDD)": 0.263,
+        "CPU Time (Don't care)": 0.505,
+        "CPU Time (Read Fault)": 0.0
+      },
+      "order": []
+    },
+    {
+      "name": "s1494_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s1494_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.000818,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.000933,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.000808,
+          "calls": 1506
+        },
+        "model": {
+          "seconds": 0.472036,
+          "calls": 1506
+        },
+        "good_load": {
+          "seconds": 0.303582,
+          "calls": 1506
+        },
+        "search_tfo": {
+          "seconds": 0.005137,
+          "calls": 1506
+        },
+        "propagation": {
+          "seconds": 0.016715,
+          "calls": 1506
+        },
+        "detection": {
+          "seconds": 0.005617,
+          "calls": 1506
+        },
+        "essential": {
+          "seconds": 0.069565,
+          "calls": 1506
+        },
+        "solver_init": {
+          "seconds": 0.046833,
+          "calls": 1506
+        },
+        "solver_release": {
+          "seconds": 0.0533,
+          "calls": 1506
+        },
+        "xid_model_values": {
+          "seconds": 0.105158,
+          "calls": 8911
+        },
+        "xid_fsim": {
+          "seconds": 0.008806,
+          "calls": 8911
+        },
+        "xid_filling": {
+          "seconds": 0.443837,
+          "calls": 8911
+        }
+      },
+      "timing": {
+        "Time": 2.489,
+        "CPU Time": 2.536,
+        "CPU Time (CaDiCaL)": 1.223,
+        "CPU Time (BDD)": 0.078,
+        "CPU Time (Don't care)": 0.566,
+        "CPU Time (Read Fault)": 0.001
+      },
+      "order": []
+    },
+    {
+      "name": "s5378_C_cone_regression",
+      "queue": true,
+      "target_only": false,
+      "net": "s5378_C",
+      "profile": {
+        "read_net": {
+          "seconds": 0.002703,
+          "calls": 1
+        },
+        "read_fault": {
+          "seconds": 0.003826,
+          "calls": 1
+        },
+        "target": {
+          "seconds": 0.003038,
+          "calls": 4551
+        },
+        "model": {
+          "seconds": 1.922321,
+          "calls": 4551
+        },
+        "good_load": {
+          "seconds": 0.824617,
+          "calls": 4551
+        },
+        "search_tfo": {
+          "seconds": 0.075406,
+          "calls": 4551
+        },
+        "propagation": {
+          "seconds": 0.140113,
+          "calls": 4551
+        },
+        "detection": {
+          "seconds": 0.062282,
+          "calls": 4551
+        },
+        "essential": {
+          "seconds": 0.113914,
+          "calls": 4551
+        },
+        "solver_init": {
+          "seconds": 0.152823,
+          "calls": 4551
+        },
+        "solver_release": {
+          "seconds": 0.282695,
+          "calls": 4551
+        },
+        "xid_model_values": {
+          "seconds": 2.449999,
+          "calls": 98221
+        },
+        "xid_fsim": {
+          "seconds": 0.088316,
+          "calls": 98221
+        },
+        "xid_filling": {
+          "seconds": 2.102825,
+          "calls": 98221
+        }
+      },
+      "timing": {
+        "Time": 36.76,
+        "CPU Time": 37.489,
+        "CPU Time (CaDiCaL)": 15.157,
+        "CPU Time (BDD)": 1.28,
+        "CPU Time (Don't care)": 4.748,
+        "CPU Time (Read Fault)": 0.004
+      },
+      "order": []
+    }
+  ]
+}

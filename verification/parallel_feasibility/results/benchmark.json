@@ -1,0 +1,4403 @@
+{
+  "repeats": 2,
+  "chunk": 128,
+  "runs": [
+    {
+      "wall": 52.95697423396632,
+      "rss_kib": 32628,
+      "faults": 4551,
+      "complete": 1571,
+      "cubes": 105977,
+      "dom": [
+        105977,
+        7686,
+        98291
+      ],
+      "gt_verified": false,
+      "mode": "serial_dom",
+      "repeat": 0
+    },
+    {
+      "wall": 54.186861640017014,
+      "rss_kib": 31340,
+      "faults": 4551,
+      "complete": 1567,
+      "cubes": 100982,
+      "dom": [
+        100982,
+        0,
+        100982
+      ],
+      "gt_verified": false,
+      "mode": "serial_nodom",
+      "repeat": 0
+    },
+    {
+      "wall": 53.0708405689802,
+      "workers": 1,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25120,
+      "sum_child_wall": 53.025878943211865,
+      "children": [
+        {
+          "wall": 1.7012412239564583,
+          "rss_kib": 23888,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4446842999896035,
+          "rss_kib": 23048,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4893393030506559,
+          "rss_kib": 23120,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.441136653011199,
+          "rss_kib": 22804,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.529654867015779,
+          "rss_kib": 23868,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4003324290388264,
+          "rss_kib": 23840,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4598846640437841,
+          "rss_kib": 23876,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.451640943007078,
+          "rss_kib": 23780,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.459442557010334,
+          "rss_kib": 22808,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4606848579715006,
+          "rss_kib": 23060,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6615594779723324,
+          "rss_kib": 23740,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.566004826046992,
+          "rss_kib": 25120,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5413177519803867,
+          "rss_kib": 24616,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4686796899768524,
+          "rss_kib": 23248,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3240565190208144,
+          "rss_kib": 24196,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2890959850046784,
+          "rss_kib": 22916,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4563654250232503,
+          "rss_kib": 24144,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.373669881024398,
+          "rss_kib": 22844,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5561405540211126,
+          "rss_kib": 23264,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.489099507976789,
+          "rss_kib": 24060,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3875590059906244,
+          "rss_kib": 23144,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.419998552009929,
+          "rss_kib": 22768,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4362039290135726,
+          "rss_kib": 23696,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.672712000028696,
+          "rss_kib": 23016,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6256890969816595,
+          "rss_kib": 23216,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5038103939732537,
+          "rss_kib": 23320,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.455903037043754,
+          "rss_kib": 23428,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3864007500233129,
+          "rss_kib": 23700,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4025719490018673,
+          "rss_kib": 22852,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4707157490192913,
+          "rss_kib": 22480,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.577183844987303,
+          "rss_kib": 23424,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.373870529991109,
+          "rss_kib": 22992,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2991448870161548,
+          "rss_kib": 23392,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4185402829898521,
+          "rss_kib": 23844,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5958729960257187,
+          "rss_kib": 23320,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4356705229729414,
+          "rss_kib": 23296,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p1",
+      "repeat": 0
+    },
+    {
+      "wall": 26.151170490018558,
+      "workers": 2,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25300,
+      "sum_child_wall": 52.24749257793883,
+      "children": [
+        {
+          "wall": 1.7016601960058324,
+          "rss_kib": 23888,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.452641643001698,
+          "rss_kib": 23564,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.471239878970664,
+          "rss_kib": 23156,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4008260639966466,
+          "rss_kib": 22944,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.496124454017263,
+          "rss_kib": 24028,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.367523210006766,
+          "rss_kib": 23940,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.41847015399253,
+          "rss_kib": 23220,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4272616989910603,
+          "rss_kib": 23884,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4291406320407987,
+          "rss_kib": 22804,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4314221129752696,
+          "rss_kib": 23456,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6325105730211362,
+          "rss_kib": 23368,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5166156030027196,
+          "rss_kib": 25300,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5096064429963008,
+          "rss_kib": 24296,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4490011000307277,
+          "rss_kib": 23220,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2927494070027024,
+          "rss_kib": 24216,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2452004360384308,
+          "rss_kib": 22880,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4178502449649386,
+          "rss_kib": 24304,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3443604350322857,
+          "rss_kib": 22972,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.548325635958463,
+          "rss_kib": 23392,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4738523440319113,
+          "rss_kib": 23848,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.381375479977578,
+          "rss_kib": 23124,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4185950759565458,
+          "rss_kib": 22840,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4232095160405152,
+          "rss_kib": 24020,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6632373799802735,
+          "rss_kib": 22808,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.615477324987296,
+          "rss_kib": 23576,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4882709889789112,
+          "rss_kib": 23972,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.434522109979298,
+          "rss_kib": 23384,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3486794419586658,
+          "rss_kib": 23576,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.389034726016689,
+          "rss_kib": 22976,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4525954439886846,
+          "rss_kib": 22632,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5614414080046117,
+          "rss_kib": 22800,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3542325960006565,
+          "rss_kib": 23108,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2852414600201882,
+          "rss_kib": 23232,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.395992457983084,
+          "rss_kib": 23904,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5846133639570326,
+          "rss_kib": 23324,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4245915380306542,
+          "rss_kib": 23068,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p2",
+      "repeat": 0
+    },
+    {
+      "wall": 13.502076240023598,
+      "workers": 4,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25160,
+      "sum_child_wall": 52.82304010912776,
+      "children": [
+        {
+          "wall": 1.6794156109681353,
+          "rss_kib": 23856,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4458863980253227,
+          "rss_kib": 23180,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4888490969897248,
+          "rss_kib": 23344,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4196849170257337,
+          "rss_kib": 22916,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.520019730029162,
+          "rss_kib": 23820,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.375297638005577,
+          "rss_kib": 23716,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4286581779597327,
+          "rss_kib": 23416,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.436720822006464,
+          "rss_kib": 23960,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4372089709504507,
+          "rss_kib": 22660,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4422738539869897,
+          "rss_kib": 23236,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6355091219884343,
+          "rss_kib": 23076,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5251548209926113,
+          "rss_kib": 25160,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5216496319626458,
+          "rss_kib": 24364,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4546651450218633,
+          "rss_kib": 23524,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3125531430123374,
+          "rss_kib": 24120,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2736175790196285,
+          "rss_kib": 22780,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4715090120444074,
+          "rss_kib": 23868,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.391573618981056,
+          "rss_kib": 22844,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.573250707006082,
+          "rss_kib": 23172,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5018833270296454,
+          "rss_kib": 23864,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3600569010013714,
+          "rss_kib": 22908,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.428597318008542,
+          "rss_kib": 22772,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4308470470132306,
+          "rss_kib": 23848,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6870746850036085,
+          "rss_kib": 22996,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6495234789908864,
+          "rss_kib": 23088,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.524330665008165,
+          "rss_kib": 23604,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4748491270001978,
+          "rss_kib": 23460,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3929756000288762,
+          "rss_kib": 23700,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.380418709013611,
+          "rss_kib": 22572,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4588913259794936,
+          "rss_kib": 22596,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5861287110019475,
+          "rss_kib": 23124,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3787869079969823,
+          "rss_kib": 22852,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.300180750025902,
+          "rss_kib": 23184,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4074398770462722,
+          "rss_kib": 23764,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.582720110018272,
+          "rss_kib": 23384,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4448375729843974,
+          "rss_kib": 23436,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p4",
+      "repeat": 0
+    },
+    {
+      "wall": 8.268431799020618,
+      "workers": 8,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25088,
+      "sum_child_wall": 60.08074520988157,
+      "children": [
+        {
+          "wall": 1.9431475899764337,
+          "rss_kib": 23748,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5725876350188628,
+          "rss_kib": 23396,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5939213130041026,
+          "rss_kib": 23268,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6273532960331067,
+          "rss_kib": 22968,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.645856579998508,
+          "rss_kib": 23876,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5270532129798084,
+          "rss_kib": 23956,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.614472369023133,
+          "rss_kib": 23540,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6421783299883828,
+          "rss_kib": 23684,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7041537510231137,
+          "rss_kib": 22536,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7067594429827295,
+          "rss_kib": 23448,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.995377232960891,
+          "rss_kib": 23584,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.8427994310040958,
+          "rss_kib": 25088,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7818162079784088,
+          "rss_kib": 24352,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7490181610337459,
+          "rss_kib": 23572,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4581801279564388,
+          "rss_kib": 24292,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.513510578952264,
+          "rss_kib": 23664,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.753587037033867,
+          "rss_kib": 23868,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5878799309721217,
+          "rss_kib": 22820,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7323466960224323,
+          "rss_kib": 23376,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.8073879100265913,
+          "rss_kib": 23996,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5624762210063636,
+          "rss_kib": 23160,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6586224260390736,
+          "rss_kib": 22936,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6965843549696729,
+          "rss_kib": 24020,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.938202706980519,
+          "rss_kib": 23316,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.9465780360042118,
+          "rss_kib": 23344,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.739048328017816,
+          "rss_kib": 23316,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6436148209613748,
+          "rss_kib": 23304,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5190956220030785,
+          "rss_kib": 23628,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.642996167007368,
+          "rss_kib": 22840,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6911317599588074,
+          "rss_kib": 22600,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7814404019736685,
+          "rss_kib": 23188,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5642121220007539,
+          "rss_kib": 22980,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.358139073010534,
+          "rss_kib": 23232,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4396732319728471,
+          "rss_kib": 23904,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6420771350385621,
+          "rss_kib": 23376,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.457465968967881,
+          "rss_kib": 23224,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p8",
+      "repeat": 0
+    },
+    {
+      "wall": 53.66510915203253,
+      "rss_kib": 32860,
+      "faults": 4551,
+      "complete": 1571,
+      "cubes": 105977,
+      "dom": [
+        105977,
+        7686,
+        98291
+      ],
+      "gt_verified": false,
+      "mode": "serial_dom",
+      "repeat": 1
+    },
+    {
+      "wall": 54.18502772401553,
+      "rss_kib": 30928,
+      "faults": 4551,
+      "complete": 1567,
+      "cubes": 100982,
+      "dom": [
+        100982,
+        0,
+        100982
+      ],
+      "gt_verified": false,
+      "mode": "serial_nodom",
+      "repeat": 1
+    },
+    {
+      "wall": 8.258848332974594,
+      "workers": 8,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25284,
+      "sum_child_wall": 59.07183174591046,
+      "children": [
+        {
+          "wall": 1.9214283030014485,
+          "rss_kib": 23904,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6539131269673817,
+          "rss_kib": 23044,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7477811790304258,
+          "rss_kib": 23144,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6735201940173283,
+          "rss_kib": 23028,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7645295590045862,
+          "rss_kib": 23732,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5585977360024117,
+          "rss_kib": 23852,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6669127459754236,
+          "rss_kib": 23436,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5973424250259995,
+          "rss_kib": 23720,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6131333579542115,
+          "rss_kib": 22476,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6337235699757002,
+          "rss_kib": 23168,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.825312165019568,
+          "rss_kib": 23648,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.801055957970675,
+          "rss_kib": 25284,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7242532880045474,
+          "rss_kib": 24616,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6205075409961864,
+          "rss_kib": 23208,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4617565959924832,
+          "rss_kib": 24252,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4215481230057776,
+          "rss_kib": 23008,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6690324369701557,
+          "rss_kib": 23844,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.527081486012321,
+          "rss_kib": 22792,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7355994490208104,
+          "rss_kib": 23124,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.673465964035131,
+          "rss_kib": 23868,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5175730920163915,
+          "rss_kib": 23036,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5788371060043573,
+          "rss_kib": 22648,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6112074429984204,
+          "rss_kib": 23912,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.8923593419604003,
+          "rss_kib": 23444,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.8121644869679585,
+          "rss_kib": 22936,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.7345821720082313,
+          "rss_kib": 23700,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6423919210210443,
+          "rss_kib": 23252,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5331996100139804,
+          "rss_kib": 23460,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5866655160207301,
+          "rss_kib": 22720,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5870900339796208,
+          "rss_kib": 22312,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.794208711013198,
+          "rss_kib": 22980,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.530633598973509,
+          "rss_kib": 23508,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3723586229607463,
+          "rss_kib": 23224,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4357374729588628,
+          "rss_kib": 23800,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6814758600085042,
+          "rss_kib": 23316,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4708515530219302,
+          "rss_kib": 23192,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p8",
+      "repeat": 1
+    },
+    {
+      "wall": 13.47041694400832,
+      "workers": 4,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25088,
+      "sum_child_wall": 52.65728406509152,
+      "children": [
+        {
+          "wall": 1.6685788640170358,
+          "rss_kib": 23544,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4443207739968784,
+          "rss_kib": 23280,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.481670766021125,
+          "rss_kib": 23256,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4131396519951522,
+          "rss_kib": 23072,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.53128136403393,
+          "rss_kib": 23912,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3794466629624367,
+          "rss_kib": 23928,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4520393109996803,
+          "rss_kib": 23600,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.463049361947924,
+          "rss_kib": 23796,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4480707260081545,
+          "rss_kib": 22932,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.439170802012086,
+          "rss_kib": 23120,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.656048451026436,
+          "rss_kib": 23060,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.536634124990087,
+          "rss_kib": 25088,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5292715930263512,
+          "rss_kib": 24480,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4465765180066228,
+          "rss_kib": 23376,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2946445450070314,
+          "rss_kib": 24112,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2511506089940667,
+          "rss_kib": 23012,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4251441030064598,
+          "rss_kib": 23612,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3574239070294425,
+          "rss_kib": 23104,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5480851989705116,
+          "rss_kib": 23380,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.47930855298182,
+          "rss_kib": 23896,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3607017290196382,
+          "rss_kib": 22904,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4615484560490586,
+          "rss_kib": 22752,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4861045050201938,
+          "rss_kib": 23916,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6748573560034856,
+          "rss_kib": 23356,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6141900109942071,
+          "rss_kib": 23192,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4839586729649454,
+          "rss_kib": 23544,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4652816409943625,
+          "rss_kib": 23348,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3883181380224414,
+          "rss_kib": 23776,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3886149920290336,
+          "rss_kib": 22736,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4510017180000432,
+          "rss_kib": 22728,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.568079027987551,
+          "rss_kib": 23056,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3553299470222555,
+          "rss_kib": 22852,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2799554039957002,
+          "rss_kib": 22976,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4069345309981145,
+          "rss_kib": 23824,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5901757449610159,
+          "rss_kib": 23188,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4371763039962389,
+          "rss_kib": 23080,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p4",
+      "repeat": 1
+    },
+    {
+      "wall": 26.430437633011024,
+      "workers": 2,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25248,
+      "sum_child_wall": 52.65747478924459,
+      "children": [
+        {
+          "wall": 1.6804615610162728,
+          "rss_kib": 24288,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4300908440491185,
+          "rss_kib": 23308,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.486768367991317,
+          "rss_kib": 23220,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4170545050292276,
+          "rss_kib": 22788,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5086274280329235,
+          "rss_kib": 23864,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.370093478995841,
+          "rss_kib": 24020,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4294251819956116,
+          "rss_kib": 23880,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.472064121044241,
+          "rss_kib": 23572,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4750050319707952,
+          "rss_kib": 22784,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4703092859708704,
+          "rss_kib": 23012,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6533193580107763,
+          "rss_kib": 23152,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5174558659782633,
+          "rss_kib": 25248,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5438626060495153,
+          "rss_kib": 24488,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.459889215999283,
+          "rss_kib": 23232,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3056356710148975,
+          "rss_kib": 24168,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2567805899889208,
+          "rss_kib": 23288,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4363158690393902,
+          "rss_kib": 23624,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3440235939924605,
+          "rss_kib": 22848,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.549043794046156,
+          "rss_kib": 23296,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4772754489677027,
+          "rss_kib": 23748,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3765378369716927,
+          "rss_kib": 23032,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4122599930269644,
+          "rss_kib": 22924,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4155608910368755,
+          "rss_kib": 24020,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6638427379657514,
+          "rss_kib": 22892,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6222893220256083,
+          "rss_kib": 22960,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4971964469878003,
+          "rss_kib": 23772,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4434627020382322,
+          "rss_kib": 23292,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.364002401009202,
+          "rss_kib": 23620,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3970647959504277,
+          "rss_kib": 22664,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4588017240166664,
+          "rss_kib": 22536,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5804471199517138,
+          "rss_kib": 23192,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3717711620265618,
+          "rss_kib": 22592,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2948091209982522,
+          "rss_kib": 23360,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4239343160297722,
+          "rss_kib": 23704,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.618983249005396,
+          "rss_kib": 23196,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4330091510200873,
+          "rss_kib": 23168,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p2",
+      "repeat": 1
+    },
+    {
+      "wall": 53.05135948798852,
+      "workers": 1,
+      "batches": 36,
+      "complete": 1567,
+      "cubes": 100982,
+      "max_child_rss_kib": 25288,
+      "sum_child_wall": 52.865843622072134,
+      "children": [
+        {
+          "wall": 1.7094409629935399,
+          "rss_kib": 23948,
+          "faults": 127,
+          "complete": 36,
+          "cubes": 2934,
+          "dom": [
+            2934,
+            0,
+            2934
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4360521160415374,
+          "rss_kib": 23656,
+          "faults": 127,
+          "complete": 49,
+          "cubes": 2738,
+          "dom": [
+            2738,
+            0,
+            2738
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4915587059804238,
+          "rss_kib": 23132,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2711,
+          "dom": [
+            2711,
+            0,
+            2711
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4575368050136603,
+          "rss_kib": 22972,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2780,
+          "dom": [
+            2780,
+            0,
+            2780
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5373126590275206,
+          "rss_kib": 24008,
+          "faults": 127,
+          "complete": 35,
+          "cubes": 3011,
+          "dom": [
+            3011,
+            0,
+            3011
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.375009390001651,
+          "rss_kib": 24220,
+          "faults": 127,
+          "complete": 48,
+          "cubes": 2698,
+          "dom": [
+            2698,
+            0,
+            2698
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.438994795025792,
+          "rss_kib": 23488,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2836,
+          "dom": [
+            2836,
+            0,
+            2836
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4436692169983871,
+          "rss_kib": 23736,
+          "faults": 127,
+          "complete": 44,
+          "cubes": 2782,
+          "dom": [
+            2782,
+            0,
+            2782
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.469573688984383,
+          "rss_kib": 22784,
+          "faults": 127,
+          "complete": 47,
+          "cubes": 2746,
+          "dom": [
+            2746,
+            0,
+            2746
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.444640497036744,
+          "rss_kib": 23456,
+          "faults": 127,
+          "complete": 43,
+          "cubes": 2792,
+          "dom": [
+            2792,
+            0,
+            2792
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6457905920105986,
+          "rss_kib": 23532,
+          "faults": 127,
+          "complete": 37,
+          "cubes": 2962,
+          "dom": [
+            2962,
+            0,
+            2962
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.537158016988542,
+          "rss_kib": 25288,
+          "faults": 127,
+          "complete": 40,
+          "cubes": 2919,
+          "dom": [
+            2919,
+            0,
+            2919
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5320203030132689,
+          "rss_kib": 24780,
+          "faults": 127,
+          "complete": 38,
+          "cubes": 3010,
+          "dom": [
+            3010,
+            0,
+            3010
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4571168969850987,
+          "rss_kib": 23188,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2834,
+          "dom": [
+            2834,
+            0,
+            2834
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3218425329541788,
+          "rss_kib": 24548,
+          "faults": 127,
+          "complete": 46,
+          "cubes": 2728,
+          "dom": [
+            2728,
+            0,
+            2728
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2702083690091968,
+          "rss_kib": 23392,
+          "faults": 126,
+          "complete": 50,
+          "cubes": 2562,
+          "dom": [
+            2562,
+            0,
+            2562
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4548512370092794,
+          "rss_kib": 23524,
+          "faults": 126,
+          "complete": 47,
+          "cubes": 2743,
+          "dom": [
+            2743,
+            0,
+            2743
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4309720890014432,
+          "rss_kib": 22856,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2554,
+          "dom": [
+            2554,
+            0,
+            2554
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.5477260639891028,
+          "rss_kib": 23376,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2802,
+          "dom": [
+            2802,
+            0,
+            2802
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4976668279850855,
+          "rss_kib": 23804,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2797,
+          "dom": [
+            2797,
+            0,
+            2797
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3683779109851457,
+          "rss_kib": 23108,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2776,
+          "dom": [
+            2776,
+            0,
+            2776
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4102676010224968,
+          "rss_kib": 22836,
+          "faults": 126,
+          "complete": 45,
+          "cubes": 2789,
+          "dom": [
+            2789,
+            0,
+            2789
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4239606049959548,
+          "rss_kib": 23804,
+          "faults": 126,
+          "complete": 44,
+          "cubes": 2830,
+          "dom": [
+            2830,
+            0,
+            2830
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6653389619896188,
+          "rss_kib": 23448,
+          "faults": 126,
+          "complete": 35,
+          "cubes": 2992,
+          "dom": [
+            2992,
+            0,
+            2992
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6098582319682464,
+          "rss_kib": 23060,
+          "faults": 126,
+          "complete": 39,
+          "cubes": 2904,
+          "dom": [
+            2904,
+            0,
+            2904
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4909474889864214,
+          "rss_kib": 23732,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2857,
+          "dom": [
+            2857,
+            0,
+            2857
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4554598000249825,
+          "rss_kib": 23280,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2871,
+          "dom": [
+            2871,
+            0,
+            2871
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3727784380316734,
+          "rss_kib": 23828,
+          "faults": 126,
+          "complete": 53,
+          "cubes": 2623,
+          "dom": [
+            2623,
+            0,
+            2623
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4215353170293383,
+          "rss_kib": 22728,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2634,
+          "dom": [
+            2634,
+            0,
+            2634
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4646198070258833,
+          "rss_kib": 22600,
+          "faults": 126,
+          "complete": 42,
+          "cubes": 2849,
+          "dom": [
+            2849,
+            0,
+            2849
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.580785439000465,
+          "rss_kib": 22996,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3019,
+          "dom": [
+            3019,
+            0,
+            3019
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.3593460979755037,
+          "rss_kib": 22980,
+          "faults": 126,
+          "complete": 51,
+          "cubes": 2612,
+          "dom": [
+            2612,
+            0,
+            2612
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.2900939759565517,
+          "rss_kib": 23220,
+          "faults": 126,
+          "complete": 46,
+          "cubes": 2681,
+          "dom": [
+            2681,
+            0,
+            2681
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4113466769922525,
+          "rss_kib": 23712,
+          "faults": 126,
+          "complete": 41,
+          "cubes": 2870,
+          "dom": [
+            2870,
+            0,
+            2870
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.6018302610027604,
+          "rss_kib": 23132,
+          "faults": 126,
+          "complete": 34,
+          "cubes": 3099,
+          "dom": [
+            3099,
+            0,
+            3099
+          ],
+          "gt_verified": false
+        },
+        {
+          "wall": 1.4401552430354059,
+          "rss_kib": 22944,
+          "faults": 126,
+          "complete": 49,
+          "cubes": 2637,
+          "dom": [
+            2637,
+            0,
+            2637
+          ],
+          "gt_verified": false
+        }
+      ],
+      "mode": "batch_nodom_p1",
+      "repeat": 1
+    }
+  ],
+  "c17_golden_and_parallel_gt": true,
+  "s5378_parallel_gt": {
+    "wall": 13.166149633994792,
+    "workers": 8,
+    "batches": 36,
+    "complete": 1567,
+    "cubes": 100982,
+    "max_child_rss_kib": 56508,
+    "sum_child_wall": 89.5332852640422,
+    "children": [
+      {
+        "wall": 3.1402826990233734,
+        "rss_kib": 36876,
+        "faults": 127,
+        "complete": 36,
+        "cubes": 2934,
+        "dom": [
+          2934,
+          0,
+          2934
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.832790854969062,
+        "rss_kib": 37216,
+        "faults": 127,
+        "complete": 49,
+        "cubes": 2738,
+        "dom": [
+          2738,
+          0,
+          2738
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.3061284410068765,
+        "rss_kib": 35468,
+        "faults": 127,
+        "complete": 46,
+        "cubes": 2711,
+        "dom": [
+          2711,
+          0,
+          2711
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.7088777440367267,
+        "rss_kib": 34164,
+        "faults": 127,
+        "complete": 44,
+        "cubes": 2780,
+        "dom": [
+          2780,
+          0,
+          2780
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.3340482320054434,
+        "rss_kib": 35288,
+        "faults": 127,
+        "complete": 35,
+        "cubes": 3011,
+        "dom": [
+          3011,
+          0,
+          3011
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.734337867994327,
+        "rss_kib": 35056,
+        "faults": 127,
+        "complete": 48,
+        "cubes": 2698,
+        "dom": [
+          2698,
+          0,
+          2698
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.406463505991269,
+        "rss_kib": 40904,
+        "faults": 127,
+        "complete": 40,
+        "cubes": 2836,
+        "dom": [
+          2836,
+          0,
+          2836
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.7776049580425024,
+        "rss_kib": 39764,
+        "faults": 127,
+        "complete": 44,
+        "cubes": 2782,
+        "dom": [
+          2782,
+          0,
+          2782
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.1762627629796043,
+        "rss_kib": 34304,
+        "faults": 127,
+        "complete": 47,
+        "cubes": 2746,
+        "dom": [
+          2746,
+          0,
+          2746
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.00846896803705,
+        "rss_kib": 35668,
+        "faults": 127,
+        "complete": 43,
+        "cubes": 2792,
+        "dom": [
+          2792,
+          0,
+          2792
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.46470130601665,
+        "rss_kib": 34856,
+        "faults": 127,
+        "complete": 37,
+        "cubes": 2962,
+        "dom": [
+          2962,
+          0,
+          2962
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.863380190974567,
+        "rss_kib": 35980,
+        "faults": 127,
+        "complete": 40,
+        "cubes": 2919,
+        "dom": [
+          2919,
+          0,
+          2919
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.4547605820116587,
+        "rss_kib": 38248,
+        "faults": 127,
+        "complete": 38,
+        "cubes": 3010,
+        "dom": [
+          3010,
+          0,
+          3010
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.015700782998465,
+        "rss_kib": 35384,
+        "faults": 127,
+        "complete": 46,
+        "cubes": 2834,
+        "dom": [
+          2834,
+          0,
+          2834
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.5760454869596288,
+        "rss_kib": 34844,
+        "faults": 127,
+        "complete": 46,
+        "cubes": 2728,
+        "dom": [
+          2728,
+          0,
+          2728
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.7148639869992621,
+        "rss_kib": 33756,
+        "faults": 126,
+        "complete": 50,
+        "cubes": 2562,
+        "dom": [
+          2562,
+          0,
+          2562
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.962038378987927,
+        "rss_kib": 35836,
+        "faults": 126,
+        "complete": 47,
+        "cubes": 2743,
+        "dom": [
+          2743,
+          0,
+          2743
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.862373073003255,
+        "rss_kib": 56464,
+        "faults": 126,
+        "complete": 51,
+        "cubes": 2554,
+        "dom": [
+          2554,
+          0,
+          2554
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.9820255079539493,
+        "rss_kib": 39368,
+        "faults": 126,
+        "complete": 46,
+        "cubes": 2802,
+        "dom": [
+          2802,
+          0,
+          2802
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.9215529169887304,
+        "rss_kib": 35708,
+        "faults": 126,
+        "complete": 42,
+        "cubes": 2797,
+        "dom": [
+          2797,
+          0,
+          2797
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.4459743089973927,
+        "rss_kib": 35292,
+        "faults": 126,
+        "complete": 45,
+        "cubes": 2776,
+        "dom": [
+          2776,
+          0,
+          2776
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.3311537190456875,
+        "rss_kib": 35776,
+        "faults": 126,
+        "complete": 45,
+        "cubes": 2789,
+        "dom": [
+          2789,
+          0,
+          2789
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.1339442580356263,
+        "rss_kib": 37868,
+        "faults": 126,
+        "complete": 44,
+        "cubes": 2830,
+        "dom": [
+          2830,
+          0,
+          2830
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 4.6172636250266805,
+        "rss_kib": 56508,
+        "faults": 126,
+        "complete": 35,
+        "cubes": 2992,
+        "dom": [
+          2992,
+          0,
+          2992
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.2089914169628173,
+        "rss_kib": 36056,
+        "faults": 126,
+        "complete": 39,
+        "cubes": 2904,
+        "dom": [
+          2904,
+          0,
+          2904
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.0299383570090868,
+        "rss_kib": 34924,
+        "faults": 126,
+        "complete": 42,
+        "cubes": 2857,
+        "dom": [
+          2857,
+          0,
+          2857
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.403926440048963,
+        "rss_kib": 35776,
+        "faults": 126,
+        "complete": 41,
+        "cubes": 2871,
+        "dom": [
+          2871,
+          0,
+          2871
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.0067266449914314,
+        "rss_kib": 36812,
+        "faults": 126,
+        "complete": 53,
+        "cubes": 2623,
+        "dom": [
+          2623,
+          0,
+          2623
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.7274990070145577,
+        "rss_kib": 34604,
+        "faults": 126,
+        "complete": 51,
+        "cubes": 2634,
+        "dom": [
+          2634,
+          0,
+          2634
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.423801867000293,
+        "rss_kib": 34184,
+        "faults": 126,
+        "complete": 42,
+        "cubes": 2849,
+        "dom": [
+          2849,
+          0,
+          2849
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.1463251609820873,
+        "rss_kib": 36780,
+        "faults": 126,
+        "complete": 34,
+        "cubes": 3019,
+        "dom": [
+          3019,
+          0,
+          3019
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.002798867004458,
+        "rss_kib": 56276,
+        "faults": 126,
+        "complete": 51,
+        "cubes": 2612,
+        "dom": [
+          2612,
+          0,
+          2612
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 1.7711158019956201,
+        "rss_kib": 34376,
+        "faults": 126,
+        "complete": 46,
+        "cubes": 2681,
+        "dom": [
+          2681,
+          0,
+          2681
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.265364630962722,
+        "rss_kib": 35192,
+        "faults": 126,
+        "complete": 41,
+        "cubes": 2870,
+        "dom": [
+          2870,
+          0,
+          2870
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 3.5737502689589746,
+        "rss_kib": 36384,
+        "faults": 126,
+        "complete": 34,
+        "cubes": 3099,
+        "dom": [
+          3099,
+          0,
+          3099
+        ],
+        "gt_verified": true
+      },
+      {
+        "wall": 2.20200264302548,
+        "rss_kib": 35316,
+        "faults": 126,
+        "complete": 49,
+        "cubes": 2637,
+        "dom": [
+          2637,
+          0,
+          2637
+        ],
+        "gt_verified": true
+      }
+    ]
+  },
+  "representative_rows_identical_to_serial_nodom": true,
+  "medians": {
+    "batch_nodom_p1": 53.06110002848436,
+    "batch_nodom_p2": 26.29080406151479,
+    "batch_nodom_p4": 13.48624659201596,
+    "batch_nodom_p8": 8.263640065997606,
+    "serial_dom": 53.311041692999424,
+    "serial_nodom": 54.18594468201627
+  }
+}

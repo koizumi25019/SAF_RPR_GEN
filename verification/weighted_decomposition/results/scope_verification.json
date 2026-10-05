@@ -1,0 +1,22 @@
+[
+  {
+    "fault": "n673gat",
+    "stuck": 0,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 78,
+    "local_probabilities_exhaustive": 0,
+    "seconds": 0.17255988898978103
+  },
+  {
+    "fault": "n1592gat",
+    "stuck": 0,
+    "sound": true,
+    "exact": true,
+    "disjoint_supports": true,
+    "coordinate_rank": 57,
+    "local_probabilities_exhaustive": 1,
+    "seconds": 0.365013728995109
+  }
+]

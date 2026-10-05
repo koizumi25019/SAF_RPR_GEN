@@ -1,0 +1,9 @@
+G16	sa1
+G9	sa0
+G8	sa1
+G14	sa1
+G13	sa1
+G11_stem	sa1
+G10	sa0
+G17	sa0
+G11	sa1

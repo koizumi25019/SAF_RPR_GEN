@@ -1,0 +1,113 @@
+{
+  "net": "/home/koizumi/fdp/input/circuit/s5378_C.v",
+  "fault": "n518gat",
+  "stuck": 0,
+  "root": "n407gat",
+  "path_gates": 3,
+  "flat": false,
+  "care_observation": false,
+  "factors": 4,
+  "complete": false,
+  "generated_cubes": 916,
+  "factor_results": [
+    {
+      "name": "excitation",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000133153,
+      "init_seconds": 0.000236972,
+      "sat_calls": 8,
+      "detector_calls": 3,
+      "oracle_calls": 5,
+      "oracle_sat": 3,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 1,
+        "2": 1
+      }
+    },
+    {
+      "name": "n355gat:n410gat=0",
+      "method": "greedy",
+      "cubes": 5,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000213881,
+      "init_seconds": 0.000254828,
+      "sat_calls": 16,
+      "detector_calls": 6,
+      "oracle_calls": 10,
+      "oracle_sat": 5,
+      "oracle_unsat": 5,
+      "refined_cubes": 5,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "1": 5
+      }
+    },
+    {
+      "name": "n355gat:n354gat=0",
+      "method": "greedy",
+      "cubes": 2,
+      "care_literal": 0,
+      "complete": true,
+      "timed_out": false,
+      "seconds": 0.000220762,
+      "init_seconds": 0.000206244,
+      "sat_calls": 9,
+      "detector_calls": 3,
+      "oracle_calls": 6,
+      "oracle_sat": 4,
+      "oracle_unsat": 2,
+      "refined_cubes": 2,
+      "refinement_removed_literals": 0,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "2": 2
+      }
+    },
+    {
+      "name": "root_observability",
+      "method": "greedy",
+      "cubes": 907,
+      "care_literal": 0,
+      "complete": false,
+      "timed_out": true,
+      "seconds": 0.500046111,
+      "init_seconds": 0.000593692,
+      "sat_calls": 18130,
+      "detector_calls": 908,
+      "oracle_calls": 17222,
+      "oracle_sat": 12076,
+      "oracle_unsat": 5145,
+      "refined_cubes": 907,
+      "refinement_removed_literals": 4264,
+      "simulation_necessary_literals": 0,
+      "simulation_seconds": 0,
+      "care_hist": {
+        "4": 1,
+        "5": 13,
+        "6": 81,
+        "7": 28,
+        "8": 18,
+        "13": 255,
+        "15": 416,
+        "17": 95
+      }
+    }
+  ],
+  "union": null,
+  "proof": null,
+  "total_seconds_excluding_raw_proof": 0.5304603090007731
+}

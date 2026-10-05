@@ -1,0 +1,173 @@
+{
+  "info": {
+    "mode": "linear",
+    "npi": 214,
+    "parity_basis_rows": 30,
+    "detection_support": 135,
+    "reachable_gates": 569,
+    "parities": [
+      [
+        "n883gat",
+        "n824gat",
+        "n820gat"
+      ],
+      [
+        "n842gat",
+        "n726gat",
+        "n722gat"
+      ],
+      [
+        "n838gat",
+        "n834gat",
+        "n707gat"
+      ],
+      [
+        "n830gat",
+        "n626gat",
+        "n622gat"
+      ],
+      [
+        "n699gat",
+        "n684gat",
+        "n584gat"
+      ],
+      [
+        "n816gat",
+        "n680gat",
+        "n580gat"
+      ],
+      [
+        "n777gat",
+        "n659gat",
+        "n553gat"
+      ],
+      [
+        "n618gat",
+        "n614gat",
+        "n491gat"
+      ],
+      [
+        "n561gat",
+        "n366gat"
+      ],
+      [
+        "n703gat",
+        "n394gat",
+        "n341gat"
+      ],
+      [
+        "n322gat",
+        "n318gat",
+        "n314gat"
+      ],
+      [
+        "n3089gat",
+        "n3088gat"
+      ],
+      [
+        "n3087gat",
+        "n3086gat"
+      ],
+      [
+        "n3085gat",
+        "n3084gat",
+        "n3083gat"
+      ],
+      [
+        "n402gat",
+        "n398gat",
+        "n275gat"
+      ],
+      [
+        "n283gat",
+        "n279gat",
+        "n165gat"
+      ],
+      [
+        "n337gat",
+        "n271gat",
+        "n160gat"
+      ],
+      [
+        "n1298gat",
+        "n1294gat",
+        "n1241gat"
+      ],
+      [
+        "n1282gat",
+        "n1226gat"
+      ],
+      [
+        "n865gat",
+        "n1148gat",
+        "n1080gat"
+      ],
+      [
+        "n957gat",
+        "n861gat",
+        "n1068gat"
+      ],
+      [
+        "n931gat",
+        "n1135gat",
+        "n1045gat"
+      ],
+      [
+        "n1121gat",
+        "n1072gat",
+        "n1035gat"
+      ],
+      [
+        "n919gat",
+        "n846gat",
+        "n1026gat"
+      ],
+      [
+        "n2634gat",
+        "n2630gat",
+        "n2543gat"
+      ],
+      [
+        "n2626gat",
+        "n2622gat",
+        "n2490gat"
+      ],
+      [
+        "n2495gat",
+        "n2390gat"
+      ],
+      [
+        "n2640gat",
+        "n2562gat",
+        "n2343gat"
+      ],
+      [
+        "n2339gat",
+        "n2270gat"
+      ],
+      [
+        "n2399gat",
+        "n2207gat",
+        "n2203gat"
+      ]
+    ],
+    "random_simulation_checks": 300
+  },
+  "result": {
+    "cubes": 43,
+    "complete": true,
+    "seconds": 0.04616622899993672,
+    "sat_calls": 381,
+    "disjoint": false,
+    "care_hist": {
+      "2": 2,
+      "3": 11,
+      "4": 10,
+      "5": 11,
+      "6": 3,
+      "7": 4,
+      "10": 1,
+      "11": 1
+    }
+  }
+}

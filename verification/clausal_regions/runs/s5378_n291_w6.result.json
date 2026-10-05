@@ -1,0 +1,17 @@
+{
+  "fault": "n291gat",
+  "stuck": 1,
+  "width": 6,
+  "predicates": 95,
+  "candidate_clauses": 18050,
+  "entailed_clauses": 34,
+  "exact": false,
+  "learned_clauses": 0,
+  "implication_sat_calls": 18050,
+  "equivalence_sat_calls": 1,
+  "minimize_calls": 0,
+  "implication_seconds": 1.4630052380089182,
+  "equivalence_seconds": 0.0012743540137307718,
+  "union": null,
+  "total_seconds": 1.4908406890026527
+}
