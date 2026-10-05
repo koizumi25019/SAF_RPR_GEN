@@ -27,6 +27,7 @@
 #include "./cube_trend.h"    /* 検証: env CUBE_TREND=1 でキューブ列の傾向観察（既定無効） */
 #include "./experiment.h"    /* 研究: env MAXDC / MAXHAM（既定無効） */
 #include "./paper_core.h"    /* SAT 2024 CORE: 完全モデルからcore抽出＋極小化 */
+#include "./power_constraint.h"
 
 //*************************************************************************************************************
 //	@name		AddBlockingClauseFromCube
@@ -135,6 +136,10 @@ bool AnalyzeFaultDensity(
 	int count = 0;
     bool paper_core = opt.dc_method == DC_CORE;
     bool paper_core_verify = opt.core_verify == YES;
+    if (opt.low_power == YES && (getenv("AIG_DUMP") || getenv("AIG_DUMP_DIR"))) {
+        fprintf(stderr, "[POWER] AIG export does not encode the power constraint\n");
+        exit(1);
+    }
     if (paper_core) {
         const char* incompatible[] = { "MAXDC", "XID_EXTERNAL", "TDF_NOXID", "DUAL", "SPLIT" };
         for (size_t i = 0; i < sizeof(incompatible) / sizeof(incompatible[0]); i++)
@@ -195,6 +200,7 @@ bool AnalyzeFaultDensity(
 	printf("ReadFault: %.3f sec\n", time_read);
 
 	if (CreateConsGC() != true) return AFD_ERROR;
+    PowerInit();
 
 	// 検証(env AIG_DUMP_DIR=dir): 全代表故障の検出回路を AIGER 一括出力して即終了。
 	// AIG_DUMP（単一故障版）の全故障版。HALL 等との回路全体比較用。

@@ -36,8 +36,9 @@ cd build && ./main_debug -set ../input/script/c17a.set
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
 `-saf`/`-tdf`（故障モデル。省略時は縮退故障）、
-`-dc_method xid|core`、`-dom_reuse on|off`、`-core_verify on|off`。
-新規3設定は `.set` 内の明示指定が環境変数より優先し、省略時は従来環境変数を参照する。
+`-dc_method xid|core`、`-dom_reuse on|off`、`-core_verify on|off`、
+`-low_power on|off`、`-wsa_threshold 0..100`（整数百分率、on時に必須）。
+`-dc_method` / `-dom_reuse` / `-core_verify` は `.set` 内の明示指定が環境変数より優先し、省略時は従来環境変数を参照する。
 環境変数も無ければ XID・流用 on・core 検証 off。
 
 ### 遷移故障モード（`-tdf`）
@@ -199,7 +200,15 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     省略・CLI・環境変数互換・明示指定の優先・不正値の拒否を確認する。
   - `PAPER_CORE=1` — XID を経由せず、SAT の完全入力モデルを非検出オラクルへの assumptions とし、
     UNSAT core 抽出→core 再確認→1リテラルずつ削除して極小素項にする。最小リテラル数は保証しない。
-    SAF は ¬検出、TDF は ¬(検出∧励起)。低消費電力制約は未実装。
+    SAF は ¬検出、TDF は ¬(検出∧励起)、低電力時は ¬(検出∧励起∧電力)。
+    `-low_power on` は TDF/CORE のみ、`-wsa_threshold 0..100` が必須。
+    正常回路の2時刻間の遷移数を元信号線数（分岐を含む）の指定割合以下にする。
+    off が既定。FDP の分母は従来の全入力 2^n のまま。詳細は `verification/paper_core/POWER.md`。
+    `src/fdp/power_constraint.c` は両極性で正確な加算器CNFを回路ごとに構築して再利用。
+    s27/s208/小回路の11ケースを core直後・最終とも全X展開で検出・励起・電力を確認。
+    `verify_tdf_power.py` / `test_power_settings.py` で独立全列挙・既定回帰・BDD_EXACTも検証。
+    サンプル `.set`: `{s27,s208}_tdf_core{,_lp20}`。既存の `run_paper_core_experiments.sh` で実行。
+    PI直結DFFのTDF等価解析が時刻境界を跨ぐ不具合も、解析・CSVエコー双方を修正。
   - `PAPER_CORE_VERIFY=1` — 各生成キューブを再確認（非検出 UNSAT、残存各リテラル削除で SAT）。
   - `MAXDC`/`XID_EXTERNAL`/`TDF_NOXID`/`DUAL`/`SPLIT` との併用はエラー。
     手順単体の比較では `MDC_NODOM=1` で支配流用を止める。既定では流用を維持し、

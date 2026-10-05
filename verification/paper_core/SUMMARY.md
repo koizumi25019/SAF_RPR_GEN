@@ -91,8 +91,9 @@ c17a ゴールデン・Debug/Release 既定動作、環境変数互換、明示�
 すべて `ALL VERIFIED`。CORE 自体の処理は今回変更していない。
 
 `MAXDC`、`XID_EXTERNAL`、`TDF_NOXID`、`DUAL`、`SPLIT` との併用はエラー。
-低消費電力制約はまだ追加していない。追加時には正側の検出条件と否定側の反例条件を
-`D_f ∧ P` / `¬D_f ∨ ¬P` に揃える必要がある。
+低消費電力制約は TDF CORE に実装した。`.set` の `-low_power on|off` と
+`-wsa_threshold 0..100` で選択する。正常回路の2時刻間の信号遷移数を制限し、
+生成側は検出・励起・電力の論理積、否定側はその全体の否定。詳細・全展開検証は `POWER.md`。
 計測ログの `Don't care` 時間には CORE のクエリ時間を含む。
 stderr の `[PAPER_CORE]` は新規生成キューブ数、oracle solve 数、care 数の総計
 （完全入力→core→極小化）を出す。流用キューブはこの集計に含めない。

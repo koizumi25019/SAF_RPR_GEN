@@ -1,0 +1,9 @@
+-tdf
+-net ../input/circuit/s27.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-low_power on
+-wsa_threshold 20
+-fdp ../output/paper_core/tdf/lp20/fdp/s27_fdp.csv
+-log ../output/paper_core/tdf/lp20/log/s27_log.txt

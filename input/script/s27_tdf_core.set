@@ -1,0 +1,8 @@
+-tdf
+-net ../input/circuit/s27.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-low_power off
+-fdp ../output/paper_core/tdf/power_off/fdp/s27_fdp.csv
+-log ../output/paper_core/tdf/power_off/log/s27_log.txt

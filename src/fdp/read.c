@@ -485,6 +485,10 @@ void AnalyzeEquivalenceFaultsTDF(void)
 		if (nl[i].type != BUF && nl[i].type != INV) continue;
 		if (nl[i].peer_1t == (NLIST*)NULL) continue;          // 1時刻目コピーのゲートは対象外
 
+		/* DFF Q at t2 is a BUF, but its peer at t1 is a free state input.
+           A shared primary input also has peer_1t, so testing only the BUF's
+           input peer would incorrectly collapse PI faults across the DFF. */
+        if (nl[i].peer_1t->type == IN) continue;
 		NLIST* in0 = nl[i].in[0];
 		if (in0->peer_1t == (NLIST*)NULL) continue;           // DFF置換BUF：時刻境界は跨がない
 

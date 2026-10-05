@@ -3,8 +3,8 @@
 #include "ccadical.h"
 #include "./target_fault.h"
 
-/* After WriteTPGModel: C_f AND NOT D_f, without generator constraints.
-   For TDF, D_f includes excitation. Power constraints are not implemented. */
+/* Definitions AND NOT(Detection AND Excitation AND Power).
+   Power is omitted when disabled; no generator units/blocking clauses. */
 CCaDiCaL* PaperCoreBuildOracle(TARGET* target);
 
 /* SAT 2024 Algorithm 1 CORE: complete model -> core -> deletion minimization.

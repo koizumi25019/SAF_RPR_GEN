@@ -24,6 +24,7 @@ void OutputEquivFaults(
     if (opt.fault_model == FM_TDF)
     {
         if (net->type != BUF && net->type != INV) return;
+        if (net->peer_1t && net->peer_1t->type == IN) return;
 
         NLIST* in0 = net->in[0];
         if (in0->peer_1t == (NLIST*)NULL) return;

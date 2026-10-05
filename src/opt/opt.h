@@ -64,6 +64,8 @@ typedef struct Option
     int dc_method;             /**< -dc_method xid|core */
     int dom_reuse;             /**< -dom_reuse on|off */
     int core_verify;           /**< -core_verify on|off */
+    int low_power;             /**< -low_power on|off (TDF CORE only) */
+    int wsa_threshold;         /**< -wsa_threshold 0..100 percent */
 }
 OPTION;
 

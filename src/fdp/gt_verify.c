@@ -28,6 +28,7 @@
 
 #include "./gt_verify.h"
 #include "../netlist/netlist.h"
+#include "../opt/opt.h"
 
 /* ============== 独立2値シミュレーション（GT自体の三重照合用） ============== */
 static int* sim_topo  = NULL;   /* net id をトポロジカル順（level 昇順）に並べた配列 */
@@ -113,6 +114,14 @@ static double FdpBySim(FNODE* f, long N)
         }
         /* TDF: 遷移が起動しないサンプルは非検出 */
         if (excid >= 0 && vg[excid] != excval) continue;
+        if (opt.low_power == YES) {
+            int changes = 0, signals = 0;
+            for (int i = 0; i < n_net; i++) if (nl[i].peer_1t) {
+                signals++;
+                changes += vg[i] != vg[nl[i].peer_1t->n];
+            }
+            if (changes > (long long)signals * opt.wsa_threshold / 100) continue;
+        }
         /* 故障サイトに縮退値を注入し、コーンを再評価 */
         vf[fsig] = stuck;
         for (int t = 0; t < sim_ntopo; t++) {
@@ -132,6 +141,7 @@ static double FdpBySim(FNODE* f, long N)
 /* ============================ BDD グラウンドトゥルース ============================ */
 static DdManager* gt_mgr   = NULL;
 static DdNode**   gt_good  = NULL;   /* 正常回路: net id -> BDD（一度だけ構築、常駐） */
+static DdNode* gt_power = NULL;
 static DdNode**   gt_fault = NULL;   /* 故障回路: TFOコーンのみ故障ごとに構築/解放 */
 static int*       gt_piidx = NULL;   /* net id -> pi[] index（PIでなければ -1） */
 static int*       gt_mark  = NULL;   /* TFOコーン所属フラグ */
@@ -252,6 +262,35 @@ static DdNode* gt_gate_bdd(DdManager* m, NLIST* nd, DdNode** gb, DdNode** fb, co
 
 /* 初回のみ: 正常回路の全ネットBDDをトポロジカル順に構築する。
    BDD変数 i は pi[i]（cudd_wrapper.c の parseCube と同じ対応）。 */
+static DdNode* gt_build_power(void){
+    DdManager* m = gt_mgr;
+    int signals = 0, varying = 0;
+    for (int i = 0; i < n_net; i++) if (nl[i].peer_1t) {
+        signals++;
+        varying += nl[i].peer_1t != &nl[i];
+    }
+    int bound = (int)((long long)signals * opt.wsa_threshold / 100);
+    if (bound >= varying) { DdNode* one = Cudd_ReadOne(m); Cudd_Ref(one); return one; }
+    /* Independent BDD dynamic programming for count<=bound; no CNF/adder. */
+    DdNode** dp = malloc((size_t)(bound + 1) * sizeof(DdNode*));
+    if (!dp) exit(1);
+    for (int j = 0; j <= bound; j++) { dp[j] = Cudd_ReadOne(m); Cudd_Ref(dp[j]); }
+    for (int i = 0; i < n_net; i++) {
+        if (!nl[i].peer_1t || nl[i].peer_1t == &nl[i]) continue;
+        DdNode* change = Cudd_bddXor(m, gt_good[i], gt_good[nl[i].peer_1t->n]); Cudd_Ref(change);
+        for (int j = bound; j >= 0; j--) {
+            DdNode* stay = Cudd_bddAnd(m, Cudd_Not(change), dp[j]); Cudd_Ref(stay);
+            DdNode* rise = j ? Cudd_bddAnd(m, change, dp[j-1]) : Cudd_ReadLogicZero(m); Cudd_Ref(rise);
+            DdNode* next = Cudd_bddOr(m, stay, rise); Cudd_Ref(next);
+            Cudd_RecursiveDeref(m, stay); Cudd_RecursiveDeref(m, rise);
+            Cudd_RecursiveDeref(m, dp[j]); dp[j] = next;
+        }
+        Cudd_RecursiveDeref(m, change);
+    }
+    DdNode* result = dp[bound];
+    for (int j = 0; j < bound; j++) Cudd_RecursiveDeref(m, dp[j]);
+    free(dp); return result;
+}
 static void gt_init(void){
     if (gt_mgr) return;
     sim_build_topo();
@@ -278,6 +317,7 @@ static void gt_init(void){
         Cudd_ReduceHeap(gt_mgr, CUDD_REORDER_SIFT, 0);   /* 最後に一度だけ整えて凍結 */
         Cudd_AutodynDisable(gt_mgr);
     }
+    if (opt.low_power == YES) gt_power = gt_build_power();
     atexit(gt_dump);
 }
 
@@ -449,6 +489,10 @@ static DdNode* gt_build_det(FNODE* f){
         Cudd_RecursiveDeref(m, det); det = t2;
     }
 
+    if (gt_power) {
+        DdNode* accepted = Cudd_bddAnd(m, det, gt_power); Cudd_Ref(accepted);
+        Cudd_RecursiveDeref(m, det); det = accepted;
+    }
     /* このコーンの故障BDDを解放し、mark をリセット（det は自前の参照を持つ） */
     for (int t = 0; t < ncone; t++) {
         int i = cone[t];

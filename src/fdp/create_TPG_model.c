@@ -6,6 +6,7 @@
 #include "./cnf/cnf.h"
 #include "ccadical.h"
 #include "./cnf_dump.h"
+#include "./power_constraint.h"
 
 void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
     for (int i = 0; i < n_net; i++) {
@@ -15,6 +16,7 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
             CNF_ADD(solver, nl[i].consgc[j]);
         }
     }
+    PowerLoadDefinition(solver);
 }
 
 //*************************************************************************************************************
@@ -32,6 +34,8 @@ bool WriteTPGModel(
 
     // 作成された文字列データをソルバに直接投入
     LoadModelToSolver(solver, target);
+    int power = PowerLiteral();
+    if (power) { CNF_ADD(solver, power); CNF_ADD(solver, 0); }
 
 	return true;
 }

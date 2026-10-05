@@ -4,6 +4,7 @@
 #include "./create_TPG_model.h"
 #include "./cnf/cnf.h"
 #include "./fault_detection_prob.h"
+#include "./power_constraint.h"
 #include "../netlist/netlist.h"
 
 static long cubes, input_care, core_care, prime_care, calls;
@@ -45,8 +46,13 @@ CCaDiCaL* PaperCoreBuildOracle(TARGET* target)
     if (f->exc_netptr) {
         int exc = (int)f->exc_netptr->varsgc;
         int exc_lit = f->type == SF0 ? -exc : exc;
-        ccadical_add(u, -exc_lit);   /* NOT(z AND excitation) */
+        ccadical_add(u, -exc_lit);
+        int current = (int)f->netptr->varsgc;
+        int launched = f->type == SF0 ? current : -current;
+        ccadical_add(u, -launched);
     }
+    int power = PowerLiteral();
+    if (power) ccadical_add(u, -power); /* NOT(z AND excitation AND power) */
     ccadical_add(u, 0);
     return u;
 }

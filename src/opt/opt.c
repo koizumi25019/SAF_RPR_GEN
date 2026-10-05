@@ -3,6 +3,7 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "./opt.h"
 #include "../fdp/read.h"
@@ -11,11 +12,23 @@
 static bool OPTisModeOption(const char* name)
 {
     return strcmp(name, "-dc_method") == 0 || strcmp(name, "-dom_reuse") == 0 ||
-           strcmp(name, "-core_verify") == 0;
+           strcmp(name, "-core_verify") == 0 || strcmp(name, "-low_power") == 0 ||
+           strcmp(name, "-wsa_threshold") == 0;
 }
 
 static bool OPTsetMode(const char* name, const char* value)
 {
+    if (strcmp(name, "-wsa_threshold") == 0) {
+        char* end = NULL;
+        errno = 0;
+        long percent = value ? strtol(value, &end, 10) : -1;
+        if (value && *value && end != value && !*end && !errno && percent >= 0 && percent <= 100) {
+            opt.wsa_threshold = (int)percent;
+            return OPT_OKAY;
+        }
+        fprintf(stderr, "COMMAND ERROR: -wsa_threshold requires an integer 0..100\n");
+        return OPT_ERROR;
+    }
     if (value && strcmp(name, "-dc_method") == 0) {
         if (strcmp(value, "xid") == 0) { opt.dc_method = DC_XID; return OPT_OKAY; }
         if (strcmp(value, "core") == 0) { opt.dc_method = DC_CORE; return OPT_OKAY; }
@@ -25,7 +38,8 @@ static bool OPTsetMode(const char* name, const char* value)
         if (strcmp(value, "off") == 0 || strcmp(value, "0") == 0) enabled = NO;
         if (enabled != MODE_NOSET) {
             if (strcmp(name, "-dom_reuse") == 0) opt.dom_reuse = enabled;
-            else opt.core_verify = enabled;
+            else if (strcmp(name, "-core_verify") == 0) opt.core_verify = enabled;
+            else opt.low_power = enabled;
             return OPT_OKAY;
         }
     }
@@ -64,6 +78,11 @@ bool OPT(
     if (opt.core_verify == MODE_NOSET) {
         opt.core_verify = getenv("PAPER_CORE_VERIFY") ? YES : NO;
     }
+    if (opt.low_power == YES &&
+        (opt.fault_model != FM_TDF || opt.dc_method != DC_CORE || opt.wsa_threshold < 0)) {
+        fprintf(stderr, "COMMAND ERROR: -low_power on requires -tdf, -dc_method core and -wsa_threshold 0..100\n");
+        return OPT_ERROR;
+    }
 
 	return OPT_OKAY;
 }
@@ -85,6 +104,8 @@ void OPTinit(
     opt.dc_method = MODE_NOSET;
     opt.dom_reuse = MODE_NOSET;
     opt.core_verify = MODE_NOSET;
+    opt.low_power = NO;
+    opt.wsa_threshold = -1;
 
 	return;
 }
