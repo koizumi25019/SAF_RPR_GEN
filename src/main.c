@@ -37,7 +37,7 @@ struct timespec start, end;
 	cpu_start = clock(); // CPU時間の計測開始
 
 	//set the option
-	if (OPT(argc, argv) != OPT_OKAY) return RETCODE_ERROR;
+	if (OPT(argc, argv) != OPT_OKAY) return EXIT_FAILURE;
 
 	/** read the netlist */
 	read_nl(opt.file.input.net);
@@ -101,6 +101,9 @@ static void WriteReport(
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
+    fprintf(fp, "//  Don't-care Method                         : %s\n", opt.dc_method == DC_CORE ? "CORE" : "XID");
+    fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
+    fprintf(fp, "//  CORE Extra Verification                   : %s\n", opt.core_verify == YES ? "on" : "off");
 	fprintf(fp, "//  Time                                      : %.3f sec\n", time);
 	fprintf(fp, "//  CPU Time                                  : %.3f sec\n", cpu_time);
 	fprintf(fp, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
@@ -128,7 +131,6 @@ void OutLogfile(
 
 	return;
 }
-
 
 
 

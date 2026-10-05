@@ -1,0 +1,9 @@
+# CORE: complete model -> UNSAT core -> deletion minimization
+-saf
+-net ../input/circuit/c17a.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-limit 0
+-fdp ../output/paper_core/full/core/fdp/c17a_fdp.csv
+-log ../output/paper_core/full/core/log/c17a_log.txt

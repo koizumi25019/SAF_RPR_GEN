@@ -1,0 +1,5844 @@
+{
+  "c17a": {
+    "summary": {
+      "circuit": "c17a",
+      "n_inputs": 5,
+      "representatives": 22,
+      "cubes": 53,
+      "core_expanded_patterns": 258,
+      "prime_expanded_patterns": 300,
+      "exhaustive_fault_pattern_pairs": 704,
+      "core_care": 153,
+      "prime_care": 137,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    "faults": [
+      {
+        "fault": "a",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "b",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 11,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 16,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "c",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 9,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 12,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "d",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 4,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "c",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 9,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 12,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "e",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "c_h_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 6,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "f",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4,
+        "core_expanded_patterns": 4,
+        "prime_expanded_patterns": 4,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "h",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 18,
+        "core_expanded_patterns": 32,
+        "prime_expanded_patterns": 32,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "h",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 4,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "h_i_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4,
+        "core_expanded_patterns": 2,
+        "prime_expanded_patterns": 4,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "h_j_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4,
+        "core_expanded_patterns": 2,
+        "prime_expanded_patterns": 4,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "g",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "i",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 11,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 16,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "j",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "i",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 19,
+        "core_expanded_patterns": 28,
+        "prime_expanded_patterns": 32,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "i_l_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "i_k_B",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 10,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 12,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "k",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 18,
+        "core_expanded_patterns": 24,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "l",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 18,
+        "core_expanded_patterns": 32,
+        "prime_expanded_patterns": 32,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "k",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 14,
+        "core_expanded_patterns": 20,
+        "prime_expanded_patterns": 20,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "l",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 14,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 16,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      }
+    ]
+  },
+  "s27_C": {
+    "summary": {
+      "circuit": "s27_C",
+      "n_inputs": 7,
+      "representatives": 32,
+      "cubes": 104,
+      "core_expanded_patterns": 2026,
+      "prime_expanded_patterns": 2156,
+      "exhaustive_fault_pattern_pairs": 4096,
+      "core_care": 333,
+      "prime_care": 315,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    "faults": [
+      {
+        "fault": "G2",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 48,
+        "core_expanded_patterns": 64,
+        "prime_expanded_patterns": 64,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G3",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G5",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 22,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G6",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 14,
+        "core_expanded_patterns": 18,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G7",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 19,
+        "core_expanded_patterns": 24,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G1",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 19,
+        "core_expanded_patterns": 24,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 19,
+        "core_expanded_patterns": 24,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 57,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 96,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 60,
+        "core_expanded_patterns": 128,
+        "prime_expanded_patterns": 128,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 60,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 128,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G8_A",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 14,
+        "core_expanded_patterns": 24,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G10_A",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 46,
+        "core_expanded_patterns": 80,
+        "prime_expanded_patterns": 80,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G13_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16,
+        "core_expanded_patterns": 16,
+        "prime_expanded_patterns": 16,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G15_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G8",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 14,
+        "core_expanded_patterns": 18,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G8",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 42,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 96,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 48,
+        "core_expanded_patterns": 64,
+        "prime_expanded_patterns": 64,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 80,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 96,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G8_G15_B",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 12,
+        "core_expanded_patterns": 16,
+        "prime_expanded_patterns": 16,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G8_G16_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8,
+        "core_expanded_patterns": 2,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G15",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 18,
+        "core_expanded_patterns": 32,
+        "prime_expanded_patterns": 32,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G16",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 6,
+        "core_expanded_patterns": 8,
+        "prime_expanded_patterns": 8,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G9",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 42,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 96,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_stem",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 22,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_stem",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 106,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 22,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 106,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G10_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4,
+        "core_expanded_patterns": 4,
+        "prime_expanded_patterns": 4,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 60,
+        "core_expanded_patterns": 96,
+        "prime_expanded_patterns": 128,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 68,
+        "core_expanded_patterns": 72,
+        "prime_expanded_patterns": 72,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G17",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 106,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G17",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 22,
+        "core_expanded_patterns": 12,
+        "prime_expanded_patterns": 24,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      }
+    ]
+  },
+  "s208_C": {
+    "summary": {
+      "circuit": "s208_C",
+      "n_inputs": 19,
+      "representatives": 215,
+      "cubes": 1272,
+      "core_expanded_patterns": 38709632,
+      "prime_expanded_patterns": 48821632,
+      "exhaustive_fault_pattern_pairs": 112721920,
+      "core_care": 9483,
+      "prime_care": 7837,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    "faults": [
+      {
+        "fault": "Y_1",
+        "stuck": 0,
+        "cubes": 21,
+        "detected_patterns": 89600,
+        "core_expanded_patterns": 56960,
+        "prime_expanded_patterns": 131456,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_1",
+        "stuck": 1,
+        "cubes": 21,
+        "detected_patterns": 89600,
+        "core_expanded_patterns": 99456,
+        "prime_expanded_patterns": 131456,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_2",
+        "stuck": 0,
+        "cubes": 19,
+        "detected_patterns": 81408,
+        "core_expanded_patterns": 40192,
+        "prime_expanded_patterns": 115072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3",
+        "stuck": 0,
+        "cubes": 17,
+        "detected_patterns": 77312,
+        "core_expanded_patterns": 37632,
+        "prime_expanded_patterns": 106880,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_2",
+        "stuck": 1,
+        "cubes": 19,
+        "detected_patterns": 81408,
+        "core_expanded_patterns": 41856,
+        "prime_expanded_patterns": 115072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_4",
+        "stuck": 0,
+        "cubes": 15,
+        "detected_patterns": 75264,
+        "core_expanded_patterns": 55424,
+        "prime_expanded_patterns": 102784,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3",
+        "stuck": 1,
+        "cubes": 18,
+        "detected_patterns": 77312,
+        "core_expanded_patterns": 39808,
+        "prime_expanded_patterns": 107136,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_4",
+        "stuck": 1,
+        "cubes": 15,
+        "detected_patterns": 75264,
+        "core_expanded_patterns": 51584,
+        "prime_expanded_patterns": 102784,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_5",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 41728,
+        "core_expanded_patterns": 38528,
+        "prime_expanded_patterns": 43392,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_6",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 40960,
+        "core_expanded_patterns": 36352,
+        "prime_expanded_patterns": 42624,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_5",
+        "stuck": 1,
+        "cubes": 10,
+        "detected_patterns": 41728,
+        "core_expanded_patterns": 43136,
+        "prime_expanded_patterns": 43392,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 40448,
+        "core_expanded_patterns": 35456,
+        "prime_expanded_patterns": 41600,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_6",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 40960,
+        "core_expanded_patterns": 36480,
+        "prime_expanded_patterns": 42624,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_8",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 40192,
+        "core_expanded_patterns": 37120,
+        "prime_expanded_patterns": 41216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 40448,
+        "core_expanded_patterns": 35456,
+        "prime_expanded_patterns": 41600,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_8",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 40192,
+        "core_expanded_patterns": 37120,
+        "prime_expanded_patterns": 41216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Clear",
+        "stuck": 0,
+        "cubes": 8,
+        "detected_patterns": 138240,
+        "core_expanded_patterns": 138240,
+        "prime_expanded_patterns": 294912,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Clear",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 138240,
+        "core_expanded_patterns": 184320,
+        "prime_expanded_patterns": 294912,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "X",
+        "stuck": 0,
+        "cubes": 13,
+        "detected_patterns": 227200,
+        "core_expanded_patterns": 425472,
+        "prime_expanded_patterns": 523776,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "X",
+        "stuck": 1,
+        "cubes": 13,
+        "detected_patterns": 227200,
+        "core_expanded_patterns": 129536,
+        "prime_expanded_patterns": 523776,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_0",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 65792,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 67584,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_1",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_2",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_3",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_4",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_5",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_6",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_7",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 512,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 512,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "C_8",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 256,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7_P_8_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 128,
+        "core_expanded_patterns": 128,
+        "prime_expanded_patterns": 128,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3_II131_1_C",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_2_II135_2_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3_II127_1_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Clear_II113_A",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 122880,
+        "core_expanded_patterns": 122880,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_4_II127_2_C",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 98304,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "X_II314_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 512,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "X_II350_A",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 65024,
+        "core_expanded_patterns": 5120,
+        "prime_expanded_patterns": 65024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_1_II92_B",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 24064,
+        "core_expanded_patterns": 31744,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_2_II92_A",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 24064,
+        "core_expanded_patterns": 31744,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7_II283_1_C",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 6144,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Clear_II265_A",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 15360,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_6_II287_2_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3_II96_A",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 15872,
+        "core_expanded_patterns": 23552,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7_II279_1_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_8_II279_2_C",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 12288,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_1_II100_A",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 57344,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_1_II314_B",
+        "stuck": 1,
+        "cubes": 11,
+        "detected_patterns": 16512,
+        "core_expanded_patterns": 2816,
+        "prime_expanded_patterns": 17408,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_3_II316_A",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 4224,
+        "core_expanded_patterns": 2304,
+        "prime_expanded_patterns": 5120,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "X_II508_1_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 131072,
+        "core_expanded_patterns": 512,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_5_II252_A",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 7168,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_4_II317_A",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 2176,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 3072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_2_II347_A",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 8064,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 8064,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_5_II406_B",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 896,
+        "core_expanded_patterns": 384,
+        "prime_expanded_patterns": 896,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_5_II244_B",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 33792,
+        "core_expanded_patterns": 34816,
+        "prime_expanded_patterns": 34816,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_6_II244_A",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 33792,
+        "core_expanded_patterns": 34816,
+        "prime_expanded_patterns": 34816,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_6_II374_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 640,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Y_7_II248_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II40",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 122880,
+        "core_expanded_patterns": 122880,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II41",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 15872,
+        "core_expanded_patterns": 23552,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II508_1",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 65792,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 67584,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II41",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 15872,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II42",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II43",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 49152,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II43",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II44",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II92",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 72192,
+        "core_expanded_patterns": 131072,
+        "prime_expanded_patterns": 196608,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II92",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 24064,
+        "core_expanded_patterns": 36864,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II310",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 8320,
+        "core_expanded_patterns": 2560,
+        "prime_expanded_patterns": 9216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II311",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 3968,
+        "core_expanded_patterns": 768,
+        "prime_expanded_patterns": 3968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II244",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 101376,
+        "core_expanded_patterns": 139264,
+        "prime_expanded_patterns": 139264,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II244",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 33792,
+        "core_expanded_patterns": 34816,
+        "prime_expanded_patterns": 34816,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II371",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 384,
+        "core_expanded_patterns": 512,
+        "prime_expanded_patterns": 512,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II370",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 384,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II372",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 256,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II193",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II309",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 16256,
+        "core_expanded_patterns": 1280,
+        "prime_expanded_patterns": 16256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II193",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II194",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II195",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II195",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II196",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II369",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 1152,
+        "core_expanded_patterns": 1536,
+        "prime_expanded_patterns": 1792,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II368",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 1920,
+        "core_expanded_patterns": 512,
+        "prime_expanded_patterns": 1920,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_1",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 147584,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 165888,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II41_II1_1_A",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 15360,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II193_W_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II41_II127_1_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II43_II135_1_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II92_II131_1_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II195_II261_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 3072,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 122880,
+        "core_expanded_patterns": 163840,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 368640,
+        "core_expanded_patterns": 770048,
+        "prime_expanded_patterns": 1048576,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II350",
+        "stuck": 0,
+        "cubes": 14,
+        "detected_patterns": 146304,
+        "core_expanded_patterns": 7168,
+        "prime_expanded_patterns": 162560,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II350",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 32512,
+        "core_expanded_patterns": 32512,
+        "prime_expanded_patterns": 32512,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II43_II109_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II244_II283_1_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II193_II279_1_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II195_II287_1_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113_II100_B",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 172032,
+        "core_expanded_patterns": 311296,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113_II104_B",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 196608,
+        "core_expanded_patterns": 262144,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II50",
+        "stuck": 1,
+        "cubes": 10,
+        "detected_patterns": 47616,
+        "core_expanded_patterns": 98304,
+        "prime_expanded_patterns": 163840,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II508_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II350_II347_B",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 72576,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 80640,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II350_P_2_B",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 73728,
+        "core_expanded_patterns": 768,
+        "prime_expanded_patterns": 81920,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113_II131_1_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 147456,
+        "core_expanded_patterns": 262144,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II202",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 131072,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II113_II127_2_B",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 172032,
+        "core_expanded_patterns": 393216,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_2",
+        "stuck": 1,
+        "cubes": 11,
+        "detected_patterns": 155776,
+        "core_expanded_patterns": 5632,
+        "prime_expanded_patterns": 181760,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II131_1",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II96",
+        "stuck": 0,
+        "cubes": 15,
+        "detected_patterns": 111104,
+        "core_expanded_patterns": 290816,
+        "prime_expanded_patterns": 491520,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II96",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 15872,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II100",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 401408,
+        "core_expanded_patterns": 1015808,
+        "prime_expanded_patterns": 1179648,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II100",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 57344,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II104",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 458752,
+        "core_expanded_patterns": 786432,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II104",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II248",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 229376,
+        "core_expanded_patterns": 393216,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II347",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 16128,
+        "core_expanded_patterns": 16128,
+        "prime_expanded_patterns": 16128,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II248",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II347",
+        "stuck": 1,
+        "cubes": 18,
+        "detected_patterns": 153216,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 177408,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II500_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II248_W_B",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 229376,
+        "core_expanded_patterns": 393216,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II100_II109_B",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 172032,
+        "core_expanded_patterns": 360448,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II96_II1_1_B",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 107520,
+        "core_expanded_patterns": 184320,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II96_II127_2_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II347_II341_B",
+        "stuck": 1,
+        "cubes": 15,
+        "detected_patterns": 75392,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 87296,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II347_II316_B",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 77824,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 90112,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II100_II135_2_B",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 229376,
+        "core_expanded_patterns": 393216,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II104_II135_1_B",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 229376,
+        "core_expanded_patterns": 393216,
+        "prime_expanded_patterns": 393216,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II489",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 131328,
+        "core_expanded_patterns": 11776,
+        "prime_expanded_patterns": 199680,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II248_II279_2_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II135_1",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II127_2",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 57344,
+        "core_expanded_patterns": 98304,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II135_2",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "W",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "W",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 491520,
+        "core_expanded_patterns": 1048576,
+        "prime_expanded_patterns": 1048576,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II341",
+        "stuck": 0,
+        "cubes": 20,
+        "detected_patterns": 154752,
+        "core_expanded_patterns": 7424,
+        "prime_expanded_patterns": 182528,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II341",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 7936,
+        "core_expanded_patterns": 7936,
+        "prime_expanded_patterns": 7936,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II6",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II109",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II6",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 458752,
+        "core_expanded_patterns": 786432,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II109",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 368640,
+        "core_expanded_patterns": 983040,
+        "prime_expanded_patterns": 1048576,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_3",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 159872,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 190464,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II109_II131_2_B",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 245760,
+        "core_expanded_patterns": 524288,
+        "prime_expanded_patterns": 524288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II5",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II5",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 458752,
+        "core_expanded_patterns": 655360,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II109_II127_1_C",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 122880,
+        "core_expanded_patterns": 262144,
+        "prime_expanded_patterns": 262144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II192",
+        "stuck": 0,
+        "cubes": 16,
+        "detected_patterns": 230400,
+        "core_expanded_patterns": 491520,
+        "prime_expanded_patterns": 1048576,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II131_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II504_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II127_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II307_1",
+        "stuck": 1,
+        "cubes": 16,
+        "detected_patterns": 74880,
+        "core_expanded_patterns": 6656,
+        "prime_expanded_patterns": 88320,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II318",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 79872,
+        "core_expanded_patterns": 1536,
+        "prime_expanded_patterns": 94208,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265",
+        "stuck": 1,
+        "cubes": 20,
+        "detected_patterns": 476160,
+        "core_expanded_patterns": 2342912,
+        "prime_expanded_patterns": 2621440,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265_II252_B",
+        "stuck": 1,
+        "cubes": 15,
+        "detected_patterns": 222208,
+        "core_expanded_patterns": 901120,
+        "prime_expanded_patterns": 983040,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265_II256_B",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 253952,
+        "core_expanded_patterns": 655360,
+        "prime_expanded_patterns": 655360,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II409",
+        "stuck": 0,
+        "cubes": 20,
+        "detected_patterns": 151680,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 180480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II409",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 3840,
+        "core_expanded_patterns": 3840,
+        "prime_expanded_patterns": 3840,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265_II283_1_A",
+        "stuck": 1,
+        "cubes": 10,
+        "detected_patterns": 190464,
+        "core_expanded_patterns": 655360,
+        "prime_expanded_patterns": 655360,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II265_II279_2_B",
+        "stuck": 1,
+        "cubes": 15,
+        "detected_patterns": 222208,
+        "core_expanded_patterns": 983040,
+        "prime_expanded_patterns": 983040,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_4",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 161920,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 194560,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II283_1",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6144,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II279_2",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 12288,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II409_II406_A",
+        "stuck": 0,
+        "cubes": 15,
+        "detected_patterns": 70784,
+        "core_expanded_patterns": 5120,
+        "prime_expanded_patterns": 84224,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II409_P_5_B",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 80896,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 96256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II3",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 106496,
+        "prime_expanded_patterns": 106496,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II3",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 458752,
+        "core_expanded_patterns": 819200,
+        "prime_expanded_patterns": 950272,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II4",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 81920,
+        "prime_expanded_patterns": 81920,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II4",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 458752,
+        "core_expanded_patterns": 720896,
+        "prime_expanded_patterns": 851968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II252",
+        "stuck": 0,
+        "cubes": 18,
+        "detected_patterns": 451584,
+        "core_expanded_patterns": 2195456,
+        "prime_expanded_patterns": 2359296,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II252",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 7168,
+        "core_expanded_patterns": 7168,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II256",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 516096,
+        "core_expanded_patterns": 1572864,
+        "prime_expanded_patterns": 1572864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II256",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_5",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 162944,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 196608,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II504_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II252_II261_B",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 193536,
+        "core_expanded_patterns": 753664,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II406",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 1792,
+        "core_expanded_patterns": 1792,
+        "prime_expanded_patterns": 1792,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II406",
+        "stuck": 1,
+        "cubes": 18,
+        "detected_patterns": 142464,
+        "core_expanded_patterns": 5632,
+        "prime_expanded_patterns": 170240,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II252_II287_2_B",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 258048,
+        "core_expanded_patterns": 786432,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II256_II287_1_B",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 258048,
+        "core_expanded_patterns": 786432,
+        "prime_expanded_patterns": 786432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II500_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II287_1",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II287_2",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II406_II374_B",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 81408,
+        "core_expanded_patterns": 2304,
+        "prime_expanded_patterns": 97280,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II406_II378_A",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 61056,
+        "core_expanded_patterns": 3584,
+        "prime_expanded_patterns": 72960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II261",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 3072,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II261",
+        "stuck": 1,
+        "cubes": 14,
+        "detected_patterns": 390144,
+        "core_expanded_patterns": 1769472,
+        "prime_expanded_patterns": 1835008,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II158",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II158",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 516096,
+        "core_expanded_patterns": 1572864,
+        "prime_expanded_patterns": 1572864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II157",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II261_II283_2_B",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 260096,
+        "core_expanded_patterns": 917504,
+        "prime_expanded_patterns": 917504,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II157",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 516096,
+        "core_expanded_patterns": 1441792,
+        "prime_expanded_patterns": 1572864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II484",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 18432,
+        "core_expanded_patterns": 768,
+        "prime_expanded_patterns": 18432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II378",
+        "stuck": 0,
+        "cubes": 14,
+        "detected_patterns": 122496,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 146688,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II261_II279_1_C",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 130048,
+        "core_expanded_patterns": 458752,
+        "prime_expanded_patterns": 458752,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II487",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 768,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II378",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 768,
+        "core_expanded_patterns": 768,
+        "prime_expanded_patterns": 768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_6",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 163456,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 197632,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II283_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II279_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II378_P_7_B",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 81664,
+        "core_expanded_patterns": 2560,
+        "prime_expanded_patterns": 97792,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II378_P_8_B",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 40832,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 48896,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_7",
+        "stuck": 1,
+        "cubes": 11,
+        "detected_patterns": 163712,
+        "core_expanded_patterns": 5632,
+        "prime_expanded_patterns": 197632,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "P_8",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 163840,
+        "core_expanded_patterns": 6144,
+        "prime_expanded_patterns": 198144,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II512_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II512_2",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 512,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 512,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II497_1",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 256,
+        "core_expanded_patterns": 256,
+        "prime_expanded_patterns": 256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II155",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 13312,
+        "prime_expanded_patterns": 13312,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II155",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 516096,
+        "core_expanded_patterns": 1605632,
+        "prime_expanded_patterns": 1736704,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II156",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 10240,
+        "prime_expanded_patterns": 10240,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II156",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 516096,
+        "core_expanded_patterns": 1507328,
+        "prime_expanded_patterns": 1638400,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II494",
+        "stuck": 1,
+        "cubes": 15,
+        "detected_patterns": 134400,
+        "core_expanded_patterns": 53248,
+        "prime_expanded_patterns": 224256,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "II495",
+        "stuck": 0,
+        "cubes": 18,
+        "detected_patterns": 171264,
+        "core_expanded_patterns": 234496,
+        "prime_expanded_patterns": 433152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Z",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 196352,
+        "core_expanded_patterns": 261632,
+        "prime_expanded_patterns": 261632,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "Z",
+        "stuck": 1,
+        "cubes": 13,
+        "detected_patterns": 327936,
+        "core_expanded_patterns": 13312,
+        "prime_expanded_patterns": 397312,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      }
+    ]
+  },
+  "s298_C": {
+    "summary": {
+      "circuit": "s298_C",
+      "n_inputs": 17,
+      "representatives": 308,
+      "cubes": 1115,
+      "core_expanded_patterns": 10164480,
+      "prime_expanded_patterns": 13178368,
+      "exhaustive_fault_pattern_pairs": 40370176,
+      "core_care": 5252,
+      "prime_care": 4596,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    "faults": [
+      {
+        "fault": "G10",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 91136,
+        "prime_expanded_patterns": 116736,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 116736,
+        "prime_expanded_patterns": 116736,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G20",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 38912,
+        "core_expanded_patterns": 14336,
+        "prime_expanded_patterns": 45056,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G21",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G20",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12",
+        "stuck": 0,
+        "cubes": 14,
+        "detected_patterns": 40896,
+        "core_expanded_patterns": 21504,
+        "prime_expanded_patterns": 67584,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 38912,
+        "core_expanded_patterns": 17408,
+        "prime_expanded_patterns": 45056,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G21",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G22",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 34816,
+        "core_expanded_patterns": 19456,
+        "prime_expanded_patterns": 36864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 46016,
+        "core_expanded_patterns": 27648,
+        "prime_expanded_patterns": 98304,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12",
+        "stuck": 1,
+        "cubes": 13,
+        "detected_patterns": 40896,
+        "core_expanded_patterns": 26624,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G22",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 34816,
+        "core_expanded_patterns": 19456,
+        "prime_expanded_patterns": 36864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G23",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13",
+        "stuck": 1,
+        "cubes": 13,
+        "detected_patterns": 46016,
+        "core_expanded_patterns": 29184,
+        "prime_expanded_patterns": 102400,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14",
+        "stuck": 0,
+        "cubes": 30,
+        "detected_patterns": 47936,
+        "core_expanded_patterns": 109056,
+        "prime_expanded_patterns": 156672,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G23",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14",
+        "stuck": 1,
+        "cubes": 31,
+        "detected_patterns": 47936,
+        "core_expanded_patterns": 111872,
+        "prime_expanded_patterns": 163840,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G16",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G16",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G17",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G18",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G17",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G18",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G19",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G19",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G111_A",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 83968,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G100_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G100_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G22_G123_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G115_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G109_D",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 22528,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G23_G129_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G64",
+        "stuck": 0,
+        "cubes": 22,
+        "detected_patterns": 60224,
+        "core_expanded_patterns": 88064,
+        "prime_expanded_patterns": 225280,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G64",
+        "stuck": 1,
+        "cubes": 22,
+        "detected_patterns": 60224,
+        "core_expanded_patterns": 88064,
+        "prime_expanded_patterns": 225280,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G31_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G32_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G32_B",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G41_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G41_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G41_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G35_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G25_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G80_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G31_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G29_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G35_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G52_D",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G52_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G61_A",
+        "stuck": 0,
+        "cubes": 17,
+        "detected_patterns": 4064,
+        "core_expanded_patterns": 13824,
+        "prime_expanded_patterns": 13824,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G62_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G25_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G71_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G20_G72_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G81_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G70_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G20_G73_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G83_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G35_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G71_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G80_B",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 6144,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G81_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G74_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G83_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G10_G48_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G57_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G11_G68_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G83_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G22_G65_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G74_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G12_G68_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G94_B",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 5120,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G84_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G75_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G95_B",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G13_G68_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G88_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 14336,
+        "prime_expanded_patterns": 14336,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G14_G79_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G17_G85_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G19_G74_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G18_G69_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G19_G77_D",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G131",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G114",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G124",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G124",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G127",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G40",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 29696,
+        "core_expanded_patterns": 25600,
+        "prime_expanded_patterns": 57344,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G32",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G50",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G40",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 29696,
+        "core_expanded_patterns": 25600,
+        "prime_expanded_patterns": 57344,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G41",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G51",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 30720,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G50",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G60",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G51",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 30720,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G60",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G35",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 36864,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G80",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G55",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G54",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 36864,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G82",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 11264,
+        "core_expanded_patterns": 10240,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G81",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G74",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G82",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 11520,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 18432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 49152,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G93",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G76",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 51200,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G59",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G59",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 23552,
+        "core_expanded_patterns": 30720,
+        "prime_expanded_patterns": 45056,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G87",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 22528,
+        "core_expanded_patterns": 26624,
+        "prime_expanded_patterns": 36864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G99",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G64_G63_A",
+        "stuck": 1,
+        "cubes": 21,
+        "detected_patterns": 59008,
+        "core_expanded_patterns": 79872,
+        "prime_expanded_patterns": 208896,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G64_G58_A",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 30720,
+        "core_expanded_patterns": 40960,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 65024,
+        "core_expanded_patterns": 173056,
+        "prime_expanded_patterns": 237568,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 23552,
+        "core_expanded_patterns": 19456,
+        "prime_expanded_patterns": 53248,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 65024,
+        "core_expanded_patterns": 174080,
+        "prime_expanded_patterns": 237568,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G121",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G131",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103",
+        "stuck": 1,
+        "cubes": 10,
+        "detected_patterns": 24064,
+        "core_expanded_patterns": 34816,
+        "prime_expanded_patterns": 51200,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G68_D",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G132",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G132",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G133",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G115",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G89_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G133",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G117",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G117",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G118",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G118",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G30_D",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G70_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G34_D",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 40960,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G73_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G90_B",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 18432,
+        "prime_expanded_patterns": 20480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G29_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G56_C",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 83968,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G69_A",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 10240,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G77_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G79_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G89_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 28672,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G61",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 3072,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G61",
+        "stuck": 1,
+        "cubes": 20,
+        "detected_patterns": 11744,
+        "core_expanded_patterns": 21504,
+        "prime_expanded_patterns": 30720,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G66",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G66",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G67",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G94",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G67",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G88",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G103_G105_A",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 18432,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G125_C",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G124_G123_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G40_G42_A",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G130_G119_C",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G40_G24_D",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G131_G129_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G50_G26_B",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G31_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G51_G27_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G40_G47_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G50_G47_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G60_G62_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G24_C",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46_G24_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38_G24_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46_G33_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38_G33_A",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G52_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38_G25_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G82_G71_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G50_G49_A",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91_G72_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G36_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46_G52_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91_G90_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G38_G36_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G37_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46_G37_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G51_G49_B",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G60_G57_C",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G45_G48_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G82_G84_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G59_G62_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G82_G75_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91_G84_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91_G85_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G46_G48_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G91_G75_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G59_G65_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G59_G57_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G100",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G83_D",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G85_B",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G95_A",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G96_G77_C",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 14336,
+        "prime_expanded_patterns": 14336,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G123",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G126",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G129",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G31",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G33",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G42",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G24",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G52",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G25",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G70",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 14336,
+        "prime_expanded_patterns": 14336,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G36",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G90",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G71",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G37",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G72",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G28",
+        "stuck": 0,
+        "cubes": 8,
+        "detected_patterns": 47104,
+        "core_expanded_patterns": 63488,
+        "prime_expanded_patterns": 77824,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G29",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G73",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G28",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 47104,
+        "core_expanded_patterns": 62464,
+        "prime_expanded_patterns": 77824,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G29",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 131072,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G47",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 5120,
+        "prime_expanded_patterns": 5120,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G75",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G83",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G84",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G95",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 6144,
+        "core_expanded_patterns": 10240,
+        "prime_expanded_patterns": 10240,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G85",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G68",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G69",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G89",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G79",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 10240,
+        "core_expanded_patterns": 8192,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G61_G62_D",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 6112,
+        "core_expanded_patterns": 9216,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G61_G65_D",
+        "stuck": 1,
+        "cubes": 10,
+        "detected_patterns": 5616,
+        "core_expanded_patterns": 10752,
+        "prime_expanded_patterns": 12288,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G61_G57_D",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 3072,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G120",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G104",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G109",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 10240,
+        "prime_expanded_patterns": 20480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G128",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G30",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G30",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 102400,
+        "core_expanded_patterns": 147456,
+        "prime_expanded_patterns": 147456,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G34",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 40960,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G34",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 147456,
+        "prime_expanded_patterns": 147456,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G62",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G65",
+        "stuck": 0,
+        "cubes": 22,
+        "detected_patterns": 60224,
+        "core_expanded_patterns": 88064,
+        "prime_expanded_patterns": 225280,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G48",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G57",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G65",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G49",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G28_G26_A",
+        "stuck": 1,
+        "cubes": 2,
+        "detected_patterns": 17408,
+        "core_expanded_patterns": 18432,
+        "prime_expanded_patterns": 18432,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G28_G43_C",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 36864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G28_G27_B",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 33792,
+        "prime_expanded_patterns": 33792,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G122",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G125",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G125",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 131072,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G119",
+        "stuck": 0,
+        "cubes": 2,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G119",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 131072,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G43",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 45056,
+        "core_expanded_patterns": 57344,
+        "prime_expanded_patterns": 57344,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G26",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 16384,
+        "prime_expanded_patterns": 16384,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G27",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 15360,
+        "core_expanded_patterns": 32768,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G65_G63_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 2048,
+        "core_expanded_patterns": 2048,
+        "prime_expanded_patterns": 2048,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G65_G58_B",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 1024,
+        "core_expanded_patterns": 1024,
+        "prime_expanded_patterns": 1024,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G53",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 63488,
+        "core_expanded_patterns": 149504,
+        "prime_expanded_patterns": 149504,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G63",
+        "stuck": 0,
+        "cubes": 21,
+        "detected_patterns": 59008,
+        "core_expanded_patterns": 79872,
+        "prime_expanded_patterns": 208896,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G39",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 36864,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G39",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 102400,
+        "core_expanded_patterns": 188416,
+        "prime_expanded_patterns": 188416,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G58",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 30720,
+        "core_expanded_patterns": 40960,
+        "prime_expanded_patterns": 65536,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G44",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 51200,
+        "prime_expanded_patterns": 51200,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G44",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 167936,
+        "prime_expanded_patterns": 167936,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G56",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 83968,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G56",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 233472,
+        "prime_expanded_patterns": 233472,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G112",
+        "stuck": 0,
+        "cubes": 24,
+        "detected_patterns": 63104,
+        "core_expanded_patterns": 169984,
+        "prime_expanded_patterns": 245760,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G112",
+        "stuck": 1,
+        "cubes": 22,
+        "detected_patterns": 63104,
+        "core_expanded_patterns": 172032,
+        "prime_expanded_patterns": 229376,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G112_G77_A",
+        "stuck": 0,
+        "cubes": 1,
+        "detected_patterns": 4096,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 4096,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G112_G86_D",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 51200,
+        "prime_expanded_patterns": 53248,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G112_G111_B",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 5120,
+        "prime_expanded_patterns": 10240,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108",
+        "stuck": 0,
+        "cubes": 25,
+        "detected_patterns": 62464,
+        "core_expanded_patterns": 206848,
+        "prime_expanded_patterns": 294912,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108",
+        "stuck": 1,
+        "cubes": 20,
+        "detected_patterns": 62592,
+        "core_expanded_patterns": 135168,
+        "prime_expanded_patterns": 212992,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G86",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 65536,
+        "prime_expanded_patterns": 69632,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G86",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 102400,
+        "core_expanded_patterns": 270336,
+        "prime_expanded_patterns": 270336,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G77",
+        "stuck": 1,
+        "cubes": 1,
+        "detected_patterns": 8192,
+        "core_expanded_patterns": 4096,
+        "prime_expanded_patterns": 8192,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G111",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 83968,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G78_A",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 30720,
+        "prime_expanded_patterns": 32768,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G97_D",
+        "stuck": 1,
+        "cubes": 5,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 28672,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G110_A",
+        "stuck": 1,
+        "cubes": 8,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 45056,
+        "prime_expanded_patterns": 51200,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G101_D",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 36864,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G105_B",
+        "stuck": 1,
+        "cubes": 4,
+        "detected_patterns": 12288,
+        "core_expanded_patterns": 9216,
+        "prime_expanded_patterns": 20480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G108_G116_D",
+        "stuck": 1,
+        "cubes": 3,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 20480,
+        "prime_expanded_patterns": 20480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G105",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 24576,
+        "core_expanded_patterns": 24576,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G116",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 81920,
+        "core_expanded_patterns": 163840,
+        "prime_expanded_patterns": 180224,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G97",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 53248,
+        "core_expanded_patterns": 45056,
+        "prime_expanded_patterns": 81920,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G78",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 51200,
+        "prime_expanded_patterns": 83968,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G110",
+        "stuck": 0,
+        "cubes": 10,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 106496,
+        "prime_expanded_patterns": 126976,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G101",
+        "stuck": 0,
+        "cubes": 6,
+        "detected_patterns": 81920,
+        "core_expanded_patterns": 106496,
+        "prime_expanded_patterns": 155648,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G113",
+        "stuck": 1,
+        "cubes": 9,
+        "detected_patterns": 114688,
+        "core_expanded_patterns": 294912,
+        "prime_expanded_patterns": 327680,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G106",
+        "stuck": 0,
+        "cubes": 7,
+        "detected_patterns": 40960,
+        "core_expanded_patterns": 71680,
+        "prime_expanded_patterns": 92160,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G107",
+        "stuck": 0,
+        "cubes": 9,
+        "detected_patterns": 49152,
+        "core_expanded_patterns": 102400,
+        "prime_expanded_patterns": 104448,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G107",
+        "stuck": 1,
+        "cubes": 12,
+        "detected_patterns": 81920,
+        "core_expanded_patterns": 155648,
+        "prime_expanded_patterns": 192512,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G92",
+        "stuck": 0,
+        "cubes": 5,
+        "detected_patterns": 28672,
+        "core_expanded_patterns": 26624,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G92",
+        "stuck": 1,
+        "cubes": 7,
+        "detected_patterns": 102400,
+        "core_expanded_patterns": 155648,
+        "prime_expanded_patterns": 188416,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G98",
+        "stuck": 0,
+        "cubes": 4,
+        "detected_patterns": 32768,
+        "core_expanded_patterns": 18432,
+        "prime_expanded_patterns": 40960,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G98",
+        "stuck": 1,
+        "cubes": 6,
+        "detected_patterns": 98304,
+        "core_expanded_patterns": 139264,
+        "prime_expanded_patterns": 172032,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G113",
+        "stuck": 0,
+        "cubes": 3,
+        "detected_patterns": 16384,
+        "core_expanded_patterns": 10240,
+        "prime_expanded_patterns": 20480,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G102",
+        "stuck": 0,
+        "cubes": 12,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 101376,
+        "prime_expanded_patterns": 131072,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      },
+      {
+        "fault": "G102",
+        "stuck": 1,
+        "cubes": 11,
+        "detected_patterns": 65536,
+        "core_expanded_patterns": 108544,
+        "prime_expanded_patterns": 135168,
+        "all_expansions_detect": true,
+        "exact_cover": true
+      }
+    ]
+  }
+}

@@ -26,6 +26,7 @@
 #include "./cnf_dump.h"      /* 検証: env DUMP_CNF で検出CNFをDIMACS出力（既定無効） */
 #include "./cube_trend.h"    /* 検証: env CUBE_TREND=1 でキューブ列の傾向観察（既定無効） */
 #include "./experiment.h"    /* 研究: env MAXDC / MAXHAM（既定無効） */
+#include "./paper_core.h"    /* SAT 2024 CORE: 完全モデルからcore抽出＋極小化 */
 
 //*************************************************************************************************************
 //	@name		AddBlockingClauseFromCube
@@ -46,7 +47,7 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 //*************************************************************************************************************
 //	@name		CubeFromSolver
 //	@function	ソルバの解をそのままキューブ化する（全ビット指定、X なし）。
-//	            TDF モードは XID が未対応（2時刻の励起条件を保存できない）ため、
+//	            PAPER_CORE の入力および TDF_NOXID の検証用。
 //	            ドントケア埋めを行わずミンターム単位で列挙する。
 //*************************************************************************************************************
 static char* CubeFromSolver(CCaDiCaL* solver)
@@ -132,6 +133,16 @@ bool AnalyzeFaultDensity(
 	FILE* cube_analysis_fp = (FILE*)NULL;
 
 	int count = 0;
+    bool paper_core = opt.dc_method == DC_CORE;
+    bool paper_core_verify = opt.core_verify == YES;
+    if (paper_core) {
+        const char* incompatible[] = { "MAXDC", "XID_EXTERNAL", "TDF_NOXID", "DUAL", "SPLIT" };
+        for (size_t i = 0; i < sizeof(incompatible) / sizeof(incompatible[0]); i++)
+            if (getenv(incompatible[i])) {
+                fprintf(stderr, "[PAPER_CORE] cannot combine with %s\n", incompatible[i]);
+                exit(1);
+            }
+    }
 
 	// ===== CPU時間計測用変数 =====
     clock_t t_start, t_end;
@@ -244,6 +255,13 @@ bool AnalyzeFaultDensity(
 
 		// 案1(env MAXDC): 素項展開用 非検出オラクル。未設定なら NULL で従来動作
 		CCaDiCaL* u_oracle = EXP_MaybeBuildOracle(&target);
+        CCaDiCaL* core_oracle = paper_core ? PaperCoreBuildOracle(&target) : NULL;
+        int* core_vars = NULL;
+        if (paper_core) {
+            core_vars = malloc((size_t)(n_pi ? n_pi : 1) * sizeof(int));
+            if (!core_vars) { fprintf(stderr, "[PAPER_CORE] allocation failed\n"); exit(1); }
+            for (int i = 0; i < n_pi; i++) core_vars[i] = (int)pi[i]->varsgc;
+        }
 
 		// f のテストキューブを集める集合
 		CubeSet cubes;
@@ -253,7 +271,7 @@ bool AnalyzeFaultDensity(
 		// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
 		// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
 		// MDC_NODOM をセットすると流用を止め、ゼロから完全列挙する（支配解析の検証用）。
-		bool nodom = getenv("MDC_NODOM");
+		bool nodom = opt.dom_reuse == NO;
 		int seeded_cnt = 0;
 		for (int k = 0; k < f->n_subset_faults; k++)
 		{
@@ -382,7 +400,14 @@ bool AnalyzeFaultDensity(
                 // TDF は励起条件（f->exc_netptr）込みで XID する。
                 // env TDF_NOXID=1 で X 埋めを止めミンターム列挙に戻す（XID の検証用）。
                 char* x_pattern;
-                if (tdf)
+                if (paper_core) {
+                    x_pattern = CubeFromSolver(solver);
+                    if (!PaperCoreGeneralize(core_oracle, core_vars, n_pi, x_pattern, paper_core_verify)) {
+                        fprintf(stderr, "[PAPER_CORE] failed at %s/%s; no cube blocked\n",
+                                f->name, FaultTypeName(f->type));
+                        exit(1);
+                    }
+                } else if (tdf)
                     x_pattern = getenv("TDF_NOXID")
                                     ? CubeFromSolver(solver)
                                     : InlineXID(solver, f->netptr, EXP_PreferredPONet(), f->exc_netptr);
@@ -415,7 +440,10 @@ bool AnalyzeFaultDensity(
 			}
 		}
 		ccadical_release(solver);
+        if (core_oracle) ccadical_release(core_oracle);
+        free(core_vars);
 	}
+    if (paper_core) PaperCoreReport();
 
 	// ===== 支配流用サマリー =====
 	{

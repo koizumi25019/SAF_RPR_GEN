@@ -35,7 +35,10 @@ cd build && ./main_debug -set ../input/script/c17a.set
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、`-cube_analysis`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
-`-saf`/`-tdf`（故障モデル。省略時は縮退故障）。
+`-saf`/`-tdf`（故障モデル。省略時は縮退故障）、
+`-dc_method xid|core`、`-dom_reuse on|off`、`-core_verify on|off`。
+新規3設定は `.set` 内の明示指定が環境変数より優先し、省略時は従来環境変数を参照する。
+環境変数も無ければ XID・流用 on・core 検証 off。
 
 ### 遷移故障モード（`-tdf`）
 
@@ -186,6 +189,39 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
   - `CUBE_TREND_CSV=path` — 故障×キューブの明細を CSV 追記（`x_count` vs `idx` 等のプロット用）。
     生成順を純粋に見るときは `MDC_NODOM=1` 併用（種キューブが先頭に入らない）。詳細は
     `verification/cube_trend/SUMMARY.md`。
+- **`src/fdp/paper_core.c`** — SAT 2024「Entailing Generalization Boosts Enumeration」の CORE 手順。
+  - 通常の運用は `.set` の `-dc_method core` / `-dom_reuse off` / `-core_verify off`。
+    XID 比較では `-dc_method xid`。設定例 `input/script/c17a_{core,xid}.set`、
+    シェル実行は `bash run_paper_core_experiments.sh c17a_xid c17a_core`。
+    出力は方式別ディレクトリに分離し、シェルが必要な出力ディレクトリを作成する。
+    実行ログにも選択方式・流用・追加検証を記録する。
+  - 設定の検証は `python3 verification/paper_core/test_settings.py`。
+    省略・CLI・環境変数互換・明示指定の優先・不正値の拒否を確認する。
+  - `PAPER_CORE=1` — XID を経由せず、SAT の完全入力モデルを非検出オラクルへの assumptions とし、
+    UNSAT core 抽出→core 再確認→1リテラルずつ削除して極小素項にする。最小リテラル数は保証しない。
+    SAF は ¬検出、TDF は ¬(検出∧励起)。低消費電力制約は未実装。
+  - `PAPER_CORE_VERIFY=1` — 各生成キューブを再確認（非検出 UNSAT、残存各リテラル削除で SAT）。
+  - `MAXDC`/`XID_EXTERNAL`/`TDF_NOXID`/`DUAL`/`SPLIT` との併用はエラー。
+    手順単体の比較では `MDC_NODOM=1` で支配流用を止める。既定では流用を維持し、
+    流用キューブは親故障について再極小化しない。未設定なら既存 XID の動作。
+  - 再現: `python3 verification/paper_core/run_checks.py`。詳細は
+    `verification/paper_core/SUMMARY.md`。core 不整合や unknown では禁止節を追加せず異常終了。
+  - 中規模 SAF limit30 比較は `bash run_paper_core_limit30.sh`。s5378_C/s9234_C、
+    XID/CORE、流用なし、追加検証なし、既定1回。`--repeats N` と回路引数に対応。
+    `input/script/*_{xid,core}_l30.set` と `verification/paper_core/LIMIT30.md` を参照。
+    s13207_C は既定対象外（明示指定用の設定は保存）。core 抽出直後の X 率・削除試行数も集計する。
+    小規模4回路との合計6回路の比較・削除判定の対象割合は `verification/paper_core/COMPARISON.md`。
+    中規模初回: CORE/XID CPU 2.76倍・3.89倍、完了故障1,567→2,654・3,053→3,721。
+    core 直後 X率93.81%・93.21%、削除試行は全入力の6.19%・6.79%。両方式完了の FDP 不一致0。
+    小規模4回路は独立2値シミュレーションで X を全展開し、core直後・最終とも全て検出。
+    577代表故障・2,544キューブ、最終展開延べ62,002,456パターン。全検出集合・FDPも一致。
+    `SIMULATION.md` / `simulate_expanded.py` と結果JSONに保存。
+    `verification/paper_core/paper_core_comparison.xlsx` はグラフ用数値表10シート。
+    `export_excel.py` はGit保存のJSONから再生成する（openpyxl）。
+    未完了故障の FDP は下界として比較し、両方式完了の FDP 不一致と故障欠落はエラー。
+  - 性能比較: `python3 verification/paper_core/benchmark.py`。小規模 SAF 4回路、流用なし、
+    検証処理なし、各7回の結果は `verification/paper_core/BENCHMARK.md`。
+    s208_C はキューブ約8分の1・CPU中央値約7%短縮（測定範囲は重なる）、s298_C は約1.58倍遅い。
 - **`src/fdp/experiment.c`** — 研究用フック。
   - `MAXDC`（案1）— 非検出オラクル CNF で各キューブを素項へ拡大＋伸び代計測。**爆発故障の決定打**
     （XID は局所DCしか見ず、グローバルには1本で済む空間を52万本に刻む＝冗長カバー。素項展開が

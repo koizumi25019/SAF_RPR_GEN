@@ -1,0 +1,9 @@
+# SAF, limit30, CORE, no dominance reuse
+-saf
+-net ../input/circuit/s13207_C.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-limit 30
+-fdp ../output/paper_core/limit30/core/fdp/s13207_C_fdp.csv
+-log ../output/paper_core/limit30/core/log/s13207_C_log.txt

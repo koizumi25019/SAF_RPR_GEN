@@ -1,0 +1,9 @@
+# SAF, limit30, XID, no dominance reuse
+-saf
+-net ../input/circuit/s9234_C.v
+-dc_method xid
+-dom_reuse off
+-core_verify off
+-limit 30
+-fdp ../output/paper_core/limit30/xid/fdp/s9234_C_fdp.csv
+-log ../output/paper_core/limit30/xid/log/s9234_C_log.txt

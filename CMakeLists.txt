@@ -16,6 +16,7 @@ set(SOURCES
     src/fdp/aig_dump.c
     src/fdp/cube_trend.c
     src/fdp/experiment.c
+    src/fdp/paper_core.c
     src/fdp/cnf_dump.c
     src/fdp/gmp_wrapper.c
     src/fdp/init.c

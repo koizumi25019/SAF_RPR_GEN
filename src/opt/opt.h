@@ -21,6 +21,8 @@
 /** fault model (-saf / -tdf) */
 #define FM_SAF                    0           /**< stuck-at fault (default) */
 #define FM_TDF                    1           /**< transition delay fault (LOC: v1=自由, v2はPI共有+DFF引き継ぎ) */
+#define DC_XID                    0
+#define DC_CORE                   1
 
 #define		YES				1
 #define		NO				0
@@ -59,6 +61,9 @@ typedef struct Option
 {
 	FILES			      file;			      /**< files */
 	int				      fault_model;		  /**< FM_SAF / FM_TDF */
+    int dc_method;             /**< -dc_method xid|core */
+    int dom_reuse;             /**< -dom_reuse on|off */
+    int core_verify;           /**< -core_verify on|off */
 }
 OPTION;
 

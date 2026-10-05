@@ -1,0 +1,9 @@
+# XID-only comparison with the same enumeration settings
+-saf
+-net ../input/circuit/c17a.v
+-dc_method xid
+-dom_reuse off
+-core_verify off
+-limit 0
+-fdp ../output/paper_core/full/xid/fdp/c17a_fdp.csv
+-log ../output/paper_core/full/xid/log/c17a_log.txt

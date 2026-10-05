@@ -8,6 +8,33 @@
 #include "../fdp/read.h"
 #include "../lib/lib.h"
 
+static bool OPTisModeOption(const char* name)
+{
+    return strcmp(name, "-dc_method") == 0 || strcmp(name, "-dom_reuse") == 0 ||
+           strcmp(name, "-core_verify") == 0;
+}
+
+static bool OPTsetMode(const char* name, const char* value)
+{
+    if (value && strcmp(name, "-dc_method") == 0) {
+        if (strcmp(value, "xid") == 0) { opt.dc_method = DC_XID; return OPT_OKAY; }
+        if (strcmp(value, "core") == 0) { opt.dc_method = DC_CORE; return OPT_OKAY; }
+    } else if (value) {
+        int enabled = MODE_NOSET;
+        if (strcmp(value, "on") == 0 || strcmp(value, "1") == 0) enabled = YES;
+        if (strcmp(value, "off") == 0 || strcmp(value, "0") == 0) enabled = NO;
+        if (enabled != MODE_NOSET) {
+            if (strcmp(name, "-dom_reuse") == 0) opt.dom_reuse = enabled;
+            else opt.core_verify = enabled;
+            return OPT_OKAY;
+        }
+    }
+    fprintf(stderr, "COMMAND ERROR: %s requires %s (got %s)\n", name,
+            strcmp(name, "-dc_method") == 0 ? "xid|core" : "on|off",
+            value ? value : "no value");
+    return OPT_ERROR;
+}
+
 //*************************************************************************************************************
 //	@name		OPT
 //	@function	analyze the option
@@ -27,6 +54,17 @@ bool OPT(
 		return OPT_ERROR;
 	}
 
+    /* Explicit .set/CLI values override legacy environment switches. */
+    if (opt.dc_method == MODE_NOSET) {
+        opt.dc_method = getenv("PAPER_CORE") ? DC_CORE : DC_XID;
+    }
+    if (opt.dom_reuse == MODE_NOSET) {
+        opt.dom_reuse = getenv("MDC_NODOM") ? NO : YES;
+    }
+    if (opt.core_verify == MODE_NOSET) {
+        opt.core_verify = getenv("PAPER_CORE_VERIFY") ? YES : NO;
+    }
+
 	return OPT_OKAY;
 }
 
@@ -44,6 +82,9 @@ void OPTinit(
 
 	/** fault model: default is stuck-at */
 	opt.fault_model = FM_SAF;
+    opt.dc_method = MODE_NOSET;
+    opt.dom_reuse = MODE_NOSET;
+    opt.core_verify = MODE_NOSET;
 
 	return;
 }
@@ -77,8 +118,13 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
+		if (OPTisModeOption(argv[i])) {
+            const char* name = argv[i];
+            const char* value = i + 1 < argc ? argv[++i] : NULL;
+            if (!OPTsetMode(name, value)) return OPT_ERROR;
+        }
 		/** netlist */
-		if (strcmp(argv[i], "-net") == 0)
+		else if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = strdup(argv[++i]);
 
 		/** fault-list */
@@ -173,10 +219,19 @@ bool OPTread(
 	{
 		if (buffer[0] == '-')
 		{
-			token1 = strtok_r(buffer, " \n\0", &context);
+			token1 = strtok_r(buffer, " \t\r\n", &context);
+
+            if (OPTisModeOption(token1)) {
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!OPTsetMode(token1, token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
 
 			/** netlist */
-			if (strcmp(token1, "-net") == 0)
+			else if (strcmp(token1, "-net") == 0)
 				opt.file.input.net = OPTreadValue(&context, " \n\0");
 
 			/** cube analysis file */
