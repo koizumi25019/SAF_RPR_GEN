@@ -1,0 +1,10 @@
+-tdf
+-net ../input/circuit/s5378.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-low_power on
+-wsa_threshold 20
+-limit 30
+-fdp ../output/paper_core/tdf/lp20/limit30/fdp/s5378_fdp.csv
+-log ../output/paper_core/tdf/lp20/limit30/log/s5378_log.txt

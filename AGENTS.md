@@ -209,6 +209,12 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
     `verify_tdf_power.py` / `test_power_settings.py` で独立全列挙・既定回帰・BDD_EXACTも検証。
     サンプル `.set`: `{s27,s208}_tdf_core{,_lp20}`。既存の `run_paper_core_experiments.sh` で実行。
     PI直結DFFのTDF等価解析が時刻境界を跨ぐ不具合も、解析・CSVエコー双方を修正。
+    低電力ONのみのTDF実験は `bash run_tdf_power_benchmark.sh`。
+    s27/s208は全代表故障・完全列挙・7回中央値、s5378/s9234は全代表故障・limit30・1回。
+    電力閾値20%、流用off、追加検証off。1実行の実時間上限は1800秒（`--wall-limit 0`で解除）。
+    タイムアウトは全件のX率・キューブ数を0にせず未取得とし、停止までのCPU時間と保存済み行を記録。
+    `POWER_BENCHMARK.md` / `export_tdf_power.py` / `tdf_power_on_results.xlsx` を参照。
+    グラフは作らず数値表を出力し、既存SAFの `paper_core_comparison.xlsx` は変更しない。
   - `PAPER_CORE_VERIFY=1` — 各生成キューブを再確認（非検出 UNSAT、残存各リテラル削除で SAT）。
   - `MAXDC`/`XID_EXTERNAL`/`TDF_NOXID`/`DUAL`/`SPLIT` との併用はエラー。
     手順単体の比較では `MDC_NODOM=1` で支配流用を止める。既定では流用を維持し、

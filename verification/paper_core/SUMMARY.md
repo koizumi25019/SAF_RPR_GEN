@@ -3,6 +3,9 @@
 実装日: 2026-10-05。作業ブランチ: `feature/paper-core`。
 土台: `verification` の `a8718dfe24ad546111a3e03838e06ef527ebd343`。
 
+低消費電力ONの遷移故障実験（2026-10-06）は `POWER_BENCHMARK.md` と
+`tdf_power_on_results.xlsx` を参照。s27/s208は完走、s5378/s9234は実時間30分でタイムアウト。
+
 Fried, Nadel, Sebastiani, Shalmon, [Entailing Generalization Boosts Enumeration,
 SAT 2024](https://doi.org/10.4230/LIPIcs.SAT.2024.13) の Algorithm 1 の CORE 分岐に従う。
 アルゴリズムの実装であり、HALL 実行体の再現ではない。正側の生成ソルバも CaDiCaL を使う

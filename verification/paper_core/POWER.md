@@ -116,4 +116,6 @@ python3 verification/paper_core/verify_tdf_power.py --output output/tdf_power_ne
 
 全展開検証は GCC/同梱 CaDiCaL/CUDD と Python/NumPy を使う。
 集計結果は `results/tdf_power_simulation.json`、今回の生データは `output/tdf_power_checks_all_faults/`。
-中規模の低電力性能・全展開シミュレーションは今回測定していない。
+実装検証では中規模の全展開シミュレーションは実行していない。
+後続の低電力ON性能測定（s27/s208/s5378/s9234）は `POWER_BENCHMARK.md` を参照。
+20%制約の中規模2回路は1,800秒の実時間上限で未完走。
