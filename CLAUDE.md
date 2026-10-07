@@ -202,7 +202,16 @@ core_minは両方onなので2+k回。性能測定と独立BDD・全X展開確認
 小規模4回路のcoreのみキューブ数は64/116/9270/1692、XIDは65/104/10163/1578。
 coreのみCPU中央値は全4回路でXIDより長く、s208_Cは約2.10倍。
 coreのみ11,142キューブの全X展開56,871,634パターンで検出・全被覆・FDP一致。
-core_only_comparison.xlsx（グラフなし8シート）と結果JSONに保存。
+core_only_comparison.xlsx（グラフなし数値表）と結果JSONに保存。
+中規模s5378_C/s9234_Cは `bash run_core_only_comparison.sh --medium`。
+全代表故障・SAF・電力off・limit30・流用off、各方式1回・warmupなし・CPU0直列。
+中規模は実時間上限なし、別BDD/追加検証なし。両方式完了FDPと故障キーを照合し、
+complete=0の下界FDPの差は許容する。`CORE_ONLY_MEDIUM.md` と中規模結果JSONを参照。
+Excelは小規模の測定値を保持して6回路分をまとめる。
+中規模core_onlyはs5378_C:115.345秒/90,194キューブ/完了2,037、
+s9234_C:379.826秒/136,445キューブ/完了3,130。XID比CPU+3.7%/+36.5%。
+全方式ペアで両方式完了FDP不一致0・故障欠落0、core_only最終X率94.47%/93.51%。
+Excelは11シート、6回路18条件・90測定・34,434中規模故障ペア。
 
 - **`src/fdp/paper_core.c`** — SAT 2024「Entailing Generalization Boosts Enumeration」の CORE 手順。
   - 通常の運用は `.set` の `-dc_method core` / `-dom_reuse off` / `-core_verify off`。

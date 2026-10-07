@@ -4,7 +4,7 @@
 `verification` (a8718df) から分岐した `feature/paper-core` (9a55da7) を元に、
 専用ブランチ `exp/core-only-comparison` と worktree `/workspace/SAF_RPR_GEN_core_only` を作成。
 今回は小規模4回路。縮退故障 SAF、低電力off、全代表故障、無制限完全列挙、流用off。
-中規模 s5378_C/s9234_C の core 抽出のみは本実験に含まない。
+この節は小規模の測定記録。中規模 s5378_C/s9234_C の追加比較は `CORE_ONLY_MEDIUM.md`。
 
 ## 実装と条件
 
@@ -97,6 +97,7 @@ bash run_core_only_comparison.sh --repeats 7 s208_C s298_C
 各実行の使用設定、CSV、log、stderr、wait4時間、ソース親コミット・パッチ、バイナリ/ライブラリSHA256を保存。
 ウォームアップ・別検証を除いた84回の時間はmeasurements.csv、12条件の要約はsummary.csv/json。
 Gitに保存するスナップショットは `results/core_only_comparison.json`。
-`core_only_comparison.xlsx` は数値だけの8シート。方式別比較、実行時間、キューブ数、判定回数・X率、
+`core_only_comparison.xlsx` は数値表。中規模追加時は6回路分を保持して出力する。
+方式別比較、実行時間、キューブ数、故障完了、判定回数・X率、
 時間内訳、測定明細、別実行BDD検証、条件。グラフは含めない。
 以前の `paper_core_comparison.xlsx` / `tdf_power_on_results.xlsx` は変更していない。

@@ -1,0 +1,11 @@
+-saf
+-net ../input/circuit/s5378_C.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-core_minimize on
+-core_recheck on
+-low_power off
+-limit 30
+-fdp ../output/core_only/direct/s5378_C_core_min_l30.csv
+-log ../output/core_only/direct/s5378_C_core_min_l30.log
