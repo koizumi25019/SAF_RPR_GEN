@@ -1,0 +1,66 @@
+{
+  "validation": "exhaustive two-valued SAF simulation; every X expansion, no sampling",
+  "core_only": true,
+  "binary_sha256": "f455902c416154bd108b3a13b6849e3ca60749189885e839800bddc7300cdb64",
+  "instrumentation": "GNU linker wrappers capture failed core and final cube; production source unchanged",
+  "historical_csv_match": false,
+  "circuits": [
+    {
+      "circuit": "c17a",
+      "n_inputs": 5,
+      "representatives": 22,
+      "cubes": 64,
+      "core_expanded_patterns": 328,
+      "prime_expanded_patterns": 328,
+      "exhaustive_fault_pattern_pairs": 704,
+      "core_care": 179,
+      "prime_care": 179,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    {
+      "circuit": "s27_C",
+      "n_inputs": 7,
+      "representatives": 32,
+      "cubes": 116,
+      "core_expanded_patterns": 2186,
+      "prime_expanded_patterns": 2186,
+      "exhaustive_fault_pattern_pairs": 4096,
+      "core_care": 374,
+      "prime_care": 374,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    {
+      "circuit": "s208_C",
+      "n_inputs": 19,
+      "representatives": 215,
+      "cubes": 9270,
+      "core_expanded_patterns": 43296768,
+      "prime_expanded_patterns": 43296768,
+      "exhaustive_fault_pattern_pairs": 112721920,
+      "core_care": 86016,
+      "prime_care": 86016,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    },
+    {
+      "circuit": "s298_C",
+      "n_inputs": 17,
+      "representatives": 308,
+      "cubes": 1692,
+      "core_expanded_patterns": 13572352,
+      "prime_expanded_patterns": 13572352,
+      "exhaustive_fault_pattern_pairs": 40370176,
+      "core_care": 8096,
+      "prime_care": 8096,
+      "unsound_core_cubes": 0,
+      "unsound_prime_cubes": 0,
+      "exact_cover_mismatches": 0
+    }
+  ],
+  "performance_csv_match": true
+}

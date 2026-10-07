@@ -217,6 +217,7 @@ def build_capture_binary(build):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--historical',type=Path,help='Optional previous benchmark directory; require identical CSVs')
+    parser.add_argument('--core-only', action='store_true', help='Disable minimization and core recheck')
     parser.add_argument('--output',type=Path,default=ROOT/'output/paper_core_simulation')
     args = parser.parse_args()
     args.output = args.output.resolve()
@@ -238,6 +239,8 @@ def main():
         settings = directory/'run.set'
         settings.write_text(f'-saf\n-net {ROOT}/input/circuit/{circuit}.v\n'
             f'-dc_method core\n-dom_reuse off\n-core_verify off\n'
+            f'-core_minimize {"off" if args.core_only else "on"}\n'
+            f'-core_recheck {"off" if args.core_only else "on"}\n'
             f'-fdp {directory}/fdp.csv\n-log {directory}/run.log\n')
         with (directory/'stdout.txt').open('w') as out, (directory/'stderr.txt').open('w') as err:
             subprocess.run([str(binary),'-set',str(settings)],cwd=ROOT,
@@ -246,6 +249,7 @@ def main():
         summaries.append(result)
         print(json.dumps(result),flush=True)
     result = dict(validation='exhaustive two-valued SAF simulation; every X expansion, no sampling',
+                  core_only=args.core_only,
                   binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
                   instrumentation='GNU linker wrappers capture failed core and final cube; production source unchanged',
                   historical_csv_match=args.historical is not None,circuits=summaries)

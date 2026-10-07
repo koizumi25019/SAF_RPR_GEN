@@ -1,0 +1,10 @@
+-saf
+-net ../input/circuit/s27_C.v
+-dc_method core
+-dom_reuse off
+-core_verify off
+-core_minimize off
+-core_recheck off
+-low_power off
+-fdp ../output/core_only/direct/s27_C_core_only.csv
+-log ../output/core_only/direct/s27_C_core_only.log

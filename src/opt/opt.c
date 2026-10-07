@@ -13,7 +13,8 @@ static bool OPTisModeOption(const char* name)
 {
     return strcmp(name, "-dc_method") == 0 || strcmp(name, "-dom_reuse") == 0 ||
            strcmp(name, "-core_verify") == 0 || strcmp(name, "-low_power") == 0 ||
-           strcmp(name, "-wsa_threshold") == 0;
+           strcmp(name, "-wsa_threshold") == 0 ||
+           strcmp(name, "-core_minimize") == 0 || strcmp(name, "-core_recheck") == 0;
 }
 
 static bool OPTsetMode(const char* name, const char* value)
@@ -39,6 +40,8 @@ static bool OPTsetMode(const char* name, const char* value)
         if (enabled != MODE_NOSET) {
             if (strcmp(name, "-dom_reuse") == 0) opt.dom_reuse = enabled;
             else if (strcmp(name, "-core_verify") == 0) opt.core_verify = enabled;
+            else if (strcmp(name, "-core_minimize") == 0) opt.core_minimize = enabled;
+            else if (strcmp(name, "-core_recheck") == 0) opt.core_recheck = enabled;
             else opt.low_power = enabled;
             return OPT_OKAY;
         }
@@ -104,6 +107,8 @@ void OPTinit(
     opt.dc_method = MODE_NOSET;
     opt.dom_reuse = MODE_NOSET;
     opt.core_verify = MODE_NOSET;
+    opt.core_minimize = YES;
+    opt.core_recheck = YES;
     opt.low_power = NO;
     opt.wsa_threshold = -1;
 

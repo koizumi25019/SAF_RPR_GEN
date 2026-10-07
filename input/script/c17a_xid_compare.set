@@ -1,0 +1,10 @@
+-saf
+-net ../input/circuit/c17a.v
+-dc_method xid
+-dom_reuse off
+-core_verify off
+-core_minimize on
+-core_recheck on
+-low_power off
+-fdp ../output/core_only/direct/c17a_xid.csv
+-log ../output/core_only/direct/c17a_xid.log

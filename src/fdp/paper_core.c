@@ -6,8 +6,9 @@
 #include "./fault_detection_prob.h"
 #include "./power_constraint.h"
 #include "../netlist/netlist.h"
+#include "../opt/opt.h"
 
-static long cubes, input_care, core_care, prime_care, calls;
+static long cubes, input_care, core_care, prime_care, calls, deletion_queries;
 
 CCaDiCaL* PaperCoreBuildOracle(TARGET* target)
 {
@@ -89,16 +90,17 @@ bool PaperCoreGeneralize(CCaDiCaL* u, const int* vars, int n, char* cube, bool v
         if (ccadical_failed(u, lits[i])) nc++;
         else lits[i] = 0;
     }
-    /* Recheck even when the core kept every input; never leave pending
-       assumptions for the next query by conditionally skipping solve. */
-    if (query(u, lits, n, -1) != 20) {
+    /* Optional extra check; a failed-assumption core already entails UNSAT.
+       query always consumes its assumptions, including an empty core. */
+    if (opt.core_recheck == YES && query(u, lits, n, -1) != 20) {
         fprintf(stderr, "[PAPER_CORE] failed-assumption core did not recheck UNSAT\n");
         free(lits);
         return false;
     }
     int np = nc;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; opt.core_minimize == YES && i < n; i++) {
         if (!lits[i]) continue;
+        deletion_queries++;
         int res = query(u, lits, n, i);
         if (res == 20) { lits[i] = 0; np--; }
         else if (res != 10) {
@@ -107,11 +109,11 @@ bool PaperCoreGeneralize(CCaDiCaL* u, const int* vars, int n, char* cube, bool v
             return false;
         }
     }
-    /* Later removals only weaken assumptions, so retained literals remain
-       necessary. One deletion pass proves subset-minimality. */
+    /* When minimizing, later removals only weaken assumptions, so retained
+       literals remain necessary. Without minimizing, verify soundness only. */
     if (verify) {
         if (query(u, lits, n, -1) != 20) { free(lits); return false; }
-        for (int i = 0; i < n; i++)
+        for (int i = 0; opt.core_minimize == YES && i < n; i++)
             if (lits[i] && query(u, lits, n, i) != 10) { free(lits); return false; }
     }
     for (int i = 0; i < n; i++) if (!lits[i]) cube[i] = 'X';
@@ -127,4 +129,7 @@ void PaperCoreReport(void)
 {
     fprintf(stderr, "[PAPER_CORE] cubes=%ld solves=%ld care: input=%ld core=%ld prime=%ld\n",
             cubes, calls, input_care, core_care, prime_care);
+    fprintf(stderr, "[PAPER_CORE_MODE] minimize=%s recheck=%s deletion_queries=%ld final_care=%ld\n",
+            opt.core_minimize == YES ? "on" : "off",
+            opt.core_recheck == YES ? "on" : "off", deletion_queries, prime_care);
 }

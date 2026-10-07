@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "paper_core.h"
+#include "../../src/opt/opt.h"
 
 static int matches(const char* cube, unsigned bits)
 {
@@ -23,29 +24,35 @@ int main(void)
 {
     const int vars[] = {1, 2, 3};
     int checked = 0;
-    for (unsigned fn = 0; fn < 256; fn++) {
-        CCaDiCaL* u = ccadical_init();
-        ccadical_set_option(u, "factor", 0);
-        /* NOT F: forbid each minterm for which F is true. */
-        for (unsigned bits = 0; bits < 8; bits++) if (fn & (1u << bits)) {
-            for (int i = 0; i < 3; i++)
-                ccadical_add(u, bits & (1u << i) ? -vars[i] : vars[i]);
-            ccadical_add(u, 0);
-        }
-        for (unsigned bits = 0; bits < 8; bits++) if (fn & (1u << bits)) {
-            char cube[4];
-            for (int i = 0; i < 3; i++) cube[i] = bits & (1u << i) ? '1' : '0';
-            cube[3] = '\0';
-            if (!PaperCoreGeneralize(u, vars, 3, cube, true) || !entails(cube, fn)) return 1;
-            for (int i = 0; i < 3; i++) if (cube[i] != 'X') {
-                char saved = cube[i]; cube[i] = 'X';
-                if (entails(cube, fn)) return 2;
-                cube[i] = saved;
+    for (int mode = 0; mode < 4; mode++) {
+        opt.core_minimize = (mode & 1) ? YES : NO;
+        opt.core_recheck = (mode & 2) ? YES : NO;
+        for (unsigned fn = 0; fn < 256; fn++) {
+            CCaDiCaL* u = ccadical_init();
+            ccadical_set_option(u, "factor", 0);
+            /* NOT F: forbid each minterm for which F is true. */
+            for (unsigned bits = 0; bits < 8; bits++) if (fn & (1u << bits)) {
+                for (int i = 0; i < 3; i++)
+                    ccadical_add(u, bits & (1u << i) ? -vars[i] : vars[i]);
+                ccadical_add(u, 0);
             }
-            checked++;
+            for (unsigned bits = 0; bits < 8; bits++) if (fn & (1u << bits)) {
+                char cube[4];
+                for (int i = 0; i < 3; i++) cube[i] = bits & (1u << i) ? '1' : '0';
+                cube[3] = '\0';
+                if (!PaperCoreGeneralize(u, vars, 3, cube, true) || !entails(cube, fn)) return 1;
+                for (int i = 0; opt.core_minimize == YES && i < 3; i++) if (cube[i] != 'X') {
+                    char saved = cube[i]; cube[i] = 'X';
+                    if (entails(cube, fn)) return 2;
+                    cube[i] = saved;
+                }
+                checked++;
+            }
+            ccadical_release(u);
         }
-        ccadical_release(u);
     }
+    opt.core_minimize = YES;
+    opt.core_recheck = YES;
     /* Empty input domain and empty core (constant true F). */
     CCaDiCaL* u = ccadical_init();
     ccadical_add(u, 0);
@@ -57,6 +64,6 @@ int main(void)
     char rejected[] = "000";
     if (PaperCoreGeneralize(u, vars, 3, rejected, true) || strcmp(rejected, "000")) return 4;
     ccadical_release(u);
-    printf("PASS: %d detecting minterms, 256 truth tables; sound and subset-minimal\n", checked);
+    printf("PASS: %d detecting minterms, 256 truth tables x 4 modes; sound, minimal when enabled\n", checked);
     return 0;
 }

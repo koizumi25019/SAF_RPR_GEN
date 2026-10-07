@@ -106,6 +106,8 @@ static void WriteReport(
     fprintf(fp, "//  Don't-care Method                         : %s\n", opt.dc_method == DC_CORE ? "CORE" : "XID");
     fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
     fprintf(fp, "//  CORE Extra Verification                   : %s\n", opt.core_verify == YES ? "on" : "off");
+    fprintf(fp, "//  CORE Minimization                         : %s\n", opt.core_minimize == YES ? "on" : "off");
+    fprintf(fp, "//  CORE Recheck                              : %s\n", opt.core_recheck == YES ? "on" : "off");
     fprintf(fp, "//  Low Power                                 : %s\n", opt.low_power == YES ? "on" : "off");
     if (opt.low_power == YES) {
         fprintf(fp, "//  WSA Threshold                             : %d%% (%d / %d signals)\n",
@@ -139,7 +141,6 @@ void OutLogfile(
 
 	return;
 }
-
 
 
 

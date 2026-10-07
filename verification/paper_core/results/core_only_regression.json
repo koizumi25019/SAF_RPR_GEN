@@ -1,0 +1,90 @@
+{
+  "truth_tables": 256,
+  "mode_combinations": 4,
+  "detecting_minterms": 4096,
+  "checks": [
+    {
+      "case": "c17_default_main_debug",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_default_main_release",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "s27_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 32
+    },
+    {
+      "case": "s208_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 215
+    },
+    {
+      "case": "s298_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 308
+    },
+    {
+      "case": "s344_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 342
+    },
+    {
+      "case": "s510_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 564
+    },
+    {
+      "case": "s641_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 463
+    },
+    {
+      "case": "s713_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 581
+    },
+    {
+      "case": "s1494_default",
+      "BDD": "ALL VERIFIED",
+      "representatives": 1506
+    },
+    {
+      "case": "c17_core_off_off",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_core_off_on",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_core_on_off",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_core_on_on",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_raw_verified_debug",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    },
+    {
+      "case": "c17_raw_cli",
+      "BDD": "ALL VERIFIED",
+      "representatives": 22
+    }
+  ],
+  "invalid_options_checked": 4,
+  "c17_golden": "MATCH",
+  "default_BDD_circuits": 9
+}

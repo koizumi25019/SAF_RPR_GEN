@@ -34,6 +34,7 @@ cd build && ./main_debug -set ../input/script/c17a.set
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
 `-saf`/`-tdf`（故障モデル。省略時は縮退故障）、
 `-dc_method xid|core`、`-dom_reuse on|off`、`-core_verify on|off`、
+`-core_minimize on|off`、`-core_recheck on|off`（両方既定on）、
 `-low_power on|off`、`-wsa_threshold 0..100`（整数百分率、on時に必須）。
 `-dc_method` / `-dom_reuse` / `-core_verify` は `.set` 内の明示指定が環境変数より優先し、省略時は従来環境変数を参照する。
 環境変数も無ければ XID・流用 on・core 検証 off。
@@ -187,6 +188,22 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
   - `CUBE_TREND_CSV=path` — 故障×キューブの明細を CSV 追記（`x_count` vs `idx` 等のプロット用）。
     生成順を純粋に見るときは `MDC_NODOM=1` 併用（種キューブが先頭に入らない）。詳細は
     `verification/cube_trend/SUMMARY.md`。
+## CORE 抽出のみの比較
+
+`exp/core-only-comparison` は verification 由来の feature/paper-core から分岐。
+`.set` の `-core_minimize off` で削除極小化を省略し、`-core_recheck off` で通常のcore再確認を省略する。
+既定は両方onで従来と同じ。`-core_verify on` は独立の追加健全性確認を行い、
+極小性確認は core_minimize on のときだけ行う。
+`bash run_core_only_comparison.sh` は SAF小規模4回路で XID/core_only/core_min を直列測定。
+core_onlyは両方off、追加検証offなので否定側solveは生成キューブ当たり1回。
+core_minは両方onなので2+k回。性能測定と独立BDD・全X展開確認を分離する。
+実装はC、設定はinput/script/*_compare.set、シェルで実行、Pythonは結果集計・Excel用。
+詳細・実測はverification/paper_core/CORE_ONLY_COMPARISON.md。
+小規模4回路のcoreのみキューブ数は64/116/9270/1692、XIDは65/104/10163/1578。
+coreのみCPU中央値は全4回路でXIDより長く、s208_Cは約2.10倍。
+coreのみ11,142キューブの全X展開56,871,634パターンで検出・全被覆・FDP一致。
+core_only_comparison.xlsx（グラフなし8シート）と結果JSONに保存。
+
 - **`src/fdp/paper_core.c`** — SAT 2024「Entailing Generalization Boosts Enumeration」の CORE 手順。
   - 通常の運用は `.set` の `-dc_method core` / `-dom_reuse off` / `-core_verify off`。
     XID 比較では `-dc_method xid`。設定例 `input/script/c17a_{core,xid}.set`、
