@@ -13,6 +13,10 @@
 /* 1故障ぶんの厳密検証。RunBDD 直後（キューブ集合が生きている間）に呼ぶ。
    env GT_BDD / GT_ISOP の両方が未設定なら何もしない。 */
 void GT_Check(FNODE* f, CubeSet* cubes, bool limit_hit);
+/* Parent aggregates independent worker checks into one summary. */
+void GT_GetCounts(long* checked, long* unsound, long* inexact);
+void GT_SuppressSummary(void);
+void GT_ParallelSummary(long checked, long unsound, long inexact);
 
 /* BDD 直接法（env BDD_EXACT=1 のフォールバックから使用）:
    検出関数 D_f を回路から直接構築し、そのミンターム数を10進文字列で返す

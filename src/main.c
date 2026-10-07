@@ -12,6 +12,8 @@
 #include "./fdp/fault_detection_prob.h"
 #include "./lib/lib.h"
 #include "./fdp/power_constraint.h"
+#include "./fdp/fault_pool.h"
+#include "./fdp/normal_scope.h"
 
 
 //*************************************************************************************************************
@@ -50,19 +52,19 @@ struct timespec start, end;
 		{
 			printf("\n	COMMAND ERROR: -tdf は素の DFF のみ対応です。");
 			printf("RDFF/DFFS/RDFFS を含む回路は指定できません。\n\n");
-			return RETCODE_ERROR;
+			return EXIT_FAILURE;
 		}
 		if (n_dff == 0)
 		{
 			printf("\n	COMMAND ERROR: -tdf には順序回路が必要です。");
 			printf("DFF を含まない回路が指定されました。順序回路にしてください。\n\n");
-			return RETCODE_ERROR;
+			return EXIT_FAILURE;
 		}
 		expand_tdf_netlist();
 	}
 
 	//analyze the fault detection probability
-	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
+	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return EXIT_FAILURE;
 
 	// 計測終了
     clock_gettime(CLOCK_MONOTONIC, &end);// 実実行時間の計測終了
@@ -72,7 +74,7 @@ struct timespec start, end;
     double elapsed_time = (end.tv_sec - start.tv_sec) + 
                           (end.tv_nsec - start.tv_nsec) / 1000000000.0;
 	 // CPU時間を計算
-	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC;
+	double cpu_time = (double)(cpu_end - cpu_start) / CLOCKS_PER_SEC + FaultPoolChildCPU();
 						  
 	OutLogfile(elapsed_time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
@@ -105,6 +107,10 @@ static void WriteReport(
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
     fprintf(fp, "//  Don't-care Method                         : %s\n", opt.dc_method == DC_CORE ? "CORE" : "XID");
     fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
+    fprintf(fp, "//  Fault Workers                             : %d\n", FaultPoolWorkers());
+    fprintf(fp, "//  Normal CNF Scope                          : %s\n", NormalScopeEnabled() ? "on" : "off");
+    if (opt.jobs > 1)
+        fprintf(fp, "//  CPU Accounting                            : parent + all worker processes\n");
     fprintf(fp, "//  CORE Extra Verification                   : %s\n", opt.core_verify == YES ? "on" : "off");
     fprintf(fp, "//  Low Power                                 : %s\n", opt.low_power == YES ? "on" : "off");
     if (opt.low_power == YES) {
@@ -139,8 +145,6 @@ void OutLogfile(
 
 	return;
 }
-
-
 
 
 

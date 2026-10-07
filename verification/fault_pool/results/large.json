@@ -1,0 +1,15 @@
+{
+  "reference_commit": "476f8ba",
+  "repeats_per_timing": 1,
+  "binary_sha256": "a875a6ccedb8e8b00a313a74b03b03db05474b044892a35999fc0514d79a080c",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "label": "s5378_all",
+      "faults": 4551,
+      "byte_identical": true,
+      "gt": "ALL VERIFIED",
+      "completed": 1572
+    }
+  ]
+}

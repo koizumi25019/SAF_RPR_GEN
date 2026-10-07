@@ -1,0 +1,44 @@
+{
+  "reference_commit": "476f8ba",
+  "repeats_per_timing": 1,
+  "binary_sha256": "a875a6ccedb8e8b00a313a74b03b03db05474b044892a35999fc0514d79a080c",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "label": "s5378_jobs1",
+      "jobs": 1,
+      "wall_seconds": 47.40660620701965,
+      "total_cpu_seconds": 47.386,
+      "speedup": 1.0,
+      "byte_identical": true,
+      "completed": 1572
+    },
+    {
+      "label": "s5378_jobs2",
+      "jobs": 2,
+      "wall_seconds": 27.866039657004876,
+      "total_cpu_seconds": 55.211,
+      "speedup": 1.7012322809604101,
+      "byte_identical": true,
+      "completed": 1572
+    },
+    {
+      "label": "s5378_jobs4",
+      "jobs": 4,
+      "wall_seconds": 33.75409522798145,
+      "total_cpu_seconds": 67.4,
+      "speedup": 1.4044697654262865,
+      "byte_identical": true,
+      "completed": 1572
+    },
+    {
+      "label": "s5378_jobs8",
+      "jobs": 8,
+      "wall_seconds": 34.09167192399036,
+      "total_cpu_seconds": 68.06,
+      "speedup": 1.3905626662346104,
+      "byte_identical": true,
+      "completed": 1572
+    }
+  ]
+}

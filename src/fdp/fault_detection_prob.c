@@ -29,6 +29,7 @@
 #include "./experiment.h"    /* 研究: env MAXDC / MAXHAM（既定無効） */
 #include "./paper_core.h"    /* SAT 2024 CORE: 完全モデルからcore抽出＋極小化 */
 #include "./power_constraint.h"
+#include "./fault_pool.h"
 
 //*************************************************************************************************************
 //	@name		AddBlockingClauseFromCube
@@ -118,6 +119,281 @@ static char* ExternalXID(CCaDiCaL* solver, FNODE* f)
     return result;
 }
 
+typedef struct { DdManager* gbm; } FaultContext;
+
+/* This same fault pipeline serves the serial path and each persistent process.
+   Each worker creates its own BDD manager lazily, after fork. */
+static bool AnalyzeOneFault(FNODE* f, int count, FILE* bdd_result,
+                            FILE* cube_analysis_fp, FaultStats* stats, void* opaque)
+{
+    FaultContext* context = opaque;
+    if (!context->gbm) {
+        context->gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+        if (!context->gbm) return false;
+        Cudd_AutodynEnable(context->gbm, CUDD_REORDER_SIFT);
+    }
+    DdManager* gbm = context->gbm;
+    FNODE* current = f;
+    TARGET target = { .num = 1, .list = &current };
+    bool paper_core = opt.dc_method == DC_CORE;
+    bool paper_core_verify = opt.core_verify == YES;
+    bool tdf = opt.fault_model == FM_TDF;
+    bool okay = true;
+    clock_t t_start, t_end;
+    long gt_checked_before, gt_unsound_before, gt_inexact_before;
+    GT_GetCounts(&gt_checked_before, &gt_unsound_before, &gt_inexact_before);
+	// ソルバの初期化
+	CCaDiCaL* solver = ccadical_init();
+	ccadical_set_option(solver, "factor", 0);
+
+
+	// 検証(env AIG_DUMP=path): この故障の検出回路を AIGER 出力して即終了。
+	// AllSAT-CT ツール（HALL 等）との同一インスタンス比較用。
+	const char* aig_path = getenv("AIG_DUMP");
+	if (aig_path) {
+		AIG_Dump(aig_path, f);
+		ccadical_release(solver);
+		exit(0);   // DUMP_CNF と同様、単一故障 flist で回す前提
+	}
+
+	// 検証(env DUMP_CNF=dir): この故障の検出CNFを DIMACS 出力して即終了。
+	// 厳密モデルカウンタで Vi=#SAT を直接数え、キューブ列挙と比較するため。
+	const char* dump_dir = getenv("DUMP_CNF");
+	if (dump_dir) {
+		char path[2048];
+		snprintf(path, sizeof(path), "%s/%s_%s.cnf",
+		         dump_dir, f->name, (f->type == SF0) ? "sa0" : "sa1");
+		cnf_tee_begin(path);
+	}
+
+	if (WriteTPGModel(solver, &target) != true) {
+        ccadical_release(solver); return false;
+    }
+
+	if (dump_dir) {
+        if (NormalScopeEnabled()) cnf_tee_end_projected(cnf.total.vars);
+        else cnf_tee_end(cnf.total.vars);
+		fprintf(stderr, "[DUMP_CNF] %s_%s -> n_pi=%d vars=%d (Vi=projected count over all PIs, FDP=Vi/2^n_pi)\n",
+		        f->name, (f->type == SF0) ? "sa0" : "sa1", n_pi, cnf.total.vars);
+		ccadical_release(solver);
+		exit(0);   // 対象は単一故障flistで回す前提。最初の故障を出して終了
+	}
+
+	// 案1(env MAXDC): 素項展開用 非検出オラクル。未設定なら NULL で従来動作
+	CCaDiCaL* u_oracle = EXP_MaybeBuildOracle(&target);
+    CCaDiCaL* core_oracle = paper_core ? PaperCoreBuildOracle(&target) : NULL;
+    int* core_vars = NULL;
+    if (paper_core) {
+        core_vars = malloc((size_t)(n_pi ? n_pi : 1) * sizeof(int));
+        if (!core_vars) { fprintf(stderr, "[PAPER_CORE] allocation failed\n"); exit(1); }
+        for (int i = 0; i < n_pi; i++) core_vars[i] = (int)pi[i]->varsgc;
+    }
+
+	// f のテストキューブを集める集合
+	CubeSet cubes;
+	cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
+
+	// 部分集合側の故障（subset_faults）のキューブを種＋禁止節として流用する。
+	// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
+	// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
+	// MDC_NODOM をセットすると流用を止め、ゼロから完全列挙する（支配解析の検証用）。
+	bool nodom = opt.dom_reuse == NO;
+	int seeded_cnt = 0;
+	for (int k = 0; !nodom && k < f->n_subset_faults; k++)
+	{
+		FNODE* src = f->subset_faults[k];
+
+		if (!nodom)
+		{
+			for (int m = 0; m < src->cubes.n; m++)
+			{
+				cubeset_push(&cubes, strdup(src->cubes.data[m]));
+				AddBlockingClauseFromCube(solver, src->cubes.data[m]);
+			}
+			seeded_cnt += src->cubes.n;
+		}
+
+		// この親で src のキューブを使い切る。最後の消費者ならここで解放
+		if (--src->n_pending == 0)
+			cubeset_free(&src->cubes);
+	}
+
+	if (opt.file.input.cube_analysis != FILE_NOSET) {
+		fprintf(cube_analysis_fp, "%s,%s", f->name, FaultTypeName(f->type));
+	}
+
+	// 案2(env MAXHAM): 多様化の参照(前回キューブ)と aux 採番器を故障ごとに初期化
+	char* prev_cube = NULL;
+	EXP_ResetPerFault();
+
+	// 案3(env DUAL): 双対列挙を初期化（実体の構築は V 側の初回起動まで遅延）
+	bool dual_fin = false;
+	EXP_DualInit(gbm, &target);
+
+	// limit <= 0 は「上限なし（無制限）」を意味し、UNSAT まで完全列挙する
+	bool unlimited = (opt.file.input.limit <= 0);
+
+	// 検証(env MDC_FAULT_TIMEOUT=秒): 故障単位の CPU 時間バジェット。
+	// 超過したら limit 到達と同じ打ち切り経路（complete=0）に入れる。
+	// HALL 等の時間制限つきツールと打ち切り条件を揃えた比較実験用。
+	static double fault_timeout = -1.0;
+	if (fault_timeout < 0.0) {
+		const char* s = getenv("MDC_FAULT_TIMEOUT");
+		fault_timeout = s ? atof(s) : 0.0;
+	}
+	clock_t fault_t0 = clock();
+
+	// UNSAT・limit 到達・双対列挙の完了 のいずれかでテスト生成を終了する
+	while (1) {
+        int res;
+        if (dual_fin) {
+            // 案3: 双対列挙で U=D_f が確定済み。det 側の追加 solve は不要（UNSAT と同じ完了処理へ）
+            res = 20;
+        } else {
+            t_start = clock();
+            res = EXP_Solve(solver, prev_cube);   // MAXHAM 未設定なら素の solve
+            t_end   = clock();
+            stats->cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
+        }
+
+        if (res != 10 && res != 20) {
+            fprintf(stderr, "[SAT] unknown at %s/%s; no cube blocked\n", f->name, FaultTypeName(f->type));
+            EXP_OracleDone(&u_oracle, true);
+            EXP_DualDone(f, true);
+            cubeset_free(&cubes);
+            okay = false;
+            break;
+        }
+
+        bool time_up = (fault_timeout > 0.0) &&
+                       ((double)(clock() - fault_t0) / CLOCKS_PER_SEC > fault_timeout);
+
+        if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit) || time_up) {
+            bool limit_hit = ((!unlimited && cubes.n >= opt.file.input.limit) || time_up) && res != 20;
+
+            // 案3(env DUAL): det 打ち切り後に V 側だけ回すドレインで完了を狙う
+            if (limit_hit && EXP_DualDrain(&cubes))
+                limit_hit = false;
+
+            // 案4(env SPLIT=1): 打ち切りを Shannon 分割で完全列挙まで持っていけたら
+            // complete に昇格する（cubes の和集合 = D_f になる。未設定なら何もしない）
+            if (limit_hit && EXP_SplitFinish(gbm, solver, u_oracle, &cubes, &target))
+                limit_hit = false;
+
+			if (opt.file.input.cube_analysis != FILE_NOSET) {
+				fprintf(cube_analysis_fp, "\n");
+			}
+
+            stats->total_cubes  += cubes.n;
+            stats->seeded_cubes += seeded_cnt;
+
+            t_start = clock();
+            // 打ち切り故障の厳密化フォールバック（どちらも complete=1 で報告、
+            // キューブは部分被覆のまま残り、支配流用・DropDeteFault にそのまま使える）:
+            //   PCOUNT=1    PODEM型入力空間探索＋メモ化による厳密数え上げ（案5）
+            //   BDD_EXACT=1 検出関数 D_f の直接BDD構築（従来手法・検証/参照値用）
+            char* exact_cnt = NULL;
+            if (limit_hit && getenv("PCOUNT"))                 exact_cnt = PC_ExactCountStr(f);
+            if (limit_hit && !exact_cnt && getenv("BDD_EXACT")) exact_cnt = GT_ExactCountStr(f);
+            if (exact_cnt) {
+                calculate_prob_with_gmp(exact_cnt, n_pi, bdd_result, NULL, &target,
+                                        cubes.n, seeded_cnt, false);
+                free(exact_cnt);
+            } else {
+                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, seeded_cnt, limit_hit);
+            }
+            t_end   = clock();
+            stats->bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+
+			// 検証(env GT_BDD=1): 回路から直接構築した検出関数とキューブ和集合を厳密照合
+			GT_Check(f, &cubes, limit_hit);
+            long checked, unsound, inexact;
+            GT_GetCounts(&checked, &unsound, &inexact);
+            stats->gt_checked += checked - gt_checked_before;
+            stats->gt_unsound += unsound - gt_unsound_before;
+            stats->gt_inexact += inexact - gt_inexact_before;
+            if (unsound != gt_unsound_before || inexact != gt_inexact_before) okay = false;
+
+			// 検証(env CUBE_TREND=1): キューブ列の X 数・マスク重複など生成傾向を観察
+			CT_Report(f, &cubes, limit_hit);
+
+			// 案1: capped 故障の集計とオラクル解放（NULL なら何もしない）
+			EXP_OracleDone(&u_oracle, limit_hit);
+
+			// 案3: 双対列挙の集計と資源解放（打ち切り時は fdp の上下界も報告）
+			EXP_DualDone(f, limit_hit);
+
+			// キューブの所有権を故障へ移す（深いコピーはしない）。
+			// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
+			f->cubes = cubes;
+			if (nodom || f->n_pending == 0)
+				cubeset_free(&f->cubes);
+
+			DropDeteFault(&target);
+			break;
+		}
+		// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
+		else {
+			if (opt.jobs == 1) printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
+
+            t_start = clock();
+            // TDF は励起条件（f->exc_netptr）込みで XID する。
+            // env TDF_NOXID=1 で X 埋めを止めミンターム列挙に戻す（XID の検証用）。
+            char* x_pattern;
+            if (paper_core) {
+                x_pattern = CubeFromSolver(solver);
+                if (!PaperCoreGeneralize(core_oracle, core_vars, n_pi, x_pattern, paper_core_verify)) {
+                    fprintf(stderr, "[PAPER_CORE] failed at %s/%s; no cube blocked\n",
+                            f->name, FaultTypeName(f->type));
+                    exit(1);
+                }
+            } else if (tdf)
+                x_pattern = getenv("TDF_NOXID")
+                                ? CubeFromSolver(solver)
+                                : InlineXID(solver, f->netptr, EXP_PreferredPONet(), f->exc_netptr);
+            else
+                x_pattern = getenv("XID_EXTERNAL")
+                                ? ExternalXID(solver, f)
+                                : InlineXID(solver, f->netptr, EXP_PreferredPONet(), NULL);
+            t_end   = clock();
+            stats->xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+
+			EXP_Expand(u_oracle, x_pattern);  // 案1: キューブを素項へ拡大（in place）
+
+			AddBlockingClauseFromCube(solver, x_pattern);
+			cubeset_push(&cubes, x_pattern);
+			prev_cube = x_pattern;   // 案2: 次回 solve の多様化参照
+
+			// 案3: 非検出側を1本進め、U∪V の閉包で完了を判定（DUAL 未設定なら常に false）
+			dual_fin = EXP_DualStep(&cubes, x_pattern);
+
+			// X率計測: このキューブのXビット数を集計
+			for (int xi = 0; xi < n_pi; xi++) if (x_pattern[xi] == 'X') stats->xstat_x++;
+			stats->xstat_bits += n_pi;
+
+            if (opt.file.input.cube_analysis != FILE_NOSET) {
+                t_start = clock();
+                RunBDD(gbm, n_pi, cubes.data, cubes.n, NULL, cube_analysis_fp, &target, cubes.n, 0, false);
+                t_end   = clock();
+                stats->bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
+            }
+		}
+	}
+	ccadical_release(solver);
+    if (core_oracle) ccadical_release(core_oracle);
+    free(core_vars);
+    return okay && !ferror(bdd_result) && (!cube_analysis_fp || !ferror(cube_analysis_fp));
+}
+
+static void FinishFaultAnalysis(void* opaque)
+{
+    FaultContext* context = opaque;
+    if (opt.dc_method == DC_CORE) PaperCoreReport();
+    NormalScopeRelease();
+    if (context->gbm) Cudd_Quit(context->gbm);
+    context->gbm = NULL;
+}
+
 //*************************************************************************************************************
 //	@name	    @AnalyzeFaultDensity
 //	@function   analyze the fault detection probability
@@ -136,7 +412,6 @@ bool AnalyzeFaultDensity(
 
 	int count = 0;
     bool paper_core = opt.dc_method == DC_CORE;
-    bool paper_core_verify = opt.core_verify == YES;
     if (opt.low_power == YES && (getenv("AIG_DUMP") || getenv("AIG_DUMP_DIR"))) {
         fprintf(stderr, "[POWER] AIG export does not encode the power constraint\n");
         exit(1);
@@ -152,26 +427,15 @@ bool AnalyzeFaultDensity(
 
 	// ===== CPU時間計測用変数 =====
     clock_t t_start, t_end;
-    double time_cadical = 0.0;
-    double time_bdd     = 0.0;
-    double time_xid     = 0.0;
     double time_read    = 0.0;
     // ============================
-    // X率計測（env XSTAT=1 のときだけ集計。キューブ全体のXビット率）
-    long xstat_bits = 0, xstat_x = 0;
-
-    // 支配流用サマリー用アキュムレータ
-    long dom_total_cubes  = 0;
-    long dom_seeded_cubes = 0;
 
 	//キューブ分析用ファイルオープン
 	if (opt.file.input.cube_analysis != FILE_NOSET) {
 		fileOpen(&cube_analysis_fp, opt.file.input.cube_analysis, "w");
 	}
 
-	//CUDD初期化
-	DdManager* gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
-	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
+	// BDD managers are initialized inside each fault worker, after preparation.
 
 	//result file open
 	fileOpen(&bdd_result, opt.file.output.fdp, "w");
@@ -221,261 +485,57 @@ bool AnalyzeFaultDensity(
 		exit(0);
 	}
 
-	while (readdata.fault.numrema != 0)
-	{
-		// ソルバの初期化
-		CCaDiCaL* solver = ccadical_init();
-		ccadical_set_option(solver, "factor", 0);
-
-		count++;
-		SetTarget(&target);
-		FNODE* f = target.list[0];
-
-		// 検証(env AIG_DUMP=path): この故障の検出回路を AIGER 出力して即終了。
-		// AllSAT-CT ツール（HALL 等）との同一インスタンス比較用。
-		const char* aig_path = getenv("AIG_DUMP");
-		if (aig_path) {
-			AIG_Dump(aig_path, f);
-			ccadical_release(solver);
-			exit(0);   // DUMP_CNF と同様、単一故障 flist で回す前提
-		}
-
-		// 検証(env DUMP_CNF=dir): この故障の検出CNFを DIMACS 出力して即終了。
-		// 厳密モデルカウンタで Vi=#SAT を直接数え、キューブ列挙と比較するため。
-		const char* dump_dir = getenv("DUMP_CNF");
-		if (dump_dir) {
-			char path[2048];
-			snprintf(path, sizeof(path), "%s/%s_%s.cnf",
-			         dump_dir, f->name, (f->type == SF0) ? "sa0" : "sa1");
-			cnf_tee_begin(path);
-		}
-
-		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
-
-		if (dump_dir) {
-            if (NormalScopeEnabled()) cnf_tee_end_projected(cnf.total.vars);
-            else cnf_tee_end(cnf.total.vars);
-			fprintf(stderr, "[DUMP_CNF] %s_%s -> n_pi=%d vars=%d (Vi=projected count over all PIs, FDP=Vi/2^n_pi)\n",
-			        f->name, (f->type == SF0) ? "sa0" : "sa1", n_pi, cnf.total.vars);
-			ccadical_release(solver);
-			exit(0);   // 対象は単一故障flistで回す前提。最初の故障を出して終了
-		}
-
-		// 案1(env MAXDC): 素項展開用 非検出オラクル。未設定なら NULL で従来動作
-		CCaDiCaL* u_oracle = EXP_MaybeBuildOracle(&target);
-        CCaDiCaL* core_oracle = paper_core ? PaperCoreBuildOracle(&target) : NULL;
-        int* core_vars = NULL;
-        if (paper_core) {
-            core_vars = malloc((size_t)(n_pi ? n_pi : 1) * sizeof(int));
-            if (!core_vars) { fprintf(stderr, "[PAPER_CORE] allocation failed\n"); exit(1); }
-            for (int i = 0; i < n_pi; i++) core_vars[i] = (int)pi[i]->varsgc;
+    FaultStats stats = {0};
+    FaultContext context = {0};
+    bool okay = true;
+    if (opt.dom_reuse == NO) {
+        int fault_count;
+        FNODE** faults = FaultPoolOrder(&fault_count);
+        if (!faults) okay = false;
+        else if (opt.jobs > 1) {
+            okay = FaultPoolRun(faults, fault_count, opt.jobs, AnalyzeOneFault,
+                                FinishFaultAnalysis, &context, bdd_result, cube_analysis_fp, &stats);
+        } else {
+            for (int i = 0; i < fault_count && okay; i++)
+                okay = AnalyzeOneFault(faults[i], i + 1, bdd_result, cube_analysis_fp, &stats, &context);
         }
-
-		// f のテストキューブを集める集合
-		CubeSet cubes;
-		cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
-
-		// 部分集合側の故障（subset_faults）のキューブを種＋禁止節として流用する。
-		// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
-		// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
-		// MDC_NODOM をセットすると流用を止め、ゼロから完全列挙する（支配解析の検証用）。
-		bool nodom = opt.dom_reuse == NO;
-		int seeded_cnt = 0;
-		for (int k = 0; k < f->n_subset_faults; k++)
-		{
-			FNODE* src = f->subset_faults[k];
-
-			if (!nodom)
-			{
-				for (int m = 0; m < src->cubes.n; m++)
-				{
-					cubeset_push(&cubes, strdup(src->cubes.data[m]));
-					AddBlockingClauseFromCube(solver, src->cubes.data[m]);
-				}
-				seeded_cnt += src->cubes.n;
-			}
-
-			// この親で src のキューブを使い切る。最後の消費者ならここで解放
-			if (--src->n_pending == 0)
-				cubeset_free(&src->cubes);
-		}
-
-		if (opt.file.input.cube_analysis != FILE_NOSET) {
-			fprintf(cube_analysis_fp, "%s,%s", f->name, FaultTypeName(f->type));
-		}
-
-		// 案2(env MAXHAM): 多様化の参照(前回キューブ)と aux 採番器を故障ごとに初期化
-		char* prev_cube = NULL;
-		EXP_ResetPerFault();
-
-		// 案3(env DUAL): 双対列挙を初期化（実体の構築は V 側の初回起動まで遅延）
-		bool dual_fin = false;
-		EXP_DualInit(gbm, &target);
-
-		// limit <= 0 は「上限なし（無制限）」を意味し、UNSAT まで完全列挙する
-		bool unlimited = (opt.file.input.limit <= 0);
-
-		// 検証(env MDC_FAULT_TIMEOUT=秒): 故障単位の CPU 時間バジェット。
-		// 超過したら limit 到達と同じ打ち切り経路（complete=0）に入れる。
-		// HALL 等の時間制限つきツールと打ち切り条件を揃えた比較実験用。
-		static double fault_timeout = -1.0;
-		if (fault_timeout < 0.0) {
-			const char* s = getenv("MDC_FAULT_TIMEOUT");
-			fault_timeout = s ? atof(s) : 0.0;
-		}
-		clock_t fault_t0 = clock();
-
-		// UNSAT・limit 到達・双対列挙の完了 のいずれかでテスト生成を終了する
-		while (1) {
-            int res;
-            if (dual_fin) {
-                // 案3: 双対列挙で U=D_f が確定済み。det 側の追加 solve は不要（UNSAT と同じ完了処理へ）
-                res = 20;
-            } else {
-                t_start = clock();
-                res = EXP_Solve(solver, prev_cube);   // MAXHAM 未設定なら素の solve
-                t_end   = clock();
-                time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
-            }
-
-            bool time_up = (fault_timeout > 0.0) &&
-                           ((double)(clock() - fault_t0) / CLOCKS_PER_SEC > fault_timeout);
-
-            if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit) || time_up) {
-                bool limit_hit = ((!unlimited && cubes.n >= opt.file.input.limit) || time_up) && res != 20;
-
-                // 案3(env DUAL): det 打ち切り後に V 側だけ回すドレインで完了を狙う
-                if (limit_hit && EXP_DualDrain(&cubes))
-                    limit_hit = false;
-
-                // 案4(env SPLIT=1): 打ち切りを Shannon 分割で完全列挙まで持っていけたら
-                // complete に昇格する（cubes の和集合 = D_f になる。未設定なら何もしない）
-                if (limit_hit && EXP_SplitFinish(gbm, solver, u_oracle, &cubes, &target))
-                    limit_hit = false;
-
-				if (opt.file.input.cube_analysis != FILE_NOSET) {
-					fprintf(cube_analysis_fp, "\n");
-				}
-
-                dom_total_cubes  += cubes.n;
-                dom_seeded_cubes += seeded_cnt;
-
-                t_start = clock();
-                // 打ち切り故障の厳密化フォールバック（どちらも complete=1 で報告、
-                // キューブは部分被覆のまま残り、支配流用・DropDeteFault にそのまま使える）:
-                //   PCOUNT=1    PODEM型入力空間探索＋メモ化による厳密数え上げ（案5）
-                //   BDD_EXACT=1 検出関数 D_f の直接BDD構築（従来手法・検証/参照値用）
-                char* exact_cnt = NULL;
-                if (limit_hit && getenv("PCOUNT"))                 exact_cnt = PC_ExactCountStr(f);
-                if (limit_hit && !exact_cnt && getenv("BDD_EXACT")) exact_cnt = GT_ExactCountStr(f);
-                if (exact_cnt) {
-                    calculate_prob_with_gmp(exact_cnt, n_pi, bdd_result, NULL, &target,
-                                            cubes.n, seeded_cnt, false);
-                    free(exact_cnt);
-                } else {
-                    RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, NULL, &target, cubes.n, seeded_cnt, limit_hit);
-                }
-                t_end   = clock();
-                time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
-
-				// 検証(env GT_BDD=1): 回路から直接構築した検出関数とキューブ和集合を厳密照合
-				GT_Check(f, &cubes, limit_hit);
-
-				// 検証(env CUBE_TREND=1): キューブ列の X 数・マスク重複など生成傾向を観察
-				CT_Report(f, &cubes, limit_hit);
-
-				// 案1: capped 故障の集計とオラクル解放（NULL なら何もしない）
-				EXP_OracleDone(&u_oracle, limit_hit);
-
-				// 案3: 双対列挙の集計と資源解放（打ち切り時は fdp の上下界も報告）
-				EXP_DualDone(f, limit_hit);
-
-				// キューブの所有権を故障へ移す（深いコピーはしない）。
-				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
-				f->cubes = cubes;
-				if (f->n_pending == 0)
-					cubeset_free(&f->cubes);
-
-				DropDeteFault(&target);
-				FreeMemory(&target);
-				break;
-			}
-			// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
-			else {
-				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
-
-                t_start = clock();
-                // TDF は励起条件（f->exc_netptr）込みで XID する。
-                // env TDF_NOXID=1 で X 埋めを止めミンターム列挙に戻す（XID の検証用）。
-                char* x_pattern;
-                if (paper_core) {
-                    x_pattern = CubeFromSolver(solver);
-                    if (!PaperCoreGeneralize(core_oracle, core_vars, n_pi, x_pattern, paper_core_verify)) {
-                        fprintf(stderr, "[PAPER_CORE] failed at %s/%s; no cube blocked\n",
-                                f->name, FaultTypeName(f->type));
-                        exit(1);
-                    }
-                } else if (tdf)
-                    x_pattern = getenv("TDF_NOXID")
-                                    ? CubeFromSolver(solver)
-                                    : InlineXID(solver, f->netptr, EXP_PreferredPONet(), f->exc_netptr);
-                else
-                    x_pattern = getenv("XID_EXTERNAL")
-                                    ? ExternalXID(solver, f)
-                                    : InlineXID(solver, f->netptr, EXP_PreferredPONet(), NULL);
-                t_end   = clock();
-                time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
-
-				EXP_Expand(u_oracle, x_pattern);  // 案1: キューブを素項へ拡大（in place）
-
-				AddBlockingClauseFromCube(solver, x_pattern);
-				cubeset_push(&cubes, x_pattern);
-				prev_cube = x_pattern;   // 案2: 次回 solve の多様化参照
-
-				// 案3: 非検出側を1本進め、U∪V の閉包で完了を判定（DUAL 未設定なら常に false）
-				dual_fin = EXP_DualStep(&cubes, x_pattern);
-
-				// X率計測: このキューブのXビット数を集計
-				for (int xi = 0; xi < n_pi; xi++) if (x_pattern[xi] == 'X') xstat_x++;
-				xstat_bits += n_pi;
-
-                if (opt.file.input.cube_analysis != FILE_NOSET) {
-                    t_start = clock();
-                    RunBDD(gbm, n_pi, cubes.data, cubes.n, NULL, cube_analysis_fp, &target, cubes.n, 0, false);
-                    t_end   = clock();
-                    time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
-                }
-			}
-		}
-		ccadical_release(solver);
-        if (core_oracle) ccadical_release(core_oracle);
-        free(core_vars);
-	}
-    if (paper_core) PaperCoreReport();
+        free(faults);
+    } else {
+        while (readdata.fault.numrema && okay) {
+            if (!SetTarget(&target)) { okay = false; break; }
+            okay = AnalyzeOneFault(target.list[0], ++count, bdd_result, cube_analysis_fp, &stats, &context);
+            FreeMemory(&target);
+        }
+    }
+    if (opt.jobs == 1) FinishFaultAnalysis(&context);
+    if (fclose(bdd_result) != 0) okay = false;
+    if (cube_analysis_fp && fclose(cube_analysis_fp) != 0) okay = false;
+    if (!okay) return AFD_ERROR;
+    if (opt.jobs > 1 && getenv("GT_BDD"))
+        GT_ParallelSummary(stats.gt_checked, stats.gt_unsound, stats.gt_inexact);
 
 	// ===== 支配流用サマリー =====
 	{
-		long sat_calls = dom_total_cubes - dom_seeded_cubes;
-		double reduction = dom_total_cubes > 0
-			? 100.0 * dom_seeded_cubes / dom_total_cubes : 0.0;
+		long sat_calls = stats.total_cubes - stats.seeded_cubes;
+		double reduction = stats.total_cubes > 0
+			? 100.0 * stats.seeded_cubes / stats.total_cubes : 0.0;
 		printf("\n[DOM] total_cubes=%ld  seeded=%ld  sat_calls=%ld  reduction=%.1f%%\n",
-			dom_total_cubes, dom_seeded_cubes, sat_calls, reduction);
+			stats.total_cubes, stats.seeded_cubes, sat_calls, reduction);
 	}
 
 	// ===== CPU time =====
-    *out_time_cadical = time_cadical;
-    *out_time_bdd     = time_bdd;
-    *out_time_xid     = time_xid;
+    *out_time_cadical = stats.cadical;
+    *out_time_bdd     = stats.bdd;
+    *out_time_xid     = stats.xid;
     *out_time_read    = time_read;
 
 	// X率サマリー（env XSTAT=1 のときだけ。比較用の一時計装）
 	if (getenv("XSTAT"))
 		fprintf(stderr, "[XSTAT] xid=%s cubes_bits=%ld x_bits=%ld x_ratio=%.4f\n",
 		        getenv("XID_EXTERNAL") ? "external" : "inline",
-		        xstat_bits, xstat_x,
-		        xstat_bits ? (double)xstat_x / (double)xstat_bits : 0.0);
+		        stats.xstat_bits, stats.xstat_x,
+		        stats.xstat_bits ? (double)stats.xstat_x / (double)stats.xstat_bits : 0.0);
 
-    NormalScopeRelease();
 	return AFD_OKAY;
 }
 

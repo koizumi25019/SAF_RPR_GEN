@@ -146,6 +146,7 @@ static DdNode**   gt_fault = NULL;   /* 故障回路: TFOコーンのみ故障�
 static int*       gt_piidx = NULL;   /* net id -> pi[] index（PIでなければ -1） */
 static int*       gt_mark  = NULL;   /* TFOコーン所属フラグ */
 static long gt_n=0, gt_unsound=0, gt_inexact=0;
+static int gt_summary_enabled = 1;
 
 /* Minato-Morreale ISOP 診断（env GT_ISOP=1）。
    Cudd_zddIsop は D_f の BDD から prime かつ irredundant な SOP をZDDで返す。
@@ -214,9 +215,19 @@ static void gt_isop_measure(DdManager* m, FNODE* f, CubeSet* cubes,
 }
 
 static void gt_dump(void){
+    if (!gt_summary_enabled) return;
     fprintf(stderr, "[GT] summary: checked=%ld  UNSOUND=%ld  complete-but-NOT-exact=%ld  %s\n",
         gt_n, gt_unsound, gt_inexact,
         (gt_unsound==0 && gt_inexact==0) ? "ALL VERIFIED" : "** MISMATCH **");
+}
+
+void GT_GetCounts(long* checked, long* unsound, long* inexact){
+    *checked = gt_n; *unsound = gt_unsound; *inexact = gt_inexact;
+}
+void GT_SuppressSummary(void){ gt_summary_enabled = 0; }
+void GT_ParallelSummary(long checked, long unsound, long inexact){
+    gt_n = checked; gt_unsound = unsound; gt_inexact = inexact;
+    gt_dump();
 }
 
 /* ゲート1個のBDD。入力 j の値は mark[j] が立っていれば fb[j]（故障側）、

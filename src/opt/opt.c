@@ -13,11 +13,22 @@ static bool OPTisModeOption(const char* name)
 {
     return strcmp(name, "-dc_method") == 0 || strcmp(name, "-dom_reuse") == 0 ||
            strcmp(name, "-core_verify") == 0 || strcmp(name, "-low_power") == 0 ||
-           strcmp(name, "-wsa_threshold") == 0;
+           strcmp(name, "-wsa_threshold") == 0 || strcmp(name, "-jobs") == 0;
 }
 
 static bool OPTsetMode(const char* name, const char* value)
 {
+    if (strcmp(name, "-jobs") == 0) {
+        char* end = NULL;
+        errno = 0;
+        long jobs = value ? strtol(value, &end, 10) : 0;
+        if (value && *value && end != value && !*end && !errno && jobs >= 1 && jobs <= 256) {
+            opt.jobs = (int)jobs;
+            return OPT_OKAY;
+        }
+        fprintf(stderr, "COMMAND ERROR: -jobs requires an integer 1..256\n");
+        return OPT_ERROR;
+    }
     if (strcmp(name, "-wsa_threshold") == 0) {
         char* end = NULL;
         errno = 0;
@@ -73,7 +84,7 @@ bool OPT(
         opt.dc_method = getenv("PAPER_CORE") ? DC_CORE : DC_XID;
     }
     if (opt.dom_reuse == MODE_NOSET) {
-        opt.dom_reuse = getenv("MDC_NODOM") ? NO : YES;
+        opt.dom_reuse = (opt.jobs > 1 || getenv("MDC_NODOM")) ? NO : YES;
     }
     if (opt.core_verify == MODE_NOSET) {
         opt.core_verify = getenv("PAPER_CORE_VERIFY") ? YES : NO;
@@ -82,6 +93,22 @@ bool OPT(
         (opt.fault_model != FM_TDF || opt.dc_method != DC_CORE || opt.wsa_threshold < 0)) {
         fprintf(stderr, "COMMAND ERROR: -low_power on requires -tdf, -dc_method core and -wsa_threshold 0..100\n");
         return OPT_ERROR;
+    }
+    if (opt.jobs > 1) {
+        if (opt.dom_reuse == YES) {
+            fprintf(stderr, "COMMAND ERROR: -jobs > 1 requires -dom_reuse off\n");
+            return OPT_ERROR;
+        }
+        /* These research hooks use shared filenames or have not been validated
+           for independent worker execution. The serial path remains available. */
+        const char* unsupported[] = { "AIG_DUMP", "AIG_DUMP_DIR", "DUMP_CNF",
+            "XID_EXTERNAL", "CUBE_TREND_CSV", "MAXDC", "MAXHAM", "DUAL",
+            "SPLIT", "PCOUNT", "BDD_EXACT", "GT_ISOP" };
+        for (size_t i = 0; i < sizeof(unsupported) / sizeof(*unsupported); i++)
+            if (getenv(unsupported[i])) {
+                fprintf(stderr, "COMMAND ERROR: %s is not supported with -jobs > 1\n", unsupported[i]);
+                return OPT_ERROR;
+            }
     }
 
 	return OPT_OKAY;
@@ -106,6 +133,7 @@ void OPTinit(
     opt.core_verify = MODE_NOSET;
     opt.low_power = NO;
     opt.wsa_threshold = -1;
+    opt.jobs = 1;
 
 	return;
 }
@@ -177,7 +205,9 @@ bool OPTset(
 
 		/** read the setfile */
 		else if (strcmp(argv[i], "-set") == 0)
-			return OPTread(argv[++i]);
+		{
+            if (i + 1 >= argc || !OPTread(argv[++i])) return OPT_ERROR;
+        }
 
 		else
 		{
