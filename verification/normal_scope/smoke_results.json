@@ -1,0 +1,7 @@
+{
+  "debug_release_c17a_gt": true,
+  "power_encoding": true,
+  "power_encoding_full_assignments": 5119,
+  "dimacs_all_pi_projection": true,
+  "scoped_dimacs_no_false_independent_support_claim": true
+}

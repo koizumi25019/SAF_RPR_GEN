@@ -275,3 +275,15 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
 `experiment/*` ブランチがこれらを持ち、`master` がベースライン。各実験コミットが何を確認したかは
 `git log` を参照。過去にあった `MDC_MC`/`FDPSIM_LIST`/`CUBE_DUMP`/`XID_EXTERNAL`/`XID_DBG`/`XID_PO`
 は GT_BDD で代替できるため削除済み（必要なら git 履歴から復元）。
+
+## 正常CNFの範囲限定（検証用の通常パイプライン）
+
+`FDP_NORMAL_SCOPE=1` で、検出ソルバへ投入する正常ゲート定義を、故障・検出・励起・
+EA・D-chain・低電力の全制約が参照する正常信号のTFI閉包へ限定する。既定はoff。
+サイド入力の生成回路もPIまで残す。`n_pi`・PI順・FDPの分母は変更しない。
+XID用の正常値はPIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
+CORE/MAXDCなどの非検出オラクルは完全な正常定義と電力定義を維持する。
+`FDP_NORMAL_SCOPE_VALIDATE=1` は、保持した正常信号のSAT値と復元値を照合する。
+検証・再現手順は `verification/normal_scope/SUMMARY.md`、回帰は同ディレクトリの `check.py`。
+全検証で `-dom_reuse off` を使用する。打ち切りFDPは下界であり、範囲限定は全故障の完了を保証しない。
+範囲限定したDIMACSは全PIへの射影カウント専用（`c p show`）。非射影#SATをFDPに使わない。

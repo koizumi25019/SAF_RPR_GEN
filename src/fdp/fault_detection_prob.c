@@ -1,3 +1,4 @@
+#include "normal_scope.h"
 //-------------------------------------------------------------------------------------------------------------
 //	include
 //-------------------------------------------------------------------------------------------------------------
@@ -252,8 +253,9 @@ bool AnalyzeFaultDensity(
 		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
 
 		if (dump_dir) {
-			cnf_tee_end(cnf.total.vars);
-			fprintf(stderr, "[DUMP_CNF] %s_%s -> n_pi=%d vars=%d (Vi=#SAT, FDP=Vi/2^n_pi)\n",
+            if (NormalScopeEnabled()) cnf_tee_end_projected(cnf.total.vars);
+            else cnf_tee_end(cnf.total.vars);
+			fprintf(stderr, "[DUMP_CNF] %s_%s -> n_pi=%d vars=%d (Vi=projected count over all PIs, FDP=Vi/2^n_pi)\n",
 			        f->name, (f->type == SF0) ? "sa0" : "sa1", n_pi, cnf.total.vars);
 			ccadical_release(solver);
 			exit(0);   // 対象は単一故障flistで回す前提。最初の故障を出して終了
@@ -473,6 +475,7 @@ bool AnalyzeFaultDensity(
 		        xstat_bits, xstat_x,
 		        xstat_bits ? (double)xstat_x / (double)xstat_bits : 0.0);
 
+    NormalScopeRelease();
 	return AFD_OKAY;
 }
 

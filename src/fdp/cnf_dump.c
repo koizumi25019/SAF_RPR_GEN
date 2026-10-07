@@ -11,6 +11,9 @@
 /* 節本体は一旦テンポラリへ書き、確定時に「p cnf 変数数 節数」ヘッダと
    射影行(PI good 変数)を前置してから結合する（DIMACSはヘッダが先頭必須のため）。 */
 static FILE* body = NULL;
+static void (*literal_observer)(int);
+
+void cnf_set_literal_observer(void (*observer)(int)) { literal_observer = observer; }
 static long  nclause = 0;
 static char  out_path[2048];
 
@@ -27,12 +30,13 @@ int cnf_tee_active(void) { return body != NULL; }
 
 void cnf_tee_lit(int lit)
 {
+    if (literal_observer) literal_observer(lit);
     if (!body) return;
     if (lit == 0) { fputs("0\n", body); nclause++; }
     else          { fprintf(body, "%d ", lit); }
 }
 
-void cnf_tee_end(int nvars)
+static void cnf_tee_finish(int nvars, int projected_only)
 {
     if (!body) return;
     FILE* out = fopen(out_path, "w");
@@ -40,9 +44,15 @@ void cnf_tee_end(int nvars)
 
     fprintf(out, "p cnf %d %ld\n", nvars, nclause);
     /* 射影(独立サポート)= PI の good 回路変数。回路は決定的なので
-       これらだけで全変数が一意に決まり、射影カウント = Vi。
-       Ganak/ApproxMC系は "c ind ... 0"、MCC2022系は "c p show ... 0" を使う。両方出す。 */
-    fprintf(out, "c ind");    for (int i = 0; i < n_pi; i++) fprintf(out, " %d", (int)pi[i]->varsgc); fprintf(out, " 0\n");
+       範囲限定時も全PIへの射影カウント = Vi。
+       省略ゲートの内部変数は自由なので、通常の非射影 #SAT は使わない。
+       c ind は独立サポート宣言であり、射影指定とは異なる。
+       範囲限定時には全変数の独立サポートにならないので出力しない。 */
+    if (!projected_only) {
+        fprintf(out, "c ind");
+        for (int i = 0; i < n_pi; i++) fprintf(out, " %d", (int)pi[i]->varsgc);
+        fprintf(out, " 0\n");
+    }
     fprintf(out, "c p show"); for (int i = 0; i < n_pi; i++) fprintf(out, " %d", (int)pi[i]->varsgc); fprintf(out, " 0\n");
 
     rewind(body);
@@ -54,3 +64,6 @@ void cnf_tee_end(int nvars)
     fclose(body);
     body = NULL;
 }
+
+void cnf_tee_end(int nvars) { cnf_tee_finish(nvars, 0); }
+void cnf_tee_end_projected(int nvars) { cnf_tee_finish(nvars, 1); }
