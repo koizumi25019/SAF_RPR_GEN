@@ -287,3 +287,13 @@ CORE/MAXDCなどの非検出オラクルは完全な正常定義と電力定義�
 検証・再現手順は `verification/normal_scope/SUMMARY.md`、回帰は同ディレクトリの `check.py`。
 全検証で `-dom_reuse off` を使用する。打ち切りFDPは下界であり、範囲限定は全故障の完了を保証しない。
 範囲限定したDIMACSは全PIへの射影カウント専用（`c p show`）。非射影#SATをFDPに使わない。
+
+## baselineへの正常CNF範囲限定移植
+
+baseline `b3958a2` は範囲限定を既定onにし、直接の `ccadical_add()` を維持する。
+TFO全信号＋EA_UP全信号の全TFIをモデル構築後に集め、投入時の観測マクロは使用しない。
+検証版のこのブランチは従来どおり明示的な `FDP_NORMAL_SCOPE=1` で有効化する。
+移植の隔離検証は `verification/normal_scope/baseline_migration/`。実baselineの生成キューブを
+独立GTへ渡してs5378_C全4,551代表故障の健全性・完了等価性を確認した。
+単回Release・limit30・流用offで適用前111.432秒→適用後46.074秒（2.42倍）。
+中央値ではない。9小回路の全FDP一致、全入力シミュレーション、流用onと切り分けモードも確認。

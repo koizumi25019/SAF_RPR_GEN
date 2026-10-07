@@ -1,0 +1,194 @@
+{
+  "pre_migration_commit": "5da133b",
+  "default_scope": "on",
+  "cnf_insertion": "direct ccadical_add, no wrapper or macro",
+  "scope_strategy": "TFI closure of all TFO nodes and all emitted essential-assignment signals",
+  "checks": [
+    {
+      "label": "c17a",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 5,
+        "faults": 22,
+        "cubes": 65,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 22,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "c17a_golden",
+      "golden": true,
+      "debug_release": true,
+      "scope_off": true
+    },
+    {
+      "label": "s27_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 7,
+        "faults": 32,
+        "cubes": 104,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 32,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 19,
+        "faults": 215,
+        "cubes": 9780,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 215,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s298_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 17,
+        "faults": 308,
+        "cubes": 1568,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 308,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s344_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": null,
+      "faults": 342,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s510_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": null,
+      "faults": 564,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s641_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": null,
+      "faults": 463,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s713_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": null,
+      "faults": 581,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s1494_C",
+      "full_fdp_matches_original": true,
+      "independent_simulation": null,
+      "faults": 1506,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "c17a_reuse_on",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 5,
+        "faults": 22,
+        "cubes": 75,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 22,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_C_reuse_on",
+      "full_fdp_matches_original": true,
+      "independent_simulation": {
+        "inputs": 19,
+        "faults": 215,
+        "cubes": 9780,
+        "all_expansions_sound": true,
+        "completed_covers_exact": true
+      },
+      "faults": 215,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "MDC_NOEA",
+      "faults": 215,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "MDC_NOPROP",
+      "faults": 215,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s5378_all_l30",
+      "completed": 1572,
+      "faults": 4551,
+      "unsound": 0,
+      "completed_not_exact": 0,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s5378_once",
+      "before_seconds": 111.43150626699207,
+      "after_seconds": 46.073689591983566,
+      "speedup": 2.4185496593348628,
+      "before_completed": 1567,
+      "after_completed": 1572,
+      "shared_complete_fdp_mismatches": 0,
+      "generated_output_matches_validated_run": true,
+      "reuse": "off",
+      "limit": 30,
+      "complete_to_incomplete": 4,
+      "incomplete_to_complete": 9
+    }
+  ],
+  "benchmark_repeats": 1,
+  "cpu_quota": "200000 100000",
+  "binary_sha256": {
+    "before": "f1a4b7567a77a7e60e49196aeca272bc63522586c91c1be5a56472b2698d176f",
+    "after": "c50fce9cf66c0c135085f4f822d3c6ae44b3d5c8e7b220eac6127baf92346ce7"
+  },
+  "scope_counts": "[NORMAL_SCOPE] faults=4551 normal_gates=3242817/23005305 outside_pi=764962",
+  "cmake_equivalent_flags_no_compat_define_smoke": true,
+  "baseline_commit": "b3958a2"
+}
