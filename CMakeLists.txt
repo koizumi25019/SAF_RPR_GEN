@@ -13,7 +13,7 @@ set(SOURCES
     src/fdp/drop_dete_fault.c
     src/fdp/essential_assignment.c
     src/fdp/fault_detection_prob.c
-    src/fdp/gmp_wrapper.c
+    src/fdp/fault_result.c
     src/fdp/init.c
     src/fdp/read.c
     src/fdp/target_fault.c
@@ -63,3 +63,24 @@ add_executable(main_release ${SOURCES})
 target_compile_options(main_release PRIVATE -O3 -DNDEBUG -fcommon)
 target_include_directories(main_release PRIVATE ${COMMON_INCLUDES})
 target_link_libraries(main_release cadical cudd gmp m stdc++)
+
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(target_order_test
+        tests/target_order_test.c
+        src/fdp/target_fault.c
+    )
+    target_compile_options(target_order_test PRIVATE -fcommon -UNDEBUG)
+    target_include_directories(target_order_test PRIVATE ${COMMON_INCLUDES})
+    add_test(NAME target_order COMMAND target_order_test)
+
+    add_executable(fdp_output_test
+        tests/fdp_output_test.c
+        src/fdp/cudd_wrapper.c
+        src/fdp/fault_result.c
+    )
+    target_compile_options(fdp_output_test PRIVATE -fcommon -UNDEBUG)
+    target_include_directories(fdp_output_test PRIVATE ${COMMON_INCLUDES})
+    target_link_libraries(fdp_output_test cudd gmp m)
+    add_test(NAME fdp_output COMMAND fdp_output_test)
+endif()

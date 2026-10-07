@@ -4,8 +4,9 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <time.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-#include "./target_fault.h"
+#include "./read.h"
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -37,5 +38,5 @@ bool AnalyzeFaultDensity(
 );
 
 bool DropDeteFault(
-	TARGET * target
+	FNODE* target
 );

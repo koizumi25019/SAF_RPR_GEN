@@ -20,16 +20,15 @@
 //*************************************************************************************************************
 bool CreateConsFC(
 	CCaDiCaL* solver,
-	TARGET* target			  /**< 対象故障 */
+	FNODE* target			  /**< 対象故障 */
 )
 {
 	RESET_CNF;
 
-	FNODE* fault = target->list[0];
-	if (fault->detect != UNDETECTED) return true;
+	if (target->detect != UNDETECTED) return true;
 
 	/** 伝搬先(TFO)を探索する */
-	SearchTFO(fault);
+	SearchTFO(target);
 
 	/** 故障回路の制約を作成する */
 	for (int j = 0; j < n_net; j++)
@@ -60,13 +59,13 @@ bool CreateConsFC(
 	}
 
 	/** 故障伝搬(Dチェーン)制約を作成する */
-	if (!getenv("MDC_NOPROP")) CreateConsProp(solver, fault);
+	if (!getenv("MDC_NOPROP")) CreateConsProp(solver, target);
 
 	/** 検出回路の制約を作成する */
-	CreateConsDC(solver, fault);
+	CreateConsDC(solver, target);
 
 	/** 必須割当ての単位節を追加する */
-	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, fault);
+	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, target);
 
 	return true;
 }

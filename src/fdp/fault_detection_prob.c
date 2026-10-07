@@ -14,10 +14,12 @@
 #include "./fault_detection_prob.h"
 #include "./init.h"
 #include "./read.h"
+#include "./target_fault.h"
 #include "./cube_set.h"
 #include "./cnf/cnf.h"
 #include "../opt/opt.h"
 #include "./cudd_wrapper.h"
+#include "./fault_result.h"
 #include "./xid/XID.h"
 #include "./normal_scope.h"
 
@@ -49,8 +51,7 @@ bool AnalyzeFaultDensity(
     double* out_time_read
 )
 {
-	TARGET	target;
-	FILE* bdd_result = (FILE*)NULL;
+	FILE* result_fp = (FILE*)NULL;
 
 	int count = 0;
 
@@ -70,8 +71,8 @@ bool AnalyzeFaultDensity(
 	Cudd_AutodynEnable(gbm, CUDD_REORDER_SIFT);
 
 	// 結果ファイルを開く
-	fileOpen(&bdd_result, opt.file.output.fdp, "w");
-	fprintf(bdd_result, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
+	fileOpen(&result_fp, opt.file.output.fdp, "w");
+	fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
 
 	if (InitGlobalVars() != INIT_OKAY) return AFD_ERROR;
 
@@ -83,32 +84,52 @@ bool AnalyzeFaultDensity(
 	printf("ReadFault: %.3f sec\n", time_read);
 
 	if (CreateConsGC() != true) return AFD_ERROR;
+	if (!InitTargetOrder()) {
+		NormalScopeRelease();
+		Cudd_Quit(gbm);
+		fclose(result_fp);
+		return AFD_ERROR;
+	}
 
 	while (readdata.fault.numrema != 0)
 	{
+		FNODE* target = SetTarget();
+		if (target == NULL) {
+			FreeTargetOrder();
+			NormalScopeRelease();
+			Cudd_Quit(gbm);
+			fclose(result_fp);
+			return AFD_ERROR;
+		}
+
 		// ソルバの初期化
 		CCaDiCaL* solver = ccadical_init();
 		ccadical_set_option(solver, "factor", 0);
 
 		count++;
-		SetTarget(&target);
-		FNODE* f = target.list[0];
 
-		if (WriteTPGModel(solver, &target) != true) return AFD_ERROR;
+		if (WriteTPGModel(solver, target) != true) {
+			ccadical_release(solver);
+			FreeTargetOrder();
+			NormalScopeRelease();
+			Cudd_Quit(gbm);
+			fclose(result_fp);
+			return AFD_ERROR;
+		}
 
-		// f のテストキューブを集める集合
+		// 対象故障のテストキューブを集める集合
 		CubeSet cubes;
 		cubeset_init(&cubes, (opt.file.input.limit > 0) ? opt.file.input.limit : 30);
 
 		// 部分集合側の故障（subset_faults）のキューブを種＋禁止節として流用する。
-		// T(subset) ⊆ T(f) なので、これらは f の正当なテストであり、
-		// solver は差分 T(f)\∪T(subset) だけを探索すればよい。
+		// T(subset) ⊆ T(target) なので、これらは対象故障の正当なテストであり、
+		// solver は差分 T(target)\∪T(subset) だけを探索すればよい。
 		// MDC_NODOM をセットすると流用を止め、ゼロから完全列挙する（支配解析の検証用）。
 		bool nodom = getenv("MDC_NODOM");
 		int seeded_cnt = 0;
-		for (int k = 0; k < f->n_subset_faults; k++)
+		for (int k = 0; k < target->n_subset_faults; k++)
 		{
-			FNODE* src = f->subset_faults[k];
+			FNODE* src = target->subset_faults[k];
 
 			if (!nodom)
 			{
@@ -135,25 +156,57 @@ bool AnalyzeFaultDensity(
             t_end   = clock();
             time_cadical += ((double)(t_end - t_start)) / CLOCKS_PER_SEC;
 
+            // UNKNOWN ではモデル参照・禁止節追加・結果出力を行わず異常終了する。
+            if (res != 10 && res != 20) {
+                fprintf(stderr, "\nERROR: SAT solver returned UNKNOWN (status=%d) for %s %s; "
+                        "no cube blocked or result written for this fault.\n",
+                        res, target->name, (target->type == SF0) ? "sa0" : "sa1");
+                cubeset_free(&cubes);
+                ccadical_release(solver);
+                FreeTargetOrder();
+                NormalScopeRelease();
+                Cudd_Quit(gbm);
+                fclose(result_fp);
+                return AFD_ERROR;
+            }
+
             if (res == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
                 bool limit_hit = (!unlimited && cubes.n >= opt.file.input.limit && res != 20);
 
                 dom_total_cubes  += cubes.n;
                 dom_seeded_cubes += seeded_cnt;
 
+                FaultResult result = {
+                    .target = target,
+                    .cube_cnt = cubes.n,
+                    .seeded_cnt = seeded_cnt,
+                    .complete = !limit_hit
+                };
+                mpf_init2(result.density, 8192);
+
                 t_start = clock();
-                RunBDD(gbm, n_pi, cubes.data, cubes.n, bdd_result, &target, cubes.n, seeded_cnt, limit_hit);
+                if (!RunBDD(gbm, n_pi, &cubes, result.density)) {
+                    mpf_clear(result.density);
+                    cubeset_free(&cubes);
+                    ccadical_release(solver);
+                    FreeTargetOrder();
+                    NormalScopeRelease();
+                    Cudd_Quit(gbm);
+                    fclose(result_fp);
+                    return AFD_ERROR;
+                }
+                WriteFaultResult(result_fp, &result);
+                mpf_clear(result.density);
                 t_end   = clock();
                 time_bdd += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
 				// キューブの所有権を故障へ移す（深いコピーはしない）。
 				// 流用する親が残っていなければ即解放し、メモリを生存集合だけに保つ。
-				f->cubes = cubes;
-				if (f->n_pending == 0)
-					cubeset_free(&f->cubes);
+				target->cubes = cubes;
+				if (target->n_pending == 0)
+					cubeset_free(&target->cubes);
 
-				DropDeteFault(&target);
-				free(target.list);
+				DropDeteFault(target);
 				break;
 			}
 			// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
@@ -161,7 +214,7 @@ bool AnalyzeFaultDensity(
 				printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
 
                 t_start = clock();
-                char* x_pattern = InlineXID(solver, f->netptr, -1);
+                char* x_pattern = InlineXID(solver, target->netptr, -1);
                 t_end   = clock();
                 time_xid += (double)(t_end - t_start) / CLOCKS_PER_SEC;
 
@@ -180,6 +233,10 @@ bool AnalyzeFaultDensity(
 		printf("\n[DOM] total_cubes=%ld  seeded=%ld  sat_calls=%ld  reduction=%.1f%%\n",
 			dom_total_cubes, dom_seeded_cubes, sat_calls, reduction);
 	}
+
+	FreeTargetOrder();
+	fclose(result_fp);
+	Cudd_Quit(gbm);
 
 	// ===== CPU時間 =====
     *out_time_cadical = time_cadical;

@@ -4,24 +4,24 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdbool.h>
 #include "ccadical.h"
-#include "./target_fault.h"
+#include "./read.h"
 
 //-------------------------------------------------------------------------------------------------------------
 //	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
 /** 正常回路節（グローバル）をソルバに読み込む */
-void LoadModelToSolver(CCaDiCaL *solver, TARGET* target);
+void LoadModelToSolver(CCaDiCaL *solver);
 
 /** テストパタン生成モデルを構築する */
 bool WriteTPGModel(
 	CCaDiCaL *solver,
-	TARGET* target			  /**< 対象故障 */
+	FNODE* target			  /**< 対象故障 */
 );
 
 /** テストパタン生成モデルを作成する */
 bool CreateTPGmodel(
 	CCaDiCaL* solver,
-	TARGET* target			  /**< 対象故障 */
+	FNODE* target			  /**< 対象故障 */
 );
 
 

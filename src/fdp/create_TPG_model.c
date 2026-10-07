@@ -2,7 +2,6 @@
 //	インクルード
 //-------------------------------------------------------------------------------------------------------------
 #include "./create_TPG_model.h"
-#include "./target_fault.h"
 #include "./cnf/cnf.h"
 #include "ccadical.h"
 #include "normal_scope.h"
@@ -19,7 +18,7 @@ static void LoadNormalDefinition(CCaDiCaL *solver, int scoped) {
 }
 
 /* Preserve the public full-definition loader for any future oracle callers. */
-void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
+void LoadModelToSolver(CCaDiCaL *solver) {
     LoadNormalDefinition(solver, 0);
 }
 
@@ -30,7 +29,7 @@ void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
 //*************************************************************************************************************
 bool WriteTPGModel(
 	CCaDiCaL *solver,
-	TARGET* target
+	FNODE* target
 )
 {
 	/** TPGモデルを作成する */
@@ -39,7 +38,7 @@ bool WriteTPGModel(
     // 作成された文字列データをソルバに直接投入
     NormalScopeBuild();
     if (NormalScopeEnabled()) LoadNormalDefinition(solver, 1);
-    else LoadModelToSolver(solver, target);
+    else LoadModelToSolver(solver);
 
 	return true;
 }
@@ -51,7 +50,7 @@ bool WriteTPGModel(
 //*************************************************************************************************************
 bool CreateTPGmodel(
 CCaDiCaL* solver,
-	TARGET* target
+	FNODE* target
 )
 {
 	/** 故障回路の制約を作成する */

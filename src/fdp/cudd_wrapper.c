@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <cudd.h>
-#include <gmp.h>
-#include "./gmp_wrapper.h"
-#include "../opt/opt.h"
+#include "./cudd_wrapper.h"
 
-DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
+static DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     DdNode* cubeBdd = Cudd_ReadOne(gbm);
     Cudd_Ref(cubeBdd);
 
@@ -42,13 +37,13 @@ DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
     return cubeBdd;
 }
 
-// BDD
-void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_fp, TARGET* target, int cube_cnt, int seeded_cnt, bool limit_hit) {
+// キューブ和集合の BDD を構築し、検出確率を計算する。
+bool RunBDD(DdManager* gbm, int nvars, const CubeSet* cubes, mpf_t density) {
     DdNode* finalBdd = Cudd_ReadLogicZero(gbm);
     Cudd_Ref(finalBdd);
 
-    for (int i = 0; i < n_cubes; i++) {
-        DdNode* cubeBdd = parseCube(gbm, cubes[i], nvars);
+    for (int i = 0; i < cubes->n; i++) {
+        DdNode* cubeBdd = parseCube(gbm, cubes->data[i], nvars);
         DdNode* tmp = Cudd_bddOr(gbm, finalBdd, cubeBdd);
         Cudd_Ref(tmp);
         Cudd_RecursiveDeref(gbm, finalBdd);
@@ -57,29 +52,22 @@ void RunBDD(DdManager* gbm, int nvars, char** cubes, int n_cubes, FILE* result_f
     }
 
     int digits;
-    DdApaNumber count;
-    count=Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
-
-    // APA
-    FILE* tmp_fp = tmpfile();
-    if (!tmp_fp) {
-        fprintf(stderr, "Error: cannot create temporary file\n");
-        Cudd_Quit(gbm);
-    }
-    Cudd_ApaPrintDecimal(tmp_fp, digits, count);
-    rewind(tmp_fp);
-
-    char countStr[8192];
-    if (fgets(countStr, sizeof(countStr), tmp_fp) == NULL) {
-        strcpy(countStr, "0");
-    }
-    fclose(tmp_fp);
-    free(count);
-
-    //GMP
-    calculate_prob_with_gmp(countStr, nvars,result_fp,target,cube_cnt,seeded_cnt,limit_hit);
-
+    DdApaNumber count = Cudd_ApaCountMinterm(gbm, finalBdd, nvars, &digits);
     Cudd_RecursiveDeref(gbm, finalBdd);
+    if (count == NULL) {
+        fprintf(stderr, "ERROR: BDD minterm counting failed\n");
+        return false;
+    }
 
-    return;
+    // CUDD の APA は上位桁から並ぶ。各桁のバイト順はホストと同じ。
+    // 一時ファイル・10進文字列を経由せず、多倍長整数として GMP に直接取り込む。
+    mpz_t minterms;
+    mpz_init(minterms);
+    mpz_import(minterms, (size_t)digits, 1, sizeof(DdApaDigit), 0, 0, count);
+    Cudd_FreeApaNumber(count);
+
+    mpf_set_z(density, minterms);
+    mpf_div_2exp(density, density, (mp_bitcnt_t)nvars);
+    mpz_clear(minterms);
+    return true;
 }

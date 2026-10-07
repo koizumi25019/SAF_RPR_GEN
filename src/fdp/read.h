@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "./target_fault.h"
+#include <stdbool.h>
 #include "./cube_set.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"

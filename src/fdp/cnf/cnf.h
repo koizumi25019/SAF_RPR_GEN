@@ -89,7 +89,7 @@ void CreateConsGC_XNOR(
 /** 故障回路の制約を作成する */
 bool CreateConsFC(
 	CCaDiCaL* solver,       // ★追加
-	TARGET* target			  /**< 対象故障 */
+	FNODE* target			  /**< 対象故障 */
 );
 
 /** 伝搬先(TFO)を探索する */

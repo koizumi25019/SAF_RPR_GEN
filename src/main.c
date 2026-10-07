@@ -40,7 +40,7 @@ int main(
 	read_nl(opt.file.input.net);
 
 	// 故障検出確率を算出する
-	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return RETCODE_ERROR;
+	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return EXIT_FAILURE;
 
 	cpu_end = clock(); // CPU時間の計測終了
 

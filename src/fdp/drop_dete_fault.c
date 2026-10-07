@@ -7,7 +7,6 @@
 
 #include "./fault_detection_prob.h"
 #include "./read.h"
-#include "./target_fault.h"
 #include "./cnf/cnf.h"
 #include "../lib/lib.h"
 
@@ -17,23 +16,20 @@
 //	@return		F	(bool) 正常, 異常
 //*************************************************************************************************************
 bool DropDeteFault(
-	TARGET* target
+	FNODE* target
 )
 {
-	/* target->list[0] はハッシュ表内の FNODE そのもの（SetTarget が
-	   readdata.fault.list[] のノードを直接代入する）。文字列を作り直して
-	   ハッシュ表を引き直す必要はなく、検出情報を直接更新すればよい。 */
-	FNODE* fault = target->list[0];
+	/* target は故障ハッシュ表内のノードなので、検出情報を直接更新する。 */
 
-	if (fault->detect == UNDETECTED)
+	if (target->detect == UNDETECTED)
 	{
-		fault->detect = DETECTED;
+		target->detect = DETECTED;
 		readdata.fault.numdete++;
 		readdata.fault.numrema--;
 	}
-	else if (fault->detect == REDEUNDANT)
+	else if (target->detect == REDEUNDANT)
 	{
-		fault->detect = DETECTED;
+		target->detect = DETECTED;
 		readdata.fault.numdete++;
 		readdata.fault.numrema--;
 		readdata.fault.numred--;

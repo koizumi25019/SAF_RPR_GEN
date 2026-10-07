@@ -40,7 +40,10 @@ cd build && ./main_debug -set ../input/script/c17a.set
 
 ## 回帰テスト
 
-ユニットテストの仕組みは無い。正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する
+`ctest --test-dir build --output-on-failure` で対象故障の選択順、BDD→GMP の数え上げ・確率変換と CSV 出力のテストを実行する。
+対象選択は従来の全走査と照合し、同レベルの順序、処理済みのスキップ、空集合、再初期化を確認する。
+空集合、重複、独立全列挙、32ビット桁境界、大きな数え上げ、等価故障と完了フラグを確認する。
+パイプライン全体の正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する
 （`expected/README.md` 参照）。**挙動が変わりうる変更をしたら、c17a を実行して `fdp` 列が
 `expected/c17a_result.csv` と一致することを確認する**：
 
@@ -61,7 +64,11 @@ diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
 
 `AnalyzeFaultDensity` のメインループ内、故障ごとのパイプライン：
 
-1. **対象選択**（`src/fdp/target_fault.c`, `SetTarget`）で次の故障を選ぶ。故障は**支配関係**を持つ：
+1. **対象選択**（`src/fdp/target_fault.c`, `SetTarget`）で次の単一故障を選び、故障ハッシュ表内の `FNODE*` を直接返す。
+   故障読み込み後に `InitTargetOrder` でレベルと元の走査順位により一度だけ整列し、
+   `SetTarget` は配列を前へ進めて処理済みを飛ばす。同レベルも含め従来の選択順を維持する。
+   選択処理の合計は O(F²) から O(F log F + F) になり、終了時は `FreeTargetOrder` で配列を解放する。
+   TPG モデル構築・BDD 出力・検出状態更新も同じポインタを使い、対象用のリスト確保・解放は不要。故障は**支配関係**を持つ：
    ある故障の `subset_faults` は、そのテスト集合がこの故障のテスト集合の部分集合になる故障。
    既に求めた `subset_faults` のキューブを種＋禁止節として流用し、ソルバは差分 `T(f) \ ∪T(subset)`
    だけを探索する。`n_pending` がキューブの所有権を参照カウントし、最後の消費者が終わり次第キューブ集合を解放する。
@@ -71,8 +78,15 @@ diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
 3. **キューブ生成ループ**：CaDiCaL を solve する。SAT なら `InlineXID`（`src/fdp/xid/`）が
    外部入力のドントケアを埋め、キューブ文字列（PI ごとに `'0'/'1'/'X'`）を生成。それを禁止節として追加し
    `CubeSet` に push する。ループは UNSAT（完全）または `-limit` 到達（打ち切り）で終了。
-4. **FDP 算出**：`RunBDD`（`src/fdp/cudd_wrapper.c`, CUDD）がキューブの和集合を BDD として構築し、
-   GMP の有理数（`src/fdp/gmp_wrapper.c`）で厳密な確率を計算。CSV の1行を出力する。
+   UNKNOWN（CaDiCaL の戻り値 0）ではモデル参照・禁止節追加・対象故障の結果出力をせず、
+   エラー表示と資源解放後に終了コード 1 で異常終了する。これは `verification` から派生した
+   `feature/paper-core` の `src/fdp/paper_core.c` と同じ異常終了方針で、完了済み故障の CSV 行は保持する。
+4. **FDP 算出・出力**：`RunBDD(gbm, n_pi, &cubes, density)`（`src/fdp/cudd_wrapper.c`）が
+   キューブ和集合の BDD を構築し、CUDD の多倍長整数を `mpz_import` で GMP に直接取り込む。
+   2^n_pi で割った確率を 8192 ビット精度の `mpf_t` に返す。一時ファイル・10進整数文字列は使わない。
+   CSV は `WriteFaultResult(fp, &result)`（`src/fdp/fault_result.c`）に分離し、`FaultResult` に
+   対象・キューブ数・完了状態・確率をまとめる。確率の文字列化は故障ごとに1回だけ行い、等価故障にも流用する。
+   CSV の列・桁数・等価故障の出力順は維持する。
 5. **後処理**：`DropDeteFault`（`src/fdp/drop_dete_fault.c`）が今回のキューブで新たに検出された故障を落とし、
    メモリを解放する。
 
