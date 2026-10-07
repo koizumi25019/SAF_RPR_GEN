@@ -100,3 +100,13 @@ baseline に残る切り分けスイッチ（環境変数、既定無効）：
 
 - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
 - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
+
+## 正常CNFの範囲限定（既定有効）
+
+正常CNFは故障TFO上の信号とEAで単位節を投入した信号の全TFI閉包だけをソルバへ投入する。
+サイド入力の生成回路もPIまで残す。故障モデルの `ccadical_add()` は直接呼び出しのまま。
+XIDの正常値は必要PIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
+全PI・`n_pi`・FDP分母・CSV形式は維持する。
+`FDP_NORMAL_SCOPE=0` で従来処理へ戻す。`FDP_NORMAL_SCOPE_VALIDATE=1` は保持範囲の値照合。
+ログに `Normal CNF Scope` を記録する。詳細と計測結果は `docs/normal_cnf_scope.md`。
+CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登録済み。

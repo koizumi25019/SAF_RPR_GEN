@@ -19,6 +19,7 @@
 #include "../opt/opt.h"
 #include "./cudd_wrapper.h"
 #include "./xid/XID.h"
+#include "./normal_scope.h"
 
 //*************************************************************************************************************
 //	@name		AddBlockingClauseFromCube
@@ -186,5 +187,6 @@ bool AnalyzeFaultDensity(
     *out_time_xid     = time_xid;
     *out_time_read    = time_read;
 
+    NormalScopeRelease();
 	return AFD_OKAY;
 }

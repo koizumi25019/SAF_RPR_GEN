@@ -5,15 +5,22 @@
 #include "./target_fault.h"
 #include "./cnf/cnf.h"
 #include "ccadical.h"
+#include "normal_scope.h"
 
-void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
+static void LoadNormalDefinition(CCaDiCaL *solver, int scoped) {
     for (int i = 0; i < n_net; i++) {
         if (nl[i].type == IN || nl[i].type == DFF) continue;
         if (nl[i].consgc == NULL) continue;
+        if (scoped && !NormalScopeRequiredNet(i)) continue;
         for (int j = 0; j < nl[i].consgc_len; j++) {
             ccadical_add(solver, nl[i].consgc[j]);
         }
     }
+}
+
+/* Preserve the public full-definition loader for any future oracle callers. */
+void LoadModelToSolver(CCaDiCaL *solver, TARGET* target) {
+    LoadNormalDefinition(solver, 0);
 }
 
 //*************************************************************************************************************
@@ -30,7 +37,9 @@ bool WriteTPGModel(
 	if (CreateTPGmodel(solver, target) != true) return false;
 
     // 作成された文字列データをソルバに直接投入
-    LoadModelToSolver(solver, target);
+    NormalScopeBuild();
+    if (NormalScopeEnabled()) LoadNormalDefinition(solver, 1);
+    else LoadModelToSolver(solver, target);
 
 	return true;
 }

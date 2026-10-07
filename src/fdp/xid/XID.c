@@ -1,3 +1,4 @@
+#include "../normal_scope.h"
 #include "XID.h"
 
 #define DEBUG_XFILL       0
@@ -303,6 +304,8 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
 
     /* 呼び出しごとの状態をリセット：全信号をXに初期化した後、
        1パスでSATモデルから正常回路の値を上書きする */
+    if (NormalScopeEnabled()) NormalScopeModelValues(solver, var_info);
+    else {
     for (int i = 0; i < n_net; ++i) {
         var_info[i].ed_tag        = 0;
         var_info[i].edx_tag       = 0;
@@ -319,6 +322,8 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
             var_info[i].normal_2value = XID_X;
             var_info[i].fault_2value  = XID_X;
         }
+    }
+
     }
 
     /* 2値故障シミュレーション（レベルスタックを空になるまで使い切る） */
@@ -343,7 +348,9 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
         size_t sigID       = (size_t)pi[i]->n;
         size_t current_tag = var_info[sigID].xid_tag;
         int n3v = (current_tag & XID_FLAG_NORMAL) ? var_info[sigID].normal_3value : XID_X;
-        result[i] = (n3v == XID_ZERO) ? '0' : (n3v == XID_ONE) ? '1' : 'X';
+        /* Scope closure proves that these PIs cannot affect detection. */
+        result[i] = !NormalScopeRequiredNet((int)sigID) ? 'X'
+                  : (n3v == XID_ZERO) ? '0' : (n3v == XID_ONE) ? '1' : 'X';
     }
     result[n_pi] = '\0';
 

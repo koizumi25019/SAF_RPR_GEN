@@ -10,6 +10,7 @@
 #include "./netlist/netlist.h"
 #include "./fdp/fault_detection_prob.h"
 #include "./lib/lib.h"
+#include "./fdp/normal_scope.h"
 
 
 //*************************************************************************************************************
@@ -72,6 +73,7 @@ static void WriteReport(
 	fprintf(fp, "//--------------------------------------------------------------------------------\n");
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
+	fprintf(fp, "//  Normal CNF Scope                          : %s\n", NormalScopeEnabled() ? "on" : "off");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	fprintf(fp, "//  CPU Time                                  : %.3f sec\n", cpu_time);
 	fprintf(fp, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
