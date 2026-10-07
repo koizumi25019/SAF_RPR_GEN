@@ -381,3 +381,19 @@ verification/**/*.csv
 *.pkl
 # バイナリ資料
 *.pptx
+
+# verification から切り替えても残る、再生成可能な実験データとビルド生成物。
+# 各実験ディレクトリの .gitignore は baseline に無いため、ここでも除外する。
+/verification/**/build/
+/verification/**/runs/
+/verification/**/vendor/
+# 比較表などの実験記録は、新規ファイルも変更一覧に残す。
+!/verification/**/results/*.csv
+
+# ローカルに配置する外部ツールと、ASG の再生成可能な必須割当てデータ。
+/external/hall/
+/ASG/ASG/input/necessary/
+/ASG/ASG/tools/scip/*.dll
+/ASG/ASG/tools/scip/*.exe
+# Windows が付与するダウンロード元情報。
+*:Zone.Identifier
