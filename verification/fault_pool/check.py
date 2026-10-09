@@ -230,7 +230,7 @@ def benchmark(record):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--phase', choices=('smoke', 'large', 'benchmark', 'all'), default='smoke')
+    parser.add_argument('--phase', choices=('smoke', 'large', 'benchmark', 'regression', 'all'), default='smoke')
     args = parser.parse_args()
     RESULTS.mkdir(parents=True, exist_ok=True)
     report = {'reference_commit': REFERENCE_COMMIT, 'repeats_per_timing': 1,
@@ -241,9 +241,17 @@ def main():
         report['checks'].append(dict(label=label, **data))
         (RESULTS / (args.phase + '.json')).write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps(report['checks'][-1]), flush=True)
-    for phase in ('smoke', 'large', 'benchmark'):
-        if args.phase in (phase, 'all'):
-            globals()[phase](record)
+    # 可読性の整理など、計算結果と後始末の回帰だけを確認する場合は時間測定を省く。
+    if args.phase == 'regression':
+        phases = ('smoke', 'large')
+    elif args.phase == 'all':
+        phases = ('smoke', 'large', 'benchmark')
+    else:
+        phases = (args.phase,)
+    for phase in phases:
+        globals()[phase](record)
+    report['passed'] = True
+    (RESULTS / (args.phase + '.json')).write_text(json.dumps(report, indent=2) + '\n')
     print('PASS fault pool', args.phase, flush=True)
 
 

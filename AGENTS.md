@@ -327,3 +327,13 @@ GT結果は親が全件集約する。ワーカー異常終了・中断・GT不�
 1/2/4/8ワーカーで47.407/27.866/33.754/34.092秒。この環境の最速は2ワーカーで1.70倍。
 全条件のCSVは全バイト一致、完了1,572件。直列／4ワーカーの全4,551代表故障で独立GT ALL VERIFIED。
 小回路9件、CORE、TDF、低電力、系列出力、直列互換、強制終了・中断・I/O失敗も確認済み。
+
+### 並列化コードのレビュー案内
+
+親側の`FaultPoolRun()`は起動→配分・受信・順序付き出力→終了・回収→CPU集計の順。
+具体処理を`start_worker`、`assign_next_fault`、`receive_fault_result`、
+`write_ready_results`、`wait_for_workers`等へ分離した。
+`FaultPool`/`WorkerState`は親の管理情報、`FaultAnalysisContext`は各プロセス専用の作業領域。
+直列・並列の呼出分岐は`AnalyzeIndependentFaults()`、計算本体は共通の`AnalyzeOneFault()`。
+読む順序・親子のシーケンス・所有権は`verification/fault_pool/REVIEW.md`。
+整理後の回帰結果は`verification/fault_pool/results/regression.json`。

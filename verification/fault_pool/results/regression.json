@@ -1,0 +1,161 @@
+{
+  "reference_commit": "476f8ba",
+  "repeats_per_timing": 1,
+  "binary_sha256": "20fb9107ab96bb015d1e68d9965c0e5400711f5d219493f705ebde547fdf29d7",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "label": "c17a",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s298_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s344_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s510_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s641_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s713_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s1494_C",
+      "serial_parallel_reference_byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "limited_analysis_scopeFalse",
+      "csv_and_series_byte_identical": true
+    },
+    {
+      "label": "limited_analysis_scopeTrue",
+      "csv_and_series_byte_identical": true
+    },
+    {
+      "label": "c17a_core",
+      "byte_identical": true,
+      "core_verify": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_C_core",
+      "byte_identical": true,
+      "core_verify": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s298_C_core",
+      "byte_identical": true,
+      "core_verify": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_tdf_xid_None",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_tdf_xid_None",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_tdf_core_None",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_tdf_core_0",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_tdf_core_20",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s27_tdf_core_100",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "s208_tdf_core_20",
+      "byte_identical": true,
+      "gt": "ALL VERIFIED"
+    },
+    {
+      "label": "serial_reuse_on",
+      "pre_pool_byte_identical": true
+    },
+    {
+      "label": "serial_reuse_off",
+      "pre_pool_byte_identical": true
+    },
+    {
+      "label": "few_and_empty",
+      "same_output": true
+    },
+    {
+      "label": "settings_and_output_errors",
+      "invalid_values_rejected": true,
+      "cli_after_set": true,
+      "parallel_default_reuse_off": true,
+      "shared_file_hooks_rejected": true,
+      "io_failure_nonzero": true
+    },
+    {
+      "label": "worker_killed",
+      "nonzero_exit": true,
+      "all_children_reaped": true,
+      "no_success_summary": true
+    },
+    {
+      "label": "parent_cancelled",
+      "nonzero_exit": true,
+      "all_children_reaped": true,
+      "no_success_summary": true
+    },
+    {
+      "label": "s5378_all",
+      "faults": 4551,
+      "byte_identical": true,
+      "gt": "ALL VERIFIED",
+      "completed": 1572
+    },
+    {
+      "label": "s5378_pre_refactor_comparison",
+      "faults": 4551,
+      "serial_and_parallel_csv_unchanged": true,
+      "csv_sha256": "1ca8388dadec6669726d3f372deb398df6fdf05a5453cda929020efd5d36cda0"
+    }
+  ],
+  "passed": true,
+  "pre_refactor_commit": "b58e21c6ee17e5889fa7fa087c3c39ac45ed777f"
+}

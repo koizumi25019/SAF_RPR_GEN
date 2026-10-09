@@ -119,20 +119,28 @@ static char* ExternalXID(CCaDiCaL* solver, FNODE* f)
     return result;
 }
 
-typedef struct { DdManager* gbm; } FaultContext;
+/* 各プロセス専用の作業領域。同じワーカー内では故障が変わっても再利用する。
+ * ソルバとキューブ集合はAnalyzeOneFault内で故障ごとに作成・解放する。
+ * XIDのstatic変数や回路の可変フィールドもforkによりプロセスごとに独立する。
+ */
+typedef struct {
+    DdManager* bdd_manager;
+} FaultAnalysisContext;
 
-/* This same fault pipeline serves the serial path and each persistent process.
-   Each worker creates its own BDD manager lazily, after fork. */
-static bool AnalyzeOneFault(FNODE* f, int count, FILE* bdd_result,
+/* 直列・並列で共通の1故障処理。並列化で変えるのは呼出元と出力先だけ。
+ * 各ワーカーがこの関数を呼ぶため、SATだけでなくXID/COREとBDDも同時に動く。
+ * BDDマネージャはfork後の初回呼出時に作り、ワーカー専用にする。
+ */
+static bool AnalyzeOneFault(FNODE* f, int fault_number, FILE* bdd_result,
                             FILE* cube_analysis_fp, FaultStats* stats, void* opaque)
 {
-    FaultContext* context = opaque;
-    if (!context->gbm) {
-        context->gbm = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
-        if (!context->gbm) return false;
-        Cudd_AutodynEnable(context->gbm, CUDD_REORDER_SIFT);
+    FaultAnalysisContext* context = opaque;
+    if (!context->bdd_manager) {
+        context->bdd_manager = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
+        if (!context->bdd_manager) return false;
+        Cudd_AutodynEnable(context->bdd_manager, CUDD_REORDER_SIFT);
     }
-    DdManager* gbm = context->gbm;
+    DdManager* gbm = context->bdd_manager;
     FNODE* current = f;
     TARGET target = { .num = 1, .list = &current };
     bool paper_core = opt.dc_method == DC_CORE;
@@ -334,7 +342,7 @@ static bool AnalyzeOneFault(FNODE* f, int count, FILE* bdd_result,
 		}
 		// SAT → InlineXID でドントケアを埋め、キューブ追加＋禁止節
 		else {
-			if (opt.jobs == 1) printf("\rProgress >> %d/%d", count, readdata.fault.numinit);
+			if (opt.jobs == 1) printf("\rProgress >> %d/%d", fault_number, readdata.fault.numinit);
 
             t_start = clock();
             // TDF は励起条件（f->exc_netptr）込みで XID する。
@@ -387,11 +395,38 @@ static bool AnalyzeOneFault(FNODE* f, int count, FILE* bdd_result,
 
 static void FinishFaultAnalysis(void* opaque)
 {
-    FaultContext* context = opaque;
+    FaultAnalysisContext* context = opaque;
     if (opt.dc_method == DC_CORE) PaperCoreReport();
     NormalScopeRelease();
-    if (context->gbm) Cudd_Quit(context->gbm);
-    context->gbm = NULL;
+    if (context->bdd_manager) Cudd_Quit(context->bdd_manager);
+    context->bdd_manager = NULL;
+}
+
+/* 流用なしの故障列は、直列と並列で同じ処理・同じ出力順を使う。
+ * この関数のcontextは直列ならそのまま使用し、並列ならfork時に各子へ引き継ぐ。
+ */
+static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* csv_output,
+                                     FILE* analysis_output, FaultStats* stats)
+{
+    int fault_count;
+    FNODE** faults = FaultPoolOrder(&fault_count);
+    if (!faults) {
+        return false;
+    }
+
+    bool succeeded = true;
+    if (opt.jobs > 1) {
+        succeeded = FaultPoolRun(faults, fault_count, opt.jobs, AnalyzeOneFault,
+                                 FinishFaultAnalysis, context, csv_output,
+                                 analysis_output, stats);
+    } else {
+        for (int index = 0; index < fault_count && succeeded; index++) {
+            succeeded = AnalyzeOneFault(faults[index], index + 1, csv_output,
+                                        analysis_output, stats, context);
+        }
+    }
+    free(faults);
+    return succeeded;
 }
 
 //*************************************************************************************************************
@@ -486,27 +521,26 @@ bool AnalyzeFaultDensity(
 	}
 
     FaultStats stats = {0};
-    FaultContext context = {0};
+    FaultAnalysisContext context = {0};
     bool okay = true;
+    /* 準備完了後に実行方式を選ぶ。並列化の入口はこの分岐だけ。
+     * 流用off: 故障順を固定し、独立した故障を直列またはワーカーへ配分。
+     * 流用on : 従来の故障間依存を維持する直列経路（jobs>1では指定不可）。
+     */
     if (opt.dom_reuse == NO) {
-        int fault_count;
-        FNODE** faults = FaultPoolOrder(&fault_count);
-        if (!faults) okay = false;
-        else if (opt.jobs > 1) {
-            okay = FaultPoolRun(faults, fault_count, opt.jobs, AnalyzeOneFault,
-                                FinishFaultAnalysis, &context, bdd_result, cube_analysis_fp, &stats);
-        } else {
-            for (int i = 0; i < fault_count && okay; i++)
-                okay = AnalyzeOneFault(faults[i], i + 1, bdd_result, cube_analysis_fp, &stats, &context);
-        }
-        free(faults);
+        okay = AnalyzeIndependentFaults(&context, bdd_result, cube_analysis_fp, &stats);
     } else {
         while (readdata.fault.numrema && okay) {
-            if (!SetTarget(&target)) { okay = false; break; }
-            okay = AnalyzeOneFault(target.list[0], ++count, bdd_result, cube_analysis_fp, &stats, &context);
+            if (!SetTarget(&target)) {
+                okay = false;
+                break;
+            }
+            okay = AnalyzeOneFault(target.list[0], ++count, bdd_result,
+                                   cube_analysis_fp, &stats, &context);
             FreeMemory(&target);
         }
     }
+    /* 並列では各子がfinishを実行済み。直列ではここで作業領域を解放する。 */
     if (opt.jobs == 1) FinishFaultAnalysis(&context);
     if (fclose(bdd_result) != 0) okay = false;
     if (cube_analysis_fp && fclose(cube_analysis_fp) != 0) okay = false;
