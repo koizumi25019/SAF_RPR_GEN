@@ -3,10 +3,42 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "./opt.h"
 #include "../fdp/read.h"
 #include "../lib/lib.h"
+
+/* .setとコマンドラインで同じ設定処理を使う。 */
+static bool IsWorkerOption(const char* name)
+{
+    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0;
+}
+
+static bool SetWorkerOption(const char* name, const char* value)
+{
+    if (strcmp(name, "-jobs") == 0) {
+        char* end = NULL;
+        errno = 0;
+        long jobs = value ? strtol(value, &end, 10) : 0;
+        if (value && *value && end != value && !*end && !errno && jobs >= 1 && jobs <= 256) {
+            opt.jobs = (int)jobs;
+            return true;
+        }
+        fprintf(stderr, "COMMAND ERROR: -jobs requires an integer 1..256\n");
+        return false;
+    }
+    if (value && (strcmp(value, "on") == 0 || strcmp(value, "1") == 0)) {
+        opt.dom_reuse = YES;
+        return true;
+    }
+    if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
+        opt.dom_reuse = NO;
+        return true;
+    }
+    fprintf(stderr, "COMMAND ERROR: -dom_reuse requires on|off\n");
+    return false;
+}
 
 //*************************************************************************************************************
 //	@name		OPT
@@ -27,6 +59,14 @@ bool OPT(
 		return OPT_ERROR;
 	}
 
+    /* 明示指定を優先。省略時は並列なら流用off、直列なら従来環境変数を参照。 */
+    if (opt.dom_reuse == MODE_NOSET) {
+        opt.dom_reuse = (opt.jobs > 1 || getenv("MDC_NODOM")) ? NO : YES;
+    }
+    if (opt.jobs > 1 && opt.dom_reuse == YES) {
+        fprintf(stderr, "COMMAND ERROR: -jobs > 1 requires -dom_reuse off\n");
+        return OPT_ERROR;
+    }
 	return OPT_OKAY;
 }
 
@@ -41,6 +81,8 @@ void OPTinit(
 {
 	/** ファイル名を初期化する */
 	OPTinitFile();
+    opt.jobs = 1;
+    opt.dom_reuse = MODE_NOSET;
 
 	return;
 }
@@ -73,8 +115,13 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
+        if (IsWorkerOption(argv[i])) {
+            const char* name = argv[i];
+            const char* value = i + 1 < argc ? argv[++i] : NULL;
+            if (!SetWorkerOption(name, value)) return OPT_ERROR;
+        }
 		/** ネットリスト */
-		if (strcmp(argv[i], "-net") == 0)
+		else if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = strdup(argv[++i]);
 
 		/** 故障リスト */
@@ -95,7 +142,9 @@ bool OPTset(
 
 		/** set ファイルを読み込む */
 		else if (strcmp(argv[i], "-set") == 0)
-			return OPTread(argv[++i]);
+        {
+            if (i + 1 >= argc || !OPTread(argv[++i])) return OPT_ERROR;
+        }
 
 		else
 		{
@@ -158,10 +207,18 @@ bool OPTread(
 	{
 		if (buffer[0] == '-')
 		{
-			token1 = strtok_r(buffer, " \n\0", &context);
+			token1 = strtok_r(buffer, " \t\r\n", &context);
 
+            if (IsWorkerOption(token1)) {
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!SetWorkerOption(token1, token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
 			/** ネットリスト */
-			if (strcmp(token1, "-net") == 0)
+			else if (strcmp(token1, "-net") == 0)
 				opt.file.input.net = OPTreadValue(&context, " \n\0");
 
 			/** 故障リスト */

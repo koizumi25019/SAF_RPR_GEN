@@ -1,0 +1,110 @@
+{
+  "reference_commit": "ac45287",
+  "normal_cnf_scope": "always on",
+  "binary_sha256": "d81f174bed07aeda133479237198f8f124af1e864716225f8f804f02dd573d0b",
+  "checks": [
+    {
+      "label": "c17a",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "golden_debug_always_scoped",
+      "passed": true
+    },
+    {
+      "label": "s27_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s208_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s298_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s344_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s510_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s641_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s713_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "s1494_C",
+      "serial_parallel_previous_csv_identical": true
+    },
+    {
+      "label": "serial_reuse_on",
+      "previous_csv_identical": true
+    },
+    {
+      "label": "serial_reuse_off",
+      "previous_csv_identical": true
+    },
+    {
+      "label": "empty_and_worker_clamp",
+      "passed": true
+    },
+    {
+      "label": "settings_and_io_failure",
+      "passed": true
+    },
+    {
+      "label": "worker_killed",
+      "nonzero_exit": true,
+      "all_workers_reaped": true
+    },
+    {
+      "label": "parent_cancelled",
+      "nonzero_exit": true,
+      "all_workers_reaped": true
+    },
+    {
+      "label": "s5378_C_all",
+      "faults": 4551,
+      "limit": 30,
+      "serial_parallel_previous_csv_identical": true,
+      "completed": 1572,
+      "single_serial_wall_seconds": 42.72269924599095,
+      "single_parallel4_wall_seconds": 31.274429501994746,
+      "serial_total_cpu_seconds": 42.668,
+      "parallel4_total_cpu_seconds": 62.401,
+      "speedup_parallel4": 1.3660584677736811
+    },
+    {
+      "label": "c17a_independent_gt",
+      "faults": 22,
+      "gt": "ALL VERIFIED",
+      "actual_csv_matches_capture": true
+    },
+    {
+      "label": "s208_C_independent_gt",
+      "faults": 215,
+      "gt": "ALL VERIFIED",
+      "actual_csv_matches_capture": true
+    },
+    {
+      "label": "s5378_C_independent_gt",
+      "faults": 4551,
+      "gt": "ALL VERIFIED",
+      "actual_csv_matches_capture": true
+    }
+  ],
+  "passed": true,
+  "cpu_quota": "200000 100000",
+  "timing_repeats": 1,
+  "ctest": {
+    "target_order": "passed",
+    "fdp_output": "passed"
+  }
+}

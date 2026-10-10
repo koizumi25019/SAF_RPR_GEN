@@ -83,3 +83,23 @@ FNODE* SetTarget(void)
 
     return NULL;
 }
+
+/* 並列でも既存の整列順を使い、選択ロジックを二重に実装しない。 */
+FNODE** CopyTargetOrder(int* count)
+{
+    *count = 0;
+    for (size_t index = 0; index < target_count; index++) {
+        FNODE* fault = target_order[index].fault;
+        if (fault->detect != UNDETECTED) continue;
+        if (fault->netptr->level == INT_MAX) return NULL;
+        (*count)++;
+    }
+    FNODE** faults = malloc((size_t)(*count ? *count : 1) * sizeof(*faults));
+    if (!faults) return NULL;
+    int copied = 0;
+    for (size_t index = 0; index < target_count; index++) {
+        FNODE* fault = target_order[index].fault;
+        if (fault->detect == UNDETECTED) faults[copied++] = fault;
+    }
+    return faults;
+}

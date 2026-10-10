@@ -53,6 +53,8 @@ FILES;
 typedef struct Option
 {
 	FILES			      file;			      /**< ファイル */
+    int jobs;       /**< -jobs 1..256、既定1 */
+    int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
 }
 OPTION;
 

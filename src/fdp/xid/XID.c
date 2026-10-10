@@ -304,27 +304,7 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po) {
 
     /* 呼び出しごとの状態をリセット：全信号をXに初期化した後、
        1パスでSATモデルから正常回路の値を上書きする */
-    if (NormalScopeEnabled()) NormalScopeModelValues(solver, var_info);
-    else {
-    for (int i = 0; i < n_net; ++i) {
-        var_info[i].ed_tag        = 0;
-        var_info[i].edx_tag       = 0;
-        var_info[i].xid_tag       = 0;
-        var_info[i].normal_3value = XID_X;
-        var_info[i].fault_3value  = XID_X;
-
-        unsigned int var = nl[i].varsgc;
-        if (var != 0) {
-            int v = (ccadical_val(solver, (int)var) > 0) ? XID_ONE : XID_ZERO;
-            var_info[i].normal_2value = v;
-            var_info[i].fault_2value  = v;
-        } else {
-            var_info[i].normal_2value = XID_X;
-            var_info[i].fault_2value  = XID_X;
-        }
-    }
-
-    }
+    NormalScopeModelValues(solver, var_info);
 
     /* 2値故障シミュレーション（レベルスタックを空になるまで使い切る） */
     xid_fsim(fsigID, var_info, &detect_po);

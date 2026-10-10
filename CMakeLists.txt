@@ -13,6 +13,7 @@ set(SOURCES
     src/fdp/drop_dete_fault.c
     src/fdp/essential_assignment.c
     src/fdp/fault_detection_prob.c
+    src/fdp/fault_pool.c
     src/fdp/fault_result.c
     src/fdp/init.c
     src/fdp/read.c

@@ -19,3 +19,7 @@ void FreeTargetOrder(void);
  *  処理済みになるまでは同じ対象を返す。処理済み故障を未検出へ戻さないこと。
  *  戻り値は readdata.fault 内のノードへの参照であり、呼び出し側で解放しない。 */
 FNODE* SetTarget(void);
+
+/** InitTargetOrder後、未処理故障を同じ順で複製した配列を返す。
+ *  配列だけを呼出側がfreeする。故障ノード本体の所有権は移さない。失敗はNULL。 */
+FNODE** CopyTargetOrder(int* count);

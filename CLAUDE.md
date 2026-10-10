@@ -31,7 +31,8 @@ cd build && ./main_debug -set ../input/script/c17a.set
 
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、
-`-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）。
+`-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
+`-jobs N`（1..256、既定1）、`-dom_reuse on|off`（並列ではoff）。
 
 出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log}/<回路>.{csv,txt}`。
 `<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。
@@ -115,12 +116,29 @@ baseline に残る切り分けスイッチ（環境変数、既定無効）：
 - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
 - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
 
-## 正常CNFの範囲限定（既定有効）
+## 正常CNFの範囲限定（常時有効）
 
 正常CNFは故障TFO上の信号とEAで単位節を投入した信号の全TFI閉包だけをソルバへ投入する。
 サイド入力の生成回路もPIまで残す。故障モデルの `ccadical_add()` は直接呼び出しのまま。
 XIDの正常値は必要PIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
 全PI・`n_pi`・FDP分母・CSV形式は維持する。
-`FDP_NORMAL_SCOPE=0` で従来処理へ戻す。`FDP_NORMAL_SCOPE_VALIDATE=1` は保持範囲の値照合。
+正常CNFを限定しないモードは持たない。`FDP_NORMAL_SCOPE`は参照しない。
+`FDP_NORMAL_SCOPE_VALIDATE=1` は保持範囲の値照合。
 ログに `Normal CNF Scope` を記録する。詳細と計測結果は `docs/normal_cnf_scope.md`。
 CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登録済み。
+
+## 故障単位の常駐プロセス並列化
+
+`.set`またはCLIの`-jobs N`で、故障を常駐プロセスへ動的配分する（Linux/WSL2）。
+回路・正常CNF・既存の故障順を親で一度準備し、各子がCNF→SAT→XID→BDD・FDPを担当する。
+既存`InitTargetOrder()`の整列結果を`CopyTargetOrder()`で複製して配分する。
+`AnalyzeOneFault()`は直列・並列で共通。BDD計算とCSV出力の分離、直接の`ccadical_add()`を維持する。
+並列では親だけが実ファイルを書き、故障の完了順によらず既存のCSV順を保つ。
+流用設定が省略された場合、jobs>1ならoff、jobs=1なら従来の`MDC_NODOM`に従う。
+明示的な流用onとjobs>1の組合せはエラー。正常CNFの限定化は常時有効。
+
+ログの`Time`は実経過秒、`CPU Time`は親＋全子のCPU秒を合計する。
+ワーカー異常終了・親の中断・出力失敗は非ゼロ終了し、子をすべて回収する。
+詳しいレビュー案内と使い方は`docs/fault_parallel.md`、検証結果は`docs/fault_parallel_results.json`。
+既存CTestに加え、変更前baselineとのCSV比較は`tests/fault_pool_check.py`。
+比較用ビルドと、出荷バイナリへ検証コードを入れないcapture版は`tests/fault_pool_build.py`で作る。

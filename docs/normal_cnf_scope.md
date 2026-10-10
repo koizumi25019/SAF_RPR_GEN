@@ -1,6 +1,6 @@
 # 正常CNFの範囲限定（baseline）
 
-baselineの通常実験では既定で有効。既存の `.set` をそのまま使える。
+baselineの通常実験では常時有効。既存の `.set` をそのまま使える。
 故障回路・D-chain・検出・必須割当ては、従来どおり `ccadical_add()` で直接投入する。
 CNF投入用のマクロやラッパー、検証器を本体に追加していない。
 
@@ -24,22 +24,21 @@ XIDへ渡す全正常信号値は、必要なPIのSAT値から論理シミュレ
 範囲外PIはソルバの未登場変数を読むことなく0で補完し、最終キューブでは明示的にXにする。
 全PIの一覧・順序・`n_pi`・FDP分母 `2^n_pi` は変更しない。
 
-## 切り分け
+## 実行と値照合
+
+正常CNFを限定しないモードは持たない。旧`FDP_NORMAL_SCOPE`環境変数は参照しない。
+既存の`.set`をそのまま使う。`.set`内の相対パスはbuildからの実行を前提とする。
 
 ```bash
-# 既定：範囲限定あり
-./build/main_release -set <設定ファイル>
-
-# 範囲限定なし：従来の全正常CNF投入とSAT内部値取得へ戻す
-FDP_NORMAL_SCOPE=0 ./build/main_release -set <設定ファイル>
-
+cd build
+./main_release -set ../input/script/c17a.set
 # 必要範囲のSAT内部値と、PIから復元した値を照合する
-FDP_NORMAL_SCOPE_VALIDATE=1 ./build/main_release -set <設定ファイル>
+FDP_NORMAL_SCOPE_VALIDATE=1 ./main_release -set ../input/script/c17a.set
 ```
 
-実行ログには `Normal CNF Scope : on/off` を記録する。
-支配キューブ流用の設定は従来どおり。流用を止める場合は `MDC_NODOM=1`。
-今回の速度比較では流用を止め、検証・ビルドを並行せず各条件1回ずつ測定する。
+実行ログには常に`Normal CNF Scope : on`を記録する。
+故障並列化は`.set`の`-jobs N`で指定する。流用設定・時間の読み方は
+[fault_parallel.md](fault_parallel.md)を参照。
 
 ## 検証と計測
 
@@ -48,10 +47,10 @@ FDP_NORMAL_SCOPE_VALIDATE=1 ./build/main_release -set <設定ファイル>
 検出関数を構築するGT検証器へ渡す。本体にGTやキューブ保存処理は含めない。
 小回路では元Verilogから全入力を独立シミュレーションする検証も行う。
 
-結果と再現スクリプトは `verification/normal-cnf-scope` ブランチの
+結果と再現スクリプトは `verification-normal-cnf-scope` ブランチの
 `verification/normal_scope/baseline_migration/` に保存する。
 同じライブラリ・Release設定の適用前/適用後を各1回実行し、外部の単調時計で経過時間を測る。
-baseline本体の既存ログはCPU時間なので、経過時間と区別する。
+当時のbaselineログはCPU時間のみ。現在は故障並列化に伴い、経過時間も`Time`として記録する。
 
 c17aの既知FDPとDebug/Releaseが一致。9小回路の無制限FDPは適用前baselineと一致し、
 baselineの実生成キューブの独立GT検証を全て通過。最初の4回路は全入力シミュレーションも通過。
@@ -71,7 +70,7 @@ baselineの実生成キューブの独立GT検証を全て通過。最初の4回
 
 範囲限定でSATの解順序が変わり、上限付きの部分FDPや完了故障集合は変化し得る。
 未完了故障のFDPは下界。範囲限定だけで全故障の完全列挙を保証するものではない。
-今回の対象はbaselineのSAF/XID。TDF・CORE・低電力機能や並列化はbaselineへ移植していない。
+この正常CNF限定の検証対象はbaselineのSAF/XID。現在は故障並列化もbaselineへ移植済み。
 
 GCC 14でも従来の `strdup()` を正しく宣言できるよう、`read.c` のPOSIX機能レベルを
 `200809L` に修正した。適用前バイナリは元ソースのまま `-D_DEFAULT_SOURCE` を指定してビルドした。

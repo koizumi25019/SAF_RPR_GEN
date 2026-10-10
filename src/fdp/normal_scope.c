@@ -3,7 +3,7 @@
  * ccadical_add calls stay direct and unchanged. The scope is built once
  * after generation constraints, not observed while clauses are inserted.
  * Omitted gates extend uniquely from a full PI assignment; FDP still counts
- * over ALL PIs. This context follows the existing single-threaded pipeline.
+ * over ALL PIs. After fork, each persistent worker owns its mutable scope state.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,20 +13,11 @@
 
 static NLIST **scope_stack;
 static unsigned char *needed;
-static int enabled = -1, top;
+static int top;
 static unsigned long long instances, full, kept, free_pi;
 
 static void fail(const char *message) {
     fprintf(stderr, "[NORMAL_SCOPE] %s\n", message); exit(1);
-}
-int NormalScopeEnabled(void) {
-    if (enabled < 0) {
-        const char *value = getenv("FDP_NORMAL_SCOPE");
-        if (value && strcmp(value, "0") && strcmp(value, "1"))
-            fail("FDP_NORMAL_SCOPE must be 0 or 1");
-        enabled = !value || !strcmp(value, "1");
-    }
-    return enabled;
 }
 static void mark(NLIST *gate) {
     if (!needed[gate->n]) {
@@ -35,7 +26,6 @@ static void mark(NLIST *gate) {
     }
 }
 void NormalScopeBuild(void) {
-    if (!NormalScopeEnabled()) return;
     if (!needed) {
         needed = calloc((size_t)n_net, 1);
         scope_stack = malloc((size_t)n_net * sizeof(*scope_stack));
@@ -63,7 +53,7 @@ void NormalScopeBuild(void) {
     instances++;
 }
 int NormalScopeRequiredNet(int index) {
-    return !NormalScopeEnabled() || !needed || needed[index];
+    return !needed || needed[index];
 }
 void NormalScopeRelease(void) {
     if (instances) fprintf(stderr,
@@ -71,7 +61,7 @@ void NormalScopeRelease(void) {
         instances, kept, full, free_pi);
     free(scope_stack); free(needed);
     scope_stack = NULL; needed = NULL;
-    enabled = -1; top = 0;
+    top = 0;
     instances = full = kept = free_pi = 0;
     NormalScopeModelRelease();
 }
