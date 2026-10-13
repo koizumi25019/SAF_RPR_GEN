@@ -30,8 +30,7 @@ bool WriteTPGModel(
 	/** TPGモデルを作成する */
 	if (CreateTPGmodel(solver, target) != true) return false;
 
-    // 作成された文字列データをソルバに直接投入
-    NormalScopeBuild();
+    // 対象出力TFI内の正常ゲート定義をソルバへ直接投入
     LoadNormalDefinition(solver);
 
 	return true;

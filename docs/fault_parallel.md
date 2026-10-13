@@ -24,7 +24,8 @@ Linux/WSL2で動作する。最適な数はCPUコア数・メモリ・故障ご�
 設定ファイルの後に`-jobs 8`を指定すれば一時的に上書きできる。
 既存`.set`の出力先ディレクトリはあらかじめ作成しておく。
 
-正常CNFは常時限定する。非限定モードは持たず、`FDP_NORMAL_SCOPE`は参照しない。
+正常CNFは対象出力TFIへ常時限定する。非限定モードは持たず、`FDP_NORMAL_SCOPE`は参照しない。
+EAも常時ONで、単位節の投入先をそのTFI内に限定する。EAの切替や`MDC_NOEA`参照は持たない。
 全PI・PI順・FDPの分母は維持する。`FDP_NORMAL_SCOPE_VALIDATE=1`による値照合は使用可能。
 
 キューブ流用は並列では無効。設定省略時も自動でoffになる。
@@ -78,15 +79,16 @@ CaDiCaL・BDD・Don't careの内訳も全ワーカー分のCPU秒。
 
 ## 回帰検証
 
-移植前は最新baselineの`ac45287`を基準にする。既存のCTestも実行する。
+対象出力TFIへの変更前baseline `52bb7ac`を基準にする。既存のCTestも実行する。
 
 ```bash
 ctest --test-dir build --output-on-failure
-python3 tests/fault_pool_build.py
+python3 tests/fault_pool_build.py --checker
 python3 tests/fault_pool_check.py --reference build/fault_pool_checks/main_reference
 ```
 
-9小回路とs5378_Cの直列・4並列・移植前CSVを、等価故障・行順を含めて比較する。
+9小回路とs5378_Cの直列・4並列CSVを、等価故障・行順を含めて比較する。
+範囲変更でキューブ選択が変わり得るため、変更前とは完全FDP（上限付きは両方完了した故障のFDP）を比較する。
 c17の既知FDP、Debug/Release、直列流用on/off、空故障、ワーカー数の上限調整、
 `.set`/CLI設定、I/O失敗、子のSIGKILL、親のSIGTERMを確認する。
 ビルドと一時出力は`build/fault_pool_checks/`へ隔離する。
@@ -96,10 +98,11 @@ c17の既知FDP、Debug/Release、直列流用on/off、空故障、ワーカー�
 `check_covers`はverificationの`verification/normal_scope/baseline_migration/`にある
 元回路の全検出関数から被覆を照合する独立検証器を使う。
 実際に生成したキューブの健全性と完了被覆の一致を確認し、通常バイナリとのCSV一致も確認する。
-検証・単回時間測定の結果は[fault_parallel_results.json](fault_parallel_results.json)。
+現行の検証結果は[output_tfi_scope_results.json](output_tfi_scope_results.json)。
+常駐並列化を移植した当時の記録は[fault_parallel_results.json](fault_parallel_results.json)。
 s5378の時間測定は30キューブ上限。未完了故障のFDPは下界で、全故障の完全列挙ではない。
 
-## 今回の結果
+## 常駐並列化移植時の結果（06d1297）
 
 9小回路とs5378_Cの移植前・直列・4並列CSVは、等価故障・行順を含め全バイト一致。
 c17の既知FDP、Debug/Release、設定・I/O失敗・中断・ワーカー回収も通過した。

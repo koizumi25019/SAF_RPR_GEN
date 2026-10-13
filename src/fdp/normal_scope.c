@@ -1,7 +1,7 @@
-/* Normal CNF support for baseline SAF: retain the entire TFI of the fault
- * TFO and every normal signal fixed by EssentialAssignment. All original
- * ccadical_add calls stay direct and unchanged. The scope is built once
- * after generation constraints, not observed while clauses are inserted.
+/* Eggersgluss et al., DDECS 2012, Section II-B / Fig. 2:
+ * retain the TFI of declared outputs reached by the fault's TFO.
+ * Build the scope BEFORE fault clauses and EA, so EA cannot enlarge it.
+ * Baseline SAF uses direct ccadical_add calls and always enables EA.
  * Omitted gates extend uniquely from a full PI assignment; FDP still counts
  * over ALL PIs. After fork, each persistent worker owns its mutable scope state.
  */
@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "normal_scope.h"
-#include "essential_assignment.h"
+#include "fault_detection_prob.h"
 
 static NLIST **scope_stack;
 static unsigned char *needed;
@@ -33,13 +33,15 @@ void NormalScopeBuild(void) {
     }
     memset(needed, 0, (size_t)n_net);
     top = 0;
-    int use_ea = !getenv("MDC_NOEA");
-    for (int i = 0; i < n_net; i++) {
-        /* Faulty gate side inputs, D-chain, detection outputs and excitation
-         * all refer to the TFO or its fanins. EA may propagate farther, so
-         * include every EA_UP signal whose unit clause was actually added. */
-        if ((nl[i].flag & TFO) == TFO || (use_ea && nl[i].ea_flag == EA_UP))
-            mark(nl + i);
+    /* Select actual POs, not every internally dangling end of the TFO.
+     * TPO is also used by the comparator and XID to identify observations. */
+    for (int i = 0; i < n_net; i++) nl[i].flag &= ~TPO;
+    numtranpo = 0;
+    for (int i = 0; i < n_po; i++) {
+        if ((po[i]->flag & TFO) != TFO) continue;
+        po[i]->flag |= TPO;
+        numtranpo++;
+        mark(po[i]);
     }
     while (top) {
         NLIST *gate = scope_stack[--top];

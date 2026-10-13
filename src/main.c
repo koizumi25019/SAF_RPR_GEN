@@ -80,7 +80,8 @@ static void WriteReport(
 	fprintf(fp, "//--------------------------------------------------------------------------------\n");
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
-	fprintf(fp, "//  Normal CNF Scope                          : %s\n", "on");
+	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
+	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
     fprintf(fp, "//  Don't-care Method                         : XID\n");
     fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");

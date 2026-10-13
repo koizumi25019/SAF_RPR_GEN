@@ -114,17 +114,20 @@ diff <(cut -d, -f1,2,5 expected/c17a_result.csv | sort) \
 baseline に残る切り分けスイッチ（環境変数、既定無効）：
 
 - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
-- `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
+EAは常時ON。`-ea`の切替は持たず、旧`MDC_NOEA`は参照しない。
 
 ## 正常CNFの範囲限定（常時有効）
 
-正常CNFは故障TFO上の信号とEAで単位節を投入した信号の全TFI閉包だけをソルバへ投入する。
+正常CNFは、故障TFOに含まれる宣言されたPOからの全TFIだけをソルバへ投入する。
+EAより前に範囲を確定し、EAの単位節はその範囲内の信号にだけ追加する。EAの推論自体は全回路で行う。
+参考: Eggersglüß et al., DDECS 2012, Section II-B / Fig. 2。XIDの検出先も対象POにそろえる。
 サイド入力の生成回路もPIまで残す。故障モデルの `ccadical_add()` は直接呼び出しのまま。
 XIDの正常値は必要PIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
 全PI・`n_pi`・FDP分母・CSV形式は維持する。
 正常CNFを限定しないモードは持たない。`FDP_NORMAL_SCOPE`は参照しない。
 `FDP_NORMAL_SCOPE_VALIDATE=1` は保持範囲の値照合。
-ログに `Normal CNF Scope` を記録する。詳細と計測結果は `docs/normal_cnf_scope.md`。
+ログに`Normal CNF Scope: on (affected-output TFI)`と`Essential Assignment: on`を記録する。
+詳細は`docs/normal_cnf_scope.md`、検証結果は`docs/output_tfi_scope_results.json`。
 CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登録済み。
 
 ## 故障単位の常駐プロセス並列化
@@ -141,4 +144,6 @@ CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登
 ワーカー異常終了・親の中断・出力失敗は非ゼロ終了し、子をすべて回収する。
 詳しいレビュー案内と使い方は`docs/fault_parallel.md`、検証結果は`docs/fault_parallel_results.json`。
 既存CTestに加え、変更前baselineとのCSV比較は`tests/fault_pool_check.py`。
-比較用ビルドと、出荷バイナリへ検証コードを入れないcapture版は`tests/fault_pool_build.py`で作る。
+Debug/Release、変更前52bb7acと、出荷バイナリへ検証コードを入れないcapture版は`tests/fault_pool_build.py`で作る。
+`--checker`でverificationのbf8faa8から独立検証器も隔離ビルドする。
+直列・並列のCSV一致と、変更前に対する完全FDP（上限付きでは両方完了した故障のFDP）を比較する。

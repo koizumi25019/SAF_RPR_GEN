@@ -13,6 +13,7 @@
 #include "../lib/lib.h"
 #include "../netlist/netlist.h"
 #include "./read.h"
+#include "./normal_scope.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // que2: 一意活性化専用キュー（ローカル管理）
@@ -62,7 +63,7 @@ static void que2_qsort(int left, int right)
 
 //-------------------------------------------------------------------------------------------------------------
 //  assign_ea_value
-//  値を確定して単位節をソルバに追加し、含意キュー（que）に積む
+//  全回路で含意を続け、対象出力TFI内の割当てだけ単位節として投入する
 //-------------------------------------------------------------------------------------------------------------
 static void assign_ea_value(CCaDiCaL* solver, NLIST* netptr, int val)
 {
@@ -71,12 +72,10 @@ static void assign_ea_value(CCaDiCaL* solver, NLIST* netptr, int val)
     netptr->ea_flag     = EA_UP;
     netptr->logic_value = val;
 
-    if (val == 1) {
-        ccadical_add(solver,  (int)netptr->varsgc);
-    } else {
-        ccadical_add(solver, -(int)netptr->varsgc);
+    if (NormalScopeRequiredNet(netptr->n)) {
+        ccadical_add(solver, val ? (int)netptr->varsgc : -(int)netptr->varsgc);
+        ccadical_add(solver, 0);
     }
-    ccadical_add(solver, 0);
 
     if (netptr->type != DFF) {
         queENQ(netptr, QUE_MODE_ONE);
