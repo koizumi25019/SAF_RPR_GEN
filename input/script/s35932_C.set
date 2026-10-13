@@ -13,3 +13,5 @@
 -fdp ../output/limit30/fdp/s35932_C.csv
 
 -limit 30
+
+-jobs 16

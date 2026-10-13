@@ -1,0 +1,2306 @@
+[INIT] ネットリスト読込: circuit\s35932_C.v
+Completion of Read_Netlist !!
+[INIT] 索引表(ハッシュ/PI対応表)を構築
+回路名：circuit\s35932_C.v
+変数対応表の出力：なし
+OPBファイル：各case後に削除 (--keep-opb で残す)
+1caseの故障数上限：64 (--max-faults=N で変更)
+claspスレッド数：16 (並列探索。結果のケアビット位置が実行ごとに変わることがある)
+進捗表示：ON (--no-debug で抑制)
+回路規模：ネット数 35324, 入力 1763, 出力 1760, 総辺数 45765
+動作モード：バッチ処理 (--batch)
+
+[Case 1] 入力行(10文字)
+  [Case 1] Faults=WX167 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=95.0ms, clasp=70.0ms)
+
+[Case 2] 入力行(10文字)
+  [Case 2] Faults=WX363 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=391) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=60.0ms, clasp=41.0ms)
+
+[Case 3] 入力行(19文字)
+  [Case 3] Faults=RESET_WX9821_B sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1770, 制約=13) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1761 (時間=50.0ms, clasp=33.0ms)
+
+[Case 4] 入力行(11文字)
+  [Case 4] Faults=WX3938 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=391) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1755 (時間=59.0ms, clasp=30.0ms)
+
+[Case 5] 入力行(31文字)
+  [Case 5] Faults=WX3023 sa1;WX3127_WX3021_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=596) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1755 (時間=88.0ms, clasp=62.0ms)
+
+[Case 6] 入力行(40文字)
+  [Case 6] Faults=II6798_II6808_A sa1;WX2054_II6807_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=57.0ms, clasp=35.0ms)
+
+[Case 7] 入力行(20文字)
+  [Case 7] Faults=WX479 sa1;WX339 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2427, 制約=772) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=74.0ms, clasp=44.0ms)
+
+[Case 8] 入力行(48文字)
+  [Case 8] Faults=CRC_OUT_6_26_II15566_A sa1;WX4495_II15565_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=78.0ms, clasp=52.0ms)
+
+[Case 9] 入力行(43文字)
+  [Case 9] Faults=II18658_II18668_A sa1;WX5923_II18667_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=63.0ms, clasp=31.0ms)
+
+[Case 10] 入力行(43文字)
+  [Case 10] Faults=II10586_II10596_A sa1;WX3333_II10595_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=83.0ms, clasp=62.0ms)
+
+[Case 11] 入力行(38文字)
+  [Case 11] Faults=RESET_WX8506_B sa1;RESET_WX3326_B sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1777, 制約=26) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=60.0ms, clasp=27.0ms)
+
+[Case 12] 入力行(87文字)
+  [Case 12] Faults=II34585_II34595_A sa1;WX11089_II34594_A sa1;II30518_II30528_A sa1;WX9792_II30527_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2781, 制約=1285) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=78.0ms, clasp=31.0ms)
+
+[Case 13] 入力行(62文字)
+  [Case 13] Faults=WX5371 sa1;WX5679_WX5369_A sa1;WX2981 sa1;WX3121_WX2979_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2787, 制約=1189) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=105.0ms, clasp=43.0ms)
+
+[Case 14] 入力行(87文字)
+  [Case 14] Faults=WX9432 sa1;WX9194 sa1;WX9550_WX9192_A sa1;WX1590 sa1;WX10473 sa1;WX10841_WX10471_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3241, 制約=1733) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1740 (時間=116.0ms, clasp=56.0ms)
+
+[Case 15] 入力行(96文字)
+  [Case 15] Faults=WX7803 sa1;WX8243_WX7801_A sa1;WX4162 sa1;WX4398_WX4160_A sa1;WX10725 sa1;WX10877_WX10723_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3089, 制約=1554) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1745 (時間=81.0ms, clasp=45.0ms)
+
+[Case 16] 入力行(90文字)
+  [Case 16] Faults=WX101 sa1;WX10795 sa1;WX10683 sa1;WX10585 sa1;WX10871_WX10681_A sa1;WX10857_WX10583_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2888, 制約=1332) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1740 (時間=90.0ms, clasp=46.0ms)
+
+[Case 17] 入力行(104文字)
+  [Case 17] Faults=WX9516 sa1;WX9596_WX9514_A sa1;WX8005 sa1;WX6888 sa1;WX7004_WX6886_A sa1;WX1464 sa1;WX1796_WX1462_A sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3634, 制約=2170) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1743 (時間=90.0ms, clasp=54.0ms)
+
+[Case 18] 入力行(154文字)
+  [Case 18] Faults=RESET_WX8520_B sa1;WX6435_WX6444_B sa1;RESET_WX4641_B sa1;RESET_WX4627_B sa1;RESET_WX3328_B sa1;RESET_WX3132_B sa1;RESET_WX2051_B sa1;RESET_WX11088_B sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=1869, 制約=158) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=112.0ms, clasp=48.0ms)
+
+[Case 19] 入力行(168文字)
+  [Case 19] Faults=WX10231_WX9431_A sa1;WX10055_WX9430_B sa1;II18348_II18358_A sa1;WX5903_II18357_A sa1;II6829_II6839_A sa1;WX2056_II6838_A sa1;II18224_II18234_A sa1;WX5895_II18233_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3793, 制約=2516) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1743 (時間=75.0ms, clasp=33.0ms)
+
+[Case 20] 入力行(214文字)
+  [Case 20] Faults=RESET_WX9809_B sa1;WX9021_WX9030_B sa1;RESET_WX8522_B sa1;RESET_WX7225_B sa1;RESET_WX546_B sa1;RESET_WX4645_B sa1;RESET_WX2063_B sa1;RESET_WX2037_B sa1;WX11607_WX11640_B sa1;RESET_WX11110_B sa1;RESET_WX11090_B sa1 (11件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=11故障同時, CEGARなし)
+    [1回求解 K=11] OPB生成 ...
+    [1回求解] clasp求解 (変数=1938, 制約=251) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1747 (時間=76.0ms, clasp=33.0ms)
+
+[Case 21] 入力行(354文字)
+  [Case 21] Faults=RESET_WX9815_B sa1;RESET_WX9597_B sa1;RESET_WX7211_B sa1;RESET_WX7011_B sa1;WX6435_WX6486_B sa1;WX6435_WX6454_B sa1;WX5142_WX5177_B sa1;WX3849_WX3850_B sa1;RESET_WX3344_B sa1;RESET_WX3340_B sa1;WX2556_WX2611_B sa1;WX2556_WX2589_B sa1;WX2556_WX2579_B sa1;WX2556_WX2569_B sa1;RESET_WX2057_B sa1;RESET_WX2049_B sa1;RESET_WX11106_B sa1;WX10314_WX10353_B sa1 (18件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=18故障同時, CEGARなし)
+    [1回求解 K=18] OPB生成 ...
+    [1回求解] clasp求解 (変数=2173, 制約=540) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1734 (時間=136.0ms, clasp=52.0ms)
+
+[Case 22] 入力行(787文字)
+  [Case 22] Faults=WX9021_WX9060_B sa1;WX9021_WX9048_B sa1;RESET_WX8638_B sa1;RESET_WX896_B sa1;RESET_WX8512_B sa1;RESET_WX8510_B sa1;WX7728_WX7781_B sa1;WX7728_WX7767_B sa1;WX7728_WX7737_B sa1;RESET_WX768_B sa1;RESET_WX762_B sa1;RESET_WX760_B sa1;RESET_WX752_B sa1;RESET_WX7221_B sa1;RESET_WX7209_B sa1;RESET_WX7207_B sa1;RESET_WX7205_B sa1;WX6435_WX6478_B sa1;WX6435_WX6472_B sa1;WX5142_WX5199_B sa1;WX5142_WX5185_B sa1;RESET_WX4667_B sa1;RESET_WX4639_B sa1;WX3849_WX3904_B sa1;WX3849_WX3892_B sa1;WX3849_WX3886_B sa1;RESET_WX2061_B sa1;RESET_WX2047_B sa1;RESET_WX2035_B sa1;RESET_WX1973_B sa1;WX11607_WX11646_B sa1;WX11607_WX11620_B sa1;WX11607_WX11608_B sa1;WX1263_WX1308_B sa1;WX1263_WX1298_B sa1;WX1263_WX1296_B sa1;WX1263_WX1286_B sa1;RESET_WX11146_B sa1;WX10314_WX10377_B sa1;WX10314_WX10365_B sa1 (40件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=40故障同時, CEGARなし)
+    [1回求解 K=40] OPB生成 ...
+    [1回求解] clasp求解 (変数=2986, 制約=1555) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1697 (時間=200.0ms, clasp=39.0ms)
+
+[Case 23] 入力行(11文字)
+  [Case 23] Faults=WX9204 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=391) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=124.0ms, clasp=86.0ms)
+
+[Case 24] 入力行(21文字)
+  [Case 24] Faults=WX433 sa1;WX5619 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2445, 制約=794) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=106.0ms, clasp=65.0ms)
+
+[Case 25] 入力行(68文字)
+  [Case 25] Faults=WX8149 sa1;WX55 sa1;CRC_OUT_5_21_II19606_A sa1;WX5793_II19605_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2498, 制約=864) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1746 (時間=90.0ms, clasp=64.0ms)
+
+[Case 26] 入力行(22文字)
+  [Case 26] Faults=WX4102 sa1;WX2963 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2442, 制約=783) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=75.0ms, clasp=54.0ms)
+
+[Case 27] 入力行(11文字)
+  [Case 27] Faults=WX1516 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=50.0ms, clasp=36.0ms)
+
+[Case 28] 入力行(22文字)
+  [Case 28] Faults=WX9106 sa1;WX5647 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2445, 制約=790) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=50.0ms, clasp=29.0ms)
+
+[Case 29] 入力行(11文字)
+  [Case 29] Faults=WX4032 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=43.0ms, clasp=29.0ms)
+
+[Case 30] 入力行(1485文字)
+
+[Case 31] 入力行(4337文字)
+
+[Case 32] 入力行(25971文字)
+
+[Case 33] 入力行(59文字)
+  [Case 33] Faults=CRC_OUT_6_16_II15636_A sa1;WX4505_II15635_A sa1;WX4130 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2157, 制約=467) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1753 (時間=59.0ms, clasp=28.0ms)
+
+[Case 34] 入力行(42文字)
+  [Case 34] Faults=WX5525 sa1;WX5701_WX5523_A sa1;WX1408 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2616, 制約=991) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=101.0ms, clasp=48.0ms)
+
+[Case 35] 入力行(10文字)
+  [Case 35] Faults=WX237 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=81.0ms, clasp=55.0ms)
+
+[Case 36] 入力行(22文字)
+  [Case 36] Faults=WX6744 sa1;WX1502 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2445, 制約=792) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=102.0ms, clasp=69.0ms)
+
+[Case 37] 入力行(79文字)
+  [Case 37] Faults=WX5311 sa1;CRC_OUT_8_30_II7528_A sa1;WX1905_II7527_A sa1;WX1446 sa1;WX1348 sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2821, 制約=1237) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1741 (時間=148.0ms, clasp=93.0ms)
+
+[Case 38] 入力行(11文字)
+  [Case 38] Faults=WX1740 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=395) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=80.0ms, clasp=62.0ms)
+
+[Case 39] 入力行(42文字)
+  [Case 39] Faults=WX4120 sa1;WX4392_WX4118_A sa1;WX1688 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2616, 制約=988) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=83.0ms, clasp=38.0ms)
+
+[Case 40] 入力行(55文字)
+  [Case 40] Faults=WX251 sa1;CRC_OUT_9_16_II3621_A sa1;WX626_II3620_A sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2157, 制約=471) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1753 (時間=99.0ms, clasp=52.0ms)
+
+[Case 41] 入力行(11文字)
+  [Case 41] Faults=WX1418 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=70.0ms, clasp=45.0ms)
+
+[Case 42] 入力行(9文字)
+  [Case 42] Faults=WX83 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=103.0ms, clasp=72.0ms)
+
+[Case 43] 入力行(22文字)
+  [Case 43] Faults=WX9246 sa1;WX2865 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2445, 制約=788) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=108.0ms, clasp=63.0ms)
+
+[Case 44] 入力行(62文字)
+  [Case 44] Faults=WX6734 sa1;WX6982_WX6732_A sa1;WX4288 sa1;WX4416_WX4286_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2787, 制約=1192) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=150.0ms, clasp=87.0ms)
+
+[Case 45] 入力行(12文字)
+  [Case 45] Faults=WX10721 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1964, 制約=241) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1758 (時間=70.0ms, clasp=50.0ms)
+
+[Case 46] 入力行(47文字)
+  [Case 46] Faults=WX307 sa1;WX5437 sa1;CRC_OUT_5_15_WX5435_A sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2616, 制約=991) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=74.0ms, clasp=40.0ms)
+
+[Case 47] 入力行(33文字)
+  [Case 47] Faults=WX9162 sa1;WX5353 sa1;WX2851 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2786, 制約=1179) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=58.0ms, clasp=30.0ms)
+
+[Case 48] 入力行(33文字)
+  [Case 48] Faults=WX8107 sa1;WX8023 sa1;WX5297 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2768, 制約=1169) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=92.0ms, clasp=46.0ms)
+
+[Case 49] 入力行(11文字)
+  [Case 49] Faults=WX3037 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=393) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1755 (時間=89.0ms, clasp=67.0ms)
+
+[Case 50] 入力行(11文字)
+  [Case 50] Faults=WX1758 sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2104, 制約=395) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1755 (時間=78.0ms, clasp=45.0ms)
+
+[Case 51] 入力行(33文字)
+  [Case 51] Faults=WX9498 sa1;WX8135 sa1;WX4144 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2780, 制約=1181) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=129.0ms, clasp=74.0ms)
+
+[Case 52] 入力行(21文字)
+  [Case 52] Faults=WX405 sa1;WX2837 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2445, 制約=790) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=64.0ms, clasp=38.0ms)
+
+[Case 53] 入力行(33文字)
+  [Case 53] Faults=WX5493 sa1;WX3047 sa1;WX2935 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2768, 制約=1165) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=48.0ms, clasp=28.0ms)
+
+[Case 54] 入力行(22文字)
+  [Case 54] Faults=WX3033 sa1;WX2795 sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2433, 制約=774) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=55.0ms, clasp=26.0ms)
+
+[Case 55] 入力行(33文字)
+  [Case 55] Faults=WX6870 sa1;WX5549 sa1;WX4074 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2777, 制約=1176) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=48.0ms, clasp=28.0ms)
+
+[Case 56] 入力行(48文字)
+  [Case 56] Faults=CRC_OUT_4_27_II23569_A sa1;WX7080_II23568_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=44.0ms, clasp=26.0ms)
+
+[Case 57] 入力行(73文字)
+  [Case 57] Faults=CRC_OUT_4_23_II23597_A sa1;WX7084_II23596_A sa1;CRC_OUT_4_5_WX6868_A sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2157, 制約=471) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1757 (時間=46.0ms, clasp=29.0ms)
+
+[Case 58] 入力行(43文字)
+  [Case 58] Faults=II30983_II30993_A sa1;WX9822_II30992_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=56.0ms, clasp=40.0ms)
+
+[Case 59] 入力行(43文字)
+  [Case 59] Faults=II26885_II26895_A sa1;WX8523_II26894_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=57.0ms, clasp=44.0ms)
+
+[Case 60] 入力行(43文字)
+  [Case 60] Faults=II26637_II26647_A sa1;WX8507_II26646_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=640) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=49.0ms, clasp=35.0ms)
+
+[Case 61] 入力行(178文字)
+  [Case 61] Faults=WX5623 sa1;WX2701 sa1;WX3129_WX3035_A sa1;WX3081_WX2699_A sa1;WX10697 sa1;WX10515 sa1;WX10887_WX10793_A sa1;WX10847_WX10513_A sa1;CRC_OUT_2_14_II31663_A sa1;WX9679_II31662_A sa1 (10件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=10故障同時, CEGARなし)
+    [1回求解 K=10] OPB生成 ...
+    [1回求解] clasp求解 (変数=3681, 制約=2276) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1736 (時間=88.0ms, clasp=34.0ms)
+
+[Case 62] 入力行(40文字)
+  [Case 62] Faults=II6612_II6622_A sa1;WX2042_II6621_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=45.0ms, clasp=28.0ms)
+
+[Case 63] 入力行(44文字)
+  [Case 63] Faults=II34523_II34533_A sa1;WX11085_II34532_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=45.0ms, clasp=27.0ms)
+
+[Case 64] 入力行(43文字)
+  [Case 64] Faults=II26761_II26771_A sa1;WX8515_II26770_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=81.0ms, clasp=30.0ms)
+
+[Case 65] 入力行(43文字)
+  [Case 65] Faults=II26699_II26709_A sa1;WX8511_II26708_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=44.0ms, clasp=27.0ms)
+
+[Case 66] 入力行(127文字)
+  [Case 66] Faults=CRC_OUT_4_4_II23716_A sa1;WX7103_II23715_A sa1;WX7484_WX6523_A sa1;WX7469_WX6522_B sa1;II6581_II6591_A sa1;WX2040_II6590_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1316) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1749 (時間=56.0ms, clasp=28.0ms)
+
+[Case 67] 入力行(90文字)
+  [Case 67] Faults=CRC_OUT_8_2_II7703_A sa1;WX1933_II7702_A sa1;CRC_OUT_9_11_II3649_A sa1;WX631_II3648_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1869, 制約=148) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1758 (時間=46.0ms, clasp=25.0ms)
+
+[Case 68] 入力行(127文字)
+  [Case 68] Faults=WX4982_WX4105_A sa1;WX4883_WX4104_B sa1;II30549_II30559_A sa1;WX9794_II30558_A sa1;II34988_II34998_A sa1;WX11115_II34997_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3083, 制約=1648) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1747 (時間=58.0ms, clasp=29.0ms)
+
+[Case 69] 入力行(88文字)
+  [Case 69] Faults=CRC_OUT_9_13_II3635_A sa1;WX629_II3634_A sa1;II10896_II10906_A sa1;WX3353_II10905_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=720) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=46.0ms, clasp=26.0ms)
+
+[Case 70] 入力行(44文字)
+  [Case 70] Faults=CRC_OUT_9_9_II3656_A sa1;WX633_II3655_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=40.0ms, clasp=24.0ms)
+
+[Case 71] 入力行(43文字)
+  [Case 71] Faults=II26668_II26678_A sa1;WX8509_II26677_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=638) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=41.0ms, clasp=25.0ms)
+
+[Case 72] 入力行(40文字)
+  [Case 72] Faults=II6519_II6529_A sa1;WX2036_II6528_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=642) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=40.0ms, clasp=26.0ms)
+
+[Case 73] 入力行(49文字)
+  [Case 73] Faults=II11494_II11504_A sa1;CRC_OUT_7_10_II11503_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1846, 制約=110) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1759 (時間=62.0ms, clasp=26.0ms)
+
+[Case 74] 入力行(69文字)
+  [Case 74] Faults=WX10055_WX9360_B sa1;CRC_OUT_6_27_II15559_A sa1;WX4494_II15558_A sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2157, 制約=467) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1753 (時間=75.0ms, clasp=39.0ms)
+
+[Case 75] 入力行(83文字)
+  [Case 75] Faults=II18534_II18544_A sa1;WX5915_II18543_A sa1;II6891_II6901_A sa1;WX2060_II6900_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2787, 制約=1287) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=72.0ms, clasp=42.0ms)
+
+[Case 76] 入力行(126文字)
+  [Case 76] Faults=II18565_II18575_A sa1;WX5917_II18574_A sa1;II10617_II10627_A sa1;WX3335_II10626_A sa1;II6488_II6498_A sa1;WX2034_II6497_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3293, 制約=1912) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=86.0ms, clasp=47.0ms)
+
+[Case 77] 入力行(91文字)
+  [Case 77] Faults=CRC_OUT_6_7_II15685_A sa1;WX4514_II15684_A sa1;II30099_II30109_A sa1;II30083_II30108_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=708) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=79.0ms, clasp=53.0ms)
+
+[Case 78] 入力行(81文字)
+  [Case 78] Faults=WX8065 sa1;WX5381 sa1;WX2921 sa1;CRC_OUT_1_2_II35738_A sa1;WX10984_II35737_A sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2839, 制約=1257) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1740 (時間=86.0ms, clasp=42.0ms)
+
+[Case 79] 入力行(40文字)
+  [Case 79] Faults=II6953_II6963_A sa1;WX2064_II6962_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=67.0ms, clasp=46.0ms)
+
+[Case 80] 入力行(40文字)
+  [Case 80] Faults=II6705_II6715_A sa1;WX2048_II6714_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=88.0ms, clasp=73.0ms)
+
+[Case 81] 入力行(43文字)
+  [Case 81] Faults=II14498_II14508_A sa1;WX4620_II14507_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=39.0ms, clasp=25.0ms)
+
+[Case 82] 入力行(40文字)
+  [Case 82] Faults=II6767_II6777_A sa1;WX2052_II6776_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=71.0ms, clasp=45.0ms)
+
+[Case 83] 入力行(133文字)
+  [Case 83] Faults=CRC_OUT_5_2_II19718_A sa1;WX5812_II19717_A sa1;II26730_II26740_A sa1;WX8513_II26739_A sa1;II10803_II10813_A sa1;WX3347_II10812_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1363) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=105.0ms, clasp=43.0ms)
+
+[Case 84] 入力行(170文字)
+  [Case 84] Faults=II23494_II23504_A sa1;CRC_OUT_4_15_II23503_A sa1;WX2438_WX1603_A sa1;WX2297_WX1602_B sa1;II30828_II30838_A sa1;WX9812_II30837_A sa1;WX899_II2966_A sa1;WX835_II2965_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3381, 制約=1999) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=74.0ms, clasp=30.0ms)
+
+[Case 85] 入力行(79文字)
+  [Case 85] Faults=DATA_0_28 sa1;WX11348_WX10425_B sa1;II26606_II26616_A sa1;WX8505_II26615_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2577, 制約=1002) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=56.0ms, clasp=31.0ms)
+
+[Case 86] 入力行(105文字)
+  [Case 86] Faults=WX7869 sa1;CRC_OUT_3_7_WX8133_A sa1;CRC_OUT_4_29_II23555_A sa1;WX7078_II23554_A sa1;WX447 sa1;WX1376 sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3165, 制約=1637) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1739 (時間=89.0ms, clasp=46.0ms)
+
+[Case 87] 入力行(91文字)
+  [Case 87] Faults=WX9358 sa1;CRC_OUT_4_7_II23695_A sa1;WX7100_II23694_A sa1;WX5409 sa1;WX2991 sa1;WX2893 sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3162, 制約=1632) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1734 (時間=68.0ms, clasp=30.0ms)
+
+[Case 88] 入力行(44文字)
+  [Case 88] Faults=II34771_II34781_A sa1;WX11101_II34780_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=41.0ms, clasp=26.0ms)
+
+[Case 89] 入力行(90文字)
+  [Case 89] Faults=CRC_OUT_6_2_II15713_A sa1;WX4519_II15712_A sa1;II30611_II30621_A sa1;WX9798_II30620_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=716) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=57.0ms, clasp=31.0ms)
+
+[Case 90] 入力行(150文字)
+  [Case 90] Faults=WX10196_WX9361_A sa1;WX10147_WX9263_A sa1;WX10055_WX9262_B sa1;WX8875_WX8012_A sa1;WX8762_WX8011_B sa1;CRC_OUT_6_0_II15727_A sa1;WX4521_II15726_A sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3163, 制約=1646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=71.0ms, clasp=38.0ms)
+
+[Case 91] 入力行(114文字)
+  [Case 91] Faults=WX5715_WX5621_A sa1;CRC_OUT_7_14_II11638_A sa1;WX3214_II11637_A sa1;WX10613 sa1;WX10599 sa1;WX10859_WX10597_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2651, 制約=1061) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1747 (時間=56.0ms, clasp=27.0ms)
+
+[Case 92] 入力行(43文字)
+  [Case 92] Faults=II14653_II14663_A sa1;WX4630_II14662_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=42.0ms, clasp=25.0ms)
+
+[Case 93] 入力行(355文字)
+  [Case 93] Faults=WX8069 sa1;WX7831 sa1;WX8281_WX8067_A sa1;WX6650 sa1;WX6538 sa1;WX6970_WX6648_A sa1;WX6954_WX6536_A sa1;WX311 sa1;WX523_WX309_A sa1;WX5287 sa1;WX5667_WX5285_A sa1;WX4190 sa1;WX4402_WX4188_A sa1;CRC_OUT_1_8_II35703_A sa1;WX10978_II35702_A sa1;II3499_II3509_A sa1;CRC_OUT_9_3_II3508_A sa1;WX10627 sa1;WX10459 sa1;WX10863_WX10625_A sa1;WX10839_WX10457_A sa1 (21件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=21故障同時, CEGARなし)
+    [1回求解 K=21] OPB生成 ...
+    [1回求解] clasp求解 (変数=5799, 制約=4747) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1710 (時間=128.0ms, clasp=45.0ms)
+
+[Case 94] 入力行(40文字)
+  [Case 94] Faults=II6643_II6653_A sa1;WX2044_II6652_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=43.0ms, clasp=27.0ms)
+
+[Case 95] 入力行(43文字)
+  [Case 95] Faults=II14839_II14849_A sa1;WX4642_II14848_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=645) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=43.0ms, clasp=29.0ms)
+
+[Case 96] 入力行(131文字)
+  [Case 96] Faults=CRC_OUT_9_20_II3593_A sa1;WX622_II3592_A sa1;II18317_II18327_A sa1;WX5901_II18326_A sa1;II10028_II10038_A sa1;WX3297_II10037_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1374) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=97.0ms, clasp=52.0ms)
+
+[Case 97] 入力行(87文字)
+  [Case 97] Faults=II34492_II34502_A sa1;WX11083_II34501_A sa1;II26854_II26864_A sa1;WX8521_II26863_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2577, 制約=1057) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=59.0ms, clasp=36.0ms)
+
+[Case 98] 入力行(69文字)
+  [Case 98] Faults=CRC_OUT_7_7_II11680_A sa1;WX3221_II11679_A sa1;WX11348_WX10663_B sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2017, 制約=313) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=52.0ms, clasp=30.0ms)
+
+[Case 99] 入力行(58文字)
+  [Case 99] Faults=WX6674 sa1;CRC_OUT_7_4_II11701_A sa1;WX3224_II11700_A sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2157, 制約=469) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=47.0ms, clasp=28.0ms)
+
+[Case 100] 入力行(84文字)
+  [Case 100] Faults=WX9260 sa1;CRC_OUT_2_19_WX9258_A sa1;CRC_OUT_7_6_II11687_A sa1;WX3222_II11686_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=670) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=66.0ms, clasp=43.0ms)
+
+[Case 101] 入力行(48文字)
+  [Case 101] Faults=CRC_OUT_7_17_II11624_A sa1;WX3211_II11623_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=57.0ms, clasp=35.0ms)
+
+[Case 102] 入力行(47文字)
+  [Case 102] Faults=CRC_OUT_7_5_II11694_A sa1;WX3223_II11693_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=98.0ms, clasp=58.0ms)
+
+[Case 103] 入力行(43文字)
+  [Case 103] Faults=II22787_II22797_A sa1;WX7224_II22796_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=645) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=80.0ms, clasp=41.0ms)
+
+[Case 104] 入力行(43文字)
+  [Case 104] Faults=II22725_II22735_A sa1;WX7220_II22734_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=640) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=43.0ms, clasp=27.0ms)
+
+[Case 105] 入力行(47文字)
+  [Case 105] Faults=CRC_OUT_7_9_II11666_A sa1;WX3219_II11665_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=45.0ms, clasp=30.0ms)
+
+[Case 106] 入力行(48文字)
+  [Case 106] Faults=CRC_OUT_7_11_II11659_A sa1;WX3217_II11658_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=56.0ms, clasp=41.0ms)
+
+[Case 107] 入力行(47文字)
+  [Case 107] Faults=CRC_OUT_7_8_II11673_A sa1;WX3220_II11672_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=49.0ms, clasp=30.0ms)
+
+[Case 108] 入力行(121文字)
+  [Case 108] Faults=WX8083 sa1;WX8283_WX8081_A sa1;WX5245 sa1;WX5661_WX5243_A sa1;CRC_OUT_7_16_II11631_A sa1;WX3212_II11630_A sa1;WX2827 sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3181, 制約=1664) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=63.0ms, clasp=27.0ms)
+
+[Case 109] 入力行(46文字)
+  [Case 109] Faults=CRC_OUT_8_13_II7640_A sa1;WX1922_II7639_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=39.0ms, clasp=25.0ms)
+
+[Case 110] 入力行(43文字)
+  [Case 110] Faults=II14808_II14818_A sa1;WX4640_II14817_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=42.0ms, clasp=24.0ms)
+
+[Case 111] 入力行(82文字)
+  [Case 111] Faults=CRC_OUT_8_16_II7626_A sa1;WX1919_II7625_A sa1;DATA_0_15 sa1;WX11348_WX10607_B sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2118, 制約=436) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=55.0ms, clasp=25.0ms)
+
+[Case 112] 入力行(43文字)
+  [Case 112] Faults=II10524_II10534_A sa1;WX3329_II10533_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=642) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=42.0ms, clasp=25.0ms)
+
+[Case 113] 入力行(126文字)
+  [Case 113] Faults=WX5101_WX4343_A sa1;WX4883_WX4342_B sa1;WX5031_WX4203_A sa1;WX4883_WX4202_B sa1;CRC_OUT_8_24_II7570_A sa1;WX1911_II7569_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2822, 制約=1251) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=54.0ms, clasp=27.0ms)
+
+[Case 114] 入力行(84文字)
+  [Case 114] Faults=WX7841 sa1;CRC_OUT_3_28_WX7839_A sa1;CRC_OUT_7_0_II11722_A sa1;WX3228_II11721_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=670) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=47.0ms, clasp=27.0ms)
+
+[Case 115] 入力行(48文字)
+  [Case 115] Faults=CRC_OUT_7_18_II11617_A sa1;WX3210_II11616_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=37.0ms, clasp=23.0ms)
+
+[Case 116] 入力行(48文字)
+  [Case 116] Faults=II11509_II11519_A sa1;CRC_OUT_7_3_II11518_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1846, 制約=107) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1759 (時間=73.0ms, clasp=45.0ms)
+
+[Case 117] 入力行(130文字)
+  [Case 117] Faults=II22585_II22595_A sa1;II22569_II22594_A sa1;II26203_II26213_A sa1;WX8479_II26212_A sa1;II14529_II14539_A sa1;WX4622_II14538_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3296, 制約=1918) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=91.0ms, clasp=46.0ms)
+
+[Case 118] 入力行(43文字)
+  [Case 118] Faults=II14591_II14601_A sa1;WX4626_II14600_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=635) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=78.0ms, clasp=59.0ms)
+
+[Case 119] 入力行(43文字)
+  [Case 119] Faults=II22694_II22704_A sa1;WX7218_II22703_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=640) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=51.0ms, clasp=32.0ms)
+
+[Case 120] 入力行(47文字)
+  [Case 120] Faults=CRC_OUT_3_4_II27721_A sa1;WX8396_II27720_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=46.0ms, clasp=26.0ms)
+
+[Case 121] 入力行(91文字)
+  [Case 121] Faults=CRC_OUT_3_2_II27728_A sa1;WX8398_II27727_A sa1;II34554_II34564_A sa1;WX11087_II34563_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=717) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=55.0ms, clasp=33.0ms)
+
+[Case 122] 入力行(152文字)
+  [Case 122] Faults=II27529_II27539_A sa1;CRC_OUT_3_3_II27538_A sa1;WX7939 sa1;WX4004 sa1;CRC_OUT_6_25_WX4002_A sa1;WX2739 sa1;CRC_OUT_9_23_II3572_A sa1;WX619_II3571_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3087, 制約=1566) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1737 (時間=65.0ms, clasp=27.0ms)
+
+[Case 123] 入力行(89文字)
+  [Case 123] Faults=WX9218 sa1;CRC_OUT_3_25_II27588_A sa1;WX8375_II27587_A sa1;WX223 sa1;WX97 sa1;WX4284 sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3162, 制約=1636) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1734 (時間=62.0ms, clasp=28.0ms)
+
+[Case 124] 入力行(150文字)
+  [Case 124] Faults=CRC_OUT_3_24_II27595_A sa1;WX8376_II27594_A sa1;WX7519_WX6593_A sa1;WX7469_WX6592_B sa1;WX4182 sa1;WX4191 sa1;WX5024_WX4189_A sa1;WX4883_WX4188_B sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3182, 制約=1673) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=72.0ms, clasp=29.0ms)
+
+[Case 125] 入力行(48文字)
+  [Case 125] Faults=CRC_OUT_3_16_II27651_A sa1;WX8384_II27650_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=63.0ms, clasp=31.0ms)
+
+[Case 126] 入力行(90文字)
+  [Case 126] Faults=CRC_OUT_3_18_II27637_A sa1;WX8382_II27636_A sa1;WX3437_II10232_A sa1;WX3373_II10231_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=720) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=86.0ms, clasp=52.0ms)
+
+[Case 127] 入力行(269文字)
+  [Case 127] Faults=CRC_OUT_3_1_II27735_A sa1;WX8399_II27734_A sa1;WX8896_WX8054_A sa1;WX8762_WX8053_B sa1;WX5003_WX4147_A sa1;WX4883_WX4146_B sa1;WX10717 sa1;WX11538_WX10752_A sa1;WX11348_WX10751_B sa1;II22446_II22456_A sa1;WX7202_II22455_A sa1;II18193_II18203_A sa1;WX5893_II18202_A sa1 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=4343, 制約=3133) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1730 (時間=154.0ms, clasp=35.0ms)
+
+[Case 128] 入力行(292文字)
+  [Case 128] Faults=WX10091_WX9151_A sa1;WX10055_WX9150_B sa1;CRC_OUT_3_5_II27714_A sa1;WX8395_II27713_A sa1;WX8847_WX7956_A sa1;WX8762_WX7955_B sa1;DATA_9_8_WX366_A sa1;WX1004_WX365_B sa1;WX5017_WX4175_A sa1;WX4883_WX4174_B sa1;WX2403_WX1533_A sa1;WX2297_WX1532_B sa1;II18410_II18420_A sa1;WX5907_II18419_A sa1 (14件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=14故障同時, CEGARなし)
+    [1回求解 K=14] OPB生成 ...
+    [1回求解] clasp求解 (変数=4876, 制約=3700) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1729 (時間=104.0ms, clasp=35.0ms)
+
+[Case 129] 入力行(47文字)
+  [Case 129] Faults=CRC_OUT_3_6_II27707_A sa1;WX8394_II27706_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=73.0ms, clasp=49.0ms)
+
+[Case 130] 入力行(135文字)
+  [Case 130] Faults=CRC_OUT_3_26_II27581_A sa1;WX8374_II27580_A sa1;CRC_OUT_3_26_WX7867_A sa1;WX3005 sa1;WX2641 sa1;WX10399 sa1;CRC_OUT_1_30_WX10397_A sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3129, 制約=1614) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=71.0ms, clasp=29.0ms)
+
+[Case 131] 入力行(43文字)
+  [Case 131] Faults=II22601_II22611_A sa1;WX7212_II22610_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=72.0ms, clasp=44.0ms)
+
+[Case 132] 入力行(43文字)
+  [Case 132] Faults=II22539_II22549_A sa1;WX7208_II22548_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=52.0ms, clasp=34.0ms)
+
+[Case 133] 入力行(43文字)
+  [Case 133] Faults=II10927_II10937_A sa1;WX3355_II10936_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=642) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=52.0ms, clasp=37.0ms)
+
+[Case 134] 入力行(87文字)
+  [Case 134] Faults=II34616_II34626_A sa1;WX11091_II34625_A sa1;II26916_II26926_A sa1;WX8525_II26925_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2787, 制約=1285) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=63.0ms, clasp=32.0ms)
+
+[Case 135] 入力行(125文字)
+  [Case 135] Faults=II35576 sa1;II22942_II22952_A sa1;WX7234_II22951_A sa1;II26978_II26988_A sa1;WX8529_II26987_A sa1;CRC_OUT_1_28_II35575_B sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2834, 制約=1351) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=88.0ms, clasp=50.0ms)
+
+[Case 136] 入力行(48文字)
+  [Case 136] Faults=CRC_OUT_3_29_II27560_A sa1;WX8371_II27559_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=49.0ms, clasp=31.0ms)
+
+[Case 137] 入力行(62文字)
+  [Case 137] Faults=CRC_OUT_3_21_II27616_A sa1;WX8379_II27615_A sa1;DATA_0_11 sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2017, 制約=315) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1757 (時間=81.0ms, clasp=35.0ms)
+
+[Case 138] 入力行(90文字)
+  [Case 138] Faults=CRC_OUT_3_27_II27574_A sa1;WX8373_II27573_A sa1;WX7334_II22526_A sa1;WX7270_II22525_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=720) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=72.0ms, clasp=39.0ms)
+
+[Case 139] 入力行(43文字)
+  [Case 139] Faults=II22570_II22580_A sa1;WX7210_II22579_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=91.0ms, clasp=42.0ms)
+
+[Case 140] 入力行(48文字)
+  [Case 140] Faults=CRC_OUT_3_28_II27567_A sa1;WX8372_II27566_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=85.0ms, clasp=68.0ms)
+
+[Case 141] 入力行(48文字)
+  [Case 141] Faults=CRC_OUT_6_21_II15601_A sa1;WX4500_II15600_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=53.0ms, clasp=39.0ms)
+
+[Case 142] 入力行(201文字)
+  [Case 142] Faults=WX9390 sa1;II23524_II23534_A sa1;CRC_OUT_4_3_II23533_A sa1;CRC_OUT_6_22_II15594_A sa1;WX4499_II15593_A sa1;II11479_II11489_A sa1;CRC_OUT_7_15_II11488_A sa1;WX1702 sa1;WX10711 sa1;WX10875_WX10709_A sa1 (10件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=10故障同時, CEGARなし)
+    [1回求解 K=10] OPB生成 ...
+    [1回求解] clasp求解 (変数=2960, 制約=1439) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1737 (時間=145.0ms, clasp=77.0ms)
+
+[Case 143] 入力行(48文字)
+  [Case 143] Faults=CRC_OUT_6_20_II15608_A sa1;WX4501_II15607_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=51.0ms, clasp=33.0ms)
+
+[Case 144] 入力行(79文字)
+  [Case 144] Faults=DATA_0_31 sa1;WX11348_WX10383_B sa1;II14963_II14973_A sa1;WX4650_II14972_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2577, 制約=1008) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=90.0ms, clasp=36.0ms)
+
+[Case 145] 入力行(439文字)
+  [Case 145] Faults=WX9382 sa1;WX9124 sa1;WX9578_WX9388_A sa1;WX9540_WX9122_A sa1;WX325 sa1;WX317 sa1;WX283 sa1;WX527_WX337_A sa1;WX525_WX323_A sa1;WX5315 sa1;WX5671_WX5313_A sa1;CRC_OUT_6_12_II15657_A sa1;WX4509_II15656_A sa1;WX3065 sa1;WX2883 sa1;WX3133_WX3063_A sa1;WX3107_WX2881_A sa1;WX1534 sa1;WX1526 sa1;WX1535 sa1;WX1806_WX1532_A sa1;CRC_OUT_1_23_II35612_A sa1;WX10963_II35611_A sa1;WX10739 sa1;WX10445 sa1;WX10879_WX10737_A sa1;WX10873_WX10695_A sa1 (27件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=27故障同時, CEGARなし)
+    [1回求解 K=27] OPB生成 ...
+    [1回求解] clasp求解 (変数=7250, 制約=6449) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1705 (時間=180.0ms, clasp=40.0ms)
+
+[Case 146] 入力行(238文字)
+  [Case 146] Faults=WX6884 sa1;CRC_OUT_6_5_II15699_A sa1;WX4516_II15698_A sa1;CRC_OUT_1_1_II35745_A sa1;WX10985_II35744_A sa1;CRC_OUT_1_24_II35605_A sa1;WX10962_II35604_A sa1;CRC_OUT_9_22_II3579_A sa1;WX620_II3578_A sa1;WX539_II3405_A sa1;WX607_II3404_A sa1 (11件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=11故障同時, CEGARなし)
+    [1回求解 K=11] OPB生成 ...
+    [1回求解] clasp求解 (変数=2525, 制約=952) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1741 (時間=96.0ms, clasp=43.0ms)
+
+[Case 147] 入力行(175文字)
+  [Case 147] Faults=II15499_II15509_A sa1;CRC_OUT_6_10_II15508_A sa1;II22973_II22983_A sa1;WX7236_II22982_A sa1;II10679_II10689_A sa1;WX3339_II10688_A sa1;WX2180_II6785_A sa1;WX2116_II6784_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3376, 制約=2035) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1745 (時間=101.0ms, clasp=40.0ms)
+
+[Case 148] 入力行(348文字)
+  [Case 148] Faults=WX9391 sa1;WX10210_WX9389_A sa1;WX10055_WX9388_B sa1;WX7540_WX6635_A sa1;WX7469_WX6634_B sa1;DATA_9_20_WX198_A sa1;WX1004_WX197_B sa1;CRC_OUT_6_9_II15671_A sa1;WX4512_II15670_A sa1;WX4961_WX4063_A sa1;WX4883_WX4062_B sa1;II34337_II34347_A sa1;WX11073_II34346_A sa1;II18472_II18482_A sa1;WX5911_II18481_A sa1;II6085_II6095_A sa1;WX2008_II6094_A sa1 (17件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=17故障同時, CEGARなし)
+    [1回求解 K=17] OPB生成 ...
+    [1回求解] clasp求解 (変数=5340, 制約=4349) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=116.0ms, clasp=40.0ms)
+
+[Case 149] 入力行(48文字)
+  [Case 149] Faults=CRC_OUT_6_19_II15615_A sa1;WX4502_II15614_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=47.0ms, clasp=33.0ms)
+
+[Case 150] 入力行(47文字)
+  [Case 150] Faults=CRC_OUT_6_8_II15678_A sa1;WX4513_II15677_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=47.0ms, clasp=28.0ms)
+
+[Case 151] 入力行(87文字)
+  [Case 151] Faults=II30161_II30171_A sa1;II30145_II30170_A sa1;II14932_II14942_A sa1;WX4648_II14941_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2787, 制約=1283) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1752 (時間=58.0ms, clasp=27.0ms)
+
+[Case 152] 入力行(84文字)
+  [Case 152] Faults=CRC_OUT_5_0_WX5645_A sa1;WX4186 sa1;WX4060 sa1;CRC_OUT_6_12_WX4184_A sa1;WX1362 sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=3280, 制約=1756) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1741 (時間=61.0ms, clasp=35.0ms)
+
+[Case 153] 入力行(58文字)
+  [Case 153] Faults=WX9316 sa1;WX8051 sa1;WX7883 sa1;CRC_OUT_9_22_WX165_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=3109, 制約=1556) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1741 (時間=57.0ms, clasp=28.0ms)
+
+[Case 154] 入力行(106文字)
+  [Case 154] Faults=WX9176 sa1;WX195 sa1;CRC_OUT_6_11_II15664_A sa1;WX4510_II15663_A sa1;WX4200 sa1;CRC_OUT_6_11_WX4198_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3010, 制約=1461) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1741 (時間=175.0ms, clasp=134.0ms)
+
+[Case 155] 入力行(81文字)
+  [Case 155] Faults=CRC_OUT_2_22_WX9216_A sa1;WX8163 sa1;WX5577 sa1;WX5325 sa1;WX5283 sa1;WX3061 sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3776, 制約=2339) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1729 (時間=93.0ms, clasp=43.0ms)
+
+[Case 156] 入力行(146文字)
+  [Case 156] Faults=WX9526 sa1;CRC_OUT_3_21_WX7937_A sa1;II19626 sa1;WX5605 sa1;WX5395 sa1;CRC_OUT_5_18_WX5393_A sa1;WX3990 sa1;WX1390 sa1;CRC_OUT_5_18_II19625_B sa1 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=2621) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1728 (時間=97.0ms, clasp=44.0ms)
+
+[Case 157] 入力行(79文字)
+  [Case 157] Faults=DATA_0_29 sa1;WX11348_WX10411_B sa1;II18503_II18513_A sa1;WX5913_II18512_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2577, 制約=1008) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=139.0ms, clasp=88.0ms)
+
+[Case 158] 入力行(165文字)
+  [Case 158] Faults=DATA_0_18 sa1;WX11348_WX10565_B sa1;II26792_II26802_A sa1;WX8517_II26801_A sa1;II22663_II22673_A sa1;WX7216_II22672_A sa1;II14870_II14880_A sa1;WX4644_II14879_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3595, 制約=2282) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1746 (時間=113.0ms, clasp=65.0ms)
+
+[Case 159] 入力行(106文字)
+  [Case 159] Faults=WX8177 sa1;CRC_OUT_5_7_II19690_A sa1;WX5807_II19689_A sa1;CRC_OUT_1_5_II35724_A sa1;WX10981_II35723_A sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2210, 制約=545) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=82.0ms, clasp=42.0ms)
+
+[Case 160] 入力行(256文字)
+  [Case 160] Faults=WX9446 sa1;CRC_OUT_3_23_II27602_A sa1;WX8377_II27601_A sa1;WX6664 sa1;WX6972_WX6662_A sa1;WX4344 sa1;WX4336 sa1;WX4345 sa1;WX4424_WX4342_A sa1;WX1596 sa1;WX1814_WX1588_A sa1;CRC_OUT_1_9_II35696_A sa1;WX10977_II35695_A sa1;WX10767 sa1;WX10883_WX10765_A sa1 (15件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=15故障同時, CEGARなし)
+    [1回求解 K=15] OPB生成 ...
+    [1回求解] clasp求解 (変数=4536, 制約=3262) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1732 (時間=122.0ms, clasp=58.0ms)
+
+[Case 161] 入力行(261文字)
+  [Case 161] Faults=CRC_OUT_4_12_II23667_A sa1;WX7095_II23666_A sa1;WX6772 sa1;CRC_OUT_4_12_WX6770_A sa1;CRC_OUT_8_0_II7717_A sa1;WX1935_II7716_A sa1;WX1768 sa1;CRC_OUT_8_0_WX1766_A sa1;CRC_OUT_1_0_II35752_A sa1;WX10986_II35751_A sa1;CRC_OUT_2_0_II31747_A sa1;WX9693_II31746_A sa1 (12件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=12故障同時, CEGARなし)
+    [1回求解 K=12] OPB生成 ...
+    [1回求解] clasp求解 (変数=2999, 制約=1494) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=88.0ms, clasp=31.0ms)
+
+[Case 162] 入力行(409文字)
+  [Case 162] Faults=WX10098_WX9165_A sa1;WX10055_WX9164_B sa1;WX326 sa1;DATA_9_11_WX324_A sa1;WX1004_WX323_B sa1;WX5279 sa1;WX5288 sa1;WX6219_WX5286_A sa1;WX6176_WX5285_B sa1;CRC_OUT_6_25_II15573_A sa1;WX4496_II15572_A sa1;WX2410_WX1547_A sa1;WX2297_WX1546_B sa1;WX2319_WX1365_A sa1;WX2297_WX1364_B sa1;II18441_II18451_A sa1;WX5909_II18450_A sa1;II6364_II6374_A sa1;WX2026_II6373_A sa1;II26296_II26306_A sa1;WX8485_II26305_A sa1 (21件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=21故障同時, CEGARなし)
+    [1回求解 K=21] OPB生成 ...
+    [1回求解] clasp求解 (変数=6362, 制約=5542) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1717 (時間=135.0ms, clasp=41.0ms)
+
+[Case 163] 入力行(421文字)
+  [Case 163] Faults=WX9292 sa1;WX9564_WX9290_A sa1;WX7985 sa1;WX8269_WX7983_A sa1;WX6930 sa1;WX7010_WX6928_A sa1;WX6790 sa1;WX6594 sa1;WX6586 sa1;WX6595 sa1;WX6990_WX6788_A sa1;WX6962_WX6592_A sa1;WX353 sa1;WX529_WX351_A sa1;WX4232 sa1;WX4408_WX4230_A sa1;WX2715 sa1;CRC_OUT_8_11_II7654_A sa1;WX1924_II7653_A sa1;WX1716 sa1;CRC_OUT_1_20_II35633_A sa1;WX10966_II35632_A sa1;WX10557 sa1;WX10501 sa1;WX10853_WX10555_A sa1;WX10845_WX10499_A sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=7009, 制約=6151) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1700 (時間=165.0ms, clasp=42.0ms)
+
+[Case 164] 入力行(286文字)
+  [Case 164] Faults=WX451 sa1;WX5609 sa1;WX5713_WX5607_A sa1;CRC_OUT_7_12_II11652_A sa1;WX3216_II11651_A sa1;CRC_OUT_7_19_II11610_A sa1;WX3209_II11609_A sa1;WX2673 sa1;WX3099_WX2825_A sa1;WX3077_WX2671_A sa1;WX1674 sa1;CRC_OUT_1_17_II35654_A sa1;WX10969_II35653_A sa1;WX517_II3262_A sa1;WX596_II3261_A sa1 (15件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=15故障同時, CEGARなし)
+    [1回求解 K=15] OPB生成 ...
+    [1回求解] clasp求解 (変数=4145, 制約=2824) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1728 (時間=150.0ms, clasp=62.0ms)
+
+[Case 165] 入力行(129文字)
+  [Case 165] Faults=II18689_II18699_A sa1;WX5925_II18698_A sa1;II14064_II14074_A sa1;WX4592_II14073_A sa1;II10710_II10720_A sa1;WX3341_II10719_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3293, 制約=1914) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=111.0ms, clasp=51.0ms)
+
+[Case 166] 入力行(124文字)
+  [Case 166] Faults=DATA_0_23 sa1;WX11348_WX10495_B sa1;II34368_II34378_A sa1;WX11075_II34377_A sa1;II34802_II34812_A sa1;WX11103_II34811_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3071, 制約=1629) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=110.0ms, clasp=62.0ms)
+
+[Case 167] 入力行(376文字)
+  [Case 167] Faults=CRC_OUT_3_19_II27630_A sa1;WX8381_II27629_A sa1;WX7949 sa1;WX6902 sa1;WX7006_WX6900_A sa1;WX213 sa1;WX87 sa1;WX491_WX85_A sa1;WX5553 sa1;WX5539 sa1;WX5455 sa1;WX5705_WX5551_A sa1;WX5703_WX5537_A sa1;WX5691_WX5453_A sa1;WX2631 sa1;WX3071_WX2629_A sa1;CRC_OUT_8_18_II7612_A sa1;WX1917_II7611_A sa1;WX1352 sa1;WX1826_WX1672_A sa1;II35524_II35534_A sa1;CRC_OUT_1_10_II35533_A sa1 (22件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=22故障同時, CEGARなし)
+    [1回求解 K=22] OPB生成 ...
+    [1回求解] clasp求解 (変数=6301, 制約=5337) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1710 (時間=154.0ms, clasp=62.0ms)
+
+[Case 168] 入力行(277文字)
+  [Case 168] Faults=CRC_OUT_5_19_II19620_A sa1;WX5795_II19619_A sa1;CRC_OUT_8_14_II7633_A sa1;WX1921_II7632_A sa1;CRC_OUT_1_28_II35577_A sa1;WX10958_II35576_A sa1;CRC_OUT_9_8_II3663_A sa1;WX634_II3662_A sa1;WX10427 sa1;WX10428 sa1;CRC_OUT_1_28_WX10425_A sa1;WX11347_WX10421_B sa1;CRC_OUT_1_28 sa1 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=2598, 制約=1054) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=114.0ms, clasp=46.0ms)
+
+[Case 169] 入力行(43文字)
+  [Case 169] Faults=II18751_II18761_A sa1;WX5929_II18760_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=55.0ms, clasp=35.0ms)
+
+[Case 170] 入力行(348文字)
+  [Case 170] Faults=WX9152 sa1;WX9144 sa1;WX9153 sa1;WX9096 sa1;WX9544_WX9150_A sa1;WX9536_WX9094_A sa1;WX8223 sa1;WX8215 sa1;WX8303_WX8221_A sa1;WX8167 sa1;WX8295_WX8165_A sa1;WX8247_WX7829_A sa1;WX547_WX477_A sa1;WX4204 sa1;WX2687 sa1;WX2645 sa1;WX3079_WX2685_A sa1;WX3073_WX2643_A sa1;WX1576 sa1;WX1830_WX1700_A sa1;CRC_OUT_1_29_II35570_A sa1;WX10957_II35569_A sa1 (22件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=22故障同時, CEGARなし)
+    [1回求解 K=22] OPB生成 ...
+    [1回求解] clasp求解 (変数=7004, 制約=6118) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1713 (時間=169.0ms, clasp=63.0ms)
+
+[Case 171] 入力行(43文字)
+  [Case 171] Faults=II18627_II18637_A sa1;WX5921_II18636_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=643) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=39.0ms, clasp=25.0ms)
+
+[Case 172] 入力行(475文字)
+  [Case 172] Faults=WX8027 sa1;WX7887 sa1;WX7879 sa1;WX8275_WX8025_A sa1;WX8255_WX7885_A sa1;CRC_OUT_4_0_II23737_A sa1;WX7107_II23736_A sa1;WX367 sa1;WX359 sa1;WX368 sa1;WX531_WX365_A sa1;WX5595 sa1;WX5427 sa1;WX5419 sa1;WX5687_WX5425_A sa1;WX4260 sa1;WX4176 sa1;WX4050 sa1;WX3980 sa1;WX4412_WX4258_A sa1;WX4382_WX4048_A sa1;WX2897 sa1;WX2771 sa1;WX3109_WX2895_A sa1;WX1338 sa1;CRC_OUT_1_27_II35584_A sa1;WX10959_II35583_A sa1;WX10655 sa1;WX10641 sa1;WX10867_WX10653_A sa1;WX10865_WX10639_A sa1 (31件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=31故障同時, CEGARなし)
+    [1回求解 K=31] OPB生成 ...
+    [1回求解] clasp求解 (変数=8323, 制約=7674) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1683 (時間=157.0ms, clasp=37.0ms)
+
+[Case 173] 入力行(259文字)
+  [Case 173] Faults=II14947_II14957_A sa1;II14931_II14956_A sa1;II26962_II26972_A sa1;II26946_II26971_A sa1;II34678_II34688_A sa1;WX11095_II34687_A sa1;II22167_II22177_A sa1;WX7184_II22176_A sa1;WX7110_II22015_A sa1;WX7466_II22014_A sa1;WX8657_II26996_A sa1;WX8593_II26995_A sa1 (12件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=12故障同時, CEGARなし)
+    [1回求解 K=12] OPB生成 ...
+    [1回求解] clasp求解 (変数=4796, 制約=3824) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1736 (時間=117.0ms, clasp=49.0ms)
+
+[Case 174] 入力行(43文字)
+  [Case 174] Faults=II18968_II18978_A sa1;WX5943_II18977_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=646) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=55.0ms, clasp=32.0ms)
+
+[Case 175] 入力行(44文字)
+  [Case 175] Faults=II34864_II34874_A sa1;WX11107_II34873_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2275, 制約=638) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1756 (時間=55.0ms, clasp=26.0ms)
+
+[Case 176] 入力行(132文字)
+  [Case 176] Faults=CRC_OUT_6_30_II15538_A sa1;WX4491_II15537_A sa1;II6550_II6560_A sa1;WX2038_II6559_A sa1;WX11223_II34696_A sa1;WX11159_II34695_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1366) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=87.0ms, clasp=45.0ms)
+
+[Case 177] 入力行(178文字)
+  [Case 177] Faults=WX7953 sa1;CRC_OUT_6_24_II15580_A sa1;WX4497_II15579_A sa1;WX4256 sa1;CRC_OUT_6_7_WX4254_A sa1;CRC_OUT_9_21_II3586_A sa1;WX621_II3585_A sa1;WX487_II3067_A sa1;WX581_II3066_A sa1 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=2934, 制約=1398) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1739 (時間=84.0ms, clasp=35.0ms)
+
+[Case 178] 入力行(93文字)
+  [Case 178] Faults=II15514_II15524_A sa1;CRC_OUT_6_3_II15523_A sa1;CRC_OUT_9_17_II3614_A sa1;WX625_II3613_A sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1899, 制約=181) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1757 (時間=84.0ms, clasp=42.0ms)
+
+[Case 179] 入力行(126文字)
+  [Case 179] Faults=II6441_II6451_A sa1;II6425_II6450_A sa1;II10307_II10317_A sa1;WX3315_II10316_A sa1;II18937_II18947_A sa1;WX5941_II18946_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3293, 制約=1910) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1748 (時間=70.0ms, clasp=32.0ms)
+
+[Case 180] 入力行(121文字)
+  [Case 180] Faults=DATA_0_1 sa1;WX11348_WX10803_B sa1;II34957_II34967_A sa1;WX11113_II34966_A sa1;WX6069_II18955_A sa1;WX6005_II18954_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3020, 制約=1575) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=71.0ms, clasp=30.0ms)
+
+[Case 181] 入力行(216文字)
+  [Case 181] Faults=II14885_II14895_A sa1;II14869_II14894_A sa1;II34647_II34657_A sa1;WX11093_II34656_A sa1;II22818_II22828_A sa1;WX7226_II22827_A sa1;II18906_II18916_A sa1;WX5939_II18915_A sa1;WX9946_II30939_A sa1;WX9882_II30938_A sa1 (10件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=10故障同時, CEGARなし)
+    [1回求解 K=10] OPB生成 ...
+    [1回求解] clasp求解 (変数=4305, 制約=3191) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1740 (時間=76.0ms, clasp=33.0ms)
+
+[Case 182] 入力行(163文字)
+  [Case 182] Faults=II3683 sa1;II10834_II10844_A sa1;WX3349_II10843_A sa1;II6736_II6746_A sa1;WX2050_II6745_A sa1;II34895_II34905_A sa1;WX11109_II34904_A sa1;CRC_OUT_9_5_II3682_B sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3346, 制約=1985) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1746 (時間=89.0ms, clasp=39.0ms)
+
+[Case 183] 入力行(205文字)
+  [Case 183] Faults=DATA_0_5 sa1;WX11348_WX10747_B sa1;II14699_II14709_A sa1;II14683_II14708_A sa1;II6674_II6684_A sa1;WX2046_II6683_A sa1;II34833_II34843_A sa1;WX11105_II34842_A sa1;WX7364_II22991_A sa1;WX7300_II22990_A sa1 (10件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=10故障同時, CEGARなし)
+    [1回求解 K=10] OPB生成 ...
+    [1回求解] clasp求解 (変数=4044, 制約=2857) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=118.0ms, clasp=50.0ms)
+
+[Case 184] 入力行(47文字)
+  [Case 184] Faults=CRC_OUT_5_9_II19676_A sa1;WX5805_II19675_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1816, 制約=74) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1760 (時間=72.0ms, clasp=36.0ms)
+
+[Case 185] 入力行(403文字)
+  [Case 185] Faults=WX10224_WX9417_A sa1;WX10055_WX9416_B sa1;WX7652_WX6859_A sa1;WX7469_WX6858_B sa1;WX3710_WX2854_A sa1;WX3590_WX2853_B sa1;WX1694 sa1;WX11566_WX10808_A sa1;WX11348_WX10807_B sa1;WX10842 sa1;II31504_II31514_A sa1;CRC_OUT_2_15_II31513_A sa1;WX10845_WX10842_A sa1;II34182_II34192_A sa1;WX11063_II34191_A sa1;II22136_II22146_A sa1;WX7182_II22145_A sa1;II34709_II34719_A sa1;WX11097_II34718_A sa1;WX10845 sa1 (20件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=20故障同時, CEGARなし)
+    [1回求解 K=20] OPB生成 ...
+    [1回求解] clasp求解 (変数=5111, 制約=4115) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1716 (時間=142.0ms, clasp=45.0ms)
+
+[Case 186] 入力行(413文字)
+  [Case 186] Faults=WX9502 sa1;WX6832 sa1;WX6552 sa1;WX6996_WX6830_A sa1;WX6956_WX6550_A sa1;WX73 sa1;WX59 sa1;WX489_WX71_A sa1;WX487_WX57_A sa1;WX5651 sa1;WX5497 sa1;WX5301 sa1;WX5231 sa1;WX5719_WX5649_A sa1;WX5697_WX5495_A sa1;WX5669_WX5299_A sa1;WX5659_WX5229_A sa1;WX3924 sa1;WX4364_WX3922_A sa1;WX1492 sa1;WX1800_WX1490_A sa1;WX1788_WX1406_A sa1;WX10543 sa1;WX10851_WX10541_A sa1;CRC_OUT_2_27_II31579_A sa1;WX9666_II31578_A sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=7800, 制約=7070) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1697 (時間=161.0ms, clasp=56.0ms)
+
+[Case 187] 入力行(133文字)
+  [Case 187] Faults=CRC_OUT_5_8_II19683_A sa1;WX5806_II19682_A sa1;II34058_II34068_A sa1;WX11055_II34067_A sa1;WX6025_II18273_A sa1;WX5961_II18272_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1366) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=89.0ms, clasp=48.0ms)
+
+[Case 188] 入力行(832文字)
+  [Case 188] Faults=WX10252_WX9473_A sa1;WX10055_WX9472_B sa1;WX8959_WX8180_A sa1;WX8762_WX8179_B sa1;WX8061 sa1;WX8070 sa1;WX8019 sa1;WX8028 sa1;WX8945_WX8152_A sa1;WX8762_WX8151_B sa1;WX8903_WX8068_A sa1;WX8762_WX8067_B sa1;WX8882_WX8026_A sa1;WX8762_WX8025_B sa1;WX6922 sa1;WX6931 sa1;WX7687_WX6929_A sa1;WX7469_WX6928_B sa1;WX6782 sa1;WX7533_WX6621_A sa1;WX7469_WX6620_B sa1;DATA_9_2_WX450_A sa1;WX1004_WX449_B sa1;II19489_II19499_A sa1;CRC_OUT_5_15_II19498_A sa1;WX5363 sa1;WX5372 sa1;WX6261_WX5370_A sa1;WX6176_WX5369_B sa1;WX4154 sa1;WX3766_WX2966_A sa1;WX3590_WX2965_B sa1;WX3759_WX2952_A sa1;WX3590_WX2951_B sa1;II10694_II10704_A sa1;II10678_II10703_A sa1;II34120_II34130_A sa1;WX11059_II34129_A sa1;II34089_II34099_A sa1;WX11057_II34098_A sa1;II30115_II30125_A sa1;WX9766_II30124_A sa1;II26204_II26206_B sa1;II26204_II26205_B sa1;II26204 sa1 (45件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=45故障同時, CEGARなし)
+    [1回求解 K=45] OPB生成 ...
+    [1回求解] clasp求解 (変数=11518, 制約=11703) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1650 (時間=260.0ms, clasp=64.0ms)
+
+[Case 189] 入力行(458文字)
+  [Case 189] Faults=WX10217_WX9403_A sa1;WX10055_WX9402_B sa1;WX7795 sa1;WX7804 sa1;WX8770_WX7802_A sa1;WX8762_WX7801_B sa1;DATA_9_3_WX436_A sa1;WX1004_WX435_B sa1;CRC_OUT_5_22_II19599_A sa1;WX5792_II19598_A sa1;DATA_9_22_WX170_A sa1;WX1004_WX169_B sa1;WX6359_WX5566_A sa1;WX6176_WX5565_B sa1;WX6184_WX5216_A sa1;WX6176_WX5215_B sa1;WX3972 sa1;WX2651 sa1;WX3717_WX2868_A sa1;WX3590_WX2867_B sa1;II30053_II30063_A sa1;WX9762_II30062_A sa1;II6209_II6219_A sa1;WX2016_II6218_A sa1 (24件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=24故障同時, CEGARなし)
+    [1回求解 K=24] OPB生成 ...
+    [1回求解] clasp求解 (変数=7370, 制約=6659) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1695 (時間=151.0ms, clasp=43.0ms)
+
+[Case 190] 入力行(134文字)
+  [Case 190] Faults=II19519_II19529_A sa1;CRC_OUT_5_3_II19528_A sa1;WX10995_II34123_A sa1;WX11345_II34122_A sa1;WX6017_II18149_A sa1;WX5953_II18148_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2870, 制約=1417) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1749 (時間=95.0ms, clasp=53.0ms)
+
+[Case 191] 入力行(49文字)
+  [Case 191] Faults=II19504_II19514_A sa1;CRC_OUT_5_10_II19513_A sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1846, 制約=107) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1759 (時間=40.0ms, clasp=25.0ms)
+
+[Case 192] 入力行(134文字)
+  [Case 192] Faults=CRC_OUT_2_28_II31572_A sa1;WX9665_II31571_A sa1;II26513_II26523_A sa1;WX8499_II26522_A sa1;II26420_II26430_A sa1;WX8493_II26429_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2828, 制約=1351) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=69.0ms, clasp=28.0ms)
+
+[Case 193] 入力行(133文字)
+  [Case 193] Faults=CRC_OUT_5_1_II19725_A sa1;WX5813_II19724_A sa1;II30347_II30357_A sa1;II30331_II30356_A sa1;WX8597_II26066_A sa1;WX8533_II26065_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2834, 制約=1348) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=61.0ms, clasp=27.0ms)
+
+[Case 194] 入力行(819文字)
+  [Case 194] Faults=WX8224 sa1;WX8980_WX8222_A sa1;WX8762_WX8221_B sa1;WX8791_WX7844_A sa1;WX8762_WX7843_B sa1;WX6502 sa1;WX7512_WX6579_A sa1;WX7469_WX6578_B sa1;WX7477_WX6509_A sa1;WX7469_WX6508_B sa1;WX65 sa1;WX74 sa1;CRC_OUT_5_6_II19697_A sa1;WX5808_II19696_A sa1;DATA_9_29_WX72_A sa1;WX1004_WX71_B sa1;WX5428 sa1;WX6289_WX5426_A sa1;WX6176_WX5425_B sa1;WX6268_WX5384_A sa1;WX6176_WX5383_B sa1;WX4163 sa1;WX5108_WX4357_A sa1;WX4883_WX4356_B sa1;WX5010_WX4161_A sa1;WX4883_WX4160_B sa1;WX3612_WX2658_A sa1;WX3590_WX2657_B sa1;WX1703 sa1;WX1484 sa1;WX2501_WX1729_A sa1;WX2297_WX1728_B sa1;WX2487_WX1701_A sa1;WX2297_WX1700_B sa1;WX2480_WX1687_A sa1;WX2297_WX1686_B sa1;II31655 sa1;II30254_II30264_A sa1;II30238_II30263_A sa1;II30456_II30466_A sa1;WX9788_II30465_A sa1;II22384_II22394_A sa1;WX7198_II22393_A sa1;CRC_OUT_2_16_II31654_B sa1 (44件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=44故障同時, CEGARなし)
+    [1回求解 K=44] OPB生成 ...
+    [1回求解] clasp求解 (変数=11350, 制約=11345) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1664 (時間=238.0ms, clasp=47.0ms)
+
+[Case 195] 入力行(206文字)
+  [Case 195] Faults=CRC_OUT_5_16_II19641_A sa1;WX5798_II19640_A sa1;II6813_II6823_A sa1;II6797_II6822_A sa1;II14414 sa1;II14405_II14413_B sa1;WX8431_II26454_A sa1;WX8759_II26453_A sa1;WX4550_II14408_A sa1;WX4880_II14407_A sa1 (10件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=10故障同時, CEGARなし)
+    [1回求解 K=10] OPB生成 ...
+    [1回求解] clasp求解 (変数=3694, 制約=2466) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1746 (時間=99.0ms, clasp=35.0ms)
+
+[Case 196] 入力行(82文字)
+  [Case 196] Faults=CRC_OUT_5_17_II19634_A sa1;WX5797_II19633_A sa1;II30744 sa1;II30735_II30743_B sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2328, 制約=715) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1754 (時間=102.0ms, clasp=65.0ms)
+
+[Case 197] 入力行(697文字)
+  [Case 197] Faults=WX6791 sa1;WX7617_WX6789_A sa1;WX7469_WX6788_B sa1;DATA_9_14_WX282_A sa1;WX1004_WX281_B sa1;WX5447 sa1;WX5456 sa1;WX5307 sa1;WX6303_WX5454_A sa1;WX6176_WX5453_B sa1;WX4252 sa1;WX5052_WX4245_A sa1;WX4883_WX4244_B sa1;WX2396_WX1519_A sa1;WX2297_WX1518_B sa1;WX2326_WX1379_A sa1;WX2297_WX1378_B sa1;II31534_II31544_A sa1;CRC_OUT_2_3_II31543_A sa1;II6302_II6312_A sa1;WX2022_II6311_A sa1;II34399_II34409_A sa1;WX11077_II34408_A sa1;II6931 sa1;II30301_II30311_A sa1;WX9778_II30310_A sa1;II30208_II30218_A sa1;WX9772_II30217_A sa1;II18162_II18172_A sa1;WX5891_II18171_A sa1;II14250_II14260_A sa1;WX4604_II14259_A sa1;II6922_II6930_B sa1;II22386 sa1;II10464 sa1;WX7134_II22385_B sa1;WX3261_II10463_B sa1 (37件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=37故障同時, CEGARなし)
+    [1回求解 K=37] OPB生成 ...
+    [1回求解] clasp求解 (変数=10331, 制約=10504) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1671 (時間=210.0ms, clasp=46.0ms)
+
+[Case 198] 入力行(130文字)
+  [Case 198] Faults=CRC_OUT_2_25_II31593_A sa1;WX9668_II31592_A sa1;II6178_II6188_A sa1;WX2014_II6187_A sa1;WX3463_II10635_A sa1;WX3399_II10634_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2837, 制約=1363) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=56.0ms, clasp=28.0ms)
+
+[Case 199] 入力行(259文字)
+  [Case 199] Faults=CRC_OUT_5_5_II19704_A sa1;WX5809_II19703_A sa1;II14544_II14554_A sa1;II14528_II14553_A sa1;II10322_II10332_A sa1;II10306_II10331_A sa1;II26590_II26600_A sa1;II26574_II26599_A sa1;II6023_II6033_A sa1;WX2004_II6032_A sa1;WX1960_II6336_A sa1;WX2294_II6335_A sa1 (12件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=12故障同時, CEGARなし)
+    [1回求解 K=12] OPB生成 ...
+    [1回求解] clasp求解 (変数=4349, 制約=3256) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1738 (時間=82.0ms, clasp=31.0ms)
+
+[Case 200] 入力行(131文字)
+  [Case 200] Faults=CRC_OUT_5_0_II19732_A sa1;WX5814_II19731_A sa1;WX7350_II22774_A sa1;WX7286_II22773_A sa1;WX4746_II14485_A sa1;WX4682_II14484_A sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2840, 制約=1366) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1750 (時間=103.0ms, clasp=49.0ms)
+
+[Case 201] 入力行(175文字)
+  [Case 201] Faults=WX6618 sa1;CRC_OUT_4_23_WX6616_A sa1;II11714 sa1;CRC_OUT_7_14_WX2863_A sa1;CRC_OUT_7_15_WX2849_A sa1;WX1698 sa1;WX1572 sa1;CRC_OUT_8_14_WX1570_A sa1;CRC_OUT_7_1_II11713_B sa1 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=3758, 制約=2340) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1738 (時間=74.0ms, clasp=35.0ms)
+
+[Case 202] 入力行(275文字)
+  [Case 202] Faults=WX9330 sa1;CRC_OUT_3_4_WX8175_A sa1;WX7967 sa1;II23659 sa1;WX6758 sa1;CRC_OUT_4_13_WX6756_A sa1;II19717 sa1;WX5521 sa1;WX5423 sa1;CRC_OUT_5_2_WX5617_A sa1;CRC_OUT_5_9_WX5519_A sa1;CRC_OUT_5_16_WX5421_A sa1;CRC_OUT_4_13_II23658_B sa1;CRC_OUT_5_2_II19716_B sa1;CRC_OUT_5_2 sa1 (15件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=15故障同時, CEGARなし)
+    [1回求解 K=15] OPB生成 ...
+    [1回求解] clasp求解 (変数=4898, 制約=3698) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=124.0ms, clasp=42.0ms)
+
+[Case 203] 入力行(168文字)
+  [Case 203] Faults=II22151_II22161_A sa1;II22135_II22160_A sa1;II30921_II30931_A sa1;WX9818_II30930_A sa1;WX697_II2796_A sa1;WX1002_II2795_A sa1;WX4756_II14640_A sa1;WX4692_II14639_A sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3511, 制約=2218) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1744 (時間=86.0ms, clasp=41.0ms)
+
+[Case 204] 入力行(559文字)
+  [Case 204] Faults=WX9236 sa1;WX9228 sa1;WX9556_WX9234_A sa1;WX7845 sa1;WX7837 sa1;WX7846 sa1;WX7817 sa1;WX8249_WX7843_A sa1;WX8245_WX7815_A sa1;II23708 sa1;WX6916 sa1;WX7008_WX6914_A sa1;WX6692 sa1;WX6524 sa1;WX6516 sa1;WX6525 sa1;WX6510 sa1;WX6511 sa1;WX6976_WX6690_A sa1;WX6952_WX6522_A sa1;WX6950_WX6508_A sa1;WX171 sa1;WX163 sa1;WX172 sa1;WX143 sa1;WX503_WX169_A sa1;WX5581 sa1;WX5217 sa1;WX5209 sa1;WX5218 sa1;WX5709_WX5579_A sa1;WX5657_WX5215_A sa1;WX3051 sa1;WX2813 sa1;WX3131_WX3049_A sa1;WX3097_WX2811_A sa1;WX10669 sa1;WX10869_WX10667_A sa1;CRC_OUT_4_5_II23707_B sa1 (39件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=39故障同時, CEGARなし)
+    [1回求解 K=39] OPB生成 ...
+    [1回求解] clasp求解 (変数=10055, 制約=9661) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1683 (時間=205.0ms, clasp=46.0ms)
+
+[Case 205] 入力行(129文字)
+  [Case 205] Faults=WX377 sa1;CRC_OUT_9_7_WX375_A sa1;WX5255 sa1;II3669 sa1;CRC_OUT_2_26_II31586_A sa1;WX9667_II31585_A sa1;CRC_OUT_9_7_II3668_B sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=2722, 制約=1142) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1745 (時間=89.0ms, clasp=40.0ms)
+
+[Case 206] 入力行(169文字)
+  [Case 206] Faults=II23729 sa1;WX6926 sa1;CRC_OUT_4_1_WX6924_A sa1;WX5479 sa1;WX5213 sa1;CRC_OUT_7_4_WX3003_A sa1;CRC_OUT_2_29_II31565_A sa1;WX9664_II31564_A sa1;CRC_OUT_4_1_II23728_B sa1 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=3386, 制約=1910) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1738 (時間=70.0ms, clasp=29.0ms)
+
+[Case 207] 入力行(159文字)
+  [Case 207] Faults=WX6702 sa1;CRC_OUT_5_5_WX5575_A sa1;WX2809 sa1;II35709 sa1;CRC_OUT_1_7_WX10719_A sa1;CRC_OUT_2_20_II31628_A sa1;WX9673_II31627_A sa1;CRC_OUT_1_7_II35708_B sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=3090, 制約=1563) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1743 (時間=73.0ms, clasp=31.0ms)
+
+[Case 208] 入力行(306文字)
+  [Case 208] Faults=WX7897 sa1;WX7827 sa1;CRC_OUT_3_6_WX8147_A sa1;CRC_OUT_3_19_WX7965_A sa1;CRC_OUT_3_29_WX7825_A sa1;WX6940 sa1;II19633 sa1;WX41 sa1;WX5507 sa1;WX5227 sa1;CRC_OUT_5_10_WX5505_A sa1;CRC_OUT_5_17_WX5407_A sa1;WX1656 sa1;WX10874 sa1;WX10877_WX10874_A sa1;CRC_OUT_5_17_II19632_B sa1;WX10877 sa1;CRC_OUT_5_17 sa1 (18件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=18故障同時, CEGARなし)
+    [1回求解 K=18] OPB生成 ...
+    [1回求解] clasp求解 (変数=5679, 制約=4598) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1713 (時間=108.0ms, clasp=33.0ms)
+
+[Case 209] 入力行(212文字)
+  [Case 209] Faults=DATA_0_27 sa1;WX11348_WX10439_B sa1;WX11347_WX10435_B sa1;II10750 sa1;II10564 sa1;II10493_II10503_A sa1;WX3327_II10502_A sa1;II30890_II30900_A sa1;WX9816_II30899_A sa1;II10555_II10563_B sa1;II10741_II10749_B sa1 (11件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=11故障同時, CEGARなし)
+    [1回求解 K=11] OPB生成 ...
+    [1回求解] clasp求解 (変数=4178, 制約=3014) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1738 (時間=94.0ms, clasp=46.0ms)
+
+[Case 210] 入力行(302文字)
+  [Case 210] Faults=II27706 sa1;DATA_0_12 sa1;WX11348_WX10649_B sa1;II22182_II22192_A sa1;II22166_II22191_A sa1;II30673_II30683_A sa1;WX9802_II30682_A sa1;II18038_II18048_A sa1;WX5883_II18047_A sa1;WX6041_II18521_A sa1;WX5977_II18520_A sa1;WX2138_II6134_A sa1;WX2074_II6133_A sa1;CRC_OUT_3_6_II27705_B sa1;CRC_OUT_3_6 sa1 (15件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=15故障同時, CEGARなし)
+    [1回求解 K=15] OPB生成 ...
+    [1回求解] clasp求解 (変数=4678, 制約=3670) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1736 (時間=145.0ms, clasp=51.0ms)
+
+[Case 211] 入力行(376文字)
+  [Case 211] Faults=II19731 sa1;WX7470_WX7514_B sa1;II22213_II22223_A sa1;II22197_II22222_A sa1;II34507_II34517_A sa1;II34491_II34516_A sa1;II34135_II34145_A sa1;II34119_II34144_A sa1;II10012_II10022_A sa1;II9996_II10021_A sa1;II30704_II30714_A sa1;WX9804_II30713_A sa1;WX7134_II22387_A sa1;WX7466_II22386_A sa1;WX5843_II18413_A sa1;WX6173_II18412_A sa1;CRC_OUT_5_0_II19730_B sa1;CRC_OUT_5_0 sa1 (18件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=18故障同時, CEGARなし)
+    [1回求解 K=18] OPB生成 ...
+    [1回求解] clasp求解 (変数=5544, 制約=4759) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1729 (時間=170.0ms, clasp=45.0ms)
+
+[Case 212] 入力行(349文字)
+  [Case 212] Faults=WX9222 sa1;WX9110 sa1;WX9554_WX9220_A sa1;WX9538_WX9108_A sa1;WX8055 sa1;WX8047 sa1;WX8056 sa1;WX8279_WX8053_A sa1;WX6860 sa1;CRC_OUT_5_29_II19550_A sa1;WX5785_II19549_A sa1;WX493_WX99_A sa1;WX4274 sa1;II7489_II7499_A sa1;CRC_OUT_8_10_II7498_A sa1;WX1646 sa1;WX1822_WX1644_A sa1;WX10753 sa1;WX10745 sa1;WX10754 sa1;WX10431 sa1;WX10881_WX10751_A sa1 (22件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=22故障同時, CEGARなし)
+    [1回求解 K=22] OPB生成 ...
+    [1回求解] clasp求解 (変数=5972, 制約=4956) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1712 (時間=128.0ms, clasp=39.0ms)
+
+[Case 213] 入力行(1541文字)
+
+[Case 214] 入力行(455文字)
+  [Case 214] Faults=II35667 sa1;WX11347_WX10393_B sa1;II34910_II34920_A sa1;II34894_II34919_A sa1;II10555_II10565_A sa1;WX3331_II10564_A sa1;II30952_II30962_A sa1;WX9820_II30961_A sa1;II14777_II14787_A sa1;WX4638_II14786_A sa1;II14219_II14229_A sa1;WX4602_II14228_A sa1;II10555 sa1;WX3267_II10558_A sa1;WX3588_II10557_A sa1;WX6063_II18862_A sa1;WX5999_II18861_A sa1;WX2152_II6351_A sa1;WX2088_II6350_A sa1;WX3477_II10852_A sa1;WX3413_II10851_A sa1;CRC_OUT_1_14_II35666_B sa1 (22件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=22故障同時, CEGARなし)
+    [1回求解 K=22] OPB生成 ...
+    [1回求解] clasp求解 (変数=6572, 制約=6061) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1721 (時間=141.0ms, clasp=42.0ms)
+
+[Case 215] 入力行(452文字)
+  [Case 215] Faults=II35590 sa1;II30409_II30419_A sa1;II30393_II30418_A sa1;II14792_II14802_A sa1;II14776_II14801_A sa1;II30913_II30915_B sa1;II30913_II30914_B sa1;II26559_II26569_A sa1;II26543_II26568_A sa1;II30913 sa1;II30735_II30745_A sa1;WX9806_II30744_A sa1;II10648_II10658_A sa1;WX3337_II10657_A sa1;II30735 sa1;WX9742_II30738_A sa1;WX10053_II30737_A sa1;WX1938_II5995_A sa1;WX2294_II5994_A sa1;WX11243_II35006_A sa1;WX11179_II35005_A sa1;CRC_OUT_1_26_II35589_B sa1 (22件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=22故障同時, CEGARなし)
+    [1回求解 K=22] OPB生成 ...
+    [1回求解] clasp求解 (変数=6545, 制約=6003) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=172.0ms, clasp=71.0ms)
+
+[Case 216] 入力行(424文字)
+  [Case 216] Faults=DATA_0_13 sa1;DATA_0_24 sa1;WX11348_WX10635_B sa1;WX11348_WX10481_B sa1;II22035_II22037_B sa1;II22035_II22036_B sa1;II6100_II6110_A sa1;II6084_II6109_A sa1;II22035 sa1;II30642_II30652_A sa1;WX9800_II30651_A sa1;II34740_II34750_A sa1;WX11099_II34749_A sa1;WX9704_II30149_A sa1;WX10052_II30148_A sa1;WX4532_II14129_A sa1;WX4880_II14128_A sa1;WX4742_II14423_A sa1;WX4678_II14422_A sa1;WX9950_II31001_A sa1;WX9886_II31000_A sa1 (21件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=21故障同時, CEGARなし)
+    [1回求解 K=21] OPB生成 ...
+    [1回求解] clasp求解 (変数=6565, 制約=6036) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1724 (時間=196.0ms, clasp=62.0ms)
+
+[Case 217] 入力行(898文字)
+  [Case 217] Faults=II19542 sa1;DATA_0_8 sa1;DATA_0_16 sa1;DATA_0_30 sa1;WX10400 sa1;WX11348_WX10705_B sa1;WX11348_WX10593_B sa1;WX11348_WX10397_B sa1;II18673_II18683_A sa1;II18657_II18682_A sa1;II14172_II14182_A sa1;II14156_II14181_A sa1;II34724_II34734_A sa1;II34708_II34733_A sa1;II10198_II10208_A sa1;II10182_II10207_A sa1;II10741_II10751_A sa1;WX3343_II10750_A sa1;II22508_II22518_A sa1;WX7206_II22517_A sa1;II14507 sa1;II14498_II14506_B sa1;II14498 sa1;II10741 sa1;WX4556_II14501_A sa1;WX4881_II14500_A sa1;WX3279_II10744_A sa1;WX3588_II10743_A sa1;WX6021_II18211_A sa1;WX5957_II18210_A sa1;WX7332_II22495_A sa1;WX7268_II22494_A sa1;WX6009_II18025_A sa1;WX5945_II18024_A sa1;WX4748_II14516_A sa1;WX4684_II14515_A sa1;WX3465_II10666_A sa1;WX3401_II10665_A sa1;WX3435_II10201_A sa1;WX3371_II10200_A sa1;WX3431_II10139_A sa1;WX3367_II10138_A sa1;WX3471_II10759_A sa1;WX3407_II10758_A sa1;CRC_OUT_5_30_II19541_B sa1 (45件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=45故障同時, CEGARなし)
+    [1回求解 K=45] OPB生成 ...
+    [1回求解] clasp求解 (変数=10863, 制約=11406) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1705 (時間=251.0ms, clasp=51.0ms)
+
+[Case 218] 入力行(264文字)
+  [Case 218] Faults=CRC_OUT_2_13_II31670_A sa1;WX9680_II31669_A sa1;II14513_II14523_A sa1;II14497_II14522_A sa1;II34687 sa1;II34678_II34686_B sa1;WX1964_II6398_A sa1;WX2294_II6397_A sa1;II34678 sa1;WX11031_II34681_A sa1;WX11346_II34680_A sa1;WX3441_II10294_A sa1;WX3377_II10293_A sa1 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=4368, 制約=3304) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1742 (時間=100.0ms, clasp=37.0ms)
+
+[Case 219] 入力行(1801文字)
+
+[Case 220] 入力行(472文字)
+  [Case 220] Faults=II27566 sa1;CRC_OUT_4_19_II23625_A sa1;WX7088_II23624_A sa1;II15663 sa1;DATA_0_4 sa1;DATA_0_6 sa1;DATA_0_22 sa1;WX11348_WX10761_B sa1;WX11348_WX10733_B sa1;WX11348_WX10509_B sa1;II34600_II34610_A sa1;II34584_II34609_A sa1;II26553 sa1;II18875_II18885_A sa1;WX5937_II18884_A sa1;II26544_II26552_B sa1;WX9696_II30025_A sa1;WX10052_II30024_A sa1;WX3457_II10542_A sa1;WX3393_II10541_A sa1;CRC_OUT_6_11_II15662_B sa1;CRC_OUT_3_28_II27565_B sa1;CRC_OUT_3_28 sa1;CRC_OUT_6_11 sa1 (24件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=24故障同時, CEGARなし)
+    [1回求解 K=24] OPB生成 ...
+    [1回求解] clasp求解 (変数=5391, 制約=4564) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1728 (時間=122.0ms, clasp=32.0ms)
+
+[Case 221] 入力行(636文字)
+  [Case 221] Faults=CRC_OUT_4_9_II23681_A sa1;WX7098_II23680_A sa1;WX5698 sa1;WX5701_WX5698_A sa1;II3627 sa1;II14637_II14647_A sa1;II14621_II14646_A sa1;II26032_II26042_A sa1;II26016_II26041_A sa1;II30279 sa1;II22827 sa1;II10595 sa1;II26823_II26833_A sa1;WX8519_II26832_A sa1;II30270_II30278_B sa1;II22818_II22826_B sa1;II10586_II10594_B sa1;II22818 sa1;WX7162_II22821_A sa1;WX7467_II22820_A sa1;WX7114_II22077_A sa1;WX7466_II22076_A sa1;II10586 sa1;WX9712_II30273_A sa1;WX10052_II30272_A sa1;WX3269_II10589_A sa1;WX3588_II10588_A sa1;WX6035_II18428_A sa1;WX5971_II18427_A sa1;WX3469_II10728_A sa1;WX3405_II10727_A sa1;CRC_OUT_9_14_II3626_B sa1;WX5701 sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=7725, 制約=7604) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1719 (時間=171.0ms, clasp=39.0ms)
+
+[Case 222] 入力行(721文字)
+  [Case 222] Faults=CRC_OUT_4_1_II23730_A sa1;WX7106_II23729_A sa1;WX2297_WX1724_B sa1;II22957_II22967_A sa1;II22941_II22966_A sa1;II30285_II30295_A sa1;II30269_II30294_A sa1;II30843_II30853_A sa1;II30827_II30852_A sa1;II10725_II10735_A sa1;II10709_II10734_A sa1;II6782_II6792_A sa1;II6766_II6791_A sa1;II10843 sa1;II34151_II34161_A sa1;WX11061_II34160_A sa1;II18605 sa1;II18596_II18604_B sa1;II10834_II10842_B sa1;WX7118_II22139_A sa1;WX7466_II22138_A sa1;II10834 sa1;WX10999_II34185_A sa1;WX11345_II34184_A sa1;WX3285_II10837_A sa1;WX3588_II10836_A sa1;WX11011_II34371_A sa1;WX11345_II34370_A sa1;WX8629_II26562_A sa1;WX8565_II26561_A sa1;WX4770_II14857_A sa1;WX4706_II14856_A sa1;WX8655_II26965_A sa1;WX8591_II26964_A sa1;CRC_OUT_4_1 sa1 (35件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=35故障同時, CEGARなし)
+    [1回求解 K=35] OPB生成 ...
+    [1回求解] clasp求解 (変数=9574, 制約=9906) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1697 (時間=193.0ms, clasp=53.0ms)
+
+[Case 223] 入力行(397文字)
+  [Case 223] Faults=CRC_OUT_4_18_II23632_A sa1;WX7089_II23631_A sa1;II19591 sa1;DATA_0_25 sa1;WX11348_WX10467_B sa1;II18729 sa1;II10161 sa1;II30363_II30373_A sa1;WX9782_II30372_A sa1;II30806 sa1;II14622_II14632_A sa1;WX4628_II14631_A sa1;II30797_II30805_B sa1;II18720_II18728_B sa1;II10152_II10160_B sa1;WX10989_II34030_A sa1;WX11345_II34029_A sa1;WX6011_II18056_A sa1;WX5947_II18055_A sa1;CRC_OUT_5_23_II19590_B sa1 (20件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=20故障同時, CEGARなし)
+    [1回求解 K=20] OPB生成 ...
+    [1回求解] clasp求解 (変数=5710, 制約=4994) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=126.0ms, clasp=46.0ms)
+
+[Case 224] 入力行(533文字)
+  [Case 224] Faults=CRC_OUT_4_16_II23646_A sa1;WX7091_II23645_A sa1;II19556 sa1;WX3589_WX2845_B sa1;WX2297_WX1654_B sa1;WX3591_WX3754_B sa1;II6286_II6296_A sa1;II6270_II6295_A sa1;II14668_II14678_A sa1;II14652_II14677_A sa1;II14575_II14585_A sa1;II14559_II14584_A sa1;II34904 sa1;II34895_II34903_B sa1;WX8423_II26330_A sa1;WX8759_II26329_A sa1;II34895 sa1;WX11045_II34898_A sa1;WX11346_II34897_A sa1;WX6031_II18366_A sa1;WX5967_II18365_A sa1;WX6039_II18490_A sa1;WX5975_II18489_A sa1;WX4736_II14330_A sa1;WX4672_II14329_A sa1;CRC_OUT_5_28_II19555_B sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=7250, 制約=6872) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1710 (時間=179.0ms, clasp=57.0ms)
+
+[Case 225] 入力行(1184文字)
+  [Case 225] Faults=WX7968 sa1;WX10147_WX7966_A sa1;WX8762_WX7965_B sa1;WX8761_WX7961_B sa1;WX10147 sa1;WX9643_WX10143_A sa1;WX10056_WX10142_B sa1;II18983_II18993_A sa1;II18967_II18992_A sa1;WX9643 sa1;II30417_II30419_B sa1;II30417_II30418_B sa1;II22802_II22812_A sa1;II22786_II22811_A sa1;II22647_II22657_A sa1;II22631_II22656_A sa1;II14048_II14058_A sa1;II14032_II14057_A sa1;II14327_II14337_A sa1;II14311_II14336_A sa1;II10291_II10301_A sa1;II10275_II10300_A sa1;II30882_II30884_B sa1;II30882_II30883_B sa1;II26869_II26879_A sa1;II26853_II26878_A sa1;II26094_II26104_A sa1;II26078_II26103_A sa1;II30417 sa1;II30882 sa1;II34563 sa1;II18720_II18730_A sa1;WX5927_II18729_A sa1;II34532 sa1;II10967 sa1;II10533 sa1;II26544_II26554_A sa1;WX8501_II26553_A sa1;II10958_II10966_B sa1;II10524_II10532_B sa1;II34554_II34562_B sa1;II34523_II34531_B sa1;II18720 sa1;WX5863_II18723_A sa1;WX6174_II18722_A sa1;II26544 sa1;WX8437_II26547_A sa1;WX8760_II26546_A sa1;II10524 sa1;WX3265_II10527_A sa1;WX3588_II10526_A sa1;II34523 sa1;WX11021_II34526_A sa1;WX11346_II34525_A sa1;II34554 sa1;WX11023_II34557_A sa1;WX11346_II34556_A sa1;WX4744_II14454_A sa1;WX4680_II14453_A sa1;WX11187_II34138_A sa1;WX11123_II34137_A sa1 (61件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=61故障同時, CEGARなし)
+    [1回求解 K=61] OPB生成 ...
+    [1回求解] clasp求解 (変数=14978, 制約=16560) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1682 (時間=335.0ms, clasp=57.0ms)
+
+[Case 226] 入力行(278文字)
+  [Case 226] Faults=WX7925 sa1;CRC_OUT_4_14_II23653_A sa1;WX7093_II23652_A sa1;WX6716 sa1;CRC_OUT_5_7_WX5547_A sa1;CRC_OUT_6_16_WX4128_A sa1;WX2711 sa1;CRC_OUT_7_16_WX2835_A sa1;WX1488 sa1;CRC_OUT_1_25_II35598_A sa1;WX10961_II35597_A sa1;WX10791 sa1;CRC_OUT_1_2_WX10789_A sa1;WX11347_WX10785_B sa1 (14件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=14故障同時, CEGARなし)
+    [1回求解 K=14] OPB生成 ...
+    [1回求解] clasp求解 (変数=4554, 制約=3281) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=118.0ms, clasp=34.0ms)
+
+[Case 227] 入力行(810文字)
+  [Case 227] Faults=CRC_OUT_4_13_II23660_A sa1;WX7094_II23659_A sa1;WX6175_WX5641_B sa1;II35562 sa1;DATA_0_2 sa1;WX10792 sa1;DATA_0_9 sa1;DATA_0_21 sa1;WX11348_WX10789_B sa1;WX11348_WX10691_B sa1;WX11348_WX10523_B sa1;II22872_II22874_B sa1;II22872_II22873_B sa1;II30378_II30388_A sa1;II30362_II30387_A sa1;II26807_II26817_A sa1;II26791_II26816_A sa1;II26497_II26507_A sa1;II26481_II26506_A sa1;II22872 sa1;II34470 sa1;II30217 sa1;II22672 sa1;II30208_II30216_B sa1;II22663_II22671_B sa1;II34461_II34469_B sa1;II22663 sa1;WX7152_II22666_A sa1;WX7467_II22665_A sa1;II30208 sa1;WX9708_II30211_A sa1;WX10052_II30210_A sa1;WX11017_II34464_A sa1;WX11345_II34463_A sa1;WX689_II2672_A sa1;WX1002_II2671_A sa1;WX11189_II34169_A sa1;WX11125_II34168_A sa1;WX4732_II14268_A sa1;WX4668_II14267_A sa1;CRC_OUT_1_30_II35561_B sa1;CRC_OUT_4_13 sa1 (42件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=42故障同時, CEGARなし)
+    [1回求解 K=42] OPB生成 ...
+    [1回求解] clasp求解 (変数=9465, 制約=9706) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1702 (時間=209.0ms, clasp=45.0ms)
+
+[Case 228] 入力行(649文字)
+  [Case 228] Faults=CRC_OUT_4_5_II23709_A sa1;WX7102_II23708_A sa1;II26125_II26135_A sa1;II26109_II26134_A sa1;II34222 sa1;II6528 sa1;II22610 sa1;II6519_II6527_B sa1;II34213_II34221_B sa1;II22601_II22609_B sa1;WX8407_II26082_A sa1;WX8759_II26081_A sa1;II22601 sa1;WX7148_II22604_A sa1;WX7467_II22603_A sa1;II6519 sa1;WX1972_II6522_A sa1;WX2295_II6521_A sa1;WX11001_II34216_A sa1;WX11345_II34215_A sa1;WX4542_II14284_A sa1;WX4880_II14283_A sa1;WX7348_II22743_A sa1;WX7284_II22742_A sa1;WX8653_II26934_A sa1;WX8589_II26933_A sa1;WX4726_II14175_A sa1;WX4662_II14174_A sa1;WX9934_II30753_A sa1;WX9870_II30752_A sa1;WX4728_II14206_A sa1;WX4664_II14205_A sa1;CRC_OUT_4_5 sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=8735, 制約=8883) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1714 (時間=182.0ms, clasp=49.0ms)
+
+[Case 229] 入力行(3891文字)
+
+[Case 230] 入力行(678文字)
+  [Case 230] Faults=II27559 sa1;CRC_OUT_3_13_II27665_A sa1;WX8387_II27664_A sa1;II7632 sa1;DATA_0_7 sa1;WX10722 sa1;WX10728 sa1;WX11036 sa1;WX11348_WX10719_B sa1;WX11347_WX10715_B sa1;II22616_II22626_A sa1;II22600_II22625_A sa1;II30812_II30822_A sa1;II30796_II30821_A sa1;II10756_II10766_A sa1;II10740_II10765_A sa1;II18177_II18187_A sa1;II18161_II18186_A sa1;II6844_II6854_A sa1;II6828_II6853_A sa1;II18512 sa1;II18503_II18511_B sa1;II18503 sa1;WX5849_II18506_A sa1;WX6174_II18505_A sa1;WX691_II2703_A sa1;WX1002_II2702_A sa1;WX8607_II26221_A sa1;WX8543_II26220_A sa1;WX7326_II22402_A sa1;WX7262_II22401_A sa1;CRC_OUT_8_14_II7631_B sa1;CRC_OUT_3_29_II27558_B sa1;CRC_OUT_8_14 sa1;CRC_OUT_3_29 sa1 (35件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=35故障同時, CEGARなし)
+    [1回求解 K=35] OPB生成 ...
+    [1回求解] clasp求解 (変数=7428, 制約=7165) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1712 (時間=271.0ms, clasp=66.0ms)
+
+[Case 231] 入力行(4743文字)
+
+[Case 232] 入力行(1592文字)
+
+[Case 233] 入力行(1379文字)
+
+[Case 234] 入力行(1787文字)
+
+[Case 235] 入力行(1772文字)
+
+[Case 236] 入力行(1675文字)
+
+[Case 237] 入力行(8572文字)
+
+[Case 238] 入力行(373文字)
+  [Case 238] Faults=WX9288 sa1;WX8205 sa1;II23694 sa1;WX6842 sa1;CRC_OUT_4_7_WX6840_A sa1;WX4228 sa1;II3676 sa1;CRC_OUT_1_12_II35682_A sa1;WX10974_II35681_A sa1;CRC_OUT_1_26_II35591_A sa1;WX10960_II35590_A sa1;WX10455 sa1;CRC_OUT_1_26_WX10453_A sa1;WX11347_WX10449_B sa1;WX491_II3093_A sa1;WX583_II3092_A sa1;CRC_OUT_9_6_II3675_B sa1;CRC_OUT_4_7_II23693_B sa1;CRC_OUT_1_26 sa1;CRC_OUT_4_7 sa1 (20件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=20故障同時, CEGARなし)
+    [1回求解 K=20] OPB生成 ...
+    [1回求解] clasp求解 (変数=4415, 制約=3197) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1722 (時間=125.0ms, clasp=33.0ms)
+
+[Case 239] 入力行(213文字)
+  [Case 239] Faults=WX7855 sa1;WX6534 sa1;WX6506 sa1;WX349 sa1;CRC_OUT_1_16_II35661_A sa1;WX10970_II35660_A sa1;WX10497 sa1;WX10498 sa1;CRC_OUT_1_23_WX10495_A sa1;WX11347_WX10491_B sa1;CRC_OUT_2_18_II31642_A sa1;WX9675_II31641_A sa1 (12件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=12故障同時, CEGARなし)
+    [1回求解 K=12] OPB生成 ...
+    [1回求解] clasp求解 (変数=3713, 制約=2313) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1729 (時間=91.0ms, clasp=35.0ms)
+
+[Case 240] 入力行(2115文字)
+
+[Case 241] 入力行(3720文字)
+
+[Case 242] 入力行(454文字)
+  [Case 242] Faults=CRC_OUT_2_25_WX9174_A sa1;WX6604 sa1;CRC_OUT_4_24_WX6602_A sa1;CRC_OUT_5_20_II19613_A sa1;WX5794_II19612_A sa1;CRC_OUT_9_16_WX249_A sa1;WX5367 sa1;WX5241 sa1;WX3126 sa1;WX3129_WX3126_A sa1;CRC_OUT_8_18_WX1514_A sa1;II35744 sa1;II3620 sa1;WX10805 sa1;WX10806 sa1;CRC_OUT_1_1_WX10803_A sa1;WX11347_WX10799_B sa1;CRC_OUT_5_31_II19507_A sa1;WX5804_II19506_A sa1;CRC_OUT_9_16_II3619_B sa1;CRC_OUT_1_1_II35743_B sa1;WX3129 sa1;CRC_OUT_9_16 sa1;CRC_OUT_1_1 sa1 (24件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=24故障同時, CEGARなし)
+    [1回求解 K=24] OPB生成 ...
+    [1回求解] clasp求解 (変数=5013, 制約=3904) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1729 (時間=145.0ms, clasp=37.0ms)
+
+[Case 243] 入力行(248文字)
+  [Case 243] Faults=CRC_OUT_3_17_II27644_A sa1;WX8383_II27643_A sa1;WX7995 sa1;WX4088 sa1;CRC_OUT_6_19_WX4086_A sa1;CRC_OUT_7_2_II11708_A sa1;WX3226_II11707_A sa1;WX2697 sa1;WX2683 sa1;CRC_OUT_7_5_WX2989_A sa1;WX3589_WX2985_B sa1;WX887_II2780_A sa1;WX823_II2779_A sa1 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=4092, 制約=2795) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=147.0ms, clasp=69.0ms)
+
+[Case 244] 入力行(630文字)
+  [Case 244] Faults=II27727 sa1;II27587 sa1;II27552 sa1;CRC_OUT_3_2_WX8203_A sa1;WX7813 sa1;CRC_OUT_3_17_WX7993_A sa1;CRC_OUT_3_25_WX7881_A sa1;CRC_OUT_4_19_WX6672_A sa1;II19612 sa1;II19577 sa1;WX125 sa1;WX5591 sa1;WX5339 sa1;CRC_OUT_5_20_WX5365_A sa1;CRC_OUT_5_25_WX5295_A sa1;WX6175_WX5291_B sa1;WX4354 sa1;WX3948 sa1;CRC_OUT_6_0_WX4352_A sa1;WX2949 sa1;CRC_OUT_7_0_WX3059_A sa1;II3557 sa1;CRC_OUT_2_30_II31558_A sa1;WX9663_II31557_A sa1;CRC_OUT_9_25_II3556_B sa1;CRC_OUT_3_25_II27586_B sa1;CRC_OUT_3_2_II27726_B sa1;CRC_OUT_3_30_II27551_B sa1;CRC_OUT_5_20_II19611_B sa1;CRC_OUT_5_25_II19576_B sa1;CRC_OUT_3_2 sa1;CRC_OUT_3_25 sa1;CRC_OUT_5_20 sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=7592, 制約=6904) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1702 (時間=179.0ms, clasp=45.0ms)
+
+[Case 245] 入力行(437文字)
+  [Case 245] Faults=WX9428 sa1;WX9274 sa1;CRC_OUT_2_30_WX9104_A sa1;WX6898 sa1;II15579 sa1;WX4018 sa1;CRC_OUT_6_24_WX4016_A sa1;WX2655 sa1;WX1544 sa1;CRC_OUT_9_30_II3523_A sa1;WX612_II3522_A sa1;II3484_II3494_A sa1;CRC_OUT_9_10_II3493_A sa1;II31557 sa1;CRC_OUT_2_11_II31684_A sa1;WX9682_II31683_A sa1;II3352 sa1;WX531_II3351_B sa1;WX867_II2470_A sa1;WX803_II2469_A sa1;CRC_OUT_6_24_II15578_B sa1;CRC_OUT_2_30_II31556_B sa1;CRC_OUT_6_24 sa1;CRC_OUT_2_30 sa1 (24件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=24故障同時, CEGARなし)
+    [1回求解 K=24] OPB生成 ...
+    [1回求解] clasp求解 (変数=5367, 制約=4357) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1704 (時間=148.0ms, clasp=38.0ms)
+
+[Case 246] 入力行(939文字)
+  [Case 246] Faults=WX9494 sa1;WX9503 sa1;WX9424 sa1;WX9433 sa1;WX9348 sa1;WX9340 sa1;WX9349 sa1;WX9278 sa1;WX9270 sa1;WX9279 sa1;WX9594_WX9500_A sa1;WX9584_WX9430_A sa1;WX9572_WX9346_A sa1;WX9562_WX9276_A sa1;WX8195 sa1;WX8187 sa1;WX8196 sa1;WX8299_WX8193_A sa1;WX8125 sa1;WX8117 sa1;WX8126 sa1;WX8111 sa1;WX8103 sa1;WX8112 sa1;WX8289_WX8123_A sa1;WX8287_WX8109_A sa1;CRC_OUT_4_8_II23688_A sa1;WX7099_II23687_A sa1;WX6580 sa1;WX5441 sa1;WX5433 sa1;WX5442 sa1;WX5413 sa1;WX5405 sa1;WX5329 sa1;WX5321 sa1;WX5330 sa1;WX5689_WX5439_A sa1;WX5685_WX5411_A sa1;WX5673_WX5327_A sa1;WX4196 sa1;WX4205 sa1;WX4098 sa1;WX4404_WX4202_A sa1;II11693 sa1;II11637 sa1;WX2716 sa1;WX3083_WX2713_A sa1;WX1506 sa1;WX1422 sa1;WX1802_WX1504_A sa1;WX1790_WX1420_A sa1;WX10389 sa1;II2033_II2043_A sa1;II2017_II2042_A sa1;WX889_II2811_A sa1;WX825_II2810_A sa1;WX885_II2749_A sa1;WX821_II2748_A sa1;CRC_OUT_7_5_II11692_B sa1;CRC_OUT_7_14_II11636_B sa1;CRC_OUT_7_5 sa1;CRC_OUT_7_14 sa1 (63件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=63故障同時, CEGARなし)
+    [1回求解 K=63] OPB生成 ...
+    [1回求解] clasp求解 (変数=13462, 制約=13840) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1662 (時間=321.0ms, clasp=75.0ms)
+
+[Case 247] 入力行(330文字)
+  [Case 247] Faults=WX9512 sa1;CRC_OUT_2_1_WX9510_A sa1;CRC_OUT_2_15_WX9314_A sa1;CRC_OUT_5_31_II19536_A sa1;WX5815_II19535_A sa1;II7618 sa1;CRC_OUT_1_6_II35717_A sa1;WX10980_II35716_A sa1;WX10413 sa1;WX10870 sa1;WX10873_WX10870_A sa1;II19491 sa1;WX893_II2873_A sa1;WX829_II2872_A sa1;CRC_OUT_8_17_II7617_B sa1;CRC_OUT_5_31_II19490_B sa1;WX10873 sa1 (17件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=17故障同時, CEGARなし)
+    [1回求解 K=17] OPB生成 ...
+    [1回求解] clasp求解 (変数=3262, 制約=1894) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1737 (時間=119.0ms, clasp=47.0ms)
+
+[Case 248] 入力行(403文字)
+  [Case 248] Faults=WX9400 sa1;CRC_OUT_3_30_II27553_A sa1;WX8370_II27552_A sa1;WX8219 sa1;CRC_OUT_3_30_WX7811_A sa1;CRC_OUT_9_25_WX123_A sa1;WX1586 sa1;CRC_OUT_8_13_WX1584_A sa1;CRC_OUT_8_16_WX1542_A sa1;II35660 sa1;II35509_II35519_A sa1;CRC_OUT_1_15_II35518_A sa1;WX10595 sa1;WX10596 sa1;WX10602 sa1;WX11018 sa1;CRC_OUT_1_16_WX10593_A sa1;WX11347_WX10589_B sa1;CRC_OUT_1_16_II35659_B sa1;CRC_OUT_1_16 sa1;CRC_OUT_3_30 sa1 (21件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=21故障同時, CEGARなし)
+    [1回求解 K=21] OPB生成 ...
+    [1回求解] clasp求解 (変数=5141, 制約=4013) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1731 (時間=154.0ms, clasp=42.0ms)
+
+[Case 249] 入力行(492文字)
+  [Case 249] Faults=WX9414 sa1;WX181 sa1;WX5676 sa1;WX5679_WX5676_A sa1;CRC_OUT_8_1_II7710_A sa1;WX1934_II7709_A sa1;WX1754 sa1;CRC_OUT_1_4_II35731_A sa1;WX10982_II35730_A sa1;CRC_OUT_1_21_II35626_A sa1;WX10965_II35625_A sa1;CRC_OUT_9_28_II3537_A sa1;WX614_II3536_A sa1;WX10763 sa1;WX10764 sa1;WX10651 sa1;WX10652 sa1;WX10770 sa1;WX10658 sa1;WX11042 sa1;WX11026 sa1;CRC_OUT_1_4_WX10761_A sa1;WX11347_WX10757_B sa1;CRC_OUT_1_12_WX10649_A sa1;WX11347_WX10645_B sa1;WX869_II2501_A sa1;WX805_II2500_A sa1;WX5679 sa1 (28件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=28故障同時, CEGARなし)
+    [1回求解 K=28] OPB生成 ...
+    [1回求解] clasp求解 (変数=4610, 制約=3477) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1724 (時間=154.0ms, clasp=35.0ms)
+
+[Case 250] 入力行(494文字)
+  [Case 250] Faults=WX9344 sa1;WX9247 sa1;WX9232 sa1;CRC_OUT_2_13_WX9342_A sa1;CRC_OUT_2_20_WX9244_A sa1;WX10054_WX9240_B sa1;CRC_OUT_2_21_WX9230_A sa1;CRC_OUT_5_19_WX5379_A sa1;WX5688 sa1;WX5691_WX5688_A sa1;WX4214 sa1;WX4158 sa1;II7504_II7514_A sa1;CRC_OUT_8_3_II7513_A sa1;WX1600 sa1;CRC_OUT_2_21_II31621_A sa1;WX9672_II31620_A sa1;WX523_II3301_A sa1;WX599_II3300_A sa1;CRC_OUT_8_31_II7507_A sa1;WX1932_II7506_A sa1;CRC_OUT_8_31_II7492_A sa1;WX1925_II7491_A sa1;WX849_II2191_A sa1;WX785_II2190_A sa1;WX5691 sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=5491, 制約=4503) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1711 (時間=142.0ms, clasp=38.0ms)
+
+[Case 251] 入力行(699文字)
+  [Case 251] Faults=WX9372 sa1;WX9302 sa1;CRC_OUT_2_11_WX9370_A sa1;CRC_OUT_2_16_WX9300_A sa1;WX10054_WX9296_B sa1;II27594 sa1;WX7981 sa1;CRC_OUT_3_24_WX7895_A sa1;WX6885 sa1;WX6891 sa1;WX7163 sa1;CRC_OUT_4_4_WX6882_A sa1;WX7468_WX6878_B sa1;WX6730 sa1;II19710 sa1;II19605 sa1;CRC_OUT_5_21_WX5351_A sa1;II15565 sa1;CRC_OUT_6_26_WX3988_A sa1;II11665 sa1;CRC_OUT_7_9_WX2933_A sa1;WX3589_WX2929_B sa1;II31683 sa1;CRC_OUT_2_16_II31656_A sa1;WX9677_II31655_A sa1;CRC_OUT_7_9_II11664_B sa1;CRC_OUT_6_26_II15564_B sa1;CRC_OUT_2_11_II31682_B sa1;CRC_OUT_3_24_II27593_B sa1;CRC_OUT_5_4_II19709_B sa1;CRC_OUT_5_21_II19604_B sa1;CRC_OUT_7_9 sa1;CRC_OUT_6_26 sa1;CRC_OUT_3_24 sa1;CRC_OUT_2_11 sa1;CRC_OUT_2_16 sa1;CRC_OUT_5_21 sa1 (37件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=37故障同時, CEGARなし)
+    [1回求解 K=37] OPB生成 ...
+    [1回求解] clasp求解 (変数=7630, 制約=6976) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1720 (時間=199.0ms, clasp=53.0ms)
+
+[Case 252] 入力行(959文字)
+  [Case 252] Faults=II27741 sa1;II27734 sa1;II27678 sa1;CRC_OUT_3_1_WX8217_A sa1;WX8286 sa1;WX8289_WX8286_A sa1;II23652 sa1;CRC_OUT_4_28_II23562_A sa1;WX7079_II23561_A sa1;WX6814 sa1;WX6548 sa1;CRC_OUT_4_9_WX6812_A sa1;CRC_OUT_4_14_WX6742_A sa1;CRC_OUT_4_15_WX6728_A sa1;CRC_OUT_4_28_WX6546_A sa1;II19563 sa1;WX293 sa1;WX265 sa1;CRC_OUT_9_13_WX291_A sa1;WX5269 sa1;II15607 sa1;WX5718 sa0;CRC_OUT_6_20_WX4072_A sa1;CRC_OUT_6_21_WX4058_A sa1;II11679 sa1;CRC_OUT_7_7_WX2961_A sa1;II35569 sa1;II3634 sa1;WX10414 sa1;CRC_OUT_1_29_WX10411_A sa1;WX11347_WX10407_B sa1;II2684_II2694_A sa1;II2668_II2693_A sa1;CRC_OUT_7_7_II11678_B sa1;CRC_OUT_9_13_II3633_B sa1;CRC_OUT_6_20_II15606_B sa1;CRC_OUT_3_11_II27677_B sa1;CRC_OUT_4_14_II23651_B sa1;CRC_OUT_3_0_II27740_B sa1;CRC_OUT_3_1_II27733_B sa1;CRC_OUT_5_27_II19562_B sa1;CRC_OUT_1_29_II35568_B sa1;CRC_OUT_7_7 sa1;CRC_OUT_9_13 sa1;CRC_OUT_1_29 sa1;CRC_OUT_3_1 sa1;CRC_OUT_4_28 sa1;CRC_OUT_6_20 sa1;CRC_OUT_4_14 sa1;WX5657 sa1;WX8289 sa1 (51件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=51故障同時, CEGARなし)
+    [1回求解 K=51] OPB生成 ...
+    [1回求解] clasp求解 (変数=8334, 制約=7939) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1703 (時間=238.0ms, clasp=46.0ms)
+
+[Case 253] 入力行(487文字)
+  [Case 253] Faults=WX9120 sa1;CRC_OUT_2_29_WX9118_A sa1;CRC_OUT_3_18_WX7979_A sa1;WX6967 sa1;CRC_OUT_9_3_WX431_A sa1;CRC_OUT_9_5_WX403_A sa1;WX6970_WX6967_A sa1;CRC_OUT_9_30_WX53_A sa1;CRC_OUT_8_28_II7542_A sa1;WX1907_II7541_A sa1;WX1642 sa1;WX1404 sa1;CRC_OUT_8_29_WX1360_A sa1;II3641 sa1;WX10707 sa1;WX10708 sa1;WX10441 sa1;WX10442 sa1;CRC_OUT_1_8_WX10705_A sa1;WX11347_WX10701_B sa1;CRC_OUT_1_27_WX10439_A sa1;II31564 sa1;CRC_OUT_9_12_II3640_B sa1;CRC_OUT_2_29_II31563_B sa1;CRC_OUT_2_29 sa1;WX6970 sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=5842, 制約=4855) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1726 (時間=146.0ms, clasp=43.0ms)
+
+[Case 254] 入力行(629文字)
+  [Case 254] Faults=WX9134 sa1;WX9135 sa1;CRC_OUT_2_28_WX9132_A sa1;WX10054_WX9128_B sa1;CRC_OUT_5_31_WX5211_A sa1;WX6175_WX5207_B sa1;CRC_OUT_7_13_II11645_A sa1;WX3215_II11644_A sa1;CRC_OUT_7_24_II11575_A sa1;WX3204_II11574_A sa1;CRC_OUT_7_28_II11547_A sa1;WX3200_II11546_A sa1;WX2879 sa1;WX2725 sa1;CRC_OUT_7_24_WX2723_A sa1;CRC_OUT_8_25_II7563_A sa1;WX1910_II7562_A sa1;WX10735 sa1;WX10736 sa1;WX10742 sa1;WX11038 sa1;CRC_OUT_1_6_WX10733_A sa1;WX11347_WX10729_B sa1;II31571 sa1;WX503_II3171_A sa1;WX589_II3170_A sa1;WX545_II3444_A sa1;WX610_II3443_A sa1;CRC_OUT_5_31_II19522_A sa1;WX5811_II19521_A sa1;CRC_OUT_2_28_II31570_B sa1;CRC_OUT_2_28 sa1 (32件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=32故障同時, CEGARなし)
+    [1回求解 K=32] OPB生成 ...
+    [1回求解] clasp求解 (変数=5625, 制約=4632) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1717 (時間=189.0ms, clasp=62.0ms)
+
+[Case 255] 入力行(666文字)
+  [Case 255] Faults=WX6520 sa1;WX6979 sa1;CRC_OUT_4_30_WX6518_A sa1;WX7468_WX6514_B sa1;WX6982_WX6979_A sa1;WX153 sa1;CRC_OUT_6_23_II15587_A sa1;WX4498_II15586_A sa1;CRC_OUT_6_23_WX4030_A sa1;CRC_OUT_7_23_II11582_A sa1;WX3205_II11581_A sa1;CRC_OUT_7_26_II11561_A sa1;WX3202_II11560_A sa1;WX2767 sa1;CRC_OUT_7_23_WX2737_A sa1;WX1811 sa1;WX1814_WX1811_A sa1;II35688 sa1;CRC_OUT_1_18_II35647_A sa1;WX10968_II35646_A sa1;WX10665 sa1;WX10666 sa1;WX10672 sa1;WX11028 sa1;CRC_OUT_1_11_WX10663_A sa1;WX11347_WX10659_B sa1;CRC_OUT_2_6_II31712_A sa1;WX9687_II31711_A sa1;WX515_II3249_A sa1;WX595_II3248_A sa1;WX851_II2222_A sa1;WX787_II2221_A sa1;CRC_OUT_1_11_II35687_B sa1;WX1814 sa1;WX6982 sa1 (35件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=35故障同時, CEGARなし)
+    [1回求解 K=35] OPB生成 ...
+    [1回求解] clasp求解 (変数=5183, 制約=4180) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1715 (時間=212.0ms, clasp=38.0ms)
+
+[Case 256] 入力行(716文字)
+  [Case 256] Faults=CRC_OUT_2_14_WX9328_A sa1;II27713 sa1;WX8191 sa1;WX8192 sa1;WX8198 sa1;WX8458 sa1;CRC_OUT_3_3_WX8189_A sa1;WX8761_WX8185_B sa1;WX8164 sa1;WX8037 sa1;WX8170 sa1;WX8454 sa1;WX8280 sa1;CRC_OUT_3_5_WX8161_A sa1;WX8761_WX8157_B sa1;WX8283_WX8280_A sa1;CRC_OUT_4_16_WX6714_A sa1;CRC_OUT_5_30_II19543_A sa1;WX5784_II19542_A sa1;CRC_OUT_5_30_WX5225_A sa1;II35597 sa1;CRC_OUT_1_22_II35619_A sa1;WX10964_II35618_A sa1;WX10511 sa1;WX10512 sa1;WX10469 sa1;WX10470 sa1;WX10518 sa1;WX10476 sa1;WX11006 sa1;WX11000 sa1;CRC_OUT_1_22_WX10509_A sa1;WX11347_WX10505_B sa1;CRC_OUT_1_25_WX10467_A sa1;WX11347_WX10463_B sa1;CRC_OUT_3_5_II27712_B sa1;CRC_OUT_1_25_II35596_B sa1;CRC_OUT_1_25 sa1;CRC_OUT_3_5 sa1;WX8283 sa1;CRC_OUT_5_30 sa1 (41件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=41故障同時, CEGARなし)
+    [1回求解 K=41] OPB生成 ...
+    [1回求解] clasp求解 (変数=7352, 制約=6628) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1731 (時間=285.0ms, clasp=91.0ms)
+
+[Case 257] 入力行(407文字)
+  [Case 257] Faults=CRC_OUT_2_9_WX9398_A sa1;WX7911 sa1;CRC_OUT_4_3_WX6896_A sa1;WX6688 sa1;WX6590 sa1;CRC_OUT_4_18_WX6686_A sa1;CRC_OUT_8_23_II7577_A sa1;WX1912_II7576_A sa1;CRC_OUT_2_9_II31691_A sa1;WX9684_II31690_A sa1;CRC_OUT_2_24_II31600_A sa1;WX9669_II31599_A sa1;WX541_II3418_A sa1;WX608_II3417_A sa1;II2963_II2973_A sa1;II2947_II2972_A sa1;II2870_II2880_A sa1;II2854_II2879_A sa1;WX665_II2300_A sa1;WX1001_II2299_A sa1 (20件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=20故障同時, CEGARなし)
+    [1回求解 K=20] OPB生成 ...
+    [1回求解] clasp求解 (変数=4525, 制約=3417) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1720 (時間=141.0ms, clasp=43.0ms)
+
+[Case 258] 入力行(634文字)
+  [Case 258] Faults=CRC_OUT_3_0_II27742_A sa1;WX8400_II27741_A sa1;WX8233 sa1;CRC_OUT_3_0_WX8231_A sa1;WX8761_WX8227_B sa1;II23554 sa1;CRC_OUT_4_29_WX6532_A sa1;CRC_OUT_9_2_WX445_A sa1;II19647 sa1;WX139 sa1;CRC_OUT_5_12_II19662_A sa1;WX5802_II19661_A sa1;WX5480 sa1;WX5451 sa1;CRC_OUT_5_12_WX5477_A sa1;WX6175_WX5473_B sa1;CRC_OUT_5_14_WX5449_A sa1;II7604 sa1;WX1670 sa1;CRC_OUT_8_19_WX1500_A sa1;II3564 sa1;II3456 sa1;WX527_II3327_A sa1;WX601_II3326_A sa1;WX547_II3455_B sa1;WX645_II1990_A sa1;WX1001_II1989_A sa1;CRC_OUT_9_24_II3563_B sa1;CRC_OUT_8_19_II7603_B sa1;CRC_OUT_4_29_II23553_B sa1;CRC_OUT_5_14_II19646_B sa1;CRC_OUT_3_0 sa1;CRC_OUT_4_29 sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=6600, 制約=5843) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1709 (時間=180.0ms, clasp=37.0ms)
+
+[Case 259] 入力行(4356文字)
+
+[Case 260] 入力行(933文字)
+  [Case 260] Faults=CRC_OUT_2_2_WX9496_A sa1;CRC_OUT_2_12_WX9356_A sa1;WX9575 sa1;WX9578_WX9575_A sa1;WX8300 sa1;WX8303_WX8300_A sa1;II23736 sa1;II23610 sa1;II23519 sa1;CRC_OUT_4_0_WX6938_A sa1;WX6800 sa1;WX6646 sa1;WX6576 sa1;CRC_OUT_4_21_WX6644_A sa1;WX7468_WX6640_B sa1;CRC_OUT_5_3_WX5603_A sa1;WX528 sa1;WX531_WX528_A sa1;II15705 sa1;WX488 sa1;WX491_WX488_A sa1;WX4298 sa1;WX3962 sa1;WX1432 sa1;CRC_OUT_8_23_WX1444_A sa1;WX2296_WX1440_B sa1;CRC_OUT_8_28_WX1374_A sa1;WX11347_WX10379_B sa1;CRC_OUT_2_2_II31733_A sa1;WX9691_II31732_A sa1;CRC_OUT_2_12_II31677_A sa1;WX9681_II31676_A sa1;II3092 sa1;II3430 sa1;II3326 sa1;WX531_II3353_A sa1;WX603_II3352_A sa1;WX491_II3091_B sa1;WX543_II3429_B sa1;WX527_II3325_B sa1;CRC_OUT_4_10_II23517_A sa1;WX659_II2207_A sa1;WX1001_II2206_A sa1;CRC_OUT_6_4_II15704_B sa1;CRC_OUT_4_0_II23735_B sa1;CRC_OUT_4_21_II23609_B sa1;WX491 sa1;WX531 sa1;CRC_OUT_4_0 sa1;CRC_OUT_4_21 sa1;WX8303 sa1;WX9578 sa1;CRC_OUT_2_12 sa1 (53件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=53故障同時, CEGARなし)
+    [1回求解 K=53] OPB生成 ...
+    [1回求解] clasp求解 (変数=8587, 制約=8276) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1680 (時間=259.0ms, clasp=54.0ms)
+
+[Case 261] 入力行(634文字)
+  [Case 261] Faults=WX9484 sa1;WX8121 sa1;CRC_OUT_3_8_WX8119_A sa1;CRC_OUT_4_2_II23723_A sa1;WX7105_II23722_A sa1;WX6912 sa1;II19584 sa1;WX69 sa1;CRC_OUT_9_8_WX361_A sa1;CRC_OUT_9_20_WX193_A sa1;CRC_OUT_9_23_WX151_A sa1;WX5633 sa1;WX5634 sa1;CRC_OUT_5_1_WX5631_A sa1;WX6175_WX5627_B sa1;WX1684 sa1;II35632 sa1;II3662 sa1;II3571 sa1;CRC_OUT_1_19_II35640_A sa1;WX10967_II35639_A sa1;WX10539 sa1;CRC_OUT_1_20_WX10537_A sa1;II31519_II31529_A sa1;CRC_OUT_2_10_II31528_A sa1;II3300 sa1;WX523_II3299_B sa1;CRC_OUT_9_8_II3661_B sa1;CRC_OUT_9_23_II3570_B sa1;CRC_OUT_1_20_II35631_B sa1;CRC_OUT_5_24_II19583_B sa1;CRC_OUT_9_8 sa1;CRC_OUT_9_23 sa1;CRC_OUT_1_20 sa1 (34件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=34故障同時, CEGARなし)
+    [1回求解 K=34] OPB生成 ...
+    [1回求解] clasp求解 (変数=6841, 制約=6084) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1702 (時間=185.0ms, clasp=45.0ms)
+
+[Case 262] 入力行(702文字)
+  [Case 262] Faults=WX9190 sa1;WX9092 sa1;WX279 sa1;CRC_OUT_5_11_II19669_A sa1;WX5803_II19668_A sa1;CRC_OUT_9_14_WX277_A sa1;CRC_OUT_5_11_WX5491_A sa1;WX6175_WX5487_B sa1;II11686 sa1;WX2977 sa1;CRC_OUT_7_6_WX2975_A sa1;WX3589_WX2971_B sa1;II7562 sa1;CRC_OUT_8_31_II7521_A sa1;WX1936_II7520_A sa1;WX1460 sa1;WX1334 sa1;CRC_OUT_8_25_WX1416_A sa1;WX2296_WX1328_B sa1;CRC_OUT_9_14_II3628_A sa1;WX628_II3627_A sa1;WX493_II3106_A sa1;WX584_II3105_A sa1;II2126_II2136_A sa1;II2110_II2135_A sa1;II11481 sa1;CRC_OUT_7_31_II11497_A sa1;WX3218_II11496_A sa1;CRC_OUT_8_31_II7477_A sa1;WX1920_II7476_A sa1;CRC_OUT_7_6_II11685_B sa1;CRC_OUT_7_31_II11480_B sa1;CRC_OUT_8_25_II7561_B sa1;CRC_OUT_7_6 sa1;CRC_OUT_9_14 sa1;CRC_OUT_8_25 sa1 (36件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=36故障同時, CEGARなし)
+    [1回求解 K=36] OPB生成 ...
+    [1回求解] clasp求解 (変数=6706, 制約=5995) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+1702 (時間=186.0ms, clasp=43.0ms)
+
+[Case 263] 入力行(19179文字)
+
+[Case 264] 入力行(1855文字)
+
+[Case 265] 入力行(6381文字)
+
+[Case 266] 入力行(10054文字)
+
+[Case 267] 入力行(14907文字)
+
+[Case 268] 入力行(15393文字)
+
+[Case 269] 入力行(2720文字)
+
+[Case 270] 入力行(2473文字)
+
+[Case 271] 入力行(23497文字)
+
+[Case 272] 入力行(1627文字)
+
+[Case 273] 入力行(1776文字)
+
+[Case 274] 入力行(2784文字)
+
+[Case 275] 入力行(5016文字)
+
+[Case 276] 入力行(2442文字)
+
+[Case 277] 入力行(12350文字)
+
+[Case 278] 入力行(37891文字)
+
+[Case 279] 入力行(3237文字)
+
+[Case 280] 入力行(5187文字)
+
+[Case 281] 入力行(6642文字)
+
+[Case 282] 入力行(9166文字)
+
+[Case 283] 入力行(12783文字)
+
+[Case 284] 入力行(20970文字)
+
+[Case 285] 入力行(41463文字)
+
+[Case 286] 入力行(152676文字)
+バッチ処理完了。
