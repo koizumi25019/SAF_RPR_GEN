@@ -34,7 +34,7 @@ cd build && ./main_debug -set ../input/script/c17a.set
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
 `-saf`/`-tdf`（故障モデル。省略時は縮退故障）、
 `-dc_method xid|core`、`-dom_reuse on|off`、`-core_verify on|off`、
-`-low_power on|off`、`-wsa_threshold 0..100`（整数百分率、on時に必須）。
+`-low_power on|off`、`-wsa_threshold 0..100`（整数百分率、on時に必須）、`-ea on|off`。
 `-dc_method` / `-dom_reuse` / `-core_verify` は `.set` 内の明示指定が環境変数より優先し、省略時は従来環境変数を参照する。
 環境変数も無ければ XID・流用 on・core 検証 off。
 
@@ -47,7 +47,7 @@ LOC 方式（v1=自由、v2 は PI 共有＋DFF 引き継ぎ）の遷移遅延�
 確率の分母は 2^(PI数+DFF数)。**観測点は2時刻目の PPO（FFへのキャプチャ）のみで、PO は
 at-speed でストローブしない**（旧ツール NEW_RPR_FAULT/XID11 の意味論・設計に一致：
 `expand_tdf.c` の `make_ppo_ppi()` が `ppi[]`/`ppo[]` を構築し `NLIST.ppo_flag` を PPO に立てる。
-SAF では全端点=観測可として ppo_flag=1）。コーンが非観測の PO にしか届かない故障（例 s27 の
+SAF では宣言されたPOだけを観測可として ppo_flag=1）。コーンが非観測の PO にしか届かない故障（例 s27 の
 G17 系）は構造的にテスト不能＝fdp 0 になる。
 制約：DFF 入りの順序回路 `.v` が必要（例 `input/circuit/s27.v`。組み合わせ回路はエラー）、
 素の DFF のみ対応。`-fault` の形式は `<信号線名>\tSTR|STF`（例 `input/fault/s27_tdf.txt`）。
@@ -272,29 +272,40 @@ s1494 の冗長故障の期待数は 12（`expected/s1494_C_red.txt`）。代表
   中規模（s5378/b12/s13207）まで実証済み・s5378 で +24% コスト。評価は `verification/bdd_exact/SUMMARY.md`。
 - 本体・他モジュール内の切り分けスイッチ：
   - `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
-  - `MDC_NOEA=1` — `EssentialAssignment` を無効化（過小評価の切り分け用、`cnf/faulty_circuit.c`）。
+  - `MDC_NOEA=1` — `-ea`省略時に`EssentialAssignment`を無効化する互換スイッチ。明示的な`-ea on|off`が優先する。
 
 `experiment/*` ブランチがこれらを持ち、`master` がベースライン。各実験コミットが何を確認したかは
 `git log` を参照。過去にあった `MDC_MC`/`FDPSIM_LIST`/`CUBE_DUMP`/`XID_EXTERNAL`/`XID_DBG`/`XID_PO`
 は GT_BDD で代替できるため削除済み（必要なら git 履歴から復元）。
 
-## 正常CNFの範囲限定（検証用の通常パイプライン）
+## 正常CNFの範囲限定（対象出力TFI・常時有効）
 
-`FDP_NORMAL_SCOPE=1` で、検出ソルバへ投入する正常ゲート定義を、故障・検出・励起・
-EA・D-chain・低電力の全制約が参照する正常信号のTFI閉包へ限定する。既定はoff。
-サイド入力の生成回路もPIまで残す。`n_pi`・PI順・FDPの分母は変更しない。
-XID用の正常値はPIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
-CORE/MAXDCなどの非検出オラクルは完全な正常定義と電力定義を維持する。
-`FDP_NORMAL_SCOPE_VALIDATE=1` は、保持した正常信号のSAT値と復元値を照合する。
-検証・再現手順は `verification/normal_scope/SUMMARY.md`、回帰は同ディレクトリの `check.py`。
-全検証で `-dom_reuse off` を使用する。打ち切りFDPは下界であり、範囲限定は全故障の完了を保証しない。
-範囲限定したDIMACSは全PIへの射影カウント専用（`c p show`）。非射影#SATをFDPに使わない。
+故障点からTFOを求め、そこに含まれる観測可能な外部出力の全TFIを正常CNFの範囲にする。
+EAより前に範囲を固定し、EAの単位節はその範囲内の信号にだけ追加する。EAの推論処理自体は
+従来どおり全回路で行う。参考文献は Eggersglüß et al., DDECS 2012,
+“A New SAT-based ATPG for Generating Highly Compacted Test Sets”, Section II-B / Fig. 2。
+
+通常SAFは宣言されたPO、LOC/TDFは2時刻目のキャプチャPPOを観測点とする。
+故障回路・D-chainも観測出力につながる部分を使い、内部で途切れる枝は観測しない。
+TDFの1時刻目励起と低電力の制約がある場合は、それらに必要な正常信号のTFIも維持する。
+`n_pi`・PI順・FDPの分母は変更しない。XID用の正常値はPIから論理シミュレーションで復元し、
+範囲外PIは0補完後に明示的にXにする。CORE/MAXDCなどの非検出オラクルは全正常定義を維持する。
+
+限定化は常時有効。旧`FDP_NORMAL_SCOPE`は参照しない。
+`-ea on|off`をset/CLIで指定でき、既定on。省略時のみ従来の`MDC_NOEA`を参照する。
+ログにEA設定と対象出力TFIの利用を記録する。EA OFFでも故障励起・検出・D-chain制約は残る。
+`FDP_NORMAL_SCOPE_VALIDATE=1`は、保持した正常信号のSAT値と復元値を照合する。
+現行の再現は`verification/output_tfi_scope/build.py`と`check.py --phase smoke|large|benchmark`。
+実装・文献・EA比較は同ディレクトリの`SUMMARY.md`。従来のON/OFF調査は
+`verification/normal_scope/SUMMARY.md`に履歴として残す。
+打ち切りFDPは下界であり、範囲限定は全故障の列挙完了を保証しない。
+限定化したDIMACSは全PIへの射影カウント専用（`c p show`）。非射影#SATをFDPに使わない。
 
 ## baselineへの正常CNF範囲限定移植
 
 baseline `b3958a2` は範囲限定を既定onにし、直接の `ccadical_add()` を維持する。
 TFO全信号＋EA_UP全信号の全TFIをモデル構築後に集め、投入時の観測マクロは使用しない。
-検証版のこのブランチは従来どおり明示的な `FDP_NORMAL_SCOPE=1` で有効化する。
+この移植調査時のverificationでは`FDP_NORMAL_SCOPE=1`を明示した。現行は上記の常時限定化を使う。
 移植の隔離検証は `verification/normal_scope/baseline_migration/`。実baselineの生成キューブを
 独立GTへ渡してs5378_C全4,551代表故障の健全性・完了等価性を確認した。
 単回Release・limit30・流用offで適用前111.432秒→適用後46.074秒（2.42倍）。
@@ -309,7 +320,7 @@ Linux/WSL2向け。回路・代表化・正常CNF・電力定義を一度準備�
 流用なしでは故障を一度安定整列し、従来SetTargetと同じ順で親がCSV・確率系列を出力する。
 複数ワーカーは流用off（省略時もoff、明示onはエラー）。`-jobs 1`は従来の流用onも使用可能。
 `-set ... -jobs 4`のようにCLIで設定ファイルの後にも指定できる。
-正常CNF限定は既定offのまま。併用するなら`FDP_NORMAL_SCOPE=1`を明示する。
+正常CNFは対象出力TFIへ常時限定し、EAのON/OFFは`-ea on|off`で指定する。
 
 対象はSAF/XID・SAF/CORE・TDF/XID・TDF/CORE・TDF/CORE低電力・cube_analysis・GT検証。
 COREの極小化手順は変更していない。親＋全ワーカーのCPU時間を合計し、経過時間と区別する。

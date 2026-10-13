@@ -40,15 +40,13 @@ bool WriteTPGModel(
 	/** create the tpg model */
 	if (CreateTPGmodel(solver, target) != true) return false;
 
-    /* Include every power-definition dependency BEFORE closing the scope. */
-    if (NormalScopeEnabled()) {
-        PowerLoadDefinition(solver);
-        NormalScopeEnd();
-    }
+    /* Power predicates need their normal dependencies in addition to the
+     * affected-output TFI. EA cannot add dependencies outside that TFI. */
+    PowerLoadDefinition(solver);
+    NormalScopeEnd();
 
     // 作成された文字列データをソルバに直接投入
-    if (NormalScopeEnabled()) LoadNormalDefinition(solver, 1);
-    else LoadModelToSolver(solver, target);
+    LoadNormalDefinition(solver, 1);
     int power = PowerLiteral();
     if (power) { CNF_ADD(solver, power); CNF_ADD(solver, 0); }
 

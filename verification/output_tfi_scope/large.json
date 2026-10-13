@@ -1,0 +1,55 @@
+{
+  "reference_commit": "576ee07",
+  "measurements_per_condition": 1,
+  "scope": "TFI of affected observable outputs; EA units only inside that scope",
+  "binary_sha256": "e2946b933f86285a3c5798148c7755bc0ab38ef3c989ccfa8850fd5f1ee1125c",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "check": "s5378_all",
+      "gt": "ALL VERIFIED",
+      "faults": 4551,
+      "ea_on": {
+        "label": "s5378_gt_on",
+        "circuit": "s5378_C",
+        "ea": "on",
+        "jobs": 2,
+        "limit": 30,
+        "external_wall_seconds": 38.802319384998555,
+        "time_seconds": 38.793,
+        "cpu_seconds": 74.011,
+        "cadical_cpu_seconds": 24.492,
+        "bdd_cpu_seconds": 2.273,
+        "xid_cpu_seconds": 9.633,
+        "faults": 4551,
+        "completed": 1572,
+        "cubes": 100917,
+        "normal_definitions_kept": 2461346,
+        "normal_definitions_full": 23005305,
+        "outside_pi_total": 810425,
+        "gt_verified": true
+      },
+      "ea_off": {
+        "label": "s5378_gt_off",
+        "circuit": "s5378_C",
+        "ea": "off",
+        "jobs": 2,
+        "limit": 30,
+        "external_wall_seconds": 39.10015836299863,
+        "time_seconds": 39.069,
+        "cpu_seconds": 77.804,
+        "cadical_cpu_seconds": 29.092,
+        "bdd_cpu_seconds": 2.619,
+        "xid_cpu_seconds": 11.216,
+        "faults": 4551,
+        "completed": 1571,
+        "cubes": 100934,
+        "normal_definitions_kept": 2461346,
+        "normal_definitions_full": 23005305,
+        "outside_pi_total": 810425,
+        "gt_verified": true
+      }
+    }
+  ],
+  "passed": true
+}

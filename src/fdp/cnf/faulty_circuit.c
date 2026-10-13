@@ -11,8 +11,10 @@
 #include "../fault_detection_prob.h"
 #include "../init.h"
 #include "../essential_assignment.h"
+#include "../normal_scope.h"
 #include "../../lib/lib.h"
 #include "../../netlist/netlist.h"
+#include "../../opt/opt.h"
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC
@@ -31,12 +33,19 @@ bool CreateConsFC(
 
 	/** search for transitive-fout */
 	SearchTFO(fault);
+	NormalScopeSelectOutputs();
+	if (numtranpo == 0) {
+		/* No observable output can detect this fault, independently of EA. */
+		CNF_ADD(solver, 0);
+		return true;
+	}
 
 	/** create the faulty-circuit constraint */
 	for (int j = 0; j < n_net; j++)
 	{
 		if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
 		{
+			if (!NormalScopeInDetectionCone(j)) continue;
 			switch (nl[j].type)
 			{
 			case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
@@ -67,7 +76,7 @@ bool CreateConsFC(
 	CreateConsDC(solver, fault);
 
 	/** add necessary assignment unit clauses */
-	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, fault);
+	if (opt.essential_assignment == YES) EssentialAssignment(solver, fault);
 
 	return true;
 }
@@ -141,6 +150,7 @@ void CreateConsProp(
 	for (int i = 0; i < n_net; i++)
 	{
 		if ((nl[i].flag & TFO) != TFO) continue;
+		if (!NormalScopeInDetectionCone(i)) continue;
 
 		// Constraint A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
 		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
@@ -149,6 +159,7 @@ void CreateConsProp(
 			CNF_ADD(solver, -(int)nl[i].varprop);
 			for (int j = 0; j < nl[i].n_out; j++)
 			{
+				if (!NormalScopeInDetectionCone(nl[i].out[j]->n)) continue;
 				CNF_ADD(solver, (int)nl[i].out[j]->varprop);
 			}
 			CNF_ADD(solver, 0);

@@ -108,7 +108,8 @@ static void WriteReport(
     fprintf(fp, "//  Don't-care Method                         : %s\n", opt.dc_method == DC_CORE ? "CORE" : "XID");
     fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
     fprintf(fp, "//  Fault Workers                             : %d\n", FaultPoolWorkers());
-    fprintf(fp, "//  Normal CNF Scope                          : %s\n", NormalScopeEnabled() ? "on" : "off");
+    fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
+    fprintf(fp, "//  Essential Assignment                      : %s\n", opt.essential_assignment == YES ? "on" : "off");
     if (opt.jobs > 1)
         fprintf(fp, "//  CPU Accounting                            : parent + all worker processes\n");
     fprintf(fp, "//  CORE Extra Verification                   : %s\n", opt.core_verify == YES ? "on" : "off");

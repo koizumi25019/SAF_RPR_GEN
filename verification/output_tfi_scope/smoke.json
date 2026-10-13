@@ -1,0 +1,112 @@
+{
+  "reference_commit": "576ee07",
+  "measurements_per_condition": 1,
+  "scope": "TFI of affected observable outputs; EA units only inside that scope",
+  "binary_sha256": "e2946b933f86285a3c5798148c7755bc0ab38ef3c989ccfa8850fd5f1ee1125c",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "check": "c17a",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s27_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s208_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s298_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s344_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s510_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s641_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s713_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "s1494_C",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "i_k_B",
+      "retained_definitions": 9,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "i_l_A",
+      "retained_definitions": 8,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "check": "compat_c17a_core_None",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "compat_s208_C_core_None",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "compat_s27_xid_None",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "compat_s208_xid_None",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "compat_s27_core_None",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "compat_s208_core_20",
+      "gt": "ALL VERIFIED",
+      "full_FDP_equal": true
+    },
+    {
+      "check": "dangling_fanout",
+      "independent_full_PI_enumeration": true
+    },
+    {
+      "check": "settings_debug_release",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

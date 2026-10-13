@@ -13,7 +13,8 @@ static bool OPTisModeOption(const char* name)
 {
     return strcmp(name, "-dc_method") == 0 || strcmp(name, "-dom_reuse") == 0 ||
            strcmp(name, "-core_verify") == 0 || strcmp(name, "-low_power") == 0 ||
-           strcmp(name, "-wsa_threshold") == 0 || strcmp(name, "-jobs") == 0;
+           strcmp(name, "-wsa_threshold") == 0 || strcmp(name, "-jobs") == 0 ||
+           strcmp(name, "-ea") == 0;
 }
 
 static bool OPTsetMode(const char* name, const char* value)
@@ -50,6 +51,7 @@ static bool OPTsetMode(const char* name, const char* value)
         if (enabled != MODE_NOSET) {
             if (strcmp(name, "-dom_reuse") == 0) opt.dom_reuse = enabled;
             else if (strcmp(name, "-core_verify") == 0) opt.core_verify = enabled;
+            else if (strcmp(name, "-ea") == 0) opt.essential_assignment = enabled;
             else opt.low_power = enabled;
             return OPT_OKAY;
         }
@@ -88,6 +90,9 @@ bool OPT(
     }
     if (opt.core_verify == MODE_NOSET) {
         opt.core_verify = getenv("PAPER_CORE_VERIFY") ? YES : NO;
+    }
+    if (opt.essential_assignment == MODE_NOSET) {
+        opt.essential_assignment = getenv("MDC_NOEA") ? NO : YES;
     }
     if (opt.low_power == YES &&
         (opt.fault_model != FM_TDF || opt.dc_method != DC_CORE || opt.wsa_threshold < 0)) {
@@ -134,6 +139,7 @@ void OPTinit(
     opt.low_power = NO;
     opt.wsa_threshold = -1;
     opt.jobs = 1;
+    opt.essential_assignment = MODE_NOSET;
 
 	return;
 }

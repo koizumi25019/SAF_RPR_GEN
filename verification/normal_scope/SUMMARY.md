@@ -1,3 +1,5 @@
+> この資料は旧方式のON/OFF調査記録です。現行の対象出力TFIによる常時限定化とEA比較は[output_tfi_scope](../output_tfi_scope/SUMMARY.md)を参照してください。
+
 # 正常CNFの範囲限定を検証用パイプラインへ適用
 
 実施日: 2026-10-07。ブランチ `verification/normal-cnf-scope`。

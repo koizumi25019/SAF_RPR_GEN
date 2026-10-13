@@ -67,6 +67,7 @@ typedef struct Option
     int low_power;             /**< -low_power on|off (TDF CORE only) */
     int wsa_threshold;         /**< -wsa_threshold 0..100 percent */
     int jobs;                  /**< -jobs N: persistent fault workers (default 1) */
+    int essential_assignment;  /**< -ea on|off; default on, legacy MDC_NOEA fallback */
 }
 OPTION;
 

@@ -207,6 +207,9 @@ static void read_net(FILE* rfp)
 
 	//信号接続
 	connection_signal();
+	/* SAF observes declared POs, not every internally dangling signal.
+	 * LOC expansion later replaces these with capture-time PPOs. */
+	for (int i = 0; i < n_po; i++) po[i]->ppo_flag = 1;
 
 	//モジュール配列デバッグ
 #ifdef DEBUG_MA
@@ -535,7 +538,7 @@ static void alloc_nl(void)
 		nl[i].n_out = 0;
 		nl[i].out = (NLIST**)NULL;
 		nl[i].peer_1t = (NLIST*)NULL;
-		nl[i].ppo_flag = 1;   //SAF: 全端点(PO)が観測点。TDF は make_ppo_ppi (expand_tdf.c) が設定し直す
+		nl[i].ppo_flag = 0;   // 接続後に宣言されたPOのみ観測点にする。TDF展開時はPPOに設定し直す
 		parser_array[0][i] = 0;
 		parser_array[1][i] = 0;
 	}

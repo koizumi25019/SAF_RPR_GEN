@@ -1,0 +1,107 @@
+{
+  "reference_commit": "576ee07",
+  "measurements_per_condition": 1,
+  "scope": "TFI of affected observable outputs; EA units only inside that scope",
+  "binary_sha256": "e2946b933f86285a3c5798148c7755bc0ab38ef3c989ccfa8850fd5f1ee1125c",
+  "cpu_quota": "200000 100000",
+  "checks": [
+    {
+      "circuit": "s5378_C",
+      "measurements": [
+        {
+          "label": "s5378_C_timing_on",
+          "circuit": "s5378_C",
+          "ea": "on",
+          "jobs": 2,
+          "limit": 30,
+          "external_wall_seconds": 19.370540828997036,
+          "time_seconds": 19.352,
+          "cpu_seconds": 38.542,
+          "cadical_cpu_seconds": 23.492,
+          "bdd_cpu_seconds": 2.097,
+          "xid_cpu_seconds": 7.591,
+          "faults": 4551,
+          "completed": 1572,
+          "cubes": 100917,
+          "normal_definitions_kept": 2461346,
+          "normal_definitions_full": 23005305,
+          "outside_pi_total": 810425,
+          "gt_verified": false
+        },
+        {
+          "label": "s5378_C_timing_off",
+          "circuit": "s5378_C",
+          "ea": "off",
+          "jobs": 2,
+          "limit": 30,
+          "external_wall_seconds": 20.604390534997947,
+          "time_seconds": 20.583,
+          "cpu_seconds": 40.989,
+          "cadical_cpu_seconds": 24.984,
+          "bdd_cpu_seconds": 2.33,
+          "xid_cpu_seconds": 8.016,
+          "faults": 4551,
+          "completed": 1571,
+          "cubes": 100934,
+          "normal_definitions_kept": 2461346,
+          "normal_definitions_full": 23005305,
+          "outside_pi_total": 810425,
+          "gt_verified": false
+        }
+      ],
+      "shared_completed_faults": 1571,
+      "shared_complete_FDP_mismatches": 0,
+      "scope_equal_with_EA_on_off": true
+    },
+    {
+      "circuit": "s9234_C",
+      "measurements": [
+        {
+          "label": "s9234_C_timing_on",
+          "circuit": "s9234_C",
+          "ea": "on",
+          "jobs": 2,
+          "limit": 30,
+          "external_wall_seconds": 57.37470066700189,
+          "time_seconds": 57.331,
+          "cpu_seconds": 114.301,
+          "cadical_cpu_seconds": 73.312,
+          "bdd_cpu_seconds": 4.335,
+          "xid_cpu_seconds": 21.623,
+          "faults": 6927,
+          "completed": 3046,
+          "cubes": 137860,
+          "normal_definitions_kept": 8207563,
+          "normal_definitions_full": 62252949,
+          "outside_pi_total": 1308450,
+          "gt_verified": false
+        },
+        {
+          "label": "s9234_C_timing_off",
+          "circuit": "s9234_C",
+          "ea": "off",
+          "jobs": 2,
+          "limit": 30,
+          "external_wall_seconds": 64.27863875999901,
+          "time_seconds": 64.237,
+          "cpu_seconds": 128.045,
+          "cadical_cpu_seconds": 83.22,
+          "bdd_cpu_seconds": 4.648,
+          "xid_cpu_seconds": 23.688,
+          "faults": 6927,
+          "completed": 3052,
+          "cubes": 137646,
+          "normal_definitions_kept": 8207563,
+          "normal_definitions_full": 62252949,
+          "outside_pi_total": 1308450,
+          "gt_verified": false
+        }
+      ],
+      "shared_completed_faults": 3044,
+      "shared_complete_FDP_mismatches": 0,
+      "scope_equal_with_EA_on_off": true
+    }
+  ],
+  "passed": true,
+  "timed_CSVs_equal_independently_verified_CSVs": true
+}
