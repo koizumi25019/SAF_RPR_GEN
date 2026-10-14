@@ -223,7 +223,7 @@ EXNOR2 g3(.A(x),.B(b),.Z(y));
 endmodule
 ''')
     reports = []
-    for circuit in (ROOT / 'input/circuit/s27.v', ROOT / 'input/circuit/s208.v', fixture):
+    for circuit in (ROOT / 'input/circuit/tdf/s27.v', ROOT / 'input/circuit/tdf/s208.v', fixture):
         serial = run(binary, output / (circuit.stem + '_serial'), circuit)
         reports.append(verify(circuit, serial))
         parallel = run(binary, output / (circuit.stem + '_parallel'), circuit, '-jobs 4\n')
@@ -241,7 +241,7 @@ endmodule
         faults.write_text(''.join(f'{name}\t{kind}\n' for name, kind in reference_events(circuit)[-1]))
         explicit = run(binary, output / (circuit.stem + '_explicit'), circuit, f'-fault {faults}\n')
         reports.append(verify(circuit, explicit))
-    s27 = ROOT / 'input/circuit/s27.v'
+    s27 = ROOT / 'input/circuit/tdf/s27.v'
     # Last encountered model option wins, for both CLI and .set.
     override = run(binary, output / 'cli_tdf', s27, '-saf\n', cli=('-tdf',))
     equal(output / 's27_serial', override)
@@ -249,7 +249,7 @@ endmodule
     equal(output / 's27_serial', override)
     for label, extra, cli in (('default_saf', '', ()), ('set_saf', '-saf\n', ()),
                               ('cli_saf', '', ('-saf',))):
-        circuit = ROOT / 'input/circuit/c17a.v'
+        circuit = ROOT / 'input/circuit/saf/c17a.v'
         directory = output / label; directory.mkdir(exist_ok=True)
         run(binary, directory, circuit, extra, cli, model='' if label == 'default_saf' else '-tdf\n')
         projection = lambda p: sorted((r['net_name'],r['f_type'],r['fdp']) for r in csv.DictReader(p.open()))
@@ -258,7 +258,7 @@ endmodule
     unsupported.write_text(s27.read_text().replace('DFF ', 'RDFF ').replace('.D(G10)', '.CD(G0), .D(G10)')
                           .replace('.D(G11)', '.CD(G0), .D(G11)').replace('.D(G13)', '.CD(G0), .D(G13)'))
     for label, circuit, extra, message in (
-        ('combinational', ROOT / 'input/circuit/c17a.v', '', '順序回路'),
+        ('combinational', ROOT / 'input/circuit/saf/c17a.v', '', '順序回路'),
         ('reset_ff', unsupported, '', '素の DFF'),
         ('wrong_type', s27, '-fault ' + str(output / 'bad.faults') + '\n', 'STR/STF'),
         ('frame1_site', s27, '-fault ' + str(output / 'frame1.faults') + '\n', '2nd-frame')):

@@ -5,7 +5,7 @@
 # fdp==0 の故障が冗長故障。expected/s1494_C_red.txt と照合する。
 
 # set netlist(.v)
--net ./input/circuit/s1494_C.v
+-net ../input/circuit/saf/s1494_C.v
 
 # set log(.txt)
 -log ../output/full/log/s1494_C_red.txt

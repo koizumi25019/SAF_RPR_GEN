@@ -1,6 +1,0 @@
-# LOC transition delay faults; run from build/
--tdf
--net ../input/circuit/s27.v
-# -fault omitted: generate representative STR/STF faults
--fdp ../output/full/fdp/s27_tdf_auto.csv
--log ../output/full/log/s27_tdf_auto.txt

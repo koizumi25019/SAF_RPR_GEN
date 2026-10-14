@@ -26,7 +26,7 @@ def settings(label, circuit='c17a', jobs=1, limit=0, reuse='off', extra=''):
     directory = RUNS / label
     directory.mkdir(parents=True, exist_ok=True)
     (directory / 'time.log').unlink(missing_ok=True)
-    text = (f'-net {ROOT}/input/circuit/{circuit}.v\n'
+    text = (f'-net {ROOT}/input/circuit/saf/{circuit}.v\n'
             f'-fdp {directory}/fdp.csv\n-log {directory}/time.log\n-limit {limit}\n')
     if jobs is not None:
         text += f'-jobs {jobs}\n-dom_reuse {reuse}\n'
@@ -193,7 +193,7 @@ def independent_gt(capture, checker, circuit, limit):
     faults = actual / 'faults.txt'
     faults.write_text(''.join(f"{row['net_name']}\t{row['f_type']}\n" for row in representatives))
     gt_config = actual / 'gt.set'
-    gt_config.write_text(f'-net {ROOT}/input/circuit/{circuit}.v\n-fault {faults}\n'
+    gt_config.write_text(f'-net {ROOT}/input/circuit/saf/{circuit}.v\n-fault {faults}\n'
                          f'-fdp {actual}/unused.csv\n-log {actual}/gt.log\n'
                          '-dc_method xid\n-dom_reuse off\n')
     result = subprocess.run([str(checker), '-set', str(gt_config)],

@@ -17,7 +17,15 @@ mkdir -p build && cd build && cmake .. && make
 -------------------------------------------------
 cd build && ./main_release -set ../input/script/c17a.set
 
+TDFの5回路（s9234, s35932, s38417, b14, b17）を順番に実行（リポジトリ直下から）：
+./run_tdf.sh
+回路を指定する場合：./run_tdf.sh s9234 b14
+TDF設定は <回路名>_tdf.set、故障リスト明示版は <回路名>_tdf_list.set。
+
 ■スクリプトコマンド（.set 内。build/ からの相対パスで記述する）
+回路の配置：input/circuit/saf/ は組合せ回路（SAF用）、input/circuit/tdf/ はDFF入り順序回路（TDF用）。
+.set の -net は ../input/circuit/saf/<回路名>.v または ../input/circuit/tdf/<回路名>.v を指定する。
+故障モデルは -saf / -tdf で指定する（ディレクトリ名からは自動判定しない）。
 -net	：【入力】回路ネットリストファイル（.v）
 -fault	：【入力】故障リストファイル（省略時は選択モデルの全代表故障を自動生成）
 -saf / -tdf：故障モデル。TDFの故障リストはSTR/STF、省略時は全代表故障を自動生成

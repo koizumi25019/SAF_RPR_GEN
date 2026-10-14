@@ -25,6 +25,11 @@ mkdir -p build && cd build && cmake .. && make   # main_debug と main_release �
 
 `.set` スクリプトファイルで駆動する。`.set` 内のパスは **`build/` からの相対パス**なので、`build/` で実行する：
 
+回路は `input/circuit/saf/` に組合せ回路、`input/circuit/tdf/` にDFF入り順序回路を配置する。
+`-net` は `../input/circuit/saf/<回路名>.v` または `../input/circuit/tdf/<回路名>.v` を指定する。
+ディレクトリ名から故障モデルは自動判定されないため、TDF用設定には `-tdf` を明記する。
+TDFの設定・CSV・ログには `_tdf` を付けてSAFと区別する。故障リストを明示する設定には `_tdf_list` を使う。
+
 ```bash
 cd build && ./main_debug -set ../input/script/c17a.set
 ```
@@ -48,7 +53,7 @@ XIDでも1時刻目の励起を正当化し、正常CNFにはそのTFIを追加�
 支配キューブ流用はTDFではoff。既存の故障単位並列処理にも対応する。
 素のDFFを必要とし、組み合わせ回路・RDFF/DFFS/RDFFSはエラーにする。
 
-例: `cd build && ./main_release -set ../input/script/s27_tdf_auto.set`。
+例: `cd build && ./main_release -set ../input/script/s27_tdf.set`。
 設定・制約・独立検証の再現は `docs/transition_fault.md` を参照。
 
 出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log}/<回路>.{csv,txt}`。

@@ -18,7 +18,7 @@ def main():
     binary = ROOT / 'build/main_release'
     capture = ROOT / 'build/fault_pool_checks/main_capture'
     checker = ROOT / 'build/fault_pool_checks/check_covers'
-    circuit = ROOT / 'input/circuit/s5378.v'
+    circuit = ROOT / 'input/circuit/tdf/s5378.v'
     extra = f'-fault {ROOT}/input/fault/s5378_tdf_sample.txt\n-limit 30\n'
     serial = run(binary, output / 'serial', circuit, extra)
     parallel = run(capture, output / 'parallel', circuit, extra + '-jobs 4\n', capture=True)
