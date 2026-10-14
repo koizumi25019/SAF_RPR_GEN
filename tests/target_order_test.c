@@ -1,22 +1,18 @@
 #include <assert.h>
 #include <limits.h>
+#include <stdlib.h>
 #include <string.h>
 #include "target_fault.h"
 
-/* 整列とは独立した、変更前の全走査を選択順のオラクルとして使う。 */
+/* レベルによらず、最初の未処理故障をハッシュ表の走査順で選ぶ。 */
 static FNODE* scan_target(void)
 {
-    FNODE* best = NULL;
-    int level = INT_MAX;
     for (int i = 0; i < MAXSIZE_HASH; i++) {
         for (FNODE* f = readdata.fault.list[i]; f; f = f->nextptr) {
-            if (f->detect == UNDETECTED && f->netptr->level < level) {
-                best = f;
-                level = f->netptr->level;
-            }
+            if (f->detect == UNDETECTED) return f;
         }
     }
-    return best;
+    return NULL;
 }
 
 static void check_selection(void)
@@ -42,6 +38,17 @@ static void check_selection(void)
     /* 再初期化でも旧配列やカーソルを持ち越さない。 */
     for (int pass = 0; pass < 2; pass++) {
         assert(InitTargetOrder());
+        int count = 0, index = 0;
+        FNODE** order = CopyTargetOrder(&count);
+        assert(order);
+        for (int bucket = 0; bucket < MAXSIZE_HASH; ++bucket)
+            for (FNODE* f = readdata.fault.list[bucket]; f; f = f->nextptr)
+                if (f->detect == UNDETECTED) {
+                    assert(index < count);
+                    assert(order[index++] == f);
+                }
+        assert(index == count);
+        free(order);
         int selected = 0;
         FNODE* expected;
         while ((expected = scan_target()) != NULL) {

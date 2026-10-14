@@ -1,0 +1,125 @@
+--- SB-XID: normalized Netlist.c
+
++++ FDP: normalized netlist.c
+
+@@ -1,5 +1,5 @@
+
+-# define _CRT_SECURE_NO_WARNINGS # include < stdio . h > # include < string . h > # include < stdlib . h > # include < ctype . h > # include "Netlist.h" # define MAXN 1028 # define STR_MAX 1024 # define SPRINT_MAX 256 # define HASH_SIZE 5003 # define HASH_MODE # undef DEBUG_MA # undef DEBUG_NL typedef struct _Module_Array_MEM_Format_ {
++# include < stdio . h > # include < string . h > # include < stdlib . h > # include < ctype . h > # include "netlist.h" # pragma warning ( disable : 4996 ) # define MAXN 1028 # define STR_MAX 1024 # define SPRINT_MAX 256 # define HASH_SIZE 5003 # define HASH_MODE # undef DEBUG_MA # undef DEBUG_NL typedef struct _Module_Array_MEM_Format_ {
+ char * m_name_ins ;
+ int m_type ;
+ int m_n_in ;
+ char * m_out_name ;
+@@ -64,9 +64,9 @@
+
+ file_open ( & r_fp , v_name ) ;
+ init_global ( ) ;
+ read_net ( r_fp ) ;
+ # ifdef DEBUG_NL debug_nl ( ) ;
+-# endif fprintf ( stderr , "Completion of Read_Netlist !!\n" ) ;
++# endif fclose ( r_fp ) ;
+ return 0 ;
+ }
+ static void option ( int argc , char * argv [ ] , char * v_name ) {
+ if ( argc ! = 2 ) {
+@@ -259,9 +259,9 @@
+
+ module_array [ m_no ] - > m_type = DFFS ;
+ n_dffs + + ;
+ }
+ break ;
+-case 'E' : if ( strlen ( str ) = = 5 ) module_array [ m_no ] - > m_type = EXOR ;
++case 'E' : if ( strlen ( str ) = = 4 ) module_array [ m_no ] - > m_type = EXOR ;
+ else module_array [ m_no ] - > m_type = EXNOR ;
+ if ( module_array [ m_no ] - > m_n_in ! = 2 ) {
+ get_token ( rfp , str , 0 , 0 ) ;
+ error ( 1 , str ) ;
+@@ -587,9 +587,9 @@
+
+ unsigned int key [ 2 ] = {
+ 0 , 0 }
+ ;
+ int i , slen , no ;
+-slen = strlen ( word ) ;
++slen = ( int ) strlen ( word ) ;
+ for ( i = 0 ;
+ i < slen ;
+ i + + ) {
+ # ifdef HASH_MODE if ( i % 2 = = 0 ) {
+@@ -704,9 +704,9 @@
+
+ else strcpy ( nl [ module_array [ m_no ] - > out_nid ] . name_port , "Z" ) ;
+ }
+ static void connection_yes_fout ( int m_no , int in_no ) {
+ char tmp [ SPRINT_MAX ] ;
+-int no , i ;
++int no ;
+ no = 0 ;
+ sprintf ( tmp , "%s_%s_%c" , nl [ module_array [ m_no ] - > in_nid [ in_no ] ] . name , nl [ module_array [ m_no ] - > out_nid ] . name , pin_name_array [ in_no ] ) ;
+ nl [ n_net ] . name = ( char * ) malloc ( sizeof ( char ) * ( strlen ( tmp ) + 1 ) ) ;
+ strcpy ( nl [ n_net ] . name , tmp ) ;
+@@ -870,18 +870,18 @@
+
+ fprintf ( stderr , "ERROR : " ) ;
+ switch ( code ) {
+ case 1 : fprintf ( stderr , "2入力以外のEXOR,EXNORが存在します. instans_name : %s\n" , s ) ;
+ break ;
+-case 2 : fprintf ( stderr , "11入力以上は対応していません. 注文により即対応？ instans_name : %s\n" , s ) ;
++case 2 : fprintf ( stderr , "11入力以上は対応していません. 手動にて対応？ instans_name : %s\n" , s ) ;
+ break ;
+ case 3 : fprintf ( stderr , "信号 \"%s\" がスルーしています. バッファを挿入してください.\n" , s ) ;
+-fprintf ( stderr , "        もしくは, 信号 \"%s\" の記述中に改行が入っている可能性があります.\n" , s ) ;
+-break ;
+-case 4 : fprintf ( stderr , "外部入力信号 \"%s\" がバッティングしています. いかれた回路を読み込ませないで下さい（怒）\n" , s ) ;
+-break ;
+-case 5 : fprintf ( stderr , "信号 \"%s\" がバッティングします. いかれた回路を読み込ませないで下さい（怒）\n" , s ) ;
+-break ;
+-case 6 : fprintf ( stderr , "assign文はACC,GNDのみ対応しています. 信号 \"%s\" を外部入力宣言から取る等で対応してください.\n" , s ) ;
++fprintf ( stderr , "        また, 信号 \"%s\" の記述前に改行がされている\n" , s ) ;
++break ;
++case 4 : fprintf ( stderr , "外部入力信号 \"%s\" がバッティングしています. 削除されたか？読み込まれないで以上です（本）\n" , s ) ;
++break ;
++case 5 : fprintf ( stderr , "信号 \"%s\" がバッティングします. 削除されたか？読み込まれないで以上です（本）\n" , s ) ;
++break ;
++case 6 : fprintf ( stderr , "assignのみACC,GNDのみ対応しています. 信号 \"%s\" を外部入力宣言した等で対応してください.\n" , s ) ;
+ break ;
+ }
+ exit ( 1 ) ;
+ }
+@@ -895,13 +895,35 @@
+
+ free ( module_array [ i ] - > in_nid ) ;
+ for ( j = 0 ;
+ j < module_array [ i ] - > m_n_in ;
+ j + + ) free ( module_array [ i ] - > m_in_name [ j ] ) ;
++free ( module_array [ i ] - > m_in_name ) ;
+ free ( module_array [ i ] ) ;
+ }
+ free ( module_array ) ;
+ free ( parser_array [ 0 ] ) ;
+ free ( parser_array [ 1 ] ) ;
++}
++void free_netlist ( void ) {
++int i ;
++for ( i = 0 ;
++i < n_net ;
++i + + ) {
++free ( nl [ i ] . name ) ;
++free ( nl [ i ] . in ) ;
++free ( nl [ i ] . out ) ;
++free ( nl [ i ] . name_ins ) ;
++free ( nl [ i ] . name_port ) ;
++}
++free ( nl ) ;
++free ( pi ) ;
++free ( po ) ;
++free ( dff ) ;
++free ( rdff ) ;
++free ( dffs ) ;
++free ( rdffs ) ;
++free ( assign ) ;
++free ( module_name ) ;
+ }
+ # ifdef DEBUG_MA static void debug_ma ( void ) {
+ int i , j ;
+ printf ( "n_module : %d\n" , n_module ) ;

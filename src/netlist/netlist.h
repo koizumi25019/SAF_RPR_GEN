@@ -54,6 +54,9 @@ typedef struct _Netlist_Format_ {
 	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
 	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない)
+	int sbxid_normal_value;              /**< SB-XID正常値: 0/1/X=2 */
+	int sbxid_fault_value;               /**< SB-XID故障値: 0/1/X=2 */
+	int sbxid_flag;                      /**< SB-XID専用の評価/PATH/JUSTIFYビット */
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------

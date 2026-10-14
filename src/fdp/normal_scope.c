@@ -13,6 +13,7 @@
 
 static NLIST **scope_stack;
 static unsigned char *needed;
+static unsigned char *blocked_pi;
 static int top;
 static unsigned long long instances, full, kept, free_pi;
 
@@ -29,9 +30,11 @@ void NormalScopeBuild(void) {
     if (!needed) {
         needed = calloc((size_t)n_net, 1);
         scope_stack = malloc((size_t)n_net * sizeof(*scope_stack));
-        if (!needed || !scope_stack) fail("allocation failed");
+        blocked_pi = calloc((size_t)(n_pi ? n_pi : 1), 1);
+        if (!needed || !scope_stack || !blocked_pi) fail("allocation failed");
     }
     memset(needed, 0, (size_t)n_net);
+    memset(blocked_pi, 0, (size_t)n_pi);
     top = 0;
     int use_ea = !getenv("MDC_NOEA");
     for (int i = 0; i < n_net; i++) {
@@ -55,13 +58,18 @@ void NormalScopeBuild(void) {
 int NormalScopeRequiredNet(int index) {
     return !needed || needed[index];
 }
+int NormalScopeRequiredPi(int index) {
+    return NormalScopeRequiredNet(pi[index]->n) || (blocked_pi && blocked_pi[index]);
+}
+void NormalScopeRecordBlockingPi(int index) {
+    if (blocked_pi) blocked_pi[index] = 1;
+}
 void NormalScopeRelease(void) {
     if (instances) fprintf(stderr,
         "[NORMAL_SCOPE] faults=%llu normal_gates=%llu/%llu outside_pi=%llu\n",
         instances, kept, full, free_pi);
-    free(scope_stack); free(needed);
-    scope_stack = NULL; needed = NULL;
+    free(scope_stack); free(needed); free(blocked_pi);
+    scope_stack = NULL; needed = NULL; blocked_pi = NULL;
     top = 0;
     instances = full = kept = free_pi = 0;
-    NormalScopeModelRelease();
 }

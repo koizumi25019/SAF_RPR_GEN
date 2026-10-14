@@ -1,0 +1,63 @@
+{
+  "reference_host_commit": "06d12975f70844294fd85b19fd39b14977eaef28",
+  "reference_sb_commit": "52bb7ac268d2425ab2a8089c7b929fa87d262322",
+  "new_clasp_clone_or_install_performed": true,
+  "real_clasp_cpp_bridge_compiled": true,
+  "real_clasp_sbxid_fdp_experiment_performed": true,
+  "clasp_free_ctest": {
+    "passed": 4,
+    "tests": [
+      "target_order",
+      "fdp_output",
+      "sbxid_core",
+      "normal_scope_pattern"
+    ]
+  },
+  "host_c_translation_units_syntax_checked": 21,
+  "always_unknown_solver_double_checks": [
+    {
+      "circuit": "c17a",
+      "solver": "UNKNOWN TEST DOUBLE (not clasp)",
+      "jobs": 1,
+      "fault_rows": 36,
+      "fdp_and_completion_match_old": true
+    },
+    {
+      "circuit": "c17a",
+      "solver": "UNKNOWN TEST DOUBLE (not clasp)",
+      "jobs": 2,
+      "fault_rows": 36,
+      "fdp_and_completion_match_old": true
+    },
+    {
+      "circuit": "s27_C",
+      "solver": "UNKNOWN TEST DOUBLE (not clasp)",
+      "jobs": 1,
+      "fault_rows": 52,
+      "fdp_and_completion_match_old": true
+    },
+    {
+      "circuit": "s27_C",
+      "solver": "UNKNOWN TEST DOUBLE (not clasp)",
+      "jobs": 2,
+      "fault_rows": 52,
+      "fdp_and_completion_match_old": true
+    }
+  ],
+  "unverified": [],
+  "core_address_and_undefined_behavior_sanitizers": "passed",
+  "reference_helpers_equivalent_after_renaming": [
+    "CreateConsEss_StandardGate",
+    "CreateConsEss_SpecialGate",
+    "extract_pattern_from_solution"
+  ],
+  "dominance_reuse_unknown_double": {
+    "circuits": [
+      "c17a",
+      "s27_C"
+    ],
+    "jobs": 1,
+    "fdp_and_completion_match_old": true
+  },
+  "real_clasp_checks_report": "sb_xid_real_clasp_checks.json"
+}

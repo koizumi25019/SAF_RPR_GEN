@@ -5,7 +5,14 @@
 typedef struct {
     double cadical;
     double bdd;
-    double xid;
+    double sbxid;
+    double clasp_wall;
+    long sbxid_optimal;
+    long sbxid_feasible;
+    long sbxid_timeouts;
+    long sbxid_unknown;
+    long sbxid_verified;
+    long sbxid_verify_failed;
     long total_cubes;
     long seeded_cubes;
 } FaultStats;
@@ -22,3 +29,5 @@ bool FaultPoolRun(FNODE** faults, int count, int jobs, FaultTask task,
 /* 回収済みの全ワーカーのuser+system CPU秒。親のCPU秒はmainで加算する。 */
 double FaultPoolChildCPU(void);
 int FaultPoolWorkers(void);
+/* Parent-owned totals, also used by the final report. */
+const FaultStats* FaultAnalysisStats(void);

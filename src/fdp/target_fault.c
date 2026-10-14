@@ -1,31 +1,14 @@
 //-------------------------------------------------------------------------------------------------------------
 //	インクルード
 //-------------------------------------------------------------------------------------------------------------
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "./target_fault.h"
 
-typedef struct {
-    FNODE* fault;
-    size_t rank;  /* 同レベルでは元のハッシュ表の走査順を維持する */
-} TargetEntry;
-
-static TargetEntry* target_order = NULL;
+static FNODE** target_order = NULL;
 static size_t target_count = 0;
 static size_t target_cursor = 0;
-
-static int CompareTarget(const void* lhs, const void* rhs)
-{
-    const TargetEntry* a = lhs;
-    const TargetEntry* b = rhs;
-    int a_level = a->fault->netptr->level;
-    int b_level = b->fault->netptr->level;
-
-    if (a_level != b_level) return (a_level > b_level) ? 1 : -1;
-    return (a->rank > b->rank) - (a->rank < b->rank);
-}
 
 void FreeTargetOrder(void)
 {
@@ -55,12 +38,11 @@ bool InitTargetOrder(void)
     size_t rank = 0;
     for (int i = 0; i < MAXSIZE_HASH; i++) {
         for (FNODE* p = readdata.fault.list[i]; p != NULL; p = p->nextptr) {
-            target_order[rank] = (TargetEntry){.fault = p, .rank = rank};
+            target_order[rank] = p;
             rank++;
         }
     }
 
-    qsort(target_order, count, sizeof(*target_order), CompareTarget);
     target_count = count;
     return true;
 }
@@ -74,9 +56,9 @@ bool InitTargetOrder(void)
 FNODE* SetTarget(void)
 {
     while (target_cursor < target_count) {
-        FNODE* target = target_order[target_cursor].fault;
-        /* 処理済みになるまでは同じ対象を返す。INT_MAX は旧実装でも対象外。 */
-        if (target->detect == UNDETECTED && target->netptr->level < INT_MAX)
+        FNODE* target = target_order[target_cursor];
+        /* 処理済みになるまでは同じ対象を返す。レベルでは並べ替えない。 */
+        if (target->detect == UNDETECTED)
             return target;
         target_cursor++;
     }
@@ -84,21 +66,20 @@ FNODE* SetTarget(void)
     return NULL;
 }
 
-/* 並列でも既存の整列順を使い、選択ロジックを二重に実装しない。 */
+/* 並列でも同じ一覧順を使い、選択ロジックを二重に実装しない。 */
 FNODE** CopyTargetOrder(int* count)
 {
     *count = 0;
     for (size_t index = 0; index < target_count; index++) {
-        FNODE* fault = target_order[index].fault;
+        FNODE* fault = target_order[index];
         if (fault->detect != UNDETECTED) continue;
-        if (fault->netptr->level == INT_MAX) return NULL;
         (*count)++;
     }
     FNODE** faults = malloc((size_t)(*count ? *count : 1) * sizeof(*faults));
     if (!faults) return NULL;
     int copied = 0;
     for (size_t index = 0; index < target_count; index++) {
-        FNODE* fault = target_order[index].fault;
+        FNODE* fault = target_order[index];
         if (fault->detect == UNDETECTED) faults[copied++] = fault;
     }
     return faults;

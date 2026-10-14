@@ -392,6 +392,7 @@ verification/**/*.csv
 
 # ローカルに配置する外部ツールと、ASG の再生成可能な必須割当てデータ。
 /external/hall/
+/external/clasp/
 /ASG/ASG/input/necessary/
 /ASG/ASG/tools/scip/*.dll
 /ASG/ASG/tools/scip/*.exe

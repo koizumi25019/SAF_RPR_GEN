@@ -12,6 +12,7 @@
 #include "../netlist/netlist.h"
 #include "../fdp/fault_detection_prob.h"
 #include "../opt/opt.h"
+#include "sbxid/sbxid.h"
 
 
 //*************************************************************************************************************
@@ -84,6 +85,9 @@ void InitGlobalVarsNLIST(
 		nl[i].logic_value = -1;
 		nl[i].ea_flag     = 0;
 		nl[i].unique_flag = 0;
+		nl[i].sbxid_normal_value = SBXID_X;
+		nl[i].sbxid_fault_value = SBXID_X;
+		nl[i].sbxid_flag = 0;
 		nl[i].consgc      = (int*)NULL;
 		nl[i].consgc_len  = 0;
 		nl[i].consfc      = (char**)NULL;

@@ -1,0 +1,50 @@
+{
+  "source_commit": "06d12975f70844294fd85b19fd39b14977eaef28",
+  "build": "Debug from unmodified current source; -D_GNU_SOURCE",
+  "binary": "/tmp/sbxid_design/fdp-build/main_debug",
+  "exit": 0,
+  "csv": "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\nd,sa0,1,1,2.5000000000e-01,0\na_d_A,sa0,,,2.5000000000e-01,\nb_d_B,sa0,,,2.5000000000e-01,\n",
+  "logic_table": [
+    {
+      "a": 0,
+      "b": 0,
+      "d_good": 0,
+      "d_faulty": 0,
+      "y_good": 0,
+      "y_faulty": 0,
+      "internal_d_diff": false,
+      "po_y_diff": false
+    },
+    {
+      "a": 0,
+      "b": 1,
+      "d_good": 0,
+      "d_faulty": 0,
+      "y_good": 1,
+      "y_faulty": 1,
+      "internal_d_diff": false,
+      "po_y_diff": false
+    },
+    {
+      "a": 1,
+      "b": 0,
+      "d_good": 0,
+      "d_faulty": 0,
+      "y_good": 1,
+      "y_faulty": 1,
+      "internal_d_diff": false,
+      "po_y_diff": false
+    },
+    {
+      "a": 1,
+      "b": 1,
+      "d_good": 1,
+      "d_faulty": 0,
+      "y_good": 1,
+      "y_faulty": 1,
+      "internal_d_diff": true,
+      "po_y_diff": false
+    }
+  ],
+  "correct_external_output_fdp": 0
+}

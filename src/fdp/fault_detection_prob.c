@@ -16,16 +16,23 @@
 #include "../opt/opt.h"
 #include "cudd_wrapper.h"
 #include "fault_result.h"
-#include "xid/XID.h"
+#include "sbxid/sbxid.h"
 #include "normal_scope.h"
 #include "fault_pool.h"
 
 /* 各プロセス専用。BDDマネージャはfork後に初期化し、担当故障間で再利用する。
- * ソルバとキューブ集合は故障ごとに作成する。XIDのstatic領域もプロセスごとに独立。
+ * ソルバとキューブ集合は故障ごとに作成する。SB-XID状態はプロセスごとに独立。
  */
 typedef struct {
     DdManager* bdd_manager;
 } FaultAnalysisContext;
+
+static FaultStats final_stats;
+
+const FaultStats* FaultAnalysisStats(void)
+{
+    return &final_stats;
+}
 
 static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 {
@@ -33,13 +40,15 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
         int literal = 0;
         if (cube[index] == '0') literal = (int)pi[index]->varsgc;
         else if (cube[index] == '1') literal = -(int)pi[index]->varsgc;
-        if (literal != 0) ccadical_add(solver, literal);
+        if (literal != 0) {
+            NormalScopeRecordBlockingPi(index);
+            ccadical_add(solver, literal);
+        }
     }
     ccadical_add(solver, 0);
 }
 
-/* 直列・並列で共通の1故障処理。SAT→XID→禁止節を繰り返し、BDD・CSVへ進む。
- * baselineのWriteTPGModel、InlineXID、RunBDD、WriteFaultResultをそのまま使う。
+/* 直列・並列で共通の1故障処理。SAT→SB-XID→禁止節を繰り返し、BDD・CSVへ進む。
  */
 static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
                             FaultStats* stats, void* opaque)
@@ -121,8 +130,34 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             printf("\rProgress >> %d/%d", fault_number, readdata.fault.numinit);
         }
         start = clock();
-        char* pattern = InlineXID(solver, target->netptr, -1);
-        stats->xid += (double)(clock() - start) / CLOCKS_PER_SEC;
+        char* seed = malloc((size_t)n_pi + 1);
+        char* pattern = malloc((size_t)n_pi + 1);
+        if (!seed || !pattern || (target->type != SF0 && target->type != SF1)) {
+            fprintf(stderr, "ERROR: cannot prepare SB-XID input for %s.\n", target->name);
+            free(seed); free(pattern); cubeset_free(&cubes);
+            succeeded = false;
+            break;
+        }
+        NormalScopeFillPiPattern(solver, seed);
+        SbxidInfo info;
+        bool generalized = sbxid_generalize(seed, target->netptr->n,
+            target->type == SF0 ? 0 : 1, pattern, &info);
+        free(seed);
+        stats->sbxid += (double)(clock() - start) / CLOCKS_PER_SEC;
+        stats->clasp_wall += info.solve.seconds;
+        stats->sbxid_optimal += info.solve.status == SBXID_SOLVE_OPTIMAL;
+        stats->sbxid_feasible += info.solve.status == SBXID_SOLVE_FEASIBLE;
+        stats->sbxid_timeouts += info.solve.timed_out != 0;
+        stats->sbxid_unknown += info.solve.status == SBXID_SOLVE_UNKNOWN;
+        stats->sbxid_verified += info.verified;
+        stats->sbxid_verify_failed += info.verification_failed;
+        if (!generalized || !NormalScopeValidateModel(solver)) {
+            fprintf(stderr, "ERROR: SB-XID failed for %s %s; no cube blocked.\n",
+                    target->name, target->type == SF0 ? "sa0" : "sa1");
+            free(pattern); cubeset_free(&cubes);
+            succeeded = false;
+            break;
+        }
         AddBlockingClauseFromCube(solver, pattern);
         cubeset_push(&cubes, pattern);
     }
@@ -135,10 +170,11 @@ static void FinishFaultAnalysis(void* opaque)
     FaultAnalysisContext* context = opaque;
     if (context->bdd_manager) Cudd_Quit(context->bdd_manager);
     context->bdd_manager = NULL;
+    sbxid_release();
     NormalScopeRelease();
 }
 
-/* 既存InitTargetOrderの整列結果を使う。計算関数と出力順は直列・並列で共通。 */
+/* 故障一覧の走査順を使う。計算関数と出力順は直列・並列で共通。 */
 static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* result_fp,
                                      FaultStats* stats)
 {
@@ -159,13 +195,14 @@ static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* result
 }
 
 bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
-                         double* out_time_xid, double* out_time_read)
+                         double* out_time_sbxid, double* out_time_read)
 {
     FILE* result_fp = NULL;
     fileOpen(&result_fp, opt.file.output.fdp, "w");
     fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
     FaultAnalysisContext context = {0};
     FaultStats stats = {0};
+    memset(&final_stats, 0, sizeof(final_stats));
     bool succeeded = InitGlobalVars() == INIT_OKAY;
     double time_read = 0.0;
     if (succeeded) {
@@ -199,7 +236,8 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
            stats.total_cubes, stats.seeded_cubes, sat_calls, reduction);
     *out_time_cadical = stats.cadical;
     *out_time_bdd = stats.bdd;
-    *out_time_xid = stats.xid;
+    *out_time_sbxid = stats.sbxid;
     *out_time_read = time_read;
+    final_stats = stats;
     return AFD_OKAY;
 }

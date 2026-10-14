@@ -13,12 +13,12 @@
 #include "../opt/opt.h"
 
 /* このファイルは故障の配分とプロセス間通信を担当する。
- * CNF→SAT→XID→BDD の計算内容は task（AnalyzeOneFault）側にある。
+ * CNF→SAT→SB-XID→BDD の計算内容は task（AnalyzeOneFault）側にある。
  *
  * 親: 起動 → 故障番号を送信 → 結果を受信 → 次の故障を送信 → 終了・回収
  * 子: 故障番号を受信 → 1故障を計算 → 結果を返信 → 次の番号を待つ
  *
- * fork後の回路・CNF・XID作業領域は各プロセスに独立して存在する。
+ * fork後の回路・CNF・SB-XID作業領域は各プロセスに独立して存在する。
  * 親子間で渡すのは故障番号、CSV文字列、集計値のみ。キューブやBDDは渡さない。
  */
 enum { NO_FAULT = -1 }; /* 親側では「担当なし」、通信では「終了要求」。 */
@@ -47,7 +47,14 @@ void FaultStatsAdd(FaultStats* sum, const FaultStats* part)
 {
     sum->cadical += part->cadical;
     sum->bdd += part->bdd;
-    sum->xid += part->xid;
+    sum->sbxid += part->sbxid;
+    sum->clasp_wall += part->clasp_wall;
+    sum->sbxid_optimal += part->sbxid_optimal;
+    sum->sbxid_feasible += part->sbxid_feasible;
+    sum->sbxid_timeouts += part->sbxid_timeouts;
+    sum->sbxid_unknown += part->sbxid_unknown;
+    sum->sbxid_verified += part->sbxid_verified;
+    sum->sbxid_verify_failed += part->sbxid_verify_failed;
     sum->total_cubes += part->total_cubes;
     sum->seeded_cubes += part->seeded_cubes;
 }
@@ -156,7 +163,7 @@ static bool analyze_and_reply(int socket_fd, FNODE* fault, int fault_index,
     return sent && reply.succeeded;
 }
 
-/* 子専用: 同じプロセスで繰り返し故障を処理し、BDD/XID作業領域を再利用する。 */
+/* 子専用: 同じプロセスで繰り返し故障を処理し、BDD/SB-XID作業領域を再利用する。 */
 static void worker_loop(int socket_fd, FNODE** faults, int fault_count,
                         FaultTask task, FaultFinish finish, void* context)
 {
