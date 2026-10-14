@@ -106,7 +106,7 @@ void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po) {
 	var_info[fsigID].fault_2value = var_info[fsigID].normal_2value ^ 1;
 	var_info[fsigID].ed_tag = ed_tag;
 	NLIST_t* tmp_net = &nl[fsigID];
-	if (tmp_net->n_out == 0 && (tmp_net->flag & TPO)) {
+	if (tmp_net->flag & TPO) {
 		detect_po->po_id[detect_po->n_det_po++] = tmp_net->n;
 	}
 	ED_push_out(tmp_net, ed_tag, var_info);
@@ -130,12 +130,10 @@ void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po) {
 		// 変化なし
 		if (var_info[tmp_id].fault_2value == var_info[tmp_id].normal_2value) { continue; }
 
-		// 変化あり。検出先は宣言された対象POだけに限定する。
-		if (tmp_net->n_out == 0) {
-			if (tmp_net->flag & TPO)
-				detect_po->po_id[detect_po->n_det_po++] = tmp_net->n;
-		}
-		else {
+		// 観測点はSAFのPOまたはTDFのPPO。内部の観測点でも伝搬を続ける。
+		if (tmp_net->flag & TPO)
+			detect_po->po_id[detect_po->n_det_po++] = tmp_net->n;
+		if (tmp_net->n_out > 0) {
 			ED_push_out(tmp_net, ed_tag, var_info);
 		}
 

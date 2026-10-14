@@ -18,6 +18,9 @@
 #define FILE_NOSET			      (char*)NULL /**< ファイル名の初期値 */
 #define MODE_NOSET			      -1          /**< モードの初期値 */
 
+#define FM_SAF 0
+#define FM_TDF 1  /**< LOC: PI shared between frames; DFF state captured from frame 1 */
+
 #define		YES				1
 #define		NO				0
 
@@ -55,6 +58,7 @@ typedef struct Option
 	FILES			      file;			      /**< ファイル */
     int jobs;       /**< -jobs 1..256、既定1 */
     int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
+    int fault_model; /**< -saf / -tdf、既定SAF */
 }
 OPTION;
 

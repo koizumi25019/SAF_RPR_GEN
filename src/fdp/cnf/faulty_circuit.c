@@ -30,9 +30,9 @@ bool CreateConsFC(
 
 	/** 伝搬先(TFO)を探索する */
 	SearchTFO(target);
-	NormalScopeBuild();
+	NormalScopeBuild(target);
 	if (numtranpo == 0) {
-		/* No declared output observes this fault. */
+		/* No selected PO/PPO observes this fault. */
 		ccadical_add(solver, 0);
 		return true;
 	}
@@ -42,7 +42,7 @@ bool CreateConsFC(
 	{
 		if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
 		{
-			if (!NormalScopeRequiredNet(j)) continue;
+			if (!NormalScopeInDetectionCone(j)) continue;
 			switch (nl[j].type)
 			{
 			case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
@@ -140,16 +140,16 @@ void CreateConsProp(
 	for (int i = 0; i < n_net; i++)
 	{
 		if ((nl[i].flag & TFO) != TFO) continue;
-		if (!NormalScopeRequiredNet(i)) continue;
+		if (!NormalScopeInDetectionCone(i)) continue;
 
 		// 制約A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
 		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
-		if (nl[i].n_out > 0)
+		if (nl[i].n_out > 0 && !(nl[i].flag & TPO))
 		{
 			ccadical_add(solver, -(int)nl[i].varprop);
 			for (int j = 0; j < nl[i].n_out; j++)
 			{
-				if (!NormalScopeRequiredNet(nl[i].out[j]->n)) continue;
+				if (!NormalScopeInDetectionCone(nl[i].out[j]->n)) continue;
 				ccadical_add(solver, (int)nl[i].out[j]->varprop);
 			}
 			ccadical_add(solver, 0);

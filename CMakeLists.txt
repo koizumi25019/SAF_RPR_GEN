@@ -23,6 +23,7 @@ set(SOURCES
     src/fdp/cnf/good_circuit.c
     src/lib/lib.c
     src/netlist/netlist.c
+    src/netlist/expand_tdf.c
     src/opt/opt.c
     src/fdp/xid/xid_adapter.c
     src/fdp/xid/XID.c
@@ -84,4 +85,12 @@ if(BUILD_TESTING)
     target_include_directories(fdp_output_test PRIVATE ${COMMON_INCLUDES})
     target_link_libraries(fdp_output_test cudd gmp m)
     add_test(NAME fdp_output COMMAND fdp_output_test)
+
+    find_package(Python3 COMPONENTS Interpreter)
+    if(Python3_Interpreter_FOUND)
+        add_test(NAME tdf_model COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/tdf_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>
+            --output ${CMAKE_BINARY_DIR}/tdf_checks)
+    endif()
 endif()

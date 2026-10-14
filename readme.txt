@@ -1,5 +1,6 @@
 SAF FDP Gen
 故障検出確率算出プログラム
+縮退故障（SAF）・LOC方式の遷移遅延故障（TDF）に対応。
 
 ■ビルド
 ./setup.sh
@@ -8,6 +9,7 @@ mkdir -p build && cd build && cmake .. && make
 ■コマンド
 【入力】
 -set <file>	：スクリプトファイル（.set）を読み込む
+-saf / -tdf	：故障モデル（.set内にも指定可能。省略時は-saf）
 
 ■サンプルコマンド
 -------------------------------------------------
@@ -17,7 +19,8 @@ cd build && ./main_release -set ../input/script/c17a.set
 
 ■スクリプトコマンド（.set 内。build/ からの相対パスで記述する）
 -net	：【入力】回路ネットリストファイル（.v）
--fault	：【入力】故障リストファイル（省略時は全代表故障 sa0/sa1 を自動生成）
+-fault	：【入力】故障リストファイル（省略時は選択モデルの全代表故障を自動生成）
+-saf / -tdf：故障モデル。TDFの故障リストはSTR/STF、省略時は全代表故障を自動生成
 -fdp	：【出力】故障検出確率 CSV
 -log	：【出力】ログファイル
 -limit	：【入力】故障ごとのテストキューブ生成上限（省略または <=0 で無制限＝UNSATまで完全列挙）
@@ -27,3 +30,4 @@ cd build && ./main_release -set ../input/script/c17a.set
 output/<条件>/{fdp,log}/<回路名>.{csv,txt} に生成される。
 
 詳細は CLAUDE.md を参照。
+遷移故障の設定例・観測点・検証手順は docs/transition_fault.md を参照。

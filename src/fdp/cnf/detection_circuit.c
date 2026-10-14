@@ -120,6 +120,16 @@ void CreateConsDC_FE(
 		ccadical_add(solver,  fc); ccadical_add(solver, 0); // fc = 1 (固定値)
 	}
 
+	// 1'. TDF の遷移起動条件: 故障サイトの1時刻目の値を初期値に固定する
+	//     STR(SF0扱い): 1時刻目=0 → 2時刻目=1（上のgc=1）で 0→1 遷移を起動
+	//     STF(SF1扱い): 1時刻目=1 → 2時刻目=0（上のgc=0）で 1→0 遷移を起動
+	if (fnodeptr->exc_netptr != (NLIST*)NULL)
+	{
+		int exc = fnodeptr->exc_netptr->varsgc;
+		ccadical_add(solver, (fnodeptr->type == SF0) ? -exc : exc);
+		ccadical_add(solver, 0);
+	}
+
 	// 2. 最終出力（検出フラグ）を 1 に固定
 	// cnf.total.vars は直前の OR または XOR で作成された「最終出力」を指している
 	ccadical_add(solver, cnf.total.vars);

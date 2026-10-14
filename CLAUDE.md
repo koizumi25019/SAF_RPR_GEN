@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概要
 
-論理回路の縮退故障（SAF）に対する故障検出確率（FDP）を算出するツール。
+論理回路の縮退故障（SAF）・LOC方式の遷移遅延故障（TDF）に対する故障検出確率（FDP）を算出するツール。
 各対象故障について、SAT でテストキューブを生成し、ドントケアを埋め、得られたキューブの和集合に対して
 BDD で厳密な検出確率を計算する。出力は故障ごとの CSV。
 
@@ -32,7 +32,24 @@ cd build && ./main_debug -set ../input/script/c17a.set
 `.set` のディレクティブ（`src/opt/opt.c` で解析）：`-net`（入力 `.v` ネットリスト）、`-fault`（故障リスト。
 省略すると全代表故障 sa0/sa1 を自動生成）、`-fdp`（出力 CSV）、`-log`、
 `-limit`（故障ごとのテストキューブ上限。**省略または `<=0` で無制限 = UNSAT まで完全列挙**）、
-`-jobs N`（1..256、既定1）、`-dom_reuse on|off`（並列ではoff）。
+`-jobs N`（1..256、既定1）、`-dom_reuse on|off`（並列ではoff）、
+`-saf` / `-tdf`（省略時SAF、CLI・.setとも指定可能、読み込み順で後の指定が有効）。
+
+### 遷移故障（TDF）
+
+`src/netlist/expand_tdf.c` によりDFF入りの回路を2時刻に展開する。
+PIは両時刻で共有し、1時刻目のDFF Qは自由な初期状態、2時刻目Qは1時刻目Dを受けるBUFとする。
+観測点は2時刻目のPPO（DFF D入力）のみで、POは観測しない。
+故障リストは `<信号名> STR|STF`。省略時は全代表故障を生成する。
+STRは2時刻目sa0＋1時刻目0、STFは2時刻目sa1＋1時刻目1として励起・検出CNFを作る。
+XIDでも1時刻目の励起を正当化し、正常CNFにはそのTFIを追加する。
+故障回路とD-chainの範囲には励起用TFIを混ぜない。
+分母は `2^(元PI数+DFF数)`。共有PI自体のTDFは0。等価はBUF/INVのみでFF境界を跨がない。
+支配キューブ流用はTDFではoff。既存の故障単位並列処理にも対応する。
+素のDFFを必要とし、組み合わせ回路・RDFF/DFFS/RDFFSはエラーにする。
+
+例: `cd build && ./main_release -set ../input/script/s27_tdf_auto.set`。
+設定・制約・独立検証の再現は `docs/transition_fault.md` を参照。
 
 出力は **実行条件ごとにディレクトリを分ける**：`output/<条件>/{fdp,log}/<回路>.{csv,txt}`。
 `<条件>` は `-limit` 値（`limit30`・`limit100` …）、`-limit` 省略時は `full`（完全列挙）。
@@ -42,6 +59,7 @@ cd build && ./main_debug -set ../input/script/c17a.set
 ## 回帰テスト
 
 `ctest --test-dir build --output-on-failure` で対象故障の選択順、BDD→GMP の数え上げ・確率変換と CSV 出力のテストを実行する。
+Python3がある環境では `tdf_model` も実行し、TDFの独立全入力シミュレーション・設定切替・直列並列一致を確認する。
 対象選択は従来の全走査と照合し、同レベルの順序、処理済みのスキップ、空集合、再初期化を確認する。
 空集合、重複、独立全列挙、32ビット桁境界、大きな数え上げ、等価故障と完了フラグを確認する。
 パイプライン全体の正しさは `expected/` のゴールデンファイルと CSV 出力を比較して検証する
@@ -118,7 +136,8 @@ EAは常時ON。`-ea`の切替は持たず、旧`MDC_NOEA`は参照しない。
 
 ## 正常CNFの範囲限定（常時有効）
 
-正常CNFは、故障TFOに含まれる宣言されたPOからの全TFIだけをソルバへ投入する。
+正常CNFは、故障TFO内の観測点（SAFはPO、TDFは2時刻目PPO）の全TFIをソルバへ投入する。
+TDFでは1時刻目の励起に必要なTFIも保持する。
 EAより前に範囲を確定し、EAの単位節はその範囲内の信号にだけ追加する。EAの推論自体は全回路で行う。
 参考: Eggersglüß et al., DDECS 2012, Section II-B / Fig. 2。XIDの検出先も対象POにそろえる。
 サイド入力の生成回路もPIまで残す。故障モデルの `ccadical_add()` は直接呼び出しのまま。

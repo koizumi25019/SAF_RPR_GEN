@@ -42,6 +42,24 @@ int main(
 	/** ネットリストを読み込む */
 	read_nl(opt.file.input.net);
 
+	/** TDF モード：順序回路（DFF入り）を LOC 方式の2時刻展開に組み替える */
+	if (opt.fault_model == FM_TDF)
+	{
+		if (n_rdff + n_dffs + n_rdffs > 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf は素の DFF のみ対応です。");
+			printf("RDFF/DFFS/RDFFS を含む回路は指定できません。\n\n");
+			return EXIT_FAILURE;
+		}
+		if (n_dff == 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf には順序回路が必要です。");
+			printf("DFF を含まない回路が指定されました。順序回路にしてください。\n\n");
+			return EXIT_FAILURE;
+		}
+		expand_tdf_netlist();
+	}
+
 	// 故障検出確率を算出する
 	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return EXIT_FAILURE;
 
@@ -80,6 +98,8 @@ static void WriteReport(
 	fprintf(fp, "//--------------------------------------------------------------------------------\n");
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
+	fprintf(fp, "//  Fault Model                               : %s\n",
+            opt.fault_model == FM_TDF ? "TDF (LOC; capture PPO only)" : "SAF");
 	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
 	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);

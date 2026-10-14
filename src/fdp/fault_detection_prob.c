@@ -83,7 +83,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
         if (status != 10 && status != 20) {
             fprintf(stderr, "ERROR: SAT solver returned UNKNOWN (status=%d) for %s %s; "
                     "no cube blocked or result written for this fault.\n",
-                    status, target->name, target->type == SF0 ? "sa0" : "sa1");
+                    status, target->name, FaultTypeName(target->type));
             cubeset_free(&cubes);
             succeeded = false;
             break;
@@ -121,7 +121,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             printf("\rProgress >> %d/%d", fault_number, readdata.fault.numinit);
         }
         start = clock();
-        char* pattern = InlineXID(solver, target->netptr, -1);
+        char* pattern = InlineXID(solver, target->netptr, -1, target->exc_netptr);
         stats->xid += (double)(clock() - start) / CLOCKS_PER_SEC;
         AddBlockingClauseFromCube(solver, pattern);
         cubeset_push(&cubes, pattern);

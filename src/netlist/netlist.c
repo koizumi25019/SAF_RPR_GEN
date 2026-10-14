@@ -182,6 +182,8 @@ static void init_global(void)
 	n_dffs = 0;   //DFFS数
 	n_rdffs = 0;  //RDFFS数
 	n_assign = 0; //assign数
+    n_ppi = n_ppo = 0;
+    ppi = ppo = NULL;
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -530,6 +532,8 @@ static void alloc_nl(void)
 		nl[i].in = (NLIST**)NULL;
 		nl[i].n_out = 0;
 		nl[i].out = (NLIST**)NULL;
+        nl[i].peer_1t = NULL;
+        nl[i].ppo_flag = 0;
 		parser_array[0][i] = 0;
 		parser_array[1][i] = 0;
 	}
@@ -1265,6 +1269,8 @@ void free_netlist(void)
 	free(nl);
 	free(pi);
 	free(po);
+	free(ppi);
+	free(ppo);
 	free(dff);
 	free(rdff);
 	free(dffs);

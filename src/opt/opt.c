@@ -67,6 +67,8 @@ bool OPT(
         fprintf(stderr, "COMMAND ERROR: -jobs > 1 requires -dom_reuse off\n");
         return OPT_ERROR;
     }
+    /* SAFの支配関係はTDFの励起条件では成立しない。 */
+    if (opt.fault_model == FM_TDF) opt.dom_reuse = NO;
 	return OPT_OKAY;
 }
 
@@ -83,6 +85,7 @@ void OPTinit(
 	OPTinitFile();
     opt.jobs = 1;
     opt.dom_reuse = MODE_NOSET;
+    opt.fault_model = FM_SAF;
 
 	return;
 }
@@ -120,6 +123,10 @@ bool OPTset(
             const char* value = i + 1 < argc ? argv[++i] : NULL;
             if (!SetWorkerOption(name, value)) return OPT_ERROR;
         }
+		else if (strcmp(argv[i], "-saf") == 0)
+			opt.fault_model = FM_SAF;
+		else if (strcmp(argv[i], "-tdf") == 0)
+			opt.fault_model = FM_TDF;
 		/** ネットリスト */
 		else if (strcmp(argv[i], "-net") == 0)
 			opt.file.input.net = strdup(argv[++i]);
@@ -217,6 +224,10 @@ bool OPTread(
                     return OPT_ERROR;
                 }
             }
+			else if (strcmp(token1, "-saf") == 0)
+				opt.fault_model = FM_SAF;
+			else if (strcmp(token1, "-tdf") == 0)
+				opt.fault_model = FM_TDF;
 			/** ネットリスト */
 			else if (strcmp(token1, "-net") == 0)
 				opt.file.input.net = OPTreadValue(&context, " \n\0");

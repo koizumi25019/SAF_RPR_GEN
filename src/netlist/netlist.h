@@ -54,6 +54,8 @@ typedef struct _Netlist_Format_ {
 	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
 	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない)
+    struct _Netlist_Format_* peer_1t; // TDF: frame 2 -> frame 1 (shared PI -> itself)
+    int ppo_flag; // TDF: capture-time DFF input
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -80,6 +82,10 @@ int n_po;
 NLIST** ppo;
 int n_ppo;
 
+// TDF: initial scan state inputs
+NLIST** ppi;
+int n_ppi;
+
 //DFF, DFF数
 NLIST** dff;
 int n_dff;
@@ -105,3 +111,4 @@ int n_assign;
 //--------------------------------------------------------------------------------------------------------------------
 int		read_nl(char*);
 void	free_netlist(void);
+void    expand_tdf_netlist(void);
