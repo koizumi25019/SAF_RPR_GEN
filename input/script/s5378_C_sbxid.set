@@ -1,0 +1,11 @@
+# SB-XID / SAF experiment. Paths are relative to build/.
+# Same circuit, fault selection, cube limit and worker count as s5378_C.set.
+-saf
+-net ../input/circuit/saf/s5378_C.v
+
+# No -fault: generate all representative stuck-at faults.
+-limit 30
+-jobs 1
+
+-fdp ../output/sbxid/limit30/fdp/s5378_C.csv
+-log ../output/sbxid/limit30/log/s5378_C.txt
