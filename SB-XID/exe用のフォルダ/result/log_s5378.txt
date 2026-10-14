@@ -1,0 +1,2664 @@
+[INIT] ネットリスト読込: circuit\s5378_C.v
+Completion of Read_Netlist !!
+[INIT] 索引表(ハッシュ/PI対応表)を構築
+回路名：circuit\s5378_C.v
+変数対応表の出力：なし
+OPBファイル：各case後に削除 (--keep-opb で残す)
+1caseの故障数上限：64 (--max-faults=N で変更)
+claspスレッド数：16 (並列探索。結果のケアビット位置が実行ごとに変わることがある)
+進捗表示：ON (--no-debug で抑制)
+回路規模：ネット数 5269, 入力 214, 出力 213, 総辺数 6488
+動作モード：バッチ処理 (--batch)
+
+[Case 1] 入力行(23文字)
+  [Case 1] Faults=n2844gat_n974gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=581, 制約=409) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=33.0ms, clasp=26.0ms)
+
+[Case 2] 入力行(13文字)
+  [Case 2] Faults=n1334gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=624, 制約=476) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=37.0ms, clasp=29.0ms)
+
+[Case 3] 入力行(13文字)
+  [Case 3] Faults=n1696gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=339, 制約=143) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=31.0ms, clasp=24.0ms)
+
+[Case 4] 入力行(13文字)
+  [Case 4] Faults=n1742gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=762) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=33.0ms, clasp=26.0ms)
+
+[Case 5] 入力行(24文字)
+  [Case 5] Faults=n2081gat_n1415gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2076) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=40.0ms, clasp=29.0ms)
+
+[Case 6] 入力行(46文字)
+  [Case 6] Faults=n1735gat_n1565gat_A sa0;n2860gat_II1277_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=578, 制約=448) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=36.0ms, clasp=29.0ms)
+
+[Case 7] 入力行(26文字)
+  [Case 7] Faults=n2265gat sa0;n2248gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=399, 制約=238) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+207 (時間=31.0ms, clasp=27.0ms)
+
+[Case 8] 入力行(78文字)
+  [Case 8] Faults=n511gat_n508gat_C sa0;n510gat_n507gat_B sa0;n509gat_n506gat_A sa0;n207gat sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1645, 制約=1588) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=30.0ms, clasp=25.0ms)
+
+[Case 9] 入力行(24文字)
+  [Case 9] Faults=n1616gat_n1555gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=820, 制約=678) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=26.0ms, clasp=22.0ms)
+
+[Case 10] 入力行(24文字)
+  [Case 10] Faults=n1085gat_n1155gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2075) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=33.0ms, clasp=28.0ms)
+
+[Case 11] 入力行(24文字)
+  [Case 11] Faults=n1616gat_n1605gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=762) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=32.0ms, clasp=25.0ms)
+
+[Case 12] 入力行(24文字)
+  [Case 12] Faults=n1614gat_n1557gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=852, 制約=712) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=34.0ms, clasp=26.0ms)
+
+[Case 13] 入力行(48文字)
+  [Case 13] Faults=n1499gat_n1555gat_C sa0;n1988gat_n1576gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1377, 制約=1336) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=32.0ms, clasp=27.0ms)
+
+[Case 14] 入力行(22文字)
+  [Case 14] Faults=n1884gat_II2721_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1192, 制約=1096) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=34.0ms, clasp=24.0ms)
+
+[Case 15] 入力行(24文字)
+  [Case 15] Faults=n1614gat_n1605gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=794) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=34.0ms, clasp=26.0ms)
+
+[Case 16] 入力行(22文字)
+  [Case 16] Faults=n2214gat_II4023_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=337, 制約=149) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=32.0ms, clasp=25.0ms)
+
+[Case 17] 入力行(24文字)
+  [Case 17] Faults=n2152gat_n1737gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=798) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=30.0ms, clasp=26.0ms)
+
+[Case 18] 入力行(24文字)
+  [Case 18] Faults=n1736gat_n1570gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=820, 制約=676) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=32.0ms, clasp=24.0ms)
+
+[Case 19] 入力行(24文字)
+  [Case 19] Faults=n2152gat_n1578gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=351, 制約=161) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=28.0ms, clasp=24.0ms)
+
+[Case 20] 入力行(47文字)
+  [Case 20] Faults=n985gat_n1156gat_A sa0;n2355gat_n2363gat_C sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3123) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=35.0ms, clasp=29.0ms)
+
+[Case 21] 入力行(46文字)
+  [Case 21] Faults=n873gat_n982gat_A sa0;n1482gat_n1483gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2685) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=42.0ms, clasp=31.0ms)
+
+[Case 22] 入力行(22文字)
+  [Case 22] Faults=n875gat_n877gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2077) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=39.0ms, clasp=30.0ms)
+
+[Case 23] 入力行(61文字)
+  [Case 23] Faults=n2216gat_n1861gat_B sa0;n2152gat_n1801gat_A sa0;n2152gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1399, 制約=1353) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=32.0ms, clasp=26.0ms)
+
+[Case 24] 入力行(24文字)
+  [Case 24] Faults=n1986gat_n1666gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=351, 制約=163) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=27.0ms, clasp=23.0ms)
+
+[Case 25] 入力行(13文字)
+  [Case 25] Faults=n1796gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=429, 制約=243) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=25.0ms, clasp=21.0ms)
+
+[Case 26] 入力行(24文字)
+  [Case 26] Faults=n1991gat_n1666gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=351, 制約=163) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=29.0ms, clasp=22.0ms)
+
+[Case 27] 入力行(24文字)
+  [Case 27] Faults=n1553gat_n1641gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=852, 制約=710) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=31.0ms, clasp=26.0ms)
+
+[Case 28] 入力行(24文字)
+  [Case 28] Faults=n2212gat_n1734gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=753) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=30.0ms, clasp=27.0ms)
+
+[Case 29] 入力行(22文字)
+  [Case 29] Faults=n2443gat_II4023_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=337, 制約=149) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=24.0ms, clasp=21.0ms)
+
+[Case 30] 入力行(24文字)
+  [Case 30] Faults=n1150gat_n1151gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2075) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=37.0ms, clasp=27.0ms)
+
+[Case 31] 入力行(72文字)
+  [Case 31] Faults=n1084gat_n1159gat_B sa0;n1530gat_n1308gat_B sa0;n2354gat_n2219gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=4168) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=47.0ms, clasp=34.0ms)
+
+[Case 32] 入力行(35文字)
+  [Case 32] Faults=n3030gat sa0;n2353gat_II1723_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1483, 制約=1534) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+187 (時間=40.0ms, clasp=27.0ms)
+
+[Case 33] 入力行(35文字)
+  [Case 33] Faults=n1399gat sa0;n1884gat_II3148_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=705, 制約=573) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=35.0ms, clasp=25.0ms)
+
+[Case 34] 入力行(13文字)
+  [Case 34] Faults=n2015gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=235, 制約=26) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+211 (時間=29.0ms, clasp=24.0ms)
+
+[Case 35] 入力行(46文字)
+  [Case 35] Faults=n2726gat_n357gat_A sa0;n2859gat_n360gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=737, 制約=611) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=27.0ms, clasp=23.0ms)
+
+[Case 36] 入力行(24文字)
+  [Case 36] Faults=n1988gat_n1860gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=345, 制約=157) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=25.0ms, clasp=21.0ms)
+
+[Case 37] 入力行(24文字)
+  [Case 37] Faults=n2283gat_n1863gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=345, 制約=159) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=24.0ms, clasp=20.0ms)
+
+[Case 38] 入力行(24文字)
+  [Case 38] Faults=n2486gat_n2480gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1246, 制約=1265) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=31.0ms, clasp=25.0ms)
+
+[Case 39] 入力行(22文字)
+  [Case 39] Faults=n2214gat_II1723_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=692) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=33.0ms, clasp=25.0ms)
+
+[Case 40] 入力行(167文字)
+  [Case 40] Faults=n566gat_n1153gat_B sa0;n2162gat_n1421gat_A sa0;n1479gat_n1349gat_A sa0;n1528gat_n1484gat_B sa0;n1410gat_n1347gat_B sa0;n2011gat_n1481gat_B sa0;n1480gat_n1416gat_B sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=6757, 制約=7185) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+191 (時間=55.0ms, clasp=40.0ms)
+
+[Case 41] 入力行(24文字)
+  [Case 41] Faults=n2482gat_n2483gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=337, 制約=149) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=29.0ms, clasp=23.0ms)
+
+[Case 42] 入力行(36文字)
+  [Case 42] Faults=n1636gat sa0;n2715gat_n529gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=605, 制約=450) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=33.0ms, clasp=24.0ms)
+
+[Case 43] 入力行(22文字)
+  [Case 43] Faults=n1633gat_II2889_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=345, 制約=157) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=31.0ms, clasp=24.0ms)
+
+[Case 44] 入力行(46文字)
+  [Case 44] Faults=n1839gat_II3148_A sa0;n2212gat_n1660gat_C sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=749, 制約=670) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=28.0ms, clasp=22.0ms)
+
+[Case 45] 入力行(13文字)
+  [Case 45] Faults=n1461gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=681) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=28.0ms, clasp=24.0ms)
+
+[Case 46] 入力行(13文字)
+  [Case 46] Faults=n2857gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=695) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=41.0ms, clasp=37.0ms)
+
+[Case 47] 入力行(24文字)
+  [Case 47] Faults=n2488gat_n2531gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1001, 制約=905) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=31.0ms, clasp=23.0ms)
+
+[Case 48] 入力行(24文字)
+  [Case 48] Faults=n1986gat_n1865gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=429, 制約=245) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=31.0ms, clasp=24.0ms)
+
+[Case 49] 入力行(82文字)
+  [Case 49] Faults=n2035gat_II4000_C sa0;n2035gat sa0;n2035gat_stem_n2014gat_A sa0;n2035gat_stem sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1651, 制約=1750) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=40.0ms, clasp=29.0ms)
+
+[Case 50] 入力行(11文字)
+  [Case 50] Faults=n40gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=615, 制約=448) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=33.0ms, clasp=26.0ms)
+
+[Case 51] 入力行(61文字)
+  [Case 51] Faults=n2586gat_n2662gat_B sa0;n2586gat_n2663gat_A sa0;n2586gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1698, 制約=1739) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=42.0ms, clasp=31.0ms)
+
+[Case 52] 入力行(43文字)
+  [Case 52] Faults=n92gat_n22gat_A sa0;n701gat_n1113gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1649, 制約=1733) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=39.0ms, clasp=29.0ms)
+
+[Case 53] 入力行(59文字)
+  [Case 53] Faults=n1645gat_n1556gat_B sa0;n344gat sa0;n396gat_n1499gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1872, 制約=1865) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=37.0ms, clasp=28.0ms)
+
+[Case 54] 入力行(24文字)
+  [Case 54] Faults=n2488gat_n2538gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=337, 制約=151) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=28.0ms, clasp=24.0ms)
+
+[Case 55] 入力行(24文字)
+  [Case 55] Faults=n1310gat_n2163gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=859, 制約=699) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+210 (時間=32.0ms, clasp=24.0ms)
+
+[Case 56] 入力行(24文字)
+  [Case 56] Faults=n2624gat_n2534gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1246, 制約=1235) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=34.0ms, clasp=25.0ms)
+
+[Case 57] 入力行(22文字)
+  [Case 57] Faults=n1595gat_II4216_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=674) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=34.0ms, clasp=26.0ms)
+
+[Case 58] 入力行(12文字)
+  [Case 58] Faults=n731gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=880, 制約=743) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+205 (時間=33.0ms, clasp=26.0ms)
+
+[Case 59] 入力行(36文字)
+  [Case 59] Faults=n2842gat_n772gat_B sa0;n1338gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=997, 制約=891) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=32.0ms, clasp=27.0ms)
+
+[Case 60] 入力行(13文字)
+  [Case 60] Faults=n2462gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=255, 制約=63) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=24.0ms, clasp=20.0ms)
+
+[Case 61] 入力行(13文字)
+  [Case 61] Faults=n2466gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=255, 制約=63) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=25.0ms, clasp=21.0ms)
+
+[Case 62] 入力行(13文字)
+  [Case 62] Faults=n2163gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=859, 制約=697) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+210 (時間=27.0ms, clasp=23.0ms)
+
+[Case 63] 入力行(72文字)
+  [Case 63] Faults=n2215gat_n2282gat_B sa0;n2405gat_n2350gat_A sa0;n1878gat_n2016gat_B sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1259, 制約=1198) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=29.0ms, clasp=23.0ms)
+
+[Case 64] 入力行(61文字)
+  [Case 64] Faults=n1159gat sa0;n2652gat_n2648gat_B sa0;n2649gat_n2647gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1995, 制約=1955) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=37.0ms, clasp=27.0ms)
+
+[Case 65] 入力行(24文字)
+  [Case 65] Faults=n2850gat_n2239gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=259, 制約=61) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+210 (時間=29.0ms, clasp=23.0ms)
+
+[Case 66] 入力行(53文字)
+  [Case 66] Faults=n2031gat_II3999_B sa0;n2031gat sa0;n2031gat_stem sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=321, 制約=157) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+207 (時間=32.0ms, clasp=26.0ms)
+
+[Case 67] 入力行(53文字)
+  [Case 67] Faults=n2108gat_II4000_A sa0;n2108gat sa0;n2108gat_stem sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=321, 制約=156) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+207 (時間=29.0ms, clasp=23.0ms)
+
+[Case 68] 入力行(22文字)
+  [Case 68] Faults=n2093gat_II4000_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=281, 制約=92) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+207 (時間=28.0ms, clasp=21.0ms)
+
+[Case 69] 入力行(13文字)
+  [Case 69] Faults=n2504gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=237, 制約=40) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=25.0ms, clasp=21.0ms)
+
+[Case 70] 入力行(13文字)
+  [Case 70] Faults=n2474gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=255, 制約=63) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=24.0ms, clasp=21.0ms)
+
+[Case 71] 入力行(13文字)
+  [Case 71] Faults=n2524gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=255, 制約=63) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=24.0ms, clasp=21.0ms)
+
+[Case 72] 入力行(37文字)
+  [Case 72] Faults=n2082gat sa0;n1986gat_n1660gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2285, 制約=2335) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=36.0ms, clasp=29.0ms)
+
+[Case 73] 入力行(23文字)
+  [Case 73] Faults=n396gat_n1616gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=800) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=32.0ms, clasp=25.0ms)
+
+[Case 74] 入力行(24文字)
+  [Case 74] Faults=n1590gat_n1101gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1917, 制約=1861) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=38.0ms, clasp=27.0ms)
+
+[Case 75] 入力行(29文字)
+  [Case 75] Faults=n1603gat_stem_n1161gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2076) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=42.0ms, clasp=34.0ms)
+
+[Case 76] 入力行(22文字)
+  [Case 76] Faults=n255gat_n324gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=589, 制約=416) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=29.0ms, clasp=22.0ms)
+
+[Case 77] 入力行(25文字)
+  [Case 77] Faults=n903gat sa0;n2499gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1255, 制約=1180) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=36.0ms, clasp=27.0ms)
+
+[Case 78] 入力行(24文字)
+  [Case 78] Faults=n2489gat_n2534gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1246, 制約=1248) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=37.0ms, clasp=29.0ms)
+
+[Case 79] 入力行(24文字)
+  [Case 79] Faults=n2621gat_n2534gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1001, 制約=905) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=28.0ms, clasp=23.0ms)
+
+[Case 80] 入力行(39文字)
+  [Case 80] Faults=n1095gat sa0;n1099gat sa0;n1100gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1844, 制約=1821) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=30.0ms, clasp=26.0ms)
+
+[Case 81] 入力行(37文字)
+  [Case 81] Faults=n2831gat sa0;II1515 sa0;n2596gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=297, 制約=124) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=25.0ms, clasp=21.0ms)
+
+[Case 82] 入力行(13文字)
+  [Case 82] Faults=n1827gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=227, 制約=17) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+212 (時間=25.0ms, clasp=20.0ms)
+
+[Case 83] 入力行(22文字)
+  [Case 83] Faults=n2214gat_II1585_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=441, 制約=276) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=25.0ms, clasp=21.0ms)
+
+[Case 84] 入力行(13文字)
+  [Case 84] Faults=n1102gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1787) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=32.0ms, clasp=26.0ms)
+
+[Case 85] 入力行(12文字)
+  [Case 85] Faults=n508gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=880, 制約=730) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+205 (時間=27.0ms, clasp=23.0ms)
+
+[Case 86] 入力行(58文字)
+  [Case 86] Faults=n145gat sa0;n326gat_n142gat_B sa0;n246gat sa0;n325gat sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1303, 制約=1232) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=30.0ms, clasp=24.0ms)
+
+[Case 87] 入力行(56文字)
+  [Case 87] Faults=n250gat sa0;n330gat_n246gat_A sa0;n330gat_n247gat_C sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1060, 制約=957) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=32.0ms, clasp=23.0ms)
+
+[Case 88] 入力行(13文字)
+  [Case 88] Faults=n1104gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1917, 制約=1851) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=47.0ms, clasp=34.0ms)
+
+[Case 89] 入力行(74文字)
+  [Case 89] Faults=n1665gat sa0;n2212gat_n1666gat_B sa0;n1310gat_n1593gat_B sa0;n1310gat sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=503, 制約=349) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=35.0ms, clasp=27.0ms)
+
+[Case 90] 入力行(24文字)
+  [Case 90] Faults=n2351gat_n1578gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=351, 制約=161) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=32.0ms, clasp=25.0ms)
+
+[Case 91] 入力行(59文字)
+  [Case 91] Faults=n1677gat_II4216_C sa0;n1393gat_n1402gat_B sa0;n1594gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1424, 制約=1366) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=37.0ms, clasp=27.0ms)
+
+[Case 92] 入力行(76文字)
+  [Case 92] Faults=n1754gat sa0;n3148gat sa0;n2448gat_n2238gat_A sa0;n2448gat sa0;n2450gat sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=494, 制約=429) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=27.0ms, clasp=22.0ms)
+
+[Case 93] 入力行(23文字)
+  [Case 93] Faults=n396gat_n1605gat_D sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=792) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=27.0ms, clasp=23.0ms)
+
+[Case 94] 入力行(24文字)
+  [Case 94] Faults=n1869gat_n1686gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=689) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=26.0ms, clasp=22.0ms)
+
+[Case 95] 入力行(24文字)
+  [Case 95] Faults=n2261gat_n2129gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=629, 制約=462) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=25.0ms, clasp=21.0ms)
+
+[Case 96] 入力行(24文字)
+  [Case 96] Faults=n2625gat_n2538gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=337, 制約=151) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=24.0ms, clasp=20.0ms)
+
+[Case 97] 入力行(24文字)
+  [Case 97] Faults=n2625gat_n2531gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1146, 制約=1100) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=29.0ms, clasp=25.0ms)
+
+[Case 98] 入力行(24文字)
+  [Case 98] Faults=n2134gat_n2129gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=629, 制約=454) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=27.0ms, clasp=23.0ms)
+
+[Case 99] 入力行(13文字)
+  [Case 99] Faults=n2429gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1246, 制約=1233) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=29.0ms, clasp=25.0ms)
+
+[Case 100] 入力行(24文字)
+  [Case 100] Faults=n1918gat_n1865gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=429, 制約=245) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=29.0ms, clasp=22.0ms)
+
+[Case 101] 入力行(50文字)
+  [Case 101] Faults=n2128gat sa0;n2189gat_n2129gat_A sa0;n2130gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=978, 制約=872) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=33.0ms, clasp=26.0ms)
+
+[Case 102] 入力行(79文字)
+  [Case 102] Faults=n1565gat sa0;n1838gat_II4144_B sa0;n1839gat_II2831_A sa0;n1785gat_II2736_A sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1020, 制約=926) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=36.0ms, clasp=26.0ms)
+
+[Case 103] 入力行(44文字)
+  [Case 103] Faults=n82gat_n12gat_B sa0;n1735gat_n1567gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=602, 制約=443) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=32.0ms, clasp=24.0ms)
+
+[Case 104] 入力行(36文字)
+  [Case 104] Faults=n1658gat_n1570gat_B sa0;n530gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2303, 制約=2369) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=42.0ms, clasp=30.0ms)
+
+[Case 105] 入力行(13文字)
+  [Case 105] Faults=n1291gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2076) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=46.0ms, clasp=35.0ms)
+
+[Case 106] 入力行(24文字)
+  [Case 106] Faults=n1658gat_n1655gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=761) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=34.0ms, clasp=26.0ms)
+
+[Case 107] 入力行(24文字)
+  [Case 107] Faults=n1658gat_n1571gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=793) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=31.0ms, clasp=26.0ms)
+
+[Case 108] 入力行(26文字)
+  [Case 108] Faults=n1077gat sa0;n1250gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2200, 制約=2177) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=40.0ms, clasp=29.0ms)
+
+[Case 109] 入力行(13文字)
+  [Case 109] Faults=n1161gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1785) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=44.0ms, clasp=33.0ms)
+
+[Case 110] 入力行(24文字)
+  [Case 110] Faults=n1658gat_n1732gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=757) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=36.0ms, clasp=27.0ms)
+
+[Case 111] 入力行(13文字)
+  [Case 111] Faults=n1373gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1785) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=51.0ms, clasp=39.0ms)
+
+[Case 112] 入力行(12文字)
+  [Case 112] Faults=n996gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2074) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=43.0ms, clasp=32.0ms)
+
+[Case 113] 入力行(25文字)
+  [Case 113] Faults=n1358gat sa0;n887gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2677) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=47.0ms, clasp=36.0ms)
+
+[Case 114] 入力行(13文字)
+  [Case 114] Faults=n1368gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1783) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=48.0ms, clasp=34.0ms)
+
+[Case 115] 入力行(66文字)
+  [Case 115] Faults=n1712gat sa0;n1567gat sa0;n1712gat_stem sa0;n1884gat_II2935_B sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=500, 制約=348) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=47.0ms, clasp=38.0ms)
+
+[Case 116] 入力行(24文字)
+  [Case 116] Faults=n1658gat_n1728gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=887, 制約=759) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=37.0ms, clasp=29.0ms)
+
+[Case 117] 入力行(26文字)
+  [Case 117] Faults=n1360gat sa0;n1163gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2674) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=43.0ms, clasp=33.0ms)
+
+[Case 118] 入力行(13文字)
+  [Case 118] Faults=n1443gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1783) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=39.0ms, clasp=33.0ms)
+
+[Case 119] 入力行(24文字)
+  [Case 119] Faults=n1659gat_n1649gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=880, 制約=746) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=43.0ms, clasp=28.0ms)
+
+[Case 120] 入力行(24文字)
+  [Case 120] Faults=n1427gat_n1498gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1790) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=86.0ms, clasp=75.0ms)
+
+[Case 121] 入力行(22文字)
+  [Case 121] Faults=n188gat_n181gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=620, 制約=470) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=76.0ms, clasp=56.0ms)
+
+[Case 122] 入力行(46文字)
+  [Case 122] Faults=n1659gat_n1647gat_B sa0;n1784gat_II2736_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1535, 制約=1518) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=59.0ms, clasp=50.0ms)
+
+[Case 123] 入力行(24文字)
+  [Case 123] Faults=n1658gat_n1729gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=793) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=72.0ms, clasp=56.0ms)
+
+[Case 124] 入力行(24文字)
+  [Case 124] Faults=n1658gat_n1731gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=795) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=123.0ms, clasp=97.0ms)
+
+[Case 125] 入力行(24文字)
+  [Case 125] Faults=n1659gat_n1646gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=820, 制約=670) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=112.0ms, clasp=103.0ms)
+
+[Case 126] 入力行(24文字)
+  [Case 126] Faults=n1659gat_n1723gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=880, 制約=740) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=32.0ms, clasp=27.0ms)
+
+[Case 127] 入力行(13文字)
+  [Case 127] Faults=n1249gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2080) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=64.0ms, clasp=35.0ms)
+
+[Case 128] 入力行(37文字)
+  [Case 128] Faults=n1915gat sa0;n1635gat_n1800gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=428, 制約=244) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=84.0ms, clasp=71.0ms)
+
+[Case 129] 入力行(24文字)
+  [Case 129] Faults=n1690gat_n1721gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=441, 制約=266) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=31.0ms, clasp=27.0ms)
+
+[Case 130] 入力行(26文字)
+  [Case 130] Faults=n1516gat sa0;n1783gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=928, 制約=794) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=31.0ms, clasp=25.0ms)
+
+[Case 131] 入力行(48文字)
+  [Case 131] Faults=n1604gat_n1471gat_C sa0;n1590gat_n1476gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=830, 制約=724) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=53.0ms, clasp=40.0ms)
+
+[Case 132] 入力行(22文字)
+  [Case 132] Faults=n189gat_n187gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=917, 制約=808) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=47.0ms, clasp=38.0ms)
+
+[Case 133] 入力行(26文字)
+  [Case 133] Faults=n2073gat sa0;n3028gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=939, 制約=823) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=53.0ms, clasp=31.0ms)
+
+[Case 134] 入力行(33文字)
+  [Case 134] Faults=n13gat sa0;n188gat_n187gat_C sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1121, 制約=1019) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=90.0ms, clasp=71.0ms)
+
+[Case 135] 入力行(61文字)
+  [Case 135] Faults=n1524gat sa0;n1584gat_n1519gat_A sa0;n1584gat_n1401gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1417, 制約=1400) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=95.0ms, clasp=77.0ms)
+
+[Case 136] 入力行(70文字)
+  [Case 136] Faults=n860gat_n1090gat_B sa0;n956gat_n1091gat_B sa0;n2081gat_n1416gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2532, 制約=2581) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+190 (時間=54.0ms, clasp=38.0ms)
+
+[Case 137] 入力行(38文字)
+  [Case 137] Faults=n1092gat sa0;n889gat sa0;n1305gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=3266, 制約=3348) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+177 (時間=57.0ms, clasp=42.0ms)
+
+[Case 138] 入力行(50文字)
+  [Case 138] Faults=n1339gat sa0;n1858gat_n1471gat_B sa0;n1340gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1036, 制約=966) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=43.0ms, clasp=36.0ms)
+
+[Case 139] 入力行(26文字)
+  [Case 139] Faults=n1359gat sa0;n1101gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2677) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=34.0ms, clasp=28.0ms)
+
+[Case 140] 入力行(24文字)
+  [Case 140] Faults=n2289gat_n1467gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=818, 制約=688) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=42.0ms, clasp=30.0ms)
+
+[Case 141] 入力行(26文字)
+  [Case 141] Faults=n1371gat sa0;n1258gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3115) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=80.0ms, clasp=63.0ms)
+
+[Case 142] 入力行(26文字)
+  [Case 142] Faults=n1367gat sa0;n1372gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3115) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=49.0ms, clasp=33.0ms)
+
+[Case 143] 入力行(75文字)
+  [Case 143] Faults=n1858gat_stem_n1796gat_A sa0;n1719gat_n1794gat_B sa0;n1786gat_II2890_B sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=614, 制約=467) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=51.0ms, clasp=37.0ms)
+
+[Case 144] 入力行(29文字)
+  [Case 144] Faults=n1858gat_stem_n1864gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=901, 制約=808) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=59.0ms, clasp=45.0ms)
+
+[Case 145] 入力行(26文字)
+  [Case 145] Faults=n1302gat sa0;n1245gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2674) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=71.0ms, clasp=63.0ms)
+
+[Case 146] 入力行(12文字)
+  [Case 146] Faults=n982gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=2112, 制約=2073) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=56.0ms, clasp=43.0ms)
+
+[Case 147] 入力行(22文字)
+  [Case 147] Faults=n77gat sa0;n82gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=672, 制約=521) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=35.0ms, clasp=25.0ms)
+
+[Case 148] 入力行(26文字)
+  [Case 148] Faults=n1153gat sa0;n2359gat sa1 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3129) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=46.0ms, clasp=35.0ms)
+
+[Case 149] 入力行(13文字)
+  [Case 149] Faults=n1151gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1782) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=47.0ms, clasp=37.0ms)
+
+[Case 150] 入力行(26文字)
+  [Case 150] Faults=n1351gat sa0;n1304gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2680) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=45.0ms, clasp=34.0ms)
+
+[Case 151] 入力行(50文字)
+  [Case 151] Faults=n1800gat sa0;n1859gat_n1915gat_A sa0;n1919gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=494, 制約=329) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=31.0ms, clasp=25.0ms)
+
+[Case 152] 入力行(20文字)
+  [Case 152] Faults=n17gat_n85gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=535, 制約=355) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=29.0ms, clasp=24.0ms)
+
+[Case 153] 入力行(76文字)
+  [Case 153] Faults=n1794gat sa0;n1793gat sa0;n1403gat_n1400gat_B sa0;n2533gat sa0;n1735gat sa1 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=1870, 制約=1952) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=37.0ms, clasp=30.0ms)
+
+[Case 154] 入力行(37文字)
+  [Case 154] Faults=n1654gat sa0;n2081gat_n1308gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2431, 制約=2429) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=54.0ms, clasp=29.0ms)
+
+[Case 155] 入力行(22文字)
+  [Case 155] Faults=n2286gat_II1733_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1246, 制約=1263) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=69.0ms, clasp=62.0ms)
+
+[Case 156] 入力行(47文字)
+  [Case 156] Faults=n1590gat_n1102gat_B sa0;n882gat_n1163gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3120) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=51.0ms, clasp=35.0ms)
+
+[Case 157] 入力行(101文字)
+  [Case 157] Faults=n1603gat_stem_n1249gat_B sa0;n1067gat_n1304gat_B sa0;n2081gat_n1349gat_B sa0;n2285gat_n2357gat_A sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4962, 制約=5222) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=75.0ms, clasp=59.0ms)
+
+[Case 158] 入力行(72文字)
+  [Case 158] Faults=n2081gat_n1483gat_A sa0;n1528gat_n1529gat_A sa0;n2290gat_n2218gat_B sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=4160) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=54.0ms, clasp=34.0ms)
+
+[Case 159] 入力行(96文字)
+  [Case 159] Faults=n2162gat_n1420gat_B sa0;n2081gat_n1347gat_A sa0;n2353gat_n2291gat_A sa0;n2284gat_n2292gat_B sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4473, 制約=4667) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+189 (時間=81.0ms, clasp=72.0ms)
+
+[Case 160] 入力行(132文字)
+  [Case 160] Faults=n448gat sa0;n2840gat_n971gat_B sa0;n2852gat_n975gat_B sa0;n2005gat sa0;n1544gat sa0;n1610gat sa0;n182gat_n212gat_A sa0;n1828gat sa0 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=2357, 制約=2452) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+184 (時間=63.0ms, clasp=40.0ms)
+
+[Case 161] 入力行(83文字)
+  [Case 161] Faults=n961gat sa0;n1156gat sa0;n819gat_n1096gat_A sa0;n633gat_n631gat_B sa0;n1738gat sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=4248, 制約=4466) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+177 (時間=115.0ms, clasp=78.0ms)
+
+[Case 162] 入力行(47文字)
+  [Case 162] Faults=n698gat_n1162gat_A sa0;n1590gat_n1305gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=2667, 制約=2680) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=121.0ms, clasp=97.0ms)
+
+[Case 163] 入力行(35文字)
+  [Case 163] Faults=n1921gat_n1920gat_B sa0;n16gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1021, 制約=949) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=44.0ms, clasp=36.0ms)
+
+[Case 164] 入力行(42文字)
+  [Case 164] Faults=n1472gat sa0;n1858gat_stem_n1469gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1114, 制約=1061) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=49.0ms, clasp=41.0ms)
+
+[Case 165] 入力行(13文字)
+  [Case 165] Faults=n1320gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1917, 制約=1849) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=40.0ms, clasp=30.0ms)
+
+[Case 166] 入力行(134文字)
+  [Case 166] Faults=n1324gat sa0;n851gat_n791gat_A sa0;n851gat_n449gat_B sa0;n856gat_n790gat_A sa0;n856gat_n439gat_A sa0;n412gat sa0;n740gat_II1278_A sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=2878, 制約=3055) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=97.0ms, clasp=83.0ms)
+
+[Case 167] 入力行(25文字)
+  [Case 167] Faults=n2930gat sa0;n877gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3116) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=52.0ms, clasp=38.0ms)
+
+[Case 168] 入力行(13文字)
+  [Case 168] Faults=n3016gat sa1 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=255, 制約=57) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=59.0ms, clasp=46.0ms)
+
+[Case 169] 入力行(50文字)
+  [Case 169] Faults=n1504gat sa0;n1609gat_n1498gat_A sa0;n1530gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=4171) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=107.0ms, clasp=91.0ms)
+
+[Case 170] 入力行(26文字)
+  [Case 170] Faults=n1352gat sa0;n1103gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3112) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=116.0ms, clasp=78.0ms)
+
+[Case 171] 入力行(48文字)
+  [Case 171] Faults=n1736gat_n1728gat_B sa0;n1645gat_n1641gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1225, 制約=1150) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=78.0ms, clasp=63.0ms)
+
+[Case 172] 入力行(98文字)
+  [Case 172] Faults=n2961gat sa0;n1375gat sa0;n1568gat_n1729gat_C sa0;n1616gat_n1642gat_B sa0;n2283gat_n1575gat_B sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2219, 制約=2293) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=133.0ms, clasp=102.0ms)
+
+[Case 173] 入力行(79文字)
+  [Case 173] Faults=n2720gat_n70gat_B sa0;n373gat_n444gat_A sa0;n852gat_n764gat_A sa0;n2154gat sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1744, 制約=1804) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=125.0ms, clasp=100.0ms)
+
+[Case 174] 入力行(44文字)
+  [Case 174] Faults=n852gat_n555gat_A sa0;n373gat_n647gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=697, 制約=512) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+210 (時間=84.0ms, clasp=76.0ms)
+
+[Case 175] 入力行(22文字)
+  [Case 175] Faults=n1788gat_II3178_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=352, 制約=169) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=47.0ms, clasp=32.0ms)
+
+[Case 176] 入力行(70文字)
+  [Case 176] Faults=n968gat sa0;n445gat sa0;n867gat sa0;n767gat sa0;n372gat_n453gat_A sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=1259, 制約=1144) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=56.0ms, clasp=46.0ms)
+
+[Case 177] 入力行(49文字)
+  [Case 177] Faults=n1243gat sa0;n197gat sa0;n2486gat_n2430gat_B sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1705, 制約=1698) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=45.0ms, clasp=34.0ms)
+
+[Case 178] 入力行(134文字)
+  [Case 178] Faults=n2093gat sa0;n1790gat_n2163gat_A sa0;n1089gat sa0;n1563gat sa0;n1240gat_n1095gat_A sa0;n2093gat_stem_n2014gat_B sa0;n2093gat_stem sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3223, 制約=3441) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+182 (時間=55.0ms, clasp=42.0ms)
+
+[Case 179] 入力行(26文字)
+  [Case 179] Faults=n3138gat sa0;n2286gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=555, 制約=405) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=44.0ms, clasp=30.0ms)
+
+[Case 180] 入力行(35文字)
+  [Case 180] Faults=n1978gat sa0;n2353gat_II4024_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=524, 制約=367) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=49.0ms, clasp=40.0ms)
+
+[Case 181] 入力行(109文字)
+  [Case 181] Faults=n1568gat_n1728gat_A sa0;n1614gat_n1558gat_A sa0;n1988gat_n1577gat_C sa0;n1568gat sa0;n1918gat_n1575gat_A sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2390, 制約=2522) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=38.0ms, clasp=30.0ms)
+
+[Case 182] 入力行(52文字)
+  [Case 182] Faults=n2079gat sa0;n2983gat sa0;n1990gat sa1;n2134gat sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1253, 制約=1158) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=44.0ms, clasp=35.0ms)
+
+[Case 183] 入力行(50文字)
+  [Case 183] Faults=n2461gat sa0;n1427gat_n1600gat_B sa0;n1427gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=2757, 制約=2906) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=47.0ms, clasp=36.0ms)
+
+[Case 184] 入力行(44文字)
+  [Case 184] Faults=n11gat sa0;n186gat_n12gat_A sa0;n186gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=733, 制約=595) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=47.0ms, clasp=38.0ms)
+
+[Case 185] 入力行(34文字)
+  [Case 185] Faults=n324gat sa0;n111gat_n772gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=879, 制約=732) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=37.0ms, clasp=28.0ms)
+
+[Case 186] 入力行(26文字)
+  [Case 186] Faults=n1598gat sa0;n2421gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3125) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=46.0ms, clasp=35.0ms)
+
+[Case 187] 入力行(47文字)
+  [Case 187] Faults=n829gat_n1176gat_A sa0;n142gat sa0;n144gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1851, 制約=1805) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=41.0ms, clasp=30.0ms)
+
+[Case 188] 入力行(24文字)
+  [Case 188] Faults=n1499gat_n1558gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=799) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=32.0ms, clasp=25.0ms)
+
+[Case 189] 入力行(315文字)
+  [Case 189] Faults=n382gat sa0;n329gat sa0;n247gat_n39gat_B sa0;n325gat_n40gat_A sa0;n247gat_n143gat_B sa0;n325gat_n145gat_B sa0;n386gat_n244gat_B sa0;n1490gat_n251gat_A sa0;n1490gat_n248gat_B sa0;n386gat_n249gat_A sa0;n247gat sa0;n1490gat sa0;n386gat_n245gat_A sa0;n325gat_n246gat_B sa0;n2855gat_II1277_B sa0;n325gat sa0;n386gat sa0 (17件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=17故障同時, CEGARなし)
+    [1回求解 K=17] OPB生成 ...
+    [1回求解] clasp求解 (変数=4072, 制約=4390) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+191 (時間=56.0ms, clasp=41.0ms)
+
+[Case 190] 入力行(22文字)
+  [Case 190] Faults=n1788gat_II4145_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=279, 制約=78) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=31.0ms, clasp=26.0ms)
+
+[Case 191] 入力行(22文字)
+  [Case 191] Faults=n1839gat_II2720_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=839, 制約=684) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=34.0ms, clasp=27.0ms)
+
+[Case 192] 入力行(44文字)
+  [Case 192] Faults=n1784gat_II3148_C sa0;n1788gat_II2720_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1275, 制約=1215) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+206 (時間=31.0ms, clasp=25.0ms)
+
+[Case 193] 入力行(48文字)
+  [Case 193] Faults=n1797gat_n1657gat_B sa0;n2989gat_n1602gat_C sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1461, 制約=1392) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+194 (時間=39.0ms, clasp=30.0ms)
+
+[Case 194] 入力行(133文字)
+  [Case 194] Faults=n1786gat_II4144_C sa0;II1277 sa0;n289gat sa0;n2863gat_II1277_C sa0;n289gat_n288gat_A sa0;n1884gat_II2735_B sa0;n1839gat_II3179_A sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=1688, 制約=1683) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=39.0ms, clasp=29.0ms)
+
+[Case 195] 入力行(22文字)
+  [Case 195] Faults=n1784gat_II4145_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=279, 制約=78) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=34.0ms, clasp=27.0ms)
+
+[Case 196] 入力行(146文字)
+  [Case 196] Faults=n2350gat sa0;n2193gat_n2149gat_A sa0;n2401gat_n2150gat_A sa0;n2345gat_n2213gat_C sa0;n1991gat_n1863gat_A sa0;n2215gat_n2352gat_B sa0;n2215gat sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=1403, 制約=1433) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=37.0ms, clasp=27.0ms)
+
+[Case 197] 入力行(33文字)
+  [Case 197] Faults=II4023 sa0;n2290gat_II4023_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=399, 制約=225) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=27.0ms, clasp=23.0ms)
+
+[Case 198] 入力行(149文字)
+  [Case 198] Faults=n1602gat_n1760gat_B sa0;n1602gat_n1761gat_B sa0;n219gat_n446gat_A sa0;n1797gat_n1731gat_C sa0;n17gat_n15gat_B sa0;n1604gat_II1734_A sa0;n1602gat sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3367, 制約=3568) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+179 (時間=55.0ms, clasp=40.0ms)
+
+[Case 199] 入力行(93文字)
+  [Case 199] Faults=n1591gat_n1354gat_A sa0;n2720gat_n182gat_B sa0;n1786gat_II2720_B sa0;n2217gat_n2223gat_B sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4037, 制約=4226) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+181 (時間=90.0ms, clasp=70.0ms)
+
+[Case 200] 入力行(45文字)
+  [Case 200] Faults=n375gat_n872gat_A sa0;n2838gat_n771gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=729, 制約=580) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=53.0ms, clasp=36.0ms)
+
+[Case 201] 入力行(74文字)
+  [Case 201] Faults=n2482gat_n2480gat_B sa0;n2217gat_n2220gat_B sa0;n2482gat sa0;n2217gat sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4155, 制約=4422) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=111.0ms, clasp=78.0ms)
+
+[Case 202] 入力行(49文字)
+  [Case 202] Faults=n3052gat sa0;n3019gat sa0;n392gat_n1256gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=965, 制約=931) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=89.0ms, clasp=59.0ms)
+
+[Case 203] 入力行(92文字)
+  [Case 203] Faults=n1855gat_n2057gat_B sa0;n1784gat_II2889_A sa0;n1891gat_n1894gat_B sa0;n2353gat_II1584_A sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1729, 制約=1798) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+182 (時間=125.0ms, clasp=96.0ms)
+
+[Case 204] 入力行(23文字)
+  [Case 204] Faults=n2855gat_n564gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=715, 制約=583) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=96.0ms, clasp=81.0ms)
+
+[Case 205] 入力行(13文字)
+  [Case 205] Faults=n3027gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=524, 制約=374) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+209 (時間=38.0ms, clasp=29.0ms)
+
+[Case 206] 入力行(24文字)
+  [Case 206] Faults=n1935gat_n1934gat_B sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=339, 制約=153) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=33.0ms, clasp=26.0ms)
+
+[Case 207] 入力行(94文字)
+  [Case 207] Faults=n1254gat sa0;n1120gat_n1200gat_A sa0;n930gat_n1253gat_A sa0;n286gat_n180gat_A sa0;n713gat sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2045, 制約=2089) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=38.0ms, clasp=29.0ms)
+
+[Case 208] 入力行(48文字)
+  [Case 208] Faults=n1515gat_n1732gat_A sa0;n1559gat_n1639gat_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1124, 制約=1020) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=31.0ms, clasp=26.0ms)
+
+[Case 209] 入力行(26文字)
+  [Case 209] Faults=n1440gat sa0;n1321gat sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3121) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=46.0ms, clasp=38.0ms)
+
+[Case 210] 入力行(24文字)
+  [Case 210] Faults=n1553gat_n1557gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=793) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=33.0ms, clasp=28.0ms)
+
+[Case 211] 入力行(13文字)
+  [Case 211] Faults=n1644gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=793) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=37.0ms, clasp=27.0ms)
+
+[Case 212] 入力行(100文字)
+  [Case 212] Faults=n2442gat_n1391gat_B sa0;n1916gat sa0;n1859gat sa1;n1921gat sa0;n2486gat_n2483gat_C sa0;n2486gat sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=1414, 制約=1434) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=38.0ms, clasp=27.0ms)
+
+[Case 213] 入力行(111文字)
+  [Case 213] Faults=n455gat_n1029gat_B sa0;n1407gat sa0;n1584gat_n1510gat_A sa0;n1392gat_stem_II4217_A sa0;n1608gat_n1469gat_B sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=3752, 制約=3929) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=61.0ms, clasp=45.0ms)
+
+[Case 214] 入力行(44文字)
+  [Case 214] Faults=n1788gat_II2890_A sa0;n1785gat_II2925_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=393, 制約=220) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=30.0ms, clasp=26.0ms)
+
+[Case 215] 入力行(111文字)
+  [Case 215] Faults=n2977gat sa0;n1357gat sa0;n1162gat sa0;n1709gat sa0;n1895gat_n1630gat_A sa0;n1784gat_II2925_A sa0;n1410gat sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=5907, 制約=6311) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=129.0ms, clasp=109.0ms)
+
+[Case 216] 入力行(48文字)
+  [Case 216] Faults=n506gat sa0;n512gat sa1;n730gat sa0;n737gat sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1882, 制約=1843) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+205 (時間=49.0ms, clasp=38.0ms)
+
+[Case 217] 入力行(113文字)
+  [Case 217] Faults=n2978gat sa0;n1441gat sa0;n1325gat sa0;n1989gat_n1865gat_A sa0;n2351gat_n1576gat_A sa0;n1591gat sa1;n1480gat sa1 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=6850, 制約=7330) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=69.0ms, clasp=54.0ms)
+
+[Case 218] 入力行(150文字)
+  [Case 218] Faults=n2672gat_n969gat_B sa0;n372gat_n972gat_A sa0;n1643gat sa0;n679gat_n991gat_B sa0;n579gat_n885gat_A sa0;n1559gat_n1641gat_C sa0;n1991gat_n1521gat_B sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=2830, 制約=2969) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+182 (時間=60.0ms, clasp=44.0ms)
+
+[Case 219] 入力行(48文字)
+  [Case 219] Faults=n1670gat_n1571gat_A sa0;n1559gat_n1642gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=1225, 制約=1147) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=51.0ms, clasp=41.0ms)
+
+[Case 220] 入力行(24文字)
+  [Case 220] Faults=n1659gat_n1563gat_C sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=880, 制約=736) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+203 (時間=56.0ms, clasp=41.0ms)
+
+[Case 221] 入力行(137文字)
+  [Case 221] Faults=n2973gat sa0;n1303gat sa0;n1246gat sa0;n2609gat_n2605gat_B sa0;n2610gat_n2604gat_C sa0;n2606gat_n2602gat_A sa0;n2011gat sa1;n2285gat sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=6285, 制約=6691) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=83.0ms, clasp=65.0ms)
+
+[Case 222] 入力行(50文字)
+  [Case 222] Faults=n1155gat sa0;n1703gat_n1608gat_B sa0;n1479gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=4162) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+200 (時間=63.0ms, clasp=38.0ms)
+
+[Case 223] 入力行(46文字)
+  [Case 223] Faults=n1659gat_n1644gat_C sa0;n1784gat_II3179_B sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=928, 制約=803) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+199 (時間=39.0ms, clasp=33.0ms)
+
+[Case 224] 入力行(13文字)
+  [Case 224] Faults=n1498gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=1849, 制約=1780) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+204 (時間=41.0ms, clasp=29.0ms)
+
+[Case 225] 入力行(138文字)
+  [Case 225] Faults=n1164gat sa0;n1297gat_n1102gat_A sa0;n1603gat_stem_n1163gat_B sa0;n2162gat_n1423gat_A sa0;n2285gat_n2306gat_C sa0;n2443gat_n2293gat_C sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=6862, 制約=7302) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=98.0ms, clasp=78.0ms)
+
+[Case 226] 入力行(156文字)
+  [Case 226] Faults=n1244gat sa0;n1031gat sa0;n566gat_n880gat_B sa0;n1658gat_n1657gat_C sa0;n639gat_n636gat_C sa0;n1988gat_n1861gat_C sa0;n1658gat sa0;n2216gat sa1;n566gat sa0 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=3739, 制約=3931) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+171 (時間=86.0ms, clasp=60.0ms)
+
+[Case 227] 入力行(13文字)
+  [Case 227] Faults=n1723gat sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=919, 制約=785) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=98.0ms, clasp=84.0ms)
+
+[Case 228] 入力行(101文字)
+  [Case 228] Faults=n613gat_n1267gat_A sa0;n1773gat_stem_n1755gat_B sa0;n1935gat_n1759gat_B sa0;n476gat sa0;n1935gat sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=2232, 制約=2294) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+182 (時間=95.0ms, clasp=67.0ms)
+
+[Case 229] 入力行(72文字)
+  [Case 229] Faults=n1662gat_n1657gat_A sa0;n1614gat_n1556gat_A sa0;n1918gat_n1663gat_B sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1627, 制約=1602) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+198 (時間=107.0ms, clasp=80.0ms)
+
+[Case 230] 入力行(61文字)
+  [Case 230] Faults=n1600gat sa0;n1392gat_n1466gat_A sa0;n1448gat_n1501gat_A sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1537, 制約=1559) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=62.0ms, clasp=50.0ms)
+
+[Case 231] 入力行(134文字)
+  [Case 231] Faults=n886gat sa0;n1603gat_stem_n887gat_A sa0;n1079gat_n1104gat_A sa0;n2784gat_n78gat_A sa0;n2353gat_n2363gat_A sa0;n2284gat_n2306gat_B sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=5304, 制約=5620) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+181 (時間=58.0ms, clasp=46.0ms)
+
+[Case 232] 入力行(99文字)
+  [Case 232] Faults=n1391gat sa0;n2617gat_n2615gat_A sa0;n2617gat_n2614gat_B sa0;n2617gat sa0;n121gat sa0;n2442gat sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=1493, 制約=1445) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+194 (時間=42.0ms, clasp=35.0ms)
+
+[Case 233] 入力行(117文字)
+  [Case 233] Faults=n447gat sa0;n2898gat sa0;n375gat_n378gat_A sa0;n1990gat_n2079gat_C sa0;n2711gat_n964gat_B sa0;n2718gat_n653gat_A sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=1546, 制約=1483) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+187 (時間=52.0ms, clasp=28.0ms)
+
+[Case 234] 入力行(48文字)
+  [Case 234] Faults=n1646gat sa0;n2784gat_n89gat_B sa0;n1670gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1750, 制約=1746) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+185 (時間=83.0ms, clasp=56.0ms)
+
+[Case 235] 入力行(38文字)
+  [Case 235] Faults=n801gat sa0;n1653gat sa0;n2991gat sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1729, 制約=1707) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+189 (時間=61.0ms, clasp=46.0ms)
+
+[Case 236] 入力行(318文字)
+  [Case 236] Faults=n2442gat_n1721gat_A sa0;n238gat sa0;n242gat sa0;n1790gat_n1929gat_B sa0;n1790gat_n2017gat_A sa0;n241gat sa1;n1647gat sa0;n2992gat sa0;n1677gat_n1407gat_C sa0;n139gat sa0;n53gat_n46gat_A sa0;n51gat_n45gat_B sa0;n50gat_n44gat_C sa0;n1217gat sa0;n2442gat sa0;n2537gat sa0;n1662gat sa1;n2620gat_n2538gat_A sa0;n254gat sa1 (19件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=19故障同時, CEGARなし)
+    [1回求解 K=19] OPB生成 ...
+    [1回求解] clasp求解 (変数=7158, 制約=7803) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+159 (時間=82.0ms, clasp=59.0ms)
+
+[Case 237] 入力行(36文字)
+  [Case 237] Faults=n729gat sa0;n734gat sa1;n733gat sa1 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=1548, 制約=1504) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+205 (時間=47.0ms, clasp=30.0ms)
+
+[Case 238] 入力行(24文字)
+  [Case 238] Faults=n1673gat_n1794gat_A sa0 (1件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=1故障同時, CEGARなし)
+    [1回求解 K=1] OPB生成 ...
+    [1回求解] clasp求解 (変数=429, 制約=245) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+202 (時間=42.0ms, clasp=32.0ms)
+
+[Case 239] 入力行(151文字)
+  [Case 239] Faults=n1662gat_n1655gat_B sa0;n1553gat_n1639gat_C sa0;n175gat_n171gat_B sa0;n176gat_n170gat_C sa0;n172gat_n168gat_A sa0;n1662gat sa0;n1986gat_n1663gat_A sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3119, 制約=3243) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=48.0ms, clasp=32.0ms)
+
+[Case 240] 入力行(72文字)
+  [Case 240] Faults=n2284gat_II4024_B sa0;n2426gat sa0;n2530gat sa0;n2621gat_n2531gat_C sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2130, 制約=2254) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=75.0ms, clasp=59.0ms)
+
+[Case 241] 入力行(72文字)
+  [Case 241] Faults=n2167gat sa0;n2664gat_n2163gat_C sa0;n2354gat_II1584_C sa0;n2169gat sa1 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=1990, 制約=2081) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=69.0ms, clasp=38.0ms)
+
+[Case 242] 入力行(103文字)
+  [Case 242] Faults=n1755gat sa0;n1869gat_n1586gat_A sa0;n577gat_n571gat_A sa0;n576gat_n569gat_C sa0;n573gat_n568gat_B sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=1843, 制約=1812) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+191 (時間=115.0ms, clasp=99.0ms)
+
+[Case 243] 入力行(283文字)
+  [Case 243] Faults=n1323gat sa0;n1025gat_n1173gat_B sa0;n845gat_n1174gat_A sa0;n918gat_n1012gat_B sa0;n188gat_n184gat_B sa0;n1090gat sa0;n1093gat sa0;n1067gat_n1089gat_A sa0;n1293gat_n1099gat_B sa0;n1297gat_n1100gat_A sa0;n287gat_n186gat_B sa0;n633gat_n636gat_B sa0;n2410gat sa0;n2726gat_n288gat_B sa0 (14件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=14故障同時, CEGARなし)
+    [1回求解 K=14] OPB生成 ...
+    [1回求解] clasp求解 (変数=5339, 制約=5804) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+154 (時間=55.0ms, clasp=38.0ms)
+
+[Case 244] 入力行(128文字)
+  [Case 244] Faults=n1650gat sa0;n1790gat_n1564gat_C sa0;n1574gat sa0;n3025gat sa0;n1568gat sa1;n1736gat sa1;n1559gat sa1;n1614gat sa0;n2500gat sa0 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=3067, 制約=3225) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=37.0ms, clasp=29.0ms)
+
+[Case 245] 入力行(229文字)
+  [Case 245] Faults=n1790gat_n1927gat_A sa0;n1649gat sa0;n2986gat sa0;n1790gat sa0;n1659gat sa1;n1573gat sa0;n1444gat sa1;n1658gat sa1;n1797gat sa1;n1515gat sa1;n1553gat sa1;n1645gat sa1;n2152gat sa1;n845gat_n1614gat_B sa0;n1989gat sa1;n2508gat sa0 (16件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=16故障同時, CEGARなし)
+    [1回求解 K=16] OPB生成 ...
+    [1回求解] clasp求解 (変数=4988, 制約=5340) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=61.0ms, clasp=32.0ms)
+
+[Case 246] 入力行(179文字)
+  [Case 246] Faults=n3125gat sa1;n978gat_n1029gat_A sa0;n671gat sa0;n752gat sa0;n741gat_n990gat_B sa0;n741gat_n1097gat_B sa0;n2647gat sa0;n2652gat_n2650gat_B sa0;n225gat sa0;n2652gat sa0;n299gat sa0 (11件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=11故障同時, CEGARなし)
+    [1回求解 K=11] OPB生成 ...
+    [1回求解] clasp求解 (変数=4443, 制約=4726) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+189 (時間=43.0ms, clasp=34.0ms)
+
+[Case 247] 入力行(154文字)
+  [Case 247] Faults=n2239gat_n1882gat_C sa0;n297gat_n197gat_B sa0;n1698gat_n1613gat_B sa0;n2239gat_n1934gat_C sa0;n2239gat sa0;n2444gat_n2238gat_B sa0;n2859gat_n361gat_A sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=1463, 制約=1495) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+190 (時間=70.0ms, clasp=36.0ms)
+
+[Case 248] 入力行(234文字)
+  [Case 248] Faults=n1411gat sa0;n2957gat sa0;n977gat sa0;n1158gat sa0;n672gat_n801gat_A sa0;n741gat_n998gat_B sa0;n741gat_n989gat_B sa0;n670gat sa1;n411gat_n354gat_A sa0;n523gat_n632gat_B sa0;n634gat_n635gat_B sa0;n1482gat sa1;n2081gat sa1;n2356gat sa1 (14件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=14故障同時, CEGARなし)
+    [1回求解 K=14] OPB生成 ...
+    [1回求解] clasp求解 (変数=10599, 制約=11647) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+191 (時間=118.0ms, clasp=93.0ms)
+
+[Case 249] 入力行(188文字)
+  [Case 249] Faults=n241gat_n324gat_C sa0;n144gat_n142gat_C sa0;n1703gat_n1695gat_D sa0;n2666gat sa0;n1601gat_n2421gat_A sa0;n1703gat_II2812_A sa0;n1604gat_n1402gat_C sa0;n1319gat_n1618gat_A sa0;n1703gat sa0 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=4630, 制約=4972) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+181 (時間=103.0ms, clasp=65.0ms)
+
+[Case 250] 入力行(131文字)
+  [Case 250] Faults=n1452gat sa0;n1816gat sa1;n1560gat sa0;n1724gat sa0;n1736gat_n1732gat_B sa0;n1645gat_n1557gat_B sa0;n3026gat sa0;n1816gat_stem sa1 (8件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=8故障同時, CEGARなし)
+    [1回求解 K=8] OPB生成 ...
+    [1回求解] clasp求解 (変数=2395, 制約=2511) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+187 (時間=76.0ms, clasp=61.0ms)
+
+[Case 251] 入力行(275文字)
+  [Case 251] Faults=n1707gat sa0;n1625gat_stem_n1780gat_B sa0;n2470gat sa1;n1543gat sa0;n1613gat sa0;n1625gat sa0;n519gat sa0;n531gat sa0;n1625gat_stem sa0;n1698gat sa1;n1446gat_n1622gat_B sa0;n2239gat sa1;n1816gat_n1935gat_A sa0;n720gat_n1117gat_A sa0;n1823gat_n1817gat_B sa0;n2470gat_stem sa1 (16件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=16故障同時, CEGARなし)
+    [1回求解 K=16] OPB生成 ...
+    [1回求解] clasp求解 (変数=5079, 制約=5688) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+193 (時間=198.0ms, clasp=168.0ms)
+
+[Case 252] 入力行(108文字)
+  [Case 252] Faults=n2778gat_n377gat_B sa0;n1991gat_n1582gat_B sa0;n2150gat sa0;n2016gat_n2018gat_A sa0;n2402gat_n2215gat_C sa0 (5件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=5故障同時, CEGARなし)
+    [1回求解 K=5] OPB生成 ...
+    [1回求解] clasp求解 (変数=1633, 制約=1724) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=71.0ms, clasp=39.0ms)
+
+[Case 253] 入力行(84文字)
+  [Case 253] Faults=n983gat_n1158gat_A sa0;n2359gat_n1415gat_B sa0;n1924gat sa0;n2285gat_n2358gat_A sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4518, 制約=4775) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=126.0ms, clasp=109.0ms)
+
+[Case 254] 入力行(71文字)
+  [Case 254] Faults=n864gat_n1246gat_A sa0;n2081gat_n1481gat_A sa0;n2355gat_n2358gat_C sa0 (3件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=3故障同時, CEGARなし)
+    [1回求解 K=3] OPB生成 ...
+    [1回求解] clasp求解 (変数=4012, 制約=4177) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+196 (時間=76.0ms, clasp=50.0ms)
+
+[Case 255] 入力行(83文字)
+  [Case 255] Faults=n2784gat_n73gat_B sa0;n1444gat_n1574gat_C sa0;n1918gat_n1660gat_A sa0;n1918gat sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=2235, 制約=2337) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+190 (時間=82.0ms, clasp=70.0ms)
+
+[Case 256] 入力行(263文字)
+  [Case 256] Faults=n1199gat sa0;n1251gat sa0;n1255gat sa0;n1034gat_n1212gat_B sa0;n769gat sa0;n1400gat sa0;n1590gat_n1103gat_B sa0;n815gat_n1250gat_B sa0;n1591gat_n1438gat_A sa0;n417gat sa0;n295gat sa0;n294gat_n85gat_B sa0;n2860gat_n357gat_B sa0;n590gat sa0;n2356gat_n2306gat_A sa0 (15件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=15故障同時, CEGARなし)
+    [1回求解 K=15] OPB生成 ...
+    [1回求解] clasp求解 (変数=9379, 制約=10251) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+161 (時間=97.0ms, clasp=79.0ms)
+
+[Case 257] 入力行(89文字)
+  [Case 257] Faults=n1248gat sa0;n956gat_n1103gat_A sa0;n1603gat_stem_n1250gat_A sa0;n2355gat_n2357gat_B sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4962, 制約=5197) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=82.0ms, clasp=67.0ms)
+
+[Case 258] 入力行(47文字)
+  [Case 258] Faults=n1444gat_n1372gat_B sa0;n833gat_n1373gat_A sa0 (2件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=2故障同時, CEGARなし)
+    [1回求解 K=2] OPB生成 ...
+    [1回求解] clasp求解 (変数=3062, 制約=3123) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+201 (時間=104.0ms, clasp=71.0ms)
+
+[Case 259] 入力行(160文字)
+  [Case 259] Faults=n1651gat sa0;n1656gat sa0;n1736gat_n1655gat_A sa0;n1645gat_n1642gat_C sa0;n1736gat sa0;n1645gat sa0;n2212gat_n1737gat_A sa0;n1499gat sa1;n401gat_n1499gat_B sa0 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=3591, 制約=3850) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+197 (時間=85.0ms, clasp=56.0ms)
+
+[Case 260] 入力行(112文字)
+  [Case 260] Faults=n141gat sa0;n151gat_n139gat_B sa0;n151gat_n140gat_A sa0;n262gat sa0;n2284gat_II1584_B sa0;n2443gat_II1724_B sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=3044, 制約=3350) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+188 (時間=90.0ms, clasp=66.0ms)
+
+[Case 261] 入力行(343文字)
+  [Case 261] Faults=n1586gat sa0;n869gat sa0;n2781gat_n446gat_B sa0;n372gat_n451gat_B sa0;n2669gat_n870gat_A sa0;n372gat_n973gat_A sa0;n1774gat_n2015gat_B sa0;n815gat_n992gat_A sa0;n583gat_n1094gat_B sa0;n698gat_n993gat_B sa0;n823gat_n995gat_A sa0;n882gat_n994gat_B sa0;n1774gat_n1686gat_A sa0;n2989gat_II4217_B sa0;n637gat_n85gat_C sa0;n1774gat sa0;n2512gat sa1 (17件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=17故障同時, CEGARなし)
+    [1回求解 K=17] OPB生成 ...
+    [1回求解] clasp求解 (変数=4506, 制約=4916) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+172 (時間=100.0ms, clasp=78.0ms)
+
+[Case 262] 入力行(578文字)
+  [Case 262] Faults=n189gat_n184gat_A sa0;n772gat sa0;n971gat sa0;n975gat sa0;n974gat sa0;n964gat sa0;n771gat sa0;n653gat sa0;n2905gat sa0;n2920gat sa0;n2913gat sa0;n2784gat_n77gat_B sa0;n2731gat_n796gat_A sa0;n375gat_n1082gat_A sa0;n2734gat_n797gat_B sa0;n375gat_n871gat_B sa0;n375gat_n1083gat_B sa0;n2846gat_n448gat_B sa0;n2775gat_n1074gat_A sa0;n2836gat_n447gat_A sa0;n1792gat sa0;n1635gat_n1796gat_B sa0;n375gat sa0;n111gat sa1;II2889 sa0;n416gat sa0;n1634gat sa0;n182gat sa0;n1552gat sa0;n1632gat sa0;n1884gat_II2889_C sa0;n182gat_n110gat_A sa0;n287gat_n180gat_C sa0;n1838gat sa1;n2784gat sa0 (35件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=35故障同時, CEGARなし)
+    [1回求解 K=35] OPB生成 ...
+    [1回求解] clasp求解 (変数=7951, 制約=8971) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+172 (時間=110.0ms, clasp=84.0ms)
+
+[Case 263] 入力行(192文字)
+  [Case 263] Faults=n200gat sa0;n739gat sa0;n1562gat sa0;n1730gat sa0;n1515gat_n1731gat_B sa0;n1616gat_n1556gat_C sa0;n294gat_n86gat_B sa0;n2727gat_n360gat_B sa0;n1515gat sa0;n2283gat_n1521gat_A sa0;n1616gat sa0 (11件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=11故障同時, CEGARなし)
+    [1回求解 K=11] OPB生成 ...
+    [1回求解] clasp求解 (変数=3822, 制約=4092) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+187 (時間=52.0ms, clasp=39.0ms)
+
+[Case 264] 入力行(99文字)
+  [Case 264] Faults=n998gat sa0;n1648gat sa0;n1640gat sa0;n1797gat_n1729gat_B sa0;n1499gat_n1639gat_A sa0;n1054gat sa0 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2954, 制約=3095) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+181 (時間=46.0ms, clasp=32.0ms)
+
+[Case 265] 入力行(240文字)
+  [Case 265] Faults=n2199gat_n2396gat_A sa0;n943gat_n937gat_A sa0;n942gat_n935gat_C sa0;n939gat_n934gat_B sa0;n2212gat_n1582gat_C sa0;n2149gat sa0;n1214gat sa0;n2216gat_n1860gat_B sa0;n1229gat sa0;n2151gat_n2215gat_B sa0;n1220gat sa1;n2212gat sa0;n2216gat sa0 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=3615, 制約=3904) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+180 (時間=69.0ms, clasp=51.0ms)
+
+[Case 266] 入力行(338文字)
+  [Case 266] Faults=n282gat_n1326gat_B sa0;n278gat_n1260gat_B sa0;n274gat_n1257gat_B sa0;n1773gat_stem_n1756gat_C sa0;n2720gat_n13gat_A sa0;n1454gat sa0;n1460gat sa0;n1818gat sa0;n2002gat sa0;n2012gat sa0;n1507gat_n1531gat_A sa0;n1469gat sa1;n1858gat_stem_n1402gat_A sa0;n2214gat_II1734_B sa0;n1232gat sa0;n1235gat sa1;n2720gat sa0;n1297gat sa1;n1823gat sa1 (19件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=19故障同時, CEGARなし)
+    [1回求解 K=19] OPB生成 ...
+    [1回求解] clasp求解 (変数=6603, 制約=7353) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+156 (時間=105.0ms, clasp=69.0ms)
+
+[Case 267] 入力行(111文字)
+  [Case 267] Faults=n17gat_n87gat_B sa0;n711gat sa0;n2355gat_II1724_A sa0;n2356gat_II1585_A sa0;n2863gat_n564gat_B sa0;n717gat sa1 (6件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=6故障同時, CEGARなし)
+    [1回求解 K=6] OPB生成 ...
+    [1回求解] clasp求解 (変数=2843, 制約=3076) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+180 (時間=82.0ms, clasp=59.0ms)
+
+[Case 268] 入力行(425文字)
+  [Case 268] Faults=n92gat_n200gat_B sa0;n1561gat sa0;n1566gat sa0;n1668gat sa0;n1823gat_n1818gat_A sa0;n1988gat_n1734gat_A sa0;n1797gat_n1571gat_C sa0;n1499gat_n1605gat_C sa0;n1551gat_n1516gat_A sa0;n2433gat sa0;n406gat_n410gat_D sa0;n2411gat sa0;II1723 sa0;n169gat sa0;n1739gat sa0;n2354gat_II1723_A sa0;n2414gat sa1;n1797gat sa0;n1989gat_n1801gat_B sa0;n92gat sa0;n1499gat sa0;n1988gat sa0;n2206gat sa1;n1823gat sa0;n2786gat sa1;n1740gat sa0 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=9769, 制約=11112) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+156 (時間=76.0ms, clasp=57.0ms)
+
+[Case 269] 入力行(502文字)
+  [Case 269] Faults=n391gat sa0;n155gat_n141gat_A sa0;n851gat_n654gat_A sa0;n851gat_n450gat_A sa0;n851gat_n965gat_B sa0;n851gat_n773gat_A sa0;n851gat_n656gat_A sa0;n851gat_n793gat_B sa0;n856gat_n440gat_A sa0;n856gat_n792gat_B sa0;n856gat_n441gat_A sa0;n856gat_n962gat_A sa0;n856gat_n963gat_A sa0;n856gat_n655gat_A sa0;n856gat_n442gat_B sa0;n851gat_n774gat_B sa0;n851gat sa0;n740gat_n853gat_A sa0;n136gat sa0;n574gat_n571gat_C sa0;n573gat_n570gat_B sa0;n572gat_n569gat_A sa0;n573gat sa0;n589gat sa0;n856gat sa0;n596gat sa1 (26件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=26故障同時, CEGARなし)
+    [1回求解 K=26] OPB生成 ...
+    [1回求解] clasp求解 (変数=6088, 制約=6589) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+186 (時間=98.0ms, clasp=60.0ms)
+
+[Case 270] 入力行(212文字)
+  [Case 270] Faults=n1087gat sa0;n1533gat sa0;n1674gat sa0;n873gat_n981gat_B sa0;n1403gat sa1;n2351gat_n1577gat_B sa0;n1862gat sa0;n1866gat sa0;n1989gat_n1863gat_C sa0;n1084gat sa1;n873gat sa0;n1989gat sa0;n2351gat sa0;n2405gat sa1 (14件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=14故障同時, CEGARなし)
+    [1回求解 K=14] OPB生成 ...
+    [1回求解] clasp求解 (変数=4184, 制約=4682) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+179 (時間=109.0ms, clasp=74.0ms)
+
+[Case 271] 入力行(1002文字)
+
+[Case 272] 入力行(147文字)
+  [Case 272] Faults=n111gat_n975gat_A sa0;n2078gat_n2079gat_A sa0;n670gat_n801gat_B sa0;n926gat_n1087gat_A sa0;n741gat_n997gat_A sa0;n497gat sa0;n1884gat_II2926_A sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=2758, 制約=2880) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+178 (時間=120.0ms, clasp=85.0ms)
+
+[Case 273] 入力行(144文字)
+  [Case 273] Faults=n2178gat sa0;n1459gat sa0;n1414gat sa0;n407gat_n409gat_B sa0;n823gat_n996gat_B sa0;n2214gat_n2219gat_B sa0;n520gat sa0;n517gat sa0;n2862gat sa1 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=8711, 制約=9589) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+161 (時間=116.0ms, clasp=89.0ms)
+
+[Case 274] 入力行(83文字)
+  [Case 274] Faults=n1105gat sa0;n683gat_n887gat_B sa0;n1590gat_n1104gat_B sa0;n2443gat_n2357gat_C sa0 (4件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=4故障同時, CEGARなし)
+    [1回求解 K=4] OPB生成 ...
+    [1回求解] clasp求解 (変数=4473, 制約=4642) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+195 (時間=396.0ms, clasp=367.0ms)
+
+[Case 275] 入力行(224文字)
+  [Case 275] Faults=n1409gat sa0;n1309gat sa0;n1507gat_n1408gat_A sa0;n1603gat_n1162gat_B sa0;n1147gat_n1305gat_A sa0;n1476gat sa1;II2720 sa0;n1858gat_stem_n1476gat_A sa0;n223gat sa0;n2356gat_n2358gat_B sa0;n229gat sa1;n1507gat sa0;n316gat sa1 (13件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=13故障同時, CEGARなし)
+    [1回求解 K=13] OPB生成 ...
+    [1回求解] clasp求解 (変数=11305, 制約=12251) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+176 (時間=113.0ms, clasp=81.0ms)
+
+[Case 276] 入力行(930文字)
+  [Case 276] Faults=n1173gat sa0;n1326gat sa0;n1260gat sa0;n1257gat sa0;n1174gat sa0;n1012gat sa0;n3108gat sa1;n164gat_n1324gat_A sa0;n397gat_n903gat_B sa0;n401gat_n1323gat_B sa0;n2643gat sa0;n2352gat_n2565gat_A sa0;n1458gat sa0;n1519gat sa1;n1397gat sa0;n1007gat sa1;n1091gat sa0;n1477gat sa0;n1468gat sa0;n527gat sa0;n1595gat_n1459gat_A sa0;n926gat_n984gat_A sa0;n864gat_n1093gat_B sa0;n1147gat_n1092gat_A sa0;n1112gat_n886gat_B sa0;n1079gat_n889gat_B sa0;n926gat_n981gat_A sa0;n1403gat_n1533gat_B sa0;n1396gat_n1466gat_C sa0;n1584gat_n1399gat_C sa0;n1111gat sa1;n1403gat sa0;n635gat sa0;n53gat_n47gat_A sa0;n52gat_n45gat_C sa0;n49gat_n44gat_B sa0;n523gat_n629gat_C sa0;n2213gat sa0;n53gat sa0;n523gat sa0;n639gat sa1;n415gat_n292gat_A sa0;n2401gat_n2331gat_B sa0;n2401gat_n2210gat_A sa0;n2193gat_n2211gat_A sa0;n494gat sa0;n1014gat sa0;n2346gat_n2215gat_A sa0;n2726gat_n356gat_A sa0;n500gat sa1;n1595gat sa0;n2401gat sa0;n2345gat sa1;n1596gat sa0 (54件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=54故障同時, CEGARなし)
+    [1回求解 K=54] OPB生成 ...
+    [1回求解] clasp求解 (変数=20101, 制約=22757) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+133 (時間=117.0ms, clasp=79.0ms)
+
+[Case 277] 入力行(432文字)
+  [Case 277] Faults=n459gat sa0;n1519gat_n1397gat_A sa0;n1444gat_n1320gat_A sa0;n837gat_n1321gat_B sa0;n514gat_n508gat_A sa0;n513gat_n506gat_C sa0;n510gat_n505gat_B sa0;n2162gat_n1485gat_B sa0;n2605gat sa0;n510gat sa0;n2555gat_n2549gat_A sa0;n2554gat_n2547gat_C sa0;n2551gat_n2546gat_B sa0;n732gat sa0;n712gat sa0;n728gat sa0;n914gat_n910gat_B sa0;n915gat_n909gat_C sa0;n911gat_n907gat_A sa0;n736gat sa1;n735gat sa1;n719gat sa1;n718gat sa1;n738gat sa1 (24件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=24故障同時, CEGARなし)
+    [1回求解 K=24] OPB生成 ...
+    [1回求解] clasp求解 (変数=11213, 制約=12162) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+167 (時間=93.0ms, clasp=73.0ms)
+
+[Case 278] 入力行(144文字)
+  [Case 278] Faults=n2566gat sa0;n860gat_n1245gat_B sa0;n1603gat_stem_n1291gat_A sa0;n1858gat_stem_n1581gat_A sa0;n2352gat sa0;n2393gat_n2331gat_A sa0;n1661gat sa0 (7件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=7故障同時, CEGARなし)
+    [1回求解 K=7] OPB生成 ...
+    [1回求解] clasp求解 (変数=3682, 制約=3922) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+191 (時間=73.0ms, clasp=56.0ms)
+
+[Case 279] 入力行(270文字)
+  [Case 279] Faults=n1106gat sa0;n1603gat_stem_n996gat_A sa0;n1293gat_n1101gat_B sa0;n2162gat_n1494gat_B sa0;n2575gat_n2572gat_C sa0;n2574gat_n2571gat_B sa0;n2573gat_n2570gat_A sa0;n1211gat_n1204gat_A sa0;n1209gat_n1203gat_B sa0;n1208gat_n1202gat_C sa0;n2285gat_n2292gat_C sa0;n2285gat sa0 (12件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=12故障同時, CEGARなし)
+    [1回求解 K=12] OPB生成 ...
+    [1回求解] clasp求解 (変数=9725, 制約=10554) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+192 (時間=117.0ms, clasp=84.0ms)
+
+[Case 280] 入力行(467文字)
+  [Case 280] Faults=n2968gat sa0;n2967gat sa0;n2969gat sa0;n2943gat sa0;n1261gat sa0;n901gat sa0;n1262gat sa0;n892gat sa0;n1264gat sa0;n902gat sa0;n905gat sa0;n490gat_n904gat_B sa0;n621gat_n1175gat_A sa0;n796gat sa0;n797gat sa0;n377gat sa0;n1074gat sa0;n2672gat_n1077gat_B sa0;n1471gat sa0;n89gat sa0;n1406gat sa0;n2982gat sa0;n110gat sa1;n1502gat sa0;n1609gat_n1607gat_B sa0;n413gat sa0;n2162gat sa1;n1528gat sa1;n740gat_n415gat_B sa0;n2290gat sa1;n2284gat sa1;n2217gat sa1;n625gat sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=17763, 制約=19776) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+171 (時間=143.0ms, clasp=101.0ms)
+
+[Case 281] 入力行(620文字)
+  [Case 281] Faults=n2962gat sa0;n2965gat sa0;n2942gat sa0;n2960gat sa0;n1000gat sa0;n1176gat sa0;n1267gat sa0;n900gat sa0;n904gat sa0;n999gat sa0;n1175gat sa0;n833gat_n1261gat_A sa0;n837gat_n1262gat_A sa0;n706gat_n1375gat_B sa0;n617gat_n1264gat_B sa0;n625gat_n905gat_A sa0;n1990gat_n2073gat_B sa0;n409gat sa0;n1006gat sa1;n1554gat sa0;n1559gat_n1555gat_B sa0;n1990gat sa0;n1272gat sa0;n630gat sa0;n65gat_n59gat_A sa0;n64gat_n57gat_C sa0;n61gat_n56gat_B sa0;n1495gat sa0;n406gat sa1;n687gat sa0;n347gat sa0;n170gat sa0;n350gat sa1;n1559gat sa0;n1614gat sa1;n396gat_n1614gat_A sa0;n397gat sa1;n490gat sa1;n621gat sa1;n176gat sa1;n829gat sa1 (41件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=41故障同時, CEGARなし)
+    [1回求解 K=41] OPB生成 ...
+    [1回求解] clasp求解 (変数=15950, 制約=17839) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+151 (時間=103.0ms, clasp=68.0ms)
+
+[Case 282] 入力行(161文字)
+  [Case 282] Faults=n2422gat sa0;n1704gat_n2421gat_B sa0;n120gat_n2461gat_A sa0;n637gat_n15gat_A sa0;n935gat sa0;n44gat sa0;n334gat_n246gat_C sa0;n948gat sa0;n2716gat_n746gat_A sa0 (9件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=9故障同時, CEGARなし)
+    [1回求解 K=9] OPB生成 ...
+    [1回求解] clasp求解 (変数=6384, 制約=6815) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+165 (時間=82.0ms, clasp=57.0ms)
+
+[Case 283] 入力行(491文字)
+  [Case 283] Faults=n794gat sa0;n763gat sa0;n765gat sa0;n652gat sa0;n651gat sa0;n646gat sa0;n645gat sa0;n766gat sa0;n1076gat sa0;n868gat sa0;n2908gat sa0;n2909gat sa0;n2912gat sa0;n2911gat sa0;n2907gat sa0;n2910gat sa0;n2919gat sa0;n2952gat sa0;n22gat sa0;n93gat sa1;n2289gat_II1733_C sa0;n2553gat_n2549gat_B sa0;n2554gat_n2548gat_C sa0;n2550gat_n2546gat_A sa0;n2289gat sa0;n688gat sa0;n293gat sa1;n691gat sa1;n92gat sa1;n2443gat sa1;n2554gat sa0;n2353gat sa1;n2775gat sa1;n2354gat sa1;n583gat sa1;n2355gat sa1 (36件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=36故障同時, CEGARなし)
+    [1回求解 K=36] OPB生成 ...
+    [1回求解] clasp求解 (変数=11634, 制約=12752) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+169 (時間=102.0ms, clasp=66.0ms)
+
+[Case 284] 入力行(296文字)
+  [Case 284] Faults=n3109gat sa1;n2660gat_n2662gat_A sa0;n1569gat sa0;n1722gat sa0;n1564gat sa0;n1855gat_n2147gat_B sa0;n1670gat_n1570gat_C sa0;n1553gat_n1558gat_B sa0;n2664gat_n2014gat_D sa0;n909gat sa0;n3021gat sa0;n2660gat_n2663gat_B sa0;n1553gat sa0;n1616gat sa1;n918gat_n1616gat_A sa0;n2660gat sa0;n2656gat sa0 (17件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=17故障同時, CEGARなし)
+    [1回求解 K=17] OPB生成 ...
+    [1回求解] clasp求解 (変数=6301, 制約=6990) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+177 (時間=77.0ms, clasp=38.0ms)
+
+[Case 285] 入力行(511文字)
+  [Case 285] Faults=n649gat sa0;n443gat sa0;n979gat sa0;n986gat sa0;n1150gat_n1152gat_B sa0;n875gat_n980gat_A sa0;n1659gat_n1650gat_B sa0;n124gat sa0;n1444gat_n1573gat_A sa0;n63gat_n59gat_B sa0;n64gat_n58gat_C sa0;n60gat_n56gat_A sa0;n1864gat_n1920gat_A sa0;n2331gat sa0;n2210gat sa0;n127gat sa1;n64gat sa0;n1864gat sa0;n2346gat_n2150gat_B sa0;n2402gat_n2213gat_A sa0;n224gat sa0;n2151gat sa1;n2052gat sa0;n2193gat sa0;n231gat sa1;n230gat sa1;n985gat sa1;n1150gat sa0;n875gat sa0;n2778gat sa1;n1879gat sa0;n2401gat sa1;n312gat sa1 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=11370, 制約=12842) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+164 (時間=135.0ms, clasp=103.0ms)
+
+[Case 286] 入力行(328文字)
+  [Case 286] Faults=n2437gat_n2556gat_B sa0;n1727gat sa0;n670gat_n977gat_A sa0;n1112gat_n992gat_B sa0;n1111gat_n1099gat_A sa0;n274gat_n1258gat_A sa0;n1442gat_n1368gat_A sa0;n2162gat_n1422gat_B sa0;n1576gat_n1564gat_D sa0;n670gat sa0;n1994gat sa0;n1270gat sa0;n1719gat sa1;n2547gat sa0;n1275gat sa1;n1991gat_n1667gat_A sa0;n1991gat sa0;n1740gat sa1 (18件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=18故障同時, CEGARなし)
+    [1回求解 K=18] OPB生成 ...
+    [1回求解] clasp求解 (変数=9967, 制約=10972) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+155 (時間=128.0ms, clasp=81.0ms)
+
+[Case 287] 入力行(256文字)
+  [Case 287] Faults=n1973gat sa0;n1970gat sa0;n290gat_n359gat_A sa0;n1444gat_n1325gat_A sa0;n706gat_n1443gat_B sa0;n2162gat_n1417gat_A sa0;n941gat sa1;n937gat sa0;n1202gat sa0;n1230gat sa0;n259gat sa0;n1886gat_n1958gat_B sa0;n1233gat sa1;n265gat sa1;n1236gat sa1;n1293gat sa1 (16件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=16故障同時, CEGARなし)
+    [1回求解 K=16] OPB生成 ...
+    [1回求解] clasp求解 (変数=9589, 制約=10571) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+160 (時間=147.0ms, clasp=126.0ms)
+
+[Case 288] 入力行(367文字)
+  [Case 288] Faults=n2512gat_n1755gat_C sa0;n2437gat_n2559gat_B sa0;n1306gat sa0;n1513gat sa0;n2200gat sa0;n679gat_n1249gat_A sa0;n1590gat_n1304gat_A sa0;n1591gat_n1365gat_B sa0;n1926gat sa0;n2078gat sa1;n2608gat_n2605gat_C sa0;n2607gat_n2604gat_B sa0;n2606gat_n2603gat_A sa0;n2090gat sa0;n1187gat sa0;n260gat sa0;n263gat sa1;n2859gat_n522gat_B sa0;n2606gat sa0;n266gat sa1;n2620gat sa1 (21件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=21故障同時, CEGARなし)
+    [1回求解 K=21] OPB生成 ...
+    [1回求解] clasp求解 (変数=13511, 制約=14870) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+154 (時間=80.0ms, clasp=59.0ms)
+
+[Case 289] 入力行(431文字)
+  [Case 289] Faults=n1247gat sa0;n1418gat sa0;n926gat_n986gat_B sa0;n583gat_n1161gat_A sa0;n1590gat_n1246gat_B sa0;n1480gat_n1417gat_B sa0;n1591gat_n1426gat_B sa0;n569gat sa0;n1673gat_n1733gat_A sa0;n588gat sa0;n806gat sa0;n787gat_n783gat_B sa0;n788gat_n782gat_C sa0;n784gat_n780gat_A sa0;n485gat_n479gat_A sa0;n484gat_n477gat_C sa0;n481gat_n476gat_B sa0;n2353gat_n2364gat_A sa0;n2443gat_n2292gat_A sa0;n809gat sa1;n594gat sa1;n595gat sa1;n815gat sa1 (23件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=23故障同時, CEGARなし)
+    [1回求解 K=23] OPB生成 ...
+    [1回求解] clasp求解 (変数=11941, 制約=13131) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+156 (時間=67.0ms, clasp=49.0ms)
+
+[Case 290] 入力行(1026文字)
+  [Case 290] Faults=n455gat_n1182gat_B sa0;n293gat_n87gat_C sa0;n446gat sa0;n969gat sa0;n870gat sa0;n2789gat_n968gat_A sa0;n372gat_n970gat_A sa0;n2792gat_n869gat_B sa0;n2778gat_n445gat_A sa0;n2734gat_n961gat_B sa0;n2775gat_n867gat_B sa0;n2731gat_n767gat_B sa0;n372gat sa0;II3148 sa0;n1300gat sa0;n1112gat_n993gat_A sa0;n1396gat_n1408gat_B sa0;n1590gat_n1245gat_A sa0;n579gat_n1291gat_B sa0;n78gat_n212gat_B sa0;n1410gat_n1420gat_A sa0;n1528gat_n1494gat_A sa0;n1591gat_n1486gat_B sa0;n2715gat_n421gat_A sa0;n219gat sa1;n572gat sa1;n568gat sa0;n78gat sa0;n522gat_n354gat_B sa0;n1279gat_n1273gat_A sa0;n1278gat_n1271gat_C sa0;n1275gat_n1270gat_B sa0;n1396gat sa0;n1962gat sa0;n1967gat sa0;n1846gat sa0;n1401gat sa1;n1590gat sa0;n690gat sa0;n805gat sa0;n1053gat sa0;n594gat_n590gat_B sa0;n595gat_n589gat_C sa0;n591gat_n587gat_A sa0;n418gat_n634gat_A sa0;n1891gat_n1895gat_B sa0;n1590gat_n1401gat_B sa0;n418gat sa0;n743gat sa1;n1410gat sa0;n1893gat sa1;n693gat sa1;n808gat sa1;n694gat sa1;n812gat sa1;n1060gat sa1;n698gat sa1;n679gat sa1;n3092gat sa0 (59件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=59故障同時, CEGARなし)
+    [1回求解 K=59] OPB生成 ...
+    [1回求解] clasp求解 (変数=26589, 制約=29781) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+134 (時間=338.0ms, clasp=299.0ms)
+
+[Case 291] 入力行(1320文字)
+
+[Case 292] 入力行(1121文字)
+  [Case 292] Faults=n1212gat sa0;n1200gat sa0;n1253gat sa0;n1010gat sa0;n1011gat sa0;n1028gat sa0;n1115gat sa0;n899gat sa0;n1116gat sa0;n3130gat sa0;n1284gat_n1199gat_B sa0;n1071gat_n1251gat_B sa0;n1044gat_n1254gat_B sa0;n1134gat_n1244gat_B sa0;n1281gat_n1243gat_A sa0;n1225gat_n1255gat_B sa0;n1007gat_n903gat_A sa0;n1691gat_n1599gat_A sa0;n179gat_n184gat_C sa0;n2672gat_n763gat_A sa0;n2781gat_n765gat_A sa0;n2789gat_n652gat_A sa0;n2778gat_n651gat_B sa0;n2669gat_n646gat_B sa0;n2792gat_n645gat_A sa0;n2734gat_n766gat_B sa0;n2775gat_n1076gat_B sa0;n2731gat_n769gat_B sa0;n419gat sa1;n1088gat sa0;n1369gat sa0;n528gat sa0;n291gat_n419gat_B sa0;n983gat_n984gat_B sa0;n741gat_n988gat_B sa0;n1444gat_n1258gat_B sa0;n613gat_n1368gat_B sa0;n1479gat_n1365gat_A sa0;n1123gat sa1;n130gat_n123gat_A sa0;n128gat_n122gat_B sa0;n127gat_n121gat_C sa0;n288gat_n186gat_C sa0;n634gat_n629gat_B sa0;n1444gat sa0;n745gat sa0;n3023gat sa0;n1194gat_n1187gat_A sa0;n1192gat_n1186gat_B sa0;n1191gat_n1185gat_C sa0;n353gat_n347gat_A sa0;n352gat_n345gat_C sa0;n349gat_n344gat_B sa0;n1442gat sa1;n374gat_n418gat_A sa0;n2716gat sa1;n1085gat sa1;n983gat sa0;n320gat sa1 (59件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=59故障同時, CEGARなし)
+    [1回求解 K=59] OPB生成 ...
+    [1回求解] clasp求解 (変数=25653, 制約=28621) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+124 (時間=126.0ms, clasp=89.0ms)
+
+[Case 293] 入力行(603文字)
+  [Case 293] Faults=n2244gat sa0;n3121gat sa0;n455gat_n1031gat_B sa0;n420gat_n1177gat_B sa0;n419gat_n999gat_A sa0;n567gat sa1;n1713gat sa0;n1378gat sa0;n1677gat_n1532gat_A sa0;n1869gat_n1413gat_A sa0;n164gat_n1325gat_B sa0;n1442gat_n1443gat_A sa0;n1923gat sa0;n575gat sa0;n572gat sa0;n567gat_stem sa1;n575gat_n571gat_B sa0;n576gat_n570gat_C sa0;n572gat_n568gat_A sa0;n576gat sa0;n1864gat sa1;n783gat sa0;n1713gat_stem sa0;n1838gat_II3178_A sa0;n1786gat_II2831_B sa0;n1633gat_II2735_C sa0;n1021gat_n1017gat_B sa0;n1022gat_n1016gat_C sa0;n1018gat_n1014gat_A sa0;n2353gat_n2293gat_A sa0;n1838gat sa0;n2353gat sa0;n1677gat sa0 (33件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=33故障同時, CEGARなし)
+    [1回求解 K=33] OPB生成 ...
+    [1回求解] clasp求解 (変数=14957, 制約=16370) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+151 (時間=135.0ms, clasp=101.0ms)
+
+[Case 294] 入力行(1215文字)
+
+[Case 295] 入力行(1673文字)
+
+[Case 296] 入力行(863文字)
+  [Case 296] Faults=n2047gat sa0;n3114gat sa1;n1773gat_n1757gat_A sa0;n3041gat sa0;n3049gat sa0;n387gat_n250gat_B sa0;n1927gat sa0;n1773gat_stem_n1758gat_B sa0;n1919gat_n1800gat_B sa0;n1284gat sa1;n1466gat sa0;n1455gat sa0;n1287gat sa0;n1659gat_n1653gat_C sa0;n1719gat_n1564gat_B sa0;n1925gat sa0;n245gat sa0;n1572gat sa0;n1719gat_n1994gat_A sa0;n1858gat_stem_n1573gat_B sa0;n1719gat_n1574gat_A sa0;n1798gat_n1920gat_C sa0;n1719gat sa0;n1894gat sa0;n2413gat sa0;n1893gat_n1962gat_B sa0;n1635gat sa1;n1205gat sa0;n947gat sa0;n908gat sa0;n1016gat sa0;n1576gat sa1;n1798gat sa0;n1839gat_II2934_B sa0;n1845gat_n1895gat_A sa0;n1787gat_II2926_B sa0;n1019gat sa1;n2416gat sa1;n1208gat sa1;n2417gat sa1;n1839gat sa0;n1692gat sa0;n954gat sa1;n953gat sa1;n915gat sa1;n1878gat_n1831gat_C sa0;n2202gat sa1;n1044gat sa1;n841gat sa1;n2393gat sa1;n2138gat sa1;n1878gat sa0;n842gat sa1;n1880gat sa1 (54件) 処理開始
+  [1] 故障ごとの論理・故障シミュレーション(3値)とコーン抽出
+  [2] 1回求解+検証 (K=54故障同時, CEGARなし)
+    [1回求解 K=54] OPB生成 ...
+    [1回求解] clasp求解 (変数=18873, 制約=21415) ...
+    [1回求解] 検証結果=Detected
+  [完了] SAT(OPT) / Verify=Detected / Diff=+133 (時間=198.0ms, clasp=91.0ms)
+
+[Case 297] 入力行(2274文字)
+
+[Case 298] 入力行(1672文字)
+
+[Case 299] 入力行(1285文字)
+
+[Case 300] 入力行(4049文字)
+
+[Case 301] 入力行(2845文字)
+
+[Case 302] 入力行(5052文字)
+
+[Case 303] 入力行(8764文字)
+
+[Case 304] 入力行(15449文字)
+バッチ処理完了。

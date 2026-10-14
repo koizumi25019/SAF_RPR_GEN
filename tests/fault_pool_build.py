@@ -1,6 +1,7 @@
-"""Build exact pre-pool reference and isolated cube-capture binary for checks.
-The production Debug/Release binaries are built with CMake.
+"""Build production Debug/Release, pre-scope reference and isolated checks.
+Pass --checker to build the independent verification oracle in a copied tree.
 """
+import argparse
 import os
 from pathlib import Path
 import re
@@ -10,28 +11,71 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / 'build/fault_pool_checks'
 EXTERNAL = Path(os.environ.get('FDP_EXTERNAL_DIR', ROOT / 'external')).resolve()
+CLASP_PREFIX = Path(os.environ.get('FDP_CLASP_PREFIX', ROOT / 'build/clasp-install')).resolve()
+REFERENCE_COMMIT = '52bb7ac'
 
 
-def compile_program(root, binary):
+def compile_program(root, binary, debug=False):
     sources = re.search(r'set\(SOURCES\s+(.*?)\)',
                         (root / 'CMakeLists.txt').read_text(), re.S).group(1).split()
     includes = [root / part for part in ('src', 'src/fdp', 'src/fdp/cnf', 'src/lib',
                                          'src/netlist', 'src/opt', 'src/fdp/xid')]
     includes += [EXTERNAL / part for part in ('cadical/src', 'cudd', 'cudd/cudd')]
-    command = ['gcc', '-std=gnu11', '-fcommon', '-O3', '-DNDEBUG']
+    flags = ['-g', '-O0', '-DDEBUG'] if debug else ['-O3', '-DNDEBUG']
+    command = ['gcc', '-std=gnu11', '-fcommon'] + flags
     command += ['-I' + str(path) for path in includes] + [str(root / source) for source in sources]
+    bridge = root / 'src/fdp/sbxid/clasp_bridge.cpp'
+    if bridge.exists():
+        bridge_object = binary.with_suffix('.clasp.o')
+        with binary.with_suffix('.clasp.build.log').open('w') as log:
+            subprocess.run(['g++', '-std=c++11', *flags,
+                            '-I' + str(CLASP_PREFIX / 'include'), '-c', str(bridge),
+                            '-o', str(bridge_object)], stdout=log, stderr=log, check=True)
+        command += [str(bridge_object), str(CLASP_PREFIX / 'lib/libclasp.a'),
+                    str(CLASP_PREFIX / 'lib/libpotassco.a'), '-pthread']
     command += [str(EXTERNAL / 'cadical/build/libcadical.a'),
                 str(EXTERNAL / 'cudd/cudd/.libs/libcudd.a'), '-lgmp', '-lm', '-lstdc++', '-o', str(binary)]
     with binary.with_suffix('.build.log').open('w') as log:
         subprocess.run(command, stdout=log, stderr=log, check=True)
     print('Built', binary, flush=True)
 
+def build_checker():
+    reference = BUILD / 'checker_source'
+    reference.mkdir(exist_ok=True)
+    archive = subprocess.check_output(['git', 'archive', 'bf8faa8', 'src', 'CMakeLists.txt'], cwd=ROOT)
+    subprocess.run(['tar', '-x', '-C', str(reference)], input=archive, check=True)
+    checker = subprocess.check_output(['git', 'show',
+        'bf8faa8:verification/normal_scope/baseline_migration/checker.c'], cwd=ROOT)
+    (reference / 'checker.c').write_bytes(checker)
+    source = reference / 'src/fdp/fault_detection_prob.c'
+    text = source.read_text()
+    at = text.index('static void AddBlockingClauseFromCube')
+    text = text[:at] + 'void CheckBaselineCovers(void);\n' + text[at:]
+    needle = '\tif (CreateConsGC() != true) return AFD_ERROR;'
+    assert text.count(needle) == 1
+    text = text.replace(needle, needle + '''
+    if (getenv("BASELINE_COVER_DIR")) {
+        CheckBaselineCovers();
+        *out_time_read = time_read;
+        return AFD_OKAY;
+    }
+''')
+    source.write_text(text)
+    cmake = reference / 'CMakeLists.txt'
+    cmake.write_text(cmake.read_text().replace('set(SOURCES\n', 'set(SOURCES\n    checker.c\n', 1))
+    compile_program(reference, BUILD / 'check_covers')
+
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--checker', action='store_true')
+    args = parser.parse_args()
     BUILD.mkdir(parents=True, exist_ok=True)
+    compile_program(ROOT, ROOT / 'build/main_release')
+    compile_program(ROOT, ROOT / 'build/main_debug', True)
     reference = BUILD / 'reference'
     reference.mkdir(exist_ok=True)
-    archive = subprocess.check_output(['git', 'archive', 'ac45287', 'src', 'CMakeLists.txt'], cwd=ROOT)
+    archive = subprocess.check_output(['git', 'archive', REFERENCE_COMMIT, 'src', 'CMakeLists.txt'], cwd=ROOT)
     subprocess.run(['tar', '-x', '-C', str(reference)], input=archive, check=True)
     compile_program(reference, BUILD / 'main_reference')
 
@@ -69,6 +113,8 @@ void CaptureFaultCubes(FNODE* fault, CubeSet* cubes, int complete) {
     (instrumented / 'CMakeLists.txt').write_text(
         (ROOT / 'CMakeLists.txt').read_text().replace('set(SOURCES\n', 'set(SOURCES\n    capture.c\n', 1))
     compile_program(instrumented, BUILD / 'main_capture')
+    if args.checker:
+        build_checker()
 
 if __name__ == '__main__':
     main()

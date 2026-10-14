@@ -1,6 +1,6 @@
 # set File
 # set netlist(.v)
--net ../input/circuit/b11_C.v
+-net ../input/circuit/saf/b11_C.v
 
 # set fault list(.txt)
 #-fault ../input/fault/b11.txt

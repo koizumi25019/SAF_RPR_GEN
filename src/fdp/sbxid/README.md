@@ -1,5 +1,7 @@
 # 現行FDPへのSB-XID移植
 
+今回のビルドはSAF専用。`-tdf` はCLI・`.set` のどちらでも回路読込前にエラー終了する。TDFへのSB-XID移植は行わない。
+
 同梱v1のCEGARなし版を使う。参照元は
 [saxid.c（52bb7ac）](https://github.com/koizumi25019/SAF_RPR_GEN/blob/52bb7ac268d2425ab2a8089c7b929fa87d262322/SB-XID/src/saxid.c)。
 本体のネットリスト・CaDiCaL・列挙・BDD・故障workerを使い、旧XIDはビルド対象から外した。旧XIDのファイルは参照用に残している。
@@ -98,7 +100,7 @@ ctest --test-dir build/sbxid --output-on-failure
 ```bash
 mkdir -p build/sbxid-results
 build/sbxid/main_release \
-  -net "$PWD/input/circuit/c17a.v" \
+  -net "$PWD/input/circuit/saf/c17a.v" \
   -fdp "$PWD/build/sbxid-results/c17a.csv" \
   -log "$PWD/build/sbxid-results/c17a.log" \
   -limit 0 -jobs 2 -dom_reuse off
@@ -115,3 +117,5 @@ build/sbxid/main_release \
 - 本物のclaspでc17a（36行）とs27_C（52行）の完全FDPが改変前と一致。各回路でDebug/Release、jobs=1/2、支配流用on/off、任意の事後検証を確認した。事後検証を有効にした157求解で失敗0件。
 - 独立したPBOで約1.000秒での打ち切りを確認。解がない場合はUNKNOWN、暫定モデルがある場合はFEASIBLEとなり、保存したモデルが全制約を満たすことも確認した。
 - 今回の受入れ比較は上記2回路。記録した経過時間は動作確認の観測値であり、速度比較の結論には使っていない。詳細は [実ライブラリでの確認記録](../../../docs/sb_xid_real_clasp_checks.json) に保存した。
+
+最新版baseline `65ad73b` の観測出力TFI・常時EA・回路配置へ統合後も、6件のCTestと上記2回路・10条件の完全FDP比較が通過。`tdf_model` の代わりに `tdf_disabled` がTDFの実行拒否を確認する。TDFのソース・設定は将来の移植用に残している。

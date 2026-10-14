@@ -40,6 +40,12 @@ int main(
 	// オプションを設定する
 	if (OPT(argc, argv) != OPT_OKAY) return EXIT_FAILURE;
 
+	if (opt.fault_model == FM_TDF)
+	{
+		fprintf(stderr, "COMMAND ERROR: TDF is disabled in this SB-XID build; use -saf.\n");
+		return EXIT_FAILURE;
+	}
+
 	/** ネットリストを読み込む */
 	read_nl(opt.file.input.net);
 
@@ -81,7 +87,10 @@ static void WriteReport(
 	fprintf(fp, "//--------------------------------------------------------------------------------\n");
 	fprintf(fp, "//  Target Circuit                            : %s\n", net_name);
 	fprintf(fp, "//  Name of Target Fault File                 : %s\n", opt.file.input.fault);
-	fprintf(fp, "//  Normal CNF Scope                          : %s\n", "on");
+	fprintf(fp, "//  Fault Model                               : %s\n",
+            opt.fault_model == FM_TDF ? "TDF (LOC; capture PPO only)" : "SAF");
+	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
+	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
     fprintf(fp, "//  Don't-care Method                         : SB-XID v1 (no CEGAR)\n");
     fprintf(fp, "//  Clasp Version                             : %s\n", sbxid_clasp_version());

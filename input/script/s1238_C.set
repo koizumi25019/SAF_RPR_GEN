@@ -1,9 +1,9 @@
 # set File
 # set netlist(.v)
--net ./input/circuit/s1238_C.v 
+-net ../input/circuit/saf/s1238_C.v
 
 # set fault list(.txt)
--fault ./input/fault/det_s1238_C.txt
+-fault ../input/fault/det_s1238_C.txt
 
 
 

@@ -1,0 +1,213 @@
+{
+  "baseline_commit": "4aa06c7",
+  "tdf_source_commit": "bf8faa8c",
+  "scope": "LOC TDF on baseline SAT/XID/BDD pipeline",
+  "ctest": {
+    "passed": 3,
+    "failed": 0
+  },
+  "exhaustive": {
+    "source": "independent exhaustive two-frame Verilog simulation",
+    "cases": [
+      {
+        "circuit": "s27",
+        "inputs": 7,
+        "assignments": 128,
+        "faults": 52,
+        "verified_cubes": 0
+      },
+      {
+        "circuit": "s27",
+        "inputs": 7,
+        "assignments": 128,
+        "faults": 52,
+        "verified_cubes": 34
+      },
+      {
+        "circuit": "s27",
+        "inputs": 7,
+        "assignments": 128,
+        "faults": 52,
+        "verified_cubes": 0
+      },
+      {
+        "circuit": "s208",
+        "inputs": 19,
+        "assignments": 524288,
+        "faults": 416,
+        "verified_cubes": 0
+      },
+      {
+        "circuit": "s208",
+        "inputs": 19,
+        "assignments": 524288,
+        "faults": 416,
+        "verified_cubes": 146
+      },
+      {
+        "circuit": "s208",
+        "inputs": 19,
+        "assignments": 524288,
+        "faults": 416,
+        "verified_cubes": 0
+      },
+      {
+        "circuit": "boundary",
+        "inputs": 5,
+        "assignments": 32,
+        "faults": 22,
+        "verified_cubes": 0
+      },
+      {
+        "circuit": "boundary",
+        "inputs": 5,
+        "assignments": 32,
+        "faults": 22,
+        "verified_cubes": 6
+      },
+      {
+        "circuit": "boundary",
+        "inputs": 5,
+        "assignments": 32,
+        "faults": 22,
+        "verified_cubes": 0
+      }
+    ],
+    "serial_parallel_debug_equal": true,
+    "saf_c17_golden": true,
+    "settings_and_invalid_inputs": true
+  },
+  "medium_tdf": {
+    "circuit": "s5378",
+    "faults": 150,
+    "limit": 30,
+    "serial_parallel_csv_identical": true,
+    "oracle_commit": "bf8faa8c",
+    "gt": "ALL VERIFIED",
+    "reference_complete_fdp_matches": 14,
+    "completed": 14
+  },
+  "saf_regression": {
+    "reference_commit": "4aa06c7",
+    "normal_cnf_scope": "affected-output TFI, always on",
+    "essential_assignment": "always on; units only within the scope",
+    "binary_sha256": "1a9b9f07708dca8f4e0b2aebb72a62800eab2139c14ee34c21fb8e052df6b410",
+    "timing_repeats": 1,
+    "cpu_quota": "200000 100000",
+    "checks": [
+      {
+        "label": "c17a",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "golden_debug_always_scoped",
+        "passed": true
+      },
+      {
+        "label": "s27_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s208_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s298_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s344_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s510_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s641_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s713_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "s1494_C",
+        "serial_parallel_csv_identical": true,
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "serial_reuse_on",
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "serial_reuse_off",
+        "previous_full_FDP_equal": true
+      },
+      {
+        "label": "empty_and_worker_clamp",
+        "passed": true
+      },
+      {
+        "label": "output_TFI_and_dangling_fanout",
+        "passed": true
+      },
+      {
+        "label": "settings_and_io_failure",
+        "passed": true,
+        "essential_assignment_always_on": true
+      },
+      {
+        "label": "worker_killed",
+        "nonzero_exit": true,
+        "all_workers_reaped": true
+      },
+      {
+        "label": "parent_cancelled",
+        "nonzero_exit": true,
+        "all_workers_reaped": true
+      },
+      {
+        "label": "s5378_C_all",
+        "faults": 4551,
+        "limit": 30,
+        "serial_parallel_csv_identical": true,
+        "shared_completed_faults": 1572,
+        "previous_shared_complete_FDP_mismatches": 0,
+        "completed": 1572,
+        "single_serial_wall_seconds": 222.87547683399987,
+        "single_parallel4_wall_seconds": 67.59718665100013
+      },
+      {
+        "label": "c17a_independent_gt",
+        "faults": 22,
+        "gt": "ALL VERIFIED",
+        "actual_csv_matches_capture": true
+      },
+      {
+        "label": "s208_C_independent_gt",
+        "faults": 215,
+        "gt": "ALL VERIFIED",
+        "actual_csv_matches_capture": true
+      },
+      {
+        "label": "s5378_C_independent_gt",
+        "faults": 4551,
+        "gt": "ALL VERIFIED",
+        "actual_csv_matches_capture": true
+      }
+    ],
+    "passed": true,
+    "reference_binary_sha256": "4327e054975beac3d2dca6c38f93b9b50337cd42660200dbc2daa96594b365f1"
+  },
+  "production_release_sha256": "8bad673a843fb77a856a64a2fcf62bc09e358998a8f1f37855335d7b62a7d9e3",
+  "passed": true
+}

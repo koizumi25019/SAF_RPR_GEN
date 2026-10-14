@@ -47,6 +47,40 @@ bool ReadFault(
 		/** 「故障ファイル」を閉じる */
 		fclose(fileptr);
 	}
+	else if (opt.fault_model == FM_TDF)
+	{
+		//-------------------------------------------------------------------
+		// TDF 故障ファイルなし：全代表故障の自動生成
+		// 故障サイトは2時刻展開前の全信号線（= peer_1t を持つ 2時刻目コピーと PI）
+		//-------------------------------------------------------------------
+		int i;
+		char buffer[MAXSIZE_BUFFER];
+
+		readdata.fault.numinit = 0;
+		readdata.fault.numrema = 0;
+
+		// 等価故障のフラグ整理を実行
+		AnalyzeEquivalenceFaultsTDF();
+
+		for (i = 0; i < n_net; i++)
+		{
+			if (nl[i].peer_1t == (NLIST*)NULL) continue;   // 1時刻目コピーは故障サイトでない
+
+			if (nl[i].test_sa0 == YES)   // STR
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tSTR\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+
+			if (nl[i].test_sa1 == YES)   // STF
+			{
+				snprintf(buffer, sizeof(buffer), "%s\tSTF\n", nl[i].name);
+				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
+			}
+		}
+
+		printf("\r	Representative fault generation completed (TDF). Total faults: %d\n", readdata.fault.numinit);
+	}
 	else
 	{
 		//-------------------------------------------------------------------
@@ -80,12 +114,14 @@ bool ReadFault(
 		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
 
-	struct timespec _adfs, _adfe;
-	clock_gettime(CLOCK_MONOTONIC, &_adfs);
-	AnalyzeDominanceFaults();
-	clock_gettime(CLOCK_MONOTONIC, &_adfe);
-	printf("AnalyzeDominanceFaults: %.3f sec\n",
-		(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
+	if (opt.fault_model != FM_TDF) {
+		struct timespec _adfs, _adfe;
+		clock_gettime(CLOCK_MONOTONIC, &_adfs);
+		AnalyzeDominanceFaults();
+		clock_gettime(CLOCK_MONOTONIC, &_adfe);
+		printf("AnalyzeDominanceFaults: %.3f sec\n",
+			(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
+	}
 
 	return READ_OKAY;
 }
@@ -182,12 +218,12 @@ FNODE* searchFnodePtr(
 
 //*************************************************************************************************************
 //	@name		ParseFaultType
-//	@function	strtok_r のcontextから故障タイプトークン("sa0"/"sa1")を解析しtypeに設定する
+//	@function	故障タイプ（SAF: sa0/sa1、TDF: STR/STF）を解析しtypeに設定する
 //	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 static bool ParseFaultType(
-	char** saveptr,			/**< strtok_r の saveptr */
-	int* type_out			/**< 出力: SF0 または SF1 */
+	char** saveptr,			/**< strtok_r saveptr */
+	int* type_out			/**< output: SF0 or SF1 */
 )
 {
 	char* token = strtok_r(NULL, " \n\0", saveptr);
@@ -196,6 +232,18 @@ static bool ParseFaultType(
 		printf("\n\tFILE ERROR: fault file reading failed. ");
 		printf("type of fault error.\n\n");
 		return false;
+	}
+	if (opt.fault_model == FM_TDF)
+	{
+		if      (!strcmp(token, "STR")) *type_out = SF0;   /* slow-to-rise: t1=0, t2でsa0挙動 */
+		else if (!strcmp(token, "STF")) *type_out = SF1;   /* slow-to-fall: t1=1, t2でsa1挙動 */
+		else
+		{
+			printf("\n\tFILE ERROR: fault file reading failed. ");
+			printf("%c%s%c unexpected type of fault (-tdf では STR/STF を指定).\n\n", '"', token, '"');
+			return false;
+		}
+		return true;
 	}
 	if (!strcmp(token, "sa0"))
 	{
@@ -304,6 +352,22 @@ FNODE* CreateFaultNode(
 		free(fnodeptr->name);
 		free(fnodeptr);
 		return (FNODE*)NULL;
+	}
+
+	/** TDF: 励起条件を課す1時刻目コピー（2時刻展開時に peer_1t が張られている） */
+	fnodeptr->exc_netptr = (NLIST*)NULL;
+	if (opt.fault_model == FM_TDF)
+	{
+		fnodeptr->exc_netptr = fnodeptr->netptr->peer_1t;
+		if (fnodeptr->exc_netptr == (NLIST*)NULL)
+		{
+			printf("\n\tFILE ERROR: fault file reading failed. ");
+			printf("%c%s%c is not a 2nd-frame net (TDF).\n\n", '"', fnodeptr->name, '"');
+			free(fnodeptr->string);
+			free(fnodeptr->name);
+			free(fnodeptr);
+			return (FNODE*)NULL;
+		}
 	}
 
 	/** 次ノードへのポインタを設定する */
@@ -420,4 +484,34 @@ void AnalyzeDominanceFaults(void)
 	}
 
 	printf("Dominance fault analysis: %d reuse edges\n", edges);
+}
+
+/* TDF equivalence: BUF/INV only, never across a DFF boundary. */
+void AnalyzeEquivalenceFaultsTDF(void)
+{
+	int i;
+
+	// すべてのネットの故障をテスト対象(YES)として初期化
+	for (i = 0; i < n_net; i++)
+	{
+		nl[i].test_sa0 = YES;   // STR
+		nl[i].test_sa1 = YES;   // STF
+	}
+
+	for (i = 0; i < n_net; i++)
+	{
+		if (nl[i].type != BUF && nl[i].type != INV) continue;
+		if (nl[i].peer_1t == (NLIST*)NULL) continue;          // 1時刻目コピーのゲートは対象外
+
+		/* DFF Q at t2 is a BUF, but its peer at t1 is a free state input.
+           A shared primary input also has peer_1t, so testing only the BUF's
+           input peer would incorrectly collapse PI faults across the DFF. */
+        if (nl[i].peer_1t->type == IN) continue;
+		NLIST* in0 = nl[i].in[0];
+		if (in0->peer_1t == (NLIST*)NULL) continue;           // DFF置換BUF：時刻境界は跨がない
+
+		// 入力線の遷移故障（STR/STF とも）は出力線の故障で代表される
+		in0->test_sa0 = NO;
+		in0->test_sa1 = NO;
+	}
 }

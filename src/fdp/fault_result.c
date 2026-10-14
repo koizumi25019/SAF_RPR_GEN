@@ -11,6 +11,28 @@ static void WriteEquivFaults(
 {
     int j;
 
+    // TDF の等価は BUF/INV のみ（BUF=同極性、INV=STR↔STF 反転）。
+    // DFF 置換 BUF（入力が1時刻目コピー）は時刻境界なので跨がない。
+    if (opt.fault_model == FM_TDF)
+    {
+        if (net->type != BUF && net->type != INV) return;
+        if (net->peer_1t && net->peer_1t->type == IN) return;
+
+        NLIST* in0 = net->in[0];
+        if (in0->peer_1t == (NLIST*)NULL) return;
+
+        int in_type = (net->type == BUF) ? fault_type
+                                         : ((fault_type == SF0) ? SF1 : SF0);
+        int flag = (in_type == SF0) ? in0->test_sa0 : in0->test_sa1;
+        if (flag == NO)
+        {
+            fprintf(result_fp, "%s,%s,,,%s,\n",
+                in0->name, FaultTypeName(in_type), density_str);
+            WriteEquivFaults(result_fp, in0, in_type, density_str);
+        }
+        return;
+    }
+
     switch (net->type)
     {
         case AND:
@@ -84,7 +106,7 @@ void WriteFaultResult(FILE* fp, const FaultResult* result)
 
     fprintf(fp, "%s,%s,%d,%d,%s,%d\n",
             result->target->name,
-            (result->target->type == SF0) ? "sa0" : "sa1",
+            FaultTypeName(result->target->type),
             result->cube_cnt,
             result->complete ? 1 : 0,
             density_str,

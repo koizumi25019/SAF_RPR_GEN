@@ -233,5 +233,143 @@
     "FDP enumeration has no cube limit; each clasp search still has a one-second limit.",
     "Only c17a and s27_C were used for end-to-end FDP acceptance in this check.",
     "Recorded elapsed times are functional-check observations, not a controlled performance benchmark."
-  ]
+  ],
+  "baseline_integration": {
+    "checked_at_utc": "2026-10-14T14:25:46.836957+00:00",
+    "baseline_commit": "65ad73be9381ff4d0765b0208f311abb2e548522",
+    "fault_model": "SAF only; TDF rejected before netlist reading",
+    "retained_host_updates": [
+      "affected-output TFI normal CNF scope",
+      "always-on essential assignment",
+      "input/circuit/saf layout",
+      "TDF source retained without SB-XID port"
+    ],
+    "ctest": {
+      "passed": 6,
+      "failed": 0,
+      "tests": [
+        "target_order",
+        "fdp_output",
+        "sbxid_core",
+        "normal_scope_pattern",
+        "clasp_bridge",
+        "tdf_disabled"
+      ]
+    },
+    "fdp_cases": [
+      {
+        "circuit": "c17a",
+        "binary": "main_debug",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 36,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.03248190199883538
+      },
+      {
+        "circuit": "c17a",
+        "binary": "main_release",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 36,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.03247260499847471
+      },
+      {
+        "circuit": "c17a",
+        "binary": "main_release",
+        "jobs": 2,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 36,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.019093486000201665
+      },
+      {
+        "circuit": "c17a",
+        "binary": "main_release",
+        "jobs": 1,
+        "dominance_reuse": "on",
+        "post_verify": false,
+        "fault_rows": 36,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.03222773499874165
+      },
+      {
+        "circuit": "c17a",
+        "binary": "main_debug",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": true,
+        "fault_rows": 36,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.03206389699698775
+      },
+      {
+        "circuit": "s27_C",
+        "binary": "main_debug",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 52,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.06426639399796841
+      },
+      {
+        "circuit": "s27_C",
+        "binary": "main_release",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 52,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.06442538200280978
+      },
+      {
+        "circuit": "s27_C",
+        "binary": "main_release",
+        "jobs": 2,
+        "dominance_reuse": "off",
+        "post_verify": false,
+        "fault_rows": 52,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.032502992002264364
+      },
+      {
+        "circuit": "s27_C",
+        "binary": "main_release",
+        "jobs": 1,
+        "dominance_reuse": "on",
+        "post_verify": false,
+        "fault_rows": 52,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.0323336030014616
+      },
+      {
+        "circuit": "s27_C",
+        "binary": "main_debug",
+        "jobs": 1,
+        "dominance_reuse": "off",
+        "post_verify": true,
+        "fault_rows": 52,
+        "fdp_matches_previous_verified_version": true,
+        "complete": true,
+        "wall_seconds": 0.03224648000104935
+      }
+    ],
+    "c17a_golden_fdp_matches": true,
+    "tdf_cli_and_set_rejected_debug_and_release": true,
+    "manual_build_helper_links_real_clasp": true
+  }
 }

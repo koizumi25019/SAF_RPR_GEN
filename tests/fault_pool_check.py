@@ -1,5 +1,5 @@
 """Baseline integration: compare full CSVs, settings, worker cleanup and s5378.
-Run after the CMake build; --reference points to a build of baseline ac45287.
+--reference points to the pre-output-TFI baseline 52bb7ac.
 Optional --capture/--checker verify actual generated covers independently.
 """
 import argparse
@@ -16,7 +16,7 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 RUNS = ROOT / 'build/fault_pool_checks/runs'
 RELEASE = ROOT / 'build/main_release'
-HOOKS = {'MDC_NODOM', 'FDP_NORMAL_SCOPE', 'BASELINE_COVER_DIR', 'GT_BDD'}
+HOOKS = {'MDC_NODOM', 'MDC_NOEA', 'FDP_NORMAL_SCOPE', 'BASELINE_COVER_DIR', 'GT_BDD'}
 for source in (ROOT / 'src').rglob('*.c'):
     HOOKS.update(re.findall(r'getenv\("([A-Z0-9_]+)"\)', source.read_text()))
 ENV = {key: value for key, value in os.environ.items() if key not in HOOKS}
@@ -26,7 +26,7 @@ def settings(label, circuit='c17a', jobs=1, limit=0, reuse='off', extra=''):
     directory = RUNS / label
     directory.mkdir(parents=True, exist_ok=True)
     (directory / 'time.log').unlink(missing_ok=True)
-    text = (f'-net {ROOT}/input/circuit/{circuit}.v\n'
+    text = (f'-net {ROOT}/input/circuit/saf/{circuit}.v\n'
             f'-fdp {directory}/fdp.csv\n-log {directory}/time.log\n-limit {limit}\n')
     if jobs is not None:
         text += f'-jobs {jobs}\n-dom_reuse {reuse}\n'
@@ -50,6 +50,22 @@ def run(label, binary=RELEASE, env_extra=None, **options):
 def equal(*directories):
     expected = (directories[0] / 'fdp.csv').read_bytes()
     assert all((item / 'fdp.csv').read_bytes() == expected for item in directories[1:])
+
+def compare_fdp(first, second, complete=True):
+    a = list(csv.DictReader((first / 'fdp.csv').open()))
+    b = list(csv.DictReader((second / 'fdp.csv').open()))
+    if complete:
+        signature = lambda rows: sorted((r['net_name'], r['f_type'], r['fdp']) for r in rows)
+        assert signature(a) == signature(b)
+        assert all(r['complete'] == '1' for rows in (a, b) for r in rows if r['complete'] in ('0', '1'))
+        return None
+    # A changed SAT formula can select different partial covers under a limit.
+    representatives = lambda rows: {(r['net_name'], r['f_type']): r for r in rows if r['complete'] in ('0', '1')}
+    a, b = representatives(a), representatives(b)
+    assert a.keys() == b.keys()
+    shared = [key for key in a if a[key]['complete'] == b[key]['complete'] == '1']
+    assert all(a[key]['fdp'] == b[key]['fdp'] for key in shared)
+    return len(shared)
 
 
 def child_pids(parent_pid):
@@ -113,6 +129,15 @@ def check_settings():
     subprocess.run([str(RELEASE), '-set', str(config)], env=ENV,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
     assert re.search(r'Dominance Cube Reuse\s+: off', (directory / 'time.log').read_text())
+    # Baseline always enables EA. No .set/CLI switch or legacy disable hook.
+    reference, _ = run('ea_always_on')
+    ignored, _ = run('ea_legacy_ignored', env_extra={'MDC_NOEA': '1'})
+    equal(reference, ignored)
+    assert re.search(r'Essential Assignment\s+: on', (ignored / 'time.log').read_text())
+    for value in ('on', 'off'):
+        result = subprocess.run([str(RELEASE), '-set', str(config), '-ea', value],
+                                env=ENV, capture_output=True, text=True)
+        assert result.returncode != 0 and 'not expected' in result.stdout
     for jobs in (1, 4):
         for option in ('fdp', 'log'):
             _, config = settings(f'write_failure_{option}_{jobs}', jobs=jobs,
@@ -120,6 +145,39 @@ def check_settings():
             result = subprocess.run([str(RELEASE), '-set', str(config)], env=ENV,
                                     stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=20)
             assert result.returncode != 0
+
+def check_scope_cases():
+    for fault, expected in (('i_k_B', 9), ('i_l_A', 8)):
+        faults = RUNS / (fault + '.txt')
+        faults.write_text(f'{fault}\tsa0\n')
+        directory, _ = run('scope_' + fault, extra=f'-fault {faults}\n',
+                           env_extra={'FDP_NORMAL_SCOPE_VALIDATE': '1'})
+        scope = re.search(r'normal_gates=(\d+)/(\d+)', (directory / 'stderr.txt').read_text())
+        assert scope and int(scope[1]) == expected, fault
+    # An internal dangling output must not participate in detection or XID.
+    fixture = RUNS / 'dangling.v'
+    fixture.write_text('''module dangling(a,b,c,d,y,z);
+input a,b,c,d;
+output y,z;
+wire a,b,c,d,f,dead,y,z;
+BUF G0(.A(a),.Z(f));
+AND2 G1(.A(f),.B(b),.Z(y));
+BUF G2(.A(f),.Z(dead));
+AND2 G3(.A(c),.B(d),.Z(z));
+endmodule
+''')
+    faults = RUNS / 'dangling.txt'
+    faults.write_text('f\tsa0\ndead\tsa0\ndead\tsa1\n')
+    # Independent enumeration of all PI vectors, observing only y and z.
+    expected = sum(a and b for a in (0, 1) for b in (0, 1)
+                   for c in (0, 1) for d in (0, 1)) / 16
+    serial, _ = run('dangling_serial', extra=f'-net {fixture}\n-fault {faults}\n')
+    parallel, _ = run('dangling_parallel', jobs=4, extra=f'-net {fixture}\n-fault {faults}\n')
+    equal(serial, parallel)
+    rows = {(r['net_name'], r['f_type']): float(r['fdp'])
+            for r in csv.DictReader((serial / 'fdp.csv').open())}
+    assert rows['f', 'sa0'] == expected
+    assert rows['dead', 'sa0'] == rows['dead', 'sa1'] == 0
 
 
 def independent_gt(capture, checker, circuit, limit):
@@ -135,7 +193,7 @@ def independent_gt(capture, checker, circuit, limit):
     faults = actual / 'faults.txt'
     faults.write_text(''.join(f"{row['net_name']}\t{row['f_type']}\n" for row in representatives))
     gt_config = actual / 'gt.set'
-    gt_config.write_text(f'-net {ROOT}/input/circuit/{circuit}.v\n-fault {faults}\n'
+    gt_config.write_text(f'-net {ROOT}/input/circuit/saf/{circuit}.v\n-fault {faults}\n'
                          f'-fdp {actual}/unused.csv\n-log {actual}/gt.log\n'
                          '-dc_method xid\n-dom_reuse off\n')
     result = subprocess.run([str(checker), '-set', str(gt_config)],
@@ -153,18 +211,20 @@ def main():
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--capture', type=Path)
     parser.add_argument('--checker', type=Path)
+    parser.add_argument('--report', type=Path, default=ROOT / 'docs/output_tfi_scope_results.json')
     args = parser.parse_args()
     args.reference = args.reference.resolve()
     if args.capture: args.capture = args.capture.resolve()
     if args.checker: args.checker = args.checker.resolve()
     assert bool(args.capture) == bool(args.checker)
-    report = {'reference_commit': 'ac45287', 'normal_cnf_scope': 'always on',
+    report = {'reference_commit': '52bb7ac', 'normal_cnf_scope': 'affected-output TFI, always on',
+              'essential_assignment': 'always on; units only within the scope',
               'binary_sha256': hashlib.sha256(RELEASE.read_bytes()).hexdigest(),
               'timing_repeats': 1,
               'cpu_quota': (Path('/sys/fs/cgroup/cpu.max').read_text().strip()
                             if Path('/sys/fs/cgroup/cpu.max').exists() else None),
               'checks': []}
-    output = ROOT / 'docs/fault_parallel_results.json'
+    output = args.report.resolve()
     def record(label, **data):
         report['checks'].append(dict(label=label, **data))
         output.parent.mkdir(exist_ok=True)
@@ -175,8 +235,9 @@ def main():
         serial, _ = run(circuit + '_serial', circuit=circuit)
         parallel, _ = run(circuit + '_parallel', circuit=circuit, jobs=4)
         old, _ = run(circuit + '_old', binary=args.reference, circuit=circuit, jobs=None)
-        equal(serial, parallel, old)
-        record(circuit, serial_parallel_previous_csv_identical=True)
+        equal(serial, parallel)
+        compare_fdp(serial, old)
+        record(circuit, serial_parallel_csv_identical=True, previous_full_FDP_equal=True)
         if circuit == 'c17a':
             rows = list(csv.DictReader((serial / 'fdp.csv').open()))
             golden = list(csv.DictReader((ROOT / 'expected/c17a_result.csv').open()))
@@ -190,8 +251,8 @@ def main():
     for reuse in ('on', 'off'):
         new, _ = run('reuse_' + reuse, circuit='s208_C', reuse=reuse)
         old, _ = run('reuse_old_' + reuse, binary=args.reference, circuit='s208_C', jobs=None, reuse=reuse)
-        equal(new, old)
-        record('serial_reuse_' + reuse, previous_csv_identical=True)
+        compare_fdp(new, old)
+        record('serial_reuse_' + reuse, previous_full_FDP_equal=True)
     empty = RUNS / 'empty.txt'; empty.write_text('')
     first, _ = run('empty_serial', extra=f'-fault {empty}\n')
     second, _ = run('empty_parallel', jobs=4, extra=f'-fault {empty}\n')
@@ -206,16 +267,19 @@ def main():
     equal(first, second)
     assert re.search(r'Fault Workers\s+: 2', (second / 'time.log').read_text())
     record('empty_and_worker_clamp', passed=True)
-    check_settings(); record('settings_and_io_failure', passed=True)
+    check_scope_cases(); record('output_TFI_and_dangling_fanout', passed=True)
+    check_settings(); record('settings_and_io_failure', passed=True, essential_assignment_always_on=True)
     for label, child in (('worker_killed', True), ('parent_cancelled', False)):
         process_failure(label, child); record(label, nonzero_exit=True, all_workers_reaped=True)
     serial, wall = run('s5378_C_serial', circuit='s5378_C', limit=30)
     parallel, parallel_wall = run('s5378_C_parallel', circuit='s5378_C', jobs=4, limit=30)
     old, _ = run('s5378_C_old', binary=args.reference, circuit='s5378_C', jobs=None, limit=30)
-    equal(serial, parallel, old)
+    equal(serial, parallel)
+    shared = compare_fdp(serial, old, complete=False)
     rows = list(csv.DictReader((parallel / 'fdp.csv').open()))
     assert sum(row['complete'] in ('0','1') for row in rows) == 4551
-    record('s5378_C_all', faults=4551, limit=30, serial_parallel_previous_csv_identical=True,
+    record('s5378_C_all', faults=4551, limit=30, serial_parallel_csv_identical=True,
+           shared_completed_faults=shared, previous_shared_complete_FDP_mismatches=0,
            completed=sum(row['complete']=='1' for row in rows), single_serial_wall_seconds=wall,
            single_parallel4_wall_seconds=parallel_wall)
     if args.checker:

@@ -1,6 +1,6 @@
 # set File
 # set netlist(.v)
--net ../input/circuit/s13207_C.v 
+-net ../input/circuit/saf/s13207_C.v
 
 # set fault list(.txt)
 #-fault ./input/fault/s13207_C_unred.txt
@@ -13,3 +13,5 @@
 -fdp ../output/limit30/fdp/s13207_C.csv
 
 -limit 30
+
+-jobs 1

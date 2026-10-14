@@ -57,7 +57,7 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 `.set` の最小例（c17a / [input/script/c17a.set](../input/script/c17a.set)）:
 
 ```
--net   ../input/circuit/c17a.v
+-net   ../input/circuit/saf/c17a.v
 -fdp   ../output/full/fdp/c17a.csv
 -log   ../output/full/log/c17a.txt
 # -fault は書かない → 全故障

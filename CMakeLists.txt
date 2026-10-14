@@ -26,6 +26,7 @@ set(SOURCES
     src/fdp/cnf/good_circuit.c
     src/lib/lib.c
     src/netlist/netlist.c
+    src/netlist/expand_tdf.c
     src/opt/opt.c
     src/fdp/sbxid/sbxid.c
 )
@@ -114,5 +115,15 @@ if(BUILD_TESTING)
         target_include_directories(clasp_bridge_test PRIVATE ${CMAKE_SOURCE_DIR}/src)
         target_link_libraries(clasp_bridge_test PRIVATE sbxid_clasp)
         add_test(NAME clasp_bridge COMMAND clasp_bridge_test)
+    endif()
+
+    if(FDP_BUILD_APP)
+        find_package(Python3 COMPONENTS Interpreter)
+        if(Python3_Interpreter_FOUND)
+            add_test(NAME tdf_disabled COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/tests/tdf_disabled_check.py
+                --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>
+                --output ${CMAKE_BINARY_DIR}/tdf_disabled_checks)
+        endif()
     endif()
 endif()

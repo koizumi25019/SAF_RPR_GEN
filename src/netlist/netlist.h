@@ -57,6 +57,8 @@ typedef struct _Netlist_Format_ {
 	int sbxid_normal_value;              /**< SB-XID正常値: 0/1/X=2 */
 	int sbxid_fault_value;               /**< SB-XID故障値: 0/1/X=2 */
 	int sbxid_flag;                      /**< SB-XID専用の評価/PATH/JUSTIFYビット */
+    struct _Netlist_Format_* peer_1t; // TDF: frame 2 -> frame 1 (shared PI -> itself)
+    int ppo_flag; // TDF: capture-time DFF input
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -83,6 +85,10 @@ int n_po;
 NLIST** ppo;
 int n_ppo;
 
+// TDF: initial scan state inputs
+NLIST** ppi;
+int n_ppi;
+
 //DFF, DFF数
 NLIST** dff;
 int n_dff;
@@ -108,3 +114,4 @@ int n_assign;
 //--------------------------------------------------------------------------------------------------------------------
 int		read_nl(char*);
 void	free_netlist(void);
+void    expand_tdf_netlist(void);

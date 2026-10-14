@@ -1,0 +1,7 @@
+# LOC transition delay faults; run from build/
+-tdf
+-net ../input/circuit/tdf/s5378.v
+# -fault omitted: generate representative STR/STF faults
+-limit 30
+-fdp ../output/limit30/fdp/s5378_tdf.csv
+-log ../output/limit30/log/s5378_tdf.txt

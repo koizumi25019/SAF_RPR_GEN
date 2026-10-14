@@ -10,6 +10,7 @@
 #include "../fault_detection_prob.h"
 #include "../init.h"
 #include "../essential_assignment.h"
+#include "../normal_scope.h"
 #include "../../lib/lib.h"
 #include "../../netlist/netlist.h"
 
@@ -29,12 +30,19 @@ bool CreateConsFC(
 
 	/** 伝搬先(TFO)を探索する */
 	SearchTFO(target);
+	NormalScopeBuild(target);
+	if (numtranpo == 0) {
+		/* No selected PO/PPO observes this fault. */
+		ccadical_add(solver, 0);
+		return true;
+	}
 
 	/** 故障回路の制約を作成する */
 	for (int j = 0; j < n_net; j++)
 	{
 		if (((nl[j].flag & TFO) == TFO) && ((nl[j].flag & FP) != FP))
 		{
+			if (!NormalScopeInDetectionCone(j)) continue;
 			switch (nl[j].type)
 			{
 			case AND:	CreateConsFC_AND(solver, &nl[j]);		break;
@@ -65,7 +73,7 @@ bool CreateConsFC(
 	CreateConsDC(solver, target);
 
 	/** 必須割当ての単位節を追加する */
-	if (!getenv("MDC_NOEA")) EssentialAssignment(solver, target);
+	EssentialAssignment(solver, target);
 
 	return true;
 }
@@ -109,11 +117,6 @@ void SearchTFO(
 					stackPUSH(netptr->out[i]);
 				}
 			}
-			else
-			{
-				numtranpo++;
-				netptr->flag |= TPO;
-			}
 		}
 	}
 
@@ -137,14 +140,16 @@ void CreateConsProp(
 	for (int i = 0; i < n_net; i++)
 	{
 		if ((nl[i].flag & TFO) != TFO) continue;
+		if (!NormalScopeInDetectionCone(i)) continue;
 
 		// 制約A: ¬ACT(X) ∨ ACT(Y1) ∨ ACT(Y2) ∨ ...
 		// ACT(X)=1 なら少なくとも1つの出力にもACT=1が伝わる
-		if (nl[i].n_out > 0)
+		if (nl[i].n_out > 0 && !(nl[i].flag & TPO))
 		{
 			ccadical_add(solver, -(int)nl[i].varprop);
 			for (int j = 0; j < nl[i].n_out; j++)
 			{
+				if (!NormalScopeInDetectionCone(nl[i].out[j]->n)) continue;
 				ccadical_add(solver, (int)nl[i].out[j]->varprop);
 			}
 			ccadical_add(solver, 0);

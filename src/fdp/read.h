@@ -9,6 +9,7 @@
 #include "./cube_set.h"
 #include "../netlist/netlist.h"
 #include "../lib/lib.h"
+#include "../opt/opt.h"
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -59,6 +60,7 @@ typedef struct FaultNode
 	int					  type;		/**< 故障タイプ */
 	int					  detect;			  /**< 検出済みか */
 	NLIST* netptr;					 /**< ネットリストへのポインタ */
+    NLIST* exc_netptr; /**< TDF excitation at frame 1; NULL for SAF */
 	struct FaultNode* nextptr;				  /**< 次ノードへのポインタ */
 
 	struct FaultNode** subset_faults;   /**< テスト集合がこの故障の部分集合になる故障（ゲート入力故障）。これらのキューブはこの故障の正当なテストなので種＋禁止節として流用できる */
@@ -133,3 +135,11 @@ void AnalyzeEquivalenceFaults(
 void AnalyzeDominanceFaults(
 	void
 );
+
+void AnalyzeEquivalenceFaultsTDF(void);
+
+static inline const char* FaultTypeName(int type)
+{
+    if (opt.fault_model == FM_TDF) return type == SF0 ? "STR" : "STF";
+    return type == SF0 ? "sa0" : "sa1";
+}

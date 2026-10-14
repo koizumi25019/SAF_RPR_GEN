@@ -1,6 +1,6 @@
 # set File
 # set netlist(.v)
--net ../input/circuit/b17_C.v 
+-net ../input/circuit/saf/b17_C.v
 
 # set fault list(.txt)
 #-fault ../input/fault/b17.txt
@@ -12,3 +12,5 @@
 -fdp ../output/limit30/fdp/b17_C.csv
 
 -limit 30
+
+-jobs 12
