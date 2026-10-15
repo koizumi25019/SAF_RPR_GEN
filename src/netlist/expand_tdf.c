@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./netlist.h"
+#include "netlist/netlist.h"
 
 #define TDF_YES 1   /* netlist.h には YES/NO が無いので test_sa0/test_sa1 用に定義 */
 

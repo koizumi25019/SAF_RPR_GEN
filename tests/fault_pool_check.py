@@ -240,7 +240,7 @@ def main():
         record(circuit, serial_parallel_csv_identical=True, previous_full_FDP_equal=True)
         if circuit == 'c17a':
             rows = list(csv.DictReader((serial / 'fdp.csv').open()))
-            golden = list(csv.DictReader((ROOT / 'expected/c17a_result.csv').open()))
+            golden = list(csv.DictReader((ROOT / 'tests/expected/c17a_result.csv').open()))
             sig = lambda rs: sorted((row['net_name'], row['f_type'], row['fdp']) for row in rs)
             assert sig(rows) == sig(golden)
             debug, _ = run('c17a_debug', binary=ROOT / 'build/main_debug', jobs=4)

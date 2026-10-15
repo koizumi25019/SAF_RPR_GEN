@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./cnf.h"
-#include "../create_TPG_model.h"
-#include "../init.h"
-#include "../../netlist/netlist.h"
-#include "../../lib/lib.h"
+#include "fdp/cnf/cnf.h"
+#include "fdp/cnf/tpg_model.h"
+#include "fdp/context.h"
+#include "netlist/netlist.h"
+
 
 //*************************************************************************************************************
 //	@name		F@CreateConsGC

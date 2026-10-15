@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cudd_wrapper.h"
-#include "fault_result.h"
+#include "fdp/bdd/probability.h"
+#include "io/fault_csv.h"
 
 static void check_density(int nvars, CubeSet *cubes, unsigned long num, unsigned long den)
 {

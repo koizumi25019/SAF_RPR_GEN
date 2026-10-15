@@ -253,7 +253,7 @@ endmodule
         directory = output / label; directory.mkdir(exist_ok=True)
         run(binary, directory, circuit, extra, cli, model='' if label == 'default_saf' else '-tdf\n')
         projection = lambda p: sorted((r['net_name'],r['f_type'],r['fdp']) for r in csv.DictReader(p.open()))
-        assert projection(directory / 'fdp.csv') == projection(ROOT / 'expected/c17a_result.csv')
+        assert projection(directory / 'fdp.csv') == projection(ROOT / 'tests/expected/c17a_result.csv')
     unsupported = output / 'reset_ff.v'
     unsupported.write_text(s27.read_text().replace('DFF ', 'RDFF ').replace('.D(G10)', '.CD(G0), .D(G10)')
                           .replace('.D(G11)', '.CD(G0), .D(G11)').replace('.D(G13)', '.CD(G0), .D(G13)'))
@@ -267,7 +267,7 @@ endmodule
         directory = run(binary, output / label, circuit, extra, success=False)
         assert message in (directory / 'stdout.txt').read_text()
     directory = run(binary, output / 'saf_wrong_type', s27,
-                    f'-saf\n-fault {ROOT}/input/fault/s27_tdf.txt\n', success=False)
+                    f'-saf\n-fault {ROOT}/input/fault/tdf/s27_tdf.txt\n', success=False)
     assert 'unexpected type' in (directory / 'stdout.txt').read_text()
     report = {'source': 'independent exhaustive two-frame Verilog simulation',
               'cases': reports, 'serial_parallel_debug_equal': True if args.debug else None, 'saf_c17_golden': True,

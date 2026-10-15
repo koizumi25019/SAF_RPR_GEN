@@ -17,8 +17,7 @@ REFERENCE_COMMIT = '52bb7ac'
 def compile_program(root, binary, debug=False):
     sources = re.search(r'set\(SOURCES\s+(.*?)\)',
                         (root / 'CMakeLists.txt').read_text(), re.S).group(1).split()
-    includes = [root / part for part in ('src', 'src/fdp', 'src/fdp/cnf', 'src/lib',
-                                         'src/netlist', 'src/opt', 'src/fdp/xid')]
+    includes = [root / 'src'] + sorted(p for p in (root / 'src').rglob('*') if p.is_dir())
     includes += [EXTERNAL / part for part in ('cadical/src', 'cudd', 'cudd/cudd')]
     flags = ['-g', '-O0', '-DDEBUG'] if debug else ['-O3', '-DNDEBUG']
     command = ['gcc', '-std=gnu11', '-fcommon'] + flags
@@ -73,7 +72,7 @@ def main():
     instrumented = BUILD / 'instrumented'
     instrumented.mkdir(exist_ok=True)
     shutil.copytree(ROOT / 'src', instrumented / 'src', dirs_exist_ok=True)
-    source = instrumented / 'src/fdp/fault_detection_prob.c'
+    source = instrumented / 'src/fdp/analysis.c'
     text = source.read_text()
     text = text.replace('/* 各プロセス専用。',
                         'void CaptureFaultCubes(FNODE*, CubeSet*, int);\n\n/* 各プロセス専用。', 1)
@@ -84,7 +83,7 @@ def main():
     (instrumented / 'capture.c').write_text('''
 #include <stdio.h>
 #include <stdlib.h>
-#include "fdp/read.h"
+#include "fault/fault_list.h"
 #include "fdp/cube_set.h"
 void CaptureFaultCubes(FNODE* fault, CubeSet* cubes, int complete) {
     const char* directory = getenv("BASELINE_COVER_DIR");

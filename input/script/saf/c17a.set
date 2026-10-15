@@ -1,0 +1,17 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/saf/c17a.v
+
+# set fault list(.txt)
+#-fault ../input/fault/saf/c17a_rep.txt
+
+# set log(.txt)
+-log ../output/saf/full/log/c17a.txt
+
+
+# set fdp result(.csv)
+-fdp ../output/saf/full/fdp/c17a.csv
+
+# -limit は書かない → 上限なし（無制限・UNSATまで完全列挙）。期待値生成条件に合わせる。
+
+

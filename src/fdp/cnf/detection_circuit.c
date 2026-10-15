@@ -6,10 +6,10 @@
 
 #include "ccadical.h" // CaDiCaL のAPI
 
-#include "./cnf.h"
-#include "../fault_detection_prob.h"
-#include "../read.h"
-#include "../../lib/lib.h"
+#include "fdp/cnf/cnf.h"
+#include "fdp/analysis.h"
+#include "fault/fault_list.h"
+
 
 //*************************************************************************************************************
 //	@name		：	CreateConsDC

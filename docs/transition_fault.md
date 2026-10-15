@@ -9,32 +9,34 @@ CLIと `.set` の両方で `-tdf` / `-saf` を指定できる。省略時はSAF�
 引数と `.set` は読み込み順に反映し、後に現れた指定を使う。
 
 回路は `input/circuit/saf/` に組合せ回路（SAF用）、`input/circuit/tdf/` にDFF入り順序回路（TDF用）を置く。
+故障リストも `input/fault/{saf,tdf}/`、実行設定も `input/script/{saf,tdf}/` に分ける。
+以下のTDF用設定は `input/script/tdf/`、同梱TDF故障リストは `input/fault/tdf/` にある。
 ディレクトリ名ではモデルを切り替えないため、TDF用 `.set` には `-tdf` を明記する。
 
 ```text
 -tdf
 -net ../input/circuit/tdf/s27.v
--fdp ../output/full/fdp/s27_tdf.csv
--log ../output/full/log/s27_tdf.txt
+-fdp ../output/tdf/full/fdp/s27_tdf.csv
+-log ../output/tdf/full/log/s27_tdf.txt
 # -fault省略: 全代表STR/STFを生成
 # -limit省略または0以下: UNSATまで列挙
 ```
 
 ```bash
-mkdir -p output/full/{fdp,log}
+mkdir -p output/tdf/full/{fdp,log}
 cd build
-./main_release -set ../input/script/s27_tdf.set
+./main_release -set ../input/script/tdf/s27_tdf.set
 # CLIで.setの指定を上書きする場合
-./main_release -set ../input/script/s27_tdf.set -tdf -jobs 4
+./main_release -set ../input/script/tdf/s27_tdf.set -tdf -jobs 4
 ```
 
 提供設定は `{s27,s208,s5378}_tdf{,_list}.set`。
 `_tdf.set` は故障リストなしで全代表故障を自動生成し、`_tdf_list.set` は同梱故障リストを読む。
 s27/s208は無制限、s5378は `-limit 30`。
-s5378の出力には `output/limit30/{fdp,log}` を作成する。
+s5378の出力には `output/tdf/limit30/{fdp,log}` を作成する。
 追加の `{s9234,s35932,s38417,b14,b17}_tdf.set` は全代表故障を自動生成し、`-limit 30` を使う。
 並列数は既存SAF設定に合わせ、s9234/s35932/s38417は `-jobs 1`、b14/b17は `-jobs 12`。
-出力先は `output/limit30/{fdp,log}/<回路名>_tdf.{csv,txt}`。
+出力先は `output/tdf/limit30/{fdp,log}/<回路名>_tdf.{csv,txt}`。
 SAFとTDFのCSV・ログは異なる名前にしてある。切替だけでは出力パスは変わらない。
 
 任意の故障リストは、各行を `信号名 STR` または `信号名 STF` とする。

@@ -4,12 +4,6 @@
             "name": "Linux",
             "includePath": [
             "${workspaceFolder}/src",
-            "${workspaceFolder}/src/fdp",
-            "${workspaceFolder}/src/fdp/cnf",
-            "${workspaceFolder}/src/fdp/xid",
-            "${workspaceFolder}/src/lib",
-            "${workspaceFolder}/src/netlist",
-            "${workspaceFolder}/src/opt",
             "${workspaceFolder}/external/cadical/src",
             "${workspaceFolder}/external/cudd",
             "${workspaceFolder}/external/cudd/cudd",

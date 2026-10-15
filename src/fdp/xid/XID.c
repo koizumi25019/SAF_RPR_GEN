@@ -1,5 +1,5 @@
-#include "../normal_scope.h"
-#include "XID.h"
+#include "fdp/cnf/normal_scope.h"
+#include "fdp/xid/XID.h"
 
 #define DEBUG_XFILL       0
 #define DEBUG_XFILL_SHORT 0

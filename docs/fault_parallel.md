@@ -16,7 +16,7 @@ baselineへverificationの常駐プロセス方式を移植した。
 cmake -S . -B build
 cmake --build build --parallel
 cd build
-./main_release -set ../input/script/s5378_C.set
+./main_release -set ../input/script/saf/s5378_C.set
 ```
 
 範囲は1..256、既定は1（直列）。実際のワーカー数は対象故障数を上限とする。
@@ -34,9 +34,9 @@ EAも常時ONで、単位節の投入先をそのTFI内に限定する。EAの�
 
 ## レビューする順番
 
-1. `fault_detection_prob.c`の`AnalyzeFaultDensity()`で、共通準備と実行方式の分岐を見る。
+1. `analysis.c`の`AnalyzeFaultDensity()`で、共通準備と実行方式の分岐を見る。
 2. `AnalyzeIndependentFaults()`で、既存の故障順をコピーし、直列またはプールを呼ぶ。
-3. `fault_pool.c`末尾の`FaultPoolRun()`で、起動→受信・配分→終了・回収→CPU集計を追う。
+3. `worker_pool.c`末尾の`FaultPoolRun()`で、起動→受信・配分→終了・回収→CPU集計を追う。
 4. `worker_loop()`で、1故障を受け取り計算して返信する反復を見る。
 5. `AnalyzeOneFault()`で、CNF→SAT→XID→禁止節→BDD・CSVの共通処理を見る。
 

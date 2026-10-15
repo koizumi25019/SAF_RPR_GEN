@@ -1,0 +1,17 @@
+# set File
+# set netlist(.v)
+-net ../input/circuit/saf/b04_C.v
+
+# set fault list(.txt)
+#-fault ../input/fault/saf/b04.txt
+
+# set log(.txt)
+-log ../output/saf/limit30/log/b04_C.txt
+
+
+# set fdp result(.csv)
+-fdp ../output/saf/limit30/fdp/b04_C.csv
+
+-limit 30
+
+

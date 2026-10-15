@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 
-#include "../../netlist/netlist.h"
-#include "../read.h"
-#include "../create_TPG_model.h"
+#include "netlist/netlist.h"
+#include "fault/fault_list.h"
+#include "fdp/cnf/tpg_model.h"
 
 //-------------------------------------------------------------------------------------------------------------
 //	構造体

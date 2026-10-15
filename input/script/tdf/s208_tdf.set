@@ -1,0 +1,6 @@
+# LOC transition delay faults; run from build/
+-tdf
+-net ../input/circuit/tdf/s208.v
+# -fault omitted: generate representative STR/STF faults
+-fdp ../output/tdf/full/fdp/s208_tdf.csv
+-log ../output/tdf/full/log/s208_tdf.txt

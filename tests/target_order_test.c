@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <string.h>
-#include "target_fault.h"
+#include "fault/target_fault.h"
 
 /* 整列とは独立した、変更前の全走査を選択順のオラクルとして使う。 */
 static FNODE* scan_target(void)

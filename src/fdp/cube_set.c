@@ -3,7 +3,7 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdlib.h>
 
-#include "./cube_set.h"
+#include "fdp/cube_set.h"
 
 #define CUBESET_MIN_CAP 8
 

@@ -40,9 +40,9 @@ EAも常時ONで、`-ea`などの切替は持たず、旧`MDC_NOEA`環境変数�
 
 ```bash
 cd build
-./main_release -set ../input/script/c17a.set
+./main_release -set ../input/script/saf/c17a.set
 # 必要範囲のSAT内部値と、PIから復元した値を照合する
-FDP_NORMAL_SCOPE_VALIDATE=1 ./main_release -set ../input/script/c17a.set
+FDP_NORMAL_SCOPE_VALIDATE=1 ./main_release -set ../input/script/saf/c17a.set
 ```
 
 実行ログには`Normal CNF Scope : on (affected-output TFI)`と`Essential Assignment : on`を記録する。

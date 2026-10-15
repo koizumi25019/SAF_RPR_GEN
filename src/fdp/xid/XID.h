@@ -1,6 +1,6 @@
 #pragma once
 
-#include "xid_adapter.h"
+#include "fdp/xid/xid_adapter.h"
 
 #define METHOD_XFILL_2v 0
 #define DEBUG_XID_FSIM_3V 0

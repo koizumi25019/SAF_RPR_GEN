@@ -5,14 +5,14 @@
 #include <stdlib.h>
 
 #include "ccadical.h"
-#include "../create_TPG_model.h"
-#include "./cnf.h"
-#include "../fault_detection_prob.h"
-#include "../init.h"
-#include "../essential_assignment.h"
-#include "../normal_scope.h"
-#include "../../lib/lib.h"
-#include "../../netlist/netlist.h"
+#include "fdp/cnf/tpg_model.h"
+#include "fdp/cnf/cnf.h"
+#include "fdp/analysis.h"
+#include "fdp/context.h"
+#include "fdp/cnf/essential_assignment.h"
+#include "fdp/cnf/normal_scope.h"
+#include "netlist/traversal.h"
+#include "netlist/netlist.h"
 
 //*************************************************************************************************************
 //	@name		：	CreateConsFC
