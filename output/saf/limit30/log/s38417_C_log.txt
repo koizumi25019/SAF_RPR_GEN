@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s38417_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 30744
+//  Time                                      : 2613.376 sec
+//  CPU Time                                  : 2692.263 sec
+//  CPU Time (CaDiCaL)                        : 1692.516 sec
+//  CPU Time (BDD)                            : 30.377 sec
+//  CPU Time (Don't care)                     : 397.180 sec
+//  CPU Time (Read Fault)                     : 0.119 sec
+//--------------------------------------------------------------------------------

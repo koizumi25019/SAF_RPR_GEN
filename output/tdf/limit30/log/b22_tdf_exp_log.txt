@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : b22
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 119806
+//  Time                                      : 105696.476 sec
+//  CPU Time                                  : 113977.763 sec
+//  CPU Time (CaDiCaL)                        : 84770.396 sec
+//  CPU Time (BDD)                            : 606.200 sec
+//  CPU Time (Don't care)                     : 19619.469 sec
+//  CPU Time (Read Fault)                     : 1.446 sec
+//--------------------------------------------------------------------------------

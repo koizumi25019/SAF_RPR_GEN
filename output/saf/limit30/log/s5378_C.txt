@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s5378_C
+//  Name of Target Fault File                 : (null)
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 4551
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : on
+//  Fault Workers                             : 1
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 22.018 sec
+//  CPU Time                                  : 24.461 sec
+//  CPU Time (CaDiCaL)                        : 15.071 sec
+//  CPU Time (BDD)                            : 1.273 sec
+//  CPU Time (Don't care)                     : 4.797 sec
+//  CPU Time (Read Fault)                     : 0.005 sec
+//--------------------------------------------------------------------------------

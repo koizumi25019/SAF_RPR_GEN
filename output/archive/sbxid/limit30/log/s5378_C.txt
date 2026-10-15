@@ -1,0 +1,26 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s5378_C
+//  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 4551
+//  Don't-care Method                         : SB-XID v1 (no CEGAR)
+//  Clasp Version                             : 3.3.9
+//  Clasp Search Limit                        : 1.0 sec/call
+//  Clasp Optimal / Feasible                   : 96360 / 1175
+//  Clasp Timeouts / UNKNOWN Fallbacks          : 1175 / 0
+//  SB-XID Verified / Failed                   : 0 / 0
+//  Clasp Search Wall Time (sum of calls)       : 4455.113 sec
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 12
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 388.873 sec
+//  CPU Time                                  : 4946.981 sec
+//  CPU Time (CaDiCaL)                        : 27.269 sec
+//  CPU Time (BDD)                            : 1.898 sec
+//  CPU Time (Don't care)                     : 4911.623 sec
+//  CPU Time (Read Fault)                     : 0.003 sec
+//--------------------------------------------------------------------------------

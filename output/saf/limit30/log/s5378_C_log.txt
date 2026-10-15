@@ -1,0 +1,20 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s5378_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 4551
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 16
+//  Normal CNF Scope                          : off
+//  CPU Accounting                            : parent + all worker processes
+//  CORE Extra Verification                   : off
+//  Low Power                                 : off
+//  Time                                      : 4.479 sec
+//  CPU Time                                  : 78.080 sec
+//  CPU Time (CaDiCaL)                        : 49.175 sec
+//  CPU Time (BDD)                            : 2.303 sec
+//  CPU Time (Don't care)                     : 12.939 sec
+//  CPU Time (Read Fault)                     : 0.004 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s35932_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 38518
+//  Time                                      : 1460.937 sec
+//  CPU Time                                  : 1498.796 sec
+//  CPU Time (CaDiCaL)                        : 679.702 sec
+//  CPU Time (BDD)                            : 12.581 sec
+//  CPU Time (Don't care)                     : 229.186 sec
+//  CPU Time (Read Fault)                     : 0.123 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s13207_C
+//  Name of Target Fault File                 : (null)
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 9663
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : on
+//  Fault Workers                             : 1
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 47.550 sec
+//  CPU Time                                  : 52.831 sec
+//  CPU Time (CaDiCaL)                        : 27.462 sec
+//  CPU Time (BDD)                            : 3.912 sec
+//  CPU Time (Don't care)                     : 10.117 sec
+//  CPU Time (Read Fault)                     : 0.012 sec
+//--------------------------------------------------------------------------------

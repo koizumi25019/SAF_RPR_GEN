@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s641_C
+//  Name of Target Fault File                 : ../input/fault/det_s641_C.txt
+//  Number of Target Faults                   : 1274
+//  Time                                      : 17.065 sec
+//  CPU Time                                  : 17.578 sec
+//  CPU Time (CaDiCaL)                        : 9.082 sec
+//  CPU Time (BDD)                            : 0.508 sec
+//  CPU Time (Don't care)                     : 1.259 sec
+//  CPU Time (Read Fault)                     : 0.001 sec
+//--------------------------------------------------------------------------------

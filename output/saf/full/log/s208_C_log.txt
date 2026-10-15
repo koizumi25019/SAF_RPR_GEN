@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s208_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 215
+//  Time                                      : 1.908 sec
+//  CPU Time                                  : 2.076 sec
+//  CPU Time (CaDiCaL)                        : 0.087 sec
+//  CPU Time (BDD)                            : 1.861 sec
+//  CPU Time (Don't care)                     : 0.082 sec
+//  CPU Time (Read Fault)                     : 0.000 sec
+//--------------------------------------------------------------------------------

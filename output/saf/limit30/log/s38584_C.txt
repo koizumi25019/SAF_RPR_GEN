@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s38584_C
+//  Name of Target Fault File                 : (null)
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 35995
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : on
+//  Fault Workers                             : 1
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 586.559 sec
+//  CPU Time                                  : 651.586 sec
+//  CPU Time (CaDiCaL)                        : 293.206 sec
+//  CPU Time (BDD)                            : 8.418 sec
+//  CPU Time (Don't care)                     : 222.822 sec
+//  CPU Time (Read Fault)                     : 0.240 sec
+//--------------------------------------------------------------------------------

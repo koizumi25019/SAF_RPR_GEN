@@ -1,0 +1,5 @@
+net_name,f_type,cube_cnt,complete,fdp,seeded_cnt
+G0,STF,0,1,0.0000000000e+00,0
+G0,STR,0,1,0.0000000000e+00,0
+G11_G17_A,STF,0,1,0.0000000000e+00,0
+G11_G17_A,STR,3,1,5.4687500000e-02,0

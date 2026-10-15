@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s13207_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 9663
+//  Time                                      : 117.438 sec
+//  CPU Time                                  : 120.010 sec
+//  CPU Time (CaDiCaL)                        : 55.006 sec
+//  CPU Time (BDD)                            : 4.646 sec
+//  CPU Time (Don't care)                     : 15.881 sec
+//  CPU Time (Read Fault)                     : 0.011 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,20 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : tdf/s38417
+//  Name of Target Fault File                 : (null)
+//  Fault Model                               : TDF (LOC; capture PPO only)
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 49738
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 12
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 741.435 sec
+//  CPU Time                                  : 8891.625 sec
+//  CPU Time (CaDiCaL)                        : 3629.415 sec
+//  CPU Time (BDD)                            : 140.520 sec
+//  CPU Time (Don't care)                     : 3341.641 sec
+//  CPU Time (Read Fault)                     : 0.181 sec
+//--------------------------------------------------------------------------------

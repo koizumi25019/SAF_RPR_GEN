@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s5378_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 4551
+//  Time                                      : 54.633 sec
+//  CPU Time                                  : 56.804 sec
+//  CPU Time (CaDiCaL)                        : 37.500 sec
+//  CPU Time (BDD)                            : 1.386 sec
+//  CPU Time (Don't care)                     : 8.636 sec
+//  CPU Time (Read Fault)                     : 0.004 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : b17_C
+//  Name of Target Fault File                 : (null)
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 76625
+//  Don't-care Method                         : XID
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 12
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 2045.152 sec
+//  CPU Time                                  : 24523.377 sec
+//  CPU Time (CaDiCaL)                        : 13700.109 sec
+//  CPU Time (BDD)                            : 337.685 sec
+//  CPU Time (Don't care)                     : 7661.138 sec
+//  CPU Time (Read Fault)                     : 1.148 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,13 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : s9234_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 6927
+//  Time                                      : 137.933 sec
+//  CPU Time                                  : 143.361 sec
+//  CPU Time (CaDiCaL)                        : 95.226 sec
+//  CPU Time (BDD)                            : 2.736 sec
+//  CPU Time (Don't care)                     : 20.177 sec
+//  CPU Time (Read Fault)                     : 0.009 sec
+//--------------------------------------------------------------------------------

@@ -1,0 +1,12 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : c17a
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 22
+//  CPU Time                                  : 0.005 sec
+//  CPU Time (CaDiCaL)                        : 0.000 sec
+//  CPU Time (BDD)                            : 0.000 sec
+//  CPU Time (Don't care)                     : 0.000 sec
+//  CPU Time (Read Fault)                     : 0.000 sec
+//--------------------------------------------------------------------------------
