@@ -1,0 +1,251 @@
+{
+  "checked_at_utc": "2026-10-22T03:02:22.174353+00:00",
+  "branch": "exp/sb-xid",
+  "reference_commit": "ed7138fb453ba4bf631ab70238cb8f564b476eaf",
+  "clasp_version": "3.3.9",
+  "clasp_commit": "4c708a73fdcb78049e9c3bad863a3f6eab437a07",
+  "libpotassco_commit": "fa39da44cf9643e1b56389d3dfed6af773305af3",
+  "implementation": {
+    "separate_fault_variables_and_justification": "internal signals within the structural fault TFO only",
+    "outside_tfo": "reuse the normal V variable and its justification",
+    "objective": "retain the original V and S costs; a shared internal variable has coefficient -2 for K=1",
+    "fault_scope_cache": "process-local; keyed by fault net ID, released by sbxid_release",
+    "signal_simulation_scope": "unchanged",
+    "path_justify_scope": "unchanged",
+    "pi_variables": "unchanged",
+    "search_limit_seconds": 1.0
+  },
+  "ctest": {
+    "passed": 7,
+    "failed": 0,
+    "tests": [
+      "target_order",
+      "fdp_output",
+      "sbxid_core",
+      "sbxid_fault_scope",
+      "normal_scope_pattern",
+      "clasp_bridge",
+      "tdf_disabled"
+    ]
+  },
+  "new_regression_test": {
+    "circuit": "s=a AND b; y=f AND s",
+    "detecting_seeds_including_cache_reuse_and_release": 20,
+    "all_feasible_pbo_models_detect_under_all_x_completions": true,
+    "minimum_pi_care_count_checked_against_truth_table": true,
+    "retained_side_input_objective_weights_checked": true,
+    "host_mutable_state_preserved": true,
+    "asan_ubsan_passed": true
+  },
+  "before_after_exhaustive_objective_check": {
+    "cases": 80,
+    "pi_care_feasible_sets_equal": true,
+    "optimal_objective_equal_for_every_pi_care_set": true,
+    "before_feasible_models": 1104,
+    "after_feasible_models": 576,
+    "solver": "independent exhaustive assignment enumeration of actual before/after OPB"
+  },
+  "full_fdp_cases": [
+    {
+      "circuit": "c17a",
+      "binary": "main_debug",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.0321881370000483,
+      "fault_rows": 36,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "c17a",
+      "binary": "main_release",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.03205853500003286,
+      "fault_rows": 36,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "c17a",
+      "binary": "main_release",
+      "jobs": 2,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.032580926999798976,
+      "fault_rows": 36,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "c17a",
+      "binary": "main_release",
+      "jobs": 1,
+      "dominance_reuse": "on",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.03216868400022577,
+      "fault_rows": 36,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "c17a",
+      "binary": "main_debug",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": true,
+      "verified": 53,
+      "verification_failures": 0,
+      "wall_seconds": 0.032138839999788615,
+      "fault_rows": 36,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "s27_C",
+      "binary": "main_debug",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.06408548300032635,
+      "fault_rows": 52,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "s27_C",
+      "binary": "main_release",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.06401588699964122,
+      "fault_rows": 52,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "s27_C",
+      "binary": "main_release",
+      "jobs": 2,
+      "dominance_reuse": "off",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.0329291450002529,
+      "fault_rows": 52,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "s27_C",
+      "binary": "main_release",
+      "jobs": 1,
+      "dominance_reuse": "on",
+      "post_verify": false,
+      "verified": 0,
+      "verification_failures": 0,
+      "wall_seconds": 0.0321563489997061,
+      "fault_rows": 52,
+      "complete": true,
+      "fdp_matches_before": true
+    },
+    {
+      "circuit": "s27_C",
+      "binary": "main_debug",
+      "jobs": 1,
+      "dominance_reuse": "off",
+      "post_verify": true,
+      "verified": 104,
+      "verification_failures": 0,
+      "wall_seconds": 0.06424563700011277,
+      "fault_rows": 52,
+      "complete": true,
+      "fdp_matches_before": true
+    }
+  ],
+  "s5378_problem_size": {
+    "cases": 100,
+    "variables_median_before": 823.0,
+    "variables_median_after": 531.5,
+    "constraints_median_before": 670.0,
+    "constraints_median_after": 372.5,
+    "variable_reduction_percent_median": 32.83479867482161,
+    "constraint_reduction_percent_median": 44.30350093703896
+  },
+  "s5378_real_clasp_trials": [
+    {
+      "trial": 1,
+      "cases": 100,
+      "both_optimal_and_equal": 100,
+      "care_count_equal_when_both_optimal": 100,
+      "before": {
+        "search_seconds": 2.496844626,
+        "bridge_seconds": 2.571269091,
+        "total_seconds": 2.740306692,
+        "timed_out": 0.0
+      },
+      "after": {
+        "search_seconds": 0.8747614810000001,
+        "bridge_seconds": 0.921635723,
+        "total_seconds": 1.070364755,
+        "timed_out": 0.0
+      },
+      "all_returned_models_constraint_checked": true,
+      "all_adopted_cubes_three_value_verified": true
+    },
+    {
+      "trial": 2,
+      "cases": 100,
+      "both_optimal_and_equal": 100,
+      "care_count_equal_when_both_optimal": 100,
+      "before": {
+        "search_seconds": 2.432558629,
+        "bridge_seconds": 2.4951946179999998,
+        "total_seconds": 2.653340815,
+        "timed_out": 0.0
+      },
+      "after": {
+        "search_seconds": 0.836260491,
+        "bridge_seconds": 0.8856838810000001,
+        "total_seconds": 1.045450839,
+        "timed_out": 0.0
+      },
+      "all_returned_models_constraint_checked": true,
+      "all_adopted_cubes_three_value_verified": true
+    }
+  ],
+  "sampling": {
+    "faults": "SB-XID/tp/1f1p/s5378_C_1f1p_fault.txt",
+    "patterns": "SB-XID/tp/1f1p/s5378_C_1f1p_tp.txt",
+    "pi_order": "SB-XID/tp/1f1p/pin_s5378_C.txt (mapped to host pi[] order)",
+    "cases": 100,
+    "row_selection": "floor(k*4510/99), k=0..99",
+    "trial_order": [
+      "before_1",
+      "after_1",
+      "after_2",
+      "before_2"
+    ],
+    "workers": 1
+  },
+  "limits": [
+    "The 100 fixed reference patterns are not the 97,535 dynamically generated seeds in the archived full s5378 run.",
+    "This checks per-seed problem size, objectives, cube validity and elapsed time; the full s5378 limit30 experiment was not rerun.",
+    "Parallel execution or a one-second timeout may change the selected optimal or feasible cube; full FDP is compared with unlimited cube enumeration.",
+    "No simulation-scope limiting, additional justification pruning, PI-variable elimination or solver policy changes are included."
+  ]
+}

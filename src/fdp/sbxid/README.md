@@ -27,11 +27,29 @@ SBコア: 実行可能モデルのケアPIに元seedの値を残し、他をXに
 - 出力は本体のPI順の `0/1/X`。CSVの列は維持し、方式・clasp版・最適/暫定・時間切れ・UNKNOWN復帰・デバッグ検証件数をログに出す。
 - 故障のlevel順整列は行わず、故障ハッシュ表の走査順を使う。EA用のlevelは維持する。
 
+## 故障側の制約をTFOへ限定する
+
+故障点から出力側へ到達する範囲（TFO）にある内部信号だけに、故障側専用のケア変数と正当化制約を作る。
+TFO外は `varS[i] = varV[i]` とし、サイド入力の正当化は正常側の変数・制約を参照する。
+元seedで正常値と故障値が一致するかでは判定しない。TFO内での偶然の値の一致は共有の根拠にしない。
+故障点自体の故障側は注入値として扱い、元ゲートの入力由来の正当化は従来どおり生成しない。
+
+TFOはworkerごとに専用ビット集合で保持し、故障点が同じならseed・縮退値が変わっても再利用する。
+本体の作業フラグは変更しない。`sbxid_release()` でキャッシュも解放する。
+
+目的関数の正常・故障両側の内部ケア費用は維持する。共有変数へは両項を計上するため、K=1では合計係数が `-2` になる。
+PIの主目的重み `(K+1)*n_net+1`、PI変数、正常/故障シミュレーション、PATH/JUSTIFYの抽出範囲、PO候補、1秒制限は維持する。
+シミュレーション範囲の限定化と、値に沿った追加の正当化範囲削減は行わない。
+
+`sbxid_fault_scope_test` は小回路の故障・seedとPBOモデルを全列挙し、全実行可能モデルのキューブが全X補完で故障検出すること、
+最小ケアPI数、サイド入力の参照、両側分の目的関数重み、故障点切替・キャッシュ解放・本体状態の分離を確認する。
+実claspでの変更前比較と問題規模は [確認記録](../../../docs/sb_xid_fault_scope_checks.json) を参照。
+
 範囲外PIは初回0で補完する。ただし、キューブの禁止節へ入ったPIは、以後その故障のSATモデルに従う。UNKNOWNで全PI固定のseedへ戻る場合も、同じseedを再生成せず列挙を進めるために必要である。正常CNFのゲート範囲自体は拡大しない。
 
 ## 参照コードからの変更
 
-`sbxid.c` は元の26関数を抜き出したもの。3値ゲート評価、PATH/JUSTIFY抽出、ゲート正当化式、バッチ版の変数割当・目的関数・制約・ケアPI抽出を維持し、故障数K=1で使う。
+`sbxid.c` は元の26関数を抜き出したもの。3値ゲート評価、PATH/JUSTIFY抽出、ゲート正当化式、バッチ版の目的関数・ケアPI抽出を維持し、故障数K=1で使う。変数割当と制約生成は、上記のTFO外の重複除去を加えた。
 
 | 対象 | 変更 |
 |---|---|
@@ -46,7 +64,7 @@ SBコア: 実行可能モデルのケアPIに元seedの値を残し、他をXに
 | ケース開始 | 専用値をX、専用flagを0へ初期化する。元seedのPO検出も確認する |
 | 求解後検証 | 通常省略し、設定で有効化する |
 
-制約式の変更やCEGARの追加は行っていない。対象は既存の組合せ回路で、dangling観測条件の変更・生の順序回路対応は含めない。
+ゲートの正当化式と目的関数は維持し、TFO外の故障側の変数・制約の重複を除いた。CEGARの追加は行っていない。対象は既存の組合せ回路で、dangling観測条件の変更・生の順序回路対応は含めない。
 
 ## clasp導入前に実行できるテスト
 
@@ -81,10 +99,10 @@ cmake --install build/clasp
 build/clasp/bin/clasp --version
 build/clasp/bin/clasp_examples
 
-cmake -S . -B build/sbxid -DBUILD_TESTING=ON \
+cmake -S . -B build -DBUILD_TESTING=ON \
   -DCMAKE_PREFIX_PATH="$PWD/build/clasp-install"
-cmake --build build/sbxid --parallel 2
-ctest --test-dir build/sbxid --output-on-failure
+cmake --build build --parallel 2
+ctest --test-dir build --output-on-failure
 ```
 
 非同期の待機/中断APIのため、`CLASP_BUILD_WITH_THREADS=ON` が必要。これは各worker内で探索スレッドを複数にする指定ではない。CMake 4.xで古い依存のポリシーエラーが出る場合、claspの構成へ `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` を追加する。
@@ -95,11 +113,11 @@ ctest --test-dir build/sbxid --output-on-failure
 
 ## このクラウド環境での実行
 
-導入先は `build/clasp-install`、本体は `build/sbxid/main_debug` と `build/sbxid/main_release`。Windowsのexeや外部のclaspプロセスを起動せず、リンク済みのライブラリを使う。
+導入先は `build/clasp-install`、本体は `build/main_debug` と `build/main_release`。Windowsのexeや外部のclaspプロセスを起動せず、リンク済みのライブラリを使う。
 
 ```bash
 mkdir -p build/sbxid-results
-build/sbxid/main_release \
+build/main_release \
   -net "$PWD/input/circuit/saf/c17a.v" \
   -fdp "$PWD/build/sbxid-results/c17a.csv" \
   -log "$PWD/build/sbxid-results/c17a.log" \

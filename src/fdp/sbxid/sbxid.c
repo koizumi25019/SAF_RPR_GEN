@@ -1,7 +1,8 @@
 /* Port of SB-XID/src/saxid.c, v1 without CEGAR.
  * Reference: koizumi25019/SAF_RPR_GEN@52bb7ac268d2425ab2a8089c7b929fa87d262322
- * The multi-fault formula is retained and called with K=1. See README.md for
- * the mechanical names/fields and I/O/error-handling changes from the source.
+ * The multi-fault formula is called with K=1. Signals outside each fault's
+ * TFO reuse V variables and justification, retaining both objective weights.
+ * See README.md for the changes from the source.
  */
 #define _POSIX_C_SOURCE 200809L
 #include "sbxid.h"
@@ -58,6 +59,8 @@ static int* sbxid_index;
 static int sbxid_index_size;
 static char** sbxid_index_keys;
 static int* sbxid_pi_of_net;
+static unsigned char* sbxid_fault_tfo;
+static int sbxid_cached_fault_net_id = -1;
 static const int sbxid_emit_var_map = 0;
 static void sbxid_load_fault_signal(int k, SbxidCase* mc) {
     int* sig = mc->f[k].fault_values;
@@ -90,6 +93,29 @@ static NLIST* sbxid_dequeue() {
 }
 
 static int sbxid_is_queue_empty() { return (sbxid_queue.num <= 0); }
+
+/* 各worker専用。構造上のTFOはseed・縮退値によらないため故障点ごとに再利用する。 */
+static const unsigned char* sbxid_get_fault_tfo(int fault_net_id) {
+    if (sbxid_cached_fault_net_id == fault_net_id) return sbxid_fault_tfo;
+    if (!sbxid_fault_tfo) sbxid_fault_tfo = sbxid_calloc((size_t)n_net, 1);
+    else memset(sbxid_fault_tfo, 0, (size_t)n_net);
+    sbxid_init_queue(n_net);
+    sbxid_fault_tfo[fault_net_id] = 1;
+    sbxid_enqueue(&nl[fault_net_id]);
+    while (!sbxid_is_queue_empty()) {
+        NLIST* node = sbxid_dequeue();
+        for (int j = 0; j < node->n_out; ++j) {
+            NLIST* out = node->out[j];
+            if (sbxid_fault_tfo[out->n]) continue;
+            sbxid_fault_tfo[out->n] = 1;
+            sbxid_enqueue(out);
+        }
+    }
+    free(sbxid_queue.que);
+    sbxid_queue.que = NULL;
+    sbxid_cached_fault_net_id = fault_net_id;
+    return sbxid_fault_tfo;
+}
 
 static unsigned long sbxid_djb2_hash(const char* s) {
     unsigned long h = 5381;
@@ -489,8 +515,9 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
         if (nl[i].type == IN) continue;
         if (varV[i] == 0 && (mc->union_path[i] || mc->union_justify[i])) varV[i] = ++vars;
     }
-    // 内部ノード：S側は故障ごとに、その故障自身のPATH/JUSTIFYに属す場合のみ変数を割当
+    // 内部ノード：TFO内だけS側専用変数を作り、範囲外はV側を参照する。
     for (int k = 0; k < K; k++) {
+        const unsigned char* fault_tfo = sbxid_get_fault_tfo(mc->f[k].spec.net_id);
         mc->f[k].varS = (int*)sbxid_calloc(n_net, sizeof(int));
         for (int i = 0; i < n_pi; i++) {
             int idx = sbxid_get_net_index(pi[i]->name);
@@ -498,7 +525,8 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
         }
         for (int i = 0; i < n_net; i++) {
             if (nl[i].type == IN) continue;
-            if (mc->f[k].varS[i] == 0 && (mc->f[k].is_path[i] || mc->f[k].is_justify[i])) mc->f[k].varS[i] = ++vars;
+            if (mc->f[k].varS[i] == 0 && (mc->f[k].is_path[i] || mc->f[k].is_justify[i]))
+                mc->f[k].varS[i] = fault_tfo[i] ? ++vars : varV[i];
         }
     }
 
@@ -541,6 +569,7 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
     }
     for (int k = 0; k < K; k++) {
         for (int i = 0; i < n_net; i++) {
+            // V側を参照する信号も両側分を計上する（K=1の共有変数では合計-2）。
             if (nl[i].type != IN && mc->f[k].varS[i] > 0) fprintf(tmp_fp, "-1 x%d ", mc->f[k].varS[i]);
         }
     }
@@ -615,7 +644,7 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
         }
     }
 
-    // 正当化制約：V側1回（全ゲート共通）＋故障ごとにS側1回（K回）。
+    // 正当化制約：V側を生成し、S側は専用変数を持つTFO内だけ生成する。
     // sbxid_CreateConsEss_StandardGate/SpecialGateは無改造のまま呼ぶ。
     for (int i = 0; i < n_net; i++) {
         if (varV[i] <= 0 || !(mc->union_path[i] || mc->union_justify[i])) continue;
@@ -632,6 +661,7 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
         sbxid_load_fault_signal(k, mc);
         for (int i = 0; i < n_net; i++) {
             if (mc->f[k].varS[i] <= 0 || !(mc->f[k].is_path[i] || mc->f[k].is_justify[i])) continue;
+            if (mc->f[k].varS[i] == varV[i]) continue; // TFO外の正当化はV側で生成済み
             if (i == mc->f[k].spec.net_id) continue; // 故障起点のS側は入力由来の正当化を生成しない(hard-fixのみ)
             int c_val = sbxid_get_controlling_value(nl[i].type);
             if (c_val != -1) {
@@ -786,8 +816,11 @@ cleanup:
 void sbxid_release(void)
 {
     free(sbxid_index); free(sbxid_index_keys); free(sbxid_pi_of_net);
+    free(sbxid_fault_tfo);
     free(sbxid_queue.que);
     sbxid_index = NULL; sbxid_index_keys = NULL; sbxid_pi_of_net = NULL;
     sbxid_index_size = 0;
+    sbxid_fault_tfo = NULL;
+    sbxid_cached_fault_net_id = -1;
     memset(&sbxid_queue, 0, sizeof(sbxid_queue));
 }

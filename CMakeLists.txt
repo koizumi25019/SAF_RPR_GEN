@@ -102,6 +102,11 @@ if(BUILD_TESTING)
     target_include_directories(sbxid_core_test PRIVATE ${COMMON_INCLUDES})
     add_test(NAME sbxid_core COMMAND sbxid_core_test)
 
+    add_executable(sbxid_fault_scope_test tests/sbxid_fault_scope_test.c src/fdp/sbxid/sbxid.c)
+    target_compile_options(sbxid_fault_scope_test PRIVATE -fcommon -UNDEBUG -Wall -Wextra)
+    target_include_directories(sbxid_fault_scope_test PRIVATE ${COMMON_INCLUDES})
+    add_test(NAME sbxid_fault_scope COMMAND sbxid_fault_scope_test)
+
     add_executable(normal_scope_pattern_test tests/normal_scope_pattern_test.c
         src/fdp/normal_scope.c src/fdp/normal_scope_values.c)
     target_compile_options(normal_scope_pattern_test PRIVATE -fcommon -UNDEBUG)
