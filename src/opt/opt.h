@@ -59,6 +59,7 @@ typedef struct Option
     int jobs;       /**< -jobs 1..256、既定1 */
     int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
     int fault_model; /**< -saf / -tdf、既定SAF */
+    int sbxid_pi_scope; /**< -sbxid_pi_objective all|scope、既定scope */
 }
 OPTION;
 

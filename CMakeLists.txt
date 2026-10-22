@@ -107,6 +107,11 @@ if(BUILD_TESTING)
     target_include_directories(sbxid_fault_scope_test PRIVATE ${COMMON_INCLUDES})
     add_test(NAME sbxid_fault_scope COMMAND sbxid_fault_scope_test)
 
+    add_executable(sbxid_pi_objective_test tests/sbxid_pi_objective_test.c src/fdp/sbxid/sbxid.c)
+    target_compile_options(sbxid_pi_objective_test PRIVATE -fcommon -UNDEBUG -Wall -Wextra)
+    target_include_directories(sbxid_pi_objective_test PRIVATE ${COMMON_INCLUDES})
+    add_test(NAME sbxid_pi_objective COMMAND sbxid_pi_objective_test)
+
     add_executable(normal_scope_pattern_test tests/normal_scope_pattern_test.c
         src/fdp/normal_scope.c src/fdp/normal_scope_values.c)
     target_compile_options(normal_scope_pattern_test PRIVATE -fcommon -UNDEBUG)
@@ -115,6 +120,13 @@ if(BUILD_TESTING)
     add_test(NAME normal_scope_pattern COMMAND normal_scope_pattern_test)
 
     if(FDP_BUILD_APP)
+        add_executable(sbxid_pi_objective_benchmark EXCLUDE_FROM_ALL
+            tests/sbxid_pi_objective_benchmark.c src/fdp/sbxid/sbxid.c
+            src/fdp/normal_scope.c src/netlist/netlist.c)
+        target_compile_options(sbxid_pi_objective_benchmark PRIVATE -O3 -fcommon -UNDEBUG)
+        target_include_directories(sbxid_pi_objective_benchmark PRIVATE ${COMMON_INCLUDES})
+        target_link_libraries(sbxid_pi_objective_benchmark PRIVATE sbxid_clasp)
+
         add_executable(clasp_bridge_test tests/clasp_bridge_test.cpp)
         target_compile_options(clasp_bridge_test PRIVATE -UNDEBUG)
         target_include_directories(clasp_bridge_test PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -125,6 +137,10 @@ if(BUILD_TESTING)
     if(FDP_BUILD_APP)
         find_package(Python3 COMPONENTS Interpreter)
         if(Python3_Interpreter_FOUND)
+            add_test(NAME sbxid_pi_objective_integration COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/tests/sbxid_pi_objective_check.py
+                --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>
+                --output ${CMAKE_BINARY_DIR}/sbxid_pi_objective_checks)
             add_test(NAME tdf_disabled COMMAND ${Python3_EXECUTABLE}
                 ${CMAKE_SOURCE_DIR}/tests/tdf_disabled_check.py
                 --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>

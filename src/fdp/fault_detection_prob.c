@@ -25,6 +25,7 @@
  */
 typedef struct {
     DdManager* bdd_manager;
+    unsigned char* sbxid_pi_scope;
 } FaultAnalysisContext;
 
 static FaultStats final_stats;
@@ -65,6 +66,18 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
     if (!WriteTPGModel(solver, target)) {
         ccadical_release(solver);
         return false;
+    }
+    if (opt.sbxid_pi_scope) {
+        if (!context->sbxid_pi_scope)
+            context->sbxid_pi_scope = malloc((size_t)n_pi);
+        if (!context->sbxid_pi_scope) {
+            ccadical_release(solver);
+            return false;
+        }
+        /* Circuit support is fixed per fault. Blocking clauses can constrain
+         * outside PIs, but must not add them to the optimization objective. */
+        for (int p = 0; p < n_pi; ++p)
+            context->sbxid_pi_scope[p] = NormalScopeRequiredNet(pi[p]->n) != 0;
     }
 
     CubeSet cubes;
@@ -141,7 +154,8 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
         NormalScopeFillPiPattern(solver, seed);
         SbxidInfo info;
         bool generalized = sbxid_generalize(seed, target->netptr->n,
-            target->type == SF0 ? 0 : 1, pattern, &info);
+            target->type == SF0 ? 0 : 1,
+            opt.sbxid_pi_scope ? context->sbxid_pi_scope : NULL, pattern, &info);
         free(seed);
         stats->sbxid += (double)(clock() - start) / CLOCKS_PER_SEC;
         stats->clasp_wall += info.solve.seconds;
@@ -170,6 +184,8 @@ static void FinishFaultAnalysis(void* opaque)
     FaultAnalysisContext* context = opaque;
     if (context->bdd_manager) Cudd_Quit(context->bdd_manager);
     context->bdd_manager = NULL;
+    free(context->sbxid_pi_scope);
+    context->sbxid_pi_scope = NULL;
     sbxid_release();
     NormalScopeRelease();
 }

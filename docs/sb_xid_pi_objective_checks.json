@@ -1,0 +1,287 @@
+{
+  "checked_at_utc": "2026-10-22T03:26:48.765946+00:00",
+  "branch": "exp/sb-xid",
+  "reference_commit": "0c9c3acd7dd5eb00740c1f5128c91a6a44dd7e94",
+  "environment": {
+    "os": "Linux",
+    "gcc": "14.2.0",
+    "clasp": "3.3.9",
+    "cpu_quota_cores": 2
+  },
+  "implementation": {
+    "default_pi_objective": "scope",
+    "cli_and_set_option": "-sbxid_pi_objective all|scope",
+    "scope": "NormalScopeRequiredNet(pi[p]->n), captured after WriteTPGModel and before cube blocks",
+    "pi_scope_order": "host pi[]",
+    "all_mode": "NULL pi_scope, original all-PI objective",
+    "changed_objective_terms": "omit positive care costs of PIs outside the normal-CNF scope",
+    "unchanged": "variable allocation, constraints, internal V/S costs, PI weight, simulation and PATH/JUSTIFY, one-second deadline",
+    "out_of_scope_cube_bits": "X for optimal or feasible models, even when the uncharged model variable is true",
+    "unknown_and_failed_verification": "full original binary seed, as before",
+    "invalid_scope": "reject before solving if PATH/JUSTIFY needs an omitted PI"
+  },
+  "ctest": {
+    "passed": 9,
+    "failed": 0,
+    "tests": [
+      "target_order",
+      "fdp_output",
+      "sbxid_core",
+      "sbxid_fault_scope",
+      "sbxid_pi_objective",
+      "normal_scope_pattern",
+      "clasp_bridge",
+      "sbxid_pi_objective_integration",
+      "tdf_disabled"
+    ]
+  },
+  "new_regression": {
+    "circuit": "y=a OR b; independent observed output c",
+    "pi_order_differs_from_dense_net_ids": true,
+    "all_feasible_pbo_models_detect_y_sa0_for_all_x_completions": true,
+    "opb_constraint_body_equal_between_modes": true,
+    "variables_constraints_and_optimal_cost_equal": true,
+    "free_outside_pi_model_value_one_normalized_to_x": true,
+    "optimal_and_timeout_feasible_checked": true,
+    "unknown_full_seed_fallback_checked": true,
+    "missing_required_pi_rejected_before_solver": true
+  },
+  "native_integration": {
+    "circuits": [
+      "c17a",
+      "s27_C"
+    ],
+    "builds": [
+      "Debug",
+      "Release"
+    ],
+    "cases": 12,
+    "configurations": [
+      "all jobs1",
+      "scope jobs1 (default)",
+      "scope jobs2 (CLI override of .set all)"
+    ],
+    "unlimited_cube_enumeration": true,
+    "complete_fdp_equal": true,
+    "c17a_matches_golden": true,
+    "post_solve_and_normal_scope_validation_enabled": true,
+    "invalid_cli_value_and_missing_value_rejected": true
+  },
+  "fixed_seed_comparison": {
+    "circuit": "s5378_C",
+    "cases": 4511,
+    "available_reference_cases": 4511,
+    "sampling": "floor(k*(rows-1)/(samples-1)), k=0..samples-1",
+    "clasp_search_limit_seconds": 1.0,
+    "workers": 1,
+    "clasp_threads": 1,
+    "post_solve_verification": true,
+    "verification_failures": 0,
+    "outside_scope_pi_terms_removed": true,
+    "variable_allocation_and_constraints_equal": true,
+    "n_pi": 214,
+    "scope_pis_mean": 35.942141432054974,
+    "scope_pis_median": 24,
+    "scope_pis_min": 1,
+    "scope_pis_max": 141,
+    "trials": [
+      {
+        "trial": 1,
+        "order": [
+          "all",
+          "scope"
+        ],
+        "all": {
+          "search_seconds": 61.290296776,
+          "total_seconds": 69.809379628,
+          "optimal": 4507,
+          "feasible": 4,
+          "unknown": 0,
+          "timeouts": 4,
+          "care_mean": 7.899800487696742,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "scope": {
+          "search_seconds": 58.576613996,
+          "total_seconds": 67.236840965,
+          "optimal": 4507,
+          "feasible": 4,
+          "unknown": 0,
+          "timeouts": 4,
+          "care_mean": 7.899578807359787,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "quality": {
+          "scope_better": 2,
+          "equal": 4508,
+          "all_better": 1,
+          "both_optimal": 4505,
+          "both_optimal_care_equal": 4505,
+          "cube_equal": 4341
+        }
+      },
+      {
+        "trial": 2,
+        "order": [
+          "scope",
+          "all"
+        ],
+        "all": {
+          "search_seconds": 58.372325486,
+          "total_seconds": 67.269626495,
+          "optimal": 4506,
+          "feasible": 5,
+          "unknown": 0,
+          "timeouts": 5,
+          "care_mean": 7.90024384837065,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "scope": {
+          "search_seconds": 52.18557023,
+          "total_seconds": 59.991767371,
+          "optimal": 4507,
+          "feasible": 4,
+          "unknown": 0,
+          "timeouts": 4,
+          "care_mean": 7.899800487696742,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "quality": {
+          "scope_better": 2,
+          "equal": 4507,
+          "all_better": 2,
+          "both_optimal": 4505,
+          "both_optimal_care_equal": 4505,
+          "cube_equal": 4341
+        }
+      },
+      {
+        "trial": 3,
+        "order": [
+          "all",
+          "scope"
+        ],
+        "all": {
+          "search_seconds": 73.929854627,
+          "total_seconds": 84.359107033,
+          "optimal": 4500,
+          "feasible": 11,
+          "unknown": 0,
+          "timeouts": 11,
+          "care_mean": 7.901795610729328,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "scope": {
+          "search_seconds": 58.060582251,
+          "total_seconds": 66.18648622,
+          "optimal": 4506,
+          "feasible": 5,
+          "unknown": 0,
+          "timeouts": 5,
+          "care_mean": 7.899800487696742,
+          "care_median": 9,
+          "care_max": 29
+        },
+        "quality": {
+          "scope_better": 6,
+          "equal": 4503,
+          "all_better": 2,
+          "both_optimal": 4499,
+          "both_optimal_care_equal": 4499,
+          "cube_equal": 4338
+        }
+      }
+    ],
+    "median_total_seconds": {
+      "all": 69.809379628,
+      "scope": 66.18648622
+    },
+    "median_search_seconds": {
+      "all": 61.290296776,
+      "scope": 58.060582251
+    }
+  },
+  "application_sample_comparison": {
+    "circuit": "s5378_C",
+    "cube_limit": 30,
+    "jobs": 2,
+    "selected_faults": 200,
+    "fault_selection": "evenly spaced rows of lab reference",
+    "dominance_reuse": false,
+    "trials": 1,
+    "order": [
+      "all",
+      "scope"
+    ],
+    "post_solve_verification": true,
+    "normal_scope_validation": true,
+    "all": {
+      "wall_seconds": 64.007,
+      "cpu_seconds": 121.461,
+      "cadical_cpu_seconds": 1.696,
+      "sbxid_cpu_seconds": 119.098,
+      "clasp_search_seconds_sum": 112.476,
+      "optimal": 4180,
+      "feasible": 29,
+      "timeouts": 29,
+      "unknown": 0,
+      "verified": 4209,
+      "verification_failures": 0,
+      "fault_rows": 478,
+      "representatives": 200,
+      "complete": 80,
+      "incomplete": 120,
+      "total_cubes": 4209
+    },
+    "scope": {
+      "wall_seconds": 59.165,
+      "cpu_seconds": 113.591,
+      "cadical_cpu_seconds": 1.828,
+      "sbxid_cpu_seconds": 111.079,
+      "clasp_search_seconds_sum": 104.552,
+      "optimal": 4190,
+      "feasible": 19,
+      "timeouts": 19,
+      "unknown": 0,
+      "verified": 4209,
+      "verification_failures": 0,
+      "fault_rows": 478,
+      "representatives": 200,
+      "complete": 80,
+      "incomplete": 120,
+      "total_cubes": 4209
+    },
+    "quality": {
+      "common_complete": 80,
+      "common_complete_fdp_mismatches": 0,
+      "complete_to_incomplete": 0,
+      "incomplete_to_complete": 0,
+      "scope_fdp_higher": 18,
+      "equal_fdp": 169,
+      "all_fdp_higher": 13
+    },
+    "caveat": "Incomplete FDP values are lower bounds; covers and seed sequences may differ."
+  },
+  "speed_reduction_percent": {
+    "fixed_seed_median_total": 5.189694318020955,
+    "application_sample_wall": 7.5647976002624855
+  },
+  "raw_results": [
+    "output/sbxid/pi-objective-comparison/{all,scope}_{1,2,3}.csv",
+    "output/sbxid/pi-objective-application-sample200/{all,scope}.{csv,log,set}",
+    "output/sbxid/pi-objective-application-sample200/faults.txt"
+  ],
+  "limits": [
+    "Fixed seeds use all 4,511 lab reference pairs, not the dynamically generated seeds of an entire s5378 run.",
+    "Application comparison selects 200 evenly spaced detected faults from those reference rows; all 4,551 representatives were not completed.",
+    "Fixed-seed timing is three trials; the application sample is one trial per mode.",
+    "Measured SB call totals include optional post-solve three-valued verification; scope extraction and CSV output are outside the per-call native timer.",
+    "The one-second search limit can change feasible candidates and timeout counts between trials.",
+    "Incomplete FDP values are lower bounds; higher per-fault partial coverage is not guaranteed."
+  ]
+}

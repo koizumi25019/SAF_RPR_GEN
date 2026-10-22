@@ -500,7 +500,7 @@ static const char* sbxid_gate_type_name(int type) {
 }
 
 static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_net, int* out_total_vars, int* out_cons_count,
-    SbxidCase* mc, int** out_varV) {
+    SbxidCase* mc, int** out_varV, const unsigned char* pi_scope) {
     int K = mc->n_faults;
     int* varV = (int*)sbxid_calloc(n_net, sizeof(int));
     int vars = 0;
@@ -561,6 +561,7 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
     int weight_pi = (K + 1) * n_net + 1;
     fprintf(tmp_fp, "min: ");
     for (int i = 0; i < n_pi; i++) {
+        if (pi_scope && !pi_scope[i]) continue;
         int idx = sbxid_get_net_index(pi[i]->name);
         if (idx != -1 && varV[idx] > 0) fprintf(tmp_fp, "+%d x%d ", weight_pi, varV[idx]);
     }
@@ -705,7 +706,8 @@ static bool sbxid_generate_opb_for_multi_bundle(FILE* tmp_fp, int** out_var_to_n
     return okay;
 }
 
-static void sbxid_extract_pattern_from_solution(const char* pat_str, int* var_to_net, int total_vars, int* var_values, char* out_pat) {
+static void sbxid_extract_pattern_from_solution(const char* pat_str, int* var_to_net, int total_vars, int* var_values,
+    const unsigned char* pi_scope, char* out_pat) {
     for (int i = 0; i < n_pi; i++) out_pat[i] = '-';
     out_pat[n_pi] = '\0';
     for (int i = 1; i <= total_vars; i++) {
@@ -713,7 +715,8 @@ static void sbxid_extract_pattern_from_solution(const char* pat_str, int* var_to
         if (net_idx < 0) continue; // PO補助変数（実ネットを持たない）
         if (nl[net_idx].type == IN) {
             int pi_idx = sbxid_pi_of_net[net_idx];
-            if (pi_idx != -1 && var_values[i] == 1) out_pat[pi_idx] = pat_str[pi_idx];
+            if (pi_idx != -1 && (!pi_scope || pi_scope[pi_idx]) && var_values[i] == 1)
+                out_pat[pi_idx] = pat_str[pi_idx];
         }
     }
 }
@@ -739,7 +742,7 @@ static bool sbxid_initialize(void)
 }
 
 bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
-                     char* cube, SbxidInfo* info)
+                     const unsigned char* pi_scope, char* cube, SbxidInfo* info)
 {
     if (!info) return false;
     memset(info, 0, sizeof(*info));
@@ -766,13 +769,22 @@ bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
                 nl[fault_net_id].name, stuck_value);
         goto cleanup;
     }
+    /* A host scope must contain the complete SB support. A bad mask must not
+     * turn a required PI into a free, uncharged care variable. */
+    for (int p = 0; pi_scope && p < n_pi; ++p) {
+        int net = pi[p]->n;
+        if (!pi_scope[p] && (mc.union_path[net] || mc.union_justify[net])) {
+            fprintf(stderr, "[SB-XID] PI scope omits required input %s\n", pi[p]->name);
+            goto cleanup;
+        }
+    }
     FILE* stream = open_memstream(&opb, &opb_length);
     if (!stream) {
         fprintf(stderr, "[SB-XID] cannot open OPB memory stream\n");
         goto cleanup;
     }
     bool written = sbxid_generate_opb_for_multi_bundle(stream, &var_to_net,
-        &info->variables, &info->constraints, &mc, &varV);
+        &info->variables, &info->constraints, &mc, &varV, pi_scope);
     if (fclose(stream) != 0) written = false;
     if (!written) {
         fprintf(stderr, "[SB-XID] cannot generate OPB constraints\n");
@@ -793,7 +805,7 @@ bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
                 nl[fault_net_id].name, stuck_value, info->solve.error);
         goto cleanup;
     }
-    sbxid_extract_pattern_from_solution(seed, var_to_net, info->variables, values, cube);
+    sbxid_extract_pattern_from_solution(seed, var_to_net, info->variables, values, pi_scope, cube);
     for (int p = 0; p < n_pi; ++p) if (cube[p] == '-') cube[p] = 'X';
     const char* verify = getenv("FDP_SBXID_VERIFY");
     if (verify && strcmp(verify, "0") != 0) {

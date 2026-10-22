@@ -10,13 +10,22 @@
 #include "../lib/lib.h"
 
 /* .setとコマンドラインで同じ設定処理を使う。 */
-static bool IsWorkerOption(const char* name)
+static bool IsValueOption(const char* name)
 {
-    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0;
+    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
+           strcmp(name, "-sbxid_pi_objective") == 0;
 }
 
-static bool SetWorkerOption(const char* name, const char* value)
+static bool SetValueOption(const char* name, const char* value)
 {
+    if (strcmp(name, "-sbxid_pi_objective") == 0) {
+        if (value && (strcmp(value, "all") == 0 || strcmp(value, "scope") == 0)) {
+            opt.sbxid_pi_scope = strcmp(value, "scope") == 0;
+            return true;
+        }
+        fprintf(stderr, "COMMAND ERROR: -sbxid_pi_objective requires all|scope\n");
+        return false;
+    }
     if (strcmp(name, "-jobs") == 0) {
         char* end = NULL;
         errno = 0;
@@ -86,6 +95,7 @@ void OPTinit(
     opt.jobs = 1;
     opt.dom_reuse = MODE_NOSET;
     opt.fault_model = FM_SAF;
+    opt.sbxid_pi_scope = YES;
 
 	return;
 }
@@ -118,10 +128,10 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
-        if (IsWorkerOption(argv[i])) {
+        if (IsValueOption(argv[i])) {
             const char* name = argv[i];
             const char* value = i + 1 < argc ? argv[++i] : NULL;
-            if (!SetWorkerOption(name, value)) return OPT_ERROR;
+            if (!SetValueOption(name, value)) return OPT_ERROR;
         }
 		else if (strcmp(argv[i], "-saf") == 0)
 			opt.fault_model = FM_SAF;
@@ -216,9 +226,9 @@ bool OPTread(
 		{
 			token1 = strtok_r(buffer, " \t\r\n", &context);
 
-            if (IsWorkerOption(token1)) {
+            if (IsValueOption(token1)) {
                 token2 = strtok_r(NULL, " \t\r\n", &context);
-                if (!SetWorkerOption(token1, token2)) {
+                if (!SetValueOption(token1, token2)) {
                     free(buffer);
                     fclose(fileptr);
                     return OPT_ERROR;

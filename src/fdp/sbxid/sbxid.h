@@ -24,7 +24,11 @@ typedef struct {
  * Process-local indexes and the structural fault TFO are initialized lazily
  * after fork, then reused. Internal S variables/justification are only built
  * inside that TFO; outside signals refer to V and retain both objective costs.
+ * pi_scope is NULL for the original all-PI objective, or an n_pi-byte mask in
+ * pi[] order from the host's structural normal-CNF scope. Only masked PIs are
+ * charged; unmasked PIs are returned as X for a feasible/optimal model. They
+ * must be outside PATH/JUSTIFY. UNKNOWN still returns the complete seed.
  */
 bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
-                     char* cube, SbxidInfo* info);
+                     const unsigned char* pi_scope, char* cube, SbxidInfo* info);
 void sbxid_release(void);

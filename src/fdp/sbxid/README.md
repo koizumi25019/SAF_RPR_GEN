@@ -47,9 +47,63 @@ PIの主目的重み `(K+1)*n_net+1`、PI変数、正常/故障シミュレー�
 
 範囲外PIは初回0で補完する。ただし、キューブの禁止節へ入ったPIは、以後その故障のSATモデルに従う。UNKNOWNで全PI固定のseedへ戻る場合も、同じseedを再生成せず列挙を進めるために必要である。正常CNFのゲート範囲自体は拡大しない。
 
+## PI目的関数を正常CNFの範囲へ限定する
+
+`-sbxid_pi_objective scope`（既定）では、CaDiCaLが保持する正常回路CNFの範囲にあるPIだけを主目的へ計上する。
+`-sbxid_pi_objective all` は従来の全PI目的関数へ戻す。CLIと `.set` の両方で使え、後の指定を優先する。
+実行ログの `SB-XID PI Objective` に選んだ方式を記録する。
+
+範囲は故障点の構造TFOにあるPOを選び、その全TFIをたどったもの。
+本体は `WriteTPGModel()` 後の `NormalScopeRequiredNet(pi[p]->n)` をPI順の専用配列へ保存し、worker内でその故障のSB-XID呼出しへ渡す。
+`NormalScopeRequiredPi()` は禁止節で参照するようになった範囲外PIも含むため、目的関数の判定には使わない。
+PI範囲をseedごとに狭める変更は加えない。
+
+今回の比較では、PI変数の割当て、全制約式、PIの重み `(K+1)*n_net+1`、正常・故障の内部ケア費用を両方式でそろえる。
+変更する目的関数の項は、正常CNFの範囲外にあるPIの正の項だけである。
+範囲外PIはSBのPATH/JUSTIFYにも制約式にも不要なので、全PI版の最適解では独立にケア0へできる。
+その項を除いても範囲内PIの最小ケア数と内部費用の最適値は変わらない。
+ただし、探索順・同点解・時間切れ時の暫定解は変わり得る。
+
+目的関数から外したPIのケア変数は、モデル上で1になっていても、返すキューブでは必ずXへ正規化する。
+解なしUNKNOWN、任意の事後検証に失敗した場合は、従来どおり全PIの元seedへ戻す。
+本体から渡したマスクがSBのPATH/JUSTIFYに必要なPIを欠く場合は、求解前にエラーとする。
+全PIの一覧・順序、FDPの分母 `2^n_pi` は維持する。
+
+速度・品質の測定結果は [PI目的関数の比較](../../../docs/sb_xid_pi_objective_comparison.md) を参照。
+
+例（リポジトリルートから）：
+
+```bash
+mkdir -p output/sbxid/pi-objective-all output/sbxid/pi-objective-scope
+build/main_release -net input/circuit/saf/s5378_C.v -limit 30 -jobs 2 -dom_reuse off \
+  -sbxid_pi_objective all \
+  -fdp output/sbxid/pi-objective-all/s5378_C.csv -log output/sbxid/pi-objective-all/s5378_C.log
+build/main_release -net input/circuit/saf/s5378_C.v -limit 30 -jobs 2 -dom_reuse off \
+  -sbxid_pi_objective scope \
+  -fdp output/sbxid/pi-objective-scope/s5378_C.csv -log output/sbxid/pi-objective-scope/s5378_C.log
+```
+
+同じ参照故障・seedを用いた比較は、専用の任意ビルド対象で再現できる。
+`SB-XID/tp/1f1p/` のs5378参照データを使う。回路読込・範囲抽出・CSV書込の時間は個々のSB呼出し時間に含めず、
+SB呼出し時間にはOPB生成、clasp読込・前処理・探索、任意の3値事後検証を含める。
+
+```bash
+cmake -S . -B build -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="$PWD/build/clasp-install"
+cmake --build build --target sbxid_pi_objective_benchmark --parallel 2
+python3 tests/sbxid_pi_objective_compare.py \
+  --binary build/sbxid_pi_objective_benchmark \
+  --output output/sbxid/pi-objective-comparison --samples 4511 --trials 3
+
+# 本体の全代表故障・30キューブ上限を比較。両方式で3値事後検証も有効にする。
+python3 tests/sbxid_pi_objective_application_compare.py \
+  --binary build/main_release --jobs 2 \
+  --output output/sbxid/pi-objective-application
+```
+
 ## 参照コードからの変更
 
-`sbxid.c` は元の26関数を抜き出したもの。3値ゲート評価、PATH/JUSTIFY抽出、ゲート正当化式、バッチ版の目的関数・ケアPI抽出を維持し、故障数K=1で使う。変数割当と制約生成は、上記のTFO外の重複除去を加えた。
+`sbxid.c` は元の26関数を抜き出したもの。3値ゲート評価、PATH/JUSTIFY抽出、ゲート正当化式を維持し、故障数K=1で使う。
+変数割当と制約生成は、上記のTFO外の重複除去を加えた。目的関数・ケアPI抽出には、上記の範囲外PIの除外を加えた。
 
 | 対象 | 変更 |
 |---|---|
@@ -64,7 +118,8 @@ PIの主目的重み `(K+1)*n_net+1`、PI変数、正常/故障シミュレー�
 | ケース開始 | 専用値をX、専用flagを0へ初期化する。元seedのPO検出も確認する |
 | 求解後検証 | 通常省略し、設定で有効化する |
 
-ゲートの正当化式と目的関数は維持し、TFO外の故障側の変数・制約の重複を除いた。CEGARの追加は行っていない。対象は既存の組合せ回路で、dangling観測条件の変更・生の順序回路対応は含めない。
+ゲートの正当化式、目的関数の重みと内部項を維持し、TFO外の故障側の変数・制約の重複を除いた。
+PI目的関数の範囲は上記の切替を持つ。CEGARの追加は行っていない。対象は既存の組合せ回路で、dangling観測条件の変更・生の順序回路対応は含めない。
 
 ## clasp導入前に実行できるテスト
 

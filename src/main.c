@@ -93,6 +93,8 @@ static void WriteReport(
 	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
     fprintf(fp, "//  Don't-care Method                         : SB-XID v1 (no CEGAR)\n");
+    fprintf(fp, "//  SB-XID PI Objective                       : %s\n",
+            opt.sbxid_pi_scope ? "scope (normal CNF PI)" : "all");
     fprintf(fp, "//  Clasp Version                             : %s\n", sbxid_clasp_version());
     fprintf(fp, "//  Clasp Search Limit                        : %.1f sec/call\n", SBXID_SOLVE_LIMIT_SECONDS);
     const FaultStats* stats = FaultAnalysisStats();
