@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s38584_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 35995
+//  CPU Time                                  : 2335.437 sec
+//  CPU Time (CaDiCaL)                        : 1198.084 sec
+//  CPU Time (BDD)                            : 13.003 sec
+//  CPU Time (Don't care)                     : 448.511 sec
+//  CPU Time (Read Fault)                     : 0.220 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 2335.89
+//  User CPU Time (sec) : 2328.68
+//  System CPU Time (sec) : 6.76
+//  Exit Status : 0

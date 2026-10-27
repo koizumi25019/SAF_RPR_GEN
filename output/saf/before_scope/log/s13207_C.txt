@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s13207_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 9663
+//  CPU Time                                  : 125.670 sec
+//  CPU Time (CaDiCaL)                        : 59.256 sec
+//  CPU Time (BDD)                            : 4.006 sec
+//  CPU Time (Don't care)                     : 18.932 sec
+//  CPU Time (Read Fault)                     : 0.012 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 127.35
+//  User CPU Time (sec) : 124.67
+//  System CPU Time (sec) : 0.99
+//  Exit Status : 0

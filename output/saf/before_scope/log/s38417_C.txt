@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s38417_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 30744
+//  CPU Time                                  : 2712.749 sec
+//  CPU Time (CaDiCaL)                        : 1733.514 sec
+//  CPU Time (BDD)                            : 29.458 sec
+//  CPU Time (Don't care)                     : 400.073 sec
+//  CPU Time (Read Fault)                     : 0.118 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 2717.94
+//  User CPU Time (sec) : 2706.00
+//  System CPU Time (sec) : 6.77
+//  Exit Status : 0

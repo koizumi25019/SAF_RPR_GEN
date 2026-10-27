@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s15850_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 11697
+//  CPU Time                                  : 293.065 sec
+//  CPU Time (CaDiCaL)                        : 169.807 sec
+//  CPU Time (BDD)                            : 7.479 sec
+//  CPU Time (Don't care)                     : 44.253 sec
+//  CPU Time (Read Fault)                     : 0.016 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 292.29
+//  User CPU Time (sec) : 291.45
+//  System CPU Time (sec) : 1.61
+//  Exit Status : 0

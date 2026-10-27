@@ -1,0 +1,4 @@
+-net ../input/circuit/saf/s38584_C.v
+-limit 30
+-fdp ../output/saf/before_scope/fdp/s38584_C.csv
+-log ../output/saf/before_scope/log/s38584_C.txt

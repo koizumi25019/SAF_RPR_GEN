@@ -1,17 +1,10 @@
-# set File
-# set netlist(.v)
 -net ../input/circuit/saf/s5378_C.v
-
-# set fault list(.txt)
 #-fault ../input/fault/saf/s5378_C_unred.txt
-
-# set log(.txt)
 -log ../output/saf/limit30/log/s5378_C.txt
-
-
-# set fdp result(.csv)
 -fdp ../output/saf/limit30/fdp/s5378_C.csv
-
+-cube ../output/saf/limit30/cube/s5378
 -limit 30
-
--jobs 1
+-jobs 15
+-cube_include_incomplete off
+-cube_fdp_max 0.0003
+-progress on

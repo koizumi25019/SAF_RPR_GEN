@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s5378_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 4551
+//  CPU Time                                  : 58.329 sec
+//  CPU Time (CaDiCaL)                        : 38.410 sec
+//  CPU Time (BDD)                            : 1.421 sec
+//  CPU Time (Don't care)                     : 9.072 sec
+//  CPU Time (Read Fault)                     : 0.003 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 59.70
+//  User CPU Time (sec) : 57.68
+//  System CPU Time (sec) : 0.64
+//  Exit Status : 0

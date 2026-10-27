@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s9234_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 6927
+//  CPU Time                                  : 146.336 sec
+//  CPU Time (CaDiCaL)                        : 97.845 sec
+//  CPU Time (BDD)                            : 2.607 sec
+//  CPU Time (Don't care)                     : 21.249 sec
+//  CPU Time (Read Fault)                     : 0.008 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 146.06
+//  User CPU Time (sec) : 145.28
+//  System CPU Time (sec) : 1.04
+//  Exit Status : 0

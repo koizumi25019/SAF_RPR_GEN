@@ -1,19 +1,20 @@
 //--------------------------------------------------------------------------------
 //                AnalyzeFaultDetectionProbability Information
 //--------------------------------------------------------------------------------
-//  Target Circuit                            : s5378_C
+//  Target Circuit                            : saf/s5378_C
 //  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
 //  Number of Target Faults                   : 4551
 //  Don't-care Method                         : XID
-//  Dominance Cube Reuse                      : on
-//  Fault Workers                             : 1
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 15
 //  CPU Accounting                            : parent + all worker processes
-//  Time                                      : 22.018 sec
-//  CPU Time                                  : 24.461 sec
-//  CPU Time (CaDiCaL)                        : 15.071 sec
-//  CPU Time (BDD)                            : 1.273 sec
-//  CPU Time (Don't care)                     : 4.797 sec
-//  CPU Time (Read Fault)                     : 0.005 sec
+//  Time                                      : 2.224 sec
+//  CPU Time                                  : 35.778 sec
+//  CPU Time (CaDiCaL)                        : 20.972 sec
+//  CPU Time (BDD)                            : 2.012 sec
+//  CPU Time (Don't care)                     : 7.055 sec
+//  CPU Time (Read Fault)                     : 0.003 sec
 //--------------------------------------------------------------------------------

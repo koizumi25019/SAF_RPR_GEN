@@ -1,0 +1,16 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s35932_C
+//  Name of Target Fault File                 : (null)
+//  Number of Target Faults                   : 38518
+//  CPU Time                                  : 1624.576 sec
+//  CPU Time (CaDiCaL)                        : 763.756 sec
+//  CPU Time (BDD)                            : 12.757 sec
+//  CPU Time (Don't care)                     : 270.148 sec
+//  CPU Time (Read Fault)                     : 0.127 sec
+//--------------------------------------------------------------------------------
+//  Elapsed Wall Time (sec) : 1622.84
+//  User CPU Time (sec) : 1618.81
+//  System CPU Time (sec) : 5.76
+//  Exit Status : 0
