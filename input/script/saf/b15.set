@@ -1,9 +1,9 @@
 -net ../input/circuit/saf/b15_C.v
 #-fault ../input/fault/saf/b15.txt
--log ../output/saf/limit100/log/b15_C.txt
--fdp ../output/saf/limit100/fdp/b15_C.csv
--cube ../output/saf/limit100/cube/b15
--limit 100
+-log ../output/saf/limit300/log/b15_C.txt
+-fdp ../output/saf/limit300/fdp/b15_C.csv
+-cube ../output/saf/limit300/cube/b15
+-limit 300
 -jobs 15
 -progress on
 -cube_include_incomplete off
