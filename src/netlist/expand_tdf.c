@@ -1,22 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------
-//	expand_tdf.c : 遷移故障（TDF, LOC方式）用の2時刻展開ネットリスト構築
-//
-//	read_nl() が構築した DFF 入りの順序回路グラフを、1時刻目＋2時刻目の
-//	組み合わせ回路（時間展開モデル）に組み替えて nl/pi/po を差し替える。
-//	以降のパイプライン（CNF生成・キューブ列挙・BDD・GT検証）は
-//	「入力 n_pi+n_dff 本の組み合わせ回路」として無修正で動作する。
-//
-//	LOC（launch-on-capture）の意味論：
-//	  - PI は両時刻で共通（1ノードを共有。v2 の PI = v1 の PI）
-//	  - DFF の Q は、1時刻目コピー＝自由入力（擬似PI、スキャンで設定される状態）
-//	                2時刻目コピー＝1時刻目の D 入力を受ける BUF（DFF の値引き継ぎ）
-//	  - 観測点は2時刻目のPPO（DFFのD入力）のみ。POは観測しない。
-//
-//	TDF 故障 (L, STR) は「2時刻目コピー L の sa0 ＋ 励起条件 L の1時刻目=0」に
-//	帰着する（STF は sa1 ＋ 1時刻目=1）。励起条件用に、2時刻目コピーから
-//	1時刻目コピーへのポインタを peer_1t に持たせる（PI は自分自身）。
-//	信号線名は 2時刻目コピーが元の名前を保持し（故障リスト・CSV は元の名前で
-//	引ける）、1時刻目コピーには "_1t" を付ける。
+// LOC方式の2時刻展開。PIは両時刻で共有し、DFFは自由な初期状態とキャプチャ用BUFに置き換える。
+// 観測点は2時刻目のDFF D入力（PPO）のみ。2時刻目は元の名前、1時刻目は「_1t」付きの名前を使う。
+// peer_1t は遷移故障の励起条件を課す1時刻目の信号を指す（共有PIは自分自身）。
 //--------------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,74 +11,84 @@
 
 #define TDF_YES 1   /* netlist.h には YES/NO が無いので test_sa0/test_sa1 用に定義 */
 
-/* 元ノード o のフレーム f (1/2) コピーが持つ出力本数。
-   DFF へ向かう辺は f=1 なら「2時刻目の BUF へ」付け替え、f=2 なら（3時刻目が
-   無いので）落とす。落とした結果 n_out==0 になった信号線が PPO 端点になる。 */
-static int count_out(const NLIST* o, int f)
+/* DFFへ向かう辺は1時刻目だけ残し、2時刻目のBUFへつなぐ。
+   2時刻目には次のDFFがないため辺を落とし、キャプチャ点はPPOとして別途記録する。 */
+static int count_frame_outputs(const NLIST* original_net, int frame)
 {
-	int c = 0;
-	for (int k = 0; k < o->n_out; k++) {
-		if (o->out[k]->type == DFF) { if (f == 1) c++; }
-		else c++;
+	int output_count = 0;
+	for (int k = 0; k < original_net->n_out; k++) {
+		if (original_net->out[k]->type != DFF || frame == 1) output_count++;
 	}
-	return c;
+	return output_count;
 }
 
-/* 元ノード o のフレーム f の出力配列を dst に書く（count_out と同じ規則） */
-static void fill_out(NLIST** dst, const NLIST* o, int f, NLIST* nn, const int* m1, const int* m2)
+/* 各出力を同じ時刻のコピーへ接続する。DFFへの辺だけは時刻をまたぐ。 */
+static void connect_frame_outputs(
+	NLIST** outputs, const NLIST* original_net, int frame,
+	NLIST* expanded_nets, const int* frame1_net_ids, const int* frame2_net_ids
+)
 {
-	int c = 0;
-	for (int k = 0; k < o->n_out; k++) {
-		const NLIST* t = o->out[k];
-		if (t->type == DFF) {
-			if (f == 1) dst[c++] = &nn[m2[t->n]];
+	const int* frame_net_ids = frame == 1 ? frame1_net_ids : frame2_net_ids;
+	int output_index = 0;
+	for (int k = 0; k < original_net->n_out; k++) {
+		const NLIST* output_net = original_net->out[k];
+		if (output_net->type == DFF) {
+			if (frame == 1) outputs[output_index++] = &expanded_nets[frame2_net_ids[output_net->n]];
 		}
 		else {
-			dst[c++] = &nn[(f == 1) ? m1[t->n] : m2[t->n]];
+			outputs[output_index++] = &expanded_nets[frame_net_ids[output_net->n]];
 		}
 	}
 }
 
-static char* dup_name(const char* base, int frame)
+static char* duplicate_frame_name(const char* original_name, int frame)
 {
-	if (frame == 2) return strdup(base);
-	size_t len = strlen(base);
-	char* s = (char*)malloc(len + 4);            /* "_1t" + '\0' */
-	memcpy(s, base, len);
-	memcpy(s + len, "_1t", 4);
-	return s;
+	if (frame == 2) return strdup(original_name);
+	size_t name_length = strlen(original_name);
+	char* frame_name = (char*)malloc(name_length + 4);            /* "_1t" + '\0' */
+	memcpy(frame_name, original_name, name_length);
+	memcpy(frame_name + name_length, "_1t", 4);
+	return frame_name;
 }
 
 /* 新ノードの共通フィールド初期化（calloc 済み前提で残りを埋める） */
-static void init_node(NLIST* nd, int id, int type, char* name)
+static void init_expanded_net(NLIST* expanded_net, int id, int type, char* name)
 {
-	nd->n        = id;
-	nd->type     = type;
-	nd->name     = name;
-	nd->name_ins = strdup(name);
-	nd->name_port = (char*)NULL;
-	nd->test_sa0 = TDF_YES;   /* 等価故障エコー(OutputEquivFaults)を確実に無効化 */
-	nd->test_sa1 = TDF_YES;
-	nd->ppo_flag = 0;         /* 観測点は make_ppo_ppi が PPO にだけ立てる */
+	expanded_net->n        = id;
+	expanded_net->type     = type;
+	expanded_net->name     = name;
+	expanded_net->name_ins = strdup(name);
+	expanded_net->name_port = (char*)NULL;
+	/* 故障読込時に等価故障を整理するまでは、全てを対象にする。 */
+	expanded_net->test_sa0 = TDF_YES;
+	expanded_net->test_sa1 = TDF_YES;
+	expanded_net->ppo_flag = 0;         /* 観測点は build_scan_ports が PPO にだけ立てる */
 }
 
-/* NEW_RPR_FAULT の make_ppo_ppi と同じ役割：疑似外部入出力の配列を作り、
+/* 疑似外部入出力の配列を作り、
    観測点フラグ(ppo_flag)を立てる。展開回路上では
      ppi[] = DFF状態の1時刻目コピー（自由入力＝スキャンで設定される状態変数）
      ppo[] = DFFのD入力の2時刻目コピー（FFへのキャプチャ点＝唯一の観測点）
-   PO は at-speed でストローブしないので ppo_flag を立てない（旧ツールと同じ意味論）。 */
-static void make_ppo_ppi(const NLIST* old, int old_n, NLIST* nn, const int* m1, const int* m2)
+   PO は at-speed でストローブしないので ppo_flag を立てない。 */
+static void build_scan_ports(
+	const NLIST* original_nets, int original_net_count,
+	NLIST* expanded_nets, const int* frame1_net_ids, const int* frame2_net_ids
+)
 {
 	ppi = (NLIST**)malloc(sizeof(NLIST*) * n_dff);
 	ppo = (NLIST**)malloc(sizeof(NLIST*) * n_dff);
-	if (ppi == NULL || ppo == NULL) { printf("make_ppo_ppi: allocation failed\n"); exit(1); }
+	if (ppi == NULL || ppo == NULL) {
+		printf("build_scan_ports: allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
 	n_ppi = 0;
 	n_ppo = 0;
 
-	for (int i = 0; i < old_n; i++) {
-		if (old[i].type != DFF) continue;
-		ppi[n_ppi++] = &nn[m1[i]];                    /* Q の1時刻目コピー */
-		ppo[n_ppo]   = &nn[m2[old[i].in[0]->n]];      /* D 入力の2時刻目コピー */
+	for (int i = 0; i < original_net_count; i++) {
+		if (original_nets[i].type != DFF) continue;
+		int data_net_id = original_nets[i].in[0]->n;
+		ppi[n_ppi++] = &expanded_nets[frame1_net_ids[i]];
+		ppo[n_ppo] = &expanded_nets[frame2_net_ids[data_net_id]];
 		ppo[n_ppo]->ppo_flag = 1;
 		n_ppo++;
 	}
@@ -101,126 +96,148 @@ static void make_ppo_ppi(const NLIST* old, int old_n, NLIST* nn, const int* m1, 
 
 void expand_tdf_netlist(void)
 {
-	NLIST*  old      = nl;
-	int     old_n    = n_net;
-	NLIST** old_pi   = pi;
-	int     old_npi  = n_pi;
-	NLIST** old_po   = po;
-	int     old_npo  = n_po;
+	NLIST* original_nets = nl;
+	int original_net_count = n_net;
+	NLIST** original_pi = pi;
+	int original_pi_count = n_pi;
+	NLIST** original_po = po;
+	int original_po_count = n_po;
 
 	/* 新ノード ID の割り当て：PI は両時刻共有で1個、それ以外は各時刻1個ずつ */
-	int* m1 = (int*)malloc(old_n * sizeof(int));   /* 元ID -> 1時刻目コピーの新ID */
-	int* m2 = (int*)malloc(old_n * sizeof(int));   /* 元ID -> 2時刻目コピーの新ID */
-	int  new_n = 0;
-	for (int i = 0; i < old_n; i++) {
-		if (old[i].type == IN) { m1[i] = m2[i] = new_n++; }
-		else                   { m1[i] = new_n++; m2[i] = new_n++; }
+	int* frame1_net_ids = (int*)malloc(original_net_count * sizeof(int));   /* 元ID -> 1時刻目コピーの新ID */
+	int* frame2_net_ids = (int*)malloc(original_net_count * sizeof(int));   /* 元ID -> 2時刻目コピーの新ID */
+	int expanded_net_count = 0;
+	for (int i = 0; i < original_net_count; i++) {
+		frame1_net_ids[i] = expanded_net_count++;
+		if (original_nets[i].type == IN) {
+			frame2_net_ids[i] = frame1_net_ids[i];
+		}
+		else {
+			frame2_net_ids[i] = expanded_net_count++;
+		}
 	}
 
-	NLIST* nn = (NLIST*)calloc((size_t)new_n, sizeof(NLIST));
-	if (nn == NULL) { printf("expand_tdf_netlist: allocation failed\n"); exit(1); }
+	NLIST* expanded_nets = (NLIST*)calloc((size_t)expanded_net_count, sizeof(NLIST));
+	if (expanded_nets == NULL) {
+		printf("expand_tdf_netlist: allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
 
-	for (int i = 0; i < old_n; i++) {
-		const NLIST* o = &old[i];
+	for (int i = 0; i < original_net_count; i++) {
+		const NLIST* original_net = &original_nets[i];
 
-		if (o->type == IN) {
+		if (original_net->type == IN) {
 			/* 両時刻共有の PI。出力は両フレームのコピーへつながる */
-			NLIST* nd = &nn[m1[i]];
-			init_node(nd, m1[i], IN, dup_name(o->name, 2));
-			nd->peer_1t = nd;                       /* PI の1時刻目=自分自身 */
-			nd->n_out = count_out(o, 1) + count_out(o, 2);
-			if (nd->n_out > 0) {
-				nd->out = (NLIST**)malloc(nd->n_out * sizeof(NLIST*));
-				fill_out(nd->out, o, 1, nn, m1, m2);
-				fill_out(nd->out + count_out(o, 1), o, 2, nn, m1, m2);
+			NLIST* expanded_net = &expanded_nets[frame1_net_ids[i]];
+			init_expanded_net(expanded_net, frame1_net_ids[i], IN, duplicate_frame_name(original_net->name, 2));
+			expanded_net->peer_1t = expanded_net;                       /* PI の1時刻目=自分自身 */
+			expanded_net->n_out = count_frame_outputs(original_net, 1) + count_frame_outputs(original_net, 2);
+			if (expanded_net->n_out > 0) {
+				expanded_net->out = (NLIST**)malloc(expanded_net->n_out * sizeof(NLIST*));
+				connect_frame_outputs(expanded_net->out, original_net, 1, expanded_nets, frame1_net_ids, frame2_net_ids);
+				connect_frame_outputs(expanded_net->out + count_frame_outputs(original_net, 1),
+					original_net, 2, expanded_nets, frame1_net_ids, frame2_net_ids);
 			}
 		}
-		else if (o->type == DFF) {
+		else if (original_net->type == DFF) {
 			/* 1時刻目コピー：自由入力（擬似PI＝スキャン設定される状態変数） */
-			NLIST* d1 = &nn[m1[i]];
-			init_node(d1, m1[i], IN, dup_name(o->name, 1));
-			d1->n_out = count_out(o, 1);
-			if (d1->n_out > 0) {
-				d1->out = (NLIST**)malloc(d1->n_out * sizeof(NLIST*));
-				fill_out(d1->out, o, 1, nn, m1, m2);
+			NLIST* initial_state = &expanded_nets[frame1_net_ids[i]];
+			init_expanded_net(initial_state, frame1_net_ids[i], IN, duplicate_frame_name(original_net->name, 1));
+			initial_state->n_out = count_frame_outputs(original_net, 1);
+			if (initial_state->n_out > 0) {
+				initial_state->out = (NLIST**)malloc(initial_state->n_out * sizeof(NLIST*));
+				connect_frame_outputs(initial_state->out, original_net, 1, expanded_nets, frame1_net_ids, frame2_net_ids);
 			}
 
 			/* 2時刻目コピー：1時刻目の D 入力を受ける BUF（値引き継ぎ） */
-			NLIST* d2 = &nn[m2[i]];
-			init_node(d2, m2[i], BUF, dup_name(o->name, 2));
-			d2->peer_1t = d1;
-			d2->n_in = 1;
-			d2->in = (NLIST**)malloc(sizeof(NLIST*));
-			d2->in[0] = &nn[m1[o->in[0]->n]];
-			d2->n_out = count_out(o, 2);
-			if (d2->n_out > 0) {
-				d2->out = (NLIST**)malloc(d2->n_out * sizeof(NLIST*));
-				fill_out(d2->out, o, 2, nn, m1, m2);
+			NLIST* capture_state = &expanded_nets[frame2_net_ids[i]];
+			init_expanded_net(capture_state, frame2_net_ids[i], BUF, duplicate_frame_name(original_net->name, 2));
+			capture_state->peer_1t = initial_state;
+			capture_state->n_in = 1;
+			capture_state->in = (NLIST**)malloc(sizeof(NLIST*));
+			capture_state->in[0] = &expanded_nets[frame1_net_ids[original_net->in[0]->n]];
+			capture_state->n_out = count_frame_outputs(original_net, 2);
+			if (capture_state->n_out > 0) {
+				capture_state->out = (NLIST**)malloc(capture_state->n_out * sizeof(NLIST*));
+				connect_frame_outputs(capture_state->out, original_net, 2, expanded_nets, frame1_net_ids, frame2_net_ids);
 			}
 		}
 		else {
 			/* 通常ゲート（FOUT 分岐含む）：各時刻に同型コピー */
-			for (int f = 1; f <= 2; f++) {
-				int id = (f == 1) ? m1[i] : m2[i];
-				NLIST* nd = &nn[id];
-				init_node(nd, id, o->type, dup_name(o->name, f));
-				if (f == 2) nd->peer_1t = &nn[m1[i]];
-				nd->n_in = o->n_in;
-				if (nd->n_in > 0) {
-					nd->in = (NLIST**)malloc(nd->n_in * sizeof(NLIST*));
-					for (int j = 0; j < o->n_in; j++)
-						nd->in[j] = &nn[(f == 1) ? m1[o->in[j]->n] : m2[o->in[j]->n]];
+			for (int frame = 1; frame <= 2; frame++) {
+				const int* frame_net_ids = frame == 1 ? frame1_net_ids : frame2_net_ids;
+				int net_id = frame_net_ids[i];
+				NLIST* expanded_net = &expanded_nets[net_id];
+				init_expanded_net(expanded_net, net_id, original_net->type,
+					duplicate_frame_name(original_net->name, frame));
+				if (frame == 2) expanded_net->peer_1t = &expanded_nets[frame1_net_ids[i]];
+				expanded_net->n_in = original_net->n_in;
+				if (expanded_net->n_in > 0) {
+					expanded_net->in = (NLIST**)malloc(expanded_net->n_in * sizeof(NLIST*));
+					for (int j = 0; j < original_net->n_in; j++) {
+						int input_net_id = original_net->in[j]->n;
+						expanded_net->in[j] = &expanded_nets[frame_net_ids[input_net_id]];
+					}
 				}
-				nd->n_out = count_out(o, f);
-				if (nd->n_out > 0) {
-					nd->out = (NLIST**)malloc(nd->n_out * sizeof(NLIST*));
-					fill_out(nd->out, o, f, nn, m1, m2);
+				expanded_net->n_out = count_frame_outputs(original_net, frame);
+				if (expanded_net->n_out > 0) {
+					expanded_net->out = (NLIST**)malloc(expanded_net->n_out * sizeof(NLIST*));
+					connect_frame_outputs(expanded_net->out, original_net, frame, expanded_nets, frame1_net_ids, frame2_net_ids);
 				}
 			}
 		}
 	}
 
-	/* 疑似外部入出力の構築と観測点フラグ設定（NEW_RPR_FAULT の make_ppo_ppi 相当）。
-	   DFF へ向かう辺は f=2 で落とされているので、ppo[] の各ノードは n_out==0 の端点 */
-	make_ppo_ppi(old, old_n, nn, m1, m2);
+	build_scan_ports(original_nets, original_net_count, expanded_nets, frame1_net_ids, frame2_net_ids);
 
 	/* pi[]：元の PI（共有ノード）＋ ppi（DFF の1時刻目コピー＝擬似PI）。
 	   この順がキューブ文字列・BDD変数の並びになる */
-	int new_npi = old_npi + n_ppi;
-	NLIST** new_pi = (NLIST**)malloc(new_npi * sizeof(NLIST*));
-	for (int k = 0; k < old_npi; k++) new_pi[k] = &nn[m1[old_pi[k]->n]];
-	for (int d = 0; d < n_ppi; d++)  new_pi[old_npi + d] = ppi[d];
+	int expanded_pi_count = original_pi_count + n_ppi;
+	NLIST** new_pi = (NLIST**)malloc(expanded_pi_count * sizeof(NLIST*));
+	for (int k = 0; k < original_pi_count; k++) new_pi[k] = &expanded_nets[frame1_net_ids[original_pi[k]->n]];
+	for (int d = 0; d < n_ppi; d++)  new_pi[original_pi_count + d] = ppi[d];
 
 	/* po[]：2時刻目の PO コピー（非観測。観測点は ppo[] 側） */
-	NLIST** new_po = (NLIST**)malloc(old_npo * sizeof(NLIST*));
-	for (int k = 0; k < old_npo; k++) new_po[k] = &nn[m2[old_po[k]->n]];
-	int new_npo = old_npo;
+	NLIST** new_po = (NLIST**)malloc(original_po_count * sizeof(NLIST*));
+	for (int k = 0; k < original_po_count; k++) new_po[k] = &expanded_nets[frame2_net_ids[original_po[k]->n]];
 
 	/* 旧ネットリストを解放して差し替え */
-	for (int i = 0; i < old_n; i++) {
-		free(old[i].name);
-		free(old[i].in);
-		free(old[i].out);
-		free(old[i].name_ins);
-		free(old[i].name_port);
+	for (int i = 0; i < original_net_count; i++) {
+		free(original_nets[i].name);
+		free(original_nets[i].in);
+		free(original_nets[i].out);
+		free(original_nets[i].name_ins);
+		free(original_nets[i].name_port);
 	}
-	free(old);
-	free(old_pi);
-	free(old_po);
-	free(dff);   dff   = (NLIST**)NULL;
-	free(rdff);  rdff  = (NLIST**)NULL;
-	free(dffs);  dffs  = (NLIST**)NULL;
-	free(rdffs); rdffs = (NLIST**)NULL;
-	free(assign); assign = (NLIST**)NULL;
+	free(original_nets);
+	free(original_pi);
+	free(original_po);
+	free(dff);
+	dff = NULL;
+	free(rdff);
+	rdff = NULL;
+	free(dffs);
+	dffs = NULL;
+	free(rdffs);
+	rdffs = NULL;
+	free(assign);
+	assign = NULL;
 
-	nl    = nn;     n_net = new_n;
-	pi    = new_pi; n_pi  = new_npi;
-	po    = new_po; n_po  = new_npo;
-	n_dff = 0; n_rdff = 0; n_dffs = 0; n_rdffs = 0; n_assign = 0;
+	nl = expanded_nets;
+	n_net = expanded_net_count;
+	pi = new_pi;
+	n_pi = expanded_pi_count;
+	po = new_po;
+	n_po = original_po_count;
+	n_dff = 0;
+	n_rdff = 0;
+	n_dffs = 0;
+	n_rdffs = 0;
+	n_assign = 0;
 
-	free(m1);
-	free(m2);
+	free(frame1_net_ids);
+	free(frame2_net_ids);
 
 	printf("	TDF time-expansion: nets=%d (was %d), pi=%d (PI %d + ppi %d), po=%d (unobserved), ppo=%d\n",
-	       n_net, old_n, n_pi, old_npi, n_ppi, n_po, n_ppo);
+	       n_net, original_net_count, n_pi, original_pi_count, n_ppi, n_po, n_ppo);
 }

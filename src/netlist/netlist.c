@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdarg.h>
 #include"netlist.h"
 #pragma warning(disable:4996)
 
@@ -17,7 +18,6 @@
 //--------------------------------------------------------------------------------------------------------------------
 #define MAXN 1028      // ネットリストファイルサイズ
 #define STR_MAX 1024   //get_token用
-#define SPRINT_MAX 256 //sprintf用
 #define HASH_SIZE 5003 //ハッシュサイズ
 #define HASH_MODE
 #undef DEBUG_MA
@@ -80,7 +80,7 @@ static void alloc_module_array(void);
 static void read_2nd(FILE*);
 static void read_n_in(int, char*, int);
 static void alloc_in_name(int);
-static void read_module_type(FILE*, char*, int);
+static void read_module_type(FILE*, char*, size_t, int);
 static void read_ins(FILE*, int);
 static void read_pin(FILE*, int);
 static void alloc_nl(void);
@@ -102,7 +102,8 @@ static void alloc_nl_in_out(void);
 static void connection_n_signal(void);
 static void set_pi_ins(void);
 static void set_ff_array(void);
-static int  get_token(FILE*, char*, int, int*);
+static char* format_signal_name(const char*, ...);
+static int  get_token(FILE*, char*, size_t, int, int*);
 static void error(int, char*);
 static void free_module_array(void);
 static void debug_ma(void);
@@ -238,10 +239,10 @@ static void read_1st(FILE* rfp)
 	char str[STR_MAX];
 	int c;
 
-	while (get_token(rfp, str, 1, 0) != EOF) {
+	while (get_token(rfp, str, sizeof(str), 1, 0) != EOF) {
 		//module情報取得
 		if (!strcmp(str, "module")) {
-			get_token(rfp, str, 1, 0);
+			get_token(rfp, str, sizeof(str), 1, 0);
 			module_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_name, str);
 			while ((c = getc(rfp)) != ';'); continue;
@@ -284,12 +285,12 @@ static void calc_pi_po(FILE* rfp, int mode)
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
 	//bit指定あり
 	if (c == '[') {
-		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
-		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
-		re_no = get_token(rfp, str, 0, 0);
+		get_token(rfp, str, sizeof(str), 1, 0); bit_1 = atoi(str);
+		get_token(rfp, str, sizeof(str), 1, 0); bit_2 = atoi(str);
+		re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
 			num++;
-			re_no = get_token(rfp, str, 0, 0);
+			re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		}
 		if (re_no == 1) num++;
 		if (mode == 0) n_pi += (num * (abs(bit_1 - bit_2) + 1));
@@ -298,16 +299,16 @@ static void calc_pi_po(FILE* rfp, int mode)
 	//bitなし
 	else {
 		ungetc(c, rfp);
-		re_no = get_token(rfp, str, 0, 0);
+		re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
 				//CLK読み飛ばし
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
-				re_no = get_token(rfp, str, 0, 0);
+				re_no = get_token(rfp, str, sizeof(str), 0, 0);
 				continue;
 			}
 			if ((re_no == 0) && (mode == 0)) n_pi++;
 			else if ((re_no == 0) && (mode == 1)) n_po++;
-			re_no = get_token(rfp, str, 0, 0);
+			re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		}
 		//CLK読み飛ばし（CLKでなかった場合実行）
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
@@ -342,7 +343,7 @@ static void read_2nd(FILE* rfp)
 	//初期化
 	in_num = m_no = 0;
 
-	while (get_token(rfp, str, 2, &in_num) != EOF) {
+	while (get_token(rfp, str, sizeof(str), 2, &in_num) != EOF) {
 		if (!strcmp(str, "module")) { while ((c = getc(rfp)) != ';'); continue; }
 		else if (!strcmp(str, "input")) { while ((c = getc(rfp)) != ';'); continue; }
 		else if (!strcmp(str, "output")) { while ((c = getc(rfp)) != ';'); continue; }
@@ -355,7 +356,7 @@ static void read_2nd(FILE* rfp)
 				//入力信号名、入力信号ネットリストID配列の領域確保
 			alloc_in_name(m_no);
 				//モジュールタイプ
-			read_module_type(rfp, str, m_no);
+			read_module_type(rfp, str, sizeof(str), m_no);
 				//インスタンス名の読み込み
 			read_ins(rfp, m_no);
 				//端子、信号名の読み込み
@@ -395,7 +396,7 @@ static void alloc_in_name(int m_no)
 //--------------------------------------------------------------------------------------------------------------------
 // モジュールタイプの読み込み
 //--------------------------------------------------------------------------------------------------------------------
-static void read_module_type(FILE* rfp, char* str, int m_no)
+static void read_module_type(FILE* rfp, char* str, size_t capacity, int m_no)
 {
 	switch (str[0]) {
 	case 'A': module_array[m_no]->m_type = AND; break;
@@ -407,7 +408,7 @@ static void read_module_type(FILE* rfp, char* str, int m_no)
 			else module_array[m_no]->m_type = EXNOR;
 		//error : 2入力以外のEXOR, EXNORが存在する場合
 		if (module_array[m_no]->m_n_in != 2) {
-			get_token(rfp, str, 0, 0);
+			get_token(rfp, str, capacity, 0, 0);
 			error(1, str);
 			exit(-1);
 		}
@@ -429,7 +430,7 @@ static void read_ins(FILE* rfp, int m_no)
 {
 	char str[STR_MAX]; //get_token用
 
-	get_token(rfp, str, 0, 0);
+	get_token(rfp, str, sizeof(str), 0, 0);
 	module_array[m_no]->m_name_ins = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 	strcpy(module_array[m_no]->m_name_ins, str);
 }
@@ -443,10 +444,10 @@ static void read_pin(FILE* rfp, int m_no)
 	int i, j;
 
 	for (i = 0; i < module_array[m_no]->m_n_in + 1; i++) { //出力数分+1
-		while (get_token(rfp, str, 0, 0) != 0);
+		while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 		//出力信号
 		if (str[0] == 'Z' || str[0] == 'Q') {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			module_array[m_no]->m_out_name = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_out_name, str);
 		}
@@ -455,18 +456,18 @@ static void read_pin(FILE* rfp, int m_no)
 			((str[0] == 'D') && (module_array[m_no]->m_type == RDFF)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == DFFS)) ||
 			((str[0] == 'D') && (module_array[m_no]->m_type == RDFFS))) {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			module_array[m_no]->m_in_name[0] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[0], str);
 		}
 		//各DFFのCP（クロック）
 		else if (!strcmp(str, "CP")) {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			i--;
 		}
 		//RDFF,RDFFSのCD（リセット）
 		else if (!strcmp(str, "CD")) {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			if (module_array[m_no]->m_type == RDFF) {
 				module_array[m_no]->m_in_name[1] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 				strcpy(module_array[m_no]->m_in_name[1], str);
@@ -478,13 +479,13 @@ static void read_pin(FILE* rfp, int m_no)
 		}
 		//DFFS,RDFFSのTI（スキャンイン）
 		else if (!strcmp(str, "TI")) {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			module_array[m_no]->m_in_name[1] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[1], str);
 		}
 		//DFFS,RDFFSのTE（スキャンイネーブル）
 		else if (!strcmp(str, "TE")) {
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			module_array[m_no]->m_in_name[2] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[2], str);
 		}
@@ -495,7 +496,7 @@ static void read_pin(FILE* rfp, int m_no)
 				j++;
 				if (j > 10) error(2, module_array[m_no]->m_name_ins);
 			}
-			while (get_token(rfp, str, 0, 0) != 0);
+			while (get_token(rfp, str, sizeof(str), 0, 0) != 0);
 			module_array[m_no]->m_in_name[j] = (char*)malloc(sizeof(char) * (strlen(str) + 1));
 			strcpy(module_array[m_no]->m_in_name[j], str);
 		}
@@ -661,7 +662,7 @@ static void store_pi_po(FILE* rfp)
 	//初期化
 	pi_no = po_no = assign_no = 0;
 
-	while (get_token(rfp, str, 0, 0) != EOF) {
+	while (get_token(rfp, str, sizeof(str), 0, 0) != EOF) {
 		if (!strcmp(str, "module")) { while ((c = getc(rfp)) != ';'); continue; }
 		else if (!strcmp(str, "input")) read_pi_po(rfp, &pi_no, 0);
 		else if (!strcmp(str, "output")) read_pi_po(rfp, &po_no, 1);
@@ -678,7 +679,6 @@ static void store_pi_po(FILE* rfp)
 static void read_pi_po(FILE* rfp, int* no, int mode)
 {
 	char str[STR_MAX];    //get_token用
-	char tmp[SPRINT_MAX]; //sprint用
 	int bit_1, bit_2;     //ビット指定がある場合のビット数計算用
 	int n_bit;            //ビット数
 	int start_bit;        //最初のビット番号
@@ -692,41 +692,43 @@ static void read_pi_po(FILE* rfp, int* no, int mode)
 	while ((c == ' ') || (c == '\t')) c = fgetc(rfp);
 	//bit指定あり
 	if (c == '[') {
-		get_token(rfp, str, 1, 0); bit_1 = atoi(str);
-		get_token(rfp, str, 1, 0); bit_2 = atoi(str);
+		get_token(rfp, str, sizeof(str), 1, 0); bit_1 = atoi(str);
+		get_token(rfp, str, sizeof(str), 1, 0); bit_2 = atoi(str);
 		n_bit = abs(bit_1 - bit_2) + 1;
-		re_no = get_token(rfp, str, 0, 0);
+		re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		//最初のビット番号
 		if (bit_1 <= bit_2) start_bit = bit_1;
 		else start_bit = bit_2;
 		//複数ポート宣言
 		while ((re_no != 1) && (re_no != 2)) {
 			for (i = 0; i < n_bit; i++) {
-				sprintf(tmp, "%s[%d]", str, i + start_bit);
-				hash_search_pi_po(tmp, no, mode);
+				char* signal_name = format_signal_name("%s[%d]", str, i + start_bit);
+				hash_search_pi_po(signal_name, no, mode);
+				free(signal_name);
 			}
-			re_no = get_token(rfp, str, 0, 0);
+			re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		}
 		//単一ポート宣言
 		if (re_no == 1) {
 			for (i = 0; i < n_bit; i++) {
-				sprintf(tmp, "%s[%d]", str, i + start_bit);
-				hash_search_pi_po(tmp, no, mode);
+				char* signal_name = format_signal_name("%s[%d]", str, i + start_bit);
+				hash_search_pi_po(signal_name, no, mode);
+				free(signal_name);
 			}
 		}
 	}
 	//bitなし
 	else {
 		ungetc(c, rfp);
-		re_no = get_token(rfp, str, 0, 0);
+		re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		while ((re_no != 1) && (re_no != 2)) {
 				//CLK読み飛ばし
 			if (!strcmp(str, "CLK") || !strcmp(str, "clk")) {
-				re_no = get_token(rfp, str, 0, 0);
+				re_no = get_token(rfp, str, sizeof(str), 0, 0);
 				continue;
 			}
 			if (re_no == 0) hash_search_pi_po(str, no, mode);
-			re_no = get_token(rfp, str, 0, 0);
+			re_no = get_token(rfp, str, sizeof(str), 0, 0);
 		}
 		//CLK読み飛ばし（CLKでなかった場合実行）
 		if (strcmp(str, "CLK") && strcmp(str, "clk")) {
@@ -775,7 +777,7 @@ static void read_assign(FILE* rfp, int* assign_no)
 	char str[STR_MAX]; //get_token用
 	int c;
 
-	get_token(rfp, str, 0, 0);
+	get_token(rfp, str, sizeof(str), 0, 0);
 	c = fgetc(rfp);
 	while (c != 'b') c = fgetc(rfp);
 	while ((c != '0') && (c != '1')) c = fgetc(rfp);
@@ -983,7 +985,6 @@ static void connection_no_fout(int m_no, int in_no)
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_yes_fout(int m_no, int in_no)
 {
-	char tmp[SPRINT_MAX]; //sprint用
 	//int no, i;
 	int no;
 
@@ -991,11 +992,9 @@ static void connection_yes_fout(int m_no, int in_no)
 	no = 0;
 
 	//FOUT作成
-	sprintf(tmp, "%s_%s_%c", nl[module_array[m_no]->in_nid[in_no]].name
+	nl[n_net].name = format_signal_name("%s_%s_%c", nl[module_array[m_no]->in_nid[in_no]].name
 		, nl[module_array[m_no]->out_nid].name
 		, pin_name_array[in_no]);
-	nl[n_net].name = (char*)malloc(sizeof(char) * (strlen(tmp) + 1));
-	strcpy(nl[n_net].name, tmp);
 	nl[n_net].n = n_net;
 	nl[n_net].type = FOUT;
 	nl[n_net].n_in = 1;
@@ -1071,7 +1070,6 @@ static void connection_yes_fout(int m_no, int in_no)
 //--------------------------------------------------------------------------------------------------------------------
 static void connection_po_fout(int m_no, int in_no, int po_no)
 {
-	char tmp[SPRINT_MAX]; //sprint用
 	int no;
 
 	//初期化
@@ -1090,9 +1088,7 @@ static void connection_po_fout(int m_no, int in_no, int po_no)
 	while (nl[module_array[m_no]->in_nid[in_no]].out[no] != NULL) no++;
 	nl[module_array[m_no]->in_nid[in_no]].out[no] = &nl[n_net];
 	free(nl[module_array[m_no]->in_nid[in_no]].name);
-	sprintf(tmp, "%s_stem", nl[n_net].name);
-	nl[module_array[m_no]->in_nid[in_no]].name = (char*)malloc(sizeof(char) * (strlen(tmp) + 1));
-	strcpy(nl[module_array[m_no]->in_nid[in_no]].name, tmp);
+	nl[module_array[m_no]->in_nid[in_no]].name = format_signal_name("%s_stem", nl[n_net].name);
 	//FOUTの入力信号
 	nl[n_net].in[0] = &nl[module_array[m_no]->in_nid[in_no]];
 	//FOUTのインスタンス名,端子名
@@ -1139,10 +1135,38 @@ static void set_ff_array(void)
 	}
 }
 
+/* 生成名は入力名より長くなるため、固定長の作業配列を使わず必要量を確保する。 */
+static char* format_signal_name(const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	int length = vsnprintf(NULL, 0, format, args);
+	va_end(args);
+	if (length < 0) {
+		fprintf(stderr, "信号名の生成に失敗しました.\n");
+		exit(EXIT_FAILURE);
+	}
+
+	char* name = (char*)malloc((size_t)length + 1);
+	if (name == NULL) {
+		fprintf(stderr, "信号名のメモリ確保に失敗しました.\n");
+		exit(EXIT_FAILURE);
+	}
+	va_start(args, format);
+	int written = vsnprintf(name, (size_t)length + 1, format, args);
+	va_end(args);
+	if (written != length) {
+		free(name);
+		fprintf(stderr, "信号名の生成に失敗しました.\n");
+		exit(EXIT_FAILURE);
+	}
+	return name;
+}
+
 //--------------------------------------------------------------------------------------------------------------------
-// 1単語読み+α
+// 1単語読み+α（終端文字の分も残して書き込む）
 //--------------------------------------------------------------------------------------------------------------------
-static int get_token(FILE* rfp, char* s, int mode, int* in_num)
+static int get_token(FILE* rfp, char* s, size_t capacity, int mode, int* in_num)
 {
 	int aha_flag;     //isalpha結果用
 	char c_in_num[3]; //入力数読み込み用
@@ -1158,24 +1182,36 @@ static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 
 	//区切り文字まで読み進み単語を作成
 	if (mode == 0) {
-		while ((c != '\t') && (c != '\n') && (c != ' ') && (c != ';') &&
+		while ((c != EOF) && (c != '\t') && (c != '\n') && (c != ' ') && (c != ';') &&
 			(c != '(') && (c != ')') && (c != ',') && (c != ':') && (c != '=') && (c != '.')) {
+			if ((size_t)i + 1 >= capacity) {
+				fprintf(stderr, "ネットリストのトークンが長すぎます（最大%zuバイト）.\n", capacity - 1);
+				exit(EXIT_FAILURE);
+			}
 			s[i] = c;
 			c = fgetc(rfp);
 			i++;
 		}
 	}
 	else if (mode == 1) {
-		while ((c != '\t') && (c != '\n') && (c != ' ') && (c != ';') && (c != '[') && (c != ']') &&
+		while ((c != EOF) && (c != '\t') && (c != '\n') && (c != ' ') && (c != ';') && (c != '[') && (c != ']') &&
 			(c != '(') && (c != ')') && (c != ',') && (c != ':') && (c != '=') && (c != '.')) {
+			if ((size_t)i + 1 >= capacity) {
+				fprintf(stderr, "ネットリストのトークンが長すぎます（最大%zuバイト）.\n", capacity - 1);
+				exit(EXIT_FAILURE);
+			}
 			s[i] = c;
 			c = fgetc(rfp);
 			i++;
 		}
 	}
 	else if (mode == 2) {
-		while ((c != '\t') && (c != '\n') && (c != ' ') && (c != ';') && (aha_flag = isalpha(c)) &&
+		while ((c != EOF) && (c != '\t') && (c != '\n') && (c != ' ') && (c != ';') && (aha_flag = isalpha(c)) &&
 			(c != '(') && (c != ')') && (c != ',') && (c != ':') && (c != '=') && (c != '.')) {
+			if ((size_t)i + 1 >= capacity) {
+				fprintf(stderr, "ネットリストのトークンが長すぎます（最大%zuバイト）.\n", capacity - 1);
+				exit(EXIT_FAILURE);
+			}
 			s[i] = c;
 			c = fgetc(rfp);
 			i++;
@@ -1183,7 +1219,7 @@ static int get_token(FILE* rfp, char* s, int mode, int* in_num)
 		if (aha_flag == 0) {
 			c_in_num[0] = c;
 			c = fgetc(rfp);
-			if ((c != ' ') && (c != '\t')) { c_in_num[1] = c; c_in_num[2] = '\0'; }
+			if ((c != EOF) && (c != ' ') && (c != '\t')) { c_in_num[1] = c; c_in_num[2] = '\0'; }
 			else c_in_num[1] = '\0';
 			*in_num = atoi(c_in_num);
 		}
