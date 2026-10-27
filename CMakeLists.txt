@@ -15,7 +15,6 @@ set(SOURCES
     src/fdp/analysis.c
     src/fdp/worker_pool.c
     src/io/fault_csv.c
-    src/io/progress.c
     src/io/cube_text.c
     src/fdp/context.c
     src/fault/fault_list.c

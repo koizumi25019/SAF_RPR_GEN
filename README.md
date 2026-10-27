@@ -101,48 +101,25 @@ mkdir -p output/saf/full/{fdp,log}
 | `-log <file>` | ログの出力先 |
 | `-limit <N>` | 故障ごとのキューブ列挙上限。省略・0以下は無制限 |
 | `-jobs <N>` | 並列数。1〜256、既定1 |
-| `-progress on\|off` | 故障進捗とキューブ進捗を一括設定。既定は両方on |
-| `-fault_progress on\|off` | 全故障に対する完了数の表示を個別に設定。既定on |
-| `-cube_progress on\|off` | 現在の故障のループ回数・流用数・処理状態の表示を個別に設定。既定on |
+| `-progress on\|off` | 完了故障数の標準出力表示。既定on。直列・並列に対応 |
 | `-dom_reuse on\|off` | 支配キューブの流用。並列時はoff、TDFでは常時off |
 
-直列・並列ともCLIと`.set`で指定できる。故障の完了数だけ表示する例：
+進捗は`Progress >> 完了故障数/全対象故障数`を同じ行に表示し、1故障の処理が終わるたびに更新する。
+キューブ上限で打ち切った故障も処理済みとして数える（CSVの`complete`とは別）。
+CLIと`.set`の両方で`-progress on|off`を指定でき、読み込み順で後の指定が有効になる。
+進捗表示を止める例（`build/`から実行）：
 
 ```bash
-(cd build && ./main_release -set ../input/script/saf/c17a.set -fault_progress on -cube_progress off)
+./main_release -set ../input/script/saf/c17a.set -progress off
 ```
 
-キューブ生成の進捗だけを表示する場合は、`.set`に次を指定する。
+`.set`へ書く場合は次の行を追加する。
 
 ```text
--fault_progress off
--cube_progress on
+-progress off
 ```
 
-`-progress off`で両方を停止、`-progress on`で両方を有効化する。
-読み込み順で後の指定が有効。例えば`-progress off -fault_progress on`は故障の完了数だけを表示し、
-その後に`-progress off`を指定すると再び両方を停止する。
-キューブ進捗offでは途中通知・生成ループ内の時計参照・プロセス間通知も省略し、故障進捗onなら完了数だけを表示する。
-これらの設定は進捗の標準出力だけを切り替える。CSV・ログ・エラー表示には影響しない。
-
-進捗には完了故障数と、現在の故障名・故障種別・`loops`（SAT→XID→禁止節追加まで完了した回数）を表示する。
-`seeded`は流用キューブ数で、`loops`には含めない。並列時はワーカーごとの現在値を表示する。
-故障進捗off・キューブ進捗onの場合は、`Cube progress >> worker ...`（直列では`fault ...`）と表示する。
-表示全体を最大1秒に1回更新し、実行開始時と全故障の処理終了時は即時表示する。
-各故障の開始・BDD移行・完了通知は親に集約し、受信のたびに全ワーカーを再表示しない。
-`[SAT/XID]`は列挙中、`[BDD]`は確率計算中、`[done]`はその故障の計算終了を示す。
-
-端末へ直接出す場合は1ワーカー1行の固定領域を上書きし、画面をスクロールし続けない。
-行は端末幅以内に省略し、高さに収まらない場合は表示するワーカーを5回の画面更新ごとに切り替える。
-完了したワーカーは、最後に担当した故障の正確な回数を`[done]`として表示する。
-ファイル・パイプへの出力（および`TERM=dumb`）では、カーソル制御を使わず、最大1秒に1回のスナップショットを改行付きで出す。
-表示は間引くため、短時間で終わる故障の各状態がすべて表示されるとは限らない。
-
-```text
-Progress >> 12/4551
-worker 1: net_A sa0 loops=1234 seeded=0 [SAT/XID]
-worker 2: net_B sa1 loops=82 seeded=0 [BDD]
-```
+OFF時は進捗用の出力・フラッシュを省略する。CSV・キューブ保存・ログ・エラー表示には影響しない。
 
 ディレクトリ名では故障モデルを自動判定しない。TDF設定には `-tdf` を明記する。
 SAF故障リストは `信号名 sa0|sa1`、TDFは `信号名 STR|STF`。

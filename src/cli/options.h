@@ -60,8 +60,7 @@ typedef struct Option
 	FILES			      file;			      /**< ファイル */
     int jobs;       /**< -jobs 1..256、既定1 */
     int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
-    int fault_progress; /**< -fault_progress on|off、既定on */
-    int cube_progress;  /**< -cube_progress on|off、既定on。-progressは両方を一括設定 */
+    int progress;   /**< -progress on|off、既定on */
     int fault_model; /**< -saf / -tdf、既定SAF */
     char* cube_fdp_max_text; /**< NULLならキューブ保存のFDP上限なし */
     mpf_t cube_fdp_max; /**< 指定時のみ初期化。FDPと同じ精度で比較する */
