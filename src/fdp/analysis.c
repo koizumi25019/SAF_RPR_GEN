@@ -19,6 +19,7 @@
 #include "io/fault_csv.h"
 #include "io/cube_text.h"
 #include "io/file.h"
+#include "io/progress.h"
 #include "fdp/xid/XID.h"
 #include "fdp/cnf/normal_scope.h"
 #include "fdp/worker_pool.h"
@@ -28,7 +29,7 @@
  */
 typedef struct {
     DdManager* bdd_manager;
-    int progress_width;
+    ProgressDisplay progress_display;
 } FaultAnalysisContext;
 
 typedef struct {
@@ -40,20 +41,22 @@ typedef struct {
 static bool ShowSerialFaultProgress(const FaultProgressState* state, void* opaque)
 {
     SerialFaultProgress* context = opaque;
-    int width = opt.fault_progress == YES
-        ? printf("\rProgress >> %d/%d", readdata.fault.numinit - readdata.fault.numrema,
-                 readdata.fault.numinit)
-        : printf("\rCube progress >>");
+    bool final = state->phase == FAULT_PROGRESS_DONE && readdata.fault.numrema == 0;
+    if (!ProgressDisplayDue(&context->analysis->progress_display, final)) return true;
+    char header[80], detail[256];
+    if (opt.fault_progress == YES)
+        snprintf(header, sizeof(header), "Progress >> %d/%d",
+                 readdata.fault.numinit - readdata.fault.numrema, readdata.fault.numinit);
+    else
+        snprintf(header, sizeof(header), "Cube progress >>");
+    const char* lines[] = { detail };
     if (opt.cube_progress == YES) {
-        width += printf("%sfault %d: %s %s loops=%d seeded=%d [%s]",
-                        opt.fault_progress == YES ? " | " : " ",
-                        context->fault_number, context->fault->name, FaultTypeName(context->fault->type),
-                        state->loops, state->seeded_cubes, FaultProgressPhaseName(state->phase));
+        snprintf(detail, sizeof(detail), "fault %d: %.40s %s loops=%d seeded=%d [%s]",
+                 context->fault_number, context->fault->name, FaultTypeName(context->fault->type),
+                 state->loops, state->seeded_cubes, FaultProgressPhaseName(state->phase));
     }
-    if (context->analysis->progress_width > width)
-        printf("%*s", context->analysis->progress_width - width, "");
-    context->analysis->progress_width = width;
-    fflush(stdout);
+    ProgressDisplayWrite(&context->analysis->progress_display, header, lines,
+                         opt.cube_progress == YES ? 1 : 0);
     return true;
 }
 

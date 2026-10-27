@@ -2,11 +2,15 @@
 """Check fault/loop counts, live worker notifications, and progress-off behavior."""
 import argparse
 import csv
+import fcntl
 import os
 from pathlib import Path
+import pty
 import re
 import select
+import struct
 import subprocess
+import termios
 import time
 
 from tdf_check import ROOT, run, equal
@@ -15,8 +19,16 @@ FAULT_PROGRESS = re.compile(
     r'(?:fault|worker) \d+: (\S+) (sa[01]|STR|STF) loops=(\d+) seeded=(\d+) \[([^]]+)\]')
 
 
+def maximum_snapshots(directory):
+    elapsed = re.search(r'//\s+Time\s+:\s+([\d.]+) sec', (directory / 'time.log').read_text())
+    assert elapsed, directory
+    return int(float(elapsed[1])) + 3  # one per second, plus initial/final and rounding
+
+
 def check_counts(directory):
     text = (directory / 'stdout.txt').read_text()
+    assert '\x1b' not in text, 'redirected output must not contain terminal controls'
+    assert len([line for line in text.splitlines() if line.startswith('Progress >>')]) <= maximum_snapshots(directory)
     with (directory / 'fdp.csv').open() as stream:
         rows = [r for r in csv.DictReader(stream) if r['complete'] in ('0', '1')]
     expected = {(r['net_name'], r['f_type']):
@@ -25,7 +37,9 @@ def check_counts(directory):
     for name, kind, loops, seeds, phase in FAULT_PROGRESS.findall(text):
         if phase in ('BDD', 'done'):
             observed[name, kind] = (int(loops), int(seeds))
-    assert observed == expected, (directory, observed, expected)
+    # Display snapshots are sampled globally; short faults need not appear individually.
+    assert observed and all(expected[key] == value for key, value in observed.items()), (
+        directory, observed, expected)
     completed = [(int(a), int(b)) for a, b in re.findall(r'Progress >> (\d+)/(\d+)', text)]
     assert completed[0] == (0, len(rows)), (directory, completed)
     assert completed[-1] == (len(rows), len(rows)), (directory, completed)
@@ -64,9 +78,11 @@ def check_controls(binary, output):
             assert ('loops=' in text) == cube_visible, directory
             assert ('Cube progress >>' in text) == (cube_visible and not fault_visible), directory
             if fault_visible and not cube_visible:
-                # No periodic cube events or duplicate fault-completion updates.
+                # Fast completions are coalesced, but the final total must be exact.
                 total = updates[-1][1]
-                assert updates == [(n, total) for n in range(0 if jobs > 1 else 1, total + 1)], directory
+                assert updates[-1] == (22, 22), directory
+                assert all(t == total for _, t in updates), directory
+                assert len(updates) <= maximum_snapshots(directory), directory
             if not fault_visible and not cube_visible:
                 assert 'progress >>' not in text.lower(), directory
     for option in ('-fault_progress', '-cube_progress'):
@@ -120,7 +136,7 @@ def check_live(binary, output, jobs, fault_progress=True):
                     if not chunk:
                         break
                     data.extend(chunk)
-                for snapshot in data.decode().split('\r'):
+                for snapshot in data.decode().splitlines():
                     generating = {(name, kind) for name, kind, loops, seeds, phase
                                   in FAULT_PROGRESS.findall(snapshot)
                                   if name == 'y' and int(loops) > 0 and phase == 'SAT/XID'}
@@ -145,6 +161,66 @@ def check_live(binary, output, jobs, fault_progress=True):
         assert not re.search(rb'Progress >> \d+/\d+', data)
 
 
+def check_terminal(binary, output):
+    """Reproduce the reported 15-worker layout in a real PTY, including resize."""
+    directory = output / 'terminal_15'
+    directory.mkdir(parents=True, exist_ok=True)
+    circuit = output / 'live_2/parity.v'
+    faults = directory / 'faults.txt'
+    faults.write_text(''.join(f'{name} sa{kind}\n'
+                             for name in [f'p{i}' for i in range(16, 23)] + ['y']
+                             for kind in (0, 1)))
+    config = directory / 'run.set'
+    config.write_text(f'-net {circuit}\n-fault {faults}\n-jobs 15\n-dom_reuse off\n'
+                      f'-progress on\n-fdp {directory}/fdp.csv\n-log {directory}/time.log\n')
+    (directory / 'time.log').unlink(missing_ok=True)
+    master, slave = pty.openpty()
+    fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack('HHHH', 24, 80, 0, 0))
+    data = bytearray()
+    children = set()
+    start = time.monotonic()
+    with (directory / 'stderr.txt').open('wb') as err:
+        process = subprocess.Popen([str(binary), '-set', str(config)], stdout=slave, stderr=err,
+                                   cwd=ROOT / 'build', env=dict(os.environ, TERM='xterm'))
+        os.close(slave)
+        try:
+            def collect(frames):
+                while len(re.findall(rb'Progress >> \d+/\d+', data)) < frames:
+                    assert time.monotonic() - start < 15, data[-4000:]
+                    child_file = Path(f'/proc/{process.pid}/task/{process.pid}/children')
+                    if child_file.exists():
+                        children.update(int(p) for p in child_file.read_text().split())
+                    ready, _, _ = select.select([master], [], [], 0.2)
+                    if ready:
+                        data.extend(os.read(master, 65536))
+
+            collect(2)
+            first = bytes(data)
+            ansi = rb'\x1b\[[0-9;]*[A-Za-z]'
+            plain = re.sub(ansi, b'', first)
+            assert {int(w) for w in re.findall(rb'worker (\d+):', plain)} == set(range(1, 16))
+            assert b'\x1b[16A' in first, 'worker panel did not reuse its 16 rows'
+            assert all(len(line) <= 79 for line in plain.splitlines() if b'worker ' in line)
+            offset = len(data)
+            fcntl.ioctl(master, termios.TIOCSWINSZ, struct.pack('HHHH', 10, 48, 0, 0))
+            collect(3)
+            narrow = re.sub(ansi, b'', bytes(data[offset:]))
+            assert b'Workers ' in narrow, 'small terminal did not page the worker list'
+            assert all(len(line) <= 47 for line in narrow.splitlines())
+            assert len([line for line in narrow.split(b'Progress >>')[-1].splitlines() if line]) <= 9
+            assert process.poll() is None
+            assert len(data) < 50000, 'progress output was not coalesced'
+            assert len(re.findall(rb'Progress >> \d+/\d+', data)) <= int(time.monotonic() - start) + 3
+        finally:
+            if process.poll() is None:
+                process.terminate()
+            process.wait(timeout=10)
+            os.close(master)
+            (directory / 'stdout.bin').write_bytes(data)
+    assert all(not Path(f'/proc/{pid}').exists() for pid in children)
+    assert not (directory / 'time.log').exists()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', type=Path, required=True)
@@ -155,7 +231,7 @@ def main():
     for binary in (args.binary.resolve(), args.debug.resolve()):
         check_controls(binary, output)
         for model, circuit in (('saf', 'c17a'), ('tdf', 's27')):
-            modes = [(1, 'off'), (4, 'off')]
+            modes = [(1, 'off'), (4, 'off'), (15, 'off')]
             if model == 'saf':
                 modes.append((1, 'on'))
             for jobs, reuse in modes:
@@ -191,6 +267,7 @@ def main():
     for jobs in (1, 2):
         check_live(args.binary.resolve(), output, jobs)
         check_live(args.binary.resolve(), output, jobs, fault_progress=False)
+    check_terminal(args.binary.resolve(), output)
     print('Fault completion/loop/seed counts, SAF/TDF, limits, Debug/Release, progress off, '
           'CSV/golden equality, live serial/worker updates and cancellation: PASS')
 
