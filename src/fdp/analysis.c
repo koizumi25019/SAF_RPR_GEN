@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@
 #include "cli/options.h"
 #include "fdp/bdd/probability.h"
 #include "io/fault_csv.h"
+#include "io/cube_text.h"
 #include "io/file.h"
 #include "fdp/xid/XID.h"
 #include "fdp/cnf/normal_scope.h"
@@ -43,7 +45,7 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
  * baselineのWriteTPGModel、InlineXID、RunBDD、WriteFaultResultをそのまま使う。
  */
 static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
-                            FaultStats* stats, void* opaque)
+                            FILE* cube_fp, FaultStats* stats, void* opaque)
 {
     FaultAnalysisContext* context = opaque;
     if (!context->bdd_manager) {
@@ -109,6 +111,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
                 break;
             }
             WriteFaultResult(result_fp, &result);
+            succeeded = WriteFaultCubes(cube_fp, &result, &cubes);
             mpf_clear(result.density);
             stats->bdd += (double)(clock() - start) / CLOCKS_PER_SEC;
 
@@ -139,9 +142,24 @@ static void FinishFaultAnalysis(void* opaque)
     NormalScopeRelease();
 }
 
+/* 直列でも1故障ずつテキスト化→保存し、全故障分をメモリに溜めない。 */
+static bool AnalyzeSerialFault(FNODE* fault, int number, FILE* csv, CubeOutput* output,
+                              FaultStats* stats, FaultAnalysisContext* context)
+{
+    char* text = NULL;
+    size_t size = 0;
+    FILE* stream = output ? open_memstream(&text, &size) : NULL;
+    if (output && !stream) return false;
+    bool success = AnalyzeOneFault(fault, number, csv, stream, stats, context);
+    if (stream && fclose(stream) != 0) success = false;
+    if (success && output) success = WriteCubeFile(output, fault, text, size);
+    free(text);
+    return success;
+}
+
 /* 既存InitTargetOrderの整列結果を使う。計算関数と出力順は直列・並列で共通。 */
 static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* result_fp,
-                                     FaultStats* stats)
+                                     CubeOutput* cube_output, FaultStats* stats)
 {
     int count;
     FNODE** faults = CopyTargetOrder(&count);
@@ -149,10 +167,10 @@ static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* result
     bool succeeded = true;
     if (opt.jobs > 1) {
         succeeded = FaultPoolRun(faults, count, opt.jobs, AnalyzeOneFault,
-                                 FinishFaultAnalysis, context, result_fp, stats);
+                                 FinishFaultAnalysis, context, result_fp, cube_output, stats);
     } else {
         for (int index = 0; index < count && succeeded; index++) {
-            succeeded = AnalyzeOneFault(faults[index], index + 1, result_fp, stats, context);
+            succeeded = AnalyzeSerialFault(faults[index], index + 1, result_fp, cube_output, stats, context);
         }
     }
     free(faults);
@@ -163,6 +181,8 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
                          double* out_time_xid, double* out_time_read)
 {
     FILE* result_fp = NULL;
+    CubeOutput cube_output = {0};
+    CubeOutput* cubes = opt.file.output.cube ? &cube_output : NULL;
     fileOpen(&result_fp, opt.file.output.fdp, "w");
     fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
     FaultAnalysisContext context = {0};
@@ -178,20 +198,22 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     }
     if (succeeded) succeeded = CreateConsGC();
     if (succeeded) succeeded = InitTargetOrder();
+    if (succeeded && cubes) succeeded = InitCubeOutput(cubes, opt.file.output.cube);
 
     /* 準備後にforkする。キューブ流用なしでは、全故障を独立して配分できる。 */
     if (succeeded && opt.dom_reuse == NO) {
-        succeeded = AnalyzeIndependentFaults(&context, result_fp, &stats);
+        succeeded = AnalyzeIndependentFaults(&context, result_fp, cubes, &stats);
     } else if (succeeded) {
         int fault_number = 0;
         while (readdata.fault.numrema && succeeded) {
             FNODE* target = SetTarget();
-            succeeded = target && AnalyzeOneFault(target, ++fault_number, result_fp, &stats, &context);
+            succeeded = target && AnalyzeSerialFault(target, ++fault_number, result_fp, cubes, &stats, &context);
         }
     }
     if (opt.jobs == 1) FinishFaultAnalysis(&context);
     FreeTargetOrder();
     if (fclose(result_fp) != 0) succeeded = false;
+    FreeCubeOutput(&cube_output);
     if (!succeeded) return AFD_ERROR;
 
     long sat_calls = stats.total_cubes - stats.seeded_cubes;

@@ -88,6 +88,15 @@ CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登
 既存`InitTargetOrder()`の整列結果を`CopyTargetOrder()`で複製して配分する。
 `AnalyzeOneFault()`は直列・並列で共通。BDD計算とCSV出力の分離、直接の`ccadical_add()`を維持する。
 並列では親だけが実ファイルを書き、故障の完了順によらず既存のCSV順を保つ。
+任意指定の`-cube <directory>`は`io/cube_text.c`で保存条件を満たす計算対象故障だけをテキスト化する。
+既定では完了・FDP>0のみ。`-cube_include_incomplete on`なら未完了も含める。
+個別ファイルは「信号名＋タブ＋故障種別」「complete/incomplete」「キューブ列」の順。
+キューブ解放前の集合を使い、等価故障への展開は行わない。並列ではCSVとともに保存対象の文字列だけを親へ送り、
+同じ故障順で出力する。保存を省略した場合はキューブ用のメモリストリームを作らない。
+`CubeOutput`は親の出力先と管理ファイル用の共通情報を持ち、`WriteCubeFile()`が1故障につき1ファイルを保存する。
+入力順序と実験条件は`.fdp-cube-output`だけに記録する。
+直列でも1故障のテキストをメモリストリームに作り、保存後すぐ解放する。
+信号名はファイル名用に符号化する。管理マーカー付きのディレクトリのみ再利用し、前回の予約名の故障ファイルを消す。
 流用設定が省略された場合、jobs>1ならoff、jobs=1なら従来の`MDC_NODOM`に従う。
 明示的な流用onとjobs>1の組合せはエラー。正常CNFの限定化は常時有効。
 

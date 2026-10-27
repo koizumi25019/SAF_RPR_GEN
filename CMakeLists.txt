@@ -15,6 +15,7 @@ set(SOURCES
     src/fdp/analysis.c
     src/fdp/worker_pool.c
     src/io/fault_csv.c
+    src/io/cube_text.c
     src/fdp/context.c
     src/fault/fault_list.c
     src/fault/target_fault.c
@@ -78,6 +79,7 @@ if(BUILD_TESTING)
         tests/fdp_output_test.c
         src/fdp/bdd/probability.c
         src/io/fault_csv.c
+        src/io/cube_text.c
     )
     target_compile_options(fdp_output_test PRIVATE -fcommon -UNDEBUG)
     target_include_directories(fdp_output_test PRIVATE ${COMMON_INCLUDES})
@@ -86,6 +88,9 @@ if(BUILD_TESTING)
 
     find_package(Python3 COMPONENTS Interpreter)
     if(Python3_Interpreter_FOUND)
+        add_test(NAME cube_output COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/cube_output_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME batch_runner COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/runner_check.py
             --binary $<TARGET_FILE:main_release>)

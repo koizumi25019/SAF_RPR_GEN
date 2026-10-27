@@ -19,7 +19,7 @@
  * 子: 故障番号を受信 → 1故障を計算 → 結果を返信 → 次の番号を待つ
  *
  * fork後の回路・CNF・XID作業領域は各プロセスに独立して存在する。
- * 親子間で渡すのは故障番号、CSV文字列、集計値のみ。キューブやBDDは渡さない。
+ * 親子間では故障番号、出力文字列、集計値を渡す。キューブ集合やBDDは渡さない。
  */
 enum { NO_FAULT = -1 }; /* 親側では「担当なし」、通信では「終了要求」。 */
 
@@ -59,13 +59,14 @@ typedef struct {
     int fault_index; /* 現在担当しているfaults[]の添字。 */
 } WorkerState;
 
-/* 子→親の返信は [このヘッダ][CSV文字列] の順。
+/* 子→親の返信は [このヘッダ][CSV文字列][保存対象キューブ文字列] の順。
  * 同じ実行ファイルからforkした親子だけで使う内部形式（外部通信形式ではない）。
  */
 typedef struct {
     int fault_index;
     int succeeded;
     size_t csv_size;
+    size_t cube_size;
     FaultStats stats;
 } FaultReply;
 
@@ -73,6 +74,8 @@ typedef struct {
 typedef struct {
     char* csv;
     size_t csv_size;
+    char* cubes;
+    size_t cube_size;
     bool ready;
 } PendingFaultOutput;
 
@@ -89,6 +92,7 @@ typedef struct {
     int next_output;      /* 次にファイルへ出力する故障。 */
 
     FILE* csv_output;      /* 実ファイルへの書き込みは親だけが行う。 */
+    CubeOutput* cube_output;
     FaultStats* stats;
 } FaultPool;
 
@@ -133,32 +137,38 @@ static bool receive_bytes(int socket_fd, void* data, size_t size)
  * open_memstreamの文字列とサイズはfclose時に確定する。
  */
 static bool analyze_and_reply(int socket_fd, FNODE* fault, int fault_index,
-                              FaultTask task, void* context)
+                              FaultTask task, void* context, bool save_cubes)
 {
     FaultReply reply = { .fault_index = fault_index };
     char* csv = NULL;
+    char* cubes = NULL;
     FILE* csv_stream = open_memstream(&csv, &reply.csv_size);
-    if (!csv_stream) {
+    FILE* cube_stream = save_cubes ? open_memstream(&cubes, &reply.cube_size) : NULL;
+    if (!csv_stream || (save_cubes && !cube_stream)) {
         _exit(EXIT_FAILURE); /* 親が通信切断を検出して残りの子も終了させる。 */
     }
 
-    reply.succeeded = task(fault, fault_index + 1, csv_stream, &reply.stats, context);
+    reply.succeeded = task(fault, fault_index + 1, csv_stream, cube_stream, &reply.stats, context);
     if (fclose(csv_stream) != 0) {
         reply.succeeded = false;
     }
+    if (cube_stream && fclose(cube_stream) != 0) reply.succeeded = false;
     if (!reply.succeeded) {
         reply.csv_size = 0; /* 失敗した故障の部分結果は親へ渡さない。 */
+        reply.cube_size = 0;
     }
 
     bool sent = send_bytes(socket_fd, &reply, sizeof(reply)) &&
-                send_bytes(socket_fd, csv, reply.csv_size);
+                send_bytes(socket_fd, csv, reply.csv_size) &&
+                send_bytes(socket_fd, cubes, reply.cube_size);
     free(csv);
+    free(cubes);
     return sent && reply.succeeded;
 }
 
 /* 子専用: 同じプロセスで繰り返し故障を処理し、BDD/XID作業領域を再利用する。 */
 static void worker_loop(int socket_fd, FNODE** faults, int fault_count,
-                        FaultTask task, FaultFinish finish, void* context)
+                        FaultTask task, FaultFinish finish, void* context, bool save_cubes)
 {
     for (;;) {
         int fault_index;
@@ -171,7 +181,7 @@ static void worker_loop(int socket_fd, FNODE** faults, int fault_count,
         if (fault_index < 0 || fault_index >= fault_count) {
             _exit(EXIT_FAILURE);
         }
-        if (!analyze_and_reply(socket_fd, faults[fault_index], fault_index, task, context)) {
+        if (!analyze_and_reply(socket_fd, faults[fault_index], fault_index, task, context, save_cubes)) {
             _exit(EXIT_FAILURE);
         }
     }
@@ -225,8 +235,10 @@ static bool start_worker(FaultPool* pool, int worker_index, FaultTask task,
         }
         signal(SIGINT, SIG_DFL);
         signal(SIGTERM, SIG_DFL);
+        bool save_cubes = pool->cube_output != NULL;
         fclose(pool->csv_output);
-        worker_loop(socket_pair[1], pool->faults, pool->fault_count, task, finish, context);
+        worker_loop(socket_pair[1], pool->faults, pool->fault_count, task, finish, context,
+                    save_cubes);
     }
 
     close(socket_pair[1]); /* 親は親側の通信口だけを保持する。 */
@@ -263,7 +275,8 @@ static bool receive_fault_result(FaultPool* pool, int worker_index)
         !receive_bytes(worker->socket_fd, &reply, sizeof(reply)) ||
         !reply.succeeded || reply.fault_index != fault_index ||
         pool->results[fault_index].ready ||
-        reply.csv_size == SIZE_MAX) {
+        reply.csv_size == SIZE_MAX || reply.cube_size == SIZE_MAX ||
+        (!pool->cube_output && reply.cube_size != 0)) {
         fprintf(stderr, "[PARALLEL] worker %ld failed at fault %d\n",
                 (long)worker->pid, fault_index);
         return false;
@@ -274,6 +287,13 @@ static bool receive_fault_result(FaultPool* pool, int worker_index)
     result->csv = malloc(reply.csv_size + 1);
     if (!result->csv || !receive_bytes(worker->socket_fd, result->csv, reply.csv_size)) {
         return false;
+    }
+    result->cube_size = reply.cube_size;
+    if (reply.cube_size) {
+        result->cubes = malloc(reply.cube_size);
+        if (!result->cubes || !receive_bytes(worker->socket_fd, result->cubes, reply.cube_size)) {
+            return false;
+        }
     }
     result->ready = true;
     FaultStatsAdd(pool->stats, &reply.stats);
@@ -291,12 +311,19 @@ static bool write_ready_results(FaultPool* pool)
 {
     while (pool->next_output < pool->fault_count &&
            pool->results[pool->next_output].ready) {
-        PendingFaultOutput* result = &pool->results[pool->next_output++];
+        int fault_index = pool->next_output++;
+        PendingFaultOutput* result = &pool->results[fault_index];
         if (fwrite(result->csv, 1, result->csv_size, pool->csv_output) != result->csv_size) {
+            return false;
+        }
+        if (result->cube_size && !WriteCubeFile(pool->cube_output, pool->faults[fault_index],
+                                              result->cubes, result->cube_size)) {
             return false;
         }
         free(result->csv);
         result->csv = NULL;
+        free(result->cubes);
+        result->cubes = NULL;
     }
     return true;
 }
@@ -379,6 +406,7 @@ static void free_pool_buffers(FaultPool* pool)
     if (pool->results) {
         for (int index = 0; index < pool->fault_count; index++) {
             free(pool->results[index].csv);
+            free(pool->results[index].cubes);
         }
     }
     free(pool->workers);
@@ -394,7 +422,7 @@ static double usage_seconds(const struct rusage* usage)
 
 /* 全体の入口。詳しい通信・出力・終了処理は上の役割別関数を参照する。 */
 bool FaultPoolRun(FNODE** faults, int count, int jobs, FaultTask task,
-                  FaultFinish finish, void* context, FILE* csv,
+                  FaultFinish finish, void* context, FILE* csv, CubeOutput* cubes,
                   FaultStats* stats)
 {
     if (count == 0) {
@@ -406,6 +434,7 @@ bool FaultPoolRun(FNODE** faults, int count, int jobs, FaultTask task,
         .fault_count = count,
         .worker_count = worker_count,
         .csv_output = csv,
+        .cube_output = cubes,
         .stats = stats
     };
     pool.workers = calloc((size_t)worker_count, sizeof(*pool.workers));

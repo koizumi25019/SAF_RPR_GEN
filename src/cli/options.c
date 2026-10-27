@@ -4,11 +4,52 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <math.h>
 
 #include "cli/options.h"
 #include "fault/fault_list.h"
 #include "common/memory.h"
 #include "io/file.h"
+
+static bool SetCubeIncludeIncomplete(const char* value)
+{
+    if (value && (strcmp(value, "on") == 0 || strcmp(value, "1") == 0)) {
+        opt.cube_include_incomplete = true;
+        return true;
+    }
+    if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
+        opt.cube_include_incomplete = false;
+        return true;
+    }
+    fprintf(stderr, "COMMAND ERROR: -cube_include_incomplete requires on|off\n");
+    return false;
+}
+
+static bool SetCubeFDPMax(const char* value)
+{
+    char* end = NULL;
+    /* strtodは構文の確認だけに使う。比較値はGMPで読み、小さい値も保持する。 */
+    double parsed = value ? strtod(value, &end) : 0;
+    if (!value || !*value || end == value || *end || !isfinite(parsed)) {
+        fprintf(stderr, "COMMAND ERROR: -cube_fdp_max requires a number in [0, 1]\n");
+        return false;
+    }
+    mpf_t maximum;
+    mpf_init2(maximum, 8192);
+    const char* number = value[0] == '+' ? value + 1 : value;
+    bool valid = mpf_set_str(maximum, number, 10) == 0 &&
+                 mpf_sgn(maximum) >= 0 && mpf_cmp_ui(maximum, 1) <= 0;
+    if (valid) {
+        if (!opt.cube_fdp_max_text) mpf_init2(opt.cube_fdp_max, 8192);
+        mpf_set(opt.cube_fdp_max, maximum);
+        free(opt.cube_fdp_max_text);
+        opt.cube_fdp_max_text = strdup(value);
+    } else {
+        fprintf(stderr, "COMMAND ERROR: -cube_fdp_max requires a number in [0, 1]\n");
+    }
+    mpf_clear(maximum);
+    return valid;
+}
 
 /* .setとコマンドラインで同じ設定処理を使う。 */
 static bool IsWorkerOption(const char* name)
@@ -70,6 +111,12 @@ bool OPT(
     }
     /* SAFの支配関係はTDFの励起条件では成立しない。 */
     if (opt.fault_model == FM_TDF) opt.dom_reuse = NO;
+    if (opt.file.output.cube &&
+        ((opt.file.output.fdp && strcmp(opt.file.output.cube, opt.file.output.fdp) == 0) ||
+         (opt.file.output.log && strcmp(opt.file.output.cube, opt.file.output.log) == 0))) {
+        fprintf(stderr, "COMMAND ERROR: -cube directory must differ from -fdp and -log files\n");
+        return OPT_ERROR;
+    }
 	return OPT_OKAY;
 }
 
@@ -87,6 +134,8 @@ void OPTinit(
     opt.jobs = 1;
     opt.dom_reuse = MODE_NOSET;
     opt.fault_model = FM_SAF;
+    opt.cube_fdp_max_text = NULL;
+    opt.cube_include_incomplete = false;
 
 	return;
 }
@@ -103,6 +152,7 @@ void OPTinitFile(
 	opt.file.input.fault		 = FILE_NOSET;
 	opt.file.input.net			 = FILE_NOSET;
 	opt.file.output.log			 = FILE_NOSET;
+    opt.file.output.cube = FILE_NOSET;
 
 	return;
 }
@@ -119,7 +169,15 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
-        if (IsWorkerOption(argv[i])) {
+        if (strcmp(argv[i], "-cube_include_incomplete") == 0) {
+            const char* value = i + 1 < argc ? argv[++i] : NULL;
+            if (!SetCubeIncludeIncomplete(value)) return OPT_ERROR;
+        }
+        else if (strcmp(argv[i], "-cube_fdp_max") == 0) {
+            const char* value = i + 1 < argc ? argv[++i] : NULL;
+            if (!SetCubeFDPMax(value)) return OPT_ERROR;
+        }
+        else if (IsWorkerOption(argv[i])) {
             const char* name = argv[i];
             const char* value = i + 1 < argc ? argv[++i] : NULL;
             if (!SetWorkerOption(name, value)) return OPT_ERROR;
@@ -143,6 +201,14 @@ bool OPTset(
 		/** fdp結果  */
 		else if (strcmp(argv[i], "-fdp") == 0)
 			opt.file.output.fdp = strdup(argv[++i]);
+
+        else if (strcmp(argv[i], "-cube") == 0) {
+            if (i + 1 >= argc || !*argv[i + 1] || argv[i + 1][0] == '-') {
+                fprintf(stderr, "COMMAND ERROR: -cube requires an output directory\n");
+                return OPT_ERROR;
+            }
+            opt.file.output.cube = strdup(argv[++i]);
+        }
 
 		/** limit（テスト生成上限） */
 		else if (strcmp(argv[i], "-limit") == 0)
@@ -217,7 +283,23 @@ bool OPTread(
 		{
 			token1 = strtok_r(buffer, " \t\r\n", &context);
 
-            if (IsWorkerOption(token1)) {
+            if (strcmp(token1, "-cube_include_incomplete") == 0) {
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!SetCubeIncludeIncomplete(token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
+            else if (strcmp(token1, "-cube_fdp_max") == 0) {
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!SetCubeFDPMax(token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
+            else if (IsWorkerOption(token1)) {
                 token2 = strtok_r(NULL, " \t\r\n", &context);
                 if (!SetWorkerOption(token1, token2)) {
                     free(buffer);
@@ -244,6 +326,16 @@ bool OPTread(
 			/** fdp結果 */
 			else if (strcmp(token1, "-fdp") == 0)
 				opt.file.output.fdp = OPTreadValue(&context, "\n\0");
+
+            else if (strcmp(token1, "-cube") == 0) {
+                opt.file.output.cube = OPTreadValue(&context, "\n\0");
+                if (!opt.file.output.cube) {
+                    fprintf(stderr, "COMMAND ERROR: -cube requires an output directory\n");
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
 
 			/** limit 設定 */
 			else if (strcmp(token1, "-limit") == 0)

@@ -62,6 +62,8 @@ sequenceDiagram
 
 `FaultAnalysisContext`は各プロセス専用のBDD作業領域。
 `WorkerState`と`FaultPool`は親の配分管理情報、`PendingFaultOutput`は親のCSV待機バッファ。
+`-cube <directory>`指定時は、保存条件を満たす故障のキューブテキストも同じ待機バッファで保持し、
+CSVと同じ順で親が故障別のテキストファイルへ保存する。共通情報は親が管理ファイルへ1度だけ書く。
 既存の`FaultResult`はBDDで計算した1故障の確率と出力項目を表し、通信形式とは別の型。
 
 fork後、回路の可変フィールド・CNF・XIDのstatic作業領域は子ごとに独立する。

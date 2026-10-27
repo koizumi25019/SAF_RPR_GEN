@@ -74,6 +74,11 @@ def main():
         run('run.sh', 'saf', 'c17a.set')
         assert projection(root / 'output/saf/full/fdp/c17a.csv') == projection(
             ROOT / 'tests/expected/c17a_result.csv')
+        config = root / 'input/script/saf/c17a.set'
+        with config.open('a') as stream:
+            stream.write('\n-cube ../output/saf/full/cube/c17a\n')
+        run('run.sh', 'saf', 'c17a')
+        assert list((root / 'output/saf/full/cube/c17a').glob('*_sa0_cube.txt'))
         run('run_experiments.sh', 'c17a_test')
         run('run_itc99.sh', 'c17a')
         run('run_tdf.sh', 's27', 's27_tdf_list.set', 's208_tdf_list')

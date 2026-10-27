@@ -4,6 +4,7 @@
 //-------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdbool.h>
+#include <gmp.h>
 
 //-------------------------------------------------------------------------------------------------------------
 //	定義
@@ -41,6 +42,7 @@ typedef struct Output_File
 {
 	char* log;			      /**< ログファイル */
 	char* fdp;                /**< fdp結果ファイル */
+    char* cube;               /**< 故障別テストキューブの出力ディレクトリ（省略時は保存しない） */
 }
 OUTPUT;
 
@@ -59,6 +61,9 @@ typedef struct Option
     int jobs;       /**< -jobs 1..256、既定1 */
     int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
     int fault_model; /**< -saf / -tdf、既定SAF */
+    char* cube_fdp_max_text; /**< NULLならキューブ保存のFDP上限なし */
+    mpf_t cube_fdp_max; /**< 指定時のみ初期化。FDPと同じ精度で比較する */
+    bool cube_include_incomplete; /**< 未完了のキューブも保存する（既定false） */
 }
 OPTION;
 
