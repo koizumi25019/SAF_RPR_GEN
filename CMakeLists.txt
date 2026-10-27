@@ -91,6 +91,11 @@ if(BUILD_TESTING)
         add_test(NAME cube_output COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/cube_output_check.py
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
+        add_test(NAME fault_progress COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/progress_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>
+            --output ${CMAKE_BINARY_DIR}/progress_checks)
+        set_tests_properties(fault_progress PROPERTIES TIMEOUT 90)
         add_test(NAME batch_runner COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/runner_check.py
             --binary $<TARGET_FILE:main_release>)

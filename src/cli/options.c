@@ -52,12 +52,13 @@ static bool SetCubeFDPMax(const char* value)
 }
 
 /* .setとコマンドラインで同じ設定処理を使う。 */
-static bool IsWorkerOption(const char* name)
+static bool IsRuntimeOption(const char* name)
 {
-    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0;
+    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
+           strcmp(name, "-progress") == 0;
 }
 
-static bool SetWorkerOption(const char* name, const char* value)
+static bool SetRuntimeOption(const char* name, const char* value)
 {
     if (strcmp(name, "-jobs") == 0) {
         char* end = NULL;
@@ -70,15 +71,16 @@ static bool SetWorkerOption(const char* name, const char* value)
         fprintf(stderr, "COMMAND ERROR: -jobs requires an integer 1..256\n");
         return false;
     }
+    int* setting = strcmp(name, "-progress") == 0 ? &opt.progress : &opt.dom_reuse;
     if (value && (strcmp(value, "on") == 0 || strcmp(value, "1") == 0)) {
-        opt.dom_reuse = YES;
+        *setting = YES;
         return true;
     }
     if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
-        opt.dom_reuse = NO;
+        *setting = NO;
         return true;
     }
-    fprintf(stderr, "COMMAND ERROR: -dom_reuse requires on|off\n");
+    fprintf(stderr, "COMMAND ERROR: %s requires on|off\n", name);
     return false;
 }
 
@@ -133,6 +135,7 @@ void OPTinit(
 	OPTinitFile();
     opt.jobs = 1;
     opt.dom_reuse = MODE_NOSET;
+    opt.progress = YES;
     opt.fault_model = FM_SAF;
     opt.cube_fdp_max_text = NULL;
     opt.cube_include_incomplete = false;
@@ -177,10 +180,10 @@ bool OPTset(
             const char* value = i + 1 < argc ? argv[++i] : NULL;
             if (!SetCubeFDPMax(value)) return OPT_ERROR;
         }
-        else if (IsWorkerOption(argv[i])) {
+        else if (IsRuntimeOption(argv[i])) {
             const char* name = argv[i];
             const char* value = i + 1 < argc ? argv[++i] : NULL;
-            if (!SetWorkerOption(name, value)) return OPT_ERROR;
+            if (!SetRuntimeOption(name, value)) return OPT_ERROR;
         }
 		else if (strcmp(argv[i], "-saf") == 0)
 			opt.fault_model = FM_SAF;
@@ -299,9 +302,9 @@ bool OPTread(
                     return OPT_ERROR;
                 }
             }
-            else if (IsWorkerOption(token1)) {
+            else if (IsRuntimeOption(token1)) {
                 token2 = strtok_r(NULL, " \t\r\n", &context);
-                if (!SetWorkerOption(token1, token2)) {
+                if (!SetRuntimeOption(token1, token2)) {
                     free(buffer);
                     fclose(fileptr);
                     return OPT_ERROR;

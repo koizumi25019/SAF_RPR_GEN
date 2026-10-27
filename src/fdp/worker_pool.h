@@ -11,9 +11,30 @@ typedef struct {
     long seeded_cubes;
 } FaultStats;
 
+typedef enum {
+    FAULT_PROGRESS_GENERATING,
+    FAULT_PROGRESS_BDD,
+    FAULT_PROGRESS_DONE
+} FaultProgressPhase;
+
+typedef struct {
+    int loops;        /* 新規に完了したSAT→XID→禁止節生成の回数。流用は含めない。 */
+    int seeded_cubes;
+    FaultProgressPhase phase;
+} FaultProgressState;
+
+/* NULLなら通知なし。並列では子→親へ通知し、標準出力は親だけが更新する。 */
+typedef struct {
+    bool (*update)(const FaultProgressState* state, void* context);
+    void* context;
+} FaultProgress;
+
+const char* FaultProgressPhaseName(FaultProgressPhase phase);
+
 /* 直列とワーカーで共通の1故障処理。並列時の出力先は子専用メモリストリーム。 */
 typedef bool (*FaultTask)(FNODE* fault, int fault_number, FILE* csv_output,
-                          FILE* cube_output, FaultStats* stats, void* worker_context);
+                          FILE* cube_output, FaultStats* stats,
+                          const FaultProgress* progress, void* worker_context);
 typedef void (*FaultFinish)(void* worker_context);
 
 void FaultStatsAdd(FaultStats* sum, const FaultStats* part);

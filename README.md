@@ -101,7 +101,26 @@ mkdir -p output/saf/full/{fdp,log}
 | `-log <file>` | ログの出力先 |
 | `-limit <N>` | 故障ごとのキューブ列挙上限。省略・0以下は無制限 |
 | `-jobs <N>` | 並列数。1〜256、既定1 |
+| `-progress on\|off` | 直列・並列の故障進捗表示。既定on。offでは進捗用の標準出力とフラッシュを省略 |
 | `-dom_reuse on\|off` | 支配キューブの流用。並列時はoff、TDFでは常時off |
+
+進捗表示を止める場合は `.set` に `-progress off` を追加するか、CLIで指定する。
+他の設定と同様、読み込み順で後の指定が有効になる。
+
+```bash
+(cd build && ./main_release -set ../input/script/saf/c17a.set -progress off)
+```
+
+この設定は `Progress >> ...` の表示だけを切り替える。CSV・ログ・エラー表示には影響しない。
+
+進捗には完了故障数と、現在の故障名・故障種別・`loops`（SAT→XID→禁止節追加まで完了した回数）を表示する。
+`seeded`は流用キューブ数で、`loops`には含めない。並列時はワーカーごとの現在値を表示する。
+列挙中は約1秒間隔で更新し、故障の開始・BDD計算への移行・完了時にも更新する。
+`[SAT/XID]`は列挙中、`[BDD]`は確率計算中、`[done]`はその故障の計算終了を示す。
+
+```text
+Progress >> 12/4551 | worker 1: net_A sa0 loops=1234 seeded=0 [SAT/XID] | worker 2: net_B sa1 loops=82 seeded=0 [BDD]
+```
 
 ディレクトリ名では故障モデルを自動判定しない。TDF設定には `-tdf` を明記する。
 SAF故障リストは `信号名 sa0|sa1`、TDFは `信号名 STR|STF`。

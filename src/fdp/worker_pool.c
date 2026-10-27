@@ -19,7 +19,7 @@
  * 子: 故障番号を受信 → 1故障を計算 → 結果を返信 → 次の番号を待つ
  *
  * fork後の回路・CNF・XID作業領域は各プロセスに独立して存在する。
- * 親子間では故障番号、出力文字列、集計値を渡す。キューブ集合やBDDは渡さない。
+ * 親子間では故障番号、出力文字列、集計値、進捗を渡す。キューブ集合やBDDは渡さない。
  */
 enum { NO_FAULT = -1 }; /* 親側では「担当なし」、通信では「終了要求」。 */
 
@@ -35,6 +35,16 @@ double FaultPoolChildCPU(void)
 int FaultPoolWorkers(void)
 {
     return worker_count;
+}
+
+const char* FaultProgressPhaseName(FaultProgressPhase phase)
+{
+    switch (phase) {
+    case FAULT_PROGRESS_GENERATING: return "SAT/XID";
+    case FAULT_PROGRESS_BDD: return "BDD";
+    case FAULT_PROGRESS_DONE: return "done";
+    }
+    return "unknown";
 }
 
 static void request_cancellation(int signal_number)
@@ -57,13 +67,16 @@ typedef struct {
     pid_t pid;
     int socket_fd;
     int fault_index; /* 現在担当しているfaults[]の添字。 */
+    FaultProgressState progress;
 } WorkerState;
 
-/* 子→親の返信は [このヘッダ][CSV文字列][保存対象キューブ文字列] の順。
+/* 子→親は進捗ヘッダ、または [結果ヘッダ][CSV文字列][保存対象キューブ文字列] を送る。
  * 同じ実行ファイルからforkした親子だけで使う内部形式（外部通信形式ではない）。
  */
 typedef struct {
     int fault_index;
+    bool progress_update;
+    FaultProgressState progress;
     int succeeded;
     size_t csv_size;
     size_t cube_size;
@@ -90,6 +103,7 @@ typedef struct {
     int next_fault;       /* 次にワーカーへ配る故障。 */
     int completed_faults; /* 完了返信を受け取った故障数。 */
     int next_output;      /* 次にファイルへ出力する故障。 */
+    int progress_width;   /* 同じ行を短い内容で更新するときの末尾消去用。 */
 
     FILE* csv_output;      /* 実ファイルへの書き込みは親だけが行う。 */
     CubeOutput* cube_output;
@@ -133,6 +147,22 @@ static bool receive_bytes(int socket_fd, void* data, size_t size)
     return transfer_bytes(socket_fd, data, size, false);
 }
 
+typedef struct {
+    int socket_fd;
+    int fault_index;
+} WorkerProgress;
+
+static bool send_fault_progress(const FaultProgressState* state, void* opaque)
+{
+    WorkerProgress* context = opaque;
+    FaultReply reply = {
+        .fault_index = context->fault_index,
+        .progress_update = true,
+        .progress = *state
+    };
+    return send_bytes(context->socket_fd, &reply, sizeof(reply));
+}
+
 /* 子専用: 1故障の出力をメモリ上に作り、返信を送ったら文字列を解放する。
  * open_memstreamの文字列とサイズはfclose時に確定する。
  */
@@ -148,7 +178,10 @@ static bool analyze_and_reply(int socket_fd, FNODE* fault, int fault_index,
         _exit(EXIT_FAILURE); /* 親が通信切断を検出して残りの子も終了させる。 */
     }
 
-    reply.succeeded = task(fault, fault_index + 1, csv_stream, cube_stream, &reply.stats, context);
+    WorkerProgress progress_context = { socket_fd, fault_index };
+    FaultProgress progress = { send_fault_progress, &progress_context };
+    reply.succeeded = task(fault, fault_index + 1, csv_stream, cube_stream, &reply.stats,
+                           opt.progress == YES ? &progress : NULL, context);
     if (fclose(csv_stream) != 0) {
         reply.succeeded = false;
     }
@@ -261,22 +294,34 @@ static bool assign_next_fault(FaultPool* pool, int worker_index)
         return true;
     }
     worker->fault_index = pool->next_fault++;
+    worker->progress = (FaultProgressState){0};
     pool->sockets[worker_index].events = POLLIN;
     return send_bytes(worker->socket_fd, &worker->fault_index, sizeof(worker->fault_index));
 }
 
 /* 親専用: 返信を担当故障と照合し、親の結果バッファへ受け取る。 */
-static bool receive_fault_result(FaultPool* pool, int worker_index)
+static bool receive_fault_result(FaultPool* pool, int worker_index, bool* completed)
 {
+    *completed = false;
     WorkerState* worker = &pool->workers[worker_index];
     int fault_index = worker->fault_index;
     FaultReply reply;
     if (fault_index < 0 ||
         !receive_bytes(worker->socket_fd, &reply, sizeof(reply)) ||
-        !reply.succeeded || reply.fault_index != fault_index ||
+        reply.fault_index != fault_index ||
         pool->results[fault_index].ready ||
         reply.csv_size == SIZE_MAX || reply.cube_size == SIZE_MAX ||
         (!pool->cube_output && reply.cube_size != 0)) {
+        fprintf(stderr, "[PARALLEL] worker %ld failed at fault %d\n",
+                (long)worker->pid, fault_index);
+        return false;
+    }
+
+    if (reply.progress_update) {
+        worker->progress = reply.progress;
+        return true;
+    }
+    if (!reply.succeeded) {
         fprintf(stderr, "[PARALLEL] worker %ld failed at fault %d\n",
                 (long)worker->pid, fault_index);
         return false;
@@ -301,9 +346,27 @@ static bool receive_fault_result(FaultPool* pool, int worker_index)
     /* 子でのDropDeteFaultは子のコピーにだけ作用するので、親側にも完了を反映。 */
     DropDeteFault(pool->faults[fault_index]);
     pool->completed_faults++;
-    printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count);
-    fflush(stdout);
+    *completed = true;
     return true;
+}
+
+/* 親だけが全ワーカーの現在値を同じ行に表示し、出力の混線を防ぐ。 */
+static void show_pool_progress(FaultPool* pool)
+{
+    if (opt.progress != YES) return;
+    int width = printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count);
+    for (int index = 0; index < pool->worker_count; index++) {
+        WorkerState* worker = &pool->workers[index];
+        if (worker->fault_index == NO_FAULT) continue;
+        FNODE* fault = pool->faults[worker->fault_index];
+        width += printf(" | worker %d: %s %s loops=%d seeded=%d [%s]",
+                        index + 1, fault->name, FaultTypeName(fault->type),
+                        worker->progress.loops, worker->progress.seeded_cubes,
+                        FaultProgressPhaseName(worker->progress.phase));
+    }
+    if (pool->progress_width > width) printf("%*s", pool->progress_width - width, "");
+    pool->progress_width = width;
+    fflush(stdout);
 }
 
 /* 親専用: 完了順がB→Aでも、ファイルにはA→Bと出す。出力後にバッファを解放。 */
@@ -343,11 +406,14 @@ static bool collect_fault_results(FaultPool* pool)
             if (!pool->sockets[index].revents) {
                 continue;
             }
-            if (!receive_fault_result(pool, index) ||
-                !write_ready_results(pool) ||
-                !assign_next_fault(pool, index)) {
+            bool completed;
+            if (!receive_fault_result(pool, index, &completed)) {
                 return false;
             }
+            if (completed && (!write_ready_results(pool) || !assign_next_fault(pool, index))) {
+                return false;
+            }
+            show_pool_progress(pool);
         }
     }
     return !cancelled && pool->completed_faults == pool->fault_count;
@@ -464,6 +530,7 @@ bool FaultPoolRun(FNODE** faults, int count, int jobs, FaultTask task,
 
     /* 2. 完了返信を待つ → 出力・集計 → 空いたワーカーへ次の故障を配る。 */
     if (succeeded) {
+        show_pool_progress(&pool);
         succeeded = collect_fault_results(&pool);
     }
 
