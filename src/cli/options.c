@@ -55,7 +55,8 @@ static bool SetCubeFDPMax(const char* value)
 static bool IsRuntimeOption(const char* name)
 {
     return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
-           strcmp(name, "-progress") == 0;
+           strcmp(name, "-progress") == 0 || strcmp(name, "-fault_progress") == 0 ||
+           strcmp(name, "-cube_progress") == 0;
 }
 
 static bool SetRuntimeOption(const char* name, const char* value)
@@ -71,17 +72,25 @@ static bool SetRuntimeOption(const char* name, const char* value)
         fprintf(stderr, "COMMAND ERROR: -jobs requires an integer 1..256\n");
         return false;
     }
-    int* setting = strcmp(name, "-progress") == 0 ? &opt.progress : &opt.dom_reuse;
+    int enabled;
     if (value && (strcmp(value, "on") == 0 || strcmp(value, "1") == 0)) {
-        *setting = YES;
-        return true;
+        enabled = YES;
+    } else if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
+        enabled = NO;
+    } else {
+        fprintf(stderr, "COMMAND ERROR: %s requires on|off\n", name);
+        return false;
     }
-    if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
-        *setting = NO;
-        return true;
+    if (strcmp(name, "-progress") == 0) {
+        opt.fault_progress = opt.cube_progress = enabled;
+    } else if (strcmp(name, "-fault_progress") == 0) {
+        opt.fault_progress = enabled;
+    } else if (strcmp(name, "-cube_progress") == 0) {
+        opt.cube_progress = enabled;
+    } else {
+        opt.dom_reuse = enabled;
     }
-    fprintf(stderr, "COMMAND ERROR: %s requires on|off\n", name);
-    return false;
+    return true;
 }
 
 //*************************************************************************************************************
@@ -135,7 +144,7 @@ void OPTinit(
 	OPTinitFile();
     opt.jobs = 1;
     opt.dom_reuse = MODE_NOSET;
-    opt.progress = YES;
+    opt.fault_progress = opt.cube_progress = YES;
     opt.fault_model = FM_SAF;
     opt.cube_fdp_max_text = NULL;
     opt.cube_include_incomplete = false;

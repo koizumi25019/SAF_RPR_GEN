@@ -34,9 +34,54 @@ def check_counts(directory):
     return rows
 
 
-def check_live(binary, output, jobs):
+def check_controls(binary, output):
+    source = ROOT / 'input/circuit/saf/c17a.v'
+    cases = (
+        ('both', '', (), True, True),
+        ('fault_only', '-fault_progress on\n-cube_progress off\n', (), True, False),
+        ('cube_only', '-fault_progress off\n-cube_progress on\n', (), False, True),
+        ('neither', '-fault_progress off\n-cube_progress off\n', (), False, False),
+        ('legacy_off', '', ('-progress', 'off'), False, False),
+        ('legacy_then_fault', '-progress off\n-fault_progress on\n', (), True, False),
+        ('legacy_then_cube', '', ('-progress', 'off', '-cube_progress', 'on'), False, True),
+        ('legacy_last_off', '-fault_progress on\n-cube_progress on\n-progress off\n', (), False, False),
+        ('legacy_last_on', '', ('-fault_progress', 'off', '-cube_progress', 'off', '-progress', 'on'), True, True),
+        ('cli_override', '-fault_progress off\n-cube_progress on\n', ('-fault_progress', 'on', '-cube_progress', 'off'), True, False),
+        ('numeric_aliases', '-fault_progress\t0\r\n-cube_progress 1\n', (), False, True),
+    )
+    for jobs in (1, 4):
+        baseline = None
+        for label, extra, cli, fault_visible, cube_visible in cases:
+            directory = run(binary, output / f'{binary.name}_controls_{jobs}_{label}', source,
+                            f'-jobs {jobs}\n-dom_reuse off\n' + extra, cli=cli, model='-saf\n')
+            if baseline is None:
+                baseline = directory
+            else:
+                equal(baseline, directory)
+            text = (directory / 'stdout.txt').read_text()
+            updates = [(int(a), int(b)) for a, b in re.findall(r'Progress >> (\d+)/(\d+)', text)]
+            assert bool(updates) == fault_visible, directory
+            assert ('loops=' in text) == cube_visible, directory
+            assert ('Cube progress >>' in text) == (cube_visible and not fault_visible), directory
+            if fault_visible and not cube_visible:
+                # No periodic cube events or duplicate fault-completion updates.
+                total = updates[-1][1]
+                assert updates == [(n, total) for n in range(0 if jobs > 1 else 1, total + 1)], directory
+            if not fault_visible and not cube_visible:
+                assert 'progress >>' not in text.lower(), directory
+    for option in ('-fault_progress', '-cube_progress'):
+        for mode in ('cli', 'set'):
+            for index, value in enumerate((None, 'invalid', '2', 'ON')):
+                tokens = (option,) if value is None else (option, value)
+                directory = run(binary, output / f'{binary.name}_{option[1:]}_{mode}_{index}', source,
+                                ' '.join(tokens) + '\n' if mode == 'set' else '',
+                                cli=tokens if mode == 'cli' else (), success=False, model='-saf\n')
+                assert f'{option} requires on|off' in (directory / 'stderr.txt').read_text(), directory
+
+
+def check_live(binary, output, jobs, fault_progress=True):
     """Parity needs exponentially many cubes; observe it before terminating the run."""
-    directory = output / f'live_{jobs}'
+    directory = output / (f'live_{jobs}' + ('' if fault_progress else '_cube_only'))
     directory.mkdir(parents=True, exist_ok=True)
     circuit = directory / 'parity.v'
     inputs = [f'a{i}' for i in range(24)]
@@ -53,7 +98,8 @@ def check_live(binary, output, jobs):
     faults.write_text('z sa0\ny sa0\ny sa1\n')
     config = directory / 'run.set'
     config.write_text(f'-net {circuit}\n-fault {faults}\n-jobs {jobs}\n-dom_reuse off\n'
-                      f'-limit 0\n-progress on\n-fdp {directory}/fdp.csv\n-log {directory}/time.log\n')
+                      f'-limit 0\n-progress on\n-fault_progress {"on" if fault_progress else "off"}\n'
+                      f'-fdp {directory}/fdp.csv\n-log {directory}/time.log\n')
     (directory / 'time.log').unlink(missing_ok=True)
     env = {k: v for k, v in os.environ.items() if k not in ('MDC_NODOM', 'MDC_NOPROP')}
     data = bytearray()
@@ -78,7 +124,8 @@ def check_live(binary, output, jobs):
                     generating = {(name, kind) for name, kind, loops, seeds, phase
                                   in FAULT_PROGRESS.findall(snapshot)
                                   if name == 'y' and int(loops) > 0 and phase == 'SAT/XID'}
-                    if 'Progress >> 1/3' in snapshot and len(generating) >= min(jobs, 2):
+                    prefix = 'Progress >> 1/3' if fault_progress else 'Cube progress >>'
+                    if prefix in snapshot and len(generating) >= min(jobs, 2):
                         found = True
                         break
                 if found:
@@ -94,6 +141,8 @@ def check_live(binary, output, jobs):
     assert process.returncode != 0
     assert all(not Path(f'/proc/{pid}').exists() for pid in children), children
     assert not (directory / 'time.log').exists(), 'cancelled run recorded as successful'
+    if not fault_progress:
+        assert not re.search(rb'Progress >> \d+/\d+', data)
 
 
 def main():
@@ -104,6 +153,7 @@ def main():
     args = parser.parse_args()
     output = args.output.resolve()
     for binary in (args.binary.resolve(), args.debug.resolve()):
+        check_controls(binary, output)
         for model, circuit in (('saf', 'c17a'), ('tdf', 's27')):
             modes = [(1, 'off'), (4, 'off')]
             if model == 'saf':
@@ -140,6 +190,7 @@ def main():
                             assert any(int(r['seeded_cnt']) > 0 for r in rows)
     for jobs in (1, 2):
         check_live(args.binary.resolve(), output, jobs)
+        check_live(args.binary.resolve(), output, jobs, fault_progress=False)
     print('Fault completion/loop/seed counts, SAF/TDF, limits, Debug/Release, progress off, '
           'CSV/golden equality, live serial/worker updates and cancellation: PASS')
 

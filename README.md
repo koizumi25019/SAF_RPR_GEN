@@ -101,20 +101,33 @@ mkdir -p output/saf/full/{fdp,log}
 | `-log <file>` | ログの出力先 |
 | `-limit <N>` | 故障ごとのキューブ列挙上限。省略・0以下は無制限 |
 | `-jobs <N>` | 並列数。1〜256、既定1 |
-| `-progress on\|off` | 直列・並列の故障進捗表示。既定on。offでは進捗用の標準出力とフラッシュを省略 |
+| `-progress on\|off` | 故障進捗とキューブ進捗を一括設定。既定は両方on |
+| `-fault_progress on\|off` | 全故障に対する完了数の表示を個別に設定。既定on |
+| `-cube_progress on\|off` | 現在の故障のループ回数・流用数・処理状態の表示を個別に設定。既定on |
 | `-dom_reuse on\|off` | 支配キューブの流用。並列時はoff、TDFでは常時off |
 
-進捗表示を止める場合は `.set` に `-progress off` を追加するか、CLIで指定する。
-他の設定と同様、読み込み順で後の指定が有効になる。
+直列・並列ともCLIと`.set`で指定できる。故障の完了数だけ表示する例：
 
 ```bash
-(cd build && ./main_release -set ../input/script/saf/c17a.set -progress off)
+(cd build && ./main_release -set ../input/script/saf/c17a.set -fault_progress on -cube_progress off)
 ```
 
-この設定は `Progress >> ...` の表示だけを切り替える。CSV・ログ・エラー表示には影響しない。
+キューブ生成の進捗だけを表示する場合は、`.set`に次を指定する。
+
+```text
+-fault_progress off
+-cube_progress on
+```
+
+`-progress off`で両方を停止、`-progress on`で両方を有効化する。
+読み込み順で後の指定が有効。例えば`-progress off -fault_progress on`は故障の完了数だけを表示し、
+その後に`-progress off`を指定すると再び両方を停止する。
+キューブ進捗offでは途中通知・進捗用の時計参照・プロセス間通知も省略し、故障進捗onなら完了時だけ表示を更新する。
+これらの設定は進捗の標準出力だけを切り替える。CSV・ログ・エラー表示には影響しない。
 
 進捗には完了故障数と、現在の故障名・故障種別・`loops`（SAT→XID→禁止節追加まで完了した回数）を表示する。
 `seeded`は流用キューブ数で、`loops`には含めない。並列時はワーカーごとの現在値を表示する。
+故障進捗off・キューブ進捗onの場合は、`Cube progress >> worker ...`（直列では`fault ...`）と表示する。
 列挙中は約1秒間隔で更新し、故障の開始・BDD計算への移行・完了時にも更新する。
 `[SAT/XID]`は列挙中、`[BDD]`は確率計算中、`[done]`はその故障の計算終了を示す。
 

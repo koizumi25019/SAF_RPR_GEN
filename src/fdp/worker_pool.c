@@ -181,7 +181,7 @@ static bool analyze_and_reply(int socket_fd, FNODE* fault, int fault_index,
     WorkerProgress progress_context = { socket_fd, fault_index };
     FaultProgress progress = { send_fault_progress, &progress_context };
     reply.succeeded = task(fault, fault_index + 1, csv_stream, cube_stream, &reply.stats,
-                           opt.progress == YES ? &progress : NULL, context);
+                           opt.cube_progress == YES ? &progress : NULL, context);
     if (fclose(csv_stream) != 0) {
         reply.succeeded = false;
     }
@@ -353,17 +353,24 @@ static bool receive_fault_result(FaultPool* pool, int worker_index, bool* comple
 /* 親だけが全ワーカーの現在値を同じ行に表示し、出力の混線を防ぐ。 */
 static void show_pool_progress(FaultPool* pool)
 {
-    if (opt.progress != YES) return;
-    int width = printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count);
-    for (int index = 0; index < pool->worker_count; index++) {
+    if (opt.fault_progress != YES && opt.cube_progress != YES) return;
+    int width = opt.fault_progress == YES
+        ? printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count)
+        : printf("\rCube progress >>");
+    bool first = true;
+    for (int index = 0; opt.cube_progress == YES && index < pool->worker_count; index++) {
         WorkerState* worker = &pool->workers[index];
         if (worker->fault_index == NO_FAULT) continue;
         FNODE* fault = pool->faults[worker->fault_index];
-        width += printf(" | worker %d: %s %s loops=%d seeded=%d [%s]",
+        width += printf("%sworker %d: %s %s loops=%d seeded=%d [%s]",
+                        first && opt.fault_progress == NO ? " " : " | ",
                         index + 1, fault->name, FaultTypeName(fault->type),
                         worker->progress.loops, worker->progress.seeded_cubes,
                         FaultProgressPhaseName(worker->progress.phase));
+        first = false;
     }
+    if (opt.fault_progress == NO && pool->completed_faults == pool->fault_count)
+        width += printf(" done");
     if (pool->progress_width > width) printf("%*s", pool->progress_width - width, "");
     pool->progress_width = width;
     fflush(stdout);

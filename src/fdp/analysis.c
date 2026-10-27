@@ -40,10 +40,16 @@ typedef struct {
 static bool ShowSerialFaultProgress(const FaultProgressState* state, void* opaque)
 {
     SerialFaultProgress* context = opaque;
-    int width = printf("\rProgress >> %d/%d | fault %d: %s %s loops=%d seeded=%d [%s]",
-                       readdata.fault.numinit - readdata.fault.numrema, readdata.fault.numinit,
-                       context->fault_number, context->fault->name, FaultTypeName(context->fault->type),
-                       state->loops, state->seeded_cubes, FaultProgressPhaseName(state->phase));
+    int width = opt.fault_progress == YES
+        ? printf("\rProgress >> %d/%d", readdata.fault.numinit - readdata.fault.numrema,
+                 readdata.fault.numinit)
+        : printf("\rCube progress >>");
+    if (opt.cube_progress == YES) {
+        width += printf("%sfault %d: %s %s loops=%d seeded=%d [%s]",
+                        opt.fault_progress == YES ? " | " : " ",
+                        context->fault_number, context->fault->name, FaultTypeName(context->fault->type),
+                        state->loops, state->seeded_cubes, FaultProgressPhaseName(state->phase));
+    }
     if (context->analysis->progress_width > width)
         printf("%*s", context->analysis->progress_width - width, "");
     context->analysis->progress_width = width;
@@ -88,7 +94,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
     FaultAnalysisContext* context = opaque;
     SerialFaultProgress serial_context = { target, fault_number, context };
     FaultProgress serial_progress = { ShowSerialFaultProgress, &serial_context };
-    if (opt.jobs == 1 && opt.progress == YES) progress = &serial_progress;
+    if (opt.jobs == 1 && opt.cube_progress == YES) progress = &serial_progress;
     if (!context->bdd_manager) {
         context->bdd_manager = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
         if (!context->bdd_manager) return false;
@@ -175,6 +181,8 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             DropDeteFault(target);
             if (succeeded) {
                 progress_state.phase = FAULT_PROGRESS_DONE;
+                if (opt.jobs == 1 && opt.fault_progress == YES && opt.cube_progress == NO)
+                    ShowSerialFaultProgress(&progress_state, &serial_context);
                 succeeded = ReportFaultProgress(progress, &progress_state, &last_update, true);
             }
             break;
