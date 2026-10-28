@@ -26,7 +26,7 @@ static void WriteEquivFaults(
         int flag = (in_type == SF0) ? in0->test_sa0 : in0->test_sa1;
         if (flag == NO)
         {
-            fprintf(result_fp, "%s,%s,,,%s,\n",
+            fprintf(result_fp, "%s,%s,,,%s\n",
                 in0->name, FaultTypeName(in_type), density_str);
             WriteEquivFaults(result_fp, in0, in_type, density_str);
         }
@@ -37,13 +37,14 @@ static void WriteEquivFaults(
     {
         case AND:
         case NAND:
-            if (fault_type == SF0)
+            // NAND は出力が反転するため、入力 sa0 と等価なのは出力 sa1。
+            if (fault_type == (net->type == AND ? SF0 : SF1))
             {
                 for (j = 0; j < net->n_in; j++)
                 {
                     if (net->in[j]->test_sa0 == NO)  // 等価故障としてマークされているもののみ
                     {
-                        fprintf(result_fp, "%s,sa0,,,%s,\n",
+                        fprintf(result_fp, "%s,sa0,,,%s\n",
                             net->in[j]->name, density_str);
                         WriteEquivFaults(result_fp, net->in[j], SF0, density_str);
                     }
@@ -53,13 +54,14 @@ static void WriteEquivFaults(
 
         case OR:
         case NOR:
-            if (fault_type == SF1)
+            // NOR の入力 sa1 は、出力 sa0 と等価。
+            if (fault_type == (net->type == OR ? SF1 : SF0))
             {
                 for (j = 0; j < net->n_in; j++)
                 {
                     if (net->in[j]->test_sa1 == NO)  // 等価故障としてマークされているもののみ
                     {
-                        fprintf(result_fp, "%s,sa1,,,%s,\n",
+                        fprintf(result_fp, "%s,sa1,,,%s\n",
                             net->in[j]->name, density_str);
                         WriteEquivFaults(result_fp, net->in[j], SF1, density_str);
                     }
@@ -69,11 +71,11 @@ static void WriteEquivFaults(
 
         case BUF:
             if (fault_type == SF0 && net->in[0]->test_sa0 == NO) {
-                fprintf(result_fp, "%s,sa0,,,%s,\n",
+                fprintf(result_fp, "%s,sa0,,,%s\n",
                     net->in[0]->name, density_str);
                 WriteEquivFaults(result_fp, net->in[0], SF0, density_str);
             } else if (fault_type == SF1 && net->in[0]->test_sa1 == NO) {
-                fprintf(result_fp, "%s,sa1,,,%s,\n",
+                fprintf(result_fp, "%s,sa1,,,%s\n",
                     net->in[0]->name, density_str);
                 WriteEquivFaults(result_fp, net->in[0], SF1, density_str);
             }
@@ -81,11 +83,11 @@ static void WriteEquivFaults(
 
         case INV:
             if (fault_type == SF0 && net->in[0]->test_sa1 == NO) {
-                fprintf(result_fp, "%s,sa1,,,%s,\n",
+                fprintf(result_fp, "%s,sa1,,,%s\n",
                     net->in[0]->name, density_str);
                 WriteEquivFaults(result_fp, net->in[0], SF1, density_str);
             } else if (fault_type == SF1 && net->in[0]->test_sa0 == NO) {
-                fprintf(result_fp, "%s,sa0,,,%s,\n",
+                fprintf(result_fp, "%s,sa0,,,%s\n",
                     net->in[0]->name, density_str);
                 WriteEquivFaults(result_fp, net->in[0], SF0, density_str);
             }
@@ -104,12 +106,11 @@ void WriteFaultResult(FILE* fp, const FaultResult* result)
     char density_str[64];
     gmp_snprintf(density_str, sizeof(density_str), "%.10Fe", result->density);
 
-    fprintf(fp, "%s,%s,%d,%d,%s,%d\n",
+    fprintf(fp, "%s,%s,%d,%d,%s\n",
             result->target->name,
             FaultTypeName(result->target->type),
             result->cube_cnt,
             result->complete ? 1 : 0,
-            density_str,
-            result->seeded_cnt);
+            density_str);
     WriteEquivFaults(fp, result->target->netptr, result->target->type, density_str);
 }

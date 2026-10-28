@@ -10,10 +10,9 @@ typedef struct FaultResult
 {
     const FNODE* target;
     int cube_cnt;
-    int seeded_cnt;
     bool complete;
     mpf_t density;
 } FaultResult;
 
-/** 代表故障と等価故障の結果を既存の CSV 形式で出力する。 */
+/** 代表故障と等価故障の結果を5列のCSVで出力する。 */
 void WriteFaultResult(FILE* fp, const FaultResult* result);

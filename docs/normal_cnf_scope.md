@@ -46,7 +46,7 @@ FDP_NORMAL_SCOPE_VALIDATE=1 ./main_release -set ../input/script/saf/c17a.set
 ```
 
 実行ログには`Normal CNF Scope : on (affected-output TFI)`と`Essential Assignment : on`を記録する。
-故障並列化は`.set`の`-jobs N`で指定する。流用設定・時間の読み方は
+故障並列化は`.set`の`-jobs N`で指定する。設定・時間の読み方は
 [fault_parallel.md](fault_parallel.md)を参照。
 
 ## 旧方式の移植時検証・計測（2026-10-07）
@@ -103,7 +103,7 @@ python3 tests/fault_pool_check.py --reference build/fault_pool_checks/main_refer
 CMakeの通常ビルドと`ctest --test-dir build --output-on-failure`も使用できる。
 
 9小回路の完全FDPを変更前と比較し、直列・並列のCSV一致、c17ゴールデン、Debug/Release、
-c17分岐故障の保持範囲、内部で途切れる枝、常時ONのEA、流用、設定・中断・I/O失敗を検証する。
+c17分岐故障の保持範囲、内部で途切れる枝、常時ONのEA、設定・中断・I/O失敗を検証する。
 s5378_Cは上限30で全4,551代表故障を検証し、実生成キューブを元回路の独立GTへ渡す。
 上限付きの比較では、両方式で完了した故障のFDPを照合する。
 結果は`docs/output_tfi_scope_results.json`に保存する。

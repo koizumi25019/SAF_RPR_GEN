@@ -5,11 +5,44 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <math.h>
+#include <ctype.h>
+#include <limits.h>
 
 #include "cli/options.h"
 #include "fault/fault_list.h"
 #include "common/memory.h"
 #include "io/file.h"
+
+static bool IsPathOption(const char* name)
+{
+    return strcmp(name, "-net") == 0 || strcmp(name, "-fault") == 0 ||
+           strcmp(name, "-log") == 0 || strcmp(name, "-fdp") == 0 ||
+           strcmp(name, "-cube") == 0 || strcmp(name, "-set") == 0;
+}
+
+/* 値を参照する前に確認する。負のlimitは無制限の指定として受け付ける。 */
+static bool CheckOptionValue(const char* name, const char* value)
+{
+    if (value) {
+        while (isspace((unsigned char)*value)) value++;
+        if (*value && *value != '#' && (!IsPathOption(name) || *value != '-')) return true;
+    }
+    fprintf(stderr, "COMMAND ERROR: %s requires a value\n", name);
+    return false;
+}
+
+static bool SetPatternLimit(const char* value)
+{
+    char* end = NULL;
+    errno = 0;
+    long limit = value ? strtol(value, &end, 10) : 0;
+    if (!value || !*value || end == value || *end || errno || limit < INT_MIN || limit > INT_MAX) {
+        fprintf(stderr, "COMMAND ERROR: -limit requires an integer\n");
+        return false;
+    }
+    opt.file.input.limit = (int)limit;
+    return true;
+}
 
 static bool SetCubeIncludeIncomplete(const char* value)
 {
@@ -54,8 +87,7 @@ static bool SetCubeFDPMax(const char* value)
 /* .setとコマンドラインで同じ設定処理を使う。 */
 static bool IsRuntimeOption(const char* name)
 {
-    return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
-           strcmp(name, "-progress") == 0;
+    return strcmp(name, "-jobs") == 0 || strcmp(name, "-progress") == 0;
 }
 
 static bool SetRuntimeOption(const char* name, const char* value)
@@ -71,13 +103,12 @@ static bool SetRuntimeOption(const char* name, const char* value)
         fprintf(stderr, "COMMAND ERROR: -jobs requires an integer 1..256\n");
         return false;
     }
-    int* setting = strcmp(name, "-progress") == 0 ? &opt.progress : &opt.dom_reuse;
     if (value && (strcmp(value, "on") == 0 || strcmp(value, "1") == 0)) {
-        *setting = YES;
+        opt.progress = YES;
         return true;
     }
     if (value && (strcmp(value, "off") == 0 || strcmp(value, "0") == 0)) {
-        *setting = NO;
+        opt.progress = NO;
         return true;
     }
     fprintf(stderr, "COMMAND ERROR: %s requires on|off\n", name);
@@ -103,23 +134,13 @@ bool OPT(
 		return OPT_ERROR;
 	}
 
-    /* 明示指定を優先。省略時は並列なら流用off、直列なら従来環境変数を参照。 */
-    if (opt.dom_reuse == MODE_NOSET) {
-        opt.dom_reuse = (opt.jobs > 1 || getenv("MDC_NODOM")) ? NO : YES;
-    }
-    if (opt.jobs > 1 && opt.dom_reuse == YES) {
-        fprintf(stderr, "COMMAND ERROR: -jobs > 1 requires -dom_reuse off\n");
-        return OPT_ERROR;
-    }
-    /* SAFの支配関係はTDFの励起条件では成立しない。 */
-    if (opt.fault_model == FM_TDF) opt.dom_reuse = NO;
     if (opt.file.output.cube &&
         ((opt.file.output.fdp && strcmp(opt.file.output.cube, opt.file.output.fdp) == 0) ||
          (opt.file.output.log && strcmp(opt.file.output.cube, opt.file.output.log) == 0))) {
         fprintf(stderr, "COMMAND ERROR: -cube directory must differ from -fdp and -log files\n");
         return OPT_ERROR;
     }
-	return OPT_OKAY;
+	return OPTcheck();
 }
 
 //*************************************************************************************************************
@@ -134,7 +155,6 @@ void OPTinit(
 	/** ファイル名を初期化する */
 	OPTinitFile();
     opt.jobs = 1;
-    opt.dom_reuse = MODE_NOSET;
     opt.progress = YES;
     opt.fault_model = FM_SAF;
     opt.cube_fdp_max_text = NULL;
@@ -154,7 +174,9 @@ void OPTinitFile(
 {
 	opt.file.input.fault		 = FILE_NOSET;
 	opt.file.input.net			 = FILE_NOSET;
+	opt.file.input.limit          = 0;
 	opt.file.output.log			 = FILE_NOSET;
+    opt.file.output.fdp = FILE_NOSET;
     opt.file.output.cube = FILE_NOSET;
 
 	return;
@@ -172,6 +194,10 @@ bool OPTset(
 {
 	for (int i = 1; i < argc; i++)
 	{
+        if (IsPathOption(argv[i]) || strcmp(argv[i], "-limit") == 0) {
+            const char* value = i + 1 < argc ? argv[i + 1] : NULL;
+            if (!CheckOptionValue(argv[i], value)) return OPT_ERROR;
+        }
         if (strcmp(argv[i], "-cube_include_incomplete") == 0) {
             const char* value = i + 1 < argc ? argv[++i] : NULL;
             if (!SetCubeIncludeIncomplete(value)) return OPT_ERROR;
@@ -206,16 +232,14 @@ bool OPTset(
 			opt.file.output.fdp = strdup(argv[++i]);
 
         else if (strcmp(argv[i], "-cube") == 0) {
-            if (i + 1 >= argc || !*argv[i + 1] || argv[i + 1][0] == '-') {
-                fprintf(stderr, "COMMAND ERROR: -cube requires an output directory\n");
-                return OPT_ERROR;
-            }
             opt.file.output.cube = strdup(argv[++i]);
         }
 
 		/** limit（テスト生成上限） */
 		else if (strcmp(argv[i], "-limit") == 0)
-			opt.file.input.limit = atoi(argv[++i]);
+        {
+            if (!SetPatternLimit(argv[++i])) return OPT_ERROR;
+        }
 
 		/** set ファイルを読み込む */
 		else if (strcmp(argv[i], "-set") == 0)
@@ -241,7 +265,7 @@ bool OPTset(
 //	@function	ディレクティブ行から値（先頭の空白を飛ばした最初のトークン）を取り出して複製する
 //	@return		(char*) strdup した値。値が無ければ NULL
 //	@note		first_delim は最初の取り出しの区切り。"-net" は空白区切り
-//	            (" \n\0")、それ以外は行末まで ("\n\0") という従来挙動をそのまま渡す。
+//	            (" \n\0")、それ以外は行末まで ("\n\0") を渡す。
 //*************************************************************************************************************
 static char* OPTreadValue(
 	char** context,			  /**< strtok_r の saveptr */
@@ -254,7 +278,7 @@ static char* OPTreadValue(
 	for (int i = 0; token[i] != '\0'; i++)
 	{
 		if (token[i] != ' ' && token[i] != '\t')
-			return strdup(strtok_r(&token[i], " \n\0", context));
+			return strdup(strtok_r(&token[i], " \t\r\n", context));
 	}
 	return (char*)NULL;
 }
@@ -286,6 +310,12 @@ bool OPTread(
 		{
 			token1 = strtok_r(buffer, " \t\r\n", &context);
 
+            if ((IsPathOption(token1) || strcmp(token1, "-limit") == 0) &&
+                !CheckOptionValue(token1, context)) {
+                free(buffer);
+                fclose(fileptr);
+                return OPT_ERROR;
+            }
             if (strcmp(token1, "-cube_include_incomplete") == 0) {
                 token2 = strtok_r(NULL, " \t\r\n", &context);
                 if (!SetCubeIncludeIncomplete(token2)) {
@@ -343,22 +373,12 @@ bool OPTread(
 			/** limit 設定 */
 			else if (strcmp(token1, "-limit") == 0)
 			{
-				token2 = strtok_r(NULL, " \n\0", &context);
-
-				// 次トークンのNULLチェック
-				if (token2 != NULL)
-				{
-					int val = atoi(token2);
-
-					if (val == 0)
-					{
-						opt.file.input.limit = 0;
-					}
-					else
-					{
-						opt.file.input.limit = val;
-					}
-				}
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!SetPatternLimit(token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
 			}
 
 			else
@@ -406,14 +426,6 @@ bool OPTcheckFile(
 	{
 		printf("\n	COMMAND ERROR: option setup is failed. ");
 		printf("no netlist file.\n\n");
-
-		return OPT_ERROR;
-	}
-
-	if (opt.file.input.fault == FILE_NOSET)
-	{
-		printf("\n	COMMAND ERROR: option setup is failed. ");
-		printf("no fault list file.\n\n");
 
 		return OPT_ERROR;
 	}

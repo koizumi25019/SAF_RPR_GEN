@@ -10,7 +10,7 @@
 
    ```bash
    # 例: c17a — net_name,f_type,fdp の3列だけ比較
-   diff <(cut -d, -f1,2,5 tests/expected/c17a_result.csv   | sort) \
+   diff <(cut -d, -f1,2,5 tests/expected/saf/c17a_result.csv   | sort) \
         <(cut -d, -f1,2,5 output/saf/full/fdp/c17a.csv   | sort)
    ```
 
@@ -37,7 +37,7 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 
 | 出力 | 期待値 |
 |------|--------|
-| `output/saf/full/fdp/c17a.csv` | `tests/expected/c17a_result.csv` |
+| `output/saf/full/fdp/c17a.csv` | `tests/expected/saf/c17a_result.csv` |
 
 ## 生成条件
 

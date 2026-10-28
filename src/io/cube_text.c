@@ -190,7 +190,7 @@ bool WriteFaultCubes(FILE* fp, const FaultResult* result, const CubeSet* cubes)
 {
     if (!fp || (!result->complete && !opt.cube_include_incomplete) ||
         mpf_sgn(result->density) <= 0) return true;
-    /* 支配流用で複数の集合を取り込むと、completeでも上限を超えることがある。 */
+    /* 列挙上限も保存条件として確認する。 */
     if (opt.file.input.limit > 0 && cubes->n > opt.file.input.limit) return true;
     if (opt.cube_fdp_max_text && mpf_cmp(result->density, opt.cube_fdp_max) > 0) return true;
     fprintf(fp, "%s\t%s\n%s\n", result->target->name,

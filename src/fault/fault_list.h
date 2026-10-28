@@ -6,7 +6,6 @@
 #include <time.h>
 
 #include <stdbool.h>
-#include "fdp/cube_set.h"
 #include "netlist/netlist.h"
 
 #include "cli/options.h"
@@ -62,11 +61,6 @@ typedef struct FaultNode
 	NLIST* netptr;					 /**< ネットリストへのポインタ */
     NLIST* exc_netptr; /**< TDF excitation at frame 1; NULL for SAF */
 	struct FaultNode* nextptr;				  /**< 次ノードへのポインタ */
-
-	struct FaultNode** subset_faults;   /**< テスト集合がこの故障の部分集合になる故障（ゲート入力故障）。これらのキューブはこの故障の正当なテストなので種＋禁止節として流用できる */
-	int                n_subset_faults; /**< subset_faults の要素数 */
-	CubeSet            cubes;           /**< この故障のテストキューブ集合（後続の支配故障が流用する） */
-	int                n_pending;       /**< まだこのキューブを流用する未処理の親故障の数。0 になれば cubes を解放してよい */
 }
 FNODE;
 
@@ -115,12 +109,6 @@ bool searchFnode(
 	FNODE* fnode				  /**< 故障ノードへのポインタ */
 );
 
-/** 文字列から故障ノードのポインタを探す */
-FNODE* searchFnodePtr(
-	char* buffer,			  /**< バッファ（キー） */
-	FNODE* head				  /**< ハッシュ故障リストの先頭 */
-);
-
 /** 故障ノードを作成する */
 FNODE* CreateFaultNode(
 	char* buffer			  /**< バッファ */
@@ -128,11 +116,6 @@ FNODE* CreateFaultNode(
 
 //等価故障解析
 void AnalyzeEquivalenceFaults(
-	void
-);
-
-//支配故障解析
-void AnalyzeDominanceFaults(
 	void
 );
 

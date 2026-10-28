@@ -15,15 +15,10 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
 
 `AnalyzeFaultDensity` のメインループ内、故障ごとのパイプライン：
 
-1. **対象選択**（`src/fault/target_fault.c`, `SetTarget`）で次の単一故障を選び、故障ハッシュ表内の `FNODE*` を直接返す。
-   故障読み込み後に `InitTargetOrder` でレベルと元の走査順位により一度だけ整列し、
-   `SetTarget` は配列を前へ進めて処理済みを飛ばす。同レベルも含め従来の選択順を維持する。
-   選択処理の合計は O(F²) から O(F log F + F) になり、終了時は `FreeTargetOrder` で配列を解放する。
-   TPG モデル構築・BDD 出力・検出状態更新も同じポインタを使い、対象用のリスト確保・解放は不要。故障は**支配関係**を持つ：
-   ある故障の `subset_faults` は、そのテスト集合がこの故障のテスト集合の部分集合になる故障。
-   既に求めた `subset_faults` のキューブを種＋禁止節として流用し、ソルバは差分 `T(f) \ ∪T(subset)`
-   だけを探索する。`n_pending` がキューブの所有権を参照カウントし、最後の消費者が終わり次第キューブ集合を解放する。
-   （環境変数 `MDC_NODOM` で流用を止めると完全列挙になる＝支配解析の検証用。）
+1. **対象選択**（`src/fault/target_fault.c`）：故障読み込み後に `InitTargetOrder` で
+   レベルと元の走査順位により一度だけ整列し、`CopyTargetOrder` で未処理故障を配列にする。
+   直列・並列ともこの順序を使い、終了時に `FreeTargetOrder` で選択用配列を解放する。
+   ソルバとキューブ集合は故障ごとに作成・解放し、各故障の検出集合を独立に列挙する。
 2. **TPG モデル**（`src/fdp/cnf/tpg_model.c` + `src/fdp/cnf/`）：テスト生成用 CNF を構築する
    ── 正常回路、故障コーン、検出（PO 差分）節 ── を CaDiCaL に渡す。
 3. **キューブ生成ループ**：CaDiCaL を solve する。SAT なら `InlineXID`（`src/fdp/xid/`）が
@@ -37,7 +32,7 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
    2^n_pi で割った確率を 8192 ビット精度の `mpf_t` に返す。一時ファイル・10進整数文字列は使わない。
    CSV は `WriteFaultResult(fp, &result)`（`src/io/fault_csv.c`）に分離し、`FaultResult` に
    対象・キューブ数・完了状態・確率をまとめる。確率の文字列化は故障ごとに1回だけ行い、等価故障にも流用する。
-   CSV の列・桁数・等価故障の出力順は維持する。
+   CSVは`net_name,f_type,cube_cnt,complete,fdp`の5列。SAFのNAND入力sa0は出力sa1、NOR入力sa1は出力sa0の結果から等価故障を出力する。
 5. **後処理**：`DropDeteFault`（`src/fault/drop_detected.c`）が今回のキューブで新たに検出された故障を落とし、
    メモリを解放する。
 
@@ -61,9 +56,8 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
   X率計測(XSTAT)、および `verification/` 配下の実験記録・SUMMARY 群はこちらにある。
   **検証・厳密照合をしたいときは `verification` を使う。**
 
-baseline に残る切り分けスイッチ（環境変数、既定無効）：
-
-- `MDC_NODOM=1` — 支配流用を止めゼロから完全列挙（支配解析の検証用、メインループ）。
+キューブの故障間流用と支配関係解析は削除済み。`-dom_reuse`は受け付けず、
+旧`MDC_NODOM`環境変数は参照しない。流用専用のCSV列・集計も持たない。
 EAは常時ON。`-ea`の切替は持たず、旧`MDC_NOEA`は参照しない。
 
 ## 正常CNFの範囲限定（常時有効）
@@ -97,8 +91,7 @@ CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登
 入力順序と実験条件は`.fdp-cube-output`だけに記録する。
 直列でも1故障のテキストをメモリストリームに作り、保存後すぐ解放する。
 信号名はファイル名用に符号化する。管理マーカー付きのディレクトリのみ再利用し、前回の予約名の故障ファイルを消す。
-流用設定が省略された場合、jobs>1ならoff、jobs=1なら従来の`MDC_NODOM`に従う。
-明示的な流用onとjobs>1の組合せはエラー。正常CNFの限定化は常時有効。
+直列・並列とも故障間でキューブを共有しない。正常CNFの限定化は常時有効。
 
 ログの`Time`は実経過秒、`CPU Time`は親＋全子のCPU秒を合計する。
 ワーカー異常終了・親の中断・出力失敗は非ゼロ終了し、子をすべて回収する。
@@ -106,4 +99,5 @@ CMakeのDebug/Release両方へ `normal_scope.c` / `normal_scope_values.c` を登
 既存CTestに加え、変更前baselineとのCSV比較は`tests/fault_pool_check.py`。
 Debug/Release、変更前52bb7acと、出荷バイナリへ検証コードを入れないcapture版は`tests/fault_pool_build.py`で作る。
 `--checker`でverificationのbf8faa8から独立検証器も隔離ビルドする。
-直列・並列のCSV一致と、変更前に対する完全FDP（上限付きでは両方完了した故障のFDP）を比較する。
+直列・並列のCSV一致と、変更前に対する代表故障の完全FDP（上限付きでは両方完了した故障のFDP）を比較する。
+旧版のNAND/NOR等価故障出力には極性の誤りがあるため、等価故障は`fault_equivalence`で独立に検証する。

@@ -99,7 +99,7 @@ def main():
     parser.add_argument('--binary', type=Path, required=True)
     parser.add_argument('--debug', type=Path, required=True)
     args = parser.parse_args()
-    env = {k: v for k, v in os.environ.items() if k != 'MDC_NODOM'}
+    env = dict(os.environ)
     with tempfile.TemporaryDirectory(prefix='fdp-cube-') as temporary:
         root = Path(temporary)
 
@@ -117,7 +117,7 @@ def main():
         for model, circuit in (('saf', ROOT / 'input/circuit/saf/c17a.v'),
                                ('tdf', ROOT / 'input/circuit/tdf/s27.v')):
             for limit in (0, 1, 30):
-                extra = f'-{model}\n-limit {limit}\n-dom_reuse off\n'
+                extra = f'-{model}\n-limit {limit}\n'
                 serial = run(f'{model}_{limit}_serial', circuit, extra)
                 rows, blocks = verify(serial, circuit, model == 'tdf')
                 parallel = run(f'{model}_{limit}_parallel', circuit, extra + '-jobs 4\n')
@@ -134,10 +134,8 @@ def main():
                     assert any(r['complete'] == '1' and r['cube_cnt'] == '1' for r in rows)
                 if model == 'tdf':
                     assert any(r['complete'] == '1' and Decimal(r['fdp']) == 0 for r in rows)
-            reuse = run(model + '_reuse', circuit, f'-{model}\n-limit 30\n')
-            verify(reuse, circuit, model == 'tdf')
             for maximum in ('1', '0.125'):
-                extra = (f'-{model}\n-limit 1\n-dom_reuse off\n'
+                extra = (f'-{model}\n-limit 1\n'
                          f'-cube_fdp_max {maximum}\n-cube_include_incomplete on\n')
                 serial = run(f'{model}_incomplete_{maximum}', circuit, extra)
                 rows, blocks = verify(serial, circuit, model == 'tdf')
@@ -149,22 +147,19 @@ def main():
                     assert cube_texts(other / 'cubes') == cube_texts(serial / 'cubes')
             # An explicit off and a later CLI override both keep the original selection.
             off = run(model + '_incomplete_off', circuit,
-                      f'-{model}\n-limit 1\n-dom_reuse off\n-cube_include_incomplete off\n')
+                      f'-{model}\n-limit 1\n-cube_include_incomplete off\n')
             assert cube_texts(off / 'cubes') == cube_texts(root / f'{model}_1_serial/cubes')
             override = run(model + '_incomplete_override', circuit,
-                           f'-{model}\n-limit 1\n-dom_reuse off\n-cube_include_incomplete on\n',
+                           f'-{model}\n-limit 1\n-cube_include_incomplete on\n',
                            cli=('-cube_include_incomplete', 'off'))
             assert cube_texts(override / 'cubes') == cube_texts(off / 'cubes')
             cli_on = run(model + '_incomplete_cli_on', circuit,
-                         f'-{model}\n-limit 1\n-dom_reuse off\n-cube_fdp_max 1\n'
+                         f'-{model}\n-limit 1\n-cube_fdp_max 1\n'
                          '-cube_include_incomplete off\n', cli=('-cube_include_incomplete', 'on'))
             assert cube_texts(cli_on / 'cubes') == cube_texts(root / f'{model}_incomplete_1/cubes')
-            reuse_partial = run(model + '_reuse_partial', circuit,
-                                f'-{model}\n-limit 1\n-cube_include_incomplete on\n')
-            verify(reuse_partial, circuit, model == 'tdf')
             # Inclusive thresholds, empty selection, scientific notation, and very small bounds.
             for maximum in ('0', '0.25', '1.25e-1', '1', '1e-1000'):
-                extra = f'-{model}\n-limit 30\n-dom_reuse off\n-cube_fdp_max {maximum}\n'
+                extra = f'-{model}\n-limit 30\n-cube_fdp_max {maximum}\n'
                 serial = run(f'{model}_max_{maximum}', circuit, extra)
                 rows, blocks = verify(serial, circuit, model == 'tdf')
                 parallel = run(f'{model}_max_{maximum}_parallel', circuit, extra + '-jobs 4\n')
@@ -180,7 +175,7 @@ def main():
                     assert not blocks
 
         circuit = ROOT / 'input/circuit/saf/c17a.v'
-        expected = list(csv.DictReader((ROOT / 'tests/expected/c17a_result.csv').open()))
+        expected = list(csv.DictReader((ROOT / 'tests/expected/saf/c17a_result.csv').open()))
         assert sorted((r['net_name'], r['f_type'], r['fdp']) for r in expected) == sorted(
             (r['net_name'], r['f_type'], r['fdp'])
             for r in csv.DictReader((root / 'saf_0_serial/fdp.csv').open()))

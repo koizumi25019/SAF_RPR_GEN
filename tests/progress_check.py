@@ -36,7 +36,7 @@ def check_controls(binary, output):
         baseline = None
         for label, extra, cli, visible in cases:
             directory = run(binary, output / f'{binary.name}_simple_controls_{jobs}_{label}', source,
-                            f'-jobs {jobs}\n-dom_reuse off\n' + extra, cli=cli, model='-saf\n')
+                            f'-jobs {jobs}\n' + extra, cli=cli, model='-saf\n')
             check_counts(directory, visible)
             if baseline is None:
                 baseline = directory
@@ -68,13 +68,10 @@ def main():
     for binary in (args.binary.resolve(), args.debug.resolve()):
         check_controls(binary, output)
         for model, circuit in (('saf', 'c17a'), ('tdf', 's27')):
-            modes = [(1, 'off'), (4, 'off'), (15, 'off')]
-            if model == 'saf':
-                modes.append((1, 'on'))
-            for jobs, reuse in modes:
+            for jobs in (1, 4, 15):
                 for limit in (0, 2, 100000):
-                    label = f'{binary.name}_{model}_{jobs}_{reuse}_{limit}'
-                    extra = f'-jobs {jobs}\n-dom_reuse {reuse}\n-limit {limit}\n'
+                    label = f'{binary.name}_{model}_{jobs}_{limit}'
+                    extra = f'-jobs {jobs}\n-limit {limit}\n'
                     source = ROOT / f'input/circuit/{model}/{circuit}.v'
                     on_dir = output / (label + '_on')
                     off_dir = output / (label + '_off')
@@ -95,7 +92,7 @@ def main():
                     if model == 'saf' and limit == 0:
                         projection = lambda p: sorted((r['net_name'], r['f_type'], r['fdp'])
                                                        for r in csv.DictReader(p.open()))
-                        assert projection(on / 'fdp.csv') == projection(ROOT / 'tests/expected/c17a_result.csv')
+                        assert projection(on / 'fdp.csv') == projection(ROOT / 'tests/expected/saf/c17a_result.csv')
     print('Completion-only progress, on/off, CLI/.set validation, removed options, '
           'serial/4/15 workers, SAF/TDF, Debug/Release, CSV/cube/golden equality: PASS')
 

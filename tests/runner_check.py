@@ -73,7 +73,7 @@ def main():
         run('run.sh', 'saf', '../tdf/s27_tdf', status=1)
         run('run.sh', 'saf', 'c17a.set')
         assert projection(root / 'output/saf/full/fdp/c17a.csv') == projection(
-            ROOT / 'tests/expected/c17a_result.csv')
+            ROOT / 'tests/expected/saf/c17a_result.csv')
         config = root / 'input/script/saf/c17a.set'
         with config.open('a') as stream:
             stream.write('\n-cube ../output/saf/full/cube/c17a\n')
@@ -101,10 +101,8 @@ def main():
                         '    f.write(json.dumps(sys.argv[1:]) + "\\n")\n')
         fake.chmod(0o755)
         defaults = {
-            'run_b15.sh': ('saf', ['b15']),
-            'run_itc99.sh': ('saf', ['b14', 'b17']),
-            'run_experiments.sh': ('saf', ['s5378_C', 's9234_C', 's13207_C',
-                                        's15850_C', 's35932_C', 's38417_C', 's38584_C']),
+            'run_itc99.sh': ('saf', ['b15']),
+            'run_experiments.sh': ('saf', ['s5378_C']),
             'run_tdf.sh': ('tdf', ['s9234_tdf', 's35932_tdf', 's38417_tdf', 'b14_tdf', 'b17_tdf']),
         }
         calls = root / 'build/calls.jsonl'

@@ -1,5 +1,6 @@
 #pragma once
 #include "io/fault_csv.h"
+#include "fdp/cube_set.h"
 
 /** 親プロセス専用。出力先と管理ファイル用の共通情報を保持する。 */
 typedef struct {

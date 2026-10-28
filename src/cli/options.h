@@ -17,7 +17,6 @@
 #define MAX_PATTERN               100         // 最大100まで指定可能
 
 #define FILE_NOSET			      (char*)NULL /**< ファイル名の初期値 */
-#define MODE_NOSET			      -1          /**< モードの初期値 */
 
 #define FM_SAF 0
 #define FM_TDF 1  /**< LOC: PI shared between frames; DFF state captured from frame 1 */
@@ -59,7 +58,6 @@ typedef struct Option
 {
 	FILES			      file;			      /**< ファイル */
     int jobs;       /**< -jobs 1..256、既定1 */
-    int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
     int progress;   /**< -progress on|off、既定on */
     int fault_model; /**< -saf / -tdf、既定SAF */
     char* cube_fdp_max_text; /**< NULLならキューブ保存のFDP上限なし */

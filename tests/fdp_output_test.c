@@ -63,7 +63,7 @@ static void check_writer(void)
     NLIST *inputs[] = {&in};
     NLIST net = {.name = "output", .type = BUF, .n_in = 1, .in = inputs};
     FNODE target = {.name = "output", .type = SF0, .netptr = &net};
-    FaultResult r = {.target = &target, .cube_cnt = 2, .seeded_cnt = 1, .complete = true};
+    FaultResult r = {.target = &target, .cube_cnt = 2, .complete = true};
     mpf_init2(r.density, 8192);
     mpf_set_ui(r.density, 3);
     mpf_div_ui(r.density, r.density, 4);
@@ -74,8 +74,8 @@ static void check_writer(void)
     rewind(fp);
     char text[256] = {0};
     assert(fread(text, 1, sizeof(text)-1, fp) > 0);
-    assert(strcmp(text, "output,sa0,2,1,7.5000000000e-01,1\ninput,sa0,,,7.5000000000e-01,\n"
-                        "output,sa0,2,0,7.5000000000e-01,1\ninput,sa0,,,7.5000000000e-01,\n") == 0);
+    assert(strcmp(text, "output,sa0,2,1,7.5000000000e-01\ninput,sa0,,,7.5000000000e-01\n"
+                        "output,sa0,2,0,7.5000000000e-01\ninput,sa0,,,7.5000000000e-01\n") == 0);
     fclose(fp);
     mpf_clear(r.density);
 }
@@ -89,7 +89,7 @@ static void check_cube_selection(void)
     mpf_init2(result.density, 8192);
     mpf_set_ui(result.density, 1);
     FILE* fp = tmpfile(); assert(fp);
-    opt.file.input.limit = 1; /* 流用で上限超過・UNSATになった場合も除外する。 */
+    opt.file.input.limit = 1; /* 上限を超えるキューブ集合は保存しない。 */
     assert(WriteFaultCubes(fp, &result, &cubes));
     assert(ftell(fp) == 0);
     opt.file.input.limit = 2; /* 上限ちょうどの完全被覆は保存する。 */

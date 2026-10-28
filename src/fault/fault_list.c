@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <time.h>
 
 #include "fault/fault_list.h"
 #include "common/memory.h"
@@ -116,15 +115,6 @@ bool ReadFault(
 		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
 
-	if (opt.fault_model != FM_TDF) {
-		struct timespec _adfs, _adfe;
-		clock_gettime(CLOCK_MONOTONIC, &_adfs);
-		AnalyzeDominanceFaults();
-		clock_gettime(CLOCK_MONOTONIC, &_adfe);
-		printf("AnalyzeDominanceFaults: %.3f sec\n",
-			(_adfe.tv_sec - _adfs.tv_sec) + (_adfe.tv_nsec - _adfs.tv_nsec) / 1e9);
-	}
-
 	return READ_OKAY;
 }
 
@@ -140,9 +130,7 @@ bool CreateFaultList(
 	int			hash = 0;
 	FNODE* fnodeptr = (FNODE*)NULL;
 
-	/* 入力行を正規形 "name\tsaX\n" に揃える（区切りが空白でもタブでも可）。
-	   FindFnodeByNameType はこの正規形でハッシュ・照合するため、生の行のまま
-	   登録するとスペース区切りの故障リストでは支配解析の照合に失敗する。 */
+	/* 空白・タブ区切りを正規化し、同じ故障を重複登録しない。 */
 	{
 		static char name[MAXSIZE_BUFFER];
 		char type[8];
@@ -193,29 +181,6 @@ bool searchFnode(
 	}
 
 	return NOT_FOUND;
-}
-
-//*************************************************************************************************************
-//	@name		searchFnodePtr
-//	@function	文字列から故障ノードのポインタを探す
-//	@return		(FNODE*) 見つかったノードへのポインタ、無ければ NULL
-//*************************************************************************************************************
-FNODE* searchFnodePtr(
-	char* buffer,
-	FNODE* head	
-)
-{
-	FNODE* fnodeptr = head;
-	while (fnodeptr != NULL)
-	{
-		// CreateFaultNode でセットされた string (完全な "name type" 文字列) と比較
-		if (strcmp(fnodeptr->string, buffer) == 0)
-		{
-			return fnodeptr;
-		}
-		fnodeptr = fnodeptr->nextptr;
-	}
-	return (FNODE*)NULL;
 }
 
 //*************************************************************************************************************
@@ -375,28 +340,7 @@ FNODE* CreateFaultNode(
 	/** 次ノードへのポインタを設定する */
 	fnodeptr->nextptr = (FNODE*)NULL;
 
-	fnodeptr->subset_faults   = (FNODE**)NULL;
-	fnodeptr->n_subset_faults = 0;
-	fnodeptr->cubes           = (CubeSet){ 0 };
-	fnodeptr->n_pending       = 0;
-
 	return fnodeptr;
-}
-
-//*************************************************************************************************************
-//	@name		FindFnodeByNameType
-//	@function	ネット名と故障タイプから故障ノードを探す
-//	@return		(FNODE*) 故障ノードへのポインタ、無ければ NULL
-//*************************************************************************************************************
-static FNODE* FindFnodeByNameType(
-	const char* name,
-	int type
-)
-{
-	char buf[MAXSIZE_BUFFER];
-	snprintf(buf, sizeof(buf), "%s\t%s\n", name, (type == SF0) ? "sa0" : "sa1");
-	int hash = calcHash(buf);
-	return searchFnodePtr(buf, readdata.fault.list[hash]);
 }
 
 ///*************************************************************************************************************
@@ -445,47 +389,6 @@ void AnalyzeEquivalenceFaults()
 				break;
 		}
 	}
-}
-
-//*************************************************************************************************************
-//	@name		AnalyzeDominanceFaults
-//	@function	支配関係を解析し、各故障に「キューブを流用できる部分集合故障」を結びつける
-//	@note		AND/NOR 出力SA1 のテスト集合は各入力SA1 のテスト集合を包含する（T(入力)⊆T(出力)）。
-//	            OR/NAND 出力SA0 も同様。出力故障の処理時に入力故障のキューブを流用するため、
-//	            出力故障（支配する側）に入力故障（部分集合側）を subset_faults として登録する。
-//*************************************************************************************************************
-void AnalyzeDominanceFaults(void)
-{
-	int edges = 0;
-
-	for (int i = 0; i < n_net; i++)
-	{
-		int ftype;
-		switch (nl[i].type)
-		{
-		case AND: case NOR:   ftype = SF1; break;
-		case OR:  case NAND:  ftype = SF0; break;
-		default: continue;
-		}
-
-		// ゲート出力の故障（支配する側）
-		FNODE* out = FindFnodeByNameType(nl[i].name, ftype);
-		if (!out) continue;
-
-		// ファンイン数ぶんを一括確保し、存在する入力故障（部分集合側）だけを詰める
-		out->subset_faults = (FNODE**)malloc((size_t)nl[i].n_in * sizeof(FNODE*));
-		for (int j = 0; j < nl[i].n_in; j++)
-		{
-			FNODE* in = FindFnodeByNameType(nl[i].in[j]->name, ftype);
-			if (!in) continue;
-
-			out->subset_faults[out->n_subset_faults++] = in;
-			in->n_pending++;   // in のキューブを流用する親が 1 つ増えた
-			edges++;
-		}
-	}
-
-	printf("Dominance fault analysis: %d reuse edges\n", edges);
 }
 
 /* TDF equivalence: BUF/INV only, never across a DFF boundary. */

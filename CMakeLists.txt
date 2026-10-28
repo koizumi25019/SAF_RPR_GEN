@@ -88,6 +88,12 @@ if(BUILD_TESTING)
 
     find_package(Python3 COMPONENTS Interpreter)
     if(Python3_Interpreter_FOUND)
+        add_test(NAME fault_equivalence COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/fault_equivalence_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
+        add_test(NAME options_paths COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/options_paths_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME cube_output COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/cube_output_check.py
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)

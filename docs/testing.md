@@ -6,32 +6,38 @@
 
 `ctest --test-dir build --output-on-failure` で対象故障の選択順、BDD→GMP の数え上げ・確率変換と CSV 出力のテストを実行する。
 Python3がある環境では `tdf_model` も実行し、TDFの独立全入力シミュレーション・設定切替・直列並列一致を確認する。
+`options_paths`はCLIと`.set`の値欠落・必須設定・limitの整数検証と、故障リスト省略時の自動生成を確認する。
+相対・絶対パス、階層数、拡張子の有無、複数のドットを含む名前で、回路名とc17aのFDPを確認する。
 `batch_runner` は全設定の入力パス・出力先モデルを確認し、隔離した作業ツリーでSAF/TDFの実行、
 既定の回路セット、出力ディレクトリの作成、失敗後の続行と終了コードを検証する。既存の実験結果は上書きしない。
 `cube_output`はSAF/TDFの保存対象をCSVの完了・正のFDPと照合し、未完了・冗長・等価削除された故障の除外、
-上限ちょうどでの完了、無制限・limit1・limit30、直列・並列・Debug/Release一致、支配流用、
+上限ちょうどでの完了、無制限・limit1・limit30、直列・並列・Debug/Release一致、
 保存有無でのCSV一致、空故障、CLI/.set設定、I/O失敗を確認する。
 保存キューブを全入力へ展開してFDPと照合し、TDFでは独立した元回路シミュレーションの検出集合とも一致を確認する。
 FDP上限による絞り込みは、上限値と等しい故障、0・1・指数表記・微小値、CLI/.setの上書き、不正値の拒否、
 丸め前の比較、直列・並列・Debug/Releaseの一致とFDP CSVが変わらないことを確認する。
-`-cube_include_incomplete`の既定・on/off・CLI上書き・不正値、未完了時のFDP上限との併用と支配流用を確認する。
+`-cube_include_incomplete`の既定・on/off・CLI上書き・不正値、未完了時のFDP上限との併用を確認する。
 個別ファイルのタブ区切りの故障名・故障種別、2行目のcomplete/incomplete、3行目以降のキューブのみの形式を確認し、
 完了状態をCSVと照合する。未完了のTDF被覆は検出集合の部分集合であることを独立に検証する。
 故障別ファイルの件数・接頭辞なしのファイル名・管理ファイルの入力順序・直列並列一致、条件を変えた再実行での古い結果の除去、
 無関係なファイルの保持、既存の非空ディレクトリ・旧集約ファイル・不正な管理マーカーの拒否、旧マーカー付きディレクトリの再利用も確認する。
 `fdp_output`にはパス区切りを含む信号名の符号化と、故障ファイルの書き込み失敗時の通知・部分ファイル除去を含む。
+`fault_equivalence`はAND/NAND/OR/NOR・BUF/INVと多段回路の計12種類について、全入力の独立シミュレーションから全SAFの検出集合を求める。
+CSVの代表・等価故障のFDPと保存キューブの被覆を照合し、直列・4並列とDebug/Releaseの一致、旧流用設定の削除も確認する。
+CSVが5列であり、代表故障・等価故障とも余分な末尾列がないことを確認する。
+旧52bb7acとの比較ではNAND/NORの等価故障FDPが誤っているため代表故障だけを比較し、等価故障はこの独立検証を使う。
 `fault_progress`は完了故障数が1から総故障数まで順に表示されることと、`-progress off`で表示が止まることを確認する。
-直列・4並列・15並列、SAF/TDF、Debug/Release、上限指定・支配流用、CLI/.setの指定と上書き・不正値も検証する。
+直列・4並列・15並列、SAF/TDF、Debug/Release、上限指定、CLI/.setの指定と上書き・不正値も検証する。
 表示ON/OFFでCSVと保存キューブが一致し、無制限のc17aが既知のFDPと一致することを確認する。
 対象選択は従来の全走査と照合し、同レベルの順序、処理済みのスキップ、空集合、再初期化を確認する。
 空集合、重複、独立全列挙、32ビット桁境界、大きな数え上げ、等価故障と完了フラグを確認する。
 パイプライン全体の正しさは `tests/expected/` のゴールデンファイルと CSV 出力を比較して検証する
-（`tests/expected/README.md` 参照）。**挙動が変わりうる変更をしたら、c17a を実行して `fdp` 列が
-`tests/expected/c17a_result.csv` と一致することを確認する**：
+（`tests/expected/saf/README.md` 参照）。**挙動が変わりうる変更をしたら、c17a を実行して `fdp` 列が
+`tests/expected/saf/c17a_result.csv` と一致することを確認する**：
 
 ```bash
 ./scripts/run.sh saf c17a
-diff <(cut -d, -f1,2,5 tests/expected/c17a_result.csv | sort) \
+diff <(cut -d, -f1,2,5 tests/expected/saf/c17a_result.csv | sort) \
      <(cut -d, -f1,2,5 output/saf/full/fdp/c17a.csv | sort)
 ```
 

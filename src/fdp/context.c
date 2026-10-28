@@ -68,6 +68,22 @@ static void ComputeLevels(void)
 		ComputeLevelOf(&nl[i]);
 }
 
+static char* ExtractCircuitName(const char* path)
+{
+	const char* last_slash = strrchr(path, '/');
+	const char* filename = last_slash ? last_slash + 1 : path;
+	const char* last_dot = strrchr(filename, '.');
+	size_t name_length = strlen(filename);
+	if (last_dot != NULL && last_dot != filename) {
+		name_length = (size_t)(last_dot - filename);
+	}
+
+	char* name = allocMemory(name_length + 1, sizeof(char));
+	memcpy(name, filename, name_length);
+	name[name_length] = '\0';
+	return name;
+}
+
 //*************************************************************************************************************
 //	@name		InitGlobalVarsNLIST
 //	@function	initialize the netlist
@@ -92,18 +108,7 @@ void InitGlobalVarsNLIST(
 
 	ComputeLevels();
 
-	char* buffer = (char*)NULL;
-	char* token = (char*)NULL;
-	char* context = (char*)NULL;
-	buffer = (char*)allocMemory(MAXSIZE_BUFFER, sizeof(char));
-	strncpy(buffer, opt.file.input.net, MAXSIZE_BUFFER);
-	token = strtok_r(buffer, "/", &context);
-	token = strtok_r(NULL, "/", &context);
-	token = strtok_r(NULL, "/", &context);
-	token = strtok_r(NULL, ".", &context);
-	net_name = strdup(token);
-
-	free(buffer);
+	net_name = ExtractCircuitName(opt.file.input.net);
 	return;
 }
 

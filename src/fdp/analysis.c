@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #include <cudd.h>
 #include <gmp.h>
@@ -64,17 +63,6 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
 
     CubeSet cubes;
     cubeset_init(&cubes, opt.file.input.limit > 0 ? opt.file.input.limit : 30);
-    int seeded_cnt = 0;
-    bool reuse = opt.dom_reuse == YES;
-    for (int index = 0; reuse && index < target->n_subset_faults; index++) {
-        FNODE* source = target->subset_faults[index];
-        for (int cube = 0; cube < source->cubes.n; cube++) {
-            cubeset_push(&cubes, strdup(source->cubes.data[cube]));
-            AddBlockingClauseFromCube(solver, source->cubes.data[cube]);
-        }
-        seeded_cnt += source->cubes.n;
-        if (--source->n_pending == 0) cubeset_free(&source->cubes);
-    }
 
     bool succeeded = true;
     bool unlimited = opt.file.input.limit <= 0;
@@ -94,13 +82,10 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
         }
         if (status == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
             bool limit_hit = !unlimited && cubes.n >= opt.file.input.limit && status != 20;
-            stats->total_cubes += cubes.n;
-            stats->seeded_cubes += seeded_cnt;
 
             FaultResult result = {
                 .target = target,
                 .cube_cnt = cubes.n,
-                .seeded_cnt = seeded_cnt,
                 .complete = !limit_hit
             };
             mpf_init2(result.density, 8192);
@@ -116,9 +101,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             mpf_clear(result.density);
             stats->bdd += (double)(clock() - start) / CLOCKS_PER_SEC;
 
-            /* 流用なしならこの故障で解放。流用ありは従来の参照数で管理する。 */
-            target->cubes = cubes;
-            if (!reuse || target->n_pending == 0) cubeset_free(&target->cubes);
+            cubeset_free(&cubes);
             DropDeteFault(target);
             break;
         }
@@ -186,7 +169,7 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     CubeOutput cube_output = {0};
     CubeOutput* cubes = opt.file.output.cube ? &cube_output : NULL;
     fileOpen(&result_fp, opt.file.output.fdp, "w");
-    fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp,seeded_cnt\n");
+    fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp\n");
     FaultAnalysisContext context = {0};
     FaultStats stats = {0};
     bool succeeded = InitGlobalVars() == INIT_OKAY;
@@ -202,15 +185,9 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     if (succeeded) succeeded = InitTargetOrder();
     if (succeeded && cubes) succeeded = InitCubeOutput(cubes, opt.file.output.cube);
 
-    /* 準備後にforkする。キューブ流用なしでは、全故障を独立して配分できる。 */
-    if (succeeded && opt.dom_reuse == NO) {
+    /* 準備後にforkし、各故障を独立して処理する。 */
+    if (succeeded) {
         succeeded = AnalyzeIndependentFaults(&context, result_fp, cubes, &stats);
-    } else if (succeeded) {
-        int fault_number = 0;
-        while (readdata.fault.numrema && succeeded) {
-            FNODE* target = SetTarget();
-            succeeded = target && AnalyzeSerialFault(target, ++fault_number, result_fp, cubes, &stats, &context);
-        }
     }
     if (opt.jobs == 1) FinishFaultAnalysis(&context);
     FreeTargetOrder();
@@ -218,10 +195,6 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     FreeCubeOutput(&cube_output);
     if (!succeeded) return AFD_ERROR;
 
-    long sat_calls = stats.total_cubes - stats.seeded_cubes;
-    double reduction = stats.total_cubes > 0 ? 100.0 * stats.seeded_cubes / stats.total_cubes : 0.0;
-    printf("\n[DOM] total_cubes=%ld  seeded=%ld  sat_calls=%ld  reduction=%.1f%%\n",
-           stats.total_cubes, stats.seeded_cubes, sat_calls, reduction);
     *out_time_cadical = stats.cadical;
     *out_time_bdd = stats.bdd;
     *out_time_xid = stats.xid;

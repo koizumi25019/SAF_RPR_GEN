@@ -2,13 +2,11 @@
 #include "fault/fault_list.h"
 #include "io/cube_text.h"
 
-/* 1故障のCPU秒・キューブ数。並列では親が全ワーカー分を合計する。 */
+/* 1故障のCPU秒。並列では親が全ワーカー分を合計する。 */
 typedef struct {
     double cadical;
     double bdd;
     double xid;
-    long total_cubes;
-    long seeded_cubes;
 } FaultStats;
 
 /* 直列とワーカーで共通の1故障処理。並列時の出力先は子専用メモリストリーム。 */

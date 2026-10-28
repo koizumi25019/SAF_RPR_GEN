@@ -31,7 +31,6 @@ static void WriteReport(
 	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
     fprintf(fp, "//  Don't-care Method                         : XID\n");
-    fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
     fprintf(fp, "//  Fault Workers                             : %d\n", FaultPoolWorkers());
     fprintf(fp, "//  CPU Accounting                            : parent + all worker processes\n");
     fprintf(fp, "//  Time                                      : %.3f sec\n", wall_time);

@@ -28,9 +28,8 @@ Linux/WSL2で動作する。最適な数はCPUコア数・メモリ・故障ご�
 EAも常時ONで、単位節の投入先をそのTFI内に限定する。EAの切替や`MDC_NOEA`参照は持たない。
 全PI・PI順・FDPの分母は維持する。`FDP_NORMAL_SCOPE_VALIDATE=1`による値照合は使用可能。
 
-キューブ流用は並列では無効。設定省略時も自動でoffになる。
-`-dom_reuse on`と`-jobs 2`以上の組合せはエラー。
-直列の流用設定は`-dom_reuse on|off`で指定でき、省略時は従来の`MDC_NODOM`に従う。
+故障間のキューブ流用は削除済み。直列・並列とも各故障を独立に計算する。
+旧`-dom_reuse`指定は設定から削除する。旧`MDC_NODOM`は参照しない。
 
 ## レビューする順番
 
@@ -96,8 +95,9 @@ python3 tests/fault_pool_check.py --reference build/fault_pool_checks/main_refer
 ```
 
 9小回路とs5378_Cの直列・4並列CSVを、等価故障・行順を含めて比較する。
-範囲変更でキューブ選択が変わり得るため、変更前とは完全FDP（上限付きは両方完了した故障のFDP）を比較する。
-c17の既知FDP、Debug/Release、直列流用on/off、空故障、ワーカー数の上限調整、
+範囲変更でキューブ選択が変わり得るため、変更前とは代表故障の完全FDP（上限付きは両方完了した故障のFDP）を比較する。
+旧版のNAND/NORの等価故障出力には極性の誤りがあるため、等価故障はCTestの`fault_equivalence`で独立に検証する。
+c17の既知FDP、Debug/Release、空故障、ワーカー数の上限調整、
 `.set`/CLI設定、I/O失敗、子のSIGKILL、親のSIGTERMを確認する。
 ビルドと一時出力は`build/fault_pool_checks/`へ隔離する。
 

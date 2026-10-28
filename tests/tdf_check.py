@@ -183,7 +183,7 @@ def run(binary, directory, circuit, extra='', cli=(), capture=False, success=Tru
     config = directory / 'run.set'
     config.write_text(model + f'-net {circuit}\n-fdp {directory}/fdp.csv\n'
                       f'-log {directory}/time.log\n' + extra)
-    env = {k: v for k, v in os.environ.items() if k not in ('MDC_NODOM', 'MDC_NOPROP')}
+    env = {k: v for k, v in os.environ.items() if k != 'MDC_NOPROP'}
     env['FDP_NORMAL_SCOPE_VALIDATE'] = '1'
     if capture:
         for old in directory.glob('*.cover'): old.unlink()
@@ -253,7 +253,7 @@ endmodule
         directory = output / label; directory.mkdir(exist_ok=True)
         run(binary, directory, circuit, extra, cli, model='' if label == 'default_saf' else '-tdf\n')
         projection = lambda p: sorted((r['net_name'],r['f_type'],r['fdp']) for r in csv.DictReader(p.open()))
-        assert projection(directory / 'fdp.csv') == projection(ROOT / 'tests/expected/c17a_result.csv')
+        assert projection(directory / 'fdp.csv') == projection(ROOT / 'tests/expected/saf/c17a_result.csv')
     unsupported = output / 'reset_ff.v'
     unsupported.write_text(s27.read_text().replace('DFF ', 'RDFF ').replace('.D(G10)', '.CD(G0), .D(G10)')
                           .replace('.D(G11)', '.CD(G0), .D(G11)').replace('.D(G13)', '.CD(G0), .D(G13)'))

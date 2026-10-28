@@ -48,8 +48,6 @@ void FaultStatsAdd(FaultStats* sum, const FaultStats* part)
     sum->cadical += part->cadical;
     sum->bdd += part->bdd;
     sum->xid += part->xid;
-    sum->total_cubes += part->total_cubes;
-    sum->seeded_cubes += part->seeded_cubes;
 }
 
 /* 以下のWorkerStateとFaultPoolは親側の管理情報。子の作業構造体ではない。 */
@@ -462,7 +460,7 @@ bool FaultPoolRun(FNODE** faults, int count, int jobs, FaultTask task,
         succeeded = start_worker(&pool, index, task, finish, context) &&
                     assign_next_fault(&pool, index);
     }
-    fprintf(stderr, "[PARALLEL] workers=%d faults=%d reuse=off\n", worker_count, count);
+    fprintf(stderr, "[PARALLEL] workers=%d faults=%d\n", worker_count, count);
 
     /* 2. 完了返信を待つ → 出力・集計 → 空いたワーカーへ次の故障を配る。 */
     if (succeeded) {
