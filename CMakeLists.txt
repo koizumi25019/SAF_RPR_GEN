@@ -29,6 +29,13 @@ set(SOURCES
     src/netlist/expand_tdf.c
     src/opt/opt.c
     src/fdp/sbxid/sbxid.c
+    src/fdp/xid/xid_adapter.c
+    src/fdp/xid/xid_model_values.c
+    src/fdp/xid/XID.c
+    src/fdp/xid/xid_fsim.c
+    src/fdp/xid/xid_forward_imp.c
+    src/fdp/xid/xid_backward_imp.c
+    src/fdp/xid/xid_backward_imp_limited.c
 )
 
 set(TOOLS_DIR ${CMAKE_SOURCE_DIR}/external)
@@ -137,6 +144,10 @@ if(BUILD_TESTING)
     if(FDP_BUILD_APP)
         find_package(Python3 COMPONENTS Interpreter)
         if(Python3_Interpreter_FOUND)
+            add_test(NAME dc_method_switch COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/tests/dc_method_check.py
+                --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>
+                --output ${CMAKE_BINARY_DIR}/dc_method_checks)
             add_test(NAME sbxid_pi_objective_integration COMMAND ${Python3_EXECUTABLE}
                 ${CMAKE_SOURCE_DIR}/tests/sbxid_pi_objective_check.py
                 --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>

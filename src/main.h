@@ -23,7 +23,7 @@ bool OutLogfile(
 	double cpu_time,
     double time_cadical,
     double time_bdd,
-    double time_sbxid,
+    double time_dont_care,
     double time_read
 );
 

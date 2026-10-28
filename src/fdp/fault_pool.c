@@ -48,6 +48,7 @@ void FaultStatsAdd(FaultStats* sum, const FaultStats* part)
     sum->cadical += part->cadical;
     sum->bdd += part->bdd;
     sum->sbxid += part->sbxid;
+    sum->xid += part->xid;
     sum->clasp_wall += part->clasp_wall;
     sum->sbxid_optimal += part->sbxid_optimal;
     sum->sbxid_feasible += part->sbxid_feasible;

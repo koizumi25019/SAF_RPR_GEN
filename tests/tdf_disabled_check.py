@@ -10,20 +10,22 @@ parser.add_argument('--output', type=Path, required=True)
 args = parser.parse_args()
 args.output.mkdir(parents=True, exist_ok=True)
 for binary in (args.binary, args.debug):
-    for mode in ('cli', 'set'):
-        prefix = args.output / (binary.name + '_' + mode)
+    for mode, method in ((mode, method) for mode in ('cli', 'set')
+                         for method in ('xid', 'sbxid')):
+        prefix = args.output / (binary.name + '_' + mode + '_' + method)
         output = prefix.with_suffix('.csv')
         output.unlink(missing_ok=True)
         # Deliberately missing netlist: rejection must precede circuit reading.
-        options = ['-tdf', '-net', str(prefix.with_suffix('.missing.v')),
+        options = ['-tdf', '-dc_method', method, '-net', str(prefix.with_suffix('.missing.v')),
                    '-fdp', str(output), '-log', str(prefix.with_suffix('.log'))]
         if mode == 'set':
             config = prefix.with_suffix('.set')
-            config.write_text('\n'.join(options) + '\n')
+            config.write_text(options[0] + '\n' + '\n'.join(
+                ' '.join(options[i:i + 2]) for i in range(1, len(options), 2)) + '\n')
             options = ['-set', str(config)]
         result = subprocess.run([str(binary), *options], capture_output=True,
                                 text=True, timeout=10)
         assert result.returncode != 0, (binary, mode)
         assert 'TDF is disabled in this SB-XID build' in result.stderr, result
         assert not output.exists(), output
-print('TDF rejected for CLI/.set in Debug and Release')
+print('TDF rejected for both methods, CLI/.set, Debug and Release')

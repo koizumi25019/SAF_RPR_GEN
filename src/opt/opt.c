@@ -13,11 +13,19 @@
 static bool IsValueOption(const char* name)
 {
     return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
-           strcmp(name, "-sbxid_pi_objective") == 0;
+           strcmp(name, "-sbxid_pi_objective") == 0 || strcmp(name, "-dc_method") == 0;
 }
 
 static bool SetValueOption(const char* name, const char* value)
 {
+    if (strcmp(name, "-dc_method") == 0) {
+        if (value && (strcmp(value, "xid") == 0 || strcmp(value, "sbxid") == 0)) {
+            opt.dc_method = strcmp(value, "xid") == 0 ? DC_XID : DC_SBXID;
+            return true;
+        }
+        fprintf(stderr, "COMMAND ERROR: -dc_method requires xid|sbxid\n");
+        return false;
+    }
     if (strcmp(name, "-sbxid_pi_objective") == 0) {
         if (value && (strcmp(value, "all") == 0 || strcmp(value, "scope") == 0)) {
             opt.sbxid_pi_scope = strcmp(value, "scope") == 0;
@@ -96,6 +104,7 @@ void OPTinit(
     opt.dom_reuse = MODE_NOSET;
     opt.fault_model = FM_SAF;
     opt.sbxid_pi_scope = YES;
+    opt.dc_method = DC_SBXID;
 
 	return;
 }

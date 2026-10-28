@@ -6,6 +6,7 @@ typedef struct {
     double cadical;
     double bdd;
     double sbxid;
+    double xid;
     double clasp_wall;
     long sbxid_optimal;
     long sbxid_feasible;

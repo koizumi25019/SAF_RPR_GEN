@@ -17,6 +17,7 @@
 #include "cudd_wrapper.h"
 #include "fault_result.h"
 #include "sbxid/sbxid.h"
+#include "xid/XID.h"
 #include "normal_scope.h"
 #include "fault_pool.h"
 
@@ -49,7 +50,7 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
     ccadical_add(solver, 0);
 }
 
-/* 直列・並列で共通の1故障処理。SAT→SB-XID→禁止節を繰り返し、BDD・CSVへ進む。
+/* 直列・並列で共通の1故障処理。SAT→選択したDC判定→禁止節→BDD・CSV。
  */
 static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
                             FaultStats* stats, void* opaque)
@@ -67,7 +68,7 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
         ccadical_release(solver);
         return false;
     }
-    if (opt.sbxid_pi_scope) {
+    if (opt.dc_method == DC_SBXID && opt.sbxid_pi_scope) {
         if (!context->sbxid_pi_scope)
             context->sbxid_pi_scope = malloc((size_t)n_pi);
         if (!context->sbxid_pi_scope) {
@@ -143,31 +144,36 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             printf("\rProgress >> %d/%d", fault_number, readdata.fault.numinit);
         }
         start = clock();
-        char* seed = malloc((size_t)n_pi + 1);
-        char* pattern = malloc((size_t)n_pi + 1);
-        if (!seed || !pattern || (target->type != SF0 && target->type != SF1)) {
-            fprintf(stderr, "ERROR: cannot prepare SB-XID input for %s.\n", target->name);
-            free(seed); free(pattern); cubeset_free(&cubes);
-            succeeded = false;
-            break;
+        char* pattern = NULL;
+        bool generalized = false;
+        if (opt.dc_method == DC_XID) {
+            pattern = InlineXID(solver, target->netptr, -1, NULL);
+            stats->xid += (double)(clock() - start) / CLOCKS_PER_SEC;
+            generalized = pattern != NULL;
+        } else {
+            char* seed = malloc((size_t)n_pi + 1);
+            pattern = malloc((size_t)n_pi + 1);
+            if (seed && pattern && (target->type == SF0 || target->type == SF1)) {
+                NormalScopeFillPiPattern(solver, seed);
+                SbxidInfo info;
+                generalized = sbxid_generalize(seed, target->netptr->n,
+                    target->type == SF0 ? 0 : 1,
+                    opt.sbxid_pi_scope ? context->sbxid_pi_scope : NULL, pattern, &info);
+                stats->clasp_wall += info.solve.seconds;
+                stats->sbxid_optimal += info.solve.status == SBXID_SOLVE_OPTIMAL;
+                stats->sbxid_feasible += info.solve.status == SBXID_SOLVE_FEASIBLE;
+                stats->sbxid_timeouts += info.solve.timed_out != 0;
+                stats->sbxid_unknown += info.solve.status == SBXID_SOLVE_UNKNOWN;
+                stats->sbxid_verified += info.verified;
+                stats->sbxid_verify_failed += info.verification_failed;
+                generalized = generalized && NormalScopeValidateModel(solver);
+            }
+            free(seed);
+            stats->sbxid += (double)(clock() - start) / CLOCKS_PER_SEC;
         }
-        NormalScopeFillPiPattern(solver, seed);
-        SbxidInfo info;
-        bool generalized = sbxid_generalize(seed, target->netptr->n,
-            target->type == SF0 ? 0 : 1,
-            opt.sbxid_pi_scope ? context->sbxid_pi_scope : NULL, pattern, &info);
-        free(seed);
-        stats->sbxid += (double)(clock() - start) / CLOCKS_PER_SEC;
-        stats->clasp_wall += info.solve.seconds;
-        stats->sbxid_optimal += info.solve.status == SBXID_SOLVE_OPTIMAL;
-        stats->sbxid_feasible += info.solve.status == SBXID_SOLVE_FEASIBLE;
-        stats->sbxid_timeouts += info.solve.timed_out != 0;
-        stats->sbxid_unknown += info.solve.status == SBXID_SOLVE_UNKNOWN;
-        stats->sbxid_verified += info.verified;
-        stats->sbxid_verify_failed += info.verification_failed;
-        if (!generalized || !NormalScopeValidateModel(solver)) {
-            fprintf(stderr, "ERROR: SB-XID failed for %s %s; no cube blocked.\n",
-                    target->name, FaultTypeName(target->type));
+        if (!generalized) {
+            fprintf(stderr, "ERROR: %s failed for %s %s; no cube blocked.\n",
+                    opt.dc_method == DC_XID ? "XID" : "SB-XID", target->name, FaultTypeName(target->type));
             free(pattern); cubeset_free(&cubes);
             succeeded = false;
             break;
@@ -187,6 +193,7 @@ static void FinishFaultAnalysis(void* opaque)
     free(context->sbxid_pi_scope);
     context->sbxid_pi_scope = NULL;
     sbxid_release();
+    NormalScopeModelRelease();
     NormalScopeRelease();
 }
 
@@ -211,7 +218,7 @@ static bool AnalyzeIndependentFaults(FaultAnalysisContext* context, FILE* result
 }
 
 bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
-                         double* out_time_sbxid, double* out_time_read)
+                         double* out_time_dont_care, double* out_time_read)
 {
     FILE* result_fp = NULL;
     fileOpen(&result_fp, opt.file.output.fdp, "w");
@@ -252,7 +259,7 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
            stats.total_cubes, stats.seeded_cubes, sat_calls, reduction);
     *out_time_cadical = stats.cadical;
     *out_time_bdd = stats.bdd;
-    *out_time_sbxid = stats.sbxid;
+    *out_time_dont_care = stats.sbxid + stats.xid;
     *out_time_read = time_read;
     final_stats = stats;
     return AFD_OKAY;

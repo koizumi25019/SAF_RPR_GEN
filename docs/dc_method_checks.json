@@ -1,0 +1,273 @@
+{
+  "runs": [
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_release",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "c17a",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 36,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "xid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 2,
+      "reuse": "off",
+      "rows": 52,
+      "complete_fdp_equal": true
+    },
+    {
+      "binary": "main_debug",
+      "circuit": "s27_C",
+      "method": "sbxid",
+      "jobs": 1,
+      "reuse": "on",
+      "rows": 52,
+      "complete_fdp_equal": true
+    }
+  ],
+  "invalid_cli_and_set_rejected": true,
+  "default_sbxid_preserved": true,
+  "cli_override_works": true,
+  "xid_reference_checked": true,
+  "sbxid_reference_checked": true,
+  "checked_at_jst": "2026-10-28T12:49:11.888660+09:00",
+  "branch": "exp/sb-xid",
+  "sbxid_reference_commit": "d6c4dd0d6e7e5324d38611d24c42613f5ab4fb34",
+  "xid_reference_commit": "23abc615fb67d242c5bef9a15fce9829b31298a4",
+  "ctest": {
+    "passed": 10,
+    "failed": 0,
+    "tests": [
+      "target_order",
+      "fdp_output",
+      "sbxid_core",
+      "sbxid_fault_scope",
+      "sbxid_pi_objective",
+      "normal_scope_pattern",
+      "clasp_bridge",
+      "dc_method_switch",
+      "sbxid_pi_objective_integration",
+      "tdf_disabled"
+    ]
+  },
+  "implementation": {
+    "option": "-dc_method xid|sbxid",
+    "default": "sbxid",
+    "shared": "ATPG, normal-CNF scope, EA, blocking, BDD, fault list and worker pool",
+    "xid": "existing InlineXID algorithm plus restored baseline normal-model simulator",
+    "sbxid": "existing SB-XID v1, one-second clasp deadline and scope objective preserved",
+    "tdf": "disabled for both methods",
+    "log": "selected method and selected-method CPU time; clasp fields only for SB-XID"
+  },
+  "reference_comparison": {
+    "circuits": [
+      "c17a",
+      "s27_C"
+    ],
+    "per_fault_fdp_cube_counts_and_complete_flags_equal": true,
+    "xid_equals_separately_built_baseline": true,
+    "sbxid_equals_prechange_binary": true
+  },
+  "script_smoke_test": {
+    "command": "bash run_compare_dc.sh c17a 2 0",
+    "both_modes_completed": true,
+    "timing_csv_created": true,
+    "representatives_complete_each": 22
+  },
+  "limits": [
+    "No full s5378 timing experiment was run for this feature change.",
+    "Partial FDP can differ across methods; runtime comparison should include completion and coverage quality."
+  ]
+}

@@ -31,7 +31,7 @@ int main(
 	// CPU時間受け取り用
 	double time_cadical = 0.0;
 	double time_bdd     = 0.0;
-	double time_sbxid     = 0.0;
+	double time_dont_care     = 0.0;
 	double time_read    = 0.0;
 
 	clock_gettime(CLOCK_MONOTONIC, &wall_start);
@@ -50,7 +50,7 @@ int main(
 	read_nl(opt.file.input.net);
 
 	// 故障検出確率を算出する
-	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_sbxid, &time_read) != AFD_OKAY) return EXIT_FAILURE;
+	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_dont_care, &time_read) != AFD_OKAY) return EXIT_FAILURE;
 
 	clock_gettime(CLOCK_MONOTONIC, &wall_end);
 	cpu_end = clock(); // CPU時間の計測終了
@@ -60,7 +60,7 @@ int main(
     double wall_time = wall_end.tv_sec - wall_start.tv_sec +
                        (wall_end.tv_nsec - wall_start.tv_nsec) / 1e9;
 
-	bool log_okay = OutLogfile(wall_time, cpu_time, time_cadical, time_bdd, time_sbxid, time_read);
+	bool log_okay = OutLogfile(wall_time, cpu_time, time_cadical, time_bdd, time_dont_care, time_read);
 
 	free_netlist();
 
@@ -78,7 +78,7 @@ static void WriteReport(
 	double cpu_time,
 	double time_cadical,
 	double time_bdd,
-	double time_sbxid,
+	double time_dont_care,
 	double time_read
 )
 {
@@ -92,19 +92,24 @@ static void WriteReport(
 	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
 	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
-    fprintf(fp, "//  Don't-care Method                         : SB-XID v1 (no CEGAR)\n");
-    fprintf(fp, "//  SB-XID PI Objective                       : %s\n",
-            opt.sbxid_pi_scope ? "scope (normal CNF PI)" : "all");
-    fprintf(fp, "//  Clasp Version                             : %s\n", sbxid_clasp_version());
-    fprintf(fp, "//  Clasp Search Limit                        : %.1f sec/call\n", SBXID_SOLVE_LIMIT_SECONDS);
+    fprintf(fp, "//  Don't-care Method                         : %s\n",
+            opt.dc_method == DC_XID ? "XID (circuit-structure based)" : "SB-XID v1 (no CEGAR)");
     const FaultStats* stats = FaultAnalysisStats();
-    fprintf(fp, "//  Clasp Optimal / Feasible                   : %ld / %ld\n",
-            stats->sbxid_optimal, stats->sbxid_feasible);
-    fprintf(fp, "//  Clasp Timeouts / UNKNOWN Fallbacks          : %ld / %ld\n",
-            stats->sbxid_timeouts, stats->sbxid_unknown);
-    fprintf(fp, "//  SB-XID Verified / Failed                   : %ld / %ld\n",
-            stats->sbxid_verified, stats->sbxid_verify_failed);
-    fprintf(fp, "//  Clasp Search Wall Time (sum of calls)       : %.3f sec\n", stats->clasp_wall);
+    if (opt.dc_method == DC_SBXID) {
+        fprintf(fp, "//  SB-XID PI Objective                       : %s\n",
+                opt.sbxid_pi_scope ? "scope (normal CNF PI)" : "all");
+        fprintf(fp, "//  Clasp Version                             : %s\n", sbxid_clasp_version());
+        fprintf(fp, "//  Clasp Search Limit                        : %.1f sec/call\n", SBXID_SOLVE_LIMIT_SECONDS);
+        fprintf(fp, "//  Clasp Optimal / Feasible                   : %ld / %ld\n",
+                stats->sbxid_optimal, stats->sbxid_feasible);
+        fprintf(fp, "//  Clasp Timeouts / UNKNOWN Fallbacks          : %ld / %ld\n",
+                stats->sbxid_timeouts, stats->sbxid_unknown);
+        fprintf(fp, "//  SB-XID Verified / Failed                   : %ld / %ld\n",
+                stats->sbxid_verified, stats->sbxid_verify_failed);
+        fprintf(fp, "//  Clasp Search Wall Time (sum of calls)       : %.3f sec\n", stats->clasp_wall);
+    }
+    fprintf(fp, "//  Total Cubes / Reused Cubes                 : %ld / %ld\n",
+            stats->total_cubes, stats->seeded_cubes);
     fprintf(fp, "//  Dominance Cube Reuse                      : %s\n", opt.dom_reuse == YES ? "on" : "off");
     fprintf(fp, "//  Fault Workers                             : %d\n", FaultPoolWorkers());
     fprintf(fp, "//  CPU Accounting                            : parent + all worker processes\n");
@@ -112,7 +117,7 @@ static void WriteReport(
 	fprintf(fp, "//  CPU Time                                  : %.3f sec\n", cpu_time);
 	fprintf(fp, "//  CPU Time (CaDiCaL)                        : %.3f sec\n", time_cadical);
 	fprintf(fp, "//  CPU Time (BDD)                            : %.3f sec\n", time_bdd);
-	fprintf(fp, "//  CPU Time (Don't care)                     : %.3f sec\n", time_sbxid);
+	fprintf(fp, "//  CPU Time (Don't care)                     : %.3f sec\n", time_dont_care);
 	fprintf(fp, "//  CPU Time (Read Fault)                     : %.3f sec\n", time_read);
 	fprintf(fp, "//--------------------------------------------------------------------------------\n");
 }
@@ -122,19 +127,19 @@ bool OutLogfile(
 	double cpu_time,
 	double time_cadical,
 	double time_bdd,
-	double time_sbxid,
+	double time_dont_care,
 	double time_read
 )
 {
 	FILE* fileptr = (FILE*)NULL;
 	fileOpen(&fileptr, opt.file.output.log, "w");
-	WriteReport(fileptr, wall_time, cpu_time, time_cadical, time_bdd, time_sbxid, time_read);
+	WriteReport(fileptr, wall_time, cpu_time, time_cadical, time_bdd, time_dont_care, time_read);
 
     bool log_okay = !ferror(fileptr);
     if (fclose(fileptr) != 0) log_okay = false;
     if (!log_okay) return false;
 	printf("\n\n");
-	WriteReport(stdout, wall_time, cpu_time, time_cadical, time_bdd, time_sbxid, time_read);
+	WriteReport(stdout, wall_time, cpu_time, time_cadical, time_bdd, time_dont_care, time_read);
 
 	return !ferror(stdout);
 }

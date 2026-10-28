@@ -21,6 +21,9 @@
 #define FM_SAF 0
 #define FM_TDF 1  /**< LOC: PI shared between frames; DFF state captured from frame 1 */
 
+#define DC_XID 0
+#define DC_SBXID 1
+
 #define		YES				1
 #define		NO				0
 
@@ -60,6 +63,7 @@ typedef struct Option
     int dom_reuse;  /**< -dom_reuse on|off、並列時はoff */
     int fault_model; /**< -saf / -tdf、既定SAF */
     int sbxid_pi_scope; /**< -sbxid_pi_objective all|scope、既定scope */
+    int dc_method; /**< -dc_method xid|sbxid、既定sbxid */
 }
 OPTION;
 

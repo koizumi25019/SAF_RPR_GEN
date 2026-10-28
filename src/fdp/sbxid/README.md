@@ -4,7 +4,11 @@
 
 同梱v1のCEGARなし版を使う。参照元は
 [saxid.c（52bb7ac）](https://github.com/koizumi25019/SAF_RPR_GEN/blob/52bb7ac268d2425ab2a8089c7b929fa87d262322/SB-XID/src/saxid.c)。
-本体のネットリスト・CaDiCaL・列挙・BDD・故障workerを使い、旧XIDはビルド対象から外した。旧XIDのファイルは参照用に残している。
+本体のネットリスト・CaDiCaL・列挙・BDD・故障workerを使う。
+旧XIDも比較用にビルドし、`-dc_method xid|sbxid` で実行時に切り替える。既定は `sbxid`。
+
+同じ実行体での比較と保存先は [XID/SB-XIDの実行比較](../../../docs/dc_method_comparison.md) を参照。
+両方式でSAF専用とし、TDFは無効のままにする。
 
 クラウドではclasp 3.3.9の導入、本体のDebug/Releaseビルド、本物のclaspを使った小回路の完全FDP比較まで完了した。結果は [実ライブラリでの確認記録](../../../docs/sb_xid_real_clasp_checks.json) を参照。
 

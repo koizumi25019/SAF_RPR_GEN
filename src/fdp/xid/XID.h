@@ -52,6 +52,10 @@ typedef struct DETECT_PO {
    exc_net: TDFの1時刻目の励起ネット。SAFではNULL。 */
 extern char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po, NLIST* exc_net);
 
+/* Normal values restored from PI assignments, using the baseline simulator. */
+void NormalScopeModelValues(CCaDiCaL* solver, XID_VAR_INFO* values);
+void NormalScopeModelRelease(void);
+
 extern void xid_fsim(size_t fsigID, XID_VAR_INFO* var_info, DETECT_PO* detect_po);
 
 /* fsig_id: 故障サイトの net id。サイトの故障側3値は「縮退の公理」であって
