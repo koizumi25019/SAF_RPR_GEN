@@ -289,6 +289,8 @@ static bool receive_fault_result(FaultPool* pool, int worker_index)
     /* 子でのDropDeteFaultは子のコピーにだけ作用するので、親側にも完了を反映。 */
     DropDeteFault(pool->faults[fault_index]);
     pool->completed_faults++;
+    printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count);
+    fflush(stdout);
     return true;
 }
 
