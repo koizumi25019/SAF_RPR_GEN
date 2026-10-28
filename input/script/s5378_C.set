@@ -1,10 +1,10 @@
 -net ../input/circuit/saf/s5378_C.v
-#-log ../output/limit30/log/s5378_C_xid.txt
-#-fdp ../output/limit30/fdp/s5378_C_xid.csv
+-log ../output/limit30/log/s5378_C_xid.txt
+-fdp ../output/limit30/fdp/s5378_C_xid.csv
 -limit 30
 -jobs 15
-#-dc_method xid
--dc_method sbxid
+-dc_method xid
+#-dc_method sbxid
 -dom_reuse off
--log ../output/limit30/log/s5378_C_sbxid.txt
--fdp ../output/limit30/fdp/s5378_C_sbxid.csv
+#-log ../output/limit30/log/s5378_C_sbxid.txt
+#-fdp ../output/limit30/fdp/s5378_C_sbxid.csv

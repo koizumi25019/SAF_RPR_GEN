@@ -1,17 +1,12 @@
-# set File
-# set netlist(.v)
 -net ../input/circuit/saf/s1488_C.v
-
-# set fault list(.txt)
--fault ../input/fault/det_s1488_C.txt
-
-
-
-# set log(.txt)
--log ../output/full/log/s1488_C.txt
-
-
-# set fdp result(.csv)
--fdp ../output/full/fdp/s1488_C.csv
-
-
+#-fault ../input/fault/det_s1488_C.txt
+-limit 0
+-jobs 15
+-dc_method xid
+#-dc_method sbxid
+-dom_reuse off
+#-log ../output/limit0/log/s1488_C_sbxid.txt
+#-fdp ../output/limit0/fdp/s1488_C_sbxid.csv
+-log ../output/limit0/log/s1488_C_xid.txt
+-fdp ../output/limit0/fdp/s1488_C_xid.csv
+#-clasp_limit 0
