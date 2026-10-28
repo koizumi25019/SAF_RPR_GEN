@@ -26,14 +26,14 @@ def check(args):
     env = dict(os.environ, FDP_NORMAL_SCOPE_VALIDATE="1", FDP_SBXID_VERIFY="1")
     reports = []
 
-    def run(binary, label, circuit, method, jobs=1, reuse="off", extra=()):
+    def run(binary, label, circuit, method, jobs=1, reuse="off", extra=(), settings=""):
         result, log = output / f"{label}.csv", output / f"{label}.log"
         config = output / f"{label}.set"
         config.write_text(
             f"-saf\n-net input/circuit/saf/{circuit}.v\n"
             f"-fdp {result}\n-log {log}\n-limit 0\n"
             f"-jobs {jobs}\n-dom_reuse {reuse}\n"
-            + (f"-dc_method {method}\n" if method else ""))
+            + (f"-dc_method {method}\n" if method else "") + settings)
         with (output / f"{label}.stdout").open("w") as stdout, \
                 (output / f"{label}.stderr").open("w") as stderr:
             subprocess.run([str(binary), "-set", str(config), *extra], cwd=root,
@@ -51,6 +51,45 @@ def check(args):
             result = subprocess.run([str(binary), "-set", str(invalid)], env=env,
                                     capture_output=True, text=True, timeout=10)
             assert result.returncode != 0 and "requires xid|sbxid" in result.stderr
+
+        # Reject malformed limits through both input paths before netlist load.
+        for value in (None, "-1", "nan", "inf", "1e999", "1sec", "bad", ""):
+            options = ["-clasp_limit"] + ([] if value is None else [value])
+            result = subprocess.run([str(binary), *options], env=env,
+                                    capture_output=True, text=True, timeout=10)
+            assert result.returncode != 0 and "-clasp_limit requires" in result.stderr
+            invalid = output / "invalid_clasp.set"
+            invalid.write_text("-clasp_limit" + (" " + value if value else "") + "\n")
+            result = subprocess.run([str(binary), "-set", str(invalid)], env=env,
+                                    capture_output=True, text=True, timeout=10)
+            assert result.returncode != 0 and "-clasp_limit requires" in result.stderr
+
+        golden_fdp = [(name, kind, density) for name, kind, _, _, density
+                      in signature(root / "expected/c17a_result.csv")]
+        # Check fractional limits, both override orders and the forked workers.
+        limit_cases = (
+            ("zero", "", ("-clasp_limit", "0"), "unlimited (until optimal)"),
+            ("one", "", ("-clasp_limit", "1"), "1 sec/call"),
+            ("fraction", "-clasp_limit 0.125\n", (), "0.125 sec/call"),
+            ("cli_override", "-clasp_limit 1\n", ("-clasp_limit", "0"), "unlimited (until optimal)"),
+            ("set_override", "-clasp_limit 0.125\n", ("-clasp_limit", "1", "-set", "{config}"), "0.125 sec/call"),
+            ("tiny", "", ("-clasp_limit", "1e-12"), None),
+        )
+        for jobs in (1, 2):
+            for label, settings, extra, expected in limit_cases:
+                label = f"clasp_{binary.name}_{label}_{jobs}"
+                if "{config}" in extra:
+                    # CLI options before -set must be overwritten by that file.
+                    extra = ("-clasp_limit", "1", "-set", str(output / f"{label}.set"))
+                actual, log = run(binary, label, "c17a", "sbxid", jobs,
+                                  extra=extra, settings=settings)
+                assert [(name, kind, density) for name, kind, _, _, density in actual] == golden_fdp
+                if expected:
+                    assert re.search(r"Clasp Search Limit\s*:\s*" + re.escape(expected), log)
+                else:
+                    limit = re.search(r"Clasp Search Limit\s*:\s*(\S+) sec/call", log)
+                    assert limit and float(limit[1]) == 1e-12
+                assert re.search(r"SB-XID Verified / Failed\s*:\s*\d+ / 0", log)
 
         for circuit in ("c17a", "s27_C"):
             complete_fdp = None

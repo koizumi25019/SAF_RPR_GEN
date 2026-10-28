@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <math.h>
 
 #include "./opt.h"
 #include "../fdp/read.h"
@@ -13,11 +14,24 @@
 static bool IsValueOption(const char* name)
 {
     return strcmp(name, "-jobs") == 0 || strcmp(name, "-dom_reuse") == 0 ||
-           strcmp(name, "-sbxid_pi_objective") == 0 || strcmp(name, "-dc_method") == 0;
+           strcmp(name, "-sbxid_pi_objective") == 0 || strcmp(name, "-dc_method") == 0 ||
+           strcmp(name, "-clasp_limit") == 0;
 }
 
 static bool SetValueOption(const char* name, const char* value)
 {
+    if (strcmp(name, "-clasp_limit") == 0) {
+        char* end = NULL;
+        errno = 0;
+        double seconds = value ? strtod(value, &end) : -1.0;
+        if (value && *value && end != value && !*end && !errno &&
+            isfinite(seconds) && seconds >= 0.0) {
+            opt.clasp_limit = seconds;
+            return true;
+        }
+        fprintf(stderr, "COMMAND ERROR: -clasp_limit requires finite seconds >= 0 (0 = unlimited)\n");
+        return false;
+    }
     if (strcmp(name, "-dc_method") == 0) {
         if (value && (strcmp(value, "xid") == 0 || strcmp(value, "sbxid") == 0)) {
             opt.dc_method = strcmp(value, "xid") == 0 ? DC_XID : DC_SBXID;
@@ -105,6 +119,7 @@ void OPTinit(
     opt.fault_model = FM_SAF;
     opt.sbxid_pi_scope = YES;
     opt.dc_method = DC_SBXID;
+    opt.clasp_limit = 0.0;
 
 	return;
 }

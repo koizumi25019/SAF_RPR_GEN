@@ -113,23 +113,23 @@ int main(void)
     SbxidInfo info;
     setenv("FDP_SBXID_VERIFY", "1", 1);
     scoped = 0;
-    assert(sbxid_generalize("111", 0, 0, NULL, cube, &info));
+    assert(sbxid_generalize("111", 0, 0, NULL, 0.0, cube, &info));
     int reference_cost = cost, reference_variables = info.variables;
     int reference_count = info.constraints;
     for (int trial = 0; trial < 2; ++trial) {
         scoped = 1;
         status = trial ? SBXID_SOLVE_FEASIBLE : SBXID_SOLVE_OPTIMAL;
-        assert(sbxid_generalize("111", 0, 0, mask, cube, &info));
+        assert(sbxid_generalize("111", 0, 0, mask, 0.0, cube, &info));
         assert(cost == reference_cost && cube[1] == 'X');
         assert((cube[0] == '1') + (cube[2] == '1') == 1);
         assert(info.variables == reference_variables && info.constraints == reference_count);
         assert(info.verified && !info.verification_failed);
     }
     status = SBXID_SOLVE_UNKNOWN;
-    assert(sbxid_generalize("111", 0, 0, mask, cube, &info));
+    assert(sbxid_generalize("111", 0, 0, mask, 0.0, cube, &info));
     assert(strcmp(cube, "111") == 0 && !info.verified);
     int previous_calls = calls;
-    assert(!sbxid_generalize("111", 0, 0, bad_mask, cube, &info));
+    assert(!sbxid_generalize("111", 0, 0, bad_mask, 0.0, cube, &info));
     assert(calls == previous_calls);
     sbxid_release();
     free(reference_constraints);

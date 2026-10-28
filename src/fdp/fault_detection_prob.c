@@ -158,7 +158,8 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
                 SbxidInfo info;
                 generalized = sbxid_generalize(seed, target->netptr->n,
                     target->type == SF0 ? 0 : 1,
-                    opt.sbxid_pi_scope ? context->sbxid_pi_scope : NULL, pattern, &info);
+                    opt.sbxid_pi_scope ? context->sbxid_pi_scope : NULL,
+                    opt.clasp_limit, pattern, &info);
                 stats->clasp_wall += info.solve.seconds;
                 stats->sbxid_optimal += info.solve.status == SBXID_SOLVE_OPTIMAL;
                 stats->sbxid_feasible += info.solve.status == SBXID_SOLVE_FEASIBLE;

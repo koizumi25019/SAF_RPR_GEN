@@ -64,6 +64,7 @@ typedef struct Option
     int fault_model; /**< -saf / -tdf、既定SAF */
     int sbxid_pi_scope; /**< -sbxid_pi_objective all|scope、既定scope */
     int dc_method; /**< -dc_method xid|sbxid、既定sbxid */
+    double clasp_limit; /**< -clasp_limit 秒、0は無制限、既定0 */
 }
 OPTION;
 

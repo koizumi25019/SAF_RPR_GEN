@@ -99,10 +99,10 @@ static void WriteReport(
         fprintf(fp, "//  SB-XID PI Objective                       : %s\n",
                 opt.sbxid_pi_scope ? "scope (normal CNF PI)" : "all");
         fprintf(fp, "//  Clasp Version                             : %s\n", sbxid_clasp_version());
-        if (SBXID_SOLVE_LIMIT_SECONDS == 0.0)
+        if (opt.clasp_limit == 0.0)
             fprintf(fp, "//  Clasp Search Limit                        : unlimited (until optimal)\n");
         else
-            fprintf(fp, "//  Clasp Search Limit                        : %.1f sec/call\n", SBXID_SOLVE_LIMIT_SECONDS);
+            fprintf(fp, "//  Clasp Search Limit                        : %.9g sec/call\n", opt.clasp_limit);
         fprintf(fp, "//  Clasp Optimal / Feasible                   : %ld / %ld\n",
                 stats->sbxid_optimal, stats->sbxid_feasible);
         fprintf(fp, "//  Clasp Timeouts / UNKNOWN Fallbacks          : %ld / %ld\n",

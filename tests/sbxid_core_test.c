@@ -12,6 +12,7 @@
 static SbxidSolveStatus next_status;
 static int calls;
 static bool invalid_candidate;
+static double expected_limit;
 
 /* Check that our chosen model satisfies every generated PB constraint. */
 static void check_constraints(const char* opb, const int* values, int variables)
@@ -53,7 +54,7 @@ SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length, int variables,
 {
     calls++;
     assert(strlen(opb) == length);
-    assert(seconds == 0.0);
+    assert(seconds == expected_limit);
     if (!strstr(opb, "Observe at least one PO")) fprintf(stderr, "OPB length=%zu\n%s\n", length, opb);
     assert(strstr(opb, "Observe at least one PO")); /* includes EOF after backpatch */
     SbxidSolveResult result = {.status = next_status};
@@ -90,28 +91,33 @@ int main(void)
     unsetenv("FDP_SBXID_VERIFY");
     for (int i = 0; i < 2; ++i) {
         next_status = i ? SBXID_SOLVE_FEASIBLE : SBXID_SOLVE_OPTIMAL;
-        assert(sbxid_generalize("11", 0, 0, NULL, cube, &info));
+        assert(sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
         assert(strcmp(cube, "1X") == 0);
         assert(info.solve.status == next_status && !info.verified);
     }
+    expected_limit = 0.125;
+    next_status = SBXID_SOLVE_OPTIMAL;
+    assert(sbxid_generalize("11", 0, 0, NULL, expected_limit, cube, &info));
+    assert(info.solve.status == SBXID_SOLVE_OPTIMAL && strcmp(cube, "1X") == 0);
+    expected_limit = 0.0;
     next_status = SBXID_SOLVE_UNKNOWN;
-    assert(sbxid_generalize("11", 0, 0, NULL, cube, &info));
+    assert(sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
     assert(strcmp(cube, "11") == 0 && info.solve.timed_out);
     next_status = SBXID_SOLVE_UNSAT;
-    assert(!sbxid_generalize("11", 0, 0, NULL, cube, &info));
+    assert(!sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
     next_status = SBXID_SOLVE_ERROR;
-    assert(!sbxid_generalize("11", 0, 0, NULL, cube, &info));
+    assert(!sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
     int previous_calls = calls;
-    assert(!sbxid_generalize("00", 0, 0, NULL, cube, &info)); /* no detected seed */
-    assert(!sbxid_generalize("1X", 0, 0, NULL, cube, &info)); /* seed must be binary */
+    assert(!sbxid_generalize("00", 0, 0, NULL, 0.0, cube, &info)); /* no detected seed */
+    assert(!sbxid_generalize("1X", 0, 0, NULL, 0.0, cube, &info)); /* seed must be binary */
     assert(calls == previous_calls);
 
     setenv("FDP_SBXID_VERIFY", "1", 1);
     next_status = SBXID_SOLVE_OPTIMAL;
-    assert(sbxid_generalize("11", 0, 0, NULL, cube, &info));
+    assert(sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
     assert(info.verified && !info.verification_failed && strcmp(cube, "1X") == 0);
     invalid_candidate = true;
-    assert(sbxid_generalize("11", 0, 0, NULL, cube, &info));
+    assert(sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info));
     assert(info.verified && info.verification_failed && strcmp(cube, "11") == 0);
     for (int i = 0; i < n_net; ++i) {
         assert(nets[i].flag == 100 + i && nets[i].varsgc == (unsigned)(20 + i));
@@ -121,7 +127,7 @@ int main(void)
     sbxid_release();
     sbxid_release();
     invalid_candidate = false;
-    assert(sbxid_generalize("11", 0, 0, NULL, cube, &info)); /* rebuild process indexes */
+    assert(sbxid_generalize("11", 0, 0, NULL, 0.0, cube, &info)); /* rebuild process indexes */
     sbxid_release();
     return 0;
 }

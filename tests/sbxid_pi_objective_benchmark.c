@@ -51,6 +51,7 @@ int main(int argc, char** argv)
         fprintf(stderr, "usage: %s NET PINS FAULTS PATTERNS all|scope SAMPLES ROWS OUTPUT\n", argv[0]);
         return 2;
     }
+    const double search_limit_seconds = 0.0;
     int scoped = strcmp(argv[5], "scope") == 0;
     int samples = atoi(argv[6]), rows = atoi(argv[7]);
     assert(samples >= 2 && samples <= rows);
@@ -90,7 +91,7 @@ int main(int argc, char** argv)
         for (int p = 0; p < n_pi; ++p) scope_pis += mask[p] != 0;
         SbxidInfo info;
         double start = now();
-        assert(sbxid_generalize(seed, id, kind[2] == '1', scoped ? mask : NULL, cube, &info));
+        assert(sbxid_generalize(seed, id, kind[2] == '1', scoped ? mask : NULL, search_limit_seconds, cube, &info));
         double elapsed = now() - start;
         assert(!info.verification_failed);
         if (info.solve.status != SBXID_SOLVE_UNKNOWN) assert(info.verified);
@@ -103,7 +104,7 @@ int main(int argc, char** argv)
         fprintf(output, "%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%.9f,%.9f,%.1f\n",
                 row, name, kind[2] == '1', n_pi, scope_pis, info.variables,
                 info.constraints, info.solve.status, info.solve.timed_out,
-                care, cube, info.solve.seconds, elapsed, SBXID_SOLVE_LIMIT_SECONDS);
+                care, cube, info.solve.seconds, elapsed, search_limit_seconds);
         fflush(output);
     }
     assert(used == samples);

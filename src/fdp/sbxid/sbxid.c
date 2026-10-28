@@ -742,7 +742,8 @@ static bool sbxid_initialize(void)
 }
 
 bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
-                     const unsigned char* pi_scope, char* cube, SbxidInfo* info)
+                     const unsigned char* pi_scope, double limit_seconds,
+                     char* cube, SbxidInfo* info)
 {
     if (!info) return false;
     memset(info, 0, sizeof(*info));
@@ -792,7 +793,7 @@ bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
     }
     values = sbxid_calloc((size_t)info->variables + 1, sizeof(*values));
     info->solve = sbxid_solve_opb(opb, opb_length, info->variables, values,
-                                SBXID_SOLVE_LIMIT_SECONDS);
+                                limit_seconds);
     if (info->solve.status == SBXID_SOLVE_UNKNOWN) {
         memcpy(cube, seed, (size_t)n_pi + 1);
         okay = true;

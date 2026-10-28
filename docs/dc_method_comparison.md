@@ -14,7 +14,7 @@ ATPG、正常CNF範囲、EA、禁止節、BDD、故障workerは共通である�
 `src/fdp/xid/xid_model_values.c` として戻した。PIのSAT値から全正常信号値を復元する。
 正常SAT値の任意照合 `FDP_NORMAL_SCOPE_VALIDATE=1` は両方式で使用できる。
 
-SB-XIDのclasp探索時間は無制限で、各呼出しで最適性が証明されるまで探索する。
+SB-XIDのclasp探索時間は `-clasp_limit 秒数` で指定する。既定の0は無制限で、各呼出しで最適性が証明されるまで探索する。
 `-sbxid_pi_objective`、`FDP_SBXID_VERIFY` はSB-XIDモードに適用する。
 XIDモードはclaspを呼ばない。この比較用実行体のビルドには、引き続きclaspライブラリが必要。
 TDFは両モードで回路読込前に拒否する。
@@ -114,8 +114,28 @@ bash run_compare_dc.sh c17a 2 0
 ```
 
 `-limit 0` は故障ごとのキューブ数の上限をなくす指定である。
-claspの探索時間は `-limit` と独立しており、現在は無制限。
-ログの `Clasp Search Limit : unlimited (until optimal)` で確認できる。追加オプションは不要。
+claspの探索時間は `-limit` と独立しており、次の設定で切り替える。CLIと `.set` で同じ指定を使い、後の指定を優先する。
+
+| 指定 | 各clasp呼出しの動作 |
+|---|---|
+| `-clasp_limit 0` | 無制限、最適性の証明まで探索（既定） |
+| `-clasp_limit 1` | 探索の経過時間1秒で打ち切り |
+| `-clasp_limit 0.5` | 探索の経過時間0.5秒で打ち切り |
+
+並列実行では各workerのclasp呼出しに同じ秒数を適用する。実験全体の制限時間ではない。
+OPB生成・解析・前処理は制限時間に含めず、中断後の終了処理も待つため、呼出し全体は指定秒数を超える場合がある。
+打ち切り時に実行可能モデルがあれば暫定解を採用し、モデルなしUNKNOWNは元の2値seedへ戻す。
+UNSATとソルバエラーは引き続きエラー終了する。
+XIDモードではこの設定は使用しない。
+
+```bash
+# 設定ファイルの条件で実行し、claspを各呼出し1秒に指定
+build/main_release -set config.set -clasp_limit 1
+```
+
+ログの `Clasp Search Limit` に `unlimited (until optimal)` または秒数を記録する。
+負数・NaN・無限大・不正な文字列・値なしは回路読込前に拒否する。
+
 得られるキューブが変わるため、後続のseed列も変わる。
 上限付きではFDP下界や完了故障数が異なる場合があるので、時間と合わせて確認する。
 この比較は方式全体の実行時間を評価するもので、固定seedごとの求解時間比較とは区別する。
@@ -126,6 +146,8 @@ claspの探索時間は `-limit` と独立しており、現在は無制限。
 Debug/Release、XID/SB-XID、直列流用off・2 worker流用off・直列流用onの24条件で完全FDPを比較する。
 c17aの既知期待値、既定SB-XID、CLIによる `.set` 上書き、不正値・値なしの拒否も確認する。
 TDFの拒否は両方式、CLI/`.set`、Debug/Releaseで確認する。
+`-clasp_limit` は無制限・正の秒数・小数・短時間打ち切り、CLI/`.set` の上書き、
+不正値の拒否を確認する。Debug/Releaseと1/2 workerで小回路の完全FDPが既知期待値と一致する。
 
 クラウドでは、別にビルドしたbaseline `23abc61` とXIDモードの結果、
 変更前 `d6c4dd0` の実行体とSB-XIDモードの結果を比較し、

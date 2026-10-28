@@ -6,7 +6,6 @@
 #define SBXID_FLAG_EVALUATED (1 << 0)
 #define SBXID_FLAG_PATH      (1 << 1)
 #define SBXID_FLAG_JUSTIFY   (1 << 2)
-#define SBXID_SOLVE_LIMIT_SECONDS 0.0 /* no deadline: optimize to completion */
 
 typedef struct {
     SbxidSolveResult solve;
@@ -19,6 +18,7 @@ typedef struct {
 /* seed and cube are distinct buffers of n_pi characters plus a terminator,
  * in host pi[] order.
  * seed is fully specified; cube uses 0/1/X. The caller owns both buffers.
+ * limit_seconds is an elapsed search deadline per call; 0 waits until optimal.
  * On UNKNOWN, return seed. On UNSAT/invalid seed/solver error, return false.
  * FDP_SBXID_VERIFY=1 enables optional post-solve three-valued verification.
  * Process-local indexes and the structural fault TFO are initialized lazily
@@ -30,5 +30,6 @@ typedef struct {
  * must be outside PATH/JUSTIFY. UNKNOWN still returns the complete seed.
  */
 bool sbxid_generalize(const char* seed, int fault_net_id, int stuck_value,
-                     const unsigned char* pi_scope, char* cube, SbxidInfo* info);
+                     const unsigned char* pi_scope, double limit_seconds,
+                     char* cube, SbxidInfo* info);
 void sbxid_release(void);

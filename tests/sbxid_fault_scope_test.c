@@ -112,7 +112,7 @@ static void check_case(int site, int stuck, int seed)
     for (int p = 0; p < 3; ++p) pattern[p] = '0' + ((seed >> p) & 1);
     pattern[3] = '\0';
     SbxidInfo info;
-    assert(sbxid_generalize(pattern, site, stuck, NULL, cube, &info));
+    assert(sbxid_generalize(pattern, site, stuck, NULL, 0.0, cube, &info));
     unsigned care = 0;
     int actual_care = 0, minimum_care = 4;
     for (int p = 0; p < 3; ++p) if (cube[p] != 'X') {
