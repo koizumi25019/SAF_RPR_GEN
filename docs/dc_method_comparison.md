@@ -14,7 +14,8 @@ ATPG、正常CNF範囲、EA、禁止節、BDD、故障workerは共通である�
 `src/fdp/xid/xid_model_values.c` として戻した。PIのSAT値から全正常信号値を復元する。
 正常SAT値の任意照合 `FDP_NORMAL_SCOPE_VALIDATE=1` は両方式で使用できる。
 
-SB-XIDの1秒探索制限、`-sbxid_pi_objective`、`FDP_SBXID_VERIFY` はSB-XIDモードに適用する。
+SB-XIDのclasp探索時間は無制限で、各呼出しで最適性が証明されるまで探索する。
+`-sbxid_pi_objective`、`FDP_SBXID_VERIFY` はSB-XIDモードに適用する。
 XIDモードはclaspを呼ばない。この比較用実行体のビルドには、引き続きclaspライブラリが必要。
 TDFは両モードで回路読込前に拒否する。
 
@@ -112,7 +113,9 @@ XID/SB-XIDの両方式で有効で、追加オプションは不要。
 bash run_compare_dc.sh c17a 2 0
 ```
 
-0はキューブ数の上限をなくす指定で、SB-XIDのclasp探索は各呼出し1秒のままである。
+`-limit 0` は故障ごとのキューブ数の上限をなくす指定である。
+claspの探索時間は `-limit` と独立しており、現在は無制限。
+ログの `Clasp Search Limit : unlimited (until optimal)` で確認できる。追加オプションは不要。
 得られるキューブが変わるため、後続のseed列も変わる。
 上限付きではFDP下界や完了故障数が異なる場合があるので、時間と合わせて確認する。
 この比較は方式全体の実行時間を評価するもので、固定seedごとの求解時間比較とは区別する。

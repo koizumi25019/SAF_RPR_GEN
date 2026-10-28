@@ -6,7 +6,7 @@
 #define SBXID_FLAG_EVALUATED (1 << 0)
 #define SBXID_FLAG_PATH      (1 << 1)
 #define SBXID_FLAG_JUSTIFY   (1 << 2)
-#define SBXID_SOLVE_LIMIT_SECONDS 1.0
+#define SBXID_SOLVE_LIMIT_SECONDS 0.0 /* no deadline: optimize to completion */
 
 typedef struct {
     SbxidSolveResult solve;

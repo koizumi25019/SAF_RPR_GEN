@@ -42,7 +42,7 @@ static int evaluate(const Linear* row, unsigned model, int variables)
 SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length, int variables,
                                int* values, double seconds)
 {
-    assert(strlen(opb) == length && variables <= MAX_VARS && seconds == 1.0);
+    assert(strlen(opb) == length && variables <= MAX_VARS && seconds == 0.0);
     ++calls;
     SbxidSolveResult result = { .status = status,
         .timed_out = status == SBXID_SOLVE_UNKNOWN || status == SBXID_SOLVE_FEASIBLE };

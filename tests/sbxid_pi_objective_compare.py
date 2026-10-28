@@ -1,7 +1,8 @@
 """Compare all-PI and normal-scope PI objectives on identical reference seeds.
 
 Build sbxid_pi_objective_benchmark explicitly first. Each native invocation uses
-one clasp solve thread, a one-second search limit, and post-solve verification.
+one clasp solve thread, the build's search limit (0 means unlimited), and
+post-solve verification. The subprocess timeout is a benchmark watchdog.
 """
 import argparse
 import csv
@@ -46,7 +47,7 @@ def compare(args):
                        both_optimal=0, both_optimal_care_equal=0, cube_equal=0)
         for x, y in zip(a, b):
             for key in ("index", "name", "stuck", "n_pi", "scope_pis",
-                        "variables", "constraints"):
+                        "variables", "constraints", "search_limit_seconds"):
                 assert x[key] == y[key], (key, x, y)
             cx, cy = int(x["care"]), int(y["care"])
             quality["scope_better" if cy < cx else "all_better" if cx < cy else "equal"] += 1
@@ -73,7 +74,8 @@ def compare(args):
     result = dict(
         circuit="s5378_C", cases=args.samples, available_reference_cases=rows,
         sampling="floor(k*(rows-1)/(samples-1)), k=0..samples-1",
-        clasp_search_limit_seconds=1.0, workers=1, clasp_threads=1,
+        clasp_search_limit_seconds=float(a[0]["search_limit_seconds"]),
+        workers=1, clasp_threads=1,
         post_solve_verification=True, verification_failures=0,
         outside_scope_pi_terms_removed=True,
         variable_allocation_and_constraints_equal=True,

@@ -23,6 +23,8 @@ typedef struct {
 /* values[1..variables] receives the last complete feasible OPB model.
  * No host netlist/global definitions cross this C/C++ boundary.
  * Parsing and preparation precede the search time limit.
+ * limit_seconds == 0 disables the deadline and waits for optimization to finish.
+ * Positive finite values impose an elapsed search time limit; negatives are invalid.
  */
 SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length, int variables,
                                int* values, double limit_seconds);

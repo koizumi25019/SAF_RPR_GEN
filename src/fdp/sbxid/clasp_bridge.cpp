@@ -3,6 +3,7 @@
 #include <clasp/cli/clasp_options.h>
 #include <clasp/enumerator.h>
 #include <chrono>
+#include <cmath>
 #include <cstdio>
 #include <exception>
 #include <sstream>
@@ -42,7 +43,8 @@ extern "C" SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length,
     SbxidSolveResult report = {};
     report.status = SBXID_SOLVE_ERROR;
     try {
-        if (!opb || !values || variables < 1 || !(limit_seconds > 0.0))
+        if (!opb || !values || variables < 1 ||
+            !std::isfinite(limit_seconds) || limit_seconds < 0.0)
             throw std::invalid_argument("invalid OPB solver arguments");
 
         Clasp::Cli::ClaspCliConfig config;
@@ -62,7 +64,7 @@ extern "C" SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length,
 
         const auto start = std::chrono::steady_clock::now();
         auto handle = facade.solve(Clasp::SolveMode_t::Async, Clasp::LitVec(), &last);
-        for (;;) {
+        while (limit_seconds > 0.0) {
             const double elapsed = std::chrono::duration<double>(
                 std::chrono::steady_clock::now() - start).count();
             if (handle.waitFor(elapsed < limit_seconds ? limit_seconds - elapsed : 0.0))
@@ -74,6 +76,7 @@ extern "C" SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length,
                 break;
             }
         }
+        /* With no deadline, get() waits until optimization completes. */
         const Clasp::SolveResult result = handle.get(); /* join before using last */
         report.seconds = std::chrono::duration<double>(
             std::chrono::steady_clock::now() - start).count();

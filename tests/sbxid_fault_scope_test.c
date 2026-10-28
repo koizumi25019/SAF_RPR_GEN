@@ -63,7 +63,7 @@ static int evaluate(const Constraint* c, unsigned model, int variables)
 SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length, int variables,
                                int* values, double seconds)
 {
-    assert(length == strlen(opb) && seconds == 1.0 && variables <= MAX_VARS);
+    assert(length == strlen(opb) && seconds == 0.0 && variables <= MAX_VARS);
     char* copy = strdup(opb);
     assert(copy);
     Constraint objective = {0}, constraints[MAX_CONS] = {0};

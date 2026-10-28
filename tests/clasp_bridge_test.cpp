@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstring>
+#include <limits>
 #include <sstream>
 #include <vector>
 #include "fdp/sbxid/clasp_bridge.h"
@@ -16,10 +17,22 @@ int main()
     assert(result.status == SBXID_SOLVE_OPTIMAL && !result.timed_out);
     assert(values[1] + values[2] == 1 && values[3] == 0);
 
+    /* No deadline: require a proved global optimum, not just a feasible model. */
+    result = sbxid_solve_opb(opb, std::strlen(opb), 3, values, 0.0);
+    assert(result.status == SBXID_SOLVE_OPTIMAL && !result.timed_out);
+    assert(10 * values[1] + 10 * values[2] - values[3] == 10);
+    for (double limit : {-1.0, std::numeric_limits<double>::infinity(),
+                         std::numeric_limits<double>::quiet_NaN()}) {
+        result = sbxid_solve_opb(opb, std::strlen(opb), 3, values, limit);
+        assert(result.status == SBXID_SOLVE_ERROR);
+    }
+
     const char* unsat = "* #variable= 1 #constraint= 2\n"
         "min: +1 x1;\n+1 x1 >= 1;\n-1 x1 >= 0;\n";
     result = sbxid_solve_opb(unsat, std::strlen(unsat), 1, values, 1.0);
     assert(result.status == SBXID_SOLVE_UNSAT);
+    result = sbxid_solve_opb(unsat, std::strlen(unsat), 1, values, 0.0);
+    assert(result.status == SBXID_SOLVE_UNSAT && !result.timed_out);
     const char* invalid = "* #variable= 1 #constraint= 1\nnot an OPB constraint";
     result = sbxid_solve_opb(invalid, std::strlen(invalid), 1, values, 1.0);
     assert(result.status == SBXID_SOLVE_ERROR && result.error[0]);

@@ -74,7 +74,7 @@ int main(int argc, char** argv)
         assert(pin_order[p] >= 0);
     }
     setenv("FDP_SBXID_VERIFY", "1", 1);
-    fprintf(output, "index,name,stuck,n_pi,scope_pis,variables,constraints,status,timed_out,care,cube,search_seconds,total_seconds\n");
+    fprintf(output, "index,name,stuck,n_pi,scope_pis,variables,constraints,status,timed_out,care,cube,search_seconds,total_seconds,search_limit_seconds\n");
     int used = 0;
     for (int row = 0; row < rows; ++row) {
         assert(fscanf(faults, "%511s %31s", name, kind) == 2);
@@ -100,10 +100,10 @@ int main(int argc, char** argv)
             if (scoped && !mask[p] && info.solve.status != SBXID_SOLVE_UNKNOWN)
                 assert(cube[p] == 'X');
         }
-        fprintf(output, "%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%.9f,%.9f\n",
+        fprintf(output, "%d,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%.9f,%.9f,%.1f\n",
                 row, name, kind[2] == '1', n_pi, scope_pis, info.variables,
                 info.constraints, info.solve.status, info.solve.timed_out,
-                care, cube, info.solve.seconds, elapsed);
+                care, cube, info.solve.seconds, elapsed, SBXID_SOLVE_LIMIT_SECONDS);
         fflush(output);
     }
     assert(used == samples);

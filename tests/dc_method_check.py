@@ -66,7 +66,9 @@ def check(args):
                     if method == "xid":
                         assert "Clasp" not in log and "SB-XID PI Objective" not in log
                     else:
-                        assert "Clasp Search Limit" in log
+                        assert re.search(r"Clasp Search Limit\s*:\s*unlimited \(until optimal\)", log)
+                        assert re.search(r"Clasp Optimal / Feasible\s*:\s*[1-9]\d* / 0", log)
+                        assert re.search(r"Clasp Timeouts / UNKNOWN Fallbacks\s*:\s*0 / 0", log)
                         assert re.search(r"SB-XID Verified / Failed\s*:\s*\d+ / 0", log)
                     fdp = [(name, kind, density) for name, kind, _, _, density in actual]
                     if complete_fdp is None:

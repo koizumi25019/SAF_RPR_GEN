@@ -53,7 +53,7 @@ SbxidSolveResult sbxid_solve_opb(const char* opb, size_t length, int variables,
 {
     calls++;
     assert(strlen(opb) == length);
-    assert(seconds == 1.0);
+    assert(seconds == 0.0);
     if (!strstr(opb, "Observe at least one PO")) fprintf(stderr, "OPB length=%zu\n%s\n", length, opb);
     assert(strstr(opb, "Observe at least one PO")); /* includes EOF after backpatch */
     SbxidSolveResult result = {.status = next_status};
