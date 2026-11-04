@@ -7,6 +7,7 @@
 #include <ctype.h>
 
 #include "fault/fault_list.h"
+#include "fault/equivalence.h"
 #include "common/memory.h"
 #include "io/file.h"
 #include "fault/hash.h"
@@ -22,6 +23,7 @@ bool ReadFault(
 	void
 )
 {
+    if (!InitFaultEquivalence()) return READ_ERROR;
 	if (opt.file.input.fault != FILE_NOSET)
 
 	{
@@ -60,9 +62,6 @@ bool ReadFault(
 		readdata.fault.numinit = 0;
 		readdata.fault.numrema = 0;
 
-		// 等価故障のフラグ整理を実行
-		AnalyzeEquivalenceFaultsTDF();
-
 		for (i = 0; i < n_net; i++)
 		{
 			if (nl[i].peer_1t == (NLIST*)NULL) continue;   // 1時刻目コピーは故障サイトでない
@@ -93,9 +92,6 @@ bool ReadFault(
 		readdata.fault.numinit = 0;
 		readdata.fault.numrema = 0;
 
-		// 等価故障のフラグ整理を実行
-		AnalyzeEquivalenceFaults();
-
 		// ネットリストを再度走査し、YESのフラグが残っているものだけ FNODE 化する
 		for (i = 0; i < n_net; i++)
 		{
@@ -115,7 +111,7 @@ bool ReadFault(
 		printf("\r	Representative fault generation completed. Total faults: %d\n", readdata.fault.numinit);
 	}
 
-	return READ_OKAY;
+    return FinalizeFaultEquivalence() ? READ_OKAY : READ_ERROR;
 }
 
 //*************************************************************************************************************
@@ -341,82 +337,4 @@ FNODE* CreateFaultNode(
 	fnodeptr->nextptr = (FNODE*)NULL;
 
 	return fnodeptr;
-}
-
-///*************************************************************************************************************
-//	@name		AnalyzeEquivalenceFaults
-//	@function	ネットリスト全体を走査し、等価故障のテストフラグをNOにする
-//*************************************************************************************************************
-void AnalyzeEquivalenceFaults()
-{
-	int i, j;
-
-	// すべてのネットの故障をテスト対象(YES)として初期化
-	for (i = 0; i < n_net; i++)
-	{
-		nl[i].test_sa0 = YES;
-		nl[i].test_sa1 = YES;
-	}
-
-	// ゲートのタイプに応じて等価故障を対象外(NO)にしていく
-	for (i = 0; i < n_net; i++)
-	{
-		switch (nl[i].type)
-		{
-			case BUF:
-			case INV:
-				nl[i].in[0]->test_sa0 = NO;
-				nl[i].in[0]->test_sa1 = NO;
-				break;
-
-			case AND:
-			case NAND:
-				// 入力信号線の0縮退故障は等価
-				for (j = 0; j < nl[i].n_in; j++) {
-					nl[i].in[j]->test_sa0 = NO;
-				}
-				break;
-
-			case OR:
-			case NOR:
-				// 入力信号線の1縮退故障は等価
-				for (j = 0; j < nl[i].n_in; j++) {
-					nl[i].in[j]->test_sa1 = NO;
-				}
-				break;
-
-			default:
-				break;
-		}
-	}
-}
-
-/* TDF equivalence: BUF/INV only, never across a DFF boundary. */
-void AnalyzeEquivalenceFaultsTDF(void)
-{
-	int i;
-
-	// すべてのネットの故障をテスト対象(YES)として初期化
-	for (i = 0; i < n_net; i++)
-	{
-		nl[i].test_sa0 = YES;   // STR
-		nl[i].test_sa1 = YES;   // STF
-	}
-
-	for (i = 0; i < n_net; i++)
-	{
-		if (nl[i].type != BUF && nl[i].type != INV) continue;
-		if (nl[i].peer_1t == (NLIST*)NULL) continue;          // 1時刻目コピーのゲートは対象外
-
-		/* DFF Q at t2 is a BUF, but its peer at t1 is a free state input.
-           A shared primary input also has peer_1t, so testing only the BUF's
-           input peer would incorrectly collapse PI faults across the DFF. */
-        if (nl[i].peer_1t->type == IN) continue;
-		NLIST* in0 = nl[i].in[0];
-		if (in0->peer_1t == (NLIST*)NULL) continue;           // DFF置換BUF：時刻境界は跨がない
-
-		// 入力線の遷移故障（STR/STF とも）は出力線の故障で代表される
-		in0->test_sa0 = NO;
-		in0->test_sa1 = NO;
-	}
 }

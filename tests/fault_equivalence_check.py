@@ -69,13 +69,20 @@ def run(binary, directory, circuit, extra='', cli=(), env_extra=None, success=Tr
 def verify(directory, inputs, events):
     with (directory / 'fdp.csv').open() as stream:
         reader = csv.DictReader(stream)
-        assert reader.fieldnames == ['net_name', 'f_type', 'cube_cnt', 'complete', 'fdp'], directory
+        assert reader.fieldnames == ['net_name', 'f_type', 'cube_cnt', 'complete', 'fdp',
+                                     'rep_net_name', 'rep_f_type'], directory
         rows = list(reader)
     assert all(None not in row and None not in row.values() for row in rows), directory
     assert {(row['net_name'], row['f_type']) for row in rows} == set(events), directory
+    assert len(rows) == len(events), directory
+    by_fault = {(row['net_name'], row['f_type']): row for row in rows}
     representatives = {}
     for row in rows:
         key = row['net_name'], row['f_type']
+        representative = row['rep_net_name'], row['rep_f_type']
+        assert representative in by_fault, (directory, row)
+        assert by_fault[representative]['complete'] == '1', (directory, row)
+        assert events[key] == events[representative], (directory, row)
         expected = Decimal(len(events[key])) / (2 ** len(inputs))
         assert abs(Decimal(row['fdp']) - expected) < Decimal('5e-11'), (directory, key, row['fdp'], expected)
         if row['complete']:

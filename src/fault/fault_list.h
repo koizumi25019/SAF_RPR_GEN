@@ -114,13 +114,6 @@ FNODE* CreateFaultNode(
 	char* buffer			  /**< バッファ */
 );
 
-//等価故障解析
-void AnalyzeEquivalenceFaults(
-	void
-);
-
-void AnalyzeEquivalenceFaultsTDF(void);
-
 static inline const char* FaultTypeName(int type)
 {
     if (opt.fault_model == FM_TDF) return type == SF0 ? "STR" : "STF";
