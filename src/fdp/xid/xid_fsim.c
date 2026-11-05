@@ -1,5 +1,6 @@
 #include "fdp/xid/XID.h"
 #include "fault/fault_list.h"
+#include "fdp/cnf/normal_scope.h"
 //===================================================================
 // ゲートイベントドリブンシミュレーション関数のヘルパー関数
 //===================================================================
@@ -84,8 +85,11 @@ static void init_ed_sppfp_table(void) {
 	// DFF/RDFF/DFFS/RDFFS/GND/ACC は仕様未対応のため非対応（必要ないため）
 }
 
+/* 故障の影響は正常CNFの範囲内にだけ流す。観測点は範囲内にあり、範囲は入力側に閉じているので、
+   範囲外への伝搬は検出判定に影響しない。範囲外のネットの作業領域には触れない。 */
 static void ED_push_out(NLIST_t* net, size_t ed_tag, XID_VAR_INFO* var_info) {
 	for (size_t i = 0; i < net->n_out; ++i) {
+		if (!NormalScopeRequiredNet(net->out[i]->n)) continue;
 		XID_VAR_INFO* info = &var_info[net->out[i]->n];
 
 		if (info->ed_tag != ed_tag && info->ed_tag != XID_STACKED) {

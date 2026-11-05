@@ -67,6 +67,9 @@ void NormalScopeBuild(FNODE *target) {
     for (int i = 0; i < n_pi; i++) if (!needed[pi[i]->n]) free_pi++;
     instances++;
 }
+unsigned long long NormalScopeGeneration(void) {
+    return instances;
+}
 int NormalScopeRequiredNet(int index) {
     return !needed || needed[index];
 }
