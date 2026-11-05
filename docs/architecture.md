@@ -10,6 +10,30 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
 
 ## アーキテクチャ
 
+```mermaid
+flowchart TD
+    main["main()"] --> read["read_nl()<br/>ネットリスト解析"]
+    read --> prepare["PrepareCircuitForFaultModel()<br/>SAF: FF拒否 / TDF: 2時刻展開"]
+    prepare --> analyze["AnalyzeFaultDensity()"]
+    analyze --> faults["故障読込・等価グループ準備"]
+    faults --> order["InitTargetOrder()"]
+    order --> independent["AnalyzeIndependentFaults()"]
+    independent --> jobs{"jobs > 1?"}
+    jobs -->|Yes| pool["FaultPoolRun()<br/>親子プロセス"]
+    jobs -->|No| serial["直列ループ"]
+    pool --> one
+    serial --> one
+    subgraph one["AnalyzeOneFault(): 1故障"]
+        model["WriteTPGModel()<br/>CNF構築"] --> solve["ccadical_solve()"]
+        solve --> status{"結果・limit判定"}
+        status -->|SAT・limit未到達| xid["InlineXID()<br/>ドントケア埋め"]
+        xid --> block["禁止節追加・キューブ保存"]
+        block --> solve
+        status -->|UNSAT または limit到達| emit["EmitFaultResult()<br/>RunBDD() → FDP<br/>WriteFaultResult() → CSV"]
+        status -->|UNKNOWN| error["エラー終了"]
+    end
+```
+
 エントリポイント `src/main.c` → `read_nl()`（ネットリスト解析）→
 `src/fdp/analysis.c` の `AnalyzeFaultDensity()`。ここが本体。
 `main.c` はSAFでFFを含む回路を拒否し、TDFでは素のDFFだけを2時刻展開する。

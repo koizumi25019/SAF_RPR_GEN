@@ -16,9 +16,9 @@
 
 
 //*************************************************************************************************************
-//	@name		F@InitGlobalVars
-//	@function	F	initialize the global variable
-//	@return	F	(bool) 正常, 異常 
+//	@name		InitGlobalVars
+//	@function	全グローバル変数を初期化する
+//	@return		(bool) 正常, 異常
 //*************************************************************************************************************
 bool InitGlobalVars(
 	void
@@ -182,9 +182,3 @@ void InitGlobalVarsREADDATA(
 
 	return;
 }
-
-
-
-
-
-

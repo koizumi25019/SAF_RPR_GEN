@@ -23,6 +23,13 @@
 #include "fdp/cnf/normal_scope.h"
 #include "fdp/worker_pool.h"
 
+/* ccadical_solve() の戻り値（CaDiCaL 規約）: 10=SAT, 20=UNSAT, 0=UNKNOWN */
+enum { SAT_RESULT_SAT = 10, SAT_RESULT_UNSAT = 20 };
+/* FDP（検出確率）を保持する mpf_t の精度ビット数 */
+#define FDP_DENSITY_PRECISION_BITS 8192
+/* -limit 未指定（無制限）時のキューブ配列の初期容量 */
+#define CUBESET_DEFAULT_CAPACITY 30
+
 /* 各プロセス専用。BDDマネージャはfork後に初期化し、担当故障間で再利用する。
  * ソルバとキューブ集合は故障ごとに作成する。XIDのstatic領域もプロセスごとに独立。
  */
@@ -39,6 +46,26 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
         if (literal != 0) ccadical_add(solver, literal);
     }
     ccadical_add(solver, 0);
+}
+
+/* 列挙が終わった故障のFDPをBDDで求め、CSV・キューブを出力する。
+   キューブ集合は読むだけで、解放は呼び出し側が行う。 */
+static bool EmitFaultResult(FaultAnalysisContext* context, FNODE* target,
+                            const CubeSet* cubes, bool limit_hit,
+                            FILE* result_fp, FILE* cube_fp, FaultStats* stats)
+{
+    FaultResult result = { .target = target, .cube_cnt = cubes->n, .complete = !limit_hit };
+    mpf_init2(result.density, FDP_DENSITY_PRECISION_BITS);
+    clock_t start = clock();
+    if (!RunBDD(context->bdd_manager, n_pi, cubes, result.density)) {
+        mpf_clear(result.density);
+        return false;
+    }
+    WriteFaultResult(result_fp, &result);
+    bool ok = WriteFaultCubes(cube_fp, &result, cubes);
+    mpf_clear(result.density);
+    stats->bdd += (double)(clock() - start) / CLOCKS_PER_SEC;
+    return ok;
 }
 
 /* 直列・並列で共通の1故障処理。SAT→XID→禁止節を繰り返し、BDD・CSVへ進む。
@@ -62,7 +89,7 @@ static bool AnalyzeOneFault(FNODE* target, FILE* result_fp, FILE* cube_fp,
     }
 
     CubeSet cubes;
-    cubeset_init(&cubes, opt.file.input.limit > 0 ? opt.file.input.limit : 30);
+    cubeset_init(&cubes, opt.file.input.limit > 0 ? opt.file.input.limit : CUBESET_DEFAULT_CAPACITY);
 
     bool succeeded = true;
     bool unlimited = opt.file.input.limit <= 0;
@@ -72,7 +99,7 @@ static bool AnalyzeOneFault(FNODE* target, FILE* result_fp, FILE* cube_fp,
         stats->cadical += (double)(clock() - start) / CLOCKS_PER_SEC;
 
         /* UNKNOWNではモデル参照・禁止節追加・結果出力を行わない。 */
-        if (status != 10 && status != 20) {
+        if (status != SAT_RESULT_SAT && status != SAT_RESULT_UNSAT) {
             fprintf(stderr, "ERROR: SAT solver returned UNKNOWN (status=%d) for %s %s; "
                     "no cube blocked or result written for this fault.\n",
                     status, target->name, FaultTypeName(target->type));
@@ -80,27 +107,10 @@ static bool AnalyzeOneFault(FNODE* target, FILE* result_fp, FILE* cube_fp,
             succeeded = false;
             break;
         }
-        if (status == 20 || (!unlimited && cubes.n >= opt.file.input.limit)) {
-            bool limit_hit = !unlimited && cubes.n >= opt.file.input.limit && status != 20;
+        if (status == SAT_RESULT_UNSAT || (!unlimited && cubes.n >= opt.file.input.limit)) {
+            bool limit_hit = !unlimited && cubes.n >= opt.file.input.limit && status != SAT_RESULT_UNSAT;
 
-            FaultResult result = {
-                .target = target,
-                .cube_cnt = cubes.n,
-                .complete = !limit_hit
-            };
-            mpf_init2(result.density, 8192);
-            start = clock();
-            if (!RunBDD(context->bdd_manager, n_pi, &cubes, result.density)) {
-                mpf_clear(result.density);
-                cubeset_free(&cubes);
-                succeeded = false;
-                break;
-            }
-            WriteFaultResult(result_fp, &result);
-            succeeded = WriteFaultCubes(cube_fp, &result, &cubes);
-            mpf_clear(result.density);
-            stats->bdd += (double)(clock() - start) / CLOCKS_PER_SEC;
-
+            succeeded = EmitFaultResult(context, target, &cubes, limit_hit, result_fp, cube_fp, stats);
             cubeset_free(&cubes);
             break;
         }

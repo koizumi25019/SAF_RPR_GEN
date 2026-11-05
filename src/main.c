@@ -14,6 +14,39 @@
 #include "fdp/worker_pool.h"
 
 
+/* 故障モデルに応じた回路の前提チェックとTDF展開。
+   不正ならエラーを表示して false を返す（呼び出し側は EXIT_FAILURE）。 */
+static bool PrepareCircuitForFaultModel(void)
+{
+	/** SAF モード：FFを含む回路は解析できない（-tdf の付け忘れを含む）。
+	 *  これ以降の解析はFFが無いことを前提にする。 */
+	if (opt.fault_model == FM_SAF && n_dff + n_rdff + n_dffs + n_rdffs > 0)
+	{
+		printf("\n	COMMAND ERROR: -saf は組合せ回路のみ対応です。");
+		printf("DFF を含む順序回路には -tdf を指定してください。\n\n");
+		return false;
+	}
+
+	/** TDF モード：順序回路（DFF入り）を LOC 方式の2時刻展開に組み替える */
+	if (opt.fault_model == FM_TDF)
+	{
+		if (n_rdff + n_dffs + n_rdffs > 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf は素の DFF のみ対応です。");
+			printf("RDFF/DFFS/RDFFS を含む回路は指定できません。\n\n");
+			return false;
+		}
+		if (n_dff == 0)
+		{
+			printf("\n	COMMAND ERROR: -tdf には順序回路が必要です。");
+			printf("DFF を含まない回路が指定されました。順序回路にしてください。\n\n");
+			return false;
+		}
+		expand_tdf_netlist();
+	}
+	return true;
+}
+
 //*************************************************************************************************************
 //	@name		main
 //	@function	main
@@ -42,32 +75,7 @@ int main(
 	/** ネットリストを読み込む */
 	read_nl(opt.file.input.net);
 
-	/** SAF モード：FFを含む回路は解析できない（-tdf の付け忘れを含む）。
-	 *  これ以降の解析はFFが無いことを前提にする。 */
-	if (opt.fault_model == FM_SAF && n_dff + n_rdff + n_dffs + n_rdffs > 0)
-	{
-		printf("\n	COMMAND ERROR: -saf は組合せ回路のみ対応です。");
-		printf("DFF を含む順序回路には -tdf を指定してください。\n\n");
-		return EXIT_FAILURE;
-	}
-
-	/** TDF モード：順序回路（DFF入り）を LOC 方式の2時刻展開に組み替える */
-	if (opt.fault_model == FM_TDF)
-	{
-		if (n_rdff + n_dffs + n_rdffs > 0)
-		{
-			printf("\n	COMMAND ERROR: -tdf は素の DFF のみ対応です。");
-			printf("RDFF/DFFS/RDFFS を含む回路は指定できません。\n\n");
-			return EXIT_FAILURE;
-		}
-		if (n_dff == 0)
-		{
-			printf("\n	COMMAND ERROR: -tdf には順序回路が必要です。");
-			printf("DFF を含まない回路が指定されました。順序回路にしてください。\n\n");
-			return EXIT_FAILURE;
-		}
-		expand_tdf_netlist();
-	}
+	if (!PrepareCircuitForFaultModel()) return EXIT_FAILURE;
 
 	// 故障検出確率を算出する
 	if (AnalyzeFaultDensity(&time_cadical, &time_bdd, &time_xid, &time_read) != AFD_OKAY) return EXIT_FAILURE;
