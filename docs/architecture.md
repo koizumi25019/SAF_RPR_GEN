@@ -5,6 +5,8 @@
 `src/main.c` は起動と全体制御、`cli/` は設定、`netlist/` は回路、`fault/` は故障の管理を担う。
 `fdp/analysis.c` が処理を進め、`fdp/context.c` が解析用状態の初期化、`fdp/worker_pool.c` が並列実行を担う。
 `fdp/cnf/`・`fdp/xid/`・`fdp/bdd/` が各計算段階、`io/` がCSV・ログ出力、`common/` が共通処理を持つ。
+`coverage/` は`-calc_f`指定時だけ、書き出し済みのFDP CSVから故障検出率Fを求める後処理で、
+FDP計算の内部状態には依存しない（[calc F](calc_f.md)）。
 SAFとTDFは共通のパイプラインを使い、ソースをモデル別に二重化しない。
 プロジェクト内のincludeは `src/` からのパスで統一する。
 

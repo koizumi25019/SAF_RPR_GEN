@@ -25,6 +25,7 @@ src/
     bdd/                BDDによる確率計算
   io/                   CSV・ログ・ファイル操作
   common/               メモリ確保などの共通処理
+  coverage/             calc F（-calc_f指定時のみ、FDP CSVから故障検出率を計算）
 external/               CaDiCaL・CUDDのソースとライブラリ
 tests/
   expected/             比較用の正解データ（実行では上書きしない）
@@ -102,6 +103,9 @@ mkdir -p output/saf/full/{fdp,log}
 | `-limit <N>` | 故障ごとのキューブ列挙上限。省略・0以下は無制限 |
 | `-jobs <N>` | 並列数。1〜256、既定1 |
 | `-progress on\|off` | 完了故障数の標準出力表示。既定on。直列・並列に対応 |
+| `-calc_f <Np[,Np...]>` | 指定時のみ、FDP CSVからランダムパターンNp個での故障検出率F・検出効率Eを計算する（[calc F](docs/calc_f.md)） |
+| `-calc_f_nr on\|off` | calc Fで非復元抽出のFも求める。既定off |
+| `-calc_f_out <file>` | calc Fの結果CSV。既定は`-fdp`の`<名前>_F.csv` |
 
 進捗は`Progress >> 完了故障数/全対象故障数`を同じ行に表示し、1故障の処理が終わるたびに更新する。
 キューブ上限で打ち切った故障も処理済みとして数える（CSVの`complete`とは別）。
@@ -276,6 +280,7 @@ ctest --test-dir build --output-on-failure
 - [テストと検証](docs/testing.md)：基本テスト、既知FDPとの比較、詳細検証
 - [LOC遷移故障](docs/transition_fault.md)：励起条件、観測点、対応回路、確率の定義
 - [正常CNFの範囲限定](docs/normal_cnf_scope.md)
+- [calc F](docs/calc_f.md)：ランダムパターンによる故障検出率F・検出効率E（`-calc_f`指定時のみ）
 - [故障単位の並列化](docs/fault_parallel.md)
 - [実装とブランチ構成](docs/architecture.md)
 - [期待値の生成・比較条件](tests/expected/saf/README.md)

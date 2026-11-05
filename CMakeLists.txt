@@ -36,6 +36,9 @@ set(SOURCES
     src/fdp/xid/xid_forward_imp.c
     src/fdp/xid/xid_backward_imp.c
     src/fdp/xid/xid_backward_imp_limited.c
+    src/coverage/coverage_options.c
+    src/coverage/coverage_model.c
+    src/coverage/coverage.c
 )
 
 set(TOOLS_DIR ${CMAKE_SOURCE_DIR}/external)
@@ -87,6 +90,15 @@ if(BUILD_TESTING)
     target_link_libraries(fdp_output_test cudd gmp m)
     add_test(NAME fdp_output COMMAND fdp_output_test)
 
+    add_executable(coverage_model_test
+        tests/coverage_model_test.c
+        src/coverage/coverage_model.c
+    )
+    target_compile_options(coverage_model_test PRIVATE -UNDEBUG)
+    target_include_directories(coverage_model_test PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_link_libraries(coverage_model_test gmp m)
+    add_test(NAME coverage_model COMMAND coverage_model_test)
+
     find_package(Python3 COMPONENTS Interpreter)
     if(Python3_Interpreter_FOUND)
         add_test(NAME fault_equivalence COMMAND ${Python3_EXECUTABLE}
@@ -112,6 +124,9 @@ if(BUILD_TESTING)
         add_test(NAME batch_runner COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/runner_check.py
             --binary $<TARGET_FILE:main_release>)
+        add_test(NAME calc_f COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/calc_f_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME tdf_model COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/tdf_check.py
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>

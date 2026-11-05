@@ -6,6 +6,8 @@
 #include <stdbool.h>
 #include <gmp.h>
 
+#include "coverage/coverage.h"
+
 //-------------------------------------------------------------------------------------------------------------
 //	定義
 //-------------------------------------------------------------------------------------------------------------
@@ -60,6 +62,7 @@ typedef struct Option
     char* cube_fdp_max_text; /**< NULLならキューブ保存のFDP上限なし */
     mpf_t cube_fdp_max; /**< 指定時のみ初期化。FDPと同じ精度で比較する */
     bool cube_include_incomplete; /**< 未完了のキューブも保存する（既定false） */
+    CoverageConfig coverage; /**< -calc_f* 指定時のみ有効（calc F） */
 }
 OPTION;
 

@@ -12,6 +12,7 @@
 #include "fdp/analysis.h"
 
 #include "fdp/worker_pool.h"
+#include "coverage/coverage.h"
 
 
 /* 故障モデルに応じた回路の前提チェックとTDF展開。
@@ -90,7 +91,11 @@ int main(
 
 	bool log_okay = OutLogfile(wall_time, cpu_time, time_cadical, time_bdd, time_xid, time_read);
 
+	/** -calc_f 指定時のみ、書き出したFDP CSVから故障検出率Fを求める（計測時間には含めない） */
+	bool coverage_okay = !opt.coverage.enabled ||
+		RunCoverage(&opt.coverage, opt.file.output.fdp, net_name, n_pi);
+
 	free_netlist();
 
-	return log_okay ? EXIT_SUCCESS : EXIT_FAILURE;
+	return log_okay && coverage_okay ? EXIT_SUCCESS : EXIT_FAILURE;
 }

@@ -144,7 +144,9 @@ bool OPT(
         fprintf(stderr, "COMMAND ERROR: -equiv supports SAF only; cannot be used with -tdf\n");
         return OPT_ERROR;
     }
-	return OPTcheckFile();
+	if (OPTcheckFile() != OPT_OKAY) return OPT_ERROR;
+    return FinalizeCoverageConfig(&opt.coverage, opt.file.output.fdp, opt.file.output.log,
+                                  opt.file.output.cube);
 }
 
 //*************************************************************************************************************
@@ -163,6 +165,7 @@ void OPTinit(
     opt.fault_model = FM_SAF;
     opt.cube_fdp_max_text = NULL;
     opt.cube_include_incomplete = false;
+    InitCoverageConfig(&opt.coverage);
 
 	return;
 }
@@ -215,6 +218,12 @@ bool OPTset(
             const char* name = argv[i];
             const char* value = i + 1 < argc ? argv[++i] : NULL;
             if (!SetRuntimeOption(name, value)) return OPT_ERROR;
+        }
+        /** calc F（src/coverage/） */
+        else if (IsCoverageOption(argv[i])) {
+            const char* name = argv[i];
+            const char* value = i + 1 < argc ? argv[++i] : NULL;
+            if (!SetCoverageOption(&opt.coverage, name, value)) return OPT_ERROR;
         }
 		else if (strcmp(argv[i], "-saf") == 0)
 			opt.fault_model = FM_SAF;
@@ -345,6 +354,15 @@ bool OPTread(
             else if (IsRuntimeOption(token1)) {
                 token2 = strtok_r(NULL, " \t\r\n", &context);
                 if (!SetRuntimeOption(token1, token2)) {
+                    free(buffer);
+                    fclose(fileptr);
+                    return OPT_ERROR;
+                }
+            }
+            /** calc F（src/coverage/） */
+            else if (IsCoverageOption(token1)) {
+                token2 = strtok_r(NULL, " \t\r\n", &context);
+                if (!SetCoverageOption(&opt.coverage, token1, token2)) {
                     free(buffer);
                     fclose(fileptr);
                     return OPT_ERROR;
