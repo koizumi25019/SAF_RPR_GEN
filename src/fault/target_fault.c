@@ -1,7 +1,6 @@
 //-------------------------------------------------------------------------------------------------------------
 //	インクルード
 //-------------------------------------------------------------------------------------------------------------
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,7 +13,6 @@ typedef struct {
 
 static TargetEntry* target_order = NULL;
 static size_t target_count = 0;
-static size_t target_cursor = 0;
 
 static int CompareTarget(const void* lhs, const void* rhs)
 {
@@ -32,7 +30,6 @@ void FreeTargetOrder(void)
     free(target_order);
     target_order = NULL;
     target_count = 0;
-    target_cursor = 0;
 }
 
 bool InitTargetOrder(void)
@@ -66,40 +63,12 @@ bool InitTargetOrder(void)
 }
 
 
-//*************************************************************************************************************
-//	@name		F@SetTarget
-//	@function	F	単一の対象故障を選択する
-//	@return		F	(FNODE*) 対象故障、なければ NULL
-//*************************************************************************************************************
-FNODE* SetTarget(void)
-{
-    while (target_cursor < target_count) {
-        FNODE* target = target_order[target_cursor].fault;
-        /* 処理済みになるまでは同じ対象を返す。INT_MAX は旧実装でも対象外。 */
-        if (target->detect == UNDETECTED && target->netptr->level < INT_MAX)
-            return target;
-        target_cursor++;
-    }
-
-    return NULL;
-}
-
-/* 並列でも既存の整列順を使い、選択ロジックを二重に実装しない。 */
+/* 直列・並列で同じ整列順を使い、選択ロジックを二重に実装しない。 */
 FNODE** CopyTargetOrder(int* count)
 {
-    *count = 0;
-    for (size_t index = 0; index < target_count; index++) {
-        FNODE* fault = target_order[index].fault;
-        if (fault->detect != UNDETECTED) continue;
-        if (fault->netptr->level == INT_MAX) return NULL;
-        (*count)++;
-    }
-    FNODE** faults = malloc((size_t)(*count ? *count : 1) * sizeof(*faults));
+    *count = (int)target_count;
+    FNODE** faults = malloc((target_count ? target_count : 1) * sizeof(*faults));
     if (!faults) return NULL;
-    int copied = 0;
-    for (size_t index = 0; index < target_count; index++) {
-        FNODE* fault = target_order[index].fault;
-        if (fault->detect == UNDETECTED) faults[copied++] = fault;
-    }
+    for (size_t index = 0; index < target_count; index++) faults[index] = target_order[index].fault;
     return faults;
 }

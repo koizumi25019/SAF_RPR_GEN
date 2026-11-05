@@ -23,7 +23,6 @@ def projection(path):
 def check_binary(binary, output):
     output.mkdir(parents=True)
     env = dict(os.environ)
-    env.pop('MDC_NOPROP', None)
 
     def run(label, extra=(), missing=None, error=None, settings=None,
             netlist=CIRCUIT, cwd=ROOT, circuit_name=None, complete=False):

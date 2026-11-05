@@ -9,8 +9,6 @@
 
 #include "netlist/netlist.h"
 
-#define TDF_YES 1   /* netlist.h には YES/NO が無いので test_sa0/test_sa1 用に定義 */
-
 /* DFFへ向かう辺は1時刻目だけ残し、2時刻目のBUFへつなぐ。
    2時刻目には次のDFFがないため辺を落とし、キャプチャ点はPPOとして別途記録する。 */
 static int count_frame_outputs(const NLIST* original_net, int frame)
@@ -51,25 +49,19 @@ static char* duplicate_frame_name(const char* original_name, int frame)
 	return frame_name;
 }
 
-/* 新ノードの共通フィールド初期化（calloc 済み前提で残りを埋める） */
+/* 新ノードの共通フィールド初期化（calloc 済み前提で残りを埋める）。
+   解析用フィールド（故障対象フラグなど）は InitGlobalVarsNLIST で初期化する。 */
 static void init_expanded_net(NLIST* expanded_net, int id, int type, char* name)
 {
 	expanded_net->n        = id;
 	expanded_net->type     = type;
 	expanded_net->name     = name;
-	expanded_net->name_ins = strdup(name);
-	expanded_net->name_port = (char*)NULL;
-	/* 故障読込時に等価故障を整理するまでは、全てを対象にする。 */
-	expanded_net->test_sa0 = TDF_YES;
-	expanded_net->test_sa1 = TDF_YES;
-	expanded_net->ppo_flag = 0;         /* 観測点は build_scan_ports が PPO にだけ立てる */
 }
 
-/* 疑似外部入出力の配列を作り、
-   観測点フラグ(ppo_flag)を立てる。展開回路上では
+/* 疑似外部入出力の配列を作る。展開回路上では
      ppi[] = DFF状態の1時刻目コピー（自由入力＝スキャンで設定される状態変数）
      ppo[] = DFFのD入力の2時刻目コピー（FFへのキャプチャ点＝唯一の観測点）
-   PO は at-speed でストローブしないので ppo_flag を立てない。 */
+   PO は at-speed でストローブしないので観測点にしない。 */
 static void build_scan_ports(
 	const NLIST* original_nets, int original_net_count,
 	NLIST* expanded_nets, const int* frame1_net_ids, const int* frame2_net_ids
@@ -88,9 +80,7 @@ static void build_scan_ports(
 		if (original_nets[i].type != DFF) continue;
 		int data_net_id = original_nets[i].in[0]->n;
 		ppi[n_ppi++] = &expanded_nets[frame1_net_ids[i]];
-		ppo[n_ppo] = &expanded_nets[frame2_net_ids[data_net_id]];
-		ppo[n_ppo]->ppo_flag = 1;
-		n_ppo++;
+		ppo[n_ppo++] = &expanded_nets[frame2_net_ids[data_net_id]];
 	}
 }
 
@@ -206,22 +196,10 @@ void expand_tdf_netlist(void)
 		free(original_nets[i].name);
 		free(original_nets[i].in);
 		free(original_nets[i].out);
-		free(original_nets[i].name_ins);
-		free(original_nets[i].name_port);
 	}
 	free(original_nets);
 	free(original_pi);
 	free(original_po);
-	free(dff);
-	dff = NULL;
-	free(rdff);
-	rdff = NULL;
-	free(dffs);
-	dffs = NULL;
-	free(rdffs);
-	rdffs = NULL;
-	free(assign);
-	assign = NULL;
 
 	nl = expanded_nets;
 	n_net = expanded_net_count;
@@ -233,7 +211,6 @@ void expand_tdf_netlist(void)
 	n_rdff = 0;
 	n_dffs = 0;
 	n_rdffs = 0;
-	n_assign = 0;
 
 	free(frame1_net_ids);
 	free(frame2_net_ids);

@@ -27,6 +27,10 @@ static DdNode* parseCube(DdManager* gbm, const char* cubeStr, int nvars) {
         }
 
         DdNode* tmp = Cudd_bddAnd(gbm, cubeBdd, literalBdd);
+        if (tmp == NULL) {  /* メモリ不足などでCUDDが失敗した */
+            Cudd_RecursiveDeref(gbm, cubeBdd);
+            return NULL;
+        }
         Cudd_Ref(tmp);
 
         Cudd_RecursiveDeref(gbm, cubeBdd);
@@ -44,7 +48,13 @@ bool RunBDD(DdManager* gbm, int nvars, const CubeSet* cubes, mpf_t density) {
 
     for (int i = 0; i < cubes->n; i++) {
         DdNode* cubeBdd = parseCube(gbm, cubes->data[i], nvars);
-        DdNode* tmp = Cudd_bddOr(gbm, finalBdd, cubeBdd);
+        DdNode* tmp = cubeBdd ? Cudd_bddOr(gbm, finalBdd, cubeBdd) : NULL;
+        if (tmp == NULL) {  /* メモリ不足などでCUDDが失敗した */
+            if (cubeBdd) Cudd_RecursiveDeref(gbm, cubeBdd);
+            Cudd_RecursiveDeref(gbm, finalBdd);
+            fprintf(stderr, "ERROR: BDD construction failed\n");
+            return false;
+        }
         Cudd_Ref(tmp);
         Cudd_RecursiveDeref(gbm, finalBdd);
         Cudd_RecursiveDeref(gbm, cubeBdd);

@@ -1,12 +1,8 @@
 #include "fdp/cnf/normal_scope.h"
 #include "fdp/xid/XID.h"
 
-#define DEBUG_XFILL       0
-#define DEBUG_XFILL_SHORT 0
-#define MODE_XID_LOOP_PO  0
-
 /* 前方宣言 */
-static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_info);
+static void ED_push_Xpath(NLIST_t* net, XID_VAR_INFO* var_info);
 
 /* -----------------------------------------------------------------------
  * 呼び出しごとの malloc/free を避けるため、一度だけ確保して
@@ -40,23 +36,23 @@ static void xid_ensure_scratch(void) {
 /* -----------------------------------------------------------------------
  * xid_fpath: 故障伝搬パスの選択（故障サイトからの後方探索）
  * ----------------------------------------------------------------------- */
-typedef void (*xid_fpath_func_t)(Queue_t* imp_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info);
+typedef void (*xid_fpath_func_t)(Queue_t* imp_q, const NLIST_t* node, XID_VAR_INFO* var_info);
 
-static void xid_fpath_unsupported(Queue_t* imp_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    (void)imp_q; (void)xid_tag; (void)var_info;
+static void xid_fpath_unsupported(Queue_t* imp_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    (void)imp_q; (void)var_info;
     ERROR_PRINTF("Unsupported gate type in XID fault propagation: %s (type)%" PRId8 "\n", node->name, node->type);
     DEBUG_ASSERT(0);
 }
-static void xid_fpath_skip(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    (void)bwd_q; (void)node; (void)xid_tag; (void)var_info;
+static void xid_fpath_skip(Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    (void)bwd_q; (void)node; (void)var_info;
 }
-static void xid_fpath_buf(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    (void)bwd_q; (void)xid_tag;
-    ED_push_Xpath(node->in[0], xid_tag, var_info);
+static void xid_fpath_buf(Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    (void)bwd_q;
+    ED_push_Xpath(node->in[0], var_info);
 }
 
 static void gate_common_AND_OR_like(
-    Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info,
+    Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info,
     int ctrl_value, int invert_output)
 {
     int non_ctrl_value = ctrl_value ^ 1;
@@ -73,7 +69,6 @@ static void gate_common_AND_OR_like(
         if (in_info->normal_2value == in_info->fault_2value) continue;
 
         size_t current_tag = in_info->xid_tag;
-        if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 
         if (!(current_tag & XID_FLAG_NORMAL)) {
             if (in_lev > in_i_lev) {
@@ -95,11 +90,10 @@ static void gate_common_AND_OR_like(
         XID_VAR_INFO* in_info = &var_info[in_i->n];
 
         if (i == select_id) {
-            ED_push_Xpath(in_i, xid_tag_base, var_info);
+            ED_push_Xpath(in_i, var_info);
         } else {
             size_t current_tag = in_info->xid_tag;
             _Bool is_updated = 0;
-            if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 
             if (n2v == ctrl_value) {
                 if (!(current_tag & XID_FLAG_FAULT)) {
@@ -123,20 +117,20 @@ static void gate_common_AND_OR_like(
     }
 }
 
-static void xid_fpath_and (Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    gate_common_AND_OR_like(bwd_q, node, xid_tag, var_info, XID_ZERO, 0);
+static void xid_fpath_and (Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    gate_common_AND_OR_like(bwd_q, node, var_info, XID_ZERO, 0);
 }
-static void xid_fpath_nand(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    gate_common_AND_OR_like(bwd_q, node, xid_tag, var_info, XID_ZERO, 1);
+static void xid_fpath_nand(Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    gate_common_AND_OR_like(bwd_q, node, var_info, XID_ZERO, 1);
 }
-static void xid_fpath_or  (Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    gate_common_AND_OR_like(bwd_q, node, xid_tag, var_info, XID_ONE, 0);
+static void xid_fpath_or  (Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    gate_common_AND_OR_like(bwd_q, node, var_info, XID_ONE, 0);
 }
-static void xid_fpath_nor (Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag, XID_VAR_INFO* var_info) {
-    gate_common_AND_OR_like(bwd_q, node, xid_tag, var_info, XID_ONE, 1);
+static void xid_fpath_nor (Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
+    gate_common_AND_OR_like(bwd_q, node, var_info, XID_ONE, 1);
 }
 
-static void xid_fpath_exor(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info) {
+static void xid_fpath_exor(Queue_t* bwd_q, const NLIST_t* node, XID_VAR_INFO* var_info) {
     size_t n_in = (size_t)node->n_in;
     DEBUG_ASSERT(n_in == 2);
     for (size_t i = 0; i < n_in; ++i) {
@@ -146,7 +140,6 @@ static void xid_fpath_exor(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag_b
         if (in_info->normal_2value == in_info->fault_2value) {
             size_t current_tag = in_info->xid_tag;
             _Bool is_updated = 0;
-            if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 
             if (!(current_tag & XID_FLAG_NORMAL)) {
                 in_info->normal_3value = in_info->normal_2value;
@@ -163,7 +156,7 @@ static void xid_fpath_exor(Queue_t* bwd_q, const NLIST_t* node, size_t xid_tag_b
                 enqueue(bwd_q, in_i);
             }
         } else {
-            ED_push_Xpath(in_i, xid_tag_base, var_info);
+            ED_push_Xpath(in_i, var_info);
         }
     }
 }
@@ -189,12 +182,11 @@ void init_xid_fpath_table(void) {
 /* -----------------------------------------------------------------------
  * ED_push_Xpath: ネットを故障伝搬パス上にあるとしてマークする
  * ----------------------------------------------------------------------- */
-static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
+static void ED_push_Xpath(NLIST_t* net, XID_VAR_INFO* var_info) {
     size_t id = net->n;
     size_t current_tag = var_info[id].xid_tag;
 
-    if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
-    if (current_tag == (xid_tag_base | XID_FLAG_BOTH)) { return; }
+    if (current_tag == XID_FLAG_BOTH) { return; }
 
     push_lev_net(net);
 
@@ -212,15 +204,15 @@ static void ED_push_Xpath(NLIST_t* net, size_t xid_tag_base, XID_VAR_INFO* var_i
 /* -----------------------------------------------------------------------
  * Xfilling: 検出POから故障サイトへ向かう3値X埋め
  * ----------------------------------------------------------------------- */
-static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_t xid_tag_base, size_t excID) {
+static void Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_t excID) {
     NLIST_t* tmp_net = &nl[po_id];
-    ED_push_Xpath(tmp_net, xid_tag_base, var_info);
+    ED_push_Xpath(tmp_net, var_info);
 
     /* 故障サイトを「故障源」として固定: その故障3値(=注入したstuck効果)を
        その駆動ゲートからの前方含意で上書きさせない。これを怠ると分岐故障で
        故障サイトの fault_3value がステム値に潰れ、D効果が消えて活性化条件が
        後方含意されず、必要PIがXとして出力される(過大評価)。 */
-    ED_push_Xpath(&nl[fsigID], xid_tag_base, var_info);
+    ED_push_Xpath(&nl[fsigID], var_info);
 
     Queue_t* fwd_q = s_fwd_q;
     Queue_t* bwd_q = s_bwd_q;
@@ -237,7 +229,6 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     if (excID != VSIZE_INVALID) {
         XID_VAR_INFO* exc_info = &var_info[excID];
         size_t current_tag = exc_info->xid_tag;
-        if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
         if (!(current_tag & XID_FLAG_NORMAL)) {
             exc_info->normal_3value = exc_info->normal_2value;
             exc_info->xid_tag = current_tag | XID_FLAG_NORMAL;
@@ -253,13 +244,13 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     {
         if (!isQueueEmpty(fwd_q)) {
             NLIST_t* net = (NLIST_t*)dequeue(fwd_q);
-            xid_forward_imp(fwd_q, net, xid_tag_base, var_info);
+            xid_forward_imp(fwd_q, net, var_info);
         }
         else if (!isQueueEmpty(bwd_q)) {
             NLIST_t* net = (NLIST_t*)dequeue(bwd_q);
-            xid_backward_imp(bwd_q, jus_q, net, xid_tag_base, var_info, fsigID);
+            xid_backward_imp(bwd_q, jus_q, net, var_info, fsigID);
             if (net->n_out >= 2) {
-                xid_forward_imp(fwd_q, net, xid_tag_base, var_info);
+                xid_forward_imp(fwd_q, net, var_info);
             }
         }
         else if (!stop_xpath && get_total_net_count()) {
@@ -276,12 +267,12 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
                     (void)pop_lev_net(event_lev);
                 }
             } else {
-                (*xid_fpath[tmp_net->type])(bwd_q, tmp_net, xid_tag_base, var_info);
+                (*xid_fpath[tmp_net->type])(bwd_q, tmp_net, var_info);
             }
         }
         else {
             NLIST_t* jus_net = (NLIST_t*)dequeue(jus_q);
-            xid_backward_imp_limited(bwd_q, jus_net, xid_tag_base, var_info, fsigID);
+            xid_backward_imp_limited(bwd_q, jus_net, var_info, fsigID);
         }
     }
 
@@ -290,7 +281,6 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
     /* 補正: 影響コーン外の信号には正常値を設定する */
     for (int i = 0; i < n_net; ++i) {
         size_t current_tag = var_info[i].xid_tag;
-        if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
         int n3v = (current_tag & XID_FLAG_NORMAL) ? var_info[i].normal_3value : XID_X;
         int f3v = (current_tag & XID_FLAG_FAULT)  ? var_info[i].fault_3value  : XID_X;
 
@@ -301,7 +291,6 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
             }
         }
     }
-    return 1;
 }
 
 /* -----------------------------------------------------------------------
@@ -310,7 +299,7 @@ static _Bool Xfilling(size_t fsigID, XID_VAR_INFO* var_info, size_t po_id, size_
  * ブロッキング節は呼び出し側（AddBlockingClauseFromCube）が追加する。
  * 呼び出し側が返り値の文字列を free() すること。
  * ----------------------------------------------------------------------- */
-char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po, NLIST* exc_net) {
+char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, NLIST* exc_net) {
     xid_ensure_scratch();
 
     size_t fsigID = (size_t)(fault_net - nl);
@@ -325,16 +314,13 @@ char* InlineXID(CCaDiCaL* solver, NLIST* fault_net, int preferred_po, NLIST* exc
     /* 2値故障シミュレーション（レベルスタックを空になるまで使い切る） */
     xid_fsim(fsigID, var_info, &detect_po);
 
-    /* X-filling toward one detecting PO（既定: fsim が最初に見つけた PO。
-       preferred_po が検出PO列にあればそちらを正当化先にする） */
-    if (detect_po.n_det_po > 0) {
-        size_t po = detect_po.po_id[0];
-        if (preferred_po >= 0) {
-            for (size_t k = 0; k < detect_po.n_det_po; ++k)
-                if (detect_po.po_id[k] == (size_t)preferred_po) { po = detect_po.po_id[k]; break; }
-        }
-        Xfilling(fsigID, var_info, po, 0, exc_net ? (size_t)exc_net->n : VSIZE_INVALID);
-    }
+    /* SATモデルは検出回路の出力=1を満たすので、故障シミュレーションでも必ずどこかの
+       観測点で検出される。検出されないのはSATモデルとシミュレーションの不整合であり、
+       ここで続けると全PIがXのキューブ（FDP=1）になるため、呼び出し側へ失敗を返す。 */
+    if (detect_po.n_det_po == 0) return NULL;
+
+    /* X-filling toward one detecting PO（fsim が最初に見つけた観測点） */
+    Xfilling(fsigID, var_info, detect_po.po_id[0], exc_net ? (size_t)exc_net->n : VSIZE_INVALID);
 
     /* 結果文字列を構築する: PIごとに '0'/'1'/'X'（'\0'終端、末尾改行なし） */
     char* result = (char*)malloc((size_t)n_pi + 1);

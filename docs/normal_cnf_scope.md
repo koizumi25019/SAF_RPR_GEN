@@ -81,7 +81,7 @@ baselineの実生成キューブの独立GT検証を全て通過。最初の4回
 未完了故障のFDPは下界。範囲限定だけで全故障の完全列挙を保証するものではない。
 この正常CNF限定の検証対象はbaselineのSAF/XID。現在は故障並列化もbaselineへ移植済み。
 
-GCC 14でも従来の `strdup()` を正しく宣言できるよう、`read.c` のPOSIX機能レベルを
+GCC 14でも従来の `strdup()` を正しく宣言できるよう、`read.c`（現 `src/fault/fault_list.c`）のPOSIX機能レベルを
 `200809L` に修正した。適用前バイナリは元ソースのまま `-D_DEFAULT_SOURCE` を指定してビルドした。
 
 ## 対象出力TFIへの移植検証（2026-10-13）

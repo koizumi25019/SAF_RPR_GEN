@@ -14,6 +14,20 @@
 #include "netlist/netlist.h"
 #include "cli/options.h"
 
+static bool CreateFaultList(char* buffer);
+static bool searchFnode(char* buffer, FNODE* tmp);
+static FNODE* CreateFaultNode(char* buffer);
+
+/* 空白文字（CRLFの\rを含む）だけの行は故障を表さないので読み飛ばす。 */
+static bool IsBlankLine(const char* line)
+{
+	for (; *line != '\0'; line++)
+	{
+		if (!isspace((unsigned char)*line)) return false;
+	}
+	return true;
+}
+
 //*************************************************************************************************************
 //	@name		F@ReadFault
 //	@function	F	故障を読み込む
@@ -38,7 +52,7 @@ bool ReadFault(
 		/** 故障リストを作成する */
 		while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
 		{
-			if (COMP_NEWLINE(buffer))
+			if (!IsBlankLine(buffer))
 			{
 				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
 			}
@@ -60,7 +74,6 @@ bool ReadFault(
 		char buffer[MAXSIZE_BUFFER];
 
 		readdata.fault.numinit = 0;
-		readdata.fault.numrema = 0;
 
 		for (i = 0; i < n_net; i++)
 		{
@@ -90,7 +103,6 @@ bool ReadFault(
 		char buffer[MAXSIZE_BUFFER];
 
 		readdata.fault.numinit = 0;
-		readdata.fault.numrema = 0;
 
 		// ネットリストを再度走査し、YESのフラグが残っているものだけ FNODE 化する
 		for (i = 0; i < n_net; i++)
@@ -119,7 +131,7 @@ bool ReadFault(
 //	@function	故障リストを作成する
 //	@return		(bool) 正常, 異常
 //*************************************************************************************************************
-bool CreateFaultList(
+static bool CreateFaultList(
 	char* buffer			  /**< バッファ */
 )
 {
@@ -146,7 +158,6 @@ bool CreateFaultList(
 			readdata.fault.list[hash] = fnodeptr;
 
 			readdata.fault.numinit++;
-			readdata.fault.numrema++;
 		}
 		else
 		{
@@ -162,7 +173,7 @@ bool CreateFaultList(
 //	@function	故障ノードを探索する
 //	@return		(bool) found, not found
 //*************************************************************************************************************
-bool searchFnode(
+static bool searchFnode(
 	char* buffer,			  /**< バッファ（キー） */
 	FNODE* tmp				  /**< ハッシュ故障リストへのポインタ */
 )
@@ -280,20 +291,30 @@ static NLIST* FindNetByName(
 //	@function	故障ノードを作成する
 //	@return		(FNODE*) 故障ノードへのポインタ
 //*************************************************************************************************************
-FNODE* CreateFaultNode(
+static FNODE* CreateFaultNode(
 	char* buffer			  /**< バッファ */
 )
 {
 	char* context = (char*)NULL;
 	FNODE* fnodeptr = (FNODE*)NULL;
+	char* name = (char*)NULL;
 
 	fnodeptr = (FNODE*)allocMemory(1, sizeof(FNODE));
 
-	/** 文字列を設定する */
+	/** 文字列を設定する（重複判定のキー。strtok_r で区切る前に複製する） */
 	fnodeptr->string = strdup(buffer);
 
 	/** 名前を設定する */
-	fnodeptr->name = strdup(strtok_r(buffer, " \t\n", &context));
+	name = strtok_r(buffer, " \t\r\n", &context);
+	if (name == NULL)
+	{
+		printf("\n\tFILE ERROR: fault file reading failed. ");
+		printf("fault name is missing.\n\n");
+		free(fnodeptr->string);
+		free(fnodeptr);
+		return (FNODE*)NULL;
+	}
+	fnodeptr->name = strdup(name);
 
 	/** タイプを設定する */
 	if (!ParseFaultType(&context, &fnodeptr->type))
@@ -303,9 +324,6 @@ FNODE* CreateFaultNode(
 		free(fnodeptr);
 		return (FNODE*)NULL;
 	}
-
-	/** 検出状態を設定する */
-	fnodeptr->detect = UNDETECTED;
 
 	/** ネットリストへのポインタを設定する */
 	fnodeptr->netptr = FindNetByName(fnodeptr->name);

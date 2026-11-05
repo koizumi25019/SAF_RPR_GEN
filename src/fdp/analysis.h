@@ -15,15 +15,10 @@
 #define AFD_OKAY	     true				  /**< 戻り値 = 正常 */
 #define AFD_ERROR		 false				  /**< 戻り値 = 異常 */
 
-/** ログファイル出力 -on */
-#define OUTPUT_LOGFILE__ON			if (opt.file.output.log != FILE_NOSET)
-
 //-------------------------------------------------------------------------------------------------------------
 //	グローバル変数
 //-------------------------------------------------------------------------------------------------------------
 int						  numtranpo;	      /**< 伝搬先外部出力数 */
-int						  numtrannet;	      /**< 伝搬先ネット数 */
-clock_t					  cput;			 	  /**< CPU時間 */
 char*					  net_name;
 
 //-------------------------------------------------------------------------------------------------------------
@@ -35,8 +30,4 @@ bool AnalyzeFaultDensity(
 	double* out_time_bdd,
 	double* out_time_xid,
 	double* out_time_read
-);
-
-bool DropDeteFault(
-	FNODE* target
 );

@@ -29,7 +29,7 @@ static void mark(NLIST *gate) {
 static void close_inputs(void) {
     while (top) {
         NLIST *gate = scope_stack[--top];
-        if (gate->type == IN || gate->type == DFF) continue;
+        if (gate->type == IN) continue;
         for (int j = 0; j < gate->n_in; j++) mark(gate->in[j]);
     }
 }

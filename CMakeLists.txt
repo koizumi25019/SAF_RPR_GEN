@@ -10,7 +10,6 @@ set(SOURCES
     src/fdp/cnf/normal_scope_values.c
     src/fdp/cube_set.c
     src/fdp/bdd/probability.c
-    src/fault/drop_detected.c
     src/fdp/cnf/essential_assignment.c
     src/fdp/analysis.c
     src/fdp/worker_pool.c
@@ -98,6 +97,9 @@ if(BUILD_TESTING)
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME options_paths COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/options_paths_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
+        add_test(NAME input_errors COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/input_errors_check.py
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME cube_output COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/cube_output_check.py

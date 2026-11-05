@@ -42,6 +42,15 @@ int main(
 	/** ネットリストを読み込む */
 	read_nl(opt.file.input.net);
 
+	/** SAF モード：FFを含む回路は解析できない（-tdf の付け忘れを含む）。
+	 *  これ以降の解析はFFが無いことを前提にする。 */
+	if (opt.fault_model == FM_SAF && n_dff + n_rdff + n_dffs + n_rdffs > 0)
+	{
+		printf("\n	COMMAND ERROR: -saf は組合せ回路のみ対応です。");
+		printf("DFF を含む順序回路には -tdf を指定してください。\n\n");
+		return EXIT_FAILURE;
+	}
+
 	/** TDF モード：順序回路（DFF入り）を LOC 方式の2時刻展開に組み替える */
 	if (opt.fault_model == FM_TDF)
 	{

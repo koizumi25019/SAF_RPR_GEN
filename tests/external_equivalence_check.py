@@ -180,6 +180,12 @@ def main():
                                    f'-equiv {pairs}\n-fault {faults}\n-jobs {jobs}\n')
                 _, reps = verify(directory, events, requested)
                 assert len(reps) == 2
+            # The malformed-input fix must also apply when external grouping is enabled.
+            faults.write_bytes(b'\r\n  \t\r\np sa0\r\n\nt sa0\n\t\nq sa0\r\n')
+            directory, _ = run(binary, root, prefix + '_selected_blank_lines', circuit,
+                               f'-equiv {pairs}\n-fault {faults}\n')
+            _, reps = verify(directory, events, requested)
+            assert len(reps) == 2
             faults.write_text(''.join(f'{name} {kind}\n' for name, kind in events))
             directory, _ = run(binary, root, prefix + '_explicit_all', circuit,
                                f'-equiv {pairs}\n-fault {faults}\n')

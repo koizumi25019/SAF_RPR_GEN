@@ -1,18 +1,17 @@
 #include "fdp/xid/XID.h"
 
 
-// 関数ポインタの型に xid_tag_base を追加
-typedef void (*xid_bimp_limited_func_t)(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v);
+typedef void (*xid_bimp_limited_func_t)(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v);
 
-static void xid_bimp_unsupported(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)bwd_q; (void)var_info; (void)xid_tag_base;
+static void xid_bimp_unsupported(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)bwd_q; (void)var_info; (void)n3v; (void)f3v;
 	ERROR_PRINTF("Unsupported gate type in limited backward implication: (type)%" PRId8 "\n", t_net->type);
 	DEBUG_ASSERT(0);
 }
 
 // AND, NAND 制御値0を複数持つ
 // OR, NOR 制御値1を複数持つ
-static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v, int c_val, int is_inv) {
+static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v, int c_val, int is_inv) {
 	// -------------------------------------------------------------
 	// 変数初期化
 	// -------------------------------------------------------------
@@ -45,7 +44,7 @@ static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag
 
 		// タグから現在の有効なフラグを取得
 		size_t in_tag = in_info->xid_tag;
-		size_t valid_flags = (in_tag >= xid_tag_base) ? (in_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
+		size_t valid_flags = in_tag & XID_FLAG_BOTH;
 
 		// --- 正常値 最小レベル選択 ---
 		if (!n_done) {
@@ -90,7 +89,6 @@ static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag
 		XID_VAR_INFO* c_info = &var_info[n_cand->n];
 		size_t c_tag = c_info->xid_tag;
 
-		if (c_tag < xid_tag_base) { c_tag = xid_tag_base; }
 
 		// 安全のためのフラグ確認
 		if (!(c_tag & XID_FLAG_NORMAL)) {
@@ -107,7 +105,6 @@ static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag
 	if (!f_done && f_cand != NULL && f_cnt >= 1) {
 		XID_VAR_INFO* c_info = &var_info[f_cand->n];
 		size_t c_tag = c_info->xid_tag;
-		if (c_tag < xid_tag_base) { c_tag = xid_tag_base; }
 
 		if (!(c_tag & XID_FLAG_FAULT)) {
 			c_info->fault_3value = c_val; // 制御値に確定
@@ -124,17 +121,17 @@ static void xid_bimp_limited_univ(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag
 // -------------------------------------------------------------
 // ラッパー関数
 // -------------------------------------------------------------
-static void xid_bimp_limited_and(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	xid_bimp_limited_univ(bwd_q, t_net, xid_tag_base, var_info, n3v, f3v, XID_ZERO, 0);
+static void xid_bimp_limited_and(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	xid_bimp_limited_univ(bwd_q, t_net, var_info, n3v, f3v, XID_ZERO, 0);
 }
-static void xid_bimp_limited_nand(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	xid_bimp_limited_univ(bwd_q, t_net, xid_tag_base, var_info, n3v, f3v, XID_ZERO, 1);
+static void xid_bimp_limited_nand(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	xid_bimp_limited_univ(bwd_q, t_net, var_info, n3v, f3v, XID_ZERO, 1);
 }
-static void xid_bimp_limited_or(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	xid_bimp_limited_univ(bwd_q, t_net, xid_tag_base, var_info, n3v, f3v, XID_ONE, 0);
+static void xid_bimp_limited_or(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	xid_bimp_limited_univ(bwd_q, t_net, var_info, n3v, f3v, XID_ONE, 0);
 }
-static void xid_bimp_limited_nor(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	xid_bimp_limited_univ(bwd_q, t_net, xid_tag_base, var_info, n3v, f3v, XID_ONE, 1);
+static void xid_bimp_limited_nor(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	xid_bimp_limited_univ(bwd_q, t_net, var_info, n3v, f3v, XID_ONE, 1);
 }
 
 
@@ -156,10 +153,10 @@ void init_xid_bimp_limited_table(void) {
 }
 
 // 限定正当化
-void xid_backward_imp_limited(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, size_t fsig_id) {
+void xid_backward_imp_limited(Queue_t* bwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, size_t fsig_id) {
 
 	size_t t_tag = var_info[t_net->n].xid_tag;
-	size_t valid_flags = (t_tag >= xid_tag_base) ? (t_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
+	size_t valid_flags = t_tag & XID_FLAG_BOTH;
 
 	int n3v = (valid_flags & XID_FLAG_NORMAL) ? var_info[t_net->n].normal_3value : XID_X;
 	int f3v = (valid_flags & XID_FLAG_FAULT) ? var_info[t_net->n].fault_3value : XID_X;
@@ -169,5 +166,5 @@ void xid_backward_imp_limited(Queue_t* bwd_q, NLIST_t* t_net, size_t xid_tag_bas
 
 	if (n3v == XID_X && f3v == XID_X) return; // 後方含意早期終了
 
-	(*xid_bimp_limited[t_net->type])(bwd_q, t_net, xid_tag_base, var_info, n3v, f3v);
+	(*xid_bimp_limited[t_net->type])(bwd_q, t_net, var_info, n3v, f3v);
 }

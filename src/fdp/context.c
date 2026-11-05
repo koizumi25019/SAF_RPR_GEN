@@ -42,12 +42,12 @@ bool InitGlobalVars(
 //	@function	compute the logic level of each net
 //	@return		(void)
 //*************************************************************************************************************
-//	level(IN/DFF)=0, level(gate)=1+max(input levels)。各 net を一度だけ計算し
+//	level(IN)=0, level(gate)=1+max(input levels)。各 net を一度だけ計算し
 //	（メモ化）、各辺を一度だけ辿るので O(V+E)。旧版は同じ緩和を n_net 回まわす O(n_net^2)。
 static int ComputeLevelOf(NLIST* net)
 {
 	if (net->level >= 0) return net->level;            // 計算済み（メモ化）
-	if (net->type == IN || net->type == DFF)           // レベル0の起点
+	if (net->type == IN)                               // レベル0の起点（解析時にFFは存在しない）
 		return net->level = 0;
 
 	int lev = 0;
@@ -103,7 +103,8 @@ void InitGlobalVarsNLIST(
 		nl[i].unique_flag = 0;
 		nl[i].consgc      = (int*)NULL;
 		nl[i].consgc_len  = 0;
-		nl[i].consfc      = (char**)NULL;
+		nl[i].test_sa0    = YES;          // 等価故障解析（故障リスト自動生成時）で NO にする
+		nl[i].test_sa1    = YES;
 	}
 
 	ComputeLevels();
@@ -176,10 +177,7 @@ void InitGlobalVarsREADDATA(
 	{
 		readdata.fault.list[i] = (FNODE*)NULL;
 	}
-	readdata.fault.numdete = 0;
 	readdata.fault.numinit = 0;
-	readdata.fault.numrema = 0;
-	readdata.fault.numred = 0;
 	readdata.fault.numequiv = 0;
 
 	return;

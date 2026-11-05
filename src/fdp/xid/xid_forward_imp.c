@@ -1,9 +1,9 @@
 #include "fdp/xid/XID.h"
 
 
-typedef void (*xid_fimp_func_t)(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v);
+typedef void (*xid_fimp_func_t)(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v);
 
-static void xid_fimp_unsupported(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
+static void xid_fimp_unsupported(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v) {
 	(void)fwd_q; (void)var_info; (void)n3v; (void)f3v;
 	ERROR_PRINTF("Unsupported gate type in forward implication: (type)%" PRId8 "\n", t_net->type);
 	DEBUG_ASSERT(0);
@@ -12,12 +12,11 @@ static void xid_fimp_unsupported(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_
 // -------------------------------------------------------------
 // BUF / INV
 // -------------------------------------------------------------
-static void xid_fimp_buf(Queue_t* fwd_q, NLIST_t* out, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
+static void xid_fimp_buf(Queue_t* fwd_q, NLIST_t* out, XID_VAR_INFO* var_info, int n3v, int f3v) {
 	XID_VAR_INFO* out_info = &var_info[out->n];
 	size_t current_tag = out_info->xid_tag;
-	if (current_tag == (xid_tag_base | XID_FLAG_BOTH)) { return; }
+	if (current_tag == XID_FLAG_BOTH) { return; }
 
-	if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 	_Bool updated = 0;
 
 	if (n3v != XID_X && !(current_tag & XID_FLAG_NORMAL)) {
@@ -37,12 +36,11 @@ static void xid_fimp_buf(Queue_t* fwd_q, NLIST_t* out, size_t xid_tag_base, XID_
 	}
 }
 
-static void xid_fimp_inv(Queue_t* fwd_q, NLIST_t* out, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
+static void xid_fimp_inv(Queue_t* fwd_q, NLIST_t* out, XID_VAR_INFO* var_info, int n3v, int f3v) {
 	XID_VAR_INFO* out_info = &var_info[out->n];
 	size_t current_tag = out_info->xid_tag;
-	if (current_tag == (xid_tag_base | XID_FLAG_BOTH)) { return; }
+	if (current_tag == XID_FLAG_BOTH) { return; }
 
-	if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
 	_Bool updated = 0;
 
 	if (n3v != XID_X && !(current_tag & XID_FLAG_NORMAL)) {
@@ -72,7 +70,7 @@ typedef struct {
 	_Bool		f_control_found;
 } XidFimpScan;
 
-static XidFimpScan scan_inputs(const NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int c_val) {
+static XidFimpScan scan_inputs(const NLIST_t* node, XID_VAR_INFO* var_info, int c_val) {
 	XidFimpScan scan = { .n_unknown_found = 0, .n_control_found = 0, .f_unknown_found = 0, .f_control_found = 0 };
 	NLIST_t** in = node->in;
 
@@ -81,7 +79,7 @@ static XidFimpScan scan_inputs(const NLIST_t* node, size_t xid_tag_base, XID_VAR
 		
 		// 入力の現在の有効なフラグを取得
 		size_t in_tag = in_info->xid_tag;
-		size_t valid_flags = (in_tag >= xid_tag_base) ? (in_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
+		size_t valid_flags = in_tag & XID_FLAG_BOTH;
 
 		// 正常値の判定
 		if (!(valid_flags & XID_FLAG_NORMAL)) { scan.n_unknown_found = 1; }
@@ -94,13 +92,12 @@ static XidFimpScan scan_inputs(const NLIST_t* node, size_t xid_tag_base, XID_VAR
 	return scan;
 }
 
-static void xid_fimp_universal(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int c_val, _Bool is_inv) {
+static void xid_fimp_universal(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int c_val, _Bool is_inv) {
 	XID_VAR_INFO* info = &var_info[node->n];
 	size_t current_tag = info->xid_tag;
-	if (current_tag == (xid_tag_base | XID_FLAG_BOTH)) { return; }
-	if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
+	if (current_tag == XID_FLAG_BOTH) { return; }
 
-	XidFimpScan scan = scan_inputs(node, xid_tag_base, var_info, c_val);
+	XidFimpScan scan = scan_inputs(node, var_info, c_val);
 	int nc_val = c_val ^ 1;
 	_Bool updated = 0;
 
@@ -138,17 +135,17 @@ static void xid_fimp_universal(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 	}
 }
 
-static void xid_fimp_and(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, xid_tag_base, var_info, XID_ZERO, 0);
+static void xid_fimp_and(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, var_info, XID_ZERO, 0);
 }
-static void xid_fimp_nand(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, xid_tag_base, var_info, XID_ZERO, 1);
+static void xid_fimp_nand(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, var_info, XID_ZERO, 1);
 }
-static void xid_fimp_or(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, xid_tag_base, var_info, XID_ONE, 0);
+static void xid_fimp_or(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, var_info, XID_ONE, 0);
 }
-static void xid_fimp_nor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, xid_tag_base, var_info, XID_ONE, 1);
+static void xid_fimp_nor(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_universal(fwd_q, node, var_info, XID_ONE, 1);
 }
 
 // -------------------------------------------------------------
@@ -161,14 +158,14 @@ typedef struct {
 	size_t		f_one_count;
 } XidFimpScanXor;
 
-static XidFimpScanXor scan_inputs_exor(const NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info) {
+static XidFimpScanXor scan_inputs_exor(const NLIST_t* node, XID_VAR_INFO* var_info) {
 	XidFimpScanXor scan = { .n_unknown_found = 0, .n_one_count = 0, .f_unknown_found = 0, .f_one_count = 0 };
 	NLIST_t** in = node->in;
 
 	for (size_t i = 0; i < node->n_in; ++i) {
 		XID_VAR_INFO* in_info = &var_info[in[i]->n];
 		size_t in_tag = in_info->xid_tag;
-		size_t valid_flags = (in_tag >= xid_tag_base) ? (in_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
+		size_t valid_flags = in_tag & XID_FLAG_BOTH;
 
 		// 正常値
 		if (!(valid_flags & XID_FLAG_NORMAL)) { scan.n_unknown_found = 1; }
@@ -181,13 +178,12 @@ static XidFimpScanXor scan_inputs_exor(const NLIST_t* node, size_t xid_tag_base,
 	return scan;
 }
 
-static void xid_fimp_univ_exor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, _Bool is_inv) {
+static void xid_fimp_univ_exor(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, _Bool is_inv) {
 	XID_VAR_INFO* info = &var_info[node->n];
 	size_t current_tag = info->xid_tag;
-	if (current_tag == (xid_tag_base | XID_FLAG_BOTH)) { return; }
-	if (current_tag < xid_tag_base) { current_tag = xid_tag_base; }
+	if (current_tag == XID_FLAG_BOTH) { return; }
 
-	XidFimpScanXor scan = scan_inputs_exor(node, xid_tag_base, var_info);
+	XidFimpScanXor scan = scan_inputs_exor(node, var_info);
 	_Bool updated = 0;
 
 	// 正常値の前方含意（未知入力がない場合のみ確定）
@@ -212,11 +208,11 @@ static void xid_fimp_univ_exor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_bas
 	}
 }
 
-static void xid_fimp_exor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_univ_exor(fwd_q, node, xid_tag_base, var_info, 0);
+static void xid_fimp_exor(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_univ_exor(fwd_q, node, var_info, 0);
 }
-static void xid_fimp_exnor(Queue_t* fwd_q, NLIST_t* node, size_t xid_tag_base, XID_VAR_INFO* var_info, int n3v, int f3v) {
-	(void)n3v; (void)f3v; xid_fimp_univ_exor(fwd_q, node, xid_tag_base, var_info, 1);
+static void xid_fimp_exnor(Queue_t* fwd_q, NLIST_t* node, XID_VAR_INFO* var_info, int n3v, int f3v) {
+	(void)n3v; (void)f3v; xid_fimp_univ_exor(fwd_q, node, var_info, 1);
 }
 
 // -------------------------------------------------------------
@@ -243,11 +239,11 @@ void init_xid_fimp_table(void) {
 
 // t_net -> out 方向
 // t_netのn3v/f3vが{0,1}に決まっているとき、out方向のn3v/f3vを更新する
-void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VAR_INFO* var_info) {
+void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info) {
 
 	// t_netの現在の有効なフラグから値を抽出
 	size_t t_tag = var_info[t_net->n].xid_tag;
-	size_t valid_flags = (t_tag >= xid_tag_base) ? (t_tag & XID_FLAG_BOTH) : XID_FLAG_NONE;
+	size_t valid_flags = t_tag & XID_FLAG_BOTH;
 
 	// フラグが立っていない場合は XID_X として扱う
 	int n3v = (valid_flags & XID_FLAG_NORMAL) ? var_info[t_net->n].normal_3value : XID_X;
@@ -260,8 +256,8 @@ void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, size_t xid_tag_base, XID_VA
 		NLIST_t* out_i = t_net->out[i];
 
 		size_t out_tag = var_info[out_i->n].xid_tag;
-		if (out_tag == (xid_tag_base | XID_FLAG_BOTH)) { continue; }
+		if (out_tag == XID_FLAG_BOTH) { continue; }
 
-		(*xid_fimp[out_i->type])(fwd_q, out_i, xid_tag_base, var_info, n3v, f3v);
+		(*xid_fimp[out_i->type])(fwd_q, out_i, var_info, n3v, f3v);
 	}
 }

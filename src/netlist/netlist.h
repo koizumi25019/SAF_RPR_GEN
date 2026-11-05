@@ -37,8 +37,6 @@ typedef struct _Netlist_Format_ {
 	struct _Netlist_Format_** in;		//
 	int				n_out;	            //
 	struct _Netlist_Format_** out;      //
-	char* name_port;					//
-	char* name_ins;						//
 	int				flag;			    /**< フラグ */
 	unsigned int	varsgc;			    /**< 正常回路用変数  */
 	unsigned int	varsfc;				/**< 故障回路用変数  */
@@ -49,13 +47,9 @@ typedef struct _Netlist_Format_ {
 	int				level;				/**< トポロジカルレベル (0=PI) */
 	int* consgc;						/**< 正常回路用制約 (フラットなint配列、0終端の節) */
 	int consgc_len;						/**< consgc に格納されているint数 */
-	char** consfc;						/**< 故障回路用制約  */
-	unsigned int suf_fc;				//
-	unsigned int fault_pass;			//
 	int	test_sa0;						//0縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない) }
 	int	test_sa1;						//1縮退故障のテスト対象フラグ		{ YES(テスト対象とする), NO(しない)
     struct _Netlist_Format_* peer_1t; // TDF: frame 2 -> frame 1 (shared PI -> itself)
-    int ppo_flag; // TDF: capture-time DFF input
 }NLIST;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -63,9 +57,6 @@ typedef struct _Netlist_Format_ {
 //--------------------------------------------------------------------------------------------------------------------
 //ネットリスト
 NLIST* nl;
-
-//モジュール名
-char* module_name;
 
 //信号数
 int n_net;
@@ -86,25 +77,11 @@ int n_ppo;
 NLIST** ppi;
 int n_ppi;
 
-//DFF, DFF数
-NLIST** dff;
+//FF数（DFF, RDFF, DFFS, RDFFS）。モデルとの整合確認とTDF展開に使う
 int n_dff;
-
-//RDFF, RDFF数
-NLIST** rdff;
 int n_rdff;
-
-//DFFS, DFFS数
-NLIST** dffs;
 int n_dffs;
-
-//RDFFS, RDFFS数
-NLIST** rdffs;
 int n_rdffs;
-
-//assign
-NLIST** assign;
-int n_assign;
 
 //--------------------------------------------------------------------------------------------------------------------
 // プロトタイプ宣言

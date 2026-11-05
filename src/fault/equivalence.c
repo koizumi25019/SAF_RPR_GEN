@@ -276,7 +276,6 @@ static void RemoveNonrepresentatives(void)
         }
     }
     readdata.fault.numinit = equivalence_stats.targets_after_external;
-    readdata.fault.numrema = equivalence_stats.targets_after_external;
     /* baselineのログ項目を保ち、構造由来・外部由来を合わせた除外数を記録する。
      * 明示リストの場合も、CSVへ出力する指定範囲の中で数える。 */
     readdata.fault.numequiv = equivalence_stats.output_faults - readdata.fault.numinit;

@@ -69,7 +69,6 @@ TDFは `s27` のように `_tdf` を省略して指定できる。
 ```bash
 ./scripts/run_experiments.sh             # SAF: ISCASの7回路
 ./scripts/run_itc99.sh                   # SAF: b14・b17
-./scripts/run_b15.sh                     # SAF: b15のみ
 ./scripts/run_tdf.sh                     # TDF: s9234・s35932・s38417・b14・b17
 ./scripts/run_tdf.sh s9234 b14           # 対象を指定
 ```
@@ -92,7 +91,7 @@ mkdir -p output/saf/full/{fdp,log}
 | 項目 | 内容 |
 |---|---|
 | `-net <file>` | 回路ネットリスト |
-| `-fault <file>` | 故障リスト。省略時は選択モデルの全代表故障を自動生成 |
+| `-fault <file>` | 故障リスト。省略時は選択モデルの全代表故障を自動生成し、等価故障の行も出力する。指定時はリストの故障だけを出力する |
 | `-equiv <file>` | SAFの追加等価故障ペア。構造解析の等価関係と統合する（TDFでは指定不可） |
 | `-saf` / `-tdf` | 故障モデル。省略時SAF。CLIと設定の読み込み順で後の指定が有効 |
 | `-fdp <file>` | FDP CSVの出力先 |
@@ -122,7 +121,10 @@ CLIと`.set`の両方で`-progress on|off`を指定でき、読み込み順で�
 OFF時は進捗用の出力・フラッシュを省略する。CSV・キューブ保存・ログ・エラー表示には影響しない。
 
 ディレクトリ名では故障モデルを自動判定しない。TDF設定には `-tdf` を明記する。
-SAF故障リストは `信号名 sa0|sa1`、TDFは `信号名 STR|STF`。
+SAFはDFFを含む順序回路を受け付けず、`-tdf` の付け忘れとしてエラー終了する。
+SAF故障リストは `信号名 sa0|sa1`、TDFは `信号名 STR|STF`。空行・空白だけの行は読み飛ばす。
+故障リストを指定した場合は、リストにある故障だけを1行ずつ出力し、等価故障への展開は行わない
+（代表故障と等価故障を両方書いても行は重複しない）。
 無制限で完了したFDPは厳密値、上限到達で打ち切った結果は下界となる。
 
 直列・並列とも各代表故障を独立に計算し、等価グループ内ではそのFDPを共有する。
@@ -276,4 +278,4 @@ ctest --test-dir build --output-on-failure
 - [正常CNFの範囲限定](docs/normal_cnf_scope.md)
 - [故障単位の並列化](docs/fault_parallel.md)
 - [実装とブランチ構成](docs/architecture.md)
-- [期待値の生成・比較条件](tests/expected/README.md)
+- [期待値の生成・比較条件](tests/expected/saf/README.md)

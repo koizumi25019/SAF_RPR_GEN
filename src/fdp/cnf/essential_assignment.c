@@ -78,9 +78,7 @@ static void assign_ea_value(CCaDiCaL* solver, NLIST* netptr, int val)
         ccadical_add(solver, 0);
     }
 
-    if (netptr->type != DFF) {
-        queENQ(netptr, QUE_MODE_ONE);
-    }
+    queENQ(netptr);
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -118,7 +116,8 @@ static void assign_unique_value(CCaDiCaL* solver, NLIST* t_net, int unique_idx)
 //-------------------------------------------------------------------------------------------------------------
 static void unique_sentization(CCaDiCaL* solver)
 {
-    // 観測点(PO / DFF入力=PPO)を一度でも通過したかどうか。
+    // 観測点を一度でも通過したかどうか。観測点（SAFのPO、TDFの2時刻目PPO）と
+    // 内部で途切れる枝はいずれも n_out == 0 のネットとして現れる。
     // フロンティアは「まだ観測点に達していない経路」しか覆わないため、
     // 観測点通過後に残る単一フロンティアは全検出経路の支配点ではない。
     // そこで側面入力を固定すると、先に終端した観測点経由の検出テストを
@@ -130,7 +129,6 @@ static void unique_sentization(CCaDiCaL* solver)
     if (tmp_net->n_out == 0) obs_seen = true;
 
     for (int i = 0; i < tmp_net->n_out; i++) {
-        if (tmp_net->out[i]->type == DFF) { obs_seen = true; continue; }
         if (tmp_net->out[i]->unique_flag != UNIQUE_DOWN) continue;
         que2_enq(tmp_net->out[i]);
         tmp_net->out[i]->unique_flag = UNIQUE_UP;
@@ -153,7 +151,6 @@ static void unique_sentization(CCaDiCaL* solver)
         if (tmp_net->n_out == 0) obs_seen = true;
 
         for (int i = 0; i < tmp_net->n_out; i++) {
-            if (tmp_net->out[i]->type == DFF) { obs_seen = true; continue; }
             if (tmp_net->out[i]->unique_flag != UNIQUE_DOWN) continue;
             que2_enq(tmp_net->out[i]);
             tmp_net->out[i]->unique_flag = UNIQUE_UP;

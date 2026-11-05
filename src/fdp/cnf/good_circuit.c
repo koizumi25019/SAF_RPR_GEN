@@ -44,7 +44,6 @@ bool CreateConsGC(
 
 		case EXNOR:	CreateConsGC_XNOR(&nl[i]);	break;
 
-		case DFF:
 		case IN:								break;
 
 		default:

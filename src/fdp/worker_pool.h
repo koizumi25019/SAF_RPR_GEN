@@ -10,8 +10,8 @@ typedef struct {
 } FaultStats;
 
 /* 直列とワーカーで共通の1故障処理。並列時の出力先は子専用メモリストリーム。 */
-typedef bool (*FaultTask)(FNODE* fault, int fault_number, FILE* csv_output,
-                          FILE* cube_output, FaultStats* stats, void* worker_context);
+typedef bool (*FaultTask)(FNODE* fault, FILE* csv_output, FILE* cube_output,
+                          FaultStats* stats, void* worker_context);
 typedef void (*FaultFinish)(void* worker_context);
 
 void FaultStatsAdd(FaultStats* sum, const FaultStats* part);

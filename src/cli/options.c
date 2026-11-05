@@ -140,7 +140,11 @@ bool OPT(
         fprintf(stderr, "COMMAND ERROR: -cube directory must differ from -fdp and -log files\n");
         return OPT_ERROR;
     }
-	return OPTcheck();
+    if (opt.file.input.equiv && opt.fault_model != FM_SAF) {
+        fprintf(stderr, "COMMAND ERROR: -equiv supports SAF only; cannot be used with -tdf\n");
+        return OPT_ERROR;
+    }
+	return OPTcheckFile();
 }
 
 //*************************************************************************************************************
@@ -405,25 +409,6 @@ bool OPTread(
 	free(buffer);
 
 	fclose(fileptr);
-
-	return OPT_OKAY;
-}
-
-//*************************************************************************************************************
-//	@name		OPTcheck
-//	@function	必須オプションをチェックする
-//	@return		(bool) 正常, 異常
-//*************************************************************************************************************
-bool OPTcheck(
-	void
-)
-{
-    if (opt.file.input.equiv && opt.fault_model != FM_SAF) {
-        fprintf(stderr, "COMMAND ERROR: -equiv supports SAF only; cannot be used with -tdf\n");
-        return OPT_ERROR;
-    }
-
-	if (OPTcheckFile() != OPT_OKAY)	return OPT_ERROR;
 
 	return OPT_OKAY;
 }
