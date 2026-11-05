@@ -1,0 +1,257 @@
+from pathlib import Path
+import csv,re,json,math,zipfile
+from collections import Counter
+from decimal import Decimal
+import xlsxwriter
+from openpyxl import load_workbook
+from PIL import Image, ImageDraw, ImageFont
+BASE=Path(__file__).resolve().parent
+ROOT=BASE.parent
+CIRCS=sorted({p.name.split('_C_')[0] for p in (ROOT/'fdp').glob('*_C_*.csv')},key=lambda c:int(c[1:]))
+METHODS=['xid','sbxid']; LABELS=['XID','SB-XID']
+FIELDS=['Time','CPU Time','CPU Time (CaDiCaL)','CPU Time (BDD)',"CPU Time (Don't care)"]
+D={}; SOURCE=[]
+for c in CIRCS:
+ D[c]={}
+ for m in METHODS:
+  lp=ROOT/'log'/f'{c}_C_{m}.txt'; cp=ROOT/'fdp'/f'{c}_C_{m}.csv'
+  log={k.strip():v.strip() for k,v in re.findall(r'^//\s+(.+?)\s+: (.*)$',lp.read_text(),re.M)}
+  rows=list(csv.DictReader(cp.open())); cnt=Counter(r['complete'] for r in rows)
+  faults={(r['net_name'],r['f_type']):r for r in rows}
+  assert log['Fault Workers']=='15' and log['Fault Model']=='SAF'
+  if m=='sbxid': assert log['Clasp Search Limit']=='unlimited (until optimal)'
+  n=int(log['Number of Target Faults'])
+  assert len(faults)==len(rows) and cnt['0']+cnt['1']==n and set(cnt)<={'0','1',''}
+  assert sum(int(r['cube_cnt']) for r in rows if r['cube_cnt'])==int(log['Total Cubes / Reused Cubes'].split('/')[0])
+  D[c][m]={'log':log,'counts':{k:cnt[k] for k in ('0','1','')},'total_rows':len(rows),'target':n,'times':{f:float(log[f].split()[0]) for f in FIELDS},'faults':faults}
+  SOURCE += [str(lp.relative_to(ROOT)),str(cp.relative_to(ROOT))]
+ a,b=[D[c][m] for m in METHODS]
+ assert a['faults'].keys()==b['faults'].keys() and a['target']==b['target']
+ D[c]['trans']=Counter((a['faults'][k]['complete'],b['faults'][k]['complete']) for k in a['faults'])
+ print(c,'complete',a['counts']['1'],b['counts']['1'],'delta',b['counts']['1']-a['counts']['1'],'CPU ratio',round(b['times']['CPU Time']/a['times']['CPU Time'],2),'transitions',dict(D[c]['trans']))
+
+for c in CIRCS:
+ a,b=[D[c][m] for m in METHODS]
+ comparable=[k for k in a['faults'] if a['faults'][k]['complete']=='1' and b['faults'][k]['complete']=='1']
+ assert all(Decimal(a['faults'][k]['fdp'])==Decimal(b['faults'][k]['fdp']) for k in comparable)
+ print('FDP exact match for completed faults:',len(comparable))
+OUT=BASE/'limit0_xid_sbxid_5circuits.xlsx'; wb=xlsxwriter.Workbook(OUT)
+wb.set_properties({'title':'XID / SB-XID：5回路（limit0）の実験結果比較'})
+COLORS=['#2878B5','#E58A2B']; NAVY='#20344A'; GRAY='#64748B'
+font='Yu Gothic'
+fm={
+ 'title':wb.add_format({'font_name':font,'font_size':22,'bold':True,'font_color':NAVY}),
+ 'h':wb.add_format({'font_name':font,'font_size':12,'bold':True,'bg_color':NAVY,'font_color':'white','text_wrap':True,'valign':'vcenter'}),
+ 'text':wb.add_format({'font_name':font,'font_size':12,'border':1,'border_color':'#DFE5EC','valign':'vcenter'}),
+ 'int':wb.add_format({'font_name':font,'font_size':12,'num_format':'#,##0','border':1,'border_color':'#DFE5EC'}),
+ 'sec':wb.add_format({'font_name':font,'font_size':12,'num_format':'#,##0.000','border':1,'border_color':'#DFE5EC'}),
+ 'pct':wb.add_format({'font_name':font,'font_size':12,'num_format':'0.00%','border':1,'border_color':'#DFE5EC'}),
+ 'ratio':wb.add_format({'font_name':font,'font_size':12,'num_format':'0.00"倍"','border':1,'border_color':'#DFE5EC'}),
+ 'pp':wb.add_format({'font_name':font,'font_size':12,'num_format':'0.00" pt"','border':1,'border_color':'#DFE5EC'}),
+ 'note':wb.add_format({'font_name':font,'font_size':12,'font_color':GRAY,'text_wrap':True,'valign':'top'}),
+}
+def sheet(name,title,headers,widths=None):
+ s=wb.add_worksheet(name); s.hide_gridlines(2); s.freeze_panes(4,1); s.set_default_row(26)
+ s.merge_range(0,0,0,max(len(headers)-1,5),title,fm['title']); s.set_row(0,40)
+ s.set_column(0,0,18); s.set_column(1,max(len(headers)-1,5),19)
+ if widths:
+  for col,width in widths: s.set_column(col,col,width)
+ for j,h in enumerate(headers):s.write(3,j,h,fm['h'])
+ s.set_row(3,42); s.set_landscape(); s.set_paper(9); s.fit_to_pages(1,1)
+ return s
+def cell(s,r,c,value,typ='text'):s.write(r,c,value,fm[typ])
+def formula(s,r,c,f,value,typ):s.write_formula(r,c,f,fm[typ],value)
+summary=sheet('比較概要','XID / SB-XID：5回路（limit0）の比較',['回路','対象故障数','完了 XID','完了 SB-XID','完了増加数','完了率差 (pt)','CPU時間倍率','経過時間倍率'])
+complete=sheet('完了故障数','complete=1 の故障数と完了率',['回路','方式','対象故障数','CSV全行数','complete=1','complete=0','complete空欄','完了率'])
+times=sheet('時間比較','時間比較（全項目：秒）',['回路','ログ項目','XID (s)','SB-XID (s)','差 (s)','倍率'],[(1,30)])
+clasp=sheet('Clasp集計','SB-XID：Clasp集計',['回路','Optimal','Feasible','Timeouts','UNKNOWN Fallbacks','Feasible率'])
+for i,c in enumerate(CIRCS):
+ a,b=[D[c][m] for m in METHODS]; n=a['target']; x=a['counts']['1']; y=b['counts']['1']; r=4+i
+ vals=[c,n,x,y,y-x,(y-x)/n*100,b['times']['CPU Time']/a['times']['CPU Time'],b['times']['Time']/a['times']['Time']]
+ for j,v in enumerate(vals):cell(summary,r,j,v,'text' if j==0 else 'pp' if j==5 else 'ratio' if j>=6 else 'int')
+ formula(summary,r,4,f'=D{r+1}-C{r+1}',y-x,'int')
+ formula(summary,r,5,f'=(D{r+1}-C{r+1})/B{r+1}*100',(y-x)/n*100,'pp')
+ for k,m in enumerate(METHODS):
+  o=D[c][m]; rr=4+i*2+k
+  for j,v in enumerate([c,LABELS[k],n,o['total_rows'],o['counts']['1'],o['counts']['0'],o['counts'].get('',0),o['counts']['1']/n]):cell(complete,rr,j,v,'text' if j<2 else 'pct' if j==7 else 'int')
+  formula(complete,rr,7,f'=E{rr+1}/C{rr+1}',o['counts']['1']/n,'pct')
+ for k,f in enumerate(FIELDS):
+  rr=4+i*5+k; v1=a['times'][f]; v2=b['times'][f]
+  for j,v in enumerate([c,f,v1,v2]):cell(times,rr,j,v,'text' if j<2 else 'sec')
+  formula(times,rr,4,f'=D{rr+1}-C{rr+1}',v2-v1,'sec');formula(times,rr,5,f'=D{rr+1}/C{rr+1}',v2/v1,'ratio')
+ opt,feas=map(int,b['log']['Clasp Optimal / Feasible'].split(' / ')); to,unk=map(int,b['log']['Clasp Timeouts / UNKNOWN Fallbacks'].split(' / '))
+ for j,v in enumerate([c,opt,feas,to,unk,feas/(opt+feas)]):cell(clasp,r,j,v,'text' if j==0 else 'pct' if j==5 else 'int')
+ formula(clasp,r,5,f'=C{r+1}/(B{r+1}+C{r+1})',feas/(opt+feas),'pct')
+summary.merge_range('A11:H12','全5回路：SAF、15ワーカー、limit0（キューブ上限なし）。Clasp探索時間も無制限。倍率 = SB-XID / XID。完了率の分母はログの対象故障数。各方式・各回路1実験。',fm['note'])
+summary.merge_range('A14:H15','グラフは G01〜G10 シート。Excel上で編集・コピー可能。PNGフォルダにはPowerPointに貼れる16:9画像を収録（1920×1080）。青：XID、橙：SB-XID。',fm['note'])
+complete.merge_range('A17:H18','completeが厳密に1の行だけを完了とする。空欄は完了数と完了率の分母に含めない。limit0：キューブ上限なし。今回は両方式で対象故障すべてが完了。',fm['note'])
+clasp.merge_range('A11:F12','Feasible率 = Feasible / (Optimal + Feasible)。TimeoutsとFeasibleは別のログ項目であり、足し合わせない。Clasp探索時間制限は unlimited (until optimal)。',fm['note'])
+# 回路ごとに総数・削減率・最大数・平均数を表示。
+cu=sheet('キューブ比較','キューブ数の比較',['回路','総数 XID','総数 SB-XID','削減数','削減率','最大 XID','最大 SB-XID','平均 XID','平均 SB-XID'])
+for i,c in enumerate(CIRCS):
+ a,b=[D[c][m] for m in METHODS]
+ cs=[int(o['log']['Total Cubes / Reused Cubes'].split('/')[0]) for o in (a,b)]
+ mx=[max(int(r['cube_cnt']) for r in o['faults'].values() if r['cube_cnt']) for o in (a,b)]
+ r=4+i
+ vals=[c,*cs,cs[0]-cs[1],1-cs[1]/cs[0],*mx,cs[0]/a['target'],cs[1]/b['target']]
+ for j,v in enumerate(vals):cell(cu,r,j,v,'text' if j==0 else 'pct' if j==4 else 'sec' if j>=7 else 'int')
+ formula(cu,r,3,f'=B{r+1}-C{r+1}',cs[0]-cs[1],'int')
+ formula(cu,r,4,f'=1-C{r+1}/B{r+1}',1-cs[1]/cs[0],'pct')
+cu.merge_range('A12:I13','全回路で両方式の対象故障がすべて完了。各対象故障のFDP値はCSVの表記精度で一致。削減率 = 1 − SB-XID / XID。平均は総キューブ数 / 対象故障数。',fm['note'])
+# 故障単位での状態変化
+complete.write_row(19,0,['回路','両方完了','XID未完了→完了','XID完了→未完了','両方未完了','両方空欄'],fm['h'])
+complete.set_row(19,44)
+for i,c in enumerate(CIRCS):
+ cell(complete,20+i,0,c)
+ for j,k in enumerate([('1','1'),('0','1'),('1','0'),('0','0'),('','')],1):cell(complete,20+i,j,D[c]['trans'][k],'int')
+
+# PowerPoint用PNG：白背景、16:9、大きな文字、値ラベル付き。
+PNG=BASE/'png';PNG.mkdir(exist_ok=True)
+FONTP='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'; BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+def ft(n,b=False):return ImageFont.truetype(BOLD if b else FONTP,n)
+def nice_max(v):
+ if v<=0:return 1
+ p=10**math.floor(math.log10(v)); q=v/p
+ return next(z for z in [1,1.5,2,2.5,3,4,5,6,8,10] if z>=q)*p
+
+def panels(unit):
+ if unit in ('Seconds','Cubes'):
+  return [('s1196 / s1238 / s1488 / s1494',[i for i,c in enumerate(CIRCS) if c!='s1423']),('s1423',[CIRCS.index('s1423')])]
+ return [('',list(range(len(CIRCS))))]
+def png_bars(slug,title,values,unit,fmt,foot,maximum=None):
+ im=Image.new('RGB',(1920,1080),'white');dr=ImageDraw.Draw(im)
+ dr.text((90,55),title,font=ft(44,True),fill=NAVY)
+ split=len(panels(unit))>1
+ sub='SAF | 15 workers | limit0 | Separate linear scales in the two panels' if split else 'SAF | 15 workers | limit0 (no cube cap)'
+ dr.text((92,124),sub,font=ft(24),fill=GRAY)
+ for j,label in enumerate(LABELS if len(values)==2 else []):
+  px=1390+j*210;dr.rectangle((px,123,px+30,153),fill=COLORS[j]);dr.text((px+42,117),label,font=ft(28),fill=NAVY)
+ for pi,(caption,idxs) in enumerate(panels(unit)):
+  left,right=(150,1240) if split and pi==0 else (1430,1830) if split else (150,1820)
+  top,bottom=290 if split else 225,860
+  if caption:dr.text(((left+right)/2,215),caption,font=ft(28,True),fill=NAVY,anchor='mm')
+  ymax=maximum or nice_max(max(values[j][i] for j in range(len(values)) for i in idxs)*1.17)
+  for k in range(6):
+   v=ymax*k/5;py=bottom-(bottom-top)*k/5
+   dr.line((left,py,right,py),fill='#E4E9EF',width=2)
+   digits=0 if ymax>=10 else 1 if ymax>=1 else 2 if ymax>=.1 else 3
+   dr.text((left-18,py),f'{v:,.{digits}f}',font=ft(23),fill=GRAY,anchor='rm')
+  dr.text((left,top-40),unit,font=ft(25),fill=GRAY)
+  group=(right-left)/len(idxs);bw=min(115,group*.26) if len(values)==2 else min(160,group*.48)
+  for gi,i in enumerate(idxs):
+   center=left+group*(gi+.5)
+   for j,vs in enumerate(values):
+    val=vs[i];x=center+(j-(len(values)-1)/2)*(bw+15);y=bottom-val/ymax*(bottom-top)
+    color=COLORS[j] if len(values)==2 else COLORS[1]
+    dr.rectangle((x-bw/2,y,x+bw/2,bottom),fill=color)
+    dr.text((x,y-15),fmt(val),font=ft(25,True),fill=NAVY,anchor='mb')
+   dr.text((center,bottom+30),CIRCS[i],font=ft(28,True),fill=NAVY,anchor='mt')
+  dr.line((left,bottom,right,bottom),fill=GRAY,width=2)
+ dr.text((90,980),foot,font=ft(23),fill=GRAY)
+ im.save(PNG/f'{slug}.png',dpi=(144,144))
+
+specs=[
+ ('G01_完了故障数','Completed faults',[[D[c][m]['counts']['1'] for c in CIRCS] for m in METHODS],'Faults',lambda v:f'{v:,.0f}','Count of complete=1; blank complete values are excluded.',None),
+ ('G02_完了率','Completion rate',[[D[c][m]['counts']['1']/D[c][m]['target']*100 for c in CIRCS] for m in METHODS],'%',lambda v:f'{v:.0f}%','Denominator: target faults in each circuit log.',100),
+]
+for num,f in enumerate(['CPU Time','Time','CPU Time (CaDiCaL)','CPU Time (BDD)',"CPU Time (Don't care)"],3):
+ jp=['総CPU時間','経過時間','CaDiCaL','BDD','Dontcare'][num-3]
+ specs.append((f'G{num:02}_{jp}',f,[[D[c][m]['times'][f] for c in CIRCS] for m in METHODS],'Seconds',lambda v:f'{v:,.3f}','Linear scale from zero. CPU time sums parent and all workers.' if f!='Time' else 'Linear scale from zero. Time is wall-clock elapsed time.',None))
+specs.append(('G08_総キューブ数','Total cubes',[[int(D[c][m]['log']['Total Cubes / Reused Cubes'].split('/')[0]) for c in CIRCS] for m in METHODS],'Cubes',lambda v:f'{v:,.0f}','Complete analysis for both methods; no cube cap.',None))
+specs.append(('G09_CPU倍率','CPU time ratio (SB-XID / XID)',[[D[c]['sbxid']['times']['CPU Time']/D[c]['xid']['times']['CPU Time'] for c in CIRCS]],'Ratio',lambda v:f'{v:.2f}x','Values above 1 mean higher CPU cost for SB-XID.',None))
+specs.append(('G10_キューブ削減率','Cube count reduction (SB-XID vs XID)',[[100*(1-int(D[c]['sbxid']['log']['Total Cubes / Reused Cubes'].split('/')[0])/int(D[c]['xid']['log']['Total Cubes / Reused Cubes'].split('/')[0])) for c in CIRCS]],'%',lambda v:f'{v:.2f}%','Reduction = 1 - (SB-XID cubes / XID cubes).',None))
+# グラフ用データは同じシートの下部。数値キャッシュとPNGに同じ値を使用。
+for slug,title,values,unit,label_fmt,foot,maximum in specs:
+ sh=wb.add_worksheet(slug);sh.hide_gridlines(2);sh.set_column('A:P',12);sh.set_default_row(24)
+ sh.write('A1',title,fm['title']);sh.merge_range('A3:P3',foot+(' Panel axes use separate scales.' if len(panels(unit))>1 else ''),fm['note'])
+ sh.write(37,0,'Circuit',fm['h'])
+ for j in range(len(values)):sh.write(37,j+1,LABELS[j] if len(values)==2 else 'SB-XID / XID',fm['h'])
+ for i,c in enumerate(CIRCS):
+  sh.write(38+i,0,c,fm['text'])
+  for j,vs in enumerate(values):sh.write_number(38+i,j+1,vs[i],fm['sec'] if unit=='Seconds' else fm['int'] if unit in ('Faults','Cubes') else fm['ratio'] if unit=='Ratio' else fm['sec'])
+ for pi,(caption,idxs) in enumerate(panels(unit)):
+  base=50+pi*10
+  sh.write(base,0,'Circuit',fm['h'])
+  for j in range(len(values)):sh.write(base,j+1,LABELS[j] if len(values)==2 else title,fm['h'])
+  for k,i in enumerate(idxs):
+   sh.write(base+1+k,0,CIRCS[i],fm['text'])
+   for j,vs in enumerate(values):sh.write_number(base+1+k,j+1,vs[i],fm['sec'] if unit=='Seconds' else fm['int'] if unit in ('Faults','Cubes') else fm['ratio'] if unit=='Ratio' else fm['sec'])
+  ch=wb.add_chart({'type':'column'})
+  for j in range(len(values)):
+   nf='#,##0.000' if unit=='Seconds' else '0.00"%"' if unit=='%' else '0.00"x"' if unit=='Ratio' else '#,##0'
+   ch.add_series({'name':[slug,base,j+1],'categories':[slug,base+1,0,base+len(idxs),0],'values':[slug,base+1,j+1,base+len(idxs),j+1],
+    'fill':{'color':COLORS[j] if len(values)==2 else COLORS[1]},'border':{'none':True},'gap':100,
+    'data_labels':{'value':True,'position':'outside_end','num_format':nf,'font':{'name':'Arial','size':12 if caption else 15,'color':NAVY}}})
+  ch.set_title({'name':title+(' — '+caption if caption else ''),'name_font':{'name':'Arial','size':18 if caption else 23,'bold':True,'color':NAVY}})
+  ch.set_x_axis({'num_font':{'name':'Arial','size':15},'line':{'color':'#A7B3C2'},'major_tick_mark':'none'})
+  ch.set_y_axis({'name':unit,'name_font':{'name':'Arial','size':14},'num_font':{'name':'Arial','size':12},'min':0,'max':maximum or nice_max(max(values[j][i] for j in range(len(values)) for i in idxs)*1.17),'major_gridlines':{'visible':True,'line':{'color':'#E4E9EF'}},'line':{'none':True}})
+  ch.set_legend({'position':'top','font':{'name':'Arial','size':15}} if len(values)==2 else {'none':True})
+  ch.set_chartarea({'border':{'none':True},'fill':{'color':'white'}});ch.set_plotarea({'border':{'none':True}})
+  split=len(panels(unit))>1
+  ch.set_size({'width':640 if split else 1280,'height':720});sh.insert_chart('A5',ch,{'x_offset':pi*640})
+ sh.set_landscape();sh.set_paper(9);sh.fit_to_pages(1,1);sh.print_area('A1:P35')
+ png_bars(slug,title,values,unit,label_fmt,foot,maximum)
+
+# Claspは桁が大きく異なるため、正確な比較ができるスライド用表。
+im=Image.new('RGB',(1920,1080),'white');dr=ImageDraw.Draw(im)
+dr.text((100,70),'SB-XID: Clasp results',font=ft(48,True),fill=NAVY)
+cols=[100,450,815,1155,1505]; headers=['Circuit','Optimal','Feasible','Timeouts','UNKNOWN']
+for j,h in enumerate(headers):dr.text((cols[j],235),h,font=ft(33,True),fill='white')
+# header背景は先に描き、文字を再描画。
+dr.rectangle((80,208,1840,290),fill=NAVY)
+for j,h in enumerate(headers):dr.text((cols[j],230),h,font=ft(33,True),fill='white')
+for i,c in enumerate(CIRCS):
+ y=300+i*104
+ if i%2==0:dr.rectangle((80,y-5,1840,y+95),fill='#EFF4F9')
+ opt,feas=map(int,D[c]['sbxid']['log']['Clasp Optimal / Feasible'].split(' / '));to,unk=map(int,D[c]['sbxid']['log']['Clasp Timeouts / UNKNOWN Fallbacks'].split(' / '))
+ for j,v in enumerate([c,f'{opt:,}',f'{feas:,}',f'{to:,}',f'{unk:,}']):dr.text((cols[j],y+25),v,font=ft(33,j==0),fill=NAVY)
+dr.text((100,910),'Feasible and Timeouts are separate log fields; do not add them.',font=ft(27),fill=GRAY)
+dr.text((100,960),'Clasp 3.3.9 | Search limit: unlimited | SB-XID v1 (no CEGAR)',font=ft(26),fill=GRAY)
+im.save(PNG/'G11_Clasp.png',dpi=(144,144))
+# PowerPoint用の主要指標一覧表。
+im=Image.new('RGB',(1920,1080),'white');dr=ImageDraw.Draw(im)
+dr.text((90,65),'XID vs SB-XID: limit0 comparison',font=ft(46,True),fill=NAVY)
+dr.text((92,135),'All target faults completed; FDP values match at CSV precision.',font=ft(27),fill=GRAY)
+cols=[100,370,700,1025,1355,1590]
+headers=['Circuit','Complete (both)','CPU XID (s)','CPU SB-XID (s)','CPU ratio','Cubes reduced']
+dr.rectangle((80,220,1840,300),fill=NAVY)
+for j,h in enumerate(headers):dr.text((cols[j],245),h,font=ft(26,True),fill='white')
+for i,c in enumerate(CIRCS):
+ y=320+i*103
+ if i%2==0:dr.rectangle((80,y-5,1840,y+89),fill='#EFF4F9')
+ a,b=[D[c][m] for m in METHODS]
+ reduction=100*(1-int(b['log']['Total Cubes / Reused Cubes'].split('/')[0])/int(a['log']['Total Cubes / Reused Cubes'].split('/')[0]))
+ vals=[c,f"{a['counts']['1']:,} (100%)",f"{a['times']['CPU Time']:,.3f}",f"{b['times']['CPU Time']:,.3f}",f"{b['times']['CPU Time']/a['times']['CPU Time']:.2f}x",f'{reduction:.2f}%']
+ for j,v in enumerate(vals):dr.text((cols[j],y+22),v,font=ft(31,j==0),fill=NAVY)
+dr.text((90,930),'CPU ratio = SB-XID / XID; cube reduction = 1 - SB-XID / XID.',font=ft(26),fill=GRAY)
+dr.text((90,980),'SAF | 15 workers | No cube cap | Clasp search time: unlimited',font=ft(26),fill=GRAY)
+im.save(PNG/'G12_比較一覧.png',dpi=(144,144))
+# 同じClasp画像をExcelからもコピーできる。
+clasp.insert_image('A16',str(PNG/'G11_Clasp.png'),{'x_scale':.6,'y_scale':.6})
+
+src=sheet('集計条件・参照元','集計条件・参照元',['項目','内容'],[(0,28),(1,90)])
+notes=[('対象回路',', '.join(CIRCS)),('実験条件','limit0：キューブ上限なし。Clasp探索時間制限も無制限（ログ記載）'),('Fault Model','SAF'),('Fault Workers','15（全実験共通）'),('Normal CNF Scope','on (affected-output TFI)'),('Essential Assignment','on'),('Dominance Cube Reuse','off'),('SB-XID objective','scope (normal CNF PI)'),('SB-XID version','SB-XID v1 (no CEGAR)'),('Clasp','3.3.9 / unlimited (until optimal)'),('CPU Time','親プロセス + 全ワーカーのCPU時間。Time（経過時間）と区別する'),('完了件数','complete が厳密に1の故障数'),('完了率','complete=1 / ログのNumber of Target Faults'),('差・倍率','差 = SB-XID − XID、倍率 = SB-XID / XID'),('状態照合','各回路で(net_name, f_type)を照合。同一故障集合・重複なし'),('時間内訳','要求された3内訳は総CPU時間の全項目を網羅しない'),('解釈上の範囲','各回路・各方式1実験。平均・標準偏差・統計的有意差は未評価'),('PowerPointへの貼付','G01〜G10のグラフをコピー。画像ならpngフォルダを使用'),('図の仕様','白背景、青=XID／橙=SB-XID、線形軸・ゼロ起点。時間・キューブ数はs1423とその他を別スケールで表示'),('画像の仕様','1920×1080（16:9）PNG、144 dpi。図中のラベルは英語')]
+for r,(k,v) in enumerate(notes,4):cell(src,r,0,k);cell(src,r,1,v)
+start=28;src.write(start,0,'参照元（output/limit0相対パス）',fm['h'])
+for i,p in enumerate(SOURCE,start+1):src.write(i,0,p,fm['note'])
+wb.close()
+# Excelを再読込し、全回路の主要セル・数式キャッシュとグラフ数を検証。
+check=load_workbook(OUT,data_only=True)
+for i,c in enumerate(CIRCS):
+ r=5+i
+ assert check['比較概要'].cell(r,3).value==D[c]['xid']['counts']['1']
+ assert check['比較概要'].cell(r,4).value==D[c]['sbxid']['counts']['1']
+ assert check['比較概要'].cell(r,5).value==D[c]['sbxid']['counts']['1']-D[c]['xid']['counts']['1']
+check2=load_workbook(OUT)
+assert sum(len(s._charts) for s in check2)==16
+for p in PNG.glob('*.png'):
+ with Image.open(p) as im:assert im.size==(1920,1080)
+with zipfile.ZipFile(BASE/'PowerPoint用グラフPNG.zip','w',zipfile.ZIP_DEFLATED) as z:
+ for p in sorted(PNG.glob('*.png')):z.write(p,p.name)
+print('Workbook:',OUT,'bytes',OUT.stat().st_size)
+print('Verified',len(check.sheetnames),'sheets, 16 editable charts, 12 PNG files.')
+# 画像確認用のコンタクトシート
+thumb=Image.new('RGB',(1440,4*270),'#DCE3EB')
+for i,p in enumerate(sorted(PNG.glob('*.png'))):
+ im=Image.open(p);im.thumbnail((480,270));thumb.paste(im,((i%3)*480,(i//3)*270))
+thumb.save(BASE/'preview.png')

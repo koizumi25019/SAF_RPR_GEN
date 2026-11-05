@@ -1,0 +1,21 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s1488_C
+//  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 1486
+//  Don't-care Method                         : XID (circuit-structure based)
+//  Total Cubes / Reused Cubes                 : 9504 / 0
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 15
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 0.219 sec
+//  CPU Time                                  : 2.758 sec
+//  CPU Time (CaDiCaL)                        : 1.311 sec
+//  CPU Time (BDD)                            : 0.047 sec
+//  CPU Time (Don't care)                     : 0.702 sec
+//  CPU Time (Read Fault)                     : 0.001 sec
+//--------------------------------------------------------------------------------

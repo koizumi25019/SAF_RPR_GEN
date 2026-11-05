@@ -1,0 +1,28 @@
+//--------------------------------------------------------------------------------
+//                AnalyzeFaultDetectionProbability Information
+//--------------------------------------------------------------------------------
+//  Target Circuit                            : saf/s13207_C
+//  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
+//  Number of Target Faults                   : 9663
+//  Don't-care Method                         : SB-XID v1 (no CEGAR)
+//  SB-XID PI Objective                       : scope (normal CNF PI)
+//  Clasp Version                             : 3.3.9
+//  Clasp Search Limit                        : 1.0 sec/call
+//  Clasp Optimal / Feasible                   : 86155 / 3051
+//  Clasp Timeouts / UNKNOWN Fallbacks          : 3052 / 0
+//  SB-XID Verified / Failed                   : 0 / 0
+//  Clasp Search Wall Time (sum of calls)       : 6991.652 sec
+//  Total Cubes / Reused Cubes                 : 89206 / 0
+//  Dominance Cube Reuse                      : off
+//  Fault Workers                             : 15
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 485.574 sec
+//  CPU Time                                  : 8014.150 sec
+//  CPU Time (CaDiCaL)                        : 48.662 sec
+//  CPU Time (BDD)                            : 6.195 sec
+//  CPU Time (Don't care)                     : 7938.630 sec
+//  CPU Time (Read Fault)                     : 0.012 sec
+//--------------------------------------------------------------------------------
