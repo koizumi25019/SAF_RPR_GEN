@@ -8,6 +8,7 @@
 #include "io/fault_csv.h"
 #include "io/cube_text.h"
 #include "cli/options.h"
+#include "fault/equivalence.h"
 
 static void check_density(int nvars, CubeSet *cubes, unsigned long num, unsigned long den)
 {
@@ -59,10 +60,19 @@ static void check_enumeration(void)
 
 static void check_writer(void)
 {
-    NLIST in = {.name = "input", .type = IN, .test_sa0 = 0};
-    NLIST *inputs[] = {&in};
-    NLIST net = {.name = "output", .type = BUF, .n_in = 1, .in = inputs};
-    FNODE target = {.name = "output", .type = SF0, .netptr = &net};
+    NLIST nets[2] = {{.name = "input", .n = 0, .type = IN},
+                     {.name = "output", .n = 1, .type = BUF, .n_in = 1}};
+    NLIST *inputs[] = {&nets[0]};
+    nets[1].in = inputs;
+    nl = nets;
+    n_net = 2;
+    FNODE target = {.name = "output", .type = SF0, .netptr = &nets[1]};
+    FNODE other_type = {.name = "output", .type = SF1, .netptr = &nets[1]};
+    target.nextptr = &other_type;
+    readdata.fault.list[0] = &target;
+    assert(InitFaultEquivalence());
+    assert(FinalizeFaultEquivalence());
+    assert(readdata.fault.numequiv == 2);
     FaultResult r = {.target = &target, .cube_cnt = 2, .complete = true};
     mpf_init2(r.density, 8192);
     mpf_set_ui(r.density, 3);
@@ -72,12 +82,18 @@ static void check_writer(void)
     r.complete = false;
     WriteFaultResult(fp, &r);
     rewind(fp);
-    char text[256] = {0};
+    char text[512] = {0};
     assert(fread(text, 1, sizeof(text)-1, fp) > 0);
-    assert(strcmp(text, "output,sa0,2,1,7.5000000000e-01\ninput,sa0,,,7.5000000000e-01\n"
-                        "output,sa0,2,0,7.5000000000e-01\ninput,sa0,,,7.5000000000e-01\n") == 0);
+    assert(strcmp(text, "output,sa0,2,1,7.5000000000e-01,output,sa0\n"
+                        "input,sa0,,,7.5000000000e-01,output,sa0\n"
+                        "output,sa0,2,0,7.5000000000e-01,output,sa0\n"
+                        "input,sa0,,,7.5000000000e-01,output,sa0\n") == 0);
     fclose(fp);
     mpf_clear(r.density);
+    FreeFaultEquivalence();
+    readdata.fault = (FLIST){0};
+    nl = NULL;
+    n_net = 0;
 }
 
 static void check_cube_selection(void)

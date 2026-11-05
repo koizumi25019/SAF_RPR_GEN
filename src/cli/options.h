@@ -32,6 +32,7 @@ typedef struct Input_File
 {
 	char* net;				  /**< ネットリストファイル */
 	char* fault;			  /**< 故障リストファイル */
+    char* equiv;           /**< SAFの追加等価ペア（net/0,net/1） */
 	int limit;                // テスト生成の上限 */
 }
 INPUT;

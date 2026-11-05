@@ -14,5 +14,5 @@ typedef struct FaultResult
     mpf_t density;
 } FaultResult;
 
-/** 代表故障と等価故障の結果を5列のCSVで出力する。 */
+/** 代表故障と等価故障の結果を、代表故障を示す2列を含む7列のCSVで出力する。 */
 void WriteFaultResult(FILE* fp, const FaultResult* result);

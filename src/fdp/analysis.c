@@ -10,6 +10,7 @@
 #include "fdp/analysis.h"
 #include "fdp/context.h"
 #include "fault/fault_list.h"
+#include "fault/equivalence.h"
 #include "fault/target_fault.h"
 #include "fdp/cube_set.h"
 #include "fdp/cnf/cnf.h"
@@ -169,7 +170,7 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     CubeOutput cube_output = {0};
     CubeOutput* cubes = opt.file.output.cube ? &cube_output : NULL;
     fileOpen(&result_fp, opt.file.output.fdp, "w");
-    fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp\n");
+    fprintf(result_fp, "net_name,f_type,cube_cnt,complete,fdp,rep_net_name,rep_f_type\n");
     FaultAnalysisContext context = {0};
     FaultStats stats = {0};
     bool succeeded = InitGlobalVars() == INIT_OKAY;
@@ -191,6 +192,7 @@ bool AnalyzeFaultDensity(double* out_time_cadical, double* out_time_bdd,
     }
     if (opt.jobs == 1) FinishFaultAnalysis(&context);
     FreeTargetOrder();
+    FreeFaultEquivalence();
     if (fclose(result_fp) != 0) succeeded = false;
     FreeCubeOutput(&cube_output);
     if (!succeeded) return AFD_ERROR;

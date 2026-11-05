@@ -58,7 +58,7 @@ def check_binary(binary, output):
     result = subprocess.run([str(binary)], env=env, capture_output=True, text=True, timeout=5)
     assert result.returncode == 1 and 'no netlist file' in result.stdout + result.stderr
 
-    for option in ('-net', '-fault', '-log', '-fdp', '-cube', '-set', '-limit'):
+    for option in ('-net', '-fault', '-equiv', '-log', '-fdp', '-cube', '-set', '-limit'):
         name = option[1:]
         run(name + '_missing_cli', (option,), error=option)
         run(name + '_empty_cli', (option, ''), error=option)

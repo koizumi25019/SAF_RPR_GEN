@@ -18,6 +18,7 @@ set(SOURCES
     src/io/cube_text.c
     src/fdp/context.c
     src/fault/fault_list.c
+    src/fault/equivalence.c
     src/fault/target_fault.c
     src/fdp/cnf/detection_circuit.c
     src/fdp/cnf/faulty_circuit.c
@@ -79,6 +80,7 @@ if(BUILD_TESTING)
         tests/fdp_output_test.c
         src/fdp/bdd/probability.c
         src/io/fault_csv.c
+        src/fault/equivalence.c
         src/io/cube_text.c
     )
     target_compile_options(fdp_output_test PRIVATE -fcommon -UNDEBUG)
@@ -90,6 +92,9 @@ if(BUILD_TESTING)
     if(Python3_Interpreter_FOUND)
         add_test(NAME fault_equivalence COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/fault_equivalence_check.py
+            --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
+        add_test(NAME external_equivalence COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/tests/external_equivalence_check.py
             --binary $<TARGET_FILE:main_release> --debug $<TARGET_FILE:main_debug>)
         add_test(NAME options_paths COMMAND ${Python3_EXECUTABLE}
             ${CMAKE_SOURCE_DIR}/tests/options_paths_check.py

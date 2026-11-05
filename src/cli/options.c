@@ -15,7 +15,7 @@
 
 static bool IsPathOption(const char* name)
 {
-    return strcmp(name, "-net") == 0 || strcmp(name, "-fault") == 0 ||
+    return strcmp(name, "-net") == 0 || strcmp(name, "-fault") == 0 || strcmp(name, "-equiv") == 0 ||
            strcmp(name, "-log") == 0 || strcmp(name, "-fdp") == 0 ||
            strcmp(name, "-cube") == 0 || strcmp(name, "-set") == 0;
 }
@@ -173,6 +173,7 @@ void OPTinitFile(
 )
 {
 	opt.file.input.fault		 = FILE_NOSET;
+    opt.file.input.equiv = FILE_NOSET;
 	opt.file.input.net			 = FILE_NOSET;
 	opt.file.input.limit          = 0;
 	opt.file.output.log			 = FILE_NOSET;
@@ -222,6 +223,11 @@ bool OPTset(
 		/** 故障リスト */
 		else if (strcmp(argv[i], "-fault") == 0)
 			opt.file.input.fault = strdup(argv[++i]);
+
+        else if (strcmp(argv[i], "-equiv") == 0) {
+            free(opt.file.input.equiv);
+            opt.file.input.equiv = strdup(argv[++i]);
+        }
 
 		/** ログ */
 		else if (strcmp(argv[i], "-log") == 0)
@@ -352,6 +358,11 @@ bool OPTread(
 			else if (strcmp(token1, "-fault") == 0)
 				opt.file.input.fault = OPTreadValue(&context, "\n\0");
 
+            else if (strcmp(token1, "-equiv") == 0) {
+                free(opt.file.input.equiv);
+                opt.file.input.equiv = OPTreadValue(&context, "\n\0");
+            }
+
 			/** ログ */
 			else if (strcmp(token1, "-log") == 0)
 				opt.file.output.log = OPTreadValue(&context, "\n\0");
@@ -407,6 +418,10 @@ bool OPTcheck(
 	void
 )
 {
+    if (opt.file.input.equiv && opt.fault_model != FM_SAF) {
+        fprintf(stderr, "COMMAND ERROR: -equiv supports SAF only; cannot be used with -tdf\n");
+        return OPT_ERROR;
+    }
 
 	if (OPTcheckFile() != OPT_OKAY)	return OPT_ERROR;
 

@@ -13,6 +13,16 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
 エントリポイント `src/main.c` → `read_nl()`（ネットリスト解析）→
 `src/fdp/analysis.c` の `AnalyzeFaultDensity()`。ここが本体。
 
+故障読込時に`src/fault/equivalence.c`で全故障の等価グループを準備する。
+`InitFaultEquivalence()`が構造上の等価関係と自動生成用のフラグを設定し、
+`FinalizeFaultEquivalence()`が`-equiv`の追加ペアを統合して計算対象を代表だけに絞る。
+等価関係はUnion-Find、出力対象はグループごとのメンバーリストで管理する。
+集合の根は統合の効率で選び、計算代表は従来のレベル順・ハッシュ表走査順で選ぶ。
+外部ファイルの名前解決には、名前順に整列したネット索引と二分探索を使う。
+全故障を出力する自動生成と、指定故障だけを出力する`-fault`を区別し、
+計算対象から外した故障もメンバーとして保持する。等価情報はfork前に確定し、ワーカーは読み取り専用で使う。
+`-equiv`はSAF専用。TDFの構造等価は従来と同じBUF/INV・時刻境界の制約を保つ。
+
 `AnalyzeFaultDensity` のメインループ内、故障ごとのパイプライン：
 
 1. **対象選択**（`src/fault/target_fault.c`）：故障読み込み後に `InitTargetOrder` で
@@ -32,7 +42,10 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
    2^n_pi で割った確率を 8192 ビット精度の `mpf_t` に返す。一時ファイル・10進整数文字列は使わない。
    CSV は `WriteFaultResult(fp, &result)`（`src/io/fault_csv.c`）に分離し、`FaultResult` に
    対象・キューブ数・完了状態・確率をまとめる。確率の文字列化は故障ごとに1回だけ行い、等価故障にも流用する。
-   CSVは`net_name,f_type,cube_cnt,complete,fdp`の5列。SAFのNAND入力sa0は出力sa1、NOR入力sa1は出力sa0の結果から等価故障を出力する。
+   CSVは`net_name,f_type,cube_cnt,complete,fdp,rep_net_name,rep_f_type`の7列。
+   回路構造を再探索せず、等価メンバー一覧から全行を一度ずつ出力する。
+   代表以外の`cube_cnt`・`complete`は空欄とし、末尾2列が代表を示す。
+   代表の計算が未完了の場合も同じ下界を共有し、完了状態は代表行から確認する。
 5. **後処理**：`DropDeteFault`（`src/fault/drop_detected.c`）が今回のキューブで新たに検出された故障を落とし、
    メモリを解放する。
 
