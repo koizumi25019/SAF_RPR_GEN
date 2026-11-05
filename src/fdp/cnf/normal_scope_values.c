@@ -1,6 +1,8 @@
 /* Compile the good circuit once into compact topological instructions.
- * SAT supplies required PI values; outside PIs are completed with zero.
- * The full gate model is then unique; downstream XID uses that model.
+ * SAT supplies required PI values. Only gates inside the fault's normal-CNF scope
+ * are simulated: the scope is closed under fan-in, XID never reads outside it,
+ * and outside PIs become X in the cube. The scope-local gate/net lists are rebuilt
+ * once per fault (when NormalScopeBuild runs), not once per cube.
  */
 #include "fdp/cnf/normal_scope.h"
 #include "fdp/xid/XID.h"
@@ -8,6 +10,9 @@ typedef struct { int type,output,offset,count; } Gate;
 static Gate *gates;
 static int *inputs,ngates;
 static unsigned char *values;
+static int *scope_gates, nscope_gates;   /* gates[] の添字。範囲内のゲートだけをレベル順に並べる */
+static int *scope_nets, nscope_nets;     /* 範囲内のネット（外部入力を含む） */
+static unsigned long long scope_generation;
 static int compare_level(const void *a,const void *b) {
  const NLIST *x=*(NLIST *const*)a,*y=*(NLIST *const*)b;
  if(x->level!=y->level) return x->level<y->level ? -1:1;
@@ -34,14 +39,33 @@ static void compile(void) {
  }
  free(order);
 }
+/* 故障が変わったら範囲内のゲート・ネットの一覧を作り直し、作業領域を全体で一度だけ初期化する。
+ * 以降のキューブでは範囲外のネットに誰も触れない（XIDの前方含意・故障シミュレーションも範囲内に限定）。 */
+static void prepare_scope(XID_VAR_INFO *v) {
+ if(!scope_gates) {
+  scope_gates=malloc((size_t)(ngates?ngates:1)*sizeof(*scope_gates));
+  scope_nets=malloc((size_t)n_net*sizeof(*scope_nets));
+  if(!scope_gates || !scope_nets) { perror("simulation scope"); exit(1); }
+ }
+ nscope_gates=nscope_nets=0;
+ for(int i=0;i<ngates;i++) if(NormalScopeRequiredNet(gates[i].output)) scope_gates[nscope_gates++]=i;
+ for(int i=0;i<n_net;i++) {
+  if(NormalScopeRequiredNet(i)) scope_nets[nscope_nets++]=i;
+  v[i].ed_tag=v[i].xid_tag=0;
+  v[i].normal_3value=v[i].fault_3value=XID_X;
+  v[i].normal_2value=v[i].fault_2value=0;
+ }
+ scope_generation=NormalScopeGeneration();
+}
+
 void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
  if(!gates) compile();
- /* Outside-scope PIs have no detection dependency. Complete them explicitly
-  * with zero, without relying on CaDiCaL's value for an absent variable. */
- for(int i=0;i<n_pi;i++) values[pi[i]->n]=NormalScopeRequiredNet(pi[i]->n)
-     ? ccadical_val(solver,(int)pi[i]->varsgc)>0 : 0;
- for(int i=0;i<ngates;i++) {
-  const Gate *g=gates+i;
+ if(scope_generation!=NormalScopeGeneration()) prepare_scope(v);
+ /* 範囲内のPIはSATの値を使う。範囲外のPIはどのゲートからも参照されない。 */
+ for(int i=0;i<n_pi;i++) if(NormalScopeRequiredNet(pi[i]->n))
+  values[pi[i]->n]=ccadical_val(solver,(int)pi[i]->varsgc)>0;
+ for(int k=0;k<nscope_gates;k++) {
+  const Gate *g=gates+scope_gates[k];
   const int *in=inputs+g->offset;
   int value=0;
   switch(g->type) {
@@ -64,13 +88,14 @@ void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
   }
   values[g->output]=value;
  }
- for(int i=0;i<n_net;i++) {
+ for(int k=0;k<nscope_nets;k++) {
+  int i=scope_nets[k];
   v[i].ed_tag=v[i].xid_tag=0;
   v[i].normal_3value=v[i].fault_3value=XID_X;
   v[i].normal_2value=v[i].fault_2value=values[i];
  }
- if(getenv("FDP_NORMAL_SCOPE_VALIDATE")) for(int i=0;i<n_net;i++) {
-  if(!NormalScopeRequiredNet(i)) continue; /* omitted gates are unconstrained SAT variables */
+ if(getenv("FDP_NORMAL_SCOPE_VALIDATE")) for(int k=0;k<nscope_nets;k++) {
+  int i=scope_nets[k];
   int value=ccadical_val(solver,(int)nl[i].varsgc);
   if(value && (value>0)!=v[i].normal_2value) {
    fprintf(stderr,"SAT/simulation mismatch %s\n",nl[i].name); exit(1);
@@ -79,6 +104,7 @@ void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
 }
 
 void NormalScopeModelRelease(void) {
- free(gates); free(inputs); free(values);
+ free(gates); free(inputs); free(values); free(scope_gates); free(scope_nets);
  gates=NULL; inputs=NULL; values=NULL; ngates=0;
+ scope_gates=scope_nets=NULL; nscope_gates=nscope_nets=0; scope_generation=0;
 }
