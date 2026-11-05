@@ -73,6 +73,7 @@ EAより前に範囲を確定し、EAの単位節はその範囲内の信号に�
 参考: Eggersglüß et al., DDECS 2012, Section II-B / Fig. 2。XIDの検出先も対象POにそろえる。
 サイド入力の生成回路もPIまで残す。故障モデルの `ccadical_add()` は直接呼び出しのまま。
 XIDの正常値は必要PIから論理シミュレーションで復元し、範囲外PIは0補完後に明示的にXにする。
+XIDの前方含意も範囲内のネットに限定する（キューブは変わらない）。
 全PI・`n_pi`・FDP分母・CSV形式は維持する。
 正常CNFを限定しないモードは持たない。`FDP_NORMAL_SCOPE`は参照しない。
 `FDP_NORMAL_SCOPE_VALIDATE=1` は保持範囲の値照合。

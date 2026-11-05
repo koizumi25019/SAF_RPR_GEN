@@ -1,4 +1,5 @@
 #include "fdp/xid/XID.h"
+#include "fdp/cnf/normal_scope.h"
 
 
 typedef void (*xid_fimp_func_t)(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info, int n3v, int f3v);
@@ -239,6 +240,9 @@ void init_xid_fimp_table(void) {
 
 // t_net -> out 方向
 // t_netのn3v/f3vが{0,1}に決まっているとき、out方向のn3v/f3vを更新する
+// 含意は正常CNFの範囲（故障の影響が届く観測点のTFIとTDF励起のTFI）内のネットにだけ広げる。範囲は入力側に閉じているので、
+// 範囲内のネットの正当化（後方含意・限定正当化）は範囲外のネットを参照しない。また範囲外の外部入力は
+// キューブで必ずXになる。したがって範囲外へ広げた含意の値はキューブに影響せず、時間だけを使う。
 void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info) {
 
 	// t_netの現在の有効なフラグから値を抽出
@@ -254,6 +258,7 @@ void xid_forward_imp(Queue_t* fwd_q, NLIST_t* t_net, XID_VAR_INFO* var_info) {
 
 	for (size_t i = 0; i < t_net->n_out; ++i) {
 		NLIST_t* out_i = t_net->out[i];
+		if (!NormalScopeRequiredNet(out_i->n)) { continue; }
 
 		size_t out_tag = var_info[out_i->n].xid_tag;
 		if (out_tag == XID_FLAG_BOTH) { continue; }
