@@ -18,8 +18,6 @@
 #define READ_ERROR		  false				  /**< 戻り値   = false */
 
 #define MAXSIZE_BUFFER	  500000	          /**< バッファの最大サイズ */
-#define MAXSIZE_BITINT	  32		          /**< bitintの最大サイズ */
-#define MAXSIZE_CHAR	  5000
 
 #define FOUND			  true		          /**< 戻り値   = true */
 #define NOT_FOUND		  false				  /**< 戻り値   = false */
@@ -27,24 +25,13 @@
 /** 文字列と「ファイル終端(EOF)」を比較する */
 #define COMP_EOF(string)		string != (char*)NULL
 
-/** 文字列と「改行」を比較する */
-#define COMP_NEWLINE(string)	strcmp(string, "\n")!=0
-
 #define	MAXSIZE_HASH	  100				  /**< 故障リストのサイズ */
-#define TFR				  2			          /**< 遷移故障モデル   = rise */
-#define	TFF				  4			          /**< 遷移故障モデル   = fall */
-#define SF0				  8			          /**< 縮退故障モデル   = 0 */
-#define	SF1				  16			      /**< 縮退故障モデル   = 1 */
+#define SF0				  8			          /**< 縮退故障モデル   = 0（TDFではSTR） */
+#define	SF1				  16			      /**< 縮退故障モデル   = 1（TDFではSTF） */
 
 #define	FP				  1					  /**< フラグ種別   = 故障点 */
 #define	TFO				  2			          /**< フラグ種別   = 伝搬先(TFO) */
 #define	TPO				  4					  /**< フラグ種別   = 伝搬先外部出力(TPO) */
-#define	TFO_TPO			  (TFO|TPO)			  /**< フラグ種別   = TFO & TPO */
-#define	FP_TPO			  (FP|TPO)			  /**< フラグ種別   = FP & TPO */
-
-#define	DETECTED		  7					  /**< 故障検出済み */
-#define	UNDETECTED		  17				  /**< 故障未検出 */
-#define	REDEUNDANT		  27				  /**< 冗長故障 */
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -57,7 +44,6 @@ typedef struct FaultNode
 	char* string;					 /**< 文字列 */
 	char* name;						 /**< 名前 */
 	int					  type;		/**< 故障タイプ */
-	int					  detect;			  /**< 検出済みか */
 	NLIST* netptr;					 /**< ネットリストへのポインタ */
     NLIST* exc_netptr; /**< TDF excitation at frame 1; NULL for SAF */
 	struct FaultNode* nextptr;				  /**< 次ノードへのポインタ */
@@ -67,10 +53,7 @@ FNODE;
 /** 故障リスト構造体 */
 typedef struct FaultList
 {
-	int					  numrema;			  /**< 残り故障数 */
 	int					  numinit;			  /**< 初期故障数 */
-	int					  numdete;			  /**< 検出済み故障数 */
-	int					  numred;			  /**< 冗長故障数 */
 	int					  numequiv;			  /**< 等価故障数（代表故障に畳み込まれた故障の数） */
 	struct FaultNode* list[MAXSIZE_HASH]; /**< 故障リスト */
 }
@@ -94,33 +77,10 @@ READDATA			      readdata;			  /**< 読み込みデータ */
 //	プロトタイプ宣言
 //-------------------------------------------------------------------------------------------------------------
 
-/** 故障を読み込む */
+/** 故障を読み込む。故障リスト未指定なら代表故障を自動生成する */
 bool ReadFault(
 	void
 );
-
-/** 故障リストを作成する */
-bool CreateFaultList(
-	char* buffer			  /**< バッファ */
-);
-
-/** 故障ノードを探索する */
-bool searchFnode(
-	char* buffer,			  /**< バッファ（キー） */
-	FNODE* fnode				  /**< 故障ノードへのポインタ */
-);
-
-/** 故障ノードを作成する */
-FNODE* CreateFaultNode(
-	char* buffer			  /**< バッファ */
-);
-
-//等価故障解析
-void AnalyzeEquivalenceFaults(
-	void
-);
-
-void AnalyzeEquivalenceFaultsTDF(void);
 
 static inline const char* FaultTypeName(int type)
 {

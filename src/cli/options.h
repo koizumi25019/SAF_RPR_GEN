@@ -12,10 +12,6 @@
 #define	OPT_OKAY				  true		  /**< 戻り値 = 正常 */
 #define	OPT_ERROR				  false		  /**< 戻り値 = 異常 */
 
-#define	MAXSIZE_FILENAME		  100		  /**< ファイル名の最大サイズ */
-
-#define MAX_PATTERN               100         // 最大100まで指定可能
-
 #define FILE_NOSET			      (char*)NULL /**< ファイル名の初期値 */
 
 #define FM_SAF 0
@@ -103,12 +99,7 @@ bool OPTread(
 	char* filename			  /**< ファイル名 */
 );
 
-/** 必須オプションをチェックする */
-bool OPTcheck(
-	void
-);
-
-/** ファイルをチェックする */
+/** 必須ファイルをチェックする */
 bool OPTcheckFile(
 	void
 );

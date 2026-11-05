@@ -45,12 +45,13 @@ cube_cnt はソルバーやドントケア判定で変わりうるが、**完全
 
 - **対象故障 = 全故障**
   `.set` に `-fault` を**書かない**。ネットリストから全ネットの sa0/sa1
-  （等価故障を整理した代表故障）が自動生成される。 → [read.c:49-80](../../src/fault/fault_list.c#L49-L80)
+  （等価故障を整理した代表故障）が自動生成され、等価故障の行も出力される。
+  → [fault_list.c](../../src/fault/fault_list.c) の `ReadFault`
 
 - **テストキューブ生成 = 上限なし（無制限）**
   `.set` に `-limit` を**書かない**（または `-limit 0`）。UNSAT まで完全列挙し、
   全故障が `complete=1` になる。
-  → [fault_detection_prob.c:362-370](../../src/fdp/analysis.c#L362-L370) で
+  → [analysis.c](../../src/fdp/analysis.c) の `AnalyzeOneFault` で
   `limit <= 0` を「無制限」として扱う。
   正の値を指定するとその回数で打ち切られ `complete=0` の行が出るので、期待値生成では指定しない。
 

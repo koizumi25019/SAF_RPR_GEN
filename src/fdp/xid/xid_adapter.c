@@ -16,10 +16,6 @@ Queue_t* createQueue(size_t capacity) {
     return q;
 }
 
-void destroyQueue(Queue_t* q) {
-    if (q) { free(q->items); free(q); }
-}
-
 void enqueue(Queue_t* q, void* item) {
     if (q->count >= q->capacity) {
         fprintf(stderr, "enqueue: queue overflow (cap=%zu)\n", q->capacity);
@@ -74,16 +70,6 @@ void xid_lev_init(void) {
     xid_lev_total = 0;
 }
 
-void xid_lev_free(void) {
-    if (xid_lev) {
-        for (size_t i = 0; i <= xid_max_level; i++)
-            free(xid_lev[i].net);
-        free(xid_lev);
-        xid_lev = NULL;
-    }
-    xid_lev_total = 0;
-}
-
 size_t get_total_net_count(void) {
     return xid_lev_total;
 }
@@ -111,10 +97,4 @@ vsize_t check_lev_reverse(vsize_t lev) {
     return lev;
 }
 
-void Reset_lev_tmp(size_t event_lev) {
-    for (size_t i = event_lev; i <= xid_max_level; i++) {
-        xid_lev_total -= xid_lev[i].n_net;
-        xid_lev[i].n_net = 0;
-    }
-}
 

@@ -19,7 +19,7 @@ static void compile(void) {
  values=calloc((size_t)n_net,1);
  size_t edges=0;
  if(!order || !gates || !values) { perror("simulation allocation"); exit(1); }
- for(int i=0;i<n_net;i++) if(nl[i].type!=IN && nl[i].type!=DFF) { order[ngates++]=nl+i; edges+=nl[i].n_in; }
+ for(int i=0;i<n_net;i++) if(nl[i].type!=IN) { order[ngates++]=nl+i; edges+=nl[i].n_in; }
  inputs=malloc((edges ? edges:1)*sizeof(*inputs));
  if(!inputs) { perror("simulation inputs"); exit(1); }
  qsort(order,ngates,sizeof(*order),compare_level);
@@ -65,7 +65,7 @@ void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
   values[g->output]=value;
  }
  for(int i=0;i<n_net;i++) {
-  v[i].ed_tag=v[i].edx_tag=v[i].xid_tag=0;
+  v[i].ed_tag=v[i].xid_tag=0;
   v[i].normal_3value=v[i].fault_3value=XID_X;
   v[i].normal_2value=v[i].fault_2value=values[i];
  }

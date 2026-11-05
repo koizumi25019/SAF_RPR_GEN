@@ -13,6 +13,22 @@
 #include "netlist/netlist.h"
 #include "cli/options.h"
 
+static bool CreateFaultList(char* buffer);
+static bool searchFnode(char* buffer, FNODE* tmp);
+static FNODE* CreateFaultNode(char* buffer);
+static void AnalyzeEquivalenceFaults(void);
+static void AnalyzeEquivalenceFaultsTDF(void);
+
+/* 空白文字（CRLFの\rを含む）だけの行は故障を表さないので読み飛ばす。 */
+static bool IsBlankLine(const char* line)
+{
+	for (; *line != '\0'; line++)
+	{
+		if (!isspace((unsigned char)*line)) return false;
+	}
+	return true;
+}
+
 //*************************************************************************************************************
 //	@name		F@ReadFault
 //	@function	F	故障を読み込む
@@ -36,7 +52,7 @@ bool ReadFault(
 		/** 故障リストを作成する */
 		while (COMP_EOF(fgets(buffer, MAXSIZE_BUFFER, fileptr)))
 		{
-			if (COMP_NEWLINE(buffer))
+			if (!IsBlankLine(buffer))
 			{
 				if (CreateFaultList(buffer) != READ_OKAY) return READ_ERROR;
 			}
@@ -58,7 +74,6 @@ bool ReadFault(
 		char buffer[MAXSIZE_BUFFER];
 
 		readdata.fault.numinit = 0;
-		readdata.fault.numrema = 0;
 
 		// 等価故障のフラグ整理を実行
 		AnalyzeEquivalenceFaultsTDF();
@@ -91,7 +106,6 @@ bool ReadFault(
 		char buffer[MAXSIZE_BUFFER];
 
 		readdata.fault.numinit = 0;
-		readdata.fault.numrema = 0;
 
 		// 等価故障のフラグ整理を実行
 		AnalyzeEquivalenceFaults();
@@ -123,7 +137,7 @@ bool ReadFault(
 //	@function	故障リストを作成する
 //	@return		(bool) 正常, 異常
 //*************************************************************************************************************
-bool CreateFaultList(
+static bool CreateFaultList(
 	char* buffer			  /**< バッファ */
 )
 {
@@ -150,7 +164,6 @@ bool CreateFaultList(
 			readdata.fault.list[hash] = fnodeptr;
 
 			readdata.fault.numinit++;
-			readdata.fault.numrema++;
 		}
 		else
 		{
@@ -166,7 +179,7 @@ bool CreateFaultList(
 //	@function	故障ノードを探索する
 //	@return		(bool) found, not found
 //*************************************************************************************************************
-bool searchFnode(
+static bool searchFnode(
 	char* buffer,			  /**< バッファ（キー） */
 	FNODE* tmp				  /**< ハッシュ故障リストへのポインタ */
 )
@@ -284,20 +297,30 @@ static NLIST* FindNetByName(
 //	@function	故障ノードを作成する
 //	@return		(FNODE*) 故障ノードへのポインタ
 //*************************************************************************************************************
-FNODE* CreateFaultNode(
+static FNODE* CreateFaultNode(
 	char* buffer			  /**< バッファ */
 )
 {
 	char* context = (char*)NULL;
 	FNODE* fnodeptr = (FNODE*)NULL;
+	char* name = (char*)NULL;
 
 	fnodeptr = (FNODE*)allocMemory(1, sizeof(FNODE));
 
-	/** 文字列を設定する */
+	/** 文字列を設定する（重複判定のキー。strtok_r で区切る前に複製する） */
 	fnodeptr->string = strdup(buffer);
 
 	/** 名前を設定する */
-	fnodeptr->name = strdup(strtok_r(buffer, " \t\n", &context));
+	name = strtok_r(buffer, " \t\r\n", &context);
+	if (name == NULL)
+	{
+		printf("\n\tFILE ERROR: fault file reading failed. ");
+		printf("fault name is missing.\n\n");
+		free(fnodeptr->string);
+		free(fnodeptr);
+		return (FNODE*)NULL;
+	}
+	fnodeptr->name = strdup(name);
 
 	/** タイプを設定する */
 	if (!ParseFaultType(&context, &fnodeptr->type))
@@ -307,9 +330,6 @@ FNODE* CreateFaultNode(
 		free(fnodeptr);
 		return (FNODE*)NULL;
 	}
-
-	/** 検出状態を設定する */
-	fnodeptr->detect = UNDETECTED;
 
 	/** ネットリストへのポインタを設定する */
 	fnodeptr->netptr = FindNetByName(fnodeptr->name);
@@ -346,17 +366,11 @@ FNODE* CreateFaultNode(
 ///*************************************************************************************************************
 //	@name		AnalyzeEquivalenceFaults
 //	@function	ネットリスト全体を走査し、等価故障のテストフラグをNOにする
+//	            （全ネットのフラグは InitGlobalVarsNLIST で YES に初期化済み）
 //*************************************************************************************************************
-void AnalyzeEquivalenceFaults()
+static void AnalyzeEquivalenceFaults(void)
 {
 	int i, j;
-
-	// すべてのネットの故障をテスト対象(YES)として初期化
-	for (i = 0; i < n_net; i++)
-	{
-		nl[i].test_sa0 = YES;
-		nl[i].test_sa1 = YES;
-	}
 
 	// ゲートのタイプに応じて等価故障を対象外(NO)にしていく
 	for (i = 0; i < n_net; i++)
@@ -399,17 +413,11 @@ void AnalyzeEquivalenceFaults()
 	}
 }
 
-/* TDF equivalence: BUF/INV only, never across a DFF boundary. */
-void AnalyzeEquivalenceFaultsTDF(void)
+/* TDF equivalence: BUF/INV only, never across a DFF boundary.
+   全ネットのフラグ（STR=test_sa0, STF=test_sa1）は InitGlobalVarsNLIST で YES に初期化済み。 */
+static void AnalyzeEquivalenceFaultsTDF(void)
 {
 	int i;
-
-	// すべてのネットの故障をテスト対象(YES)として初期化
-	for (i = 0; i < n_net; i++)
-	{
-		nl[i].test_sa0 = YES;   // STR
-		nl[i].test_sa1 = YES;   // STF
-	}
 
 	for (i = 0; i < n_net; i++)
 	{
@@ -420,8 +428,7 @@ void AnalyzeEquivalenceFaultsTDF(void)
            A shared primary input also has peer_1t, so testing only the BUF's
            input peer would incorrectly collapse PI faults across the DFF. */
         if (nl[i].peer_1t->type == IN) continue;
-		NLIST* in0 = nl[i].in[0];
-		if (in0->peer_1t == (NLIST*)NULL) continue;           // DFF置換BUF：時刻境界は跨がない
+		NLIST* in0 = nl[i].in[0];   // 2時刻目ゲートの入力は2時刻目のネット
 
 		// 入力線の遷移故障（STR/STF とも）は出力線の故障で代表される
 		in0->test_sa0 = NO;

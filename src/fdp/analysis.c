@@ -43,11 +43,10 @@ static void AddBlockingClauseFromCube(CCaDiCaL* solver, const char* cube)
 /* 直列・並列で共通の1故障処理。SAT→XID→禁止節を繰り返し、BDD・CSVへ進む。
  * baselineのWriteTPGModel、InlineXID、RunBDD、WriteFaultResultをそのまま使う。
  */
-static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
-                            FILE* cube_fp, FaultStats* stats, void* opaque)
+static bool AnalyzeOneFault(FNODE* target, FILE* result_fp, FILE* cube_fp,
+                            FaultStats* stats, void* opaque)
 {
     FaultAnalysisContext* context = opaque;
-    (void)fault_number; /* 進捗は故障完了後に呼び出し側で表示する。 */
     if (!context->bdd_manager) {
         context->bdd_manager = Cudd_Init(0, 0, CUDD_UNIQUE_SLOTS, CUDD_CACHE_SLOTS, 0);
         if (!context->bdd_manager) return false;
@@ -102,12 +101,20 @@ static bool AnalyzeOneFault(FNODE* target, int fault_number, FILE* result_fp,
             stats->bdd += (double)(clock() - start) / CLOCKS_PER_SEC;
 
             cubeset_free(&cubes);
-            DropDeteFault(target);
             break;
         }
         start = clock();
-        char* pattern = InlineXID(solver, target->netptr, -1, target->exc_netptr);
+        char* pattern = InlineXID(solver, target->netptr, target->exc_netptr);
         stats->xid += (double)(clock() - start) / CLOCKS_PER_SEC;
+        /* SATモデルで検出できない（SATとXIDの不整合）ときは結果を出さずに異常終了する。 */
+        if (!pattern) {
+            fprintf(stderr, "ERROR: don't-care identification found no detecting output for %s %s; "
+                    "no cube blocked or result written for this fault.\n",
+                    target->name, FaultTypeName(target->type));
+            cubeset_free(&cubes);
+            succeeded = false;
+            break;
+        }
         AddBlockingClauseFromCube(solver, pattern);
         cubeset_push(&cubes, pattern);
     }
@@ -131,7 +138,7 @@ static bool AnalyzeSerialFault(FNODE* fault, int number, FILE* csv, CubeOutput* 
     size_t size = 0;
     FILE* stream = output ? open_memstream(&text, &size) : NULL;
     if (output && !stream) return false;
-    bool success = AnalyzeOneFault(fault, number, csv, stream, stats, context);
+    bool success = AnalyzeOneFault(fault, csv, stream, stats, context);
     if (stream && fclose(stream) != 0) success = false;
     if (success && output) success = WriteCubeFile(output, fault, text, size);
     free(text);

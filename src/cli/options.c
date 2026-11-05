@@ -140,7 +140,7 @@ bool OPT(
         fprintf(stderr, "COMMAND ERROR: -cube directory must differ from -fdp and -log files\n");
         return OPT_ERROR;
     }
-	return OPTcheck();
+	return OPTcheckFile();
 }
 
 //*************************************************************************************************************
@@ -394,21 +394,6 @@ bool OPTread(
 	free(buffer);
 
 	fclose(fileptr);
-
-	return OPT_OKAY;
-}
-
-//*************************************************************************************************************
-//	@name		OPTcheck
-//	@function	必須オプションをチェックする
-//	@return		(bool) 正常, 異常
-//*************************************************************************************************************
-bool OPTcheck(
-	void
-)
-{
-
-	if (OPTcheckFile() != OPT_OKAY)	return OPT_ERROR;
 
 	return OPT_OKAY;
 }

@@ -12,11 +12,13 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
 
 エントリポイント `src/main.c` → `read_nl()`（ネットリスト解析）→
 `src/fdp/analysis.c` の `AnalyzeFaultDensity()`。ここが本体。
+`main.c` はSAFでFFを含む回路を拒否し、TDFでは素のDFFだけを2時刻展開する。
+したがって解析部（CNF・必須割当て・XID）はFFが存在しない組合せ回路だけを扱う。
 
 `AnalyzeFaultDensity` のメインループ内、故障ごとのパイプライン：
 
 1. **対象選択**（`src/fault/target_fault.c`）：故障読み込み後に `InitTargetOrder` で
-   レベルと元の走査順位により一度だけ整列し、`CopyTargetOrder` で未処理故障を配列にする。
+   レベルと元の走査順位により一度だけ整列し、`CopyTargetOrder` で全対象故障を配列にする。
    直列・並列ともこの順序を使い、終了時に `FreeTargetOrder` で選択用配列を解放する。
    ソルバとキューブ集合は故障ごとに作成・解放し、各故障の検出集合を独立に列挙する。
 2. **TPG モデル**（`src/fdp/cnf/tpg_model.c` + `src/fdp/cnf/`）：テスト生成用 CNF を構築する
@@ -27,14 +29,16 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
    UNKNOWN（CaDiCaL の戻り値 0）ではモデル参照・禁止節追加・対象故障の結果出力をせず、
    エラー表示と資源解放後に終了コード 1 で異常終了する。これは `verification` から派生した
    `feature/paper-core` の `src/fdp/paper_core.c` と同じ異常終了方針で、完了済み故障の CSV 行は保持する。
+   SAT モデルの故障シミュレーションで検出する観測点が見つからない場合（SAT と XID の不整合）も、
+   全 X のキューブを作らず `InlineXID` が NULL を返し、同じ方針で異常終了する。
 4. **FDP 算出・出力**：`RunBDD(gbm, n_pi, &cubes, density)`（`src/fdp/bdd/probability.c`）が
    キューブ和集合の BDD を構築し、CUDD の多倍長整数を `mpz_import` で GMP に直接取り込む。
    2^n_pi で割った確率を 8192 ビット精度の `mpf_t` に返す。一時ファイル・10進整数文字列は使わない。
    CSV は `WriteFaultResult(fp, &result)`（`src/io/fault_csv.c`）に分離し、`FaultResult` に
    対象・キューブ数・完了状態・確率をまとめる。確率の文字列化は故障ごとに1回だけ行い、等価故障にも流用する。
    CSVは`net_name,f_type,cube_cnt,complete,fdp`の5列。SAFのNAND入力sa0は出力sa1、NOR入力sa1は出力sa0の結果から等価故障を出力する。
-5. **後処理**：`DropDeteFault`（`src/fault/drop_detected.c`）が今回のキューブで新たに検出された故障を落とし、
-   メモリを解放する。
+   等価故障の行は故障リストを自動生成したときだけ出力し、`-fault` 指定時はリストの故障だけを出力する。
+5. **後処理**：ソルバ・キューブ集合を解放する。各故障は1回だけ処理し、故障間で検出状態を共有しない。
 
 補助モジュール：`src/netlist/netlist.c`（回路グラフ：`nl[]`, `pi[]`, `n_net`, `n_pi`、ゲート種別 `AND/OR/INV/...`）、
 `src/fault/fault_list.c`（故障リスト読込＋故障自動生成）、`src/common/memory.c`（メモリ確保）、`src/io/file.c`（ファイル操作）、`src/netlist/traversal.c`（スタック・キュー）、
@@ -59,6 +63,7 @@ SAFとTDFは共通のパイプラインを使い、ソースをモデル別に�
 キューブの故障間流用と支配関係解析は削除済み。`-dom_reuse`は受け付けず、
 旧`MDC_NODOM`環境変数は参照しない。流用専用のCSV列・集計も持たない。
 EAは常時ON。`-ea`の切替は持たず、旧`MDC_NOEA`は参照しない。
+Dチェーン（故障伝搬制約）も常時生成し、旧`MDC_NOPROP`環境変数は参照しない。
 
 ## 正常CNFの範囲限定（常時有効）
 

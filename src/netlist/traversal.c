@@ -25,7 +25,8 @@ NLIST* stackPOP(
 	void
 )
 {
-	if (stack.ptr < 0)
+	/* 空のスタックから取り出すと stk[-1] を読むため、取り出す前に確認する。 */
+	if (stack.ptr <= 0)
 	{
 		printf("\n	SYSTEM ERROR: stack underflow\n");
 
@@ -36,70 +37,20 @@ NLIST* stackPOP(
 }
 
 void queENQ(
-	NLIST* netptr,			  /** ネットリストへのポインタ */
-	int				      mode				  /** モード */
+	NLIST* netptr			  /** ネットリストへのポインタ */
 )
 {
-	switch (mode)
+	if (que.num >= que.maxnum)
 	{
-	case QUE_MODE_ONE:
-		que.que[que.rear++] = netptr;
-		que.num++;
-
-		if (que.maxnum == que.rear) que.rear = 0;
-
-		if (que.maxnum < que.num)
-		{
-			printf("\n	SYSTEM ERROR: queue over flow.\n");
-
-			exit(EXIT_FAILURE);
-		}
-
-		break;
-
-	case QUE_MODE_ALLOUT:
-		for (int i = 0; i < netptr->n_out; i++)
-		{
-			que.que[que.rear++] = netptr->out[i];
-			que.num++;
-
-			if (que.maxnum == que.rear) que.rear = 0;
-
-			if (que.maxnum < que.num)
-			{
-				printf("\n	SYSTEM ERROR: queue over flow.\n");
-
-				exit(EXIT_FAILURE);
-			}
-		}
-
-		break;
-
-	case QUE_MODE_ALLIN:
-		for (int i = 0; i < netptr->n_in; i++)
-		{
-			que.que[que.rear++] = netptr->in[i];
-			que.num++;
-
-			if (que.maxnum == que.rear) que.rear = 0;
-
-			if (que.maxnum < que.num)
-			{
-				printf("\n	SYSTEM ERROR: queue over flow.\n");
-
-				exit(EXIT_FAILURE);
-			}
-		}
-
-		break;
-
-	default:
-		printf("\n	SYSTEM ERROR: stack mode error.\n");
+		printf("\n	SYSTEM ERROR: queue over flow.\n");
 
 		exit(EXIT_FAILURE);
-
-		break;
 	}
+
+	que.que[que.rear++] = netptr;
+	que.num++;
+
+	if (que.maxnum == que.rear) que.rear = 0;
 
 	return;
 }
@@ -110,19 +61,20 @@ NLIST* queDEQ(
 {
 	NLIST* netptr = (NLIST*)NULL;
 
+	/* 空のキューから取り出すと未設定の要素を読むため、取り出す前に確認する。 */
+	if (que.num <= 0)
+	{
+		printf("\n	SYSTEM ERROR: queue under flow.\n");
+
+		exit(EXIT_FAILURE);
+	}
+
 	netptr = que.que[que.front++];
 	que.num--;
 
 	if (que.maxnum == que.front)
 	{
 		que.front = 0;
-	}
-
-	if (que.num < 0)
-	{
-		printf("\n	SYSTEM ERROR: queue under flow.\n");
-
-		exit(EXIT_FAILURE);
 	}
 
 	return	netptr;

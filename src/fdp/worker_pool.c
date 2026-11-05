@@ -9,7 +9,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "fdp/worker_pool.h"
-#include "fdp/analysis.h"
 #include "cli/options.h"
 
 /* このファイルは故障の配分とプロセス間通信を担当する。
@@ -146,7 +145,7 @@ static bool analyze_and_reply(int socket_fd, FNODE* fault, int fault_index,
         _exit(EXIT_FAILURE); /* 親が通信切断を検出して残りの子も終了させる。 */
     }
 
-    reply.succeeded = task(fault, fault_index + 1, csv_stream, cube_stream, &reply.stats, context);
+    reply.succeeded = task(fault, csv_stream, cube_stream, &reply.stats, context);
     if (fclose(csv_stream) != 0) {
         reply.succeeded = false;
     }
@@ -295,9 +294,6 @@ static bool receive_fault_result(FaultPool* pool, int worker_index)
     }
     result->ready = true;
     FaultStatsAdd(pool->stats, &reply.stats);
-
-    /* 子でのDropDeteFaultは子のコピーにだけ作用するので、親側にも完了を反映。 */
-    DropDeteFault(pool->faults[fault_index]);
     pool->completed_faults++;
     if (opt.progress == YES) {
         printf("\rProgress >> %d/%d", pool->completed_faults, pool->fault_count);

@@ -14,17 +14,3 @@ bool WriteTPGModel(
 	CCaDiCaL *solver,
 	FNODE* target			  /**< 対象故障 */
 );
-
-/** テストパタン生成モデルを作成する */
-bool CreateTPGmodel(
-	CCaDiCaL* solver,
-	FNODE* target			  /**< 対象故障 */
-);
-
-
-
-
-
-
-
-

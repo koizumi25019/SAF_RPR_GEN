@@ -183,7 +183,7 @@ def run(binary, directory, circuit, extra='', cli=(), capture=False, success=Tru
     config = directory / 'run.set'
     config.write_text(model + f'-net {circuit}\n-fdp {directory}/fdp.csv\n'
                       f'-log {directory}/time.log\n' + extra)
-    env = {k: v for k, v in os.environ.items() if k != 'MDC_NOPROP'}
+    env = dict(os.environ)
     env['FDP_NORMAL_SCOPE_VALIDATE'] = '1'
     if capture:
         for old in directory.glob('*.cover'): old.unlink()
@@ -266,8 +266,14 @@ endmodule
         (output / 'frame1.faults').write_text('G5_1t STR\n')
         directory = run(binary, output / label, circuit, extra, success=False)
         assert message in (directory / 'stdout.txt').read_text()
-    directory = run(binary, output / 'saf_wrong_type', s27,
+    # SAFでは順序回路を受け付けない（-tdf の付け忘れ）。故障種別の検査より前に止まる。
+    directory = run(binary, output / 'saf_sequential', s27,
                     f'-saf\n-fault {ROOT}/input/fault/tdf/s27_tdf.txt\n', success=False)
+    assert '組合せ回路のみ' in (directory / 'stdout.txt').read_text()
+    # SAFの故障リストにTDFの故障種別を書いた場合は種別の誤りとして止まる。
+    (output / 'saf_tdf_type.faults').write_text('c STR\n')
+    directory = run(binary, output / 'saf_wrong_type', ROOT / 'input/circuit/saf/c17a.v',
+                    f'-saf\n-fault {output / "saf_tdf_type.faults"}\n', success=False)
     assert 'unexpected type' in (directory / 'stdout.txt').read_text()
     report = {'source': 'independent exhaustive two-frame Verilog simulation',
               'cases': reports, 'serial_parallel_debug_equal': True if args.debug else None, 'saf_c17_golden': True,

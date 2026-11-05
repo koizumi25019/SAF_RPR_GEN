@@ -58,7 +58,7 @@ def run(binary, directory, circuit, extra='', cli=(), env_extra=None, success=Tr
     config.write_text(f'-saf\n-net {circuit}\n-fdp {directory}/fdp.csv\n'
                       f'-log {directory}/time.log\n-cube {directory}/cubes\n' + extra)
     env = {key: value for key, value in os.environ.items()
-           if key not in ('MDC_NODOM', 'MDC_NOPROP')}
+           if key != 'MDC_NODOM'}
     env.update(env_extra or {})
     result = subprocess.run([str(binary), '-set', str(config), *cli],
                             env=env, capture_output=True, text=True, timeout=20)
@@ -72,7 +72,9 @@ def verify(directory, inputs, events):
         assert reader.fieldnames == ['net_name', 'f_type', 'cube_cnt', 'complete', 'fdp'], directory
         rows = list(reader)
     assert all(None not in row and None not in row.values() for row in rows), directory
-    assert {(row['net_name'], row['f_type']) for row in rows} == set(events), directory
+    keys = [(row['net_name'], row['f_type']) for row in rows]
+    assert len(keys) == len(set(keys)), (directory, 'duplicate fault rows')
+    assert set(keys) == set(events), directory
     representatives = {}
     for row in rows:
         key = row['net_name'], row['f_type']

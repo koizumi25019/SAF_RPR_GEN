@@ -26,8 +26,6 @@ bool CreateConsFC(
 {
 	RESET_CNF;
 
-	if (target->detect != UNDETECTED) return true;
-
 	/** 伝搬先(TFO)を探索する */
 	SearchTFO(target);
 	NormalScopeBuild(target);
@@ -55,8 +53,7 @@ bool CreateConsFC(
 			case EXOR:	CreateConsFC_XOR(solver, &nl[j]);		break;
 			case EXNOR:	CreateConsFC_XNOR(solver, &nl[j]);		break;
 
-			case IN:
-			case DFF:										break;
+			case IN:										break;
 
 			default:
 				printf("\n	SYSTEM ERROR: test pattern model generation failed. ");
@@ -67,7 +64,7 @@ bool CreateConsFC(
 	}
 
 	/** 故障伝搬(Dチェーン)制約を作成する */
-	if (!getenv("MDC_NOPROP")) CreateConsProp(solver, target);
+	CreateConsProp(solver, target);
 
 	/** 検出回路の制約を作成する */
 	CreateConsDC(solver, target);
@@ -89,7 +86,6 @@ void SearchTFO(
 {
 	NLIST* netptr = (NLIST*)NULL;
 
-	numtrannet = 0;
 	numtranpo = 0;
 
 	RESET_FLAG;
@@ -107,8 +103,6 @@ void SearchTFO(
 			netptr->flag |= TFO;
 			netptr->varsfc  = ++cnf.total.vars;
 			netptr->varprop = ++cnf.total.vars;
-
-			numtrannet++;
 
 			if (netptr->n_out != 0)
 			{

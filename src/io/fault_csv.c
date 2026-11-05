@@ -18,8 +18,7 @@ static void WriteEquivFaults(
         if (net->type != BUF && net->type != INV) return;
         if (net->peer_1t && net->peer_1t->type == IN) return;
 
-        NLIST* in0 = net->in[0];
-        if (in0->peer_1t == (NLIST*)NULL) return;
+        NLIST* in0 = net->in[0];   // 2時刻目ゲートの入力は2時刻目のネット
 
         int in_type = (net->type == BUF) ? fault_type
                                          : ((fault_type == SF0) ? SF1 : SF0);
@@ -112,5 +111,8 @@ void WriteFaultResult(FILE* fp, const FaultResult* result)
             result->cube_cnt,
             result->complete ? 1 : 0,
             density_str);
-    WriteEquivFaults(fp, result->target->netptr, result->target->type, density_str);
+    /* 等価故障への展開は代表故障を自動生成したときだけ行う。故障リスト指定時は
+       指定された故障だけを出力し、リスト中の等価故障が重複して出力されるのを防ぐ。 */
+    if (opt.file.input.fault == FILE_NOSET)
+        WriteEquivFaults(fp, result->target->netptr, result->target->type, density_str);
 }
