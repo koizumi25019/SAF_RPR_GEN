@@ -71,6 +71,7 @@ typedef struct FaultList
 	int					  numinit;			  /**< 初期故障数 */
 	int					  numdete;			  /**< 検出済み故障数 */
 	int					  numred;			  /**< 冗長故障数 */
+	int					  numequiv;			  /**< 等価故障数（代表故障に畳み込まれた故障の数） */
 	struct FaultNode* list[MAXSIZE_HASH]; /**< 故障リスト */
 }
 FLIST;

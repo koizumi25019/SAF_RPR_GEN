@@ -389,6 +389,14 @@ void AnalyzeEquivalenceFaults()
 				break;
 		}
 	}
+
+	// 代表故障に畳み込まれた故障（フラグがNO）を数える
+	readdata.fault.numequiv = 0;
+	for (i = 0; i < n_net; i++)
+	{
+		if (nl[i].test_sa0 == NO) readdata.fault.numequiv++;
+		if (nl[i].test_sa1 == NO) readdata.fault.numequiv++;
+	}
 }
 
 /* TDF equivalence: BUF/INV only, never across a DFF boundary. */
@@ -418,5 +426,14 @@ void AnalyzeEquivalenceFaultsTDF(void)
 		// 入力線の遷移故障（STR/STF とも）は出力線の故障で代表される
 		in0->test_sa0 = NO;
 		in0->test_sa1 = NO;
+	}
+
+	// 代表故障に畳み込まれた故障（故障サイトのうちフラグがNO）を数える
+	readdata.fault.numequiv = 0;
+	for (i = 0; i < n_net; i++)
+	{
+		if (nl[i].peer_1t == (NLIST*)NULL) continue;
+		if (nl[i].test_sa0 == NO) readdata.fault.numequiv++;
+		if (nl[i].test_sa1 == NO) readdata.fault.numequiv++;
 	}
 }

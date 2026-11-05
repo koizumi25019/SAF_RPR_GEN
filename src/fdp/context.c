@@ -180,6 +180,7 @@ void InitGlobalVarsREADDATA(
 	readdata.fault.numinit = 0;
 	readdata.fault.numrema = 0;
 	readdata.fault.numred = 0;
+	readdata.fault.numequiv = 0;
 
 	return;
 }

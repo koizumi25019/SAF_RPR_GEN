@@ -30,6 +30,7 @@ static void WriteReport(
 	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
 	fprintf(fp, "//  Essential Assignment                      : on\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
+	fprintf(fp, "//  Number of Equivalent Faults               : %d\n", readdata.fault.numequiv);
     fprintf(fp, "//  Don't-care Method                         : XID\n");
     fprintf(fp, "//  Fault Workers                             : %d\n", FaultPoolWorkers());
     fprintf(fp, "//  CPU Accounting                            : parent + all worker processes\n");
