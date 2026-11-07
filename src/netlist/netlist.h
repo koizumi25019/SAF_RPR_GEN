@@ -38,9 +38,9 @@ typedef struct _Netlist_Format_ {
 	int				n_out;	            //
 	struct _Netlist_Format_** out;      //
 	int				flag;			    /**< フラグ */
-	unsigned int	varsgc;			    /**< 正常回路用変数  */
-	unsigned int	varsfc;				/**< 故障回路用変数  */
-	unsigned int	varprop;			/**< 故障伝搬用変数 (Dチェーン) */
+	int				varsgc;			    /**< 正常回路用リテラル（BUF/FOUT/INVは入力のリテラルを共有し、INVは負） */
+	int				varsfc;				/**< 故障回路用リテラル（故障TFO外は varsgc と同じ） */
+	int				varprop;			/**< 故障伝搬用変数 (Dチェーン) */
 	int				logic_value;		/**< 必須割当ての論理値 (-1=不明) */
 	int				ea_flag;			/**< 必須割当てフラグ (0=未割当, 1=割当済み) */
 	int				unique_flag;		/**< ユニーク化フラグ (0=down, 1=up, 2=middle) */

@@ -35,10 +35,10 @@ bool CreateConsGC(
 
 		case NOR:	CreateConsGC_NOR(&nl[i]);	break;
 
-		case INV:	CreateConsGC_INV(&nl[i]);	break;
-
+		/* BUF/FOUT/INVは AssigneVarsGC で入力のリテラルを共有するため節を作らない */
+		case INV:
 		case BUF:
-		case FOUT:	CreateConsGC_BUF(&nl[i]);	break;
+		case FOUT:								break;
 
 		case EXOR:	CreateConsGC_XOR(&nl[i]);	break;
 
@@ -56,6 +56,34 @@ bool CreateConsGC(
 		return true;
 }
 
+/* 正常回路で入力と同値（BUF/FOUT）または反転（INV）になるゲート */
+static bool IsGoodAliasGate(const NLIST* netptr)
+{
+	return netptr->type == BUF || netptr->type == FOUT || netptr->type == INV;
+}
+
+/* netptr から BUF/FOUT/INV を入力側へたどり、最初の実ゲート・外部入力（根）の変数を共有する。
+ * 経路上の各ネットには、自身から根までのINVの個数の偶奇で符号を付けたリテラルを割り当てる。
+ * 正常値は値が一意に決まるので、別変数＋等価節で表すのと解の集合は変わらない。 */
+static void AssignAliasLiteral(NLIST* netptr)
+{
+	NLIST* root = netptr;
+	int inversions = 0;
+	while (root->varsgc == UNASSIGN && IsGoodAliasGate(root))
+	{
+		if (root->type == INV) inversions++;
+		root = root->in[0];
+	}
+	if (root->varsgc == UNASSIGN)
+		root->varsgc = ++cnf.constant.vars;
+
+	for (NLIST* p = netptr; p != root; p = p->in[0])
+	{
+		p->varsgc = (inversions % 2) ? -root->varsgc : root->varsgc;
+		if (p->type == INV) inversions--;
+	}
+}
+
 //*************************************************************************************************************
 //	@name		F@AssigneVarsGC
 //	@function	F	正常回路用の変数を割り当てる
@@ -65,15 +93,15 @@ void AssigneVarsGC(
 	void
 )
 {
-	/** 外部入力用の変数を割り当てる */
+	/** 外部入力用の変数を割り当てる（ブロッキング節・PI値の読み出しは正のリテラルを前提とする） */
 	for (int i = 0; i < n_pi; i++) {
 		pi[i]->varsgc = ++cnf.constant.vars;
 	}
-	/** その他の変数を割り当てる */
+	/** その他の変数を割り当てる。BUF/FOUT/INVは入力のリテラルを共有する */
 	for (int i = 0; i < n_net; i++)
 	{
 		if (nl[i].varsgc == UNASSIGN)
-			nl[i].varsgc = ++cnf.constant.vars;
+			AssignAliasLiteral(&nl[i]);
 	}
 
 	return;
@@ -96,14 +124,14 @@ void CreateConsGC_AND(
 
 	// (-x1 ∨ -x2 ∨ ... ∨ z)
 	for (int i = 0; i < n; i++)
-		arr[idx++] = -(int)netptr->in[i]->varsgc;
-	arr[idx++] = (int)netptr->varsgc;
+		arr[idx++] = -netptr->in[i]->varsgc;
+	arr[idx++] = netptr->varsgc;
 	arr[idx++] = 0;
 
 	// (xi ∨ -z) for each i
 	for (int i = 0; i < n; i++) {
-		arr[idx++] = (int)netptr->in[i]->varsgc;
-		arr[idx++] = -(int)netptr->varsgc;
+		arr[idx++] = netptr->in[i]->varsgc;
+		arr[idx++] = -netptr->varsgc;
 		arr[idx++] = 0;
 	}
 
@@ -127,14 +155,14 @@ void CreateConsGC_NAND(
 
 	// (-x1 ∨ ... ∨ -xn ∨ -z)
 	for (int i = 0; i < n; i++)
-		arr[idx++] = -(int)netptr->in[i]->varsgc;
-	arr[idx++] = -(int)netptr->varsgc;
+		arr[idx++] = -netptr->in[i]->varsgc;
+	arr[idx++] = -netptr->varsgc;
 	arr[idx++] = 0;
 
 	// (xi ∨ z) for each i
 	for (int i = 0; i < n; i++) {
-		arr[idx++] = (int)netptr->in[i]->varsgc;
-		arr[idx++] = (int)netptr->varsgc;
+		arr[idx++] = netptr->in[i]->varsgc;
+		arr[idx++] = netptr->varsgc;
 		arr[idx++] = 0;
 	}
 
@@ -158,14 +186,14 @@ void CreateConsGC_OR(
 
 	// (x1 ∨ ... ∨ xn ∨ -z)
 	for (int i = 0; i < n; i++)
-		arr[idx++] = (int)netptr->in[i]->varsgc;
-	arr[idx++] = -(int)netptr->varsgc;
+		arr[idx++] = netptr->in[i]->varsgc;
+	arr[idx++] = -netptr->varsgc;
 	arr[idx++] = 0;
 
 	// (-xi ∨ z) for each i
 	for (int i = 0; i < n; i++) {
-		arr[idx++] = -(int)netptr->in[i]->varsgc;
-		arr[idx++] = (int)netptr->varsgc;
+		arr[idx++] = -netptr->in[i]->varsgc;
+		arr[idx++] = netptr->varsgc;
 		arr[idx++] = 0;
 	}
 
@@ -189,55 +217,19 @@ void CreateConsGC_NOR(
 
 	// (x1 ∨ ... ∨ xn ∨ z)
 	for (int i = 0; i < n; i++)
-		arr[idx++] = (int)netptr->in[i]->varsgc;
-	arr[idx++] = (int)netptr->varsgc;
+		arr[idx++] = netptr->in[i]->varsgc;
+	arr[idx++] = netptr->varsgc;
 	arr[idx++] = 0;
 
 	// (-xi ∨ -z) for each i
 	for (int i = 0; i < n; i++) {
-		arr[idx++] = -(int)netptr->in[i]->varsgc;
-		arr[idx++] = -(int)netptr->varsgc;
+		arr[idx++] = -netptr->in[i]->varsgc;
+		arr[idx++] = -netptr->varsgc;
 		arr[idx++] = 0;
 	}
 
 	netptr->consgc     = arr;
 	netptr->consgc_len = sz;
-}
-
-//*************************************************************************************************************
-//	@name		F@CreateConsGC_BUF
-//	@function	F	正常回路の制約を作成する -BUF
-//	@return		F	(void)
-//*************************************************************************************************************
-void CreateConsGC_BUF(
-	NLIST* netptr			  /**< ネットリストへのポインタ */
-)
-{
-	int a = (int)netptr->in[0]->varsgc;
-	int z = (int)netptr->varsgc;
-	// (-a ∨ z), (a ∨ -z) → 6 ints
-	int tmp[] = { -a, z, 0, a, -z, 0 };
-	netptr->consgc = (int*)malloc(6 * sizeof(int));
-	memcpy(netptr->consgc, tmp, 6 * sizeof(int));
-	netptr->consgc_len = 6;
-}
-
-//*************************************************************************************************************
-//	@name		F@CreateConsGC_INV
-//	@function	F	正常回路の制約を作成する -INV
-//	@return		F	(void)
-//*************************************************************************************************************
-void CreateConsGC_INV(
-	NLIST* netptr			  /**< ネットリストへのポインタ */
-)
-{
-	int a = (int)netptr->in[0]->varsgc;
-	int z = (int)netptr->varsgc;
-	// (a ∨ z), (-a ∨ -z) → 6 ints
-	int tmp[] = { a, z, 0, -a, -z, 0 };
-	netptr->consgc = (int*)malloc(6 * sizeof(int));
-	memcpy(netptr->consgc, tmp, 6 * sizeof(int));
-	netptr->consgc_len = 6;
 }
 
 //*************************************************************************************************************
@@ -249,9 +241,9 @@ void CreateConsGC_XOR(
 	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
-	int a = (int)netptr->in[0]->varsgc;
-	int b = (int)netptr->in[1]->varsgc;
-	int z = (int)netptr->varsgc;
+	int a = netptr->in[0]->varsgc;
+	int b = netptr->in[1]->varsgc;
+	int z = netptr->varsgc;
 	// (-a∨-b∨-z), (a∨b∨-z), (a∨-b∨z), (-a∨b∨z) → 16 ints
 	int tmp[] = {
 		-a, -b, -z, 0,
@@ -273,9 +265,9 @@ void CreateConsGC_XNOR(
 	NLIST* netptr			  /**< ネットリストへのポインタ */
 )
 {
-	int a = (int)netptr->in[0]->varsgc;
-	int b = (int)netptr->in[1]->varsgc;
-	int z = (int)netptr->varsgc;
+	int a = netptr->in[0]->varsgc;
+	int b = netptr->in[1]->varsgc;
+	int z = netptr->varsgc;
 	// (a∨b∨z), (-a∨-b∨z), (-a∨b∨-z), (a∨-b∨-z) → 16 ints
 	int tmp[] = {
 		 a,  b,  z, 0,

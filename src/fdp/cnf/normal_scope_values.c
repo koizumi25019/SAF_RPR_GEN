@@ -63,7 +63,7 @@ void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
  if(scope_generation!=NormalScopeGeneration()) prepare_scope(v);
  /* 範囲内のPIはSATの値を使う。範囲外のPIはどのゲートからも参照されない。 */
  for(int i=0;i<n_pi;i++) if(NormalScopeRequiredNet(pi[i]->n))
-  values[pi[i]->n]=ccadical_val(solver,(int)pi[i]->varsgc)>0;
+  values[pi[i]->n]=ccadical_val(solver,pi[i]->varsgc)>0;
  for(int k=0;k<nscope_gates;k++) {
   const Gate *g=gates+scope_gates[k];
   const int *in=inputs+g->offset;
@@ -96,8 +96,9 @@ void NormalScopeModelValues(CCaDiCaL *solver,XID_VAR_INFO *v) {
  }
  if(getenv("FDP_NORMAL_SCOPE_VALIDATE")) for(int k=0;k<nscope_nets;k++) {
   int i=scope_nets[k];
-  int value=ccadical_val(solver,(int)nl[i].varsgc);
-  if(value && (value>0)!=v[i].normal_2value) {
+  int literal=nl[i].varsgc;   /* BUF/FOUT/INVは共有リテラル（INVは負）。真ならval()はliteralを返す */
+  int value=ccadical_val(solver,literal);
+  if(value && (value==literal)!=v[i].normal_2value) {
    fprintf(stderr,"SAT/simulation mismatch %s\n",nl[i].name); exit(1);
   }
  }
