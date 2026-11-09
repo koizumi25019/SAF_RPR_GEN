@@ -83,6 +83,8 @@ static bool AnalyzeOneFault(FNODE* target, FILE* result_fp, FILE* cube_fp,
     CCaDiCaL* solver = ccadical_init();
     if (!solver) return false;
     ccadical_set_option(solver, "factor", 0);
+    /* lucky phaseは前処理前(luckyearly)だけ試す。前処理後の再試行はほぼ同じ式で空振りするため省く。 */
+    ccadical_set_option(solver, "luckylate", 0);
     if (!WriteTPGModel(solver, target)) {
         ccadical_release(solver);
         return false;

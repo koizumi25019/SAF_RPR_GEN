@@ -30,6 +30,7 @@ static void WriteReport(
             opt.fault_model == FM_TDF ? "TDF (LOC; capture PPO only)" : "SAF");
 	fprintf(fp, "//  Normal CNF Scope                          : on (affected-output TFI)\n");
 	fprintf(fp, "//  Essential Assignment                      : on\n");
+	fprintf(fp, "//  CaDiCaL Options                           : factor=0 luckylate=0\n");
 	fprintf(fp, "//  Number of Target Faults                   : %d\n", readdata.fault.numinit);
 	fprintf(fp, "//  Number of Equivalent Faults               : %d\n", readdata.fault.numequiv);
     const FaultEquivalenceStats* equivalence = GetFaultEquivalenceStats();

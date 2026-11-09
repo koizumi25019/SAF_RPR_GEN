@@ -38,7 +38,7 @@ bool CreateConsGC(
 	void
 );
 
-/** 正常回路用の変数を割り当てる */
+/** 正常回路用の変数を割り当てる（BUF/FOUT/INVは入力のリテラルを共有する） */
 void AssigneVarsGC(
 	void
 );
@@ -60,16 +60,6 @@ void CreateConsGC_OR(
 
 /** 正常回路の制約を作成する -NOR */
 void CreateConsGC_NOR(
-	NLIST* netptr			  /**< ネットリストへのポインタ */
-);
-
-/** 正常回路の制約を作成する -BUF */
-void CreateConsGC_BUF(
-	NLIST* netptr			  /**< ネットリストへのポインタ */
-);
-
-/** 正常回路の制約を作成する -INV */
-void CreateConsGC_INV(
 	NLIST* netptr			  /**< ネットリストへのポインタ */
 );
 
