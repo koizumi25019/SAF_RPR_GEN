@@ -6,6 +6,7 @@
 //  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
+//  CaDiCaL Options                           : factor=0 luckylate=0
 //  Number of Target Faults                   : 22
 //  Number of Equivalent Faults               : 14
 //  External Equivalence File                 : (none)

@@ -63,7 +63,7 @@ flowchart TD
    （INVは負リテラル。`AssigneVarsGC`、`src/fdp/cnf/good_circuit.c`）。等価節を省くだけなので解の集合は変わらない。
    外部入力は常に正のリテラルで、ブロッキング節とPI値の読み出しはこれを前提とする。
    故障回路（`varsfc`）は故障TFO内で従来どおり別変数を使い、TFO外は正常回路のリテラルを流用する。
-3. **キューブ生成ループ**：CaDiCaL を solve する。SAT なら `InlineXID`（`src/fdp/xid/`）が
+3. **キューブ生成ループ**：CaDiCaL を solve する（オプションは `factor=0`・`luckylate=0`。ログの`CaDiCaL Options`に記録）。SAT なら `InlineXID`（`src/fdp/xid/`）が
    外部入力のドントケアを埋め、キューブ文字列（PI ごとに `'0'/'1'/'X'`）を生成。それを禁止節として追加し
    `CubeSet` に push する。ループは UNSAT（完全）または `-limit` 到達（打ち切り）で終了。
    UNKNOWN（CaDiCaL の戻り値 0）ではモデル参照・禁止節追加・対象故障の結果出力をせず、
