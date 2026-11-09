@@ -2,9 +2,7 @@
 #-fault ../input/fault/saf/s5378_C_unred.txt
 -log ../output/saf/limit30/log/s5378_C.txt
 -fdp ../output/saf/limit30/fdp/s5378_C.csv
--cube ../output/saf/limit30/cube/s5378
 -limit 30
 -jobs 15
--cube_include_incomplete off
--cube_fdp_max 0.0003
 -progress on
+#-equiv ../input/equivpair/s5378_C_equivpair.txt

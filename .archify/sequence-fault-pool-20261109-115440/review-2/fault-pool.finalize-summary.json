@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/candidate.json",
+    "sha256": "c1361301a2ca0af123f988fc07ddeb950b3ee603c147f84b8d9b1c7acf4e0c3e",
+    "bytes": 8815
+  },
+  "artifact": {
+    "path": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.html",
+    "sha256": "ddbc00ea745dff56f98d8cd7fec8a7f1cd1ae55895eb6da68d1fe0436ee35833",
+    "bytes": 850676
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "fail"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[1109/115700.961:ERROR:chrome\\app\\chrome_main_delegate.cc:1243] Remote debugging pipe file descriptors are not open.\nChrome transport: Node v18.19.1, libuv 1.48.0, linux; pid=3341431, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/review-2/fault-pool.finalize.json",
+    "summaryReceipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/review-2/fault-pool.finalize-summary.json",
+    "browserCheckReceipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/review-2/fault-pool.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-09T02:56:51.025Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 904,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  }
+}

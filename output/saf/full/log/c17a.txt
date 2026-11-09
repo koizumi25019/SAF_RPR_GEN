@@ -3,7 +3,20 @@
 //--------------------------------------------------------------------------------
 //  Target Circuit                            : c17a
 //  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
+//  Normal CNF Scope                          : on (affected-output TFI)
+//  Essential Assignment                      : on
 //  Number of Target Faults                   : 22
+//  Number of Equivalent Faults               : 14
+//  External Equivalence File                 : (none)
+//  External Equivalence Pairs                : 0
+//  Targets Before External Equivalence       : 22
+//  Targets After External Equivalence        : 22
+//  Number of Output Faults                   : 36
+//  Don't-care Method                         : XID
+//  Fault Workers                             : 1
+//  CPU Accounting                            : parent + all worker processes
+//  Time                                      : 0.004 sec
 //  CPU Time                                  : 0.005 sec
 //  CPU Time (CaDiCaL)                        : 0.000 sec
 //  CPU Time (BDD)                            : 0.000 sec

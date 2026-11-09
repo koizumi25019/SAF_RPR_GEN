@@ -3,17 +3,23 @@
 //--------------------------------------------------------------------------------
 //  Target Circuit                            : s15850_C
 //  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
 //  Number of Target Faults                   : 11697
+//  Number of Equivalent Faults               : 19969
+//  External Equivalence File                 : (none)
+//  External Equivalence Pairs                : 0
+//  Targets Before External Equivalence       : 11697
+//  Targets After External Equivalence        : 11697
+//  Number of Output Faults                   : 31666
 //  Don't-care Method                         : XID
-//  Dominance Cube Reuse                      : on
-//  Fault Workers                             : 1
+//  Fault Workers                             : 15
 //  CPU Accounting                            : parent + all worker processes
-//  Time                                      : 112.578 sec
-//  CPU Time                                  : 125.081 sec
-//  CPU Time (CaDiCaL)                        : 70.771 sec
-//  CPU Time (BDD)                            : 6.449 sec
-//  CPU Time (Don't care)                     : 25.019 sec
-//  CPU Time (Read Fault)                     : 0.016 sec
+//  Time                                      : 16.200 sec
+//  CPU Time                                  : 266.966 sec
+//  CPU Time (CaDiCaL)                        : 133.915 sec
+//  CPU Time (BDD)                            : 14.209 sec
+//  CPU Time (Don't care)                     : 58.800 sec
+//  CPU Time (Read Fault)                     : 0.009 sec
 //--------------------------------------------------------------------------------

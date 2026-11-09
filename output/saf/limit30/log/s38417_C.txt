@@ -3,17 +3,23 @@
 //--------------------------------------------------------------------------------
 //  Target Circuit                            : s38417_C
 //  Name of Target Fault File                 : (null)
+//  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
 //  Number of Target Faults                   : 30744
+//  Number of Equivalent Faults               : 45498
+//  External Equivalence File                 : (none)
+//  External Equivalence Pairs                : 0
+//  Targets Before External Equivalence       : 30744
+//  Targets After External Equivalence        : 30744
+//  Number of Output Faults                   : 76242
 //  Don't-care Method                         : XID
-//  Dominance Cube Reuse                      : on
-//  Fault Workers                             : 1
+//  Fault Workers                             : 15
 //  CPU Accounting                            : parent + all worker processes
-//  Time                                      : 718.878 sec
-//  CPU Time                                  : 798.419 sec
-//  CPU Time (CaDiCaL)                        : 474.799 sec
-//  CPU Time (BDD)                            : 24.963 sec
-//  CPU Time (Don't care)                     : 167.456 sec
-//  CPU Time (Read Fault)                     : 0.126 sec
+//  Time                                      : 137.224 sec
+//  CPU Time                                  : 2273.508 sec
+//  CPU Time (CaDiCaL)                        : 1007.602 sec
+//  CPU Time (BDD)                            : 69.058 sec
+//  CPU Time (Don't care)                     : 693.265 sec
+//  CPU Time (Read Fault)                     : 0.065 sec
 //--------------------------------------------------------------------------------

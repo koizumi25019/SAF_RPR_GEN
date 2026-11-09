@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "-jobs N の親子プロセス並列実行",
+    "locale": "ja",
+    "output": ".archify/sequence-fault-pool-20261109-115440/fault-pool.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/koizumi25019/SAF_RPR_GEN",
+      "provider": "github",
+      "revision": "3a9efdeac29211ad04b4dce6006ea0d96ba26487"
+    },
+    "legend": {
+      "entries": {
+        "default": { "label": "プロセス制御・ファイル書き込み" },
+        "emphasis": { "label": "故障番号の配分" },
+        "return": { "label": "結果の返信・子の回収" },
+        "dashed": { "label": "異常時のみ" }
+      }
+    }
+  },
+  "participants": [
+    {
+      "id": "parent",
+      "type": "backend",
+      "label": "親プロセス",
+      "sublabel": "FaultPoolRun",
+      "sources": [
+        { "path": "src/fdp/worker_pool.c", "line": 420, "end_line": 485, "label": "FaultPoolRun" },
+        { "path": "src/fdp/worker_pool.c", "line": 328, "end_line": 350, "label": "collect_fault_results" },
+        { "path": "src/fdp/analysis.c", "line": 171, "end_line": 173, "label": "jobs > 1 で呼び出す" }
+      ]
+    },
+    {
+      "id": "worker1",
+      "type": "backend",
+      "label": "ワーカー 1",
+      "sublabel": "worker_loop",
+      "sources": [
+        { "path": "src/fdp/worker_pool.c", "line": 167, "end_line": 188, "label": "worker_loop" },
+        { "path": "src/fdp/worker_pool.c", "line": 136, "end_line": 164, "label": "analyze_and_reply" },
+        { "path": "src/fdp/analysis.c", "line": 74, "end_line": 134, "label": "AnalyzeOneFault" }
+      ]
+    },
+    {
+      "id": "worker2",
+      "type": "backend",
+      "label": "ワーカー 2",
+      "sublabel": "worker_loop",
+      "sources": [
+        { "path": "src/fdp/worker_pool.c", "line": 215, "end_line": 249, "label": "start_worker" },
+        { "path": "src/fdp/analysis.c", "line": 136, "end_line": 142, "label": "FinishFaultAnalysis" }
+      ]
+    },
+    {
+      "id": "files",
+      "type": "database",
+      "label": "出力ファイル",
+      "sublabel": "CSV・キューブ",
+      "sources": [
+        { "path": "src/fdp/worker_pool.c", "line": 306, "end_line": 325, "label": "write_ready_results" },
+        { "path": "src/fdp/analysis.c", "line": 189, "end_line": 190, "label": "CSVを開く" },
+        { "path": "src/io/cube_text.c", "line": 155, "label": "WriteCubeFile" }
+      ]
+    }
+  ],
+  "segments": [
+    { "from": 150, "to": 372, "label": "起動と初回配分" },
+    { "from": 380, "to": 640, "label": "完了順と出力順の入れ替え" },
+    { "from": 648, "to": 1012, "label": "全配分後の終了" },
+    { "from": 1020, "to": 1244, "label": "異常時" }
+  ],
+  "messages": [
+    {
+      "id": "fork-1",
+      "from": "parent",
+      "to": "worker1",
+      "y": 172,
+      "label": "fork・socketpair",
+      "variant": "default",
+      "note": "fork前に出力をflush。子は親のCSVを閉じ、自分の通信口だけ残す"
+    },
+    { "id": "assign-a", "from": "parent", "to": "worker1", "y": 238, "label": "故障Aの番号", "variant": "emphasis" },
+    { "id": "fork-2", "from": "parent", "to": "worker2", "y": 268, "label": "fork・socketpair", "variant": "default" },
+    {
+      "id": "assign-b",
+      "from": "parent",
+      "to": "worker2",
+      "y": 298,
+      "label": "故障Bの番号",
+      "variant": "emphasis",
+      "note": "各子は CNF→SAT→XID→BDD を独立に実行し、CSV文字列をメモリに作る"
+    },
+    {
+      "id": "reply-b",
+      "from": "worker2",
+      "to": "parent",
+      "y": 402,
+      "label": "故障Bの結果",
+      "variant": "return",
+      "note": "親はpollで待機。Aが未完了なのでBは親のバッファに保持"
+    },
+    { "id": "assign-c", "from": "parent", "to": "worker2", "y": 468, "label": "次の故障Cの番号", "variant": "emphasis" },
+    { "id": "reply-a", "from": "worker1", "to": "parent", "y": 498, "label": "故障Aの結果", "variant": "return" },
+    {
+      "id": "write-ab",
+      "from": "parent",
+      "to": "files",
+      "y": 528,
+      "label": "故障A→Bの順に書く",
+      "variant": "default",
+      "note": "書くのは親だけ。完了済みが故障順に続く限り出力。-cube指定時はキューブも"
+    },
+    { "id": "assign-d", "from": "parent", "to": "worker1", "y": 604, "label": "次の故障Dの番号", "variant": "emphasis" },
+    {
+      "id": "reply-c",
+      "from": "worker2",
+      "to": "parent",
+      "y": 670,
+      "label": "故障Cの結果",
+      "variant": "return",
+      "note": "未配分の故障がないので次を送らず、子は受信待ちのまま"
+    },
+    { "id": "write-c", "from": "parent", "to": "files", "y": 736, "label": "故障Cを書く", "variant": "default" },
+    { "id": "reply-d", "from": "worker1", "to": "parent", "y": 766, "label": "故障Dの結果", "variant": "return" },
+    { "id": "write-d", "from": "parent", "to": "files", "y": 796, "label": "故障Dを書く", "variant": "default" },
+    { "id": "stop-1", "from": "parent", "to": "worker1", "y": 826, "label": "終了要求 −1", "variant": "default" },
+    {
+      "id": "stop-2",
+      "from": "parent",
+      "to": "worker2",
+      "y": 856,
+      "label": "終了要求 −1",
+      "variant": "default",
+      "note": "子はBDDマネージャを解放し、ソケットを閉じて exit(0)"
+    },
+    { "id": "exit-1", "from": "worker1", "to": "parent", "y": 922, "label": "exit 0 を回収", "variant": "return" },
+    {
+      "id": "exit-2",
+      "from": "worker2",
+      "to": "parent",
+      "y": 952,
+      "label": "exit 0 を回収",
+      "variant": "return",
+      "note": "全員をwaitpid後、RUSAGE_CHILDRENの差分でCPU時間を合計"
+    },
+    {
+      "id": "failure",
+      "from": "worker2",
+      "to": "parent",
+      "y": 1044,
+      "label": "失敗返信または切断",
+      "variant": "dashed",
+      "note": "UNKNOWN・XID不整合などで子は _exit(1)。親は返信内容か切断で検出"
+    },
+    {
+      "id": "sigterm",
+      "from": "parent",
+      "to": "worker1",
+      "y": 1110,
+      "label": "全ワーカーへ SIGTERM",
+      "variant": "dashed",
+      "note": "出力失敗や親へのSIGINT/SIGTERMも同じ経路に合流"
+    },
+    {
+      "id": "reap-failed",
+      "from": "worker1",
+      "to": "parent",
+      "y": 1176,
+      "label": "全員をwaitpidで回収",
+      "variant": "dashed",
+      "note": "FaultPoolRunはfalseを返す。出力は部分結果で完了扱いにしない"
+    }
+  ],
+  "activations": [
+    { "participant": "parent", "from": 166, "to": 1006, "type": "backend" },
+    { "participant": "worker1", "from": 238, "to": 498, "type": "backend" },
+    { "participant": "worker2", "from": 298, "to": 402, "type": "backend" },
+    { "participant": "worker2", "from": 468, "to": 670, "type": "backend" },
+    { "participant": "files", "from": 522, "to": 550, "type": "database" },
+    { "participant": "worker1", "from": 604, "to": 766, "type": "backend" },
+    { "participant": "files", "from": 730, "to": 748, "type": "database" },
+    { "participant": "files", "from": 790, "to": 808, "type": "database" },
+    { "participant": "worker1", "from": 826, "to": 922, "type": "backend" },
+    { "participant": "worker2", "from": 856, "to": 952, "type": "backend" },
+    { "participant": "parent", "from": 1038, "to": 1190, "type": "backend" },
+    { "participant": "worker2", "from": 1034, "to": 1050, "type": "backend" },
+    { "participant": "worker1", "from": 1110, "to": 1176, "type": "backend" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "親子で渡すもの",
+      "items": [
+        "親→子は故障番号（int）だけ。-1（NO_FAULT）が終了要求",
+        "子→親は FaultReply ヘッダ（集計値を含む）＋CSV文字列＋保存対象のキューブ文字列",
+        "キューブ集合とBDDは親へ渡さない"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "fork 前後の状態",
+      "items": [
+        "回路・正常CNF・故障順は親が fork 前に1度だけ準備する",
+        "fork 後の回路の可変フィールド・CNF・XID作業領域は子ごとに独立",
+        "BDDマネージャは子ごとに初回故障で作り再利用。ソルバとキューブ集合は故障ごと"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "図の読み方",
+      "items": [
+        "ワーカー数は min(-jobs, 対象故障数)。図は2個で代表している",
+        "完了順 B→A は一例。空いた子へ順に配るので計算時間で変わる",
+        "CSVの行順は完了順によらず故障順で固定"
+      ]
+    }
+  ]
+}

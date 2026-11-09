@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "45d63b8a-26da-4fcf-8fbf-593b16e261c2",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/candidate.json",
+  "output": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.html",
+  "specification": {
+    "sha256": "c1361301a2ca0af123f988fc07ddeb950b3ee603c147f84b8d9b1c7acf4e0c3e",
+    "bytes": 8815
+  },
+  "artifact": {
+    "sha256": "ddbc00ea745dff56f98d8cd7fec8a7f1cd1ae55895eb6da68d1fe0436ee35833",
+    "bytes": 850676
+  }
+}

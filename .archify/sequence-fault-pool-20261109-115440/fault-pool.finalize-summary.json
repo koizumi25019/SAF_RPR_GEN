@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "skipped",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/candidate.json",
+    "sha256": "c1361301a2ca0af123f988fc07ddeb950b3ee603c147f84b8d9b1c7acf4e0c3e",
+    "bytes": 8815
+  },
+  "artifact": {
+    "path": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.html",
+    "sha256": "ddbc00ea745dff56f98d8cd7fec8a7f1cd1ae55895eb6da68d1fe0436ee35833",
+    "bytes": 850676
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "skipped"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/chrome-unavailable",
+      "severity": "warning",
+      "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+      "subject": {
+        "artifact": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.html"
+      },
+      "evidence": {
+        "executable": null
+      },
+      "supportedFixes": [
+        "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.finalize.json",
+    "summaryReceipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.finalize-summary.json",
+    "browserCheckReceipt": "/home/koizumi/fdp/.archify/sequence-fault-pool-20261109-115440/fault-pool.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-09T02:56:51.025Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 784,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  }
+}

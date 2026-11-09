@@ -1,20 +1,25 @@
 //--------------------------------------------------------------------------------
 //                AnalyzeFaultDetectionProbability Information
 //--------------------------------------------------------------------------------
-//  Target Circuit                            : saf/s9234_C
+//  Target Circuit                            : s9234_C
 //  Name of Target Fault File                 : (null)
 //  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
 //  Number of Target Faults                   : 6927
+//  Number of Equivalent Faults               : 11541
+//  External Equivalence File                 : (none)
+//  External Equivalence Pairs                : 0
+//  Targets Before External Equivalence       : 6927
+//  Targets After External Equivalence        : 6927
+//  Number of Output Faults                   : 18468
 //  Don't-care Method                         : XID
-//  Dominance Cube Reuse                      : off
 //  Fault Workers                             : 15
 //  CPU Accounting                            : parent + all worker processes
-//  Time                                      : 6.736 sec
-//  CPU Time                                  : 107.310 sec
-//  CPU Time (CaDiCaL)                        : 63.353 sec
-//  CPU Time (BDD)                            : 4.447 sec
-//  CPU Time (Don't care)                     : 22.178 sec
-//  CPU Time (Read Fault)                     : 0.007 sec
+//  Time                                      : 6.575 sec
+//  CPU Time                                  : 108.219 sec
+//  CPU Time (CaDiCaL)                        : 66.131 sec
+//  CPU Time (BDD)                            : 4.438 sec
+//  CPU Time (Don't care)                     : 20.649 sec
+//  CPU Time (Read Fault)                     : 0.004 sec
 //--------------------------------------------------------------------------------

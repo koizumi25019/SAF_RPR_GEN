@@ -1,20 +1,25 @@
 //--------------------------------------------------------------------------------
 //                AnalyzeFaultDetectionProbability Information
 //--------------------------------------------------------------------------------
-//  Target Circuit                            : saf/s5378_C
+//  Target Circuit                            : s5378_C
 //  Name of Target Fault File                 : (null)
 //  Fault Model                               : SAF
 //  Normal CNF Scope                          : on (affected-output TFI)
 //  Essential Assignment                      : on
 //  Number of Target Faults                   : 4551
+//  Number of Equivalent Faults               : 5987
+//  External Equivalence File                 : (none)
+//  External Equivalence Pairs                : 0
+//  Targets Before External Equivalence       : 4551
+//  Targets After External Equivalence        : 4551
+//  Number of Output Faults                   : 10538
 //  Don't-care Method                         : XID
-//  Dominance Cube Reuse                      : off
 //  Fault Workers                             : 15
 //  CPU Accounting                            : parent + all worker processes
-//  Time                                      : 2.224 sec
-//  CPU Time                                  : 35.778 sec
-//  CPU Time (CaDiCaL)                        : 20.972 sec
-//  CPU Time (BDD)                            : 2.012 sec
-//  CPU Time (Don't care)                     : 7.055 sec
-//  CPU Time (Read Fault)                     : 0.003 sec
+//  Time                                      : 2.014 sec
+//  CPU Time                                  : 32.727 sec
+//  CPU Time (CaDiCaL)                        : 19.760 sec
+//  CPU Time (BDD)                            : 1.850 sec
+//  CPU Time (Don't care)                     : 5.968 sec
+//  CPU Time (Read Fault)                     : 0.002 sec
 //--------------------------------------------------------------------------------
