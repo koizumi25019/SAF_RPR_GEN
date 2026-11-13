@@ -276,3 +276,45 @@ ctest --test-dir build --output-on-failure
 - 実行したコマンドと、その結果（テストの合否、照合の差分の有無）。
 - 本書から外れた箇所とその理由。
 - 未解決の問題。
+
+## Codex への依頼文
+
+タスクごとに1回ずつ、前のタスクのコミットがブランチに入ってから次を依頼する。
+
+T0:
+
+```text
+ブランチ claude/zealous-hypatia-a1lovt で作業してください。
+docs/cover_methods_impl.md の「全タスク共通の規則」と「T0: 共通基盤と -method prime」を実装してください。
+設計の背景は docs/cover_methods.md、参照実装は research/cover_probe/probe.py です。
+T1 以降には着手しないでください。最後に「報告に含めること」の項目を報告してください。
+```
+
+T1:
+
+```text
+ブランチ claude/zealous-hypatia-a1lovt で作業してください。T0 は実装済みです。
+docs/cover_methods_impl.md の「全タスク共通の規則」と「T1: -method ordered（順序付き被覆）」を実装してください。
+参照実装は research/cover_probe/probe.py の run_ordered です。
+純粋な素項を作ってから相対削除を行う順序を必ず守ってください。
+T2 以降には着手しないでください。最後に「報告に含めること」の項目を報告してください。
+```
+
+T2:
+
+```text
+ブランチ claude/zealous-hypatia-a1lovt で作業してください。T0・T1 は実装済みです。
+docs/cover_methods_impl.md の「全タスク共通の規則」と「T2: -method affine（擬似キューブ）」を実装してください。
+参照実装は research/cover_probe/probe.py の run_affine です。
+T3 には着手しないでください。最後に「報告に含めること」の項目を報告してください。
+```
+
+T3 と測定:
+
+```text
+ブランチ claude/zealous-hypatia-a1lovt で作業してください。T0〜T2 は実装済みです。
+docs/cover_methods_impl.md の「全タスク共通の規則」と「T3: -method window（窓関係）」を実装し、
+続けて「測定（T3 の後）」を実行して docs/cover_methods_results.md を作成してください。
+参照実装は research/cover_probe/probe.py の run_window と isop です。
+最後に「報告に含めること」の項目を報告してください。
+```
