@@ -40,6 +40,7 @@ ctest --test-dir build --output-on-failure
 
 - `-method <xid|prime|ordered|affine|window>`。既定 `xid`。CLI と `.set` の両方で受け付け、後の指定が有効。
 - `-window_bits <4..16>`。既定 12。`window` 以外では無視せず、値の検証だけ行う。
+- `-ordered_ratio <1..16>`。既定 1。非検出側1回あたりの検出側の生成回数（T1 で使う）。値の検証は T0 で入れる。
 - 不正な値、値の欠落は既存オプションと同じ形式でエラー終了する。
 - `-method` が `xid` 以外で `-tdf` が有効ならエラー終了する。
 - `-method` が `ordered`・`affine`・`window` で `-cube` を指定したらエラー終了する（領域が単独のテストキューブではないため）。
@@ -117,7 +118,7 @@ ctest --test-dir build --output-on-failure
 
 ### ループ
 
-生成回数 k = 0, 1, 2, ... とし、k が偶数なら検出側、奇数なら非検出側の番とする。
+検出側を R 回（R = `-ordered_ratio`、既定 1）続けた後に非検出側を1回、という周期で番を決める。最初は検出側。
 
 検出側の番:
 
@@ -159,6 +160,7 @@ ctest --test-dir build --output-on-failure
 - 非検出側が尽きて完了する故障と、検出側が尽きて完了する故障の両方が小回路群に存在し、どちらも厳密値に一致する。
 - 冗長故障（s1494_C の12件）の FDP が 0 で `complete=1`。
 - `-cube` 併用がエラーになる。
+- `-ordered_ratio` が 1、3、16 のいずれでも FDP が厳密値に一致する。
 
 ## T2: `-method affine`（擬似キューブ）
 
